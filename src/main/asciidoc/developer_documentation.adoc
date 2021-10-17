@@ -5,7 +5,7 @@
 |...	| ... | ...
 |===
 
-= Entwicklerdokumentation
+== Entwicklerdokumentation
 
 == Einführung und Ziele
 * Aufgabenstellung

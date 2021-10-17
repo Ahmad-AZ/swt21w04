@@ -4,7 +4,7 @@ image:https://img.shields.io/badge/SonarQube-checked-blue?logo=sonarqube["SonarQ
 // Hi there! We've already included some generally useful information in here.
 // Feel free to edit the first section to add a short description of your task and your project.
 
-= Kickstart
+== Kickstart
 
 The kickstart module is a template project to bootstrap the Java project in the Software Engineering lab.
 Each group's repository is initialized with this template.
