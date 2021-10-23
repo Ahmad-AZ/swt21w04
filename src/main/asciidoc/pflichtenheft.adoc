@@ -103,11 +103,43 @@ Die typischen Anwendungsfälle (Anlegen, Ändern, Löschen) können zu einem ein
 |Beschreibung                |Am Eingang zu der Location, auf der Ein Event stattfindet werden die Tickets der Besucher kontrolliert
 |Akteure                     |Sicherheits-Personal, Besucher
 |Auslöser                    |Ein Besucher möchte das Festival-Gelände betreten
-|Voraussetzung(en)           a|Es läuft gerade ein Festival an dieser Location
+|Voraussetzung               |Es läuft gerade ein Festival an dieser Location
 |Essentielle Schritte        a|
 1. Ablesen der Ticketnummer
 2. Abfrage ob die Ticketnummer für dieses Event gültig ist
 3. Ticketnummer für alle weiteren abfragen als ungültig markieren um doppeltes einchecken mit dem selben Ticket zu vermeiden
+|Erweiterungen               |
+|Funktionale Anforderungen   |
+|===
+
+[cols="1h, 3"]
+|===
+|ID                          |
+|Name                        |Catering-Personal An- und Abmeldung
+|Beschreibung                |Catering-Personal kann sich an den Verkaufsständen An- und Abmelden, um den Besuchern Essen zu verkaufen
+|Akteure                     |Catering-Personal
+|Auslöser                    |
+|Voraussetzung               a|- Anmeldung: An dem Verkaufsstand ist ein freier Platz
+|Essentielle Schritte        a|
+- Anmeldung: Anmeldung über das Terminal
+- Abmeldung: Abmeldung über das Terminal
+|Erweiterungen               |
+|Funktionale Anforderungen   |
+|===
+
+[cols="1h, 3"]
+|===
+|ID                          |
+|Name                        |Catering: Verkauf von Getränken und Speisen
+|Beschreibung                |Besucher könnene an einem Verkaufsstand Speisen und Getränke kaufen
+|Akteure                     |Besucher, Catering-Personal
+|Auslöser                    |Ein Besucher möchte etwas an einem Verkaufsstand kaufen
+|Voraussetzung               |Das gewünschte Getränk/Essen ist noch auf Lager
+|Essentielle Schritte        a|
+1. Entnahme der zutaten aus dem Lager
+2. evtl. Mitteilung an Festival-Leitung, wenn die Zutaten in zu geringen Mengen gelagert sind
+3. Zubereitung der Bestellung
+4. Verkauf
 |Erweiterungen               |
 |Funktionale Anforderungen   |
 |===
