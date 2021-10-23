@@ -144,6 +144,34 @@ Die typischen Anwendungsfälle (Anlegen, Ändern, Löschen) können zu einem ein
 |Funktionale Anforderungen   |
 |===
 
+[cols="1h, 3"]
+|===
+|ID                          |
+|Name                        |Lager einsehen & Nachbestellung von Speisen und Getränken
+|Beschreibung                |Der Festivalleiter kann den Lagerbestand prüfen und gegebenfalls neue Waren bestellen
+|Akteure                     |Festivalleiter
+|Auslöser                    |Der Festivalleiter möchte den Lagerbestand prüfen oder etwas nachbestellen
+|Voraussetzung               |Der Festivalleiter ist am entsprechenden Terminal angemeldet
+|Essentielle Schritte        a|
+1. Abrufen des Lagerbestandes
+2. evtl. Nachbestellung einer oder mehrerer Waren in beliebigen Mengen
+|Erweiterungen               |
+|Funktionale Anforderungen   |
+|===
+
+[cols="1h, 3"]
+|===
+|ID                          |
+|Name                        |Festivalleiter Status Abbruf
+|Beschreibung                |Der Festivalleiter kann verschiedene Informationen über das Event an einem Terminal jederzeit abrufen
+|Akteure                     |Festivalleiter
+|Auslöser                    |Der Festivalleiter möchte Informationen über das Event
+|Voraussetzung               |Der Festivalleiter ist am entsprechenden Terminal angemeldet
+|Essentielle Schritte        |Abrufen der Informationen(Nachrichten von Mitarbeitern, Verkaufszahlen, Bühnenbelegung,...) an dem Terminal
+|Erweiterungen               |
+|Funktionale Anforderungen   |
+|===
+
 == Funktionale Anforderungen
 
 === Muss-Kriterien
