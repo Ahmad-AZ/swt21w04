@@ -177,6 +177,70 @@ Die typischen Anwendungsfälle (Anlegen, Ändern, Löschen) können zu einem ein
 |Funktionale Anforderungen   |
 |===
 
+[cols="1h, 3"]
+[[UC0001]]
+|===
+|ID                         |**<<UC0001>>**
+|Name                       |Terminal für Festivalbesucher
+|Beschreibung               |Festivalbesucher sollen sich am Terminal über Lageplan und Spielplan informieren können.
+|Akteure                     |Festivalbesucher
+|Auslöser                    |
+_Öffnen des Festivalmanagers_: Wenn sich noch kein Mitarbeiter angemeldet hat werden Informationen zum Festival gezeigt
+
+_Mitarbeiterlogout_: Wenn kein Mitarbeiter angemeldet ist werden Informationen zum Festival angezeigt
+|Voraussetzung(en)           a|
+siehe [Link zu Login]
+|Essentielle Schritte           a|
+1. Besuchermodus wird durch starten des Programms oder Logout eines Mitarbeiters aktiviert
+
+2. Besucher kann Informationen über das Festival einsehen
+|Erweiterungen                 |-
+|Funktionale Anforderungen    |<<F0001>>
+|===
+
+[cols="1h, 3"]
+[[UC0001]]
+|===
+|ID                         |**<<UC0001>>**
+|Name                       |Line-Up planen
+|Beschreibung               |Im Festivalmanager können Bands für bestimmte Bühnen und Zeiten gebucht werden.
+|Akteure                     |Festivalleiter, Planungsabteilung
+|Auslöser                    |
+Ein Nutzer öffnet den "Personal und Künstler" Tab.
+|Voraussetzung(en)           a|
+Ein Nutzer mit Planungsberechtigungen ist eingeloggt.
+|Essentielle Schritte           a|
+1. Der "Personal und Künstler" Tab wird aufgerufen.
+
+2. Von einer Liste von Künstlern können Angebote eingeholt werden
+
+3. Aus den erhaltenen Angeboten können verschiedene Künstler ausgewählt werden,
+denen anschließend eine Bühne und Zeit zugewiesen wird
+|Erweiterungen                 |-
+|Funktionale Anforderungen    |<<F0001>>
+|===
+
+[cols="1h, 3"]
+[[UC0001]]
+|===
+|ID                         |**<<UC0001>>**
+|Name                       |Lagelplan anpassen
+|Beschreibung               |Im Festivalmanger kann eine Location für das Festival ausgewählt werden, auf dem Lageplan dieser Location können die Positionen von Bühnen, Catering, etc. angepasst werden.
+|Akteure                     |Festivalleiter, Planungsabteilung
+|Auslöser                    |
+Ein Nutzer öffnet den "Lageplan" Tab.
+|Voraussetzung(en)           a|
+1. Ein Nutzer mit Planungsberechtigungen ist eingeloggt.
+
+2. Das gewählte Festival hat noch nicht begonnen.
+|Essentielle Schritte           a|
+1. Location aus einer Liste buchen, falls noch nicht gebucht wurde.
+
+2. Per Rechstklick auf Flächen im Lageplan auswählen, wofür diese Flächen genutzt werden (Bühne, Toilette, Catering, gesperrt)
+|Erweiterungen                 |Location wechseln
+|Funktionale Anforderungen    |<<F0001>>
+|===
+
 == Funktionale Anforderungen
 
 === Muss-Kriterien
