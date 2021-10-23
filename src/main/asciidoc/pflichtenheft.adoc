@@ -46,7 +46,12 @@ Weitere relevante Spalten können bei Bedarf ergänzt werden.
 [cols="1,4"]
 |===
 |Name |Beschreibung
-|...  |...
+|Besucher |Ein Festivalbesucher, kann Terminals nutzen um den Lageplan und Zeitplan abzurufen
+|Personal |Personal des Festivalls
+|Catering-Personal |Verkäufer von Speisen und Getränken, kann den Festivalleiter über geringe Lagerbestände informieren
+|Security-Personal |sorgt für Sicherheit auf dem Gelände
+|Einlass-Personal |kontrolliert Tickets am Eingang
+|Festivalleiter |kann Lager überprüfen und Nachbestellung tätigen, empfängt Nachrichten vom Personal
 |===
 
 === Überblick Anwendungsfalldiagramm
