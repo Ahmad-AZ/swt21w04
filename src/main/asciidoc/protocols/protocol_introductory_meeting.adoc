@@ -6,7 +6,7 @@ Ort:      BigBlueButton +
 Beginn:   16:40 Uhr +
 Ende:     18:10 Uhr
 
-__Schriftführer:__ Jan
+__Schriftführer:__ Jan Biedermann
 
 *Nächstes Treffen:* +
 42. KW, WhatsApp Anruf
@@ -14,12 +14,24 @@ __Schriftführer:__ Jan
 __Teilnehmer:__
 //Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
 
-- Adrian
-- Jan
-- Ahmad
-- Georg
+- Tom Morgenstern (Auftraggeber)
+- Adrian Scholze
+- Jan Biedermann
+- Ahmad Abu Zahra
+- Georg Kunze
 - Tuấn Giang Trịnh
-- Robert
+- Robert Menzel
 
 == Bemerkungen
-Diese Woche sollten wir daran denken, ein Treffen zu organisieren
+- Diese Woche sollten wir daran denken, ein Treffen zu organisieren
+- Wir haben uns, entschieden die Pflichkonsultationen Dienstags in der 6. DS durchzuführen
+- Wir haben Tom unsere Github Namen gegeben
+- Es wurden die Aufgaben für diese Woche besprochen:
++
+** Wir sollen uns mit den nötigen Tools beschäftigen
++
+** Dem Guestbook muss ein kleines Feature hinzugefügt werden
++
+** Jede Woche bis spätestens Sonntag soll die Stundeneintragung erledigt werden
+- Es wurde ein Ausblick über das Projekt gegeben 
+
