@@ -58,6 +58,60 @@ Für komplexere Anwendungsfälle ein UML-Sequenzdiagramm ergänzen.
 Einfache Anwendungsfälle mit einem Absatz beschreiben.
 Die typischen Anwendungsfälle (Anlegen, Ändern, Löschen) können zu einem einzigen zusammengefasst werden.
 
+[cols="1h, 3"]
+|===
+|ID                          |
+|Name                        |Ticketverkauf
+|Beschreibung                |bis 3 Tage vor Eventbegin sollen Tickets gekauft werden können. Dabei wird in Camping und Tagestickets unterschieden. Alle Teckits haben eine eindeutige Nummer, die für die Eingangskontrolle verwendet wird.
+|Akteure                     |Ticket-Verkäufer, Besucher
+|Auslöser                    |Ein Besucher möchte ein Ticket kaufen
+|Voraussetzung(en)           a|
+1. Es sind noch Tickets vorhanden
+2. Das Ticket wird mindestens 3 Tage  vor Event begin verkauft
+|Essentielle Schritte        a|
+1. Auswahl zwischen Camping und Tagesticket
+2. Generierung einer eindeutigen Nummer für das Ticket
+3. Abfrage des Ticketpreises (abhängig vom Ticket-Typ und Event)
+4. Verkauf des Tickets (Verkäufer verlang Geld)
+|Erweiterungen               |
+|Funktionale Anforderungen   |
+|===
+
+[cols="1h, 3"]
+|===
+|ID                          |
+|Name                        |Abendkasse-Ticketverkauf
+|Beschreibung                |ab 3 Tagen vor Eventbegin sollen Tickets an der Abendkasse gekauft werden können. Dabei wird in Camping und Tagestickets unterschieden. Alle Teckits haben eine eindeutige Nummer, die für die Eingangskontrolle verwendet wird.
+|Akteure                     |Ticket-Verkäufer, Besucher
+|Auslöser                    |Ein Besucher möchte ein Ticket kaufen
+|Voraussetzung(en)           a|
+1. Es sind noch Tickets vorhanden
+2. Das Ticket wird ab 3 Tagen  vor Event begin verkauft
+|Essentielle Schritte        a|
+1. Auswahl zwischen Camping und Tagesticket
+2. Generierung einer eindeutigen Nummer für das Ticket
+3. Abfrage des Ticketpreises (abhängig vom Ticket-Typ und Event)
+4. Verkauf des Tickets (Verkäufer verlang Geld)
+|Erweiterungen               |
+|Funktionale Anforderungen   |
+|===
+
+[cols="1h, 3"]
+|===
+|ID                          |
+|Name                        |Eingangskontrolle
+|Beschreibung                |Am Eingang zu der Location, auf der Ein Event stattfindet werden die Tickets der Besucher kontrolliert
+|Akteure                     |Sicherheits-Personal, Besucher
+|Auslöser                    |Ein Besucher möchte das Festival-Gelände betreten
+|Voraussetzung(en)           a|Es läuft gerade ein Festival an dieser Location
+|Essentielle Schritte        a|
+1. Ablesen der Ticketnummer
+2. Abfrage ob die Ticketnummer für dieses Event gültig ist
+3. Ticketnummer für alle weiteren abfragen als ungültig markieren um doppeltes einchecken mit dem selben Ticket zu vermeiden
+|Erweiterungen               |
+|Funktionale Anforderungen   |
+|===
+
 == Funktionale Anforderungen
 
 === Muss-Kriterien
