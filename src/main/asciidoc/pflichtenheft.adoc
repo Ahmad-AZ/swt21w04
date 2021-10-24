@@ -63,19 +63,357 @@ Die typischen Anwendungsfälle (Anlegen, Ändern, Löschen) können zu einem ein
 === Muss-Kriterien
 Was das zu erstellende Programm auf alle Fälle leisten muss.
 
+Dieser Abschnitt gibt einen Überblick über die funktionellen Anforderungen des Systems.
+
+Die Tabelle enthält:
+
+- Eine eindeutige Kennung der Anforderung (ID), die während des gesamten Projekts als Referenz verwendet werden kann.
+- Die aktuelle Version der Anforderung, da Änderungen an einer Anforderung während des
+     gesamten Projekts erfolgen können.
+
+- Einen kurzen Namen der Anforderung.
+- Die Beschreibung der Anforderung.
+
+
+[options="header", cols="4h, 1, 2, 15"]
+|===
+|ID
+|Version
+|Name
+|Beschreibung
+
+|[[F00001]]<<F00001>>
+|v0.1
+|Authentification
+a|
+Das System muss in öffentlich zugängliche Teile und in Teile, die
+für den Zugriff eine Authentifizierung erfordern, zerlegt werden
+können. Wenn ein Benutzer im System vorhanden ist, muss er in
+der Lage sein, sich zu authentifizieren, indem er die folgenden
+Informationen angibt:
+
+- Username
+- Passwort
+
+|[[F00002]]<<F00002>>
+|v0.1
+|Registration
+a|
+Das System muss einem nicht authentifizierten Benutzer
+(<<F00001>>) die Möglichkeit bieten, sich nach dem Aufruf des
+Navigationselements namens "Registrieren" zu registrieren
+
+Die folgenden Informationen müssen angegeben werden:
+
+- Username (eindeutig)
+- Passwort
+- Email-Adresse
+
+Das System muss die bereitgestellten Daten validieren (<<F00003>>).
+Der Benutzer muss im System als Kunde registriert sein und
+muss sich nach erfolgreicher Validierung authentifizieren
+(<<F00001>>) können.
+
+|[[F00003]]<<F00003>>
+|v0.1
+|Validate  Registration
+a|
+Das System muss in der Lage sein, die bereitgestellten Daten
+eines nichtregistrierten Benutzers zu validieren.
+Die Eindeutigkeit des Benutzernamens muss gewährleistet sein.
+Der Benutzer muss über jede Verletzung der Einschränkungen
+informiert werden.
+
+
+|[[F00004]]<<F00004>>
+|v0.1
+|Catalog
+a|
+Das System muss in der Lage sein, einen schreibgeschützten
+Zugriff auf vorhandene Gelände und Bereiche über einen Katalog zu
+ermöglichen.
+
+|[[F00005]]<<F00005>>
+|v0.1
+|View Catalog
+a|
+Das System muss einem Benutzer die Möglichkeit bieten, den
+Inhalt des Katalogs einzusehen.
+
+
+
+|[[F00006]]<<F00006>>
+|v0.1
+| Add Order to Cart
+a|
+Das System muss einem Benutzer die Möglichkeit bieten, ein
+ausgefülltes Formular zur Bestellung dem Warenkorb hinzuzufügen.
+
+|[[F00007]]<<F00007>>
+|v0.1
+|Cart
+a|
+Das System muss jedem registrierten und authentifizierten
+Benutzer einen Warenkorb zur Verfügung stellen, in dem er
+ausgewählte Produkte zwischenspeichern kann. Der Warenkorb
+muss temporär beständig und für jeden Benutzer einzigartig
+sein.
+
+|[[F00008]]<<F00008>>
+|v0.1
+| View Cart
+a|
+Das System muss einem Benutzer die Möglichkeit bieten, den
+Inhalt des Warenkorbs zu authentifizieren.
+Der Warenkorb muss folgende Angaben enthalten:
+
+-
+- Datum
+- Eingefüllte Daten eines Festivals
+
+|[[F00009]]<<F00009>>
+|v0.1
+| Buy in Cart
+a|
+Das System muss einem Benutzer die Möglichkeit bieten, mit den
+Bestellungen im Warenkorb zur Kasse zu gehen und diese zu bezahlen.
+
+
+|[[F00010]]<<F00010>>
+|v0.1
+|Orders
+a|
+Das System muss in der Lage sein, Bestelldaten  dauerhaft zu speichern.
+
+
+|[[F00011]]<<F00011>>
+|v0.1
+|Create Order
+a|
+Das System muss in der Lage sein, eine Bestellung aus dem Inhalt
+eines Warenkorbs zu erstellen.
+
+Ein Auftrag muss mit dem Status "OFFEN" initialisiert werden.
+
+|[[F00012]]<<F00012>>
+|v0.1
+|Pay Order
+a|
+
+|[[F00013]]<<F00013>>
+|v0.1
+| Archive Order
+a|
+
+Das System muss in der Lage sein, einen Auftrag zu archivieren.
+Ein Auftrag wird archiviert, indem sein Status auf
+"ABGESCHLOSSEN" gesetzt wird
+
+|[[F00014]]<<F00014>>
+|v0.1
+|View Order
+a|
+
+as System muss einem Admin die Funktionalität zur Verfügung
+stellen, alle Aufträge mit dem Status "ABGESCHLOSSEN"
+einzusehen.
+Die folgenden Informationen werden für jeden Auftrag
+angezeigt:
+
+- Zeitstempel der Erstellung
+- Kunde, der den Auftrag erteilt hat
+- Bezahlter Gesamtpreis der Bestellung
+
+
+|[[F00015]]<<F00015>>
+|v0.1
+| Edit Profil
+a|
+Das System muss einem Benutzer die Möglichkeit bieten, sein Profil zu bearbeiten.
+
+|[[F00016]]<<F00016>>
+|v0.1
+| Booking appointments
+a|
+
+Das System muss einem Planer die Möglichkeit bieten, Termine festzulegen und
+die passende Location zu diesem Zeitpunkt zu buchen.
+
+|[[F00017]]<<F00017>>
+|v0.1
+| Standortaufteilung
+a|
+
+Das System muss einem Planer die Funktionalität zur Verfügung
+stellen, die  Location in verschiedene,
+eindeutig gekennzeichnete Bereiche unterteilt(<<F00018>>).
+
+|[[F00018]]<<F00018>>
+|v0.1
+| Kapazitätsbegrenzung
+a|
+
+Das System muss einem Planer  die Funktionalität zur Verfügung
+stellen,   die  maximale Besucherzahl für einen Bereich der
+Location zu ermitteln  und sich außerdem in
+Camping-, Park-, Catering- und Stage-Bereiche einordnen
+
+
+
+
+|[[F00019]]<<F00019>>
+|v0.1
+| Data Visualization
+a|
+Das System muss in der Lage sein, das Gelände und die Bereiche zu visualisieren.
+
+
+|[[F00020]]<<F00020>>
+|v0.1
+| Änderungen vornehmen
+a|
+Das System muss einem Planer  die Funktionalität zur Verfügung
+stellen, nachdem Location gebucht ist, können für dieses Festival Anpassungen durchgeführt werden, wie die
+Bühnenpositionierung, Toilettenbestückung und Cateringstände.
+
+|[[F00021]]<<F00021>>
+|v0.1
+| Ausrüstung mieten
+a|
+Das System muss einem Planer die Funktionalität zur Verfügung stellen,
+Bühnen, Toilettenbestückung und Cateringstände von externen Anbietern zu mieten.
+
+|[[F00022]]<<F00022>>
+|v0.1
+| Organisation
+a|
+Das System muss einem Planer die Möglichkeit bieten,  Angebote bei
+verschiedenen Künstlern einzuholen, aus diesen Angeboten Künstler
+auszuwählen, ein Spielplan für jede Bühne erstellt und Kartenpreis festzulegen.
+
+
+|[[F00023]]<<F00023>>
+|v0.1
+| Statement of costs
+a|
+Das System muss in der Lage sein, eine automatische Kostenaufstellung
+(Kosten für  Mieten, Gagen, Personal und Sonstigem)zur Verfügung zu erstellen.
+
+
+|[[F00024]]<<F00024>>
+|v0.1
+|Overview
+a|
+
+Das System muss einem Admin die Übersicht bieten, welcher Mitarbeiter momentan am System angemeldet ist
+
+
+|[[F00025]]<<F00025>>
+|v0.1
+| business data
+a|
+Das System muss einem Admin die Möglichkeit geben,
+betriebswirtschaftliche Daten, wie Umsatz, Ausgaben,... , abzurufen und grafisch zu visualiseren.
+
+|[[F00026]]<<F00026>>
+|v0.1
+|
+a|
+
+
+
+
+
+|===
+
 === Kann-Kriterien
 Anforderungen die das Programm leisten können soll, aber für den korrekten Betrieb entbehrlich sind.
 
+[options="header", cols="4h, 1, 2, 15"]
+|===
+
+|ID
+|Version
+|Name
+|Beschreibung
+
+
+|[[F00023]]<<F00023>>
+|v0.1
+| Filter Catalog
+a|
+Das System sollte die Funktionalität bieten, den Katalog zu filtern
+(z.B. nach Verfügbarkeit oder Datum).
+
+
+
+
+|[[F00024]]<<F00024>>
+|v0.1
+|Edit Cart
+a|
+Das System sollte die Funktionalität bieten, den Warenkorb
+ändern zu können.
+
+Dies beinhaltet:
+
+- Entfernen einzelner Produkte
+- Änderung eines ausgefüllten Tippscheins
+
+
+
+
+|===
+
 == Nicht-Funktionale Anforderungen
+Dieser Abschnitt wird einen Überblick über die nicht-funktionalen (NF) Anforderungen des
+Projekts Festival Manager geben. Diese Anforderungen beschreiben, wie das System funktioniert und
+innerhalb welcher Grenzen es funktionieren soll.
 
 === Qualitätsziele
 
-Dokumentieren Sie in einer Tabelle die Qualitätsziele, welche das System erreichen soll, sowie deren Priorität.
+Die folgende Tabelle zeigt, welche Qualitätsanforderungen in welchem Umfang erfüllt werden
+müssen. In der ersten Spalte sind die Qualitätsanforderungen aufgelistet, während in den
+folgenden Spalten ein "x" zur Kennzeichnung der Priorität verwendet wird.
+
+1 = Nicht wichtig .. 5 = Sehr wichtig
+
+
+[options="header", cols="3h, ^1, ^1, ^1, ^1, ^1"]
+|===
+|Qualitätsanforderung           | 1 | 2 | 3 | 4 | 5
+|Instandhaltbarkeit             |   |   | x |  |
+|Benutzerfreundlichkeit         |   |   |   | x  |
+|Benutzeroberfläche             |   |   |   |   | x
+|Sicherheit                     |   |   |   |x  |
+|===
 
 === Konkrete Nicht-Funktionale Anforderungen
 
 Beschreiben Sie Nicht-Funktionale Anforderungen, welche dazu dienen, die zuvor definierten Qualitätsziele zu erreichen.
 Achten Sie darauf, dass deren Erfüllung (mindestens theoretisch) messbar sein muss.
+
+
+[options="header", cols="4h, 1, 2, 15"]
+|===
+
+|ID
+|Version
+|Name
+|Beschreibung
+
+|
+|v0.1
+| Verfügbarkeit-Laufzeit
+a|as System muss mindestens 99,5% Laufzeit erreichen.
+
+|
+|v0.1
+| Sicherheit - Passwort Speicherung
+a| Passwörter von Benutzern dürfen nur als Hash-Werte
+gespeichert werden, um Diebstahl zu verhindern.
+
+|===
 
 == GUI Prototyp
 
