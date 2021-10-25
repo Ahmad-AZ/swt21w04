@@ -1,0 +1,31 @@
+= Protokoll Gruppe 04
+
+Treffen am 24.10.2021
+
+Ort:      Discord +
+Beginn:   13:00 Uhr +
+Ende:     13:50 Uhr
+
+__Schriftführer:__ Jan Biedermann
+
+*Nächstes Treffen:* +
+KW 43, Discord
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Adrian Scholze
+- Jan Biedermann
+- Ahmad Abu Zahra
+- Georg Kunze
+- Tuấn Giang Trịnh
+- Robert Menzel
+
+== Bemerkungen
+- Als UML Programm verwenden wir Papyrus
+- Wir haben den von Robert erstellten GUI-Prototypen besprochen
+- Wir haben die von Ahmad geschriebenen funktionalen Anforderungen disskutiert
+- Wir haben Tuấns Klassendiagramm besprochen
+
+== Aktueller Stand
+Mehrere UML-Diagramme sind in einem guten Zustand, der GUI-Prototyp funktioniert
