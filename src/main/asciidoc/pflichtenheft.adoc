@@ -23,8 +23,37 @@ Insbesondere ergänzen, welche Ziele mit dem Abschluss des Projektes erreicht we
 In welchem Kontext soll das System später genutzt werden? Welche Rahmenbedingungen gelten?
 Zusätzlich kurze Einleitung für fachfremde Personen
 
+Das System soll über ein Interface (u.a. auf der Festivalgeländer verteilte Terminals) genutzt werden.
+Dies wird durch eine Website realisiert. Die Software ist deshalb ein Webserver, der nur im LAN des Festivals ereichbar ist.
+Außerdem soll die FVIV - Gmbh in der Lage sein Festivals zu planen und vor Festival-start den Festival-Server zu konfigurieren.
+
+Die Hauptnutzer der Software wird das Festival-Personal sein, das verschiedene Management- und Verkaufsaktionen über das Interface ausführen wird.
+Diese Nutzergruppe wird keinen Technischen Hintergrund haben, weshalb die Software sehr Benutzerfreundlich sein muss.
+
 == Interessensgruppen (Stakeholders)
 Welche realen und juristischen Personen(-gruppen) haben Einfluss auf die Anforderungen im Projekt?
+
+[options="header"]
+[cols="1, 1, 1, 1"]
+|===
+|Name |Priorität |Description |Goals
+|FVIV - Gmbh (Planungsabteilung) | X |Auftragsgeber für dieses Projekt, plant Festivals (Ort und Zeit) a| - Einfache Planung von Festivals
+- Verhinderung von Doppelbuchungen
+a|Festival Personal:
+--
+- Catering
+- Ticketverkauf
+- Einlass
+- Sicherheit
+- Bühnentechniker
+- Veranstaltungsleiter| X |Hauptnutzer der Software, können während des Festivals verschiedene Management aktivitäten über Terminals erledigen a| - Benutzerfreundliche Oberfläche
+- Sicherheit: jede Personal-gruppe kann nur auf ihr eigenes Interface zugreifen
+|Besucher | X |Festival Besucher, die über Terminals den Lageplan und die Spielpläne der Bühnen einsehen können a| - Benutzerfreundliche Oberfläche
+- Sicherheit: Besucher können nicht auf die Interfaces des Personals zugreifen
+|Entwickler | X |Entwickler, die diese Software entwickeln oder später warten müssen a| - Einfache erweiterung des Systems
+- Geringe Wartungsarbeiten an dem System
+- Gute Debugging möglichkeiten
+|===
 
 == Systemgrenze und Top-Level-Architektur
 
