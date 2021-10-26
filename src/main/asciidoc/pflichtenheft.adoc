@@ -1,5 +1,5 @@
 = Pflichtenheft
-:project_name: Projektname
+:project_name: Festivalmanager
 == __{project_name}__
 
 [options="header"]
@@ -7,6 +7,8 @@
 |===
 |Version | Status      | Bearbeitungsdatum   | Autoren(en) |  Vermerk
 |0.1     | In Arbeit   | 10.10.2021          | Autor       | Initiale Version
+|0.2     | In Arbeit   | 26.10.2021          | Georg, Jan, Ahmad
+       | -
 |===
 
 == Inhaltsverzeichnis
@@ -15,9 +17,97 @@ Dieses Dokument benötigt ein Inhaltsverzeichnis. Es existieren mehrere Einbindu
 == Zusammenfassung
 Eine kurze Beschreibung des Dokuments. Wenige Absätze.
 
+In diesem Dokument werden die wichtigsten Informationen zum Projekt sowohl 
+für die Entwickler als auch für den Auftraggeber zusammengefasst.
+Vor allem werden hier Anforderungen an das Produkt festgehalten, auf die 
+sich Entwickler und Auftraggeber geeinigt haben. Einige Konkrete Ansätze für die
+Implementation sind in den Abschnitten zum GUI Prototyp und Datenmodell zu finden.
+Am Ende der Enticklung kann dieses Dokument verwendet werden, um zu prüfen, ob 
+das Produkt den Anforderungen des Auftraggebers entspricht.
+
+Ein besonders wichtiger Unterpunkt sind die Anwendungsfälle der Software,
+die den Entwicklern als Grundlage für die GUI und das Klassendiagramm dienen.
+Im Abschnitt zu funktionalen Anforderungen werden Muss- und Kann Kriterien zusammengetragen,
+die der Festivalmanager am Ende der Entwicklung unbedingt erfüllen muss bzw. zusätzlich erfüllen kann.
+Im Unterpunkt "Systemgrenze und TLA" werden noch Erkenntnisse aus der
+Analysephase per UML visualisiert.
+
 == Aufgabenstellung und Zielsetzung
 Text aus Aufgabenstellung kopieren und ggfs. präzisieren.
 Insbesondere ergänzen, welche Ziele mit dem Abschluss des Projektes erreicht werden sollen.
+
+Der Festivalveranstalter, die „FVIV GmbH“, sieht sich mit ihrem derzeitigen System den wachsenden 
+Aufgaben einer Festival-Organisation und –Durchführung nicht mehr gewachsen und benötigt daher 
+zeitnah ein neues IT-System, das interne Verwaltungsaufgaben, als auch den Kundenkontakt 
+übernimmt. Daher werden sie damit beauftragt, dieses System zu entwerfen und auch umzusetzen.
+
+Das System soll unter anderem in der Planungsabteilung eingesetzt werden, in der Festivals angelegt 
+werden.  Dazu  muss  ein  Termin  festgelegt  werden  und  die  passende  Location  zu  diesem  Zeitpunkt  
+gebucht werden. Doppelbuchungen dieser Locations sind unter allen Umständen zu vermeiden. Jede 
+Location  bietet  Platz  für  eine  maximale  Anzahl  von  Besuchern  und  Bühnen.  Außerdem  ist  jede  
+Location  in  verschiedene,  eindeutig  gekennzeichnete  Bereiche  unterteilt,  die  wiederum  einen  Teil  
+der  maximalen  Besucherzahl  fassen  können  und  sich  außerdem  in  Camping-,  Park-,  Catering-  und 
+Stage-Bereiche  einordnen.  Um  dem  Planungsteam  einen  guten  Überblick  zu  verschaffen,  ist  es  
+zwingend  notwendig,  dass  das  Gelände  und  die  Bereiche  visualisiert  werden  können.  Sobald  die  
+Location gebucht ist, können für dieses Festival Anpassungen durchgeführt werden, wie die 
+Bühnenpositionierung, Toilettenbestückung und Cateringstände, und es muss möglich sein, 
+bestimmte  Bereiche  zu  sperren.  Die  genannten  Gegenstände  (Bühnen,  usw.)  werden  von  externen  
+Anbietern gemietet.
+
+In  der  nächsten  Stufe  muss  das  „Line-Up“  zusammengestellt  werden.  Dazu  müssen  Angebote  bei  
+verschiedenen  Künstlern  eingeholt  werden.  Anschließend  werden  aus  diesen  Angeboten  Künstler  
+ausgewählt  und  es  muss  ein  Spielplan  für  jede  Bühne  erstellt  werden.  Neben  den  genannten  
+Künstlern  ist  weiteres  Personal  erforderlich,  wie  Sicherheitspersonal  (mindestens  einer  pro  100  
+Besuchern),  Bedienungen  an  den  Cateringständen,  Bühnentechniker  (Anzahl  wird  durch  die  Band  
+bestimmt), sowie ein Veranstaltungsleiter. Jede Arbeitskraft wird dabei auf Stundenbasis bezahlt.
+
+Zu  jedem  Zeitpunkt  während  der  Planung  muss  der  Planungsabteilung  als  auch  dem  Management  
+eine  automatische  Kostenaufstellung  zur  Verfügung  gestellt  werden  können,  in  der  Kosten  für  
+Mieten, Gagen, Personal und Sonstigem aufgelistet und aggregiert werden.
+
+Schon während der Planungsphase kann ein Event freigegeben werden, und es kann ein Kartenpreis 
+festgelegt  werden.  Es  gibt  dabei  Camping-Tickets,  die  das  ganze  Festival  über  gültig  sind und  
+Tageskarten.  Diese  Tickets  werden  bis  3  Tage  vor  Veranstaltungsbeginn  in  den  Filialen  der  „FVIV  
+GmbH“ verkauft und danach nur noch an der Abendkasse. Es muss den Verkaufsmitarbeitern möglich 
+sein, bei noch vorhandenen Tickets diese zu verkaufen und auszudrucken. Auf jedes Ticket wird ein 
+Barcode  bzw.  eine  eindeutige  Nummer  aufgedruckt,  mit  dem  es  dem  Personal  am  Festivaleingang  
+möglich  ist,  das  Ticket  auf  Gültigkeit  hin  zu  überprüfen  und  zu  vermeiden,  dass  verschiedene  
+Personen das Gelände mit derselben Karte betreten. 
+
+Eine  weitere  Nutzergruppe  ist  das  Cateringpersonal,  das  sich  an  entsprechenden  Terminals  am 
+Verkaufsstand mit gültigem Login anmeldet. Dort können Getränke und vorgefertigte Speisen 
+ausgewählt  und  abgerechnet  werden.  Dabei  wird  das  Gekaufte  vom  verfügbaren  Lagerbestand  
+abgezogen. Sollte ein gewisser Mindestbestand unterschritten werden erfolgt eine Mittteilung an die 
+Festivalleitung.
+
+Der  Festivalleiter  besitzt  ebenfalls  ein  persönliches  Terminal,  an  dem  es  ihm  möglich  ist,  das  Lager  
+einzusehen  und  Nachbestellungen  zu  tätigen.  Weiterhin  sieht  er  dort  aktuelle  Besucherzahlen,  
+Nachrichten von anderen Mitarbeitern, sowie Verkaufszahlen des Caterings und die aktuelle 
+Bühnenbelegung.
+
+Überall auf dem Festivalgelände verteilt befinden sich Terminals, die für jeden frei nutzbar sind. Dort 
+sieht man neben einem Plan vom Festivalgelände auch den Spielplan für alle Festivaltage.
+
+Der Manager der „FVIV GmbH“ sorgt für die Verteilung der Logins an die Mitarbeiter und kann sehen, 
+welcher  Mitarbeiter  momentan  am  System  angemeldet  ist.  Weiterhin  soll  es  ihm  möglich  sein, 
+betriebswirtschaftliche Daten, wie Umsatz, Ausgaben,... , abzurufen und grafisch zu visualisieren
+
+
+Zum Abschluss des Projekts ist unser oberste Ziel natürlich, alle obigen Anforderungen zu erfüllen.
+
+Dabei ist es wichtig, dass das Programm eine intuitive Benutzeroberfläche hat und ohne langer 
+Einarbeitunszeit benutzt werden kann.
+Wir wollen außerdem stabile Software bauen, welche nicht bspw. das Cateringpersonal 
+bei einer invaliden Eingabe durch einen Absturz ausbremst.
+Unsere Software sollte für die Organisation von 10 Festivals pro Jahr genauso gut wie 
+für die Organisation von 100 Festivals pro Jahr geeignet sein,
+um Wachstum der „FVIV GmbH“ nicht zu behindern.
+
+Der Programmcode des Festivalmanagers sollte so geschrieben werden, dass er bei zukünftigen
+Projekten teilweise wiederverwendet werden kann.
+Unser Code sollte leicht instandzuhalten und zu erweitern sein.
+Beim Abschluss des Projekts sollte unser Code also gut lesbar sein, 
+wenig Codeverschmutzung aufweisen und gründlich dokumentiert sein.
 
 == Produktnutzung
 In welchem Kontext soll das System später genutzt werden? Welche Rahmenbedingungen gelten?
@@ -29,6 +119,8 @@ Außerdem soll die FVIV - Gmbh in der Lage sein Festivals zu planen und vor Fest
 
 Die Hauptnutzer der Software wird das Festival-Personal sein, das verschiedene Management- und Verkaufsaktionen über das Interface ausführen wird.
 Diese Nutzergruppe wird keinen Technischen Hintergrund haben, weshalb die Software sehr Benutzerfreundlich sein muss.
+
+Außerdem können die Terminals auch von den Festival-Besuchern genutzt werden, um Lage- und Spielplan einzusehen.
 
 == Interessensgruppen (Stakeholders)
 Welche realen und juristischen Personen(-gruppen) haben Einfluss auf die Anforderungen im Projekt?
@@ -59,6 +151,8 @@ a|Festival Personal:
 
 === Kontextdiagramm
 Das Kontextdiagramm zeigt das geplante Software-System in seiner Umgebung. Zur Umgebung gehören alle Nutzergruppen des Systems und Nachbarsysteme. Die Grafik kann auch informell gehalten sein. Überlegen Sie sich dann geeignete Symbole. Die Grafik kann beispielsweise mit Visio erstellt werden. Wenn nötig, erläutern Sie diese Grafik.
+
+image::Kontextdiagramm.jpg[]
 
 === Top-Level-Architektur
 Dokumentieren Sie ihre Top-Level-Architektur mit Hilfe eines Komponentendiagramm.
@@ -649,6 +743,8 @@ Für jeden Dialog:
 
 === Überblick: Klassendiagramm
 UML-Analyseklassendiagramm
+
+image::Klassendiagramm.jpg[]
 
 === Klassen und Enumerationen
 Dieser Abschnitt stellt eine Vereinigung von Glossar und der Beschreibung von Klassen/Enumerationen dar. Jede Klasse und Enumeration wird in Form eines Glossars textuell beschrieben. Zusätzlich werden eventuellen Konsistenz- und Formatierungsregeln aufgeführt.
