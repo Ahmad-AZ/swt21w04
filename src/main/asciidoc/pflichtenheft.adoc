@@ -2,6 +2,11 @@
 :project_name: Festivalmanager
 == __{project_name}__
 
+:toc:
+:toclevels: 3
+:toc-title: Inhaltsverzeichnis
+:sectanchors:
+
 [options="header"]
 [cols="1, 1, 1, 1, 4"]
 |===
@@ -10,9 +15,6 @@
 |0.2     | In Arbeit   | 26.10.2021          | Georg, Jan, Ahmad
        | -
 |===
-
-== Inhaltsverzeichnis
-Dieses Dokument benötigt ein Inhaltsverzeichnis. Es existieren mehrere Einbindungsmöglichkeiten.
 
 == Zusammenfassung
 Eine kurze Beschreibung des Dokuments. Wenige Absätze.
