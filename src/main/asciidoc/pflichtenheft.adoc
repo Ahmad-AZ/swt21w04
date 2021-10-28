@@ -2,11 +2,6 @@
 :project_name: Festivalmanager
 == __{project_name}__
 
-:toc:
-:toclevels: 3
-:toc-title: Inhaltsverzeichnis
-:sectanchors:
-
 [options="header"]
 [cols="1, 1, 1, 1, 4"]
 |===
@@ -16,6 +11,35 @@
        | -
 |===
 
+== Inhaltsverzeichnis
+- <<1, 1. Zusammenfassung>>
+- <<2, 2. Aufgabenstellung und Zielsetzung>>
+- <<3, 3. Produktnutzung>>
+- <<4, 4. Interessensgruppen>>
+- <<5, 5. Systemgrenze und Top-Level-Architektur>>
+ * <<5_1, 5.1. Kontextdiagramm>>
+ * <<5_2, 5.2. Top-Level-Architektur>>
+- <<6, 6. Anwendungsfälle>>
+ * <<6_1, 6.1. Akteure>>
+ * <<6_2, 6.2. Überblick Anwendungsfalldiagramm>>
+ * <<6_3, 6.3. Anwendungsfallbeschreibung>>
+- <<7, 7. Funktionale Anforderungen>>
+ * <<7_1, 7.1. Muss-Kriterien>>
+ * <<7_2, 7.2. Kann-Kriterien>>
+- <<8, 8. Nicht-Funktionale Anforderungen>>
+ * <<8_1, 8.1. Qualitätsziele>>
+ * <<8_2, 8.2. Konkrete Nicht-Funktionale Anforderungen>>
+- <<9, 9. GUI Prototyp>>
+ * <<9_1, 9.1. Überblick: Dialoglandkarte>>
+ * <<9_2, 9.2. Dialogbeschreibung>>
+- <<10, 10. Datenmodell>>
+ * <<10_1, 10.1. Überblick: Klassendiagramm>>
+ * <<10_2, 10.2. Klassen und Enumerationen>>
+- <<11, 11. Akzeptanztestfälle>>
+- <<12, 12. Glossar>>
+- <<13, 13. Offene Punkte>>
+
+[#1]
 == Zusammenfassung
 Eine kurze Beschreibung des Dokuments. Wenige Absätze.
 
@@ -34,6 +58,7 @@ die der Festivalmanager am Ende der Entwicklung unbedingt erfüllen muss bzw. zu
 Im Unterpunkt "Systemgrenze und TLA" werden noch Erkenntnisse aus der
 Analysephase per UML visualisiert.
 
+[#2]
 == Aufgabenstellung und Zielsetzung
 Text aus Aufgabenstellung kopieren und ggfs. präzisieren.
 Insbesondere ergänzen, welche Ziele mit dem Abschluss des Projektes erreicht werden sollen.
@@ -111,6 +136,7 @@ Unser Code sollte leicht instandzuhalten und zu erweitern sein.
 Beim Abschluss des Projekts sollte unser Code also gut lesbar sein, 
 wenig Codeverschmutzung aufweisen und gründlich dokumentiert sein.
 
+[#3]
 == Produktnutzung
 In welchem Kontext soll das System später genutzt werden? Welche Rahmenbedingungen gelten?
 Zusätzlich kurze Einleitung für fachfremde Personen
@@ -124,6 +150,7 @@ Diese Nutzergruppe wird keinen Technischen Hintergrund haben, weshalb die Softwa
 
 Außerdem können die Terminals auch von den Festival-Besuchern genutzt werden, um Lage- und Spielplan einzusehen.
 
+[#4]
 == Interessensgruppen (Stakeholders)
 Welche realen und juristischen Personen(-gruppen) haben Einfluss auf die Anforderungen im Projekt?
 
@@ -149,18 +176,23 @@ a|Festival Personal:
 - Gute Debugging möglichkeiten
 |===
 
+[#5]
 == Systemgrenze und Top-Level-Architektur
 
+[#5_1]
 === Kontextdiagramm
 Das Kontextdiagramm zeigt das geplante Software-System in seiner Umgebung. Zur Umgebung gehören alle Nutzergruppen des Systems und Nachbarsysteme. Die Grafik kann auch informell gehalten sein. Überlegen Sie sich dann geeignete Symbole. Die Grafik kann beispielsweise mit Visio erstellt werden. Wenn nötig, erläutern Sie diese Grafik.
 
 image::Kontextdiagramm.jpg[]
 
+[#5_2]
 === Top-Level-Architektur
 Dokumentieren Sie ihre Top-Level-Architektur mit Hilfe eines Komponentendiagramm.
 
+[#6]
 == Anwendungsfälle
 
+[#6_1]
 === Akteure
 
 Akteure sind die Benutzer des Software-Systems oder Nachbarsysteme, welche darauf zugreifen. Dokumentieren Sie die Akteure in einer Tabelle. Diese Tabelle gibt einen Überblick über die Akteure und beschreibt sie kurz. Die Tabelle hat also mindestens zwei Spalten (Akteur Name und Kommentar).
@@ -179,9 +211,11 @@ Weitere relevante Spalten können bei Bedarf ergänzt werden.
 |Festivalleiter |kann Lager überprüfen und Nachbestellung tätigen, empfängt Nachrichten vom Personal
 |===
 
+[#6_2]
 === Überblick Anwendungsfalldiagramm
 Anwendungsfall-Diagramm, das alle Anwendungsfälle und alle Akteure darstellt
 
+[#6_3]
 === Anwendungsfallbeschreibungen
 Dieser Unterabschnitt beschreibt die Anwendungsfälle. In dieser Beschreibung müssen noch nicht alle Sonderfälle und Varianten berücksichtigt werden. Schwerpunkt ist es, die wichtigsten Anwendungsfälle des Systems zu finden. Wichtig sind solche Anwendungsfälle, die für den Auftraggeber, den Nutzer den größten Nutzen bringen.
 Für komplexere Anwendungsfälle ein UML-Sequenzdiagramm ergänzen.
@@ -366,8 +400,10 @@ Ein Nutzer öffnet den "Lageplan" Tab.
 |Funktionale Anforderungen    |<<F0001>>
 |===
 
+[#7]
 == Funktionale Anforderungen
 
+[#7_1]
 === Muss-Kriterien
 Was das zu erstellende Programm auf alle Fälle leisten muss.
 
@@ -628,12 +664,9 @@ betriebswirtschaftliche Daten, wie Umsatz, Ausgaben,... , abzurufen und grafisch
 |
 a|
 
-
-
-
-
 |===
 
+[#7_2]
 === Kann-Kriterien
 Anforderungen die das Programm leisten können soll, aber für den korrekten Betrieb entbehrlich sind.
 
@@ -673,11 +706,13 @@ Dies beinhaltet:
 
 |===
 
+[#8]
 == Nicht-Funktionale Anforderungen
 Dieser Abschnitt wird einen Überblick über die nicht-funktionalen (NF) Anforderungen des
 Projekts Festival Manager geben. Diese Anforderungen beschreiben, wie das System funktioniert und
 innerhalb welcher Grenzen es funktionieren soll.
 
+[#8_1]
 === Qualitätsziele
 
 Die folgende Tabelle zeigt, welche Qualitätsanforderungen in welchem Umfang erfüllt werden
@@ -696,6 +731,7 @@ folgenden Spalten ein "x" zur Kennzeichnung der Priorität verwendet wird.
 |Sicherheit                     |   |   |   |x  |
 |===
 
+[#8_2]
 === Konkrete Nicht-Funktionale Anforderungen
 
 Beschreiben Sie Nicht-Funktionale Anforderungen, welche dazu dienen, die zuvor definierten Qualitätsziele zu erreichen.
@@ -723,16 +759,19 @@ gespeichert werden, um Diebstahl zu verhindern.
 
 |===
 
+[#9]
 == GUI Prototyp
 
 In diesem Kapitel soll ein Entwurf der Navigationsmöglichkeiten und Dialoge des Systems erstellt werden.
 Idealerweise entsteht auch ein grafischer Prototyp, welcher dem Kunden zeigt, wie sein System visuell umgesetzt werden soll.
 Konkrete Absprachen - beispielsweise ob der grafische Prototyp oder die Dialoglandkarte höhere Priorität hat - sind mit dem Kunden zu treffen.
 
+[#9_1]
 === Überblick: Dialoglandkarte
 Erstellen Sie ein Übersichtsdiagramm, das das Zusammenspiel Ihrer Masken zur Laufzeit darstellt. Also mit welchen Aktionen zwischen den Masken navigiert wird.
 //Die nachfolgende Abbildung zeigt eine an die Pinnwand gezeichnete Dialoglandkarte. Ihre Karte sollte zusätzlich die Buttons/Funktionen darstellen, mit deren Hilfe Sie zwischen den Masken navigieren.
 
+[#9_2]
 === Dialogbeschreibung
 Für jeden Dialog:
 
@@ -741,13 +780,16 @@ Für jeden Dialog:
 3. Maskenelemente (Ein/Ausgabefelder, Aktionen wie Buttons, Listen, …)
 4. Evtl. Maskendetails, spezielle Widgets
 
+[#10]
 == Datenmodell
 
+[#10_1]
 === Überblick: Klassendiagramm
 UML-Analyseklassendiagramm
 
 image::Klassendiagramm.jpg[]
 
+[#10_2]
 === Klassen und Enumerationen
 Dieser Abschnitt stellt eine Vereinigung von Glossar und der Beschreibung von Klassen/Enumerationen dar. Jede Klasse und Enumeration wird in Form eines Glossars textuell beschrieben. Zusätzlich werden eventuellen Konsistenz- und Formatierungsregeln aufgeführt.
 
@@ -758,14 +800,19 @@ Dieser Abschnitt stellt eine Vereinigung von Glossar und der Beschreibung von Kl
 |…                  |…            |
 |===
 
+
+[#11]
 == Akzeptanztestfälle
 Mithilfe von Akzeptanztests wird geprüft, ob die Software die funktionalen Erwartungen und Anforderungen im Gebrauch erfüllt. Diese sollen und können aus den Anwendungsfallbeschreibungen und den UML-Sequenzdiagrammen abgeleitet werden. D.h., pro (komplexen) Anwendungsfall gibt es typischerweise mindestens ein Sequenzdiagramm (welches ein Szenarium beschreibt). Für jedes Szenarium sollte es einen Akzeptanztestfall geben. Listen Sie alle Akzeptanztestfälle in tabellarischer Form auf.
 Jeder Testfall soll mit einer ID versehen werde, um später zwischen den Dokumenten (z.B. im Test-Plan) referenzieren zu können.
 
+
+[#12]
 == Glossar
 Sämtliche Begriffe, die innerhalb des Projektes verwendet werden und deren gemeinsames Verständnis aller beteiligten Stakeholder essentiell ist, sollten hier aufgeführt werden.
 Insbesondere Begriffe der zu implementierenden Domäne wurden bereits beschrieben, jedoch gibt es meist mehr Begriffe, die einer Beschreibung bedürfen. +
 Beispiel: Was bedeutet "Kunde"? Ein Nutzer des Systems? Der Kunde des Projektes (Auftraggeber)?
 
+[#13]
 == Offene Punkte
 Offene Punkte werden entweder direkt in der Spezifikation notiert. Wenn das Pflichtenheft zum finalen Review vorgelegt wird, sollte es keine offenen Punkte mehr geben.
