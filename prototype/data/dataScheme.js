@@ -510,5 +510,5 @@ const dataScheme=
 			}
 		}
 	}
-}
+};
 if (debug) document.writeln("data scheme okay+<br>");
