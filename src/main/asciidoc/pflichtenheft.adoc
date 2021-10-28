@@ -41,8 +41,6 @@
 
 [#1]
 == Zusammenfassung
-Eine kurze Beschreibung des Dokuments. Wenige Absätze.
-
 In diesem Dokument werden die wichtigsten Informationen zum Projekt sowohl 
 für die Entwickler als auch für den Auftraggeber zusammengefasst.
 Vor allem werden hier Anforderungen an das Produkt festgehalten, auf die 
@@ -60,9 +58,6 @@ Analysephase per UML visualisiert.
 
 [#2]
 == Aufgabenstellung und Zielsetzung
-Text aus Aufgabenstellung kopieren und ggfs. präzisieren.
-Insbesondere ergänzen, welche Ziele mit dem Abschluss des Projektes erreicht werden sollen.
-
 Der Festivalveranstalter, die „FVIV GmbH“, sieht sich mit ihrem derzeitigen System den wachsenden 
 Aufgaben einer Festival-Organisation und –Durchführung nicht mehr gewachsen und benötigt daher 
 zeitnah ein neues IT-System, das interne Verwaltungsaufgaben, als auch den Kundenkontakt 
@@ -138,9 +133,6 @@ wenig Codeverschmutzung aufweisen und gründlich dokumentiert sein.
 
 [#3]
 == Produktnutzung
-In welchem Kontext soll das System später genutzt werden? Welche Rahmenbedingungen gelten?
-Zusätzlich kurze Einleitung für fachfremde Personen
-
 Das System soll über ein Interface (u.a. auf der Festivalgeländer verteilte Terminals) genutzt werden.
 Dies wird durch eine Website realisiert. Die Software ist deshalb ein Webserver, der nur im LAN des Festivals ereichbar ist.
 Außerdem soll die FVIV - Gmbh in der Lage sein Festivals zu planen und vor Festival-start den Festival-Server zu konfigurieren.
@@ -150,15 +142,19 @@ Diese Nutzergruppe wird keinen Technischen Hintergrund haben, weshalb die Softwa
 
 Außerdem können die Terminals auch von den Festival-Besuchern genutzt werden, um Lage- und Spielplan einzusehen.
 
+Unterstützte Browserversionen:
+[]
+- Chrome: 92.0
+- Firefox: 85.0
+- (Safari: 15.0)
+
 [#4]
 == Interessensgruppen (Stakeholders)
-Welche realen und juristischen Personen(-gruppen) haben Einfluss auf die Anforderungen im Projekt?
-
 [options="header"]
 [cols="1, 1, 1, 1"]
 |===
-|Name |Priorität |Description |Goals
-|FVIV - Gmbh (Planungsabteilung) | X |Auftragsgeber für dieses Projekt, plant Festivals (Ort und Zeit) a| - Einfache Planung von Festivals
+|Name |Priorität (1-5) |Beschreibung |Ziele
+|FVIV - Gmbh (Planungsabteilung) | 5 |Auftragsgeber für dieses Projekt, plant Festivals (Ort und Zeit) a| - Einfache Planung von Festivals
 - Verhinderung von Doppelbuchungen
 a|Festival Personal:
 --
@@ -166,12 +162,12 @@ a|Festival Personal:
 - Ticketverkauf
 - Einlass
 - Sicherheit
-- Bühnentechniker
-- Veranstaltungsleiter| X |Hauptnutzer der Software, können während des Festivals verschiedene Management aktivitäten über Terminals erledigen a| - Benutzerfreundliche Oberfläche
+- Bühnentechniker| 4 |Hauptnutzer der Software, können während des Festivals verschiedene Management aktivitäten über Terminals erledigen a| - Benutzerfreundliche Oberfläche
 - Sicherheit: jede Personal-gruppe kann nur auf ihr eigenes Interface zugreifen
-|Besucher | X |Festival Besucher, die über Terminals den Lageplan und die Spielpläne der Bühnen einsehen können a| - Benutzerfreundliche Oberfläche
+|Veranstaltungsleiter / Festivalleiter / Chef | 4 |Hauptnutzer der Software, kann während des Festivals auf Informationen des Personals zugreifen und ggf. notwendige Management Aktionen ausführen (z.b. Zutaten für das Catering nachbestellen) a| - Benutzerfreundliche Oberfläche
+|Besucher | 1 |Festival Besucher, die über Terminals den Lageplan und die Spielpläne der Bühnen einsehen können a| - Benutzerfreundliche Oberfläche
 - Sicherheit: Besucher können nicht auf die Interfaces des Personals zugreifen
-|Entwickler | X |Entwickler, die diese Software entwickeln oder später warten müssen a| - Einfache erweiterung des Systems
+|Entwickler | 4 |Entwickler, die diese Software entwickeln oder später warten müssen a| - Einfache erweiterung des Systems
 - Geringe Wartungsarbeiten an dem System
 - Gute Debugging möglichkeiten
 |===
@@ -181,8 +177,6 @@ a|Festival Personal:
 
 [#5_1]
 === Kontextdiagramm
-Das Kontextdiagramm zeigt das geplante Software-System in seiner Umgebung. Zur Umgebung gehören alle Nutzergruppen des Systems und Nachbarsysteme. Die Grafik kann auch informell gehalten sein. Überlegen Sie sich dann geeignete Symbole. Die Grafik kann beispielsweise mit Visio erstellt werden. Wenn nötig, erläutern Sie diese Grafik.
-
 image::Kontextdiagramm.jpg[]
 
 [#5_2]
@@ -194,11 +188,6 @@ Dokumentieren Sie ihre Top-Level-Architektur mit Hilfe eines Komponentendiagramm
 
 [#6_1]
 === Akteure
-
-Akteure sind die Benutzer des Software-Systems oder Nachbarsysteme, welche darauf zugreifen. Dokumentieren Sie die Akteure in einer Tabelle. Diese Tabelle gibt einen Überblick über die Akteure und beschreibt sie kurz. Die Tabelle hat also mindestens zwei Spalten (Akteur Name und Kommentar).
-Weitere relevante Spalten können bei Bedarf ergänzt werden.
-
-// See http://asciidoctor.org/docs/user-manual/#tables
 [options="header"]
 [cols="1,4"]
 |===
@@ -209,6 +198,7 @@ Weitere relevante Spalten können bei Bedarf ergänzt werden.
 |Security-Personal |sorgt für Sicherheit auf dem Gelände
 |Einlass-Personal |kontrolliert Tickets am Eingang
 |Festivalleiter |kann Lager überprüfen und Nachbestellung tätigen, empfängt Nachrichten vom Personal
+|Planer |Plant das Festival
 |===
 
 [#6_2]
@@ -217,14 +207,10 @@ Anwendungsfall-Diagramm, das alle Anwendungsfälle und alle Akteure darstellt
 
 [#6_3]
 === Anwendungsfallbeschreibungen
-Dieser Unterabschnitt beschreibt die Anwendungsfälle. In dieser Beschreibung müssen noch nicht alle Sonderfälle und Varianten berücksichtigt werden. Schwerpunkt ist es, die wichtigsten Anwendungsfälle des Systems zu finden. Wichtig sind solche Anwendungsfälle, die für den Auftraggeber, den Nutzer den größten Nutzen bringen.
-Für komplexere Anwendungsfälle ein UML-Sequenzdiagramm ergänzen.
-Einfache Anwendungsfälle mit einem Absatz beschreiben.
-Die typischen Anwendungsfälle (Anlegen, Ändern, Löschen) können zu einem einzigen zusammengefasst werden.
-
 [cols="1h, 3"]
+[[AF001]]
 |===
-|ID                          |
+|ID                          |**<<AF001>>**
 |Name                        |Ticketverkauf
 |Beschreibung                |bis 3 Tage vor Eventbegin sollen Tickets gekauft werden können. Dabei wird in Camping und Tagestickets unterschieden. Alle Teckits haben eine eindeutige Nummer, die für die Eingangskontrolle verwendet wird.
 |Akteure                     |Ticket-Verkäufer, Besucher
@@ -238,12 +224,13 @@ Die typischen Anwendungsfälle (Anlegen, Ändern, Löschen) können zu einem ein
 3. Abfrage des Ticketpreises (abhängig vom Ticket-Typ und Event)
 4. Verkauf des Tickets (Verkäufer verlang Geld)
 |Erweiterungen               |
-|Funktionale Anforderungen   |
+|Funktionale Anforderungen   |<<F0001>>
 |===
 
 [cols="1h, 3"]
+[[AF002]]
 |===
-|ID                          |
+|ID                          |**<<AF002>>**
 |Name                        |Abendkasse-Ticketverkauf
 |Beschreibung                |ab 3 Tagen vor Eventbegin sollen Tickets an der Abendkasse gekauft werden können. Dabei wird in Camping und Tagestickets unterschieden. Alle Teckits haben eine eindeutige Nummer, die für die Eingangskontrolle verwendet wird.
 |Akteure                     |Ticket-Verkäufer, Besucher
@@ -257,12 +244,13 @@ Die typischen Anwendungsfälle (Anlegen, Ändern, Löschen) können zu einem ein
 3. Abfrage des Ticketpreises (abhängig vom Ticket-Typ und Event)
 4. Verkauf des Tickets (Verkäufer verlang Geld)
 |Erweiterungen               |
-|Funktionale Anforderungen   |
+|Funktionale Anforderungen   |<<F0001>>
 |===
 
 [cols="1h, 3"]
+[[AF003]]
 |===
-|ID                          |
+|ID                          |**<<AF003>>**
 |Name                        |Eingangskontrolle
 |Beschreibung                |Am Eingang zu der Location, auf der Ein Event stattfindet werden die Tickets der Besucher kontrolliert
 |Akteure                     |Sicherheits-Personal, Besucher
@@ -273,12 +261,13 @@ Die typischen Anwendungsfälle (Anlegen, Ändern, Löschen) können zu einem ein
 2. Abfrage ob die Ticketnummer für dieses Event gültig ist
 3. Ticketnummer für alle weiteren abfragen als ungültig markieren um doppeltes einchecken mit dem selben Ticket zu vermeiden
 |Erweiterungen               |
-|Funktionale Anforderungen   |
+|Funktionale Anforderungen   |<<F0001>>
 |===
 
 [cols="1h, 3"]
+[[AF004]]
 |===
-|ID                          |
+|ID                          |**<<AF004>>**
 |Name                        |Catering-Personal An- und Abmeldung
 |Beschreibung                |Catering-Personal kann sich an den Verkaufsständen An- und Abmelden, um den Besuchern Essen zu verkaufen
 |Akteure                     |Catering-Personal
@@ -288,12 +277,13 @@ Die typischen Anwendungsfälle (Anlegen, Ändern, Löschen) können zu einem ein
 - Anmeldung: Anmeldung über das Terminal
 - Abmeldung: Abmeldung über das Terminal
 |Erweiterungen               |
-|Funktionale Anforderungen   |
+|Funktionale Anforderungen   |<<F0001>>
 |===
 
 [cols="1h, 3"]
+[[AF005]]
 |===
-|ID                          |
+|ID                          |**<<AF005>>**
 |Name                        |Catering: Verkauf von Getränken und Speisen
 |Beschreibung                |Besucher könnene an einem Verkaufsstand Speisen und Getränke kaufen
 |Akteure                     |Besucher, Catering-Personal
@@ -305,12 +295,13 @@ Die typischen Anwendungsfälle (Anlegen, Ändern, Löschen) können zu einem ein
 3. Zubereitung der Bestellung
 4. Verkauf
 |Erweiterungen               |
-|Funktionale Anforderungen   |
+|Funktionale Anforderungen   |<<F0001>>
 |===
 
 [cols="1h, 3"]
+[[AF006]]
 |===
-|ID                          |
+|ID                          |**<<AF006>>**
 |Name                        |Lager einsehen & Nachbestellung von Speisen und Getränken
 |Beschreibung                |Der Festivalleiter kann den Lagerbestand prüfen und gegebenfalls neue Waren bestellen
 |Akteure                     |Festivalleiter
@@ -320,12 +311,13 @@ Die typischen Anwendungsfälle (Anlegen, Ändern, Löschen) können zu einem ein
 1. Abrufen des Lagerbestandes
 2. evtl. Nachbestellung einer oder mehrerer Waren in beliebigen Mengen
 |Erweiterungen               |
-|Funktionale Anforderungen   |
+|Funktionale Anforderungen   |<<F0001>>
 |===
 
 [cols="1h, 3"]
+[[AF007]]
 |===
-|ID                          |
+|ID                          |**<<AF007>>**
 |Name                        |Festivalleiter Status Abbruf
 |Beschreibung                |Der Festivalleiter kann verschiedene Informationen über das Event an einem Terminal jederzeit abrufen
 |Akteure                     |Festivalleiter
@@ -333,13 +325,13 @@ Die typischen Anwendungsfälle (Anlegen, Ändern, Löschen) können zu einem ein
 |Voraussetzung               |Der Festivalleiter ist am entsprechenden Terminal angemeldet
 |Essentielle Schritte        |Abrufen der Informationen(Nachrichten von Mitarbeitern, Verkaufszahlen, Bühnenbelegung,...) an dem Terminal
 |Erweiterungen               |
-|Funktionale Anforderungen   |
+|Funktionale Anforderungen   |<<F0001>>
 |===
 
 [cols="1h, 3"]
-[[UC0001]]
+[[AF008]]
 |===
-|ID                         |**<<UC0001>>**
+|ID                         |**<<AF008>>**
 |Name                       |Terminal für Festivalbesucher
 |Beschreibung               |Festivalbesucher sollen sich am Terminal über Lageplan und Spielplan informieren können.
 |Akteure                     |Festivalbesucher
@@ -358,9 +350,9 @@ siehe [Link zu Login]
 |===
 
 [cols="1h, 3"]
-[[UC0001]]
+[[AF009]]
 |===
-|ID                         |**<<UC0001>>**
+|ID                         |**<<AF009>>**
 |Name                       |Line-Up planen
 |Beschreibung               |Im Festivalmanager können Bands für bestimmte Bühnen und Zeiten gebucht werden.
 |Akteure                     |Festivalleiter, Planungsabteilung
@@ -380,9 +372,9 @@ denen anschließend eine Bühne und Zeit zugewiesen wird
 |===
 
 [cols="1h, 3"]
-[[UC0001]]
+[[AF010]]
 |===
-|ID                         |**<<UC0001>>**
+|ID                         |**<<AF010>>**
 |Name                       |Lagelplan anpassen
 |Beschreibung               |Im Festivalmanger kann eine Location für das Festival ausgewählt werden, auf dem Lageplan dieser Location können die Positionen von Bühnen, Catering, etc. angepasst werden.
 |Akteure                     |Festivalleiter, Planungsabteilung
@@ -405,20 +397,6 @@ Ein Nutzer öffnet den "Lageplan" Tab.
 
 [#7_1]
 === Muss-Kriterien
-Was das zu erstellende Programm auf alle Fälle leisten muss.
-
-Dieser Abschnitt gibt einen Überblick über die funktionellen Anforderungen des Systems.
-
-Die Tabelle enthält:
-
-- Eine eindeutige Kennung der Anforderung (ID), die während des gesamten Projekts als Referenz verwendet werden kann.
-- Die aktuelle Version der Anforderung, da Änderungen an einer Anforderung während des
-     gesamten Projekts erfolgen können.
-
-- Einen kurzen Namen der Anforderung.
-- Die Beschreibung der Anforderung.
-
-
 [options="header", cols="4h, 1, 2, 15"]
 |===
 |ID
@@ -668,8 +646,6 @@ a|
 
 [#7_2]
 === Kann-Kriterien
-Anforderungen die das Programm leisten können soll, aber für den korrekten Betrieb entbehrlich sind.
-
 [options="header", cols="4h, 1, 2, 15"]
 |===
 
@@ -733,11 +709,6 @@ folgenden Spalten ein "x" zur Kennzeichnung der Priorität verwendet wird.
 
 [#8_2]
 === Konkrete Nicht-Funktionale Anforderungen
-
-Beschreiben Sie Nicht-Funktionale Anforderungen, welche dazu dienen, die zuvor definierten Qualitätsziele zu erreichen.
-Achten Sie darauf, dass deren Erfüllung (mindestens theoretisch) messbar sein muss.
-
-
 [options="header", cols="4h, 1, 2, 15"]
 |===
 
@@ -785,8 +756,6 @@ Für jeden Dialog:
 
 [#10_1]
 === Überblick: Klassendiagramm
-UML-Analyseklassendiagramm
-
 image::Klassendiagramm.jpg[]
 
 [#10_2]
