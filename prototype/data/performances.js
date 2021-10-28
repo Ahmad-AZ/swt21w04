@@ -22,4 +22,4 @@ const performances=
 		price:80000.00
 	}
 }
-if (debug) document.writeln("performance data okay okay+<br>");	
+if (debug) document.writeln("performance data okay+<br>");	

@@ -37,7 +37,7 @@ const locationArea =
 		locked:false,
 		kind:3, //stage
 		cntVisitors:2000,
-		label:"Independent Stage",
+		label:"Alterna Stage",
 		idLocation:"1"
 	},
 	6:

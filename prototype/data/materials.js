@@ -20,4 +20,4 @@ const materials=
 	}
 
 }
-if (debug) document.writeln("material data okay okay+<br>");
+if (debug) document.writeln("material data okay+<br>");

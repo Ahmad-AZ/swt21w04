@@ -13,5 +13,4 @@ const suppliers=
 		email:""
 	}
 }
-
 if (debug) document.writeln("supplier data okay+<br>");
