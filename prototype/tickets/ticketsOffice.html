@@ -1,0 +1,53 @@
+<html>
+ <head>
+  <title>Festivalmanager Tickets Office</title>
+  <script language="javascript" src="../menu.js"></script> 
+ </head>
+ <body>
+  <script language="javascript" />
+   document.writeln(menu("tickets", "ticketsOffice"));
+  </script> 
+  <table border="1">
+   <tr>
+    <td>Name</td>
+    <td>Ticketverkauf</td>
+   </tr>
+   <tr>
+    <td>Beschreibung</td>
+    <td>
+	 bis 3 Tage vor Eventbegin sollen Tickets gekauft werden können.
+	 <br />Dabei wird in Camping und Tagestickets unterschieden.
+	 <br />Alle Teckits haben eine eindeutige Nummer, die für die Eingangskontrolle verwendet wird.
+	</td>
+   </tr>
+   <tr>
+    <td>Akteure</td>
+    <td>Ticket-Verkäufer, Besucher</td>
+   </tr>
+   <tr>
+    <td>Auslöser</td>
+	<td>Ein Besucher möchte ein Ticket kaufen</td>
+   </tr>
+   <tr>
+    <td>Voraussetzung(en)</td>
+	<td>
+	 <ol>
+	  <li />Es sind noch Tickets vorhanden
+      <li />Das Ticket wird mindestens 3 Tage vor Event begin verkauft
+     </ol>
+	</td>
+   </tr>
+   <tr>
+    <td>Essentielle Schritte</td>
+	<td>
+     <ol>
+      <li />Auswahl zwischen Camping und Tagesticket
+      <li />Generierung einer eindeutigen Nummer für das Ticket
+      <li />Abfrage des Ticketpreises (abhängig vom Ticket-Typ und Event)
+      <li />Verkauf des Tickets (Verkäufer verlang Geld)
+	 </ol>
+	</td>
+   </tr>
+  </table>
+ </body>
+</html>
