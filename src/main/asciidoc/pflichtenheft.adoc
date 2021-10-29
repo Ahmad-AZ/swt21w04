@@ -406,7 +406,7 @@ Ein Nutzer öffnet den "Lageplan" Tab.
 
 |[[F00001]]<<F00001>>
 |v0.1
-|Authentification
+|Authentifizierung
 a|
 Das System muss in öffentlich zugängliche Teile und in Teile, die
 für den Zugriff eine Authentifizierung erfordern, zerlegt werden
@@ -438,7 +438,7 @@ muss sich nach erfolgreicher Validierung authentifizieren
 
 |[[F00003]]<<F00003>>
 |v0.1
-|Validate  Registration
+|Registrierung validieren
 a|
 Das System muss in der Lage sein, die bereitgestellten Daten
 eines nichtregistrierten Benutzers zu validieren.
@@ -449,7 +449,7 @@ informiert werden.
 
 |[[F00004]]<<F00004>>
 |v0.1
-|Catalog
+|Katalog
 a|
 Das System muss in der Lage sein, einen schreibgeschützten
 Zugriff auf vorhandene Gelände und Bereiche über einen Katalog zu
@@ -457,7 +457,7 @@ ermöglichen.
 
 |[[F00005]]<<F00005>>
 |v0.1
-|View Catalog
+|Katalog ansehen
 a|
 Das System muss einem Benutzer die Möglichkeit bieten, den
 Inhalt des Katalogs einzusehen.
@@ -466,14 +466,14 @@ Inhalt des Katalogs einzusehen.
 
 |[[F00006]]<<F00006>>
 |v0.1
-| Add Order to Cart
+| Bestellung in den Warenkorb legen
 a|
 Das System muss einem Benutzer die Möglichkeit bieten, ein
 ausgefülltes Formular zur Bestellung dem Warenkorb hinzuzufügen.
 
 |[[F00007]]<<F00007>>
 |v0.1
-|Cart
+|Warenkorb
 a|
 Das System muss jedem registrierten und authentifizierten
 Benutzer einen Warenkorb zur Verfügung stellen, in dem er
@@ -483,19 +483,18 @@ sein.
 
 |[[F00008]]<<F00008>>
 |v0.1
-| View Cart
+|Warenkorb ansehen
 a|
 Das System muss einem Benutzer die Möglichkeit bieten, den
 Inhalt des Warenkorbs zu authentifizieren.
 Der Warenkorb muss folgende Angaben enthalten:
 
--
 - Datum
 - Eingefüllte Daten eines Festivals
 
 |[[F00009]]<<F00009>>
 |v0.1
-| Buy in Cart
+| Im Warenkorb kaufen
 a|
 Das System muss einem Benutzer die Möglichkeit bieten, mit den
 Bestellungen im Warenkorb zur Kasse zu gehen und diese zu bezahlen.
@@ -503,14 +502,14 @@ Bestellungen im Warenkorb zur Kasse zu gehen und diese zu bezahlen.
 
 |[[F00010]]<<F00010>>
 |v0.1
-|Orders
+|Aufträge
 a|
 Das System muss in der Lage sein, Bestelldaten  dauerhaft zu speichern.
 
 
 |[[F00011]]<<F00011>>
 |v0.1
-|Create Order
+|Bestellung anlegen
 a|
 Das System muss in der Lage sein, eine Bestellung aus dem Inhalt
 eines Warenkorbs zu erstellen.
@@ -519,12 +518,12 @@ Ein Auftrag muss mit dem Status "OFFEN" initialisiert werden.
 
 |[[F00012]]<<F00012>>
 |v0.1
-|Pay Order
+|Bestellung bezahlen
 a|
 
 |[[F00013]]<<F00013>>
 |v0.1
-| Archive Order
+| Bestellung archivieren
 a|
 
 Das System muss in der Lage sein, einen Auftrag zu archivieren.
@@ -533,7 +532,7 @@ Ein Auftrag wird archiviert, indem sein Status auf
 
 |[[F00014]]<<F00014>>
 |v0.1
-|View Order
+|Bestellung anzeigen
 a|
 
 as System muss einem Admin die Funktionalität zur Verfügung
@@ -549,13 +548,13 @@ angezeigt:
 
 |[[F00015]]<<F00015>>
 |v0.1
-| Edit Profil
+| Profil bearbeiten
 a|
 Das System muss einem Benutzer die Möglichkeit bieten, sein Profil zu bearbeiten.
 
 |[[F00016]]<<F00016>>
 |v0.1
-| Booking appointments
+| Termine buchen
 a|
 
 Das System muss einem Planer die Möglichkeit bieten, Termine festzulegen und
@@ -585,7 +584,7 @@ Camping-, Park-, Catering- und Stage-Bereiche einordnen
 
 |[[F00019]]<<F00019>>
 |v0.1
-| Data Visualization
+| Datenvisualisierung
 a|
 Das System muss in der Lage sein, das Gelände und die Bereiche zu visualisieren.
 
@@ -616,7 +615,7 @@ auszuwählen, ein Spielplan für jede Bühne erstellt und Kartenpreis festzulege
 
 |[[F00023]]<<F00023>>
 |v0.1
-| Statement of costs
+| Kostenaufstellung
 a|
 Das System muss in der Lage sein, eine automatische Kostenaufstellung
 (Kosten für  Mieten, Gagen, Personal und Sonstigem)zur Verfügung zu erstellen.
@@ -624,7 +623,7 @@ Das System muss in der Lage sein, eine automatische Kostenaufstellung
 
 |[[F00024]]<<F00024>>
 |v0.1
-|Overview
+|Überblick
 a|
 
 Das System muss einem Admin die Übersicht bieten, welcher Mitarbeiter momentan am System angemeldet ist
@@ -632,15 +631,10 @@ Das System muss einem Admin die Übersicht bieten, welcher Mitarbeiter momentan 
 
 |[[F00025]]<<F00025>>
 |v0.1
-| business data
+| Geschäftsdaten
 a|
 Das System muss einem Admin die Möglichkeit geben,
 betriebswirtschaftliche Daten, wie Umsatz, Ausgaben,... , abzurufen und grafisch zu visualiseren.
-
-|[[F00026]]<<F00026>>
-|v0.1
-|
-a|
 
 |===
 
@@ -657,7 +651,7 @@ a|
 
 |[[F00023]]<<F00023>>
 |v0.1
-| Filter Catalog
+| Katalog filtern
 a|
 Das System sollte die Funktionalität bieten, den Katalog zu filtern
 (z.B. nach Verfügbarkeit oder Datum).
@@ -667,7 +661,7 @@ Das System sollte die Funktionalität bieten, den Katalog zu filtern
 
 |[[F00024]]<<F00024>>
 |v0.1
-|Edit Cart
+|Warenkorb bearbeiten
 a|
 Das System sollte die Funktionalität bieten, den Warenkorb
 ändern zu können.
