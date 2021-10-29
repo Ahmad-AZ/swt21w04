@@ -193,7 +193,7 @@ Dokumentieren Sie ihre Top-Level-Architektur mit Hilfe eines Komponentendiagramm
 |===
 |Name |Beschreibung
 |Besucher |Ein Festivalbesucher, kann Terminals nutzen um den Lageplan und Zeitplan abzurufen
-|Personal |Personal des Festivalls
+|Personal |Personal des Festivals
 |Catering-Personal |Verkäufer von Speisen und Getränken, kann den Festivalleiter über geringe Lagerbestände informieren
 |Security-Personal |sorgt für Sicherheit auf dem Gelände
 |Einlass-Personal |kontrolliert Tickets am Eingang
@@ -212,7 +212,7 @@ Anwendungsfall-Diagramm, das alle Anwendungsfälle und alle Akteure darstellt
 |===
 |ID                          |**<<AF001>>**
 |Name                        |Ticketverkauf
-|Beschreibung                |bis 3 Tage vor Eventbegin sollen Tickets gekauft werden können. Dabei wird in Camping und Tagestickets unterschieden. Alle Teckits haben eine eindeutige Nummer, die für die Eingangskontrolle verwendet wird.
+|Beschreibung                |bis 3 Tage vor Eventbegin sollen Tickets gekauft werden können. Dabei wird in Camping und Tagestickets unterschieden. Alle Tickets haben eine eindeutige Nummer, die für die Eingangskontrolle verwendet wird.
 |Akteure                     |Ticket-Verkäufer, Besucher
 |Auslöser                    |Ein Besucher möchte ein Ticket kaufen
 |Voraussetzung(en)           a|
@@ -232,7 +232,7 @@ Anwendungsfall-Diagramm, das alle Anwendungsfälle und alle Akteure darstellt
 |===
 |ID                          |**<<AF002>>**
 |Name                        |Abendkasse-Ticketverkauf
-|Beschreibung                |ab 3 Tagen vor Eventbegin sollen Tickets an der Abendkasse gekauft werden können. Dabei wird in Camping und Tagestickets unterschieden. Alle Teckits haben eine eindeutige Nummer, die für die Eingangskontrolle verwendet wird.
+|Beschreibung                |ab 3 Tagen vor Eventbegin sollen Tickets an der Abendkasse gekauft werden können. Dabei wird in Camping und Tagestickets unterschieden. Alle Tickets haben eine eindeutige Nummer, die für die Eingangskontrolle verwendet wird.
 |Akteure                     |Ticket-Verkäufer, Besucher
 |Auslöser                    |Ein Besucher möchte ein Ticket kaufen
 |Voraussetzung(en)           a|
@@ -778,4 +778,3 @@ Beispiel: Was bedeutet "Kunde"? Ein Nutzer des Systems? Der Kunde des Projektes 
 
 [#13]
 == Offene Punkte
-Offene Punkte werden entweder direkt in der Spezifikation notiert. Wenn das Pflichtenheft zum finalen Review vorgelegt wird, sollte es keine offenen Punkte mehr geben.
