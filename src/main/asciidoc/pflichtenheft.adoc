@@ -9,6 +9,8 @@
 |0.1     | In Arbeit   | 10.10.2021          | Autor       | Initiale Version
 |0.2     | In Arbeit   | 26.10.2021          | Georg, Jan, Ahmad
        | -
+|0.3     | In Arbeit   | 29.10.2021          | Georg, Jan, Ahmad
+       | -
 |===
 
 == Inhaltsverzeichnis
@@ -390,6 +392,121 @@ Ein Nutzer öffnet den "Lageplan" Tab.
 2. Per Rechstklick auf Flächen im Lageplan auswählen, wofür diese Flächen genutzt werden (Bühne, Toilette, Catering, gesperrt)
 |Erweiterungen                 |Location wechseln
 |Funktionale Anforderungen    |<<F0001>>
+|===
+
+[cols="1h, 3"]
+[[AF011]]
+|===
+|ID                          |**<<AF011>>**
+|Name                        |Personal planen
+|Beschreibung                |Das Planungsteam kann festlegen, wie viele Mitarbeiter für Security, Catering usw.
+eingestellt werden müssen
+|Akteure                     |Planer
+|Auslöser                    |Ein Planer öffnet den "Personal" Tab.
+|Voraussetzung(en)           a|Ein Planer ist eingeloggt.
+|Essentielle Schritte        a|
+|Erweiterungen               |
+|Funktionale Anforderungen   |<<F0001>>
+|===
+
+[cols="1h, 3"]
+[[AF012]]
+|===
+|ID                          |**<<AF012>>**
+|Name                        |Finanzübersicht
+|Beschreibung                |Das Planungsteam kann sich anzeigen lassen welche Kosten das geplante Personal,
+Equipment usw. verursacht.
+|Akteure                     |Planer
+|Auslöser                    |Ein Planer öffnet den "Kosten" Tab.
+|Voraussetzung(en)           a|Ein Planer ist eingeloggt.
+|Essentielle Schritte        a|
+|Erweiterungen               |
+|Funktionale Anforderungen   |<<F0001>>
+|===
+
+[cols="1h, 3"]
+[[AF013]]
+|===
+|ID                          |**<<AF013>>**
+|Name                        |Login / Logout
+|Beschreibung                |Das Personal muss sich anmelden um auf Programmfunktionen zuzugreifen, die
+zu einer bestimmten Rolle gehören.
+|Akteure                     |Planer, Festivalleiter, Catering-Personal, Einlass-Personal, Ticket-Verkäufer
+|Auslöser                    |
+_Login_: Ein Mitarbeiter möchte auf die Programmfunktionen für seine Rolle zugreifen.
+
+_Logout_: Ein Mitarbeiter möchte sich abmelden.
+|Voraussetzung(en)           a|
+_Login_: Es ist kein Nutzer eingeloggt.
+
+_Logout_: Ein Nutzer ist eingeloggt.
+|Essentielle Schritte        a|
+_Login_:
+
+_Logout_:
+|Erweiterungen               |
+|Funktionale Anforderungen   |<<F0001>>
+|===
+
+[cols="1h, 3"]
+[[AF014]]
+|===
+|ID                          |**<<AF014>>**
+|Name                        |Kartenpreis festlegen
+|Beschreibung                |Das Planungsteam kann Preise für die verschiedenen Ticketklassen
+entsprechend der Kosten des Festivals setzen.
+|Akteure                     |Planer
+|Auslöser                    |Ein Planer möchte im "Kosten" Tab den Ticketpreis anpassen.
+|Voraussetzung(en)           a|
+Das Festival hat noch nicht begonnen.
+
+Ein Planer ist eingeloggt.
+|Essentielle Schritte        a|
+|Erweiterungen               |
+|Funktionale Anforderungen   |<<F0001>>
+|===
+
+[cols="1h, 3"]
+[[AF015]]
+|===
+|ID                          |**<<AF015>>**
+|Name                        |Ticket ausdrucken
+|Beschreibung                |Tickets die in Filialen gekauft wurden werden dort ausgedruckt.
+|Akteure                     |Ticket-Verkäufer
+|Auslöser                    |In einer Fililale wird ein Ticket gekauft.
+|Voraussetzung(en)           a|Ein Ticket-Verkäufer ist eingeloggt.
+|Essentielle Schritte        a|
+|Erweiterungen               |
+|Funktionale Anforderungen   |<<F0001>>
+|===
+
+[cols="1h, 3"]
+[[AF016]]
+|===
+|ID                          |**<<AF016>>**
+|Name                        |Festival hinzufügen
+|Beschreibung                |Ein weiteres Festival zu der Liste der aktuell zu planenden Festivals hinzufügen.
+|Akteure                     |Planer
+|Auslöser                    |Ein Planer möchte mit der Planung für ein weiteres Festival beginnen.
+|Voraussetzung(en)           a|Ein Planer ist eingeloggt. 
+|Essentielle Schritte        a|
+|Erweiterungen               |
+|Funktionale Anforderungen   |<<F0001>>
+|===
+
+[cols="1h, 3"]
+[[AF017]]
+|===
+|ID                          |**<<AF017>>**
+|Name                        |Übersicht für Manager
+|Beschreibung                |Der Manager kann Mitarbeitern einen Account zuweisen und Informationen über
+Mitarbeiter und Finanzen des Unternehmens einsehen.
+|Akteure                     |Manager der „FVIV GmbH“
+|Auslöser                    |Der Manager möchte Informationen über das Unternehmen einsehen.
+|Voraussetzung(en)           a|Der Manager ist eingeloggt.
+|Essentielle Schritte        a|
+|Erweiterungen               |
+|Funktionale Anforderungen   |<<F0001>>
 |===
 
 [#7]
