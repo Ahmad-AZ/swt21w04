@@ -156,8 +156,12 @@ Unterstützte Browserversionen:
 [cols="1, 1, 1, 1"]
 |===
 |Name |Priorität (1-5) |Beschreibung |Ziele
-|FVIV - Gmbh (Planungsabteilung) | 5 |Auftragsgeber für dieses Projekt, plant Festivals (Ort und Zeit) a| - Einfache Planung von Festivals
+|Manager der „FVIV GmbH“ | 5 | Auftragsgeber für dieses Projekt a| - Größerer Umsatz für das Unternehmen
+durch effizienteres Festivalmanagement
+
+|Planungsabteilung | 4 |Plant Festivals (Ort und Zeit) a| - Einfache Planung von Festivals
 - Verhinderung von Doppelbuchungen
+
 a|Festival Personal:
 --
 - Catering
@@ -166,9 +170,12 @@ a|Festival Personal:
 - Sicherheit
 - Bühnentechniker| 4 |Hauptnutzer der Software, können während des Festivals verschiedene Management aktivitäten über Terminals erledigen a| - Benutzerfreundliche Oberfläche
 - Sicherheit: jede Personal-gruppe kann nur auf ihr eigenes Interface zugreifen
+
 |Veranstaltungsleiter / Festivalleiter / Chef | 4 |Hauptnutzer der Software, kann während des Festivals auf Informationen des Personals zugreifen und ggf. notwendige Management Aktionen ausführen (z.b. Zutaten für das Catering nachbestellen) a| - Benutzerfreundliche Oberfläche
+
 |Besucher | 1 |Festival Besucher, die über Terminals den Lageplan und die Spielpläne der Bühnen einsehen können a| - Benutzerfreundliche Oberfläche
 - Sicherheit: Besucher können nicht auf die Interfaces des Personals zugreifen
+
 |Entwickler | 4 |Entwickler, die diese Software entwickeln oder später warten müssen a| - Einfache erweiterung des Systems
 - Geringe Wartungsarbeiten an dem System
 - Gute Debugging möglichkeiten
