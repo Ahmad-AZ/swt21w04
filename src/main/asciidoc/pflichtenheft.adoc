@@ -201,6 +201,9 @@ Dokumentieren Sie ihre Top-Level-Architektur mit Hilfe eines Komponentendiagramm
 |Einlass-Personal |kontrolliert Tickets am Eingang
 |Festivalleiter |kann Lager überprüfen und Nachbestellung tätigen, empfängt Nachrichten vom Personal
 |Planer |Plant das Festival
+|Ticket-Verkäufer |kann ein valides Ticket generieren und ausdrucken
+|Manager der „FVIV GmbH“ |kann Accounts der Mitarbeiter kontrollieren und sich
+betriebswirtschaftliche Informationen über das Unternehmen anzeigen lassen
 |===
 
 [#6_2]
@@ -402,9 +405,15 @@ Ein Nutzer öffnet den "Lageplan" Tab.
 |Beschreibung                |Das Planungsteam kann festlegen, wie viele Mitarbeiter für Security, Catering usw.
 eingestellt werden müssen
 |Akteure                     |Planer
-|Auslöser                    |Ein Planer öffnet den "Personal" Tab.
+|Auslöser                    |Ein Planer möchte das Personal für das Festival anpassen.
 |Voraussetzung(en)           a|Ein Planer ist eingeloggt.
 |Essentielle Schritte        a|
+1. Ein Planer öffnet den "Personal" Tab.
+
+2. Er passt die Anzahl der Mitarbeiter in einem der Bereiche an.
+
+3. Wurde die Anzahl der Security Mitarbeiter angepasst, so wird überprüft,
+ob die Anzahl den Vorgaben entspricht.
 |Erweiterungen               |
 |Funktionale Anforderungen   |<<F0001>>
 |===
@@ -415,11 +424,15 @@ eingestellt werden müssen
 |ID                          |**<<AF012>>**
 |Name                        |Finanzübersicht
 |Beschreibung                |Das Planungsteam kann sich anzeigen lassen welche Kosten das geplante Personal,
-Equipment usw. verursacht.
+Equipment usw. verursachen.
 |Akteure                     |Planer
-|Auslöser                    |Ein Planer öffnet den "Kosten" Tab.
+|Auslöser                    |Ein Planer möchte die Kosten des Festivals einsehen.
 |Voraussetzung(en)           a|Ein Planer ist eingeloggt.
 |Essentielle Schritte        a|
+1. Ein Planer öffnet den "Kosten" Tab.
+
+2. Er prüft wie viele Karten verkauft werden müssen,
+um die Kosten des Festivals zu decken.
 |Erweiterungen               |
 |Funktionale Anforderungen   |<<F0001>>
 |===
@@ -443,7 +456,18 @@ _Logout_: Ein Nutzer ist eingeloggt.
 |Essentielle Schritte        a|
 _Login_:
 
+1. Ein Nutzer klickt den "Login" Button
+
+2. Er gibt seine Nutzerdaten ein
+
+3. Wurden valide Nutzerdaten eingegeben, so können Funktionen
+der Software entsprechend der Rolle des Nutzers verwendet werden
+
 _Logout_:
+
+1. Ein Nutzer klickt den "Logout" Button
+
+2. Das Programm geht in den Besuchermodus
 |Erweiterungen               |
 |Funktionale Anforderungen   |<<F0001>>
 |===
@@ -456,12 +480,17 @@ _Logout_:
 |Beschreibung                |Das Planungsteam kann Preise für die verschiedenen Ticketklassen
 entsprechend der Kosten des Festivals setzen.
 |Akteure                     |Planer
-|Auslöser                    |Ein Planer möchte im "Kosten" Tab den Ticketpreis anpassen.
+|Auslöser                    |Ein Planer möchte den Ticketpreis anpassen.
 |Voraussetzung(en)           a|
 Das Festival hat noch nicht begonnen.
 
 Ein Planer ist eingeloggt.
 |Essentielle Schritte        a|
+1. Ein Planer öffnet den "Kosten" Tab.
+
+2. Er passt den Preis für eine der Ticketklassen an.
+
+3. Der Planer überprüft ob bei diesem Preis die Kosten des Festivals gedeckt werden. 
 |Erweiterungen               |
 |Funktionale Anforderungen   |<<F0001>>
 |===
@@ -476,6 +505,9 @@ Ein Planer ist eingeloggt.
 |Auslöser                    |In einer Fililale wird ein Ticket gekauft.
 |Voraussetzung(en)           a|Ein Ticket-Verkäufer ist eingeloggt.
 |Essentielle Schritte        a|
+1. In einer Filiale wird ein Ticket gekauft, falls noch Tickets verfügbar sind
+
+2. Das Ticket wird für den Käufer ausgedruckt
 |Erweiterungen               |
 |Funktionale Anforderungen   |<<F0001>>
 |===
@@ -491,6 +523,9 @@ Ein Planer ist eingeloggt.
 |Voraussetzung(en)           a|Ein Planer ist eingeloggt. 
 |Essentielle Schritte        a|
 |Erweiterungen               |
+1. Ein Planer Klickt "Festival Hinzufügen"
+
+2. Er gibt grundlegende Informationen wie Name und Zeitraum des Festivals an
 |Funktionale Anforderungen   |<<F0001>>
 |===
 
@@ -505,6 +540,11 @@ Mitarbeiter und Finanzen des Unternehmens einsehen.
 |Auslöser                    |Der Manager möchte Informationen über das Unternehmen einsehen.
 |Voraussetzung(en)           a|Der Manager ist eingeloggt.
 |Essentielle Schritte        a|
+1. Der Manager meldet sich im System an
+
+2. Er erstellt einen neuen Mitarbeiteraccount oder prüft
+welche Mitarbeiter angemeldet sind oder lässt sich Informationen und Visualisierungen zu
+Umsatz, Ausgaben,... anzeigen
 |Erweiterungen               |
 |Funktionale Anforderungen   |<<F0001>>
 |===
