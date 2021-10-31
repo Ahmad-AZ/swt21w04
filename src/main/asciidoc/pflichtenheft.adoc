@@ -163,7 +163,7 @@ durch effizienteres Festivalmanagement
 - Verhinderung von Doppelbuchungen
 
 a|Festival Personal:
---
+
 - Catering
 - Ticketverkauf
 - Einlass
@@ -186,11 +186,11 @@ a|Festival Personal:
 
 [#5_1]
 === Kontextdiagramm
-image::Kontextdiagramm.jpg[]
+image::diagrams/context_diagram.png[]
 
 [#5_2]
 === Top-Level-Architektur
-Dokumentieren Sie ihre Top-Level-Architektur mit Hilfe eines Komponentendiagramm.
+image::diagrams/TLA.png[]
 
 [#6]
 == Anwendungsfälle
@@ -831,7 +831,7 @@ betriebswirtschaftliche Daten, wie Umsatz, Ausgaben,... , abzurufen und grafisch
 |Beschreibung
 
 
-|[[F00023]]<<F00023>>
+|[[F00026]]<<F00026>>
 |v0.1
 | Katalog filtern
 a|
@@ -841,7 +841,7 @@ Das System sollte die Funktionalität bieten, den Katalog zu filtern
 
 
 
-|[[F00024]]<<F00024>>
+|[[F00027]]<<F00027>>
 |v0.1
 |Warenkorb bearbeiten
 a|
@@ -932,7 +932,7 @@ Für jeden Dialog:
 
 [#10_1]
 === Überblick: Klassendiagramm
-image::Klassendiagramm.jpg[]
+image::diagrams/class_diagram.png[]
 
 [#10_2]
 === Klassen und Enumerationen
@@ -954,9 +954,7 @@ Jeder Testfall soll mit einer ID versehen werde, um später zwischen den Dokumen
 
 [#12]
 == Glossar
-Sämtliche Begriffe, die innerhalb des Projektes verwendet werden und deren gemeinsames Verständnis aller beteiligten Stakeholder essentiell ist, sollten hier aufgeführt werden.
-Insbesondere Begriffe der zu implementierenden Domäne wurden bereits beschrieben, jedoch gibt es meist mehr Begriffe, die einer Beschreibung bedürfen. +
-Beispiel: Was bedeutet "Kunde"? Ein Nutzer des Systems? Der Kunde des Projektes (Auftraggeber)?
 
 [#13]
 == Offene Punkte
+/
