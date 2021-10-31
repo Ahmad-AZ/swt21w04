@@ -194,7 +194,7 @@ image::diagrams/TLA.png[]
 
 [#6]
 == Anwendungsfälle
-
+image::diagrams/use_case_diagram.PNG[]
 [#6_1]
 === Akteure
 [options="header"]
