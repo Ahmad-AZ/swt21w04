@@ -925,6 +925,16 @@ Konkrete Absprachen - beispielsweise ob der grafische Prototyp oder die Dialogla
 Erstellen Sie ein Übersichtsdiagramm, das das Zusammenspiel Ihrer Masken zur Laufzeit darstellt. Also mit welchen Aktionen zwischen den Masken navigiert wird.
 //Die nachfolgende Abbildung zeigt eine an die Pinnwand gezeichnete Dialoglandkarte. Ihre Karte sollte zusätzlich die Buttons/Funktionen darstellen, mit deren Hilfe Sie zwischen den Masken navigieren.
 
+image::ui/ScrSht 1 Login.png[]
+image::ui/ScrSht 2.png[]
+image::ui/ScrSht 3.png[]
+image::ui/ScrSht 4.png[]
+image::ui/ScrSht 5.png[]
+image::ui/ScrSht 6.png[]
+image::ui/ScrSht 7.png[]
+image::ui/ScrSht 8.png[]
+image::ui/ScrSht 9.png[]
+
 [#9_2]
 === Dialogbeschreibung
 Für jeden Dialog:
