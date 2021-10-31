@@ -946,13 +946,31 @@ Für jeden Dialog:
 
 - Agentur – Bands erfassen
 * Hier können dann die Bands von der Agentur eingepflegt werden.
+     Dazu muss ein Bandname, eine Addresse, eine eMail und die Anzahl der Mitglieder angegeben werden.
 * -
 * -
 * -
 - Agentur - Locations erfassen
+* Hier können die Locations von der Agentur erfasst werden.
+    Dazu müssen der Name, die Besucherzahl, die Bühnenanzahl und die Adresse angegeben werden.
+	Pro Location können Bereiche eingepflegt werden.
+	Die Bereiche haben eine Art (Camping, Parkplatz, Catering und Stage), eine Besucheranzahl und einen Namen.
+* -
+* -
+* -
 - Agentur - Personal erfassen
+* Hier wird das verfügbare Personal erfasst.
+    Pro Arbeiter wird ein Nickname, eine eMail- Adresse, die Adresse und ein Text zur Qualifikation eingegeben.
+* -
+* -
+* -
 - Agentur – Bühnenmaterial erfassen
-- Manager – Festival anlegen
+* Hier wird das verfügbare Equipment erfasst.
+    Für jedes Gerät wird ein Name, der Mietpreis pro Tag,  der Anbieter sowie Höhe, Breite und Tiefe eingegeben.
+* -
+* -
+* -
+- Manager . Location buchen
 * Hier muss ein Termin festgelegt werden und die passende Location gebucht werden.
     Doppelbuchungen der Location sind auf jeden Fall zu vermeiden.
     Jede Location bietet Platz für eine maximale Anzahl von Besuchern und Bühnen.
@@ -981,6 +999,7 @@ Für jeden Dialog:
 * -
 * -
 * -
+
 
 [#10]
 == Datenmodell
