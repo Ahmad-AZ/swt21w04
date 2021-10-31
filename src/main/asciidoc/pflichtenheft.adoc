@@ -370,7 +370,6 @@ _Öffnen des Festivalmanagers_: Wenn sich noch kein Mitarbeiter angemeldet hat w
 
 _Mitarbeiterlogout_: Wenn kein Mitarbeiter angemeldet ist werden Informationen zum Festival angezeigt
 |Voraussetzung(en)           a|
-siehe [Link zu Login]
 |Essentielle Schritte           a|
 1. Besuchermodus wird durch starten des Programms oder Logout eines Mitarbeiters aktiviert
 
@@ -388,8 +387,7 @@ siehe [Link zu Login]
 |Akteure                     |Festivalleiter, Planungsabteilung
 |Auslöser                    |
 Ein Nutzer öffnet den "Personal und Künstler" Tab
-|Voraussetzung(en)           a|
-Ein Nutzer mit Planungsberechtigungen ist eingeloggt
+|Voraussetzung(en)           a|Ein Planer ist eingeloggt
 |Essentielle Schritte           a|
 1. Der "Personal und Künstler" Tab wird aufgerufen
 
@@ -411,7 +409,7 @@ denen anschließend eine Bühne und Zeit zugewiesen wird
 |Auslöser                    |
 Ein Nutzer öffnet den "Lageplan" Tab
 |Voraussetzung(en)           a|
-1. Ein Nutzer mit Planungsberechtigungen ist eingeloggt
+1. Ein Planer ist eingeloggt
 
 2. Das gewählte Festival hat noch nicht begonnen.
 |Essentielle Schritte           a|
@@ -967,9 +965,357 @@ image::diagrams/class_diagram.png[]
 
 [#11]
 == Akzeptanztestfälle
-Mithilfe von Akzeptanztests wird geprüft, ob die Software die funktionalen Erwartungen und Anforderungen im Gebrauch erfüllt. Diese sollen und können aus den Anwendungsfallbeschreibungen und den UML-Sequenzdiagrammen abgeleitet werden. D.h., pro (komplexen) Anwendungsfall gibt es typischerweise mindestens ein Sequenzdiagramm (welches ein Szenarium beschreibt). Für jedes Szenarium sollte es einen Akzeptanztestfall geben. Listen Sie alle Akzeptanztestfälle in tabellarischer Form auf.
-Jeder Testfall soll mit einer ID versehen werde, um später zwischen den Dokumenten (z.B. im Test-Plan) referenzieren zu können.
 
+:Pre: Vorbedingung(en)
+:Event: Ereigniss
+:Result: Erwartetes Ergebniss
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0011>>
+|Anwendungsfall|<<AF001>>
+|{Pre}        a|
+- Ein Ticket-Verkäufer ist eingeloggt
+
+- Bis zum Eventbeginn sind noch mindestens drei Tage Zeit
+
+- Es sind noch Tickets verfügbar
+|{Event}      a|Der Verkäufer klickt "Ticket generieren"
+und wählt die Art des Tickets aus. Er klickt "Ticket drucken".
+|{Result}     a|
+- Ein Ticket wird ausgedruckt
+
+- Die Ticketnummer auf diesem Ticket wird auf keinem anderen Ticket für dieses Festival verwendet
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0012>>
+|Anwendungsfall|<<AF001>>
+|{Pre}        a|
+- Ein Ticket-Verkäufer ist eingeloggt
+
+- Bis zum Eventbeginn sind noch mindestens drei Tage Zeit
+
+- Es sind keine Tickets mehr verfügbar
+|{Event}      a|Der Verkäufer klickt "Ticket generieren"
+|{Result}     a|Dem Verkäufer wird angezeigt, dass keine Tickets mehr verfügbar sind
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0021>>
+|Anwendungsfall|<<AF002>>
+|{Pre}        a|
+|{Event}      a|
+|{Result}     a|
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0022>>
+|Anwendungsfall|<<AF002>>
+|{Pre}        a|
+|{Event}      a|
+|{Result}     a|
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0031>>
+|Anwendungsfall|<<AF003>>
+|{Pre}        a|Ein Einlass-Mitarbeiter ist eingeloggt
+|{Event}      a|Das Einlasspersonal bekommt ein gültiges Ticket gezeigt
+|{Result}     a|
+- Die Ticketnummer wird vom Programm bestätigt
+
+- Die Ticketnummer wird für spätere Abfragen als ungültig markiert
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0032>>
+|Anwendungsfall|<<AF003>>
+|{Pre}        a|Ein Einlass-Mitarbeiter ist eingeloggt
+|{Event}      a|Das Einlasspersonal bekommt ein Ticket gezeigt, was bereits
+verwendet wurde
+|{Result}     a|Das Programm erkennt, dass es sich um eine bereits benutzte Ticketnummer handelt
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0033>>
+|Anwendungsfall|<<AF003>>
+|{Pre}        a|Ein Einlass-Mitarbeiter ist eingeloggt
+|{Event}      a|Das Einlasspersonal bekommt ein Ticket mit ungültiger Ticketnummer gezeigt
+|{Result}     a|
+Die Ticketnummer wird vom Programm nicht erkannt
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0041>>
+|Anwendungsfall|<<AF004>>
+|{Pre}        a|Ein Catering- oder Einlassmitarbeiter ist eingeloggt 
+|{Event}      a|Der Mitarbeiter schreibt eine nichtleere Nachricht und schickt diese ab
+|{Result}     a|Die Nachricht kann vom Festivalleiter gelesen werden
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0042>>
+|Anwendungsfall|<<AF004>>
+|{Pre}        a|Ein Catering- oder Einlassmitarbeiter ist eingeloggt 
+|{Event}      a|Der Mitarbeiter versucht eine leere Nachricht abzuschicken
+|{Result}     a|Es wird keine Nachricht abgeschickt
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0051>>
+|Anwendungsfall|<<AF005>>
+|{Pre}        a|Ein Catering-Mitarbeiter ist eingeloggt
+|{Event}      a|
+- Ein Besucher kauft einen Artikel der noch Ausreichend auf Lager ist
+
+- Nach dem Kauf sind auch noch genügend Artikel auf Lager
+|{Result}     a|Es wird keine Meldung an den Festivalleiter gesendet
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0052>>
+|Anwendungsfall|<<AF005>>
+|{Pre}        a|Ein Catering-Mitarbeiter ist eingeloggt
+|{Event}      a|
+- Ein Besucher kauft einen Artikel der noch Ausreichend auf Lager ist
+
+- Nach dem Kauf sind nicht mehr genügend Artikel auf Lager
+|{Result}     a|Es wird eine Meldung an den Festivalleiter gesendet
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0061>>
+|Anwendungsfall|<<AF006>>
+|{Pre}        a|Der Festivalleiter ist eingeloggt
+|{Event}      a|Es wird ein Artikel von einem Besucher gekauft
+|{Result}     a|Im Terminal des Festivalleiters verringert sich die Anzahl der verfügbaren Artikel um 1
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0062>>
+|Anwendungsfall|<<AF006>>
+|{Pre}        a|Der Festivalleiter ist eingeloggt
+|{Event}      a|Der Festivalleiter bestellt 3 Stück eines Artikels nach
+|{Result}     a|Der Lagerbestand des Artikels wird um 3 Stück erhöht 
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0071>>
+|Anwendungsfall|<<AF007>>
+|{Pre}        a|
+- Der Festivalleiter ist eingeloggt
+
+- Es gibt Bühnen auf denen Künstler spielen werden
+|{Event}      a|Der Festivalleiter klickt auf "Bühnenbelegung" in der Navigationsleiste
+|{Result}     a|Ihm wird entsprechend den Entscheidungen des Planungsteams angezeigt,
+auf welcher Bühne welche Künstler zu welcher Uhrzeit spielen
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0072>>
+|Anwendungsfall|<<AF007>>
+|{Pre}        a|
+- Der Festivalleiter ist eingeloggt
+
+- Es wurden 2 Camping-Tickets und 2 Tageskarten verkauft
+|{Event}      a|Der Festivalleiter klickt auf "Statistiken" in der Navigationsleiste
+|{Result}     a|Ihm wird angezeigt, dass 2 Camping-Tickets und 2 Tageskarten verkauft wurden 
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0081>>
+|Anwendungsfall|<<AF008>>
+|{Pre}        a|
+|{Event}      a|
+|{Result}     a|
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0082>>
+|Anwendungsfall|<<AF008>>
+|{Pre}        a|
+|{Event}      a|
+|{Result}     a|
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0091>>
+|Anwendungsfall|<<AF009>>
+|{Pre}        a|
+|{Event}      a|
+|{Result}     a|
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0092>>
+|Anwendungsfall|<<AF009>>
+|{Pre}        a|
+|{Event}      a|
+|{Result}     a|
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0101>>
+|Anwendungsfall|<<AF010>>
+|{Pre}        a|
+|{Event}      a|
+|{Result}     a|
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0102>>
+|Anwendungsfall|<<AF010>>
+|{Pre}        a|
+|{Event}      a|
+|{Result}     a|
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0111>>
+|Anwendungsfall|<<AF011>>
+|{Pre}        a|
+|{Event}      a|
+|{Result}     a|
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0112>>
+|Anwendungsfall|<<AF011>>
+|{Pre}        a|
+|{Event}      a|
+|{Result}     a|
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0121>>
+|Anwendungsfall|<<AF012>>
+|{Pre}        a|
+|{Event}      a|
+|{Result}     a|
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0122>>
+|Anwendungsfall|<<AF012>>
+|{Pre}        a|
+|{Event}      a|
+|{Result}     a|
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0131>>
+|Anwendungsfall|<<AF013>>
+|{Pre}        a|
+|{Event}      a|
+|{Result}     a|
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0132>>
+|Anwendungsfall|<<AF013>>
+|{Pre}        a|
+|{Event}      a|
+|{Result}     a|
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0141>>
+|Anwendungsfall|<<AF014>>
+|{Pre}        a|
+|{Event}      a|
+|{Result}     a|
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0142>>
+|Anwendungsfall|<<AF014>>
+|{Pre}        a|
+|{Event}      a|
+|{Result}     a|
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0151>>
+|Anwendungsfall|<<AF015>>
+|{Pre}        a|
+|{Event}      a|
+|{Result}     a|
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0152>>
+|Anwendungsfall|<<AF015>>
+|{Pre}        a|
+|{Event}      a|
+|{Result}     a|
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0161>>
+|Anwendungsfall|<<AF016>>
+|{Pre}        a|
+|{Event}      a|
+|{Result}     a|
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0162>>
+|Anwendungsfall|<<AF016>>
+|{Pre}        a|
+|{Event}      a|
+|{Result}     a|
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0171>>
+|Anwendungsfall|<<AF017>>
+|{Pre}        a|
+|{Event}      a|
+|{Result}     a|
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0172>>
+|Anwendungsfall|<<AF017>>
+|{Pre}        a|
+|{Event}      a|
+|{Result}     a|
+|===
 
 [#12]
 == Glossar
