@@ -2,10 +2,28 @@
  <head>
   <title>Festivalmanager Agentur</title>
   <script language="javascript" src="../menu.js"></script>
+  <script language="javascript" src="../dialog.js"></script>
+  <script language="javascript" src="../data/dataScheme.js"></script>
+  <script language="javascript" src="../data/materials.js"></script>
+  <script language="javascript" src="../data/suppliers.js"></script>
  </head>
  <body>
   <script language="javascript" />
-   document.writeln(menu("agency", "stages", "agency/"));
+	document.writeln(menu("agency", "stages", "agency/"));
+	const descDialog =	{};
+	var data = 
+	{
+		"materials" : new Data(materials, dataScheme.materials),
+		"suppliers" : new Data(suppliers, dataScheme.suppliers)
+	}
+  </script>
+  <table border="1">
+   <tr><th>Name</th><th>Mietpreis</th><th>Anbieter</th><th>H&ouml;he</th><th>Breite</th><th>Tiefe</th></tr>
+   <tr><td>gro&szlig;e B&uuml;hne</td><td>15000 €</td><td>Zoundhouse</td><td>24</td><td>50</td><td>20</td></tr>
+   <tr><td>kleine B&uuml;hne</td><td>10000 €</td><td>Zoundhouse</td><td>12</td><td>25</td><td>10</td></tr>
+  </table>
+  <script>
+   	// document.writeln(tableDialog(descDialog, data));
   </script>
  </body>
 </html>

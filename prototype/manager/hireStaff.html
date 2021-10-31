@@ -2,10 +2,40 @@
  <head>
   <title>Festivalmanager Manager Personal einstellen</title>
   <script language="javascript" src="../menu.js"></script>
+  <script language="javascript" src="../dialog.js"></script>
+  <script language="javascript" src="../data/festivals.js"></script>
+  <script language="javascript" src="../data/workers.js"></script>
+  <script language="javascript" src="../data/employments.js"></script>
  </head>
  <body>
   <script language="javascript" />
-   document.writeln(menu("manager", "hireStaff"));
+	document.writeln(menu("manager", "hireStaff"));
+	const descChooseDialog =
+	{
+		
+	};
+	const dataChooseDialog =
+	{
+	
+	};
+	const schemeChooseDialog =
+	{
+	
+	};
+	const descTableDialog =
+	{
+		
+	};
+	const dataTableDialog =
+	{
+	
+	};
+	const schemeTableDialog =
+	{
+	
+	};
+	document.writeln(chooseDialog(descChooseDialog, dataChooseDialog, schemeChooseDialog));
+    document.writeln(tableDialog(descTableDialog, dataTableDialog, schemeTableDialog));	
   </script>
 
   <table>

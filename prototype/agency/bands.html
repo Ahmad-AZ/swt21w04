@@ -2,10 +2,32 @@
  <head>
   <title>Festivalmanager Agentur</title>
   <script language="javascript" src="../menu.js"></script>
+  <script language="javascript" src="../dialog.js"></script>
+  <script language="javascript" src="../data/dataScheme.js"></script>
+  <script language="javascript" src="../data/bands.js"></script>
+  <script language="javascript" src="../data/addresses.js"></script>
  </head>
  <body>
   <script language="javascript" />
-   document.writeln(menu("agency", "bands"));
+	document.writeln(menu("agency", "bands"));
+	const descDialog = {};
+	var data = 
+	{
+		"bands" : new Data(bands, dataScheme.bands),
+		"addresses" : new Data(addresses, dataScheme.addresses)
+	};
+
+   </script>
+   
+   <table border="1">
+    <tr><th>Bandname</th><th>Adresse</th><th>eMail</th><th>Mitglieder</th></tr>
+	<tr><td>B-Sides</td><td>Robert Menzel<br>Schweizer Str. 12<br>01069 Dresden<br>Germany</td><td>robert.menzel@outlook.com</td><td>4</td></tr>
+	<tr><td>The Rolling Stones</td><td>Joyce Smyth<br><br>London<br>England</td><td>customerservicedigital@rollingstone.com</td><td>4</td></tr>
+    <tr><td>AC/DC</td><td>Michael Browning<br><br><br>Australia</td><td>michael@browningmangement.com</td><td>4</td></tr>
+   </table>
+   
+   <script>
+	//document.writeln(tableDialog(descDialog, data));
   </script>
   Hier können dann die Bands von der Agentur eingepflegt werden.
  </body>

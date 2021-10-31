@@ -5,7 +5,6 @@ const locations=
 		name:"Nürburgring",
 		cntVisitors:10000,
 		cntStages:3,
-		idFestival:1,
 		idAddresses:5
 	},
 	2:
@@ -13,7 +12,6 @@ const locations=
 		name:"Nürburgring",
 		cntVisitors:10000,
 		cntStages:3,
-		idFestival:1,
 		idAddresses:6
 	},
 	3:
@@ -21,7 +19,6 @@ const locations=
 		name:"Wacken Open Air",
 		cntVisitors:15000,
 		cntStages:3,
-		idFestival:3,
 		idAddresses:7
 	}
 }

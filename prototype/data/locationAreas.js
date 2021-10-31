@@ -1,4 +1,4 @@
-const locationArea =
+const locationAreas =
 {
 	1:
 	{

@@ -2,10 +2,42 @@
  <head>
   <title>Festivalmanager Manager LineUp anlegen</title>
   <script language="javascript" src="../menu.js"></script>
+  <script language="javascript" src="../dialog.js"></script>
+  <script language="javascript" src="../data/bands.js"></script>
+  <script language="javascript" src="../data/performances.js"></script>
+  <script language="javascript" src="../data/festivals.js"></script>
  </head>
  <body>
   <script language="javascript" />
-   document.writeln(menu("manager", "createLineUp"));
+	document.writeln(menu("manager", "createLineUp"));
+	
+	const descChooseDialog =
+	{
+		
+	};
+	const dataChooseDialog =
+	{
+	
+	};
+	const schemeChooseDialog =
+	{
+	
+	};
+	const descTableDialog =
+	{
+		
+	};
+	const dataTableDialog =
+	{
+	
+	};
+	const schemeTableDialog =
+	{
+	
+	};
+	document.writeln(chooseDialog(descChooseDialog, dataChooseDialog, schemeChooseDialog));
+    document.writeln(tableDialog(descTableDialog, dataTableDialog, schemeTableDialog));
+   
   </script>
   <table border="1">
    <tr>

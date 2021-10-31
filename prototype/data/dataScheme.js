@@ -1,6 +1,6 @@
 const dataScheme=
 {
-	adresses:
+	addresses:
 	{
 		primarykey:
 		{
@@ -90,8 +90,8 @@ const dataScheme=
 				{
 					1:"camping",
 					2:"park",
-					1:"catering",
-					2:"stage"
+					3:"catering",
+					4:"stage"
 				}
 			},
 			cntVisitors:
