@@ -934,6 +934,44 @@ Für jeden Dialog:
 3. Maskenelemente (Ein/Ausgabefelder, Aktionen wie Buttons, Listen, …)
 4. Evtl. Maskendetails, spezielle Widgets
 
+- Agentur – Bands erfassen
+* Hier können dann die Bands von der Agentur eingepflegt werden.
+* -
+* -
+* -
+- Agentur - Locations erfassen
+- Agentur - Personal erfassen
+- Agentur – Bühnenmaterial erfassen
+- Manager – Festival anlegen
+* Hier muss ein Termin festgelegt werden und die passende Location gebucht werden.
+    Doppelbuchungen der Location sind auf jeden Fall zu vermeiden.
+    Jede Location bietet Platz für eine maximale Anzahl von Besuchern und Bühnen.
+    Außerdem ist jede Location in verschiedene, eindeutig gekennzeichnete Bereiche unterteilt, die wiederum einen Teil der maximalen Besucherzahl fassen können und sich außerdem in Camping-, Park, Catering- und Stagebereiche einordnen lassen.
+* -
+* -
+* -
+- Manager – Festival managen
+* Sobald die Location gebucht ist können hier für dieses Festival Anpassungen durchgeführt werden, wie die Bühnenpositionierung, Toilettenbestückung, Cateringstände und es muss möglich sein, bestimmte Bereiche zu sperren.
+    Die genannten Gegenstände werden von externen Anbietern gemietet.
+* -
+* -
+* -
+- Manager – LineUp anlegen
+* In dieser Phase muss das "Line Up" zusammengestellt werden.
+    Dazu müssen Angebote bei bestimmten Künstlern eingeholt werden.
+    Anschließend werden aus diesen Angeboten Künstler ausgewählt
+    und es muss ein Spielplan für jede Bühne erstellt werden.
+    Manager – Personal einstellen
+    Neben den genannten Künstlern ist weiteres Personal erforderlich,
+    wie Sicherheitspersonal (mindestens einer pro 100 Besuchern),
+    Bedienung an den Cateringstanden,
+    Bühnentechniker (Anzahl wird durch die Band bestimmt)
+    sowie ein Veranstaltungsleiter.
+    Jede Arbeitskraft wird dabei auf Stundenbasis bezahlt.
+* -
+* -
+* -
+
 [#10]
 == Datenmodell
 
