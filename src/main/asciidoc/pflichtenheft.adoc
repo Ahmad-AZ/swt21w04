@@ -280,14 +280,32 @@ Anwendungsfall-Diagramm, das alle Anwendungsfälle und alle Akteure darstellt
 [[AF004]]
 |===
 |ID                          |**<<AF004>>**
-|Name                        |Catering-Personal An- und Abmeldung
-|Beschreibung                |Catering-Personal kann sich an den Verkaufsständen An- und Abmelden, um den Besuchern Essen zu verkaufen
-|Akteure                     |Catering-Personal
+|Name                        |Nachrichten senden
+|Beschreibung                |Die Mitarbeiter können dem Festivalleiter Nachrichten senden.
+|Akteure                     |Festivalleiter, Catering-Personal, Einlass-Personal
 |Auslöser                    |
-|Voraussetzung               a|- Anmeldung: An dem Verkaufsstand ist ein freier Platz
+_Nachricht senden_: Ein Mitarbeiter möchte mit dem Festivalleiter kommunizieren.
+
+_Nachricht empfangen_: Der Festivalleiter möchte prüfen, ob er
+ungelesene Nachrichte hat.
+|Voraussetzung(en)           a|
+_Nachricht senden_: Ein Mitarbeiter ist eingeloggt.
+
+_Nachricht empfangen_: Der Festivalleiter ist eingeloggt
 |Essentielle Schritte        a|
-- Anmeldung: Anmeldung über das Terminal
-- Abmeldung: Abmeldung über das Terminal
+_Nachricht senden_: 
+
+1. Ein Mitarbeiter wählt den Menüpunkt "Nachrichten" aus
+
+2. Der Mitarbeiter schreibt seine Nachricht
+
+3. Der Mitarbeiter klickt "Abschicken".
+
+_Nachricht empfangen_:
+
+1. Der Festivalleiter wählt den Menüpunkt "Nachrichten" aus.
+
+2. Falls es ungelesenen Nachrichten gibt, kann er diese lesen.
 |Erweiterungen               |
 |Funktionale Anforderungen   |<<F0001>>
 |===
@@ -335,7 +353,7 @@ Anwendungsfall-Diagramm, das alle Anwendungsfälle und alle Akteure darstellt
 |Akteure                     |Festivalleiter
 |Auslöser                    |Der Festivalleiter möchte Informationen über das Event
 |Voraussetzung               |Der Festivalleiter ist am entsprechenden Terminal angemeldet
-|Essentielle Schritte        |Abrufen der Informationen(Nachrichten von Mitarbeitern, Verkaufszahlen, Bühnenbelegung,...) an dem Terminal
+|Essentielle Schritte        |Abrufen der Informationen(Verkaufszahlen, Bühnenbelegung,...) an dem Terminal
 |Erweiterungen               |
 |Funktionale Anforderungen   |<<F0001>>
 |===
