@@ -224,7 +224,7 @@ Anwendungsfall-Diagramm, das alle Anwendungsfälle und alle Akteure darstellt
 |===
 |ID                          |**<<AF001>>**
 |Name                        |Ticketverkauf
-|Beschreibung                |bis 3 Tage vor Eventbegin sollen Tickets gekauft werden können. Dabei wird in Camping und Tagestickets unterschieden. Alle Tickets haben eine eindeutige Nummer, die für die Eingangskontrolle verwendet wird.
+|Beschreibung                |bis 3 Tage vor Eventbegin sollen Tickets gekauft werden können. Dabei wird in Camping und Tagestickets unterschieden. Alle Tickets haben eine eindeutige Nummer, die für die Eingangskontrolle verwendet wird
 |Akteure                     |Ticket-Verkäufer, Besucher
 |Auslöser                    |Ein Besucher möchte ein Ticket kaufen
 |Voraussetzung(en)           a|
@@ -244,7 +244,7 @@ Anwendungsfall-Diagramm, das alle Anwendungsfälle und alle Akteure darstellt
 |===
 |ID                          |**<<AF002>>**
 |Name                        |Abendkasse-Ticketverkauf
-|Beschreibung                |ab 3 Tagen vor Eventbegin sollen Tickets an der Abendkasse gekauft werden können. Dabei wird in Camping und Tagestickets unterschieden. Alle Tickets haben eine eindeutige Nummer, die für die Eingangskontrolle verwendet wird.
+|Beschreibung                |Ab 3 Tagen vor Eventbegin sollen Tickets an der Abendkasse gekauft werden können. Dabei wird in Camping und Tagestickets unterschieden. Alle Tickets haben eine eindeutige Nummer, die für die Eingangskontrolle verwendet wird.
 |Akteure                     |Ticket-Verkäufer, Besucher
 |Auslöser                    |Ein Besucher möchte ein Ticket kaufen
 |Voraussetzung(en)           a|
@@ -281,15 +281,15 @@ Anwendungsfall-Diagramm, das alle Anwendungsfälle und alle Akteure darstellt
 |===
 |ID                          |**<<AF004>>**
 |Name                        |Nachrichten senden
-|Beschreibung                |Die Mitarbeiter können dem Festivalleiter Nachrichten senden.
+|Beschreibung                |Die Mitarbeiter können dem Festivalleiter Nachrichten senden
 |Akteure                     |Festivalleiter, Catering-Personal, Einlass-Personal
 |Auslöser                    |
-_Nachricht senden_: Ein Mitarbeiter möchte mit dem Festivalleiter kommunizieren.
+_Nachricht senden_: Ein Mitarbeiter möchte mit dem Festivalleiter kommunizieren
 
 _Nachricht empfangen_: Der Festivalleiter möchte prüfen, ob er
-ungelesene Nachrichte hat.
+ungelesene Nachrichte hat
 |Voraussetzung(en)           a|
-_Nachricht senden_: Ein Mitarbeiter ist eingeloggt.
+_Nachricht senden_: Ein Mitarbeiter ist eingeloggt
 
 _Nachricht empfangen_: Der Festivalleiter ist eingeloggt
 |Essentielle Schritte        a|
@@ -299,13 +299,13 @@ _Nachricht senden_:
 
 2. Der Mitarbeiter schreibt seine Nachricht
 
-3. Der Mitarbeiter klickt "Abschicken".
+3. Der Mitarbeiter klickt "Abschicken"
 
 _Nachricht empfangen_:
 
-1. Der Festivalleiter wählt den Menüpunkt "Nachrichten" aus.
+1. Der Festivalleiter wählt den Menüpunkt "Nachrichten" aus
 
-2. Falls es ungelesenen Nachrichten gibt, kann er diese lesen.
+2. Falls es ungelesenen Nachrichten gibt, kann er diese lesen
 |Erweiterungen               |
 |Funktionale Anforderungen   |<<F0001>>
 |===
@@ -384,14 +384,14 @@ siehe [Link zu Login]
 |===
 |ID                         |**<<AF009>>**
 |Name                       |Line-Up planen
-|Beschreibung               |Im Festivalmanager können Bands für bestimmte Bühnen und Zeiten gebucht werden.
+|Beschreibung               |Im Festivalmanager können Bands für bestimmte Bühnen und Zeiten gebucht werden
 |Akteure                     |Festivalleiter, Planungsabteilung
 |Auslöser                    |
-Ein Nutzer öffnet den "Personal und Künstler" Tab.
+Ein Nutzer öffnet den "Personal und Künstler" Tab
 |Voraussetzung(en)           a|
-Ein Nutzer mit Planungsberechtigungen ist eingeloggt.
+Ein Nutzer mit Planungsberechtigungen ist eingeloggt
 |Essentielle Schritte           a|
-1. Der "Personal und Künstler" Tab wird aufgerufen.
+1. Der "Personal und Künstler" Tab wird aufgerufen
 
 2. Von einer Liste von Künstlern können Angebote eingeholt werden
 
@@ -406,16 +406,16 @@ denen anschließend eine Bühne und Zeit zugewiesen wird
 |===
 |ID                         |**<<AF010>>**
 |Name                       |Lagelplan anpassen
-|Beschreibung               |Im Festivalmanger kann eine Location für das Festival ausgewählt werden, auf dem Lageplan dieser Location können die Positionen von Bühnen, Catering, etc. angepasst werden.
+|Beschreibung               |Im Festivalmanger kann eine Location für das Festival ausgewählt werden, auf dem Lageplan dieser Location können die Positionen von Bühnen, Catering, etc. angepasst werden
 |Akteure                     |Festivalleiter, Planungsabteilung
 |Auslöser                    |
-Ein Nutzer öffnet den "Lageplan" Tab.
+Ein Nutzer öffnet den "Lageplan" Tab
 |Voraussetzung(en)           a|
-1. Ein Nutzer mit Planungsberechtigungen ist eingeloggt.
+1. Ein Nutzer mit Planungsberechtigungen ist eingeloggt
 
 2. Das gewählte Festival hat noch nicht begonnen.
 |Essentielle Schritte           a|
-1. Location aus einer Liste buchen, falls noch nicht gebucht wurde.
+1. Location aus einer Liste buchen, falls noch nicht gebucht wurde
 
 2. Per Rechstklick auf Flächen im Lageplan auswählen, wofür diese Flächen genutzt werden (Bühne, Toilette, Catering, gesperrt)
 |Erweiterungen                 |Location wechseln
@@ -430,15 +430,15 @@ Ein Nutzer öffnet den "Lageplan" Tab.
 |Beschreibung                |Das Planungsteam kann festlegen, wie viele Mitarbeiter für Security, Catering usw.
 eingestellt werden müssen
 |Akteure                     |Planer
-|Auslöser                    |Ein Planer möchte das Personal für das Festival anpassen.
-|Voraussetzung(en)           a|Ein Planer ist eingeloggt.
+|Auslöser                    |Ein Planer möchte das Personal für das Festival anpassen
+|Voraussetzung(en)           a|Ein Planer ist eingeloggt
 |Essentielle Schritte        a|
-1. Ein Planer öffnet den "Personal" Tab.
+1. Ein Planer öffnet den "Personal" Tab
 
-2. Er passt die Anzahl der Mitarbeiter in einem der Bereiche an.
+2. Er passt die Anzahl der Mitarbeiter in einem der Bereiche an
 
 3. Wurde die Anzahl der Security Mitarbeiter angepasst, so wird überprüft,
-ob die Anzahl den Vorgaben entspricht.
+ob die Anzahl den Vorgaben entspricht
 |Erweiterungen               |
 |Funktionale Anforderungen   |<<F0001>>
 |===
@@ -449,15 +449,15 @@ ob die Anzahl den Vorgaben entspricht.
 |ID                          |**<<AF012>>**
 |Name                        |Finanzübersicht
 |Beschreibung                |Das Planungsteam kann sich anzeigen lassen welche Kosten das geplante Personal,
-Equipment usw. verursachen.
+Equipment usw. verursachen
 |Akteure                     |Planer
-|Auslöser                    |Ein Planer möchte die Kosten des Festivals einsehen.
-|Voraussetzung(en)           a|Ein Planer ist eingeloggt.
+|Auslöser                    |Ein Planer möchte die Kosten des Festivals einsehen
+|Voraussetzung(en)           a|Ein Planer ist eingeloggt
 |Essentielle Schritte        a|
-1. Ein Planer öffnet den "Kosten" Tab.
+1. Ein Planer öffnet den "Kosten" Tab
 
 2. Er prüft wie viele Karten verkauft werden müssen,
-um die Kosten des Festivals zu decken.
+um die Kosten des Festivals zu decken
 |Erweiterungen               |
 |Funktionale Anforderungen   |<<F0001>>
 |===
@@ -468,16 +468,16 @@ um die Kosten des Festivals zu decken.
 |ID                          |**<<AF013>>**
 |Name                        |Login / Logout
 |Beschreibung                |Das Personal muss sich anmelden um auf Programmfunktionen zuzugreifen, die
-zu einer bestimmten Rolle gehören.
+zu einer bestimmten Rolle gehören
 |Akteure                     |Planer, Festivalleiter, Catering-Personal, Einlass-Personal, Ticket-Verkäufer
 |Auslöser                    |
-_Login_: Ein Mitarbeiter möchte auf die Programmfunktionen für seine Rolle zugreifen.
+_Login_: Ein Mitarbeiter möchte auf die Programmfunktionen für seine Rolle zugreifen
 
-_Logout_: Ein Mitarbeiter möchte sich abmelden.
+_Logout_: Ein Mitarbeiter möchte sich abmelden
 |Voraussetzung(en)           a|
-_Login_: Es ist kein Nutzer eingeloggt.
+_Login_: Es ist kein Nutzer eingeloggt
 
-_Logout_: Ein Nutzer ist eingeloggt.
+_Logout_: Ein Nutzer ist eingeloggt
 |Essentielle Schritte        a|
 _Login_:
 
@@ -503,19 +503,19 @@ _Logout_:
 |ID                          |**<<AF014>>**
 |Name                        |Kartenpreis festlegen
 |Beschreibung                |Das Planungsteam kann Preise für die verschiedenen Ticketklassen
-entsprechend der Kosten des Festivals setzen.
+entsprechend der Kosten des Festivals setzen
 |Akteure                     |Planer
-|Auslöser                    |Ein Planer möchte den Ticketpreis anpassen.
+|Auslöser                    |Ein Planer möchte den Ticketpreis anpassen
 |Voraussetzung(en)           a|
-Das Festival hat noch nicht begonnen.
+Das Festival hat noch nicht begonnen
 
-Ein Planer ist eingeloggt.
+Ein Planer ist eingeloggt
 |Essentielle Schritte        a|
-1. Ein Planer öffnet den "Kosten" Tab.
+1. Ein Planer öffnet den "Kosten" Tab
 
-2. Er passt den Preis für eine der Ticketklassen an.
+2. Er passt den Preis für eine der Ticketklassen an
 
-3. Der Planer überprüft ob bei diesem Preis die Kosten des Festivals gedeckt werden. 
+3. Der Planer überprüft ob bei diesem Preis die Kosten des Festivals gedeckt werden.
 |Erweiterungen               |
 |Funktionale Anforderungen   |<<F0001>>
 |===
@@ -525,10 +525,10 @@ Ein Planer ist eingeloggt.
 |===
 |ID                          |**<<AF015>>**
 |Name                        |Ticket ausdrucken
-|Beschreibung                |Tickets die in Filialen gekauft wurden werden dort ausgedruckt.
+|Beschreibung                |Tickets die in Filialen gekauft wurden werden dort ausgedruckt
 |Akteure                     |Ticket-Verkäufer
-|Auslöser                    |In einer Fililale wird ein Ticket gekauft.
-|Voraussetzung(en)           a|Ein Ticket-Verkäufer ist eingeloggt.
+|Auslöser                    |In einer Fililale wird ein Ticket gekauft
+|Voraussetzung(en)           a|Ein Ticket-Verkäufer ist eingeloggt
 |Essentielle Schritte        a|
 1. In einer Filiale wird ein Ticket gekauft, falls noch Tickets verfügbar sind
 
@@ -542,10 +542,10 @@ Ein Planer ist eingeloggt.
 |===
 |ID                          |**<<AF016>>**
 |Name                        |Festival hinzufügen
-|Beschreibung                |Ein weiteres Festival zu der Liste der aktuell zu planenden Festivals hinzufügen.
+|Beschreibung                |Ein weiteres Festival zu der Liste der aktuell zu planenden Festivals hinzufügen
 |Akteure                     |Planer
-|Auslöser                    |Ein Planer möchte mit der Planung für ein weiteres Festival beginnen.
-|Voraussetzung(en)           a|Ein Planer ist eingeloggt. 
+|Auslöser                    |Ein Planer möchte mit der Planung für ein weiteres Festival beginnen
+|Voraussetzung(en)           a|Ein Planer ist eingeloggt
 |Essentielle Schritte        a|
 |Erweiterungen               |
 1. Ein Planer Klickt "Festival Hinzufügen"
@@ -560,10 +560,10 @@ Ein Planer ist eingeloggt.
 |ID                          |**<<AF017>>**
 |Name                        |Übersicht für Manager
 |Beschreibung                |Der Manager kann Mitarbeitern einen Account zuweisen und Informationen über
-Mitarbeiter und Finanzen des Unternehmens einsehen.
+Mitarbeiter und Finanzen des Unternehmens einsehen
 |Akteure                     |Manager der „FVIV GmbH“
-|Auslöser                    |Der Manager möchte Informationen über das Unternehmen einsehen.
-|Voraussetzung(en)           a|Der Manager ist eingeloggt.
+|Auslöser                    |Der Manager möchte Informationen über das Unternehmen einsehen
+|Voraussetzung(en)           a|Der Manager ist eingeloggt
 |Essentielle Schritte        a|
 1. Der Manager meldet sich im System an
 
