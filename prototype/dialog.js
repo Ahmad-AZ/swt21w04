@@ -81,12 +81,17 @@ function tableDialog(descDialog, tableData)
 	return retValue;
 }
 
-function insertDialog(descDialog, tableDatas)
+function insertDialog(descDialog, tableData)
 {
     return "<h1>Insert Dialog here</h1>";
 }
 
-function chooseDialog(descDialog, tableDatas)
+function chooseDialog(descDialog, tableData)
 {
-    return "<h1>Choose Dialog here</h1>";
+	var retValue = "";
+	let i, length, column;
+	
+	retValue = toList(tableData);
+	
+	return retValue;
 }

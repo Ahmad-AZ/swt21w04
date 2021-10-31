@@ -3,6 +3,7 @@
   <title>Festivalmanager Manager LineUp anlegen</title>
   <script language="javascript" src="../menu.js"></script>
   <script language="javascript" src="../dialog.js"></script>
+  <script language="javascript" src="../data/dataScheme.js"></script>
   <script language="javascript" src="../data/bands.js"></script>
   <script language="javascript" src="../data/performances.js"></script>
   <script language="javascript" src="../data/festivals.js"></script>
@@ -11,34 +12,32 @@
   <script language="javascript" />
 	document.writeln(menu("manager", "createLineUp"));
 	
-	const descChooseDialog =
-	{
-		
-	};
-	const dataChooseDialog =
-	{
-	
-	};
-	const schemeChooseDialog =
-	{
-	
-	};
-	const descTableDialog =
-	{
-		
-	};
+	const descChooseDialog = {};
+	const dataChooseDialog = {"festivals" : new Data(festivals, dataScheme.festivals)};
+	const descTableDialog = {};
 	const dataTableDialog =
 	{
-	
+		"performances" : new Data(performances, dataScheme.performances),
+		"bands" : new Data(bands, dataScheme.bands)
 	};
-	const schemeTableDialog =
-	{
-	
-	};
-	document.writeln(chooseDialog(descChooseDialog, dataChooseDialog, schemeChooseDialog));
-    document.writeln(tableDialog(descTableDialog, dataTableDialog, schemeTableDialog));
-   
   </script>
+  
+  <select name="Festival" id="idFestival">
+   <option value="1">Rock am Ring</option>
+   <option value="2">Rock im Park</option>
+   <option value="3">Wacken</option>
+  </select>
+
+  <table border="1">
+   <tr><th>Band</th><th>Stage</th><th>Tantiemen</th></tr>
+   <tr><td>B-Sides</td><td>Alterna Stage</td><td>-10000 €</td></tr>
+   <tr><td>The Rolling Stones</td><td>Main Stage</td><td>150000 €</td></tr>
+   <tr><td>AC/DC</td><td>Main Stage</td><td>80000 €</td></tr>
+  </table>
+  
+  <br />
+  <br />
+  
   <table border="1">
    <tr>
     <td colspan="2">
@@ -81,5 +80,9 @@
 	</td>
    </tr>
   </table>
+  <script>
+  	//document.writeln(chooseDialog(descChooseDialog, dataChooseDialog));
+    //document.writeln(tableDialog(descTableDialog, dataTableDialog));
+  </script>
  </body>
 </html>

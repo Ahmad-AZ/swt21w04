@@ -3,15 +3,38 @@
   <title>Festivalmanager Manager Festival managen</title>
   <script language="javascript" src="../menu.js"></script>
   <script language="javascript" src="../dialog.js"></script>
+  <script language="javascript" src="../data/dataScheme.js"></script>
   <script language="javascript" src="../data/materials.js"></script>
   <script language="javascript" src="../data/festivals.js"></script>
   <script language="javascript" src="../data/locations.js"></script>
   <script language="javascript" src="../data/locationAreas.js"></script>
+  <script language="javascript" src="../data/rentals.js"></script>
  </head>
  <body>
   <script language="javascript" />
-   document.writeln(menu("manager", "manageFestival", "manager/"));
+	document.writeln(menu("manager", "manageFestival", "manager/"));
+	const descDialog =	{};
+	var data=
+	{
+		"festivals" : new Data(festivals, dataScheme.festivals),
+		"materials" : new Data(materials, dataScheme.materials),
+		"locations" : new Data(locations, dataScheme.locations),
+		"locationAreas" : new Data(locationAreas, dataScheme.locationAreas),
+		"rentals": new Data(rentals, dataScheme.rentals)
+	};
   </script>
+  <select name="Festival" id="idFestival">
+   <option value="1">Rock am Ring</option>
+   <option value="2">Rock im Park</option>
+   <option value="3">Wacken</option>
+  </select>
+  
+  <table border="1">
+   <tr><th>Gel&auml;nde</th><th>Mietbeginn</th><th>Mietende</th><th>Equipment</th><th>Mietpreis</th></tr>
+   <tr><td>StageArea #1<input type="checkbox" checked="checked"></td><td>2022-06-03</td><td>2022-06-03</td><td>gro&szlig;e B&uuml;hne</td><td>15000 €</td></tr>
+   <tr><td>StageArea #2<input type="checkbox" checked="checked"></td><td>2022-06-03</td><td>2022-06-03</td><td>kleine B&uuml;hne</td><td>10000 €</td></tr>
+  </table>
+  
   <table>
    <tr><td>Sobald die Location gebucht ist können hier für dieses Festival Anpassungen durchgeführt werden,
    <br />wie die Bühnenpositionierung, Toilettenbestückung, Cateringstände und es muss möglich sein,
@@ -19,5 +42,8 @@
    <br />Die genannten Gegenstände werden von externen Anbietern gemietet.
    </td></tr>
   </table>
+  <script>
+   //document.writeln(tableDialog(descDialog, data));
+  </script>
  </body>
 </html>

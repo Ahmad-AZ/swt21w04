@@ -3,25 +3,23 @@
   <title>Festivalmanager Manager Festival anlegen</title>
   <script language="javascript" src="../menu.js"></script>
   <script language="javascript" src="../dialog.js"></script>
+  <script language="javascript" src="../data/dataScheme.js"></script>
+  <script language="javascript" src="../data/locations.js"></script>
+  <script language="javascript" src="../data/locationAreas.js"></script>
+  <script language="javascript" src="../data/addresses.js"></script>
   <script language="javascript" src="../data/festivals.js"></script>
-  <script language="javascript" src="../data/locatations.js"></script>
  </head>
  <body>
   <script language="javascript" />
 	document.writeln(menu("manager", "createFestival"));
-	const descDialog =
+	const descDialog =	{};
+	var data = 
 	{
-		
+		"locations" : new Data(locations, dataScheme.locations),
+		"addresses" : new Data(addresses, dataScheme.addresses),
+		"locationAreas" : new Data(locationAreas, dataScheme.locationAreas),
+		"festivals" : new Data(festivals, dataScheme.festivals)
 	};
-	const dataDialog =
-	{
-	
-	};
-	const schemeDialog =
-	{
-	
-	};
-	document.writeln(insertDialog(descDialog, dataDialog, schemeDialog));
   </script>
 
   <form><fieldset>
@@ -73,5 +71,8 @@
 	<br />Das Gelände muss visualisiert werden können.
    </td></tr>
   </table>
+  <script>
+   //document.writeln(tableDialog(descDialog, data));
+  </script>
  </body>
 </html>
