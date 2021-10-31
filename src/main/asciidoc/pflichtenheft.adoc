@@ -596,12 +596,12 @@ können. Wenn ein Benutzer im System vorhanden ist, muss er in
 der Lage sein, sich zu authentifizieren, indem er die folgenden
 Informationen angibt:
 
-- Username
+- Benutzername
 - Passwort
 
 |[[F00002]]<<F00002>>
 |v0.1
-|Registration
+|Registrierung
 a|
 Das System muss einem nicht authentifizierten Benutzer
 (<<F00001>>) die Möglichkeit bieten, sich nach dem Aufruf des
@@ -609,7 +609,7 @@ Navigationselements namens "Registrieren" zu registrieren
 
 Die folgenden Informationen müssen angegeben werden:
 
-- Username (eindeutig)
+- Benutzername (eindeutig)
 - Passwort
 - Email-Adresse
 
@@ -936,13 +936,32 @@ image::diagrams/class_diagram.png[]
 
 [#10_2]
 === Klassen und Enumerationen
-Dieser Abschnitt stellt eine Vereinigung von Glossar und der Beschreibung von Klassen/Enumerationen dar. Jede Klasse und Enumeration wird in Form eines Glossars textuell beschrieben. Zusätzlich werden eventuellen Konsistenz- und Formatierungsregeln aufgeführt.
-
-// See http://asciidoctor.org/docs/user-manual/#tables
 [options="header"]
 |===
-|Klasse/Enumeration |Beschreibung |
-|…                  |…            |
+|Klasse/Enumeration |Beschreibung
+|Location |Ein Festivalgelände, das gebucht werden kann
+|Booking |Buchungskomponente, die das Buchen der Locations verwaltet und Überschneidungen / Doppelbuchungen verhindert
+|Map |Eine Karte eines Festivalgeländes mit Anpassungen für ein bestimmtes Festival (z.b. Bühnen- / Toilettenposition)
+|Schedule |Der Zeitplan für das gesamte Festival (welcher Künstler spielt wann auf welcher Bühne)
+|Stage |Eine Bühne, auf der ein Künstler spielen kann
+|Festival |Repräsentation des gesamten Festivals
+|Equipment |Geräte, die während dem Festival verwendet werden (Bühnen, Toiletten, ...)
+|Ticket |Ein Ticket mit einer eindeutigen Nummer, das für den Einlass benötigt wird
+|TicketType |Art des Tickets (Camping- oder Tagesticket)
+|Artist |Ein Künstler, der auf einer Bühne auftreten kann
+|Person |Eine Person, die an der Planung oder Umsetzung des Festivals arbeitet
+|StaffToHire |Eine Person, die an der Planung oder Umsetzung des Festivals arbeitet und vom FestivalManager bezahlt wird
+|Planner |Ein Angestellter der FVIV Gmbh, der Festivals plant
+|FestivalLeader |Der Festivalleiter
+|FestivalManager |Ein Manager der FVIV Gmbh. Er verteilt Logins an die Mitarbeiter
+|TicketSeller |Ein Ticketverkäufer
+|AdmissionStaff |Personal für die Eingangskontrolle
+|Security |Sicherheitspersonal, das auf dem Festivalgelände für Ordnung sorgt
+|CateringStaff |Verkäufer von Speißen und Getränken an Catering-Ständen
+|Finances |Finanzsystem, das Ein- und Ausgaben speichert und die Gesamtkosten berechnet
+|Stock |Das Lager für den Catering-Verkauf
+|Catering |Ein Verkaufsstand für Speißen und Getränke auf dem Vestivalgelände
+|Messages |Ein Nachrichtensystem, mit dem Mitarbeiter den Festivalleiter über verschiedene Sachen informieren können (z.b. wenn im Catering Zutaten aufgebraucht sind und nachbestellt werden müssen)
 |===
 
 
