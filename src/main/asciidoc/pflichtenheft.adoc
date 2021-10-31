@@ -6,10 +6,12 @@
 [cols="1, 1, 1, 1, 4"]
 |===
 |Version | Status      | Bearbeitungsdatum   | Autoren(en) |  Vermerk
-|0.1     | In Arbeit   | 10.10.2021          | Autor       | Initiale Version
+|0.1     | In Arbeit   | 10.10.2021          | -       | Initiale Version
 |0.2     | In Arbeit   | 26.10.2021          | Georg, Jan, Ahmad
        | -
 |0.3     | In Arbeit   | 29.10.2021          | Georg, Jan, Ahmad
+       | -
+|1.0     | Großteils fertig   | 31.10.2021          | Georg, Jan, Ahmad
        | -
 |===
 
@@ -186,7 +188,7 @@ a|Festival Personal:
 
 [#5_1]
 === Kontextdiagramm
-image::diagrams/context_diagram.png[]
+image::diagrams/ContextDiagram.png[]
 
 [#5_2]
 === Top-Level-Architektur
@@ -215,7 +217,7 @@ betriebswirtschaftliche Informationen über das Unternehmen anzeigen lassen
 
 [#6_2]
 === Überblick Anwendungsfalldiagramm
-Anwendungsfall-Diagramm, das alle Anwendungsfälle und alle Akteure darstellt
+image::diagrams/UseCaseDiagram.png[]
 
 [#6_3]
 === Anwendungsfallbeschreibungen
@@ -369,7 +371,7 @@ _Nachricht empfangen_:
 _Öffnen des Festivalmanagers_: Wenn sich noch kein Mitarbeiter angemeldet hat werden Informationen zum Festival gezeigt
 
 _Mitarbeiterlogout_: Wenn kein Mitarbeiter angemeldet ist werden Informationen zum Festival angezeigt
-|Voraussetzung(en)           a|
+|Voraussetzung(en)           a|Es ist kein Nutzer angemeldet
 |Essentielle Schritte           a|
 1. Besuchermodus wird durch starten des Programms oder Logout eines Mitarbeiters aktiviert
 
@@ -403,7 +405,7 @@ denen anschließend eine Bühne und Zeit zugewiesen wird
 [[AF010]]
 |===
 |ID                         |**<<AF010>>**
-|Name                       |Lagelplan anpassen
+|Name                       |Lageplan anpassen
 |Beschreibung               |Im Festivalmanger kann eine Location für das Festival ausgewählt werden, auf dem Lageplan dieser Location können die Positionen von Bühnen, Catering, etc. angepasst werden
 |Akteure                     |Festivalleiter, Planungsabteilung
 |Auslöser                    |
@@ -546,7 +548,7 @@ Ein Planer ist eingeloggt
 |Voraussetzung(en)           a|Ein Planer ist eingeloggt
 |Essentielle Schritte        a|
 |Erweiterungen               |
-1. Ein Planer Klickt "Festival Hinzufügen"
+1. Ein Planer klickt "Festival Hinzufügen"
 
 2. Er gibt grundlegende Informationen wie Name und Zeitraum des Festivals an
 |Funktionale Anforderungen   |<<F0001>>
@@ -930,7 +932,7 @@ Für jeden Dialog:
 
 [#10_1]
 === Überblick: Klassendiagramm
-image::diagrams/class_diagram.png[]
+image::diagrams/ClassDiagram.png[]
 
 [#10_2]
 === Klassen und Enumerationen
@@ -981,11 +983,11 @@ image::diagrams/class_diagram.png[]
 
 - Es sind noch Tickets verfügbar
 |{Event}      a|Der Verkäufer klickt "Ticket generieren"
-und wählt die Art des Tickets aus. Er klickt "Ticket drucken".
+und wählt die Art des Tickets aus
 |{Result}     a|
-- Ein Ticket wird ausgedruckt
+- Ein Ticket mit Informationen zum Festival wird generiert
 
-- Die Ticketnummer auf diesem Ticket wird auf keinem anderen Ticket für dieses Festival verwendet
+- Die generierte Ticketnummer wird auf keinem anderen Ticket für dieses Festival verwendet
 |===
 
 [cols="1h, 4"]
@@ -997,9 +999,9 @@ und wählt die Art des Tickets aus. Er klickt "Ticket drucken".
 
 - Bis zum Eventbeginn sind noch mindestens drei Tage Zeit
 
-- Es sind keine Tickets mehr verfügbar
-|{Event}      a|Der Verkäufer klickt "Ticket generieren"
-|{Result}     a|Dem Verkäufer wird angezeigt, dass keine Tickets mehr verfügbar sind
+- Es sind keine Tageskarten mehr verfügbar
+|{Event}      a|Der Verkäufer klickt "Ticket generieren" und wählt eine Tageskarte aus
+|{Result}     a|Dem Verkäufer wird angezeigt, dass keine Tageskarten mehr verfügbar sind
 |===
 
 [cols="1h, 4"]
@@ -1007,8 +1009,11 @@ und wählt die Art des Tickets aus. Er klickt "Ticket drucken".
 |ID            |<<AT0021>>
 |Anwendungsfall|<<AF002>>
 |{Pre}        a|
-|{Event}      a|
-|{Result}     a|
+- Die Abendkasse ist eröffnet
+
+- Es sind Tickets für die Abendkasse verfügbar
+|{Event}      a|Das Einlasspersonal prüft ob noch Tickets verfügbar sind
+|{Result}     a|Dem Einlasspersonal wird angezeigt, dass noch Besucher eingelassen werden dürfen
 |===
 
 [cols="1h, 4"]
@@ -1016,8 +1021,11 @@ und wählt die Art des Tickets aus. Er klickt "Ticket drucken".
 |ID            |<<AT0022>>
 |Anwendungsfall|<<AF002>>
 |{Pre}        a|
-|{Event}      a|
-|{Result}     a|
+- Die Abendkasse ist eröffnet
+
+- Es sind keine Tickets für die Abendkasse mehr verfügbar
+|{Event}      a|Das Einlasspersonal prüft ob noch Tickets verfügbar sind
+|{Result}     a|Dem Einlasspersonal wird angezeigt, dass keine Besucher mehr eingelassen werden dürfen
 |===
 
 [cols="1h, 4"]
@@ -1141,27 +1149,27 @@ auf welcher Bühne welche Künstler zu welcher Uhrzeit spielen
 |===
 |ID            |<<AT0081>>
 |Anwendungsfall|<<AF008>>
-|{Pre}        a|
-|{Event}      a|
-|{Result}     a|
+|{Pre}        a|Es ist kein Nutzer eingeloggt
+|{Event}      a|Ein Besucher wählt "Lageplan" in der Navigationsleiste aus
+|{Result}     a|Der Lageplan zum Festival wird angezeigt
 |===
 
 [cols="1h, 4"]
 |===
 |ID            |<<AT0082>>
 |Anwendungsfall|<<AF008>>
-|{Pre}        a|
-|{Event}      a|
-|{Result}     a|
+|{Pre}        a|Es ist kein Nutzer eingeloggt
+|{Event}      a|Ein Besucher wählt "Spielplan" in der Navigationsleiste aus
+|{Result}     a|Der Spielplan zum Festvial wird angezeigt
 |===
 
 [cols="1h, 4"]
 |===
 |ID            |<<AT0091>>
 |Anwendungsfall|<<AF009>>
-|{Pre}        a|
-|{Event}      a|
-|{Result}     a|
+|{Pre}        a|Ein Planer ist Eingeloggt
+|{Event}      a|Der Planer holt im Tab "Personal und Künstler" ein Angebot für einen Künstler ein
+|{Result}     a|Für den Künstler ist nun sichtbar, an welchen Zeiten er zu welcher Gage auftreten kann
 |===
 
 [cols="1h, 4"]
@@ -1169,8 +1177,11 @@ auf welcher Bühne welche Künstler zu welcher Uhrzeit spielen
 |ID            |<<AT0092>>
 |Anwendungsfall|<<AF009>>
 |{Pre}        a|
-|{Event}      a|
-|{Result}     a|
+- Ein Planer ist eingeloggt
+
+- Es wurde mindestens von einem Künstler ein Angebot eingeholt
+|{Event}      a|Der Planer weißt einen Künstler zu einer verfügbaren Zeit eine Bühne zu
+|{Result}     a|Der Künstler wird zu dieser Zeit gebucht
 |===
 
 [cols="1h, 4"]
@@ -1178,8 +1189,12 @@ auf welcher Bühne welche Künstler zu welcher Uhrzeit spielen
 |ID            |<<AT0101>>
 |Anwendungsfall|<<AF010>>
 |{Pre}        a|
-|{Event}      a|
-|{Result}     a|
+- Ein Planer ist eingeloggt
+
+- Es wurde noch keine Location ausgewählt
+|{Event}      a|Ein Planer wählt eine Location aus der Liste der Locations aus, die 
+im gewählten Zeitslot verfügbar sind
+|{Result}     a|Die Location wird für das Festival gebucht
 |===
 
 [cols="1h, 4"]
@@ -1187,8 +1202,11 @@ auf welcher Bühne welche Künstler zu welcher Uhrzeit spielen
 |ID            |<<AT0102>>
 |Anwendungsfall|<<AF010>>
 |{Pre}        a|
-|{Event}      a|
-|{Result}     a|
+- Ein Planer ist eingeloggt
+
+- Es wurde schon eine Location gewählt
+|{Event}      a|Ein Planer wählt eine Belegung für eine Fäche der Location aus
+|{Result}     a|Die Belegung wird für das Festival gebucht
 |===
 
 [cols="1h, 4"]
@@ -1196,8 +1214,11 @@ auf welcher Bühne welche Künstler zu welcher Uhrzeit spielen
 |ID            |<<AT0111>>
 |Anwendungsfall|<<AF011>>
 |{Pre}        a|
-|{Event}      a|
-|{Result}     a|
+- Ein Planer ist eingeloggt
+
+- Das Festival kann bis zu 8000 Besucher haben
+|{Event}      a|Der Planer trägt im Feld für die Anzahl der Sicherheitskräfte "80" ein
+|{Result}     a|Die Anzahl der Sicherheitskräfte wird auf 80 gesetzt
 |===
 
 [cols="1h, 4"]
@@ -1205,26 +1226,37 @@ auf welcher Bühne welche Künstler zu welcher Uhrzeit spielen
 |ID            |<<AT0112>>
 |Anwendungsfall|<<AF011>>
 |{Pre}        a|
-|{Event}      a|
-|{Result}     a|
+- Ein Planer ist eingeloggt
+
+- Das Festival kann bis zu 8000 Besucher haben
+|{Event}      a|Der Planer trägt im Feld für die Anzahl der Sicherheitskräfte "70" ein
+|{Result}     a|Dem Planer wird angezeigt, dass mindestens 80 Sicherheitskräfte gebucht werden müssen
 |===
 
 [cols="1h, 4"]
 |===
 |ID            |<<AT0121>>
 |Anwendungsfall|<<AF012>>
-|{Pre}        a|
-|{Event}      a|
-|{Result}     a|
+|{Pre}        a|Ein Planer ist eingeloggt
+|{Event}      a|Der Planer öffnet den "Kosten" Tab
+|{Result}     a|Der Planer kann sehen welche Kosten das Festival verursacht
+und wie viele Kosten die einzelnen Mitarbeiter und Mieten verursachen
 |===
 
 [cols="1h, 4"]
 |===
 |ID            |<<AT0122>>
 |Anwendungsfall|<<AF012>>
-|{Pre}        a|
+- Ein Planer ist eingeloggt
+
+- Ein Festival verursacht Kosten von 3 Millionen Euro
+
+- Camping-Tickets kosten 300 Euro und Tageskarten 100 Euro
 |{Event}      a|
-|{Result}     a|
+- Der Planer öffnet den "Kosten" Tab
+
+- Die Ticketpreis reicht bei den erwarteten Verkäufen von 5000 Camping-Tickets und 4000 Tageskarten nicht aus, um die Kosten zu decken
+|{Result}     a|Der Planer kann sehen, dass die Ticketpreise nicht ausreichen hoch sind
 |===
 
 [cols="1h, 4"]
@@ -1232,8 +1264,17 @@ auf welcher Bühne welche Künstler zu welcher Uhrzeit spielen
 |ID            |<<AT0131>>
 |Anwendungsfall|<<AF013>>
 |{Pre}        a|
-|{Event}      a|
-|{Result}     a|
+- Es ist kein Benutzer angemeldet
+
+- Folgende Accountdaten gehören zu einem Account mit Planer-Rolle
+
+** Nutzername: Jan
+
+** Passwort: test
+
+|{Event}      a|Ein Benutzer klickt auf "Login" und gibt 
+bei Nutzername "Jan" und bei Passwort "test" ein
+|{Result}     a|Der Benutzer kann auf die Funktionen zu Planung von Festivals zugreifen
 |===
 
 [cols="1h, 4"]
@@ -1241,8 +1282,29 @@ auf welcher Bühne welche Künstler zu welcher Uhrzeit spielen
 |ID            |<<AT0132>>
 |Anwendungsfall|<<AF013>>
 |{Pre}        a|
-|{Event}      a|
+- Es ist kein Benutzer angemeldet
+
+- Folgende Accountdaten gehören zu keinem Account
+
+** Nutzername: Jan
+
+** Passwort: test
+
+|{Event}      a|Ein Benutzer klickt auf "Login" und gibt 
+bei Nutzername "Jan" und bei Passwort "test" ein
+|{Result}     a|Der Benutzer wird nicht angemeldet
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0133>>
+|Anwendungsfall|<<AF013>>
+|{Pre}        a|Ein Benutzer ist angemeldet
+|{Event}      a|Der Benutzer klickt auf "Logout"
 |{Result}     a|
+- Der Benutzer ist nicht mehr angemeldet
+
+- Er kann nicht mehr auf Funktionen einer bestimmten Rolle zugreifen
 |===
 
 [cols="1h, 4"]
@@ -1250,8 +1312,15 @@ auf welcher Bühne welche Künstler zu welcher Uhrzeit spielen
 |ID            |<<AT0141>>
 |Anwendungsfall|<<AF014>>
 |{Pre}        a|
+- Ein Planer ist eingeloggt
+
+- Ein Festival verursacht Kosten von 1 Millionen Euro
 |{Event}      a|
-|{Result}     a|
+- Ein Planer setzt den Preis eines Tagestickets auf 200 Euro und den Preis 
+eines Camping-Tickets auf 350 Euro
+
+- Der Ticketpreis reicht bei den erwarteten Verkäufen von 6000 Camping-Tickets und 3000 Tageskarten aus, um die Kosten zu decken
+|{Result}     a|Der Ticketpreis wird geändert
 |===
 
 [cols="1h, 4"]
@@ -1259,8 +1328,18 @@ auf welcher Bühne welche Künstler zu welcher Uhrzeit spielen
 |ID            |<<AT0142>>
 |Anwendungsfall|<<AF014>>
 |{Pre}        a|
+- Ein Planer ist eingeloggt 
+
+- Ein Festival verursacht Kosten von 3 Millionen Euro
 |{Event}      a|
+- Ein Planer setzt den Preis eines Tagestickets auf 200 Euro und den Preis 
+eines Camping-Tickets auf 350 Euro
+
+- Der Ticketpreis reicht bei den erwarteten Verkäufen von 6000 Camping-Tickets und 3000 Tageskarten nicht aus, um die Kosten zu decken
 |{Result}     a|
+- Dem Planer wird eine Pop-up Warnung über die zu niedrigen Ticketpreise angezeigt
+
+- Der Ticketpreis wird geändert
 |===
 
 [cols="1h, 4"]
@@ -1268,8 +1347,11 @@ auf welcher Bühne welche Künstler zu welcher Uhrzeit spielen
 |ID            |<<AT0151>>
 |Anwendungsfall|<<AF015>>
 |{Pre}        a|
-|{Event}      a|
-|{Result}     a|
+- Ein Ticket-Verkäufer ist eingeloggt
+
+- Ein Camping-Ticket wurde generiert
+|{Event}      a|Der Ticket-Verkäufer klickt Ticket ausdrucken
+|{Result}     a|Ein Camping-Ticket mit der richtigen Ticketnummer wird ausgedruckt
 |===
 
 [cols="1h, 4"]
@@ -1277,26 +1359,37 @@ auf welcher Bühne welche Künstler zu welcher Uhrzeit spielen
 |ID            |<<AT0152>>
 |Anwendungsfall|<<AF015>>
 |{Pre}        a|
-|{Event}      a|
-|{Result}     a|
+- Ein Ticket-Verkäufer ist eingeloggt
+
+- Ein Tagesticket wurde generiert
+|{Event}      a|Der Ticket-Verkäufer klickt Ticket ausdrucken
+|{Result}     a|Ein Tagesticket mit der richtigen Ticketnummer wird ausgedruckt
 |===
 
 [cols="1h, 4"]
 |===
 |ID            |<<AT0161>>
 |Anwendungsfall|<<AF016>>
-|{Pre}        a|
+|{Pre}        a|Ein Planer ist eingeloggt
 |{Event}      a|
-|{Result}     a|
+- Der Planer klickt "Festival hinzufügen"
+
+- Im vom Planer gewählten Zeitslot sind noch Locations verfügbar
+|{Result}     a|Alle Planer können die Funktionen zur Festivalplanung auf das
+hinzugefügte Festival anwenden
 |===
 
 [cols="1h, 4"]
 |===
 |ID            |<<AT0162>>
 |Anwendungsfall|<<AF016>>
-|{Pre}        a|
+|{Pre}        a|Ein Planer ist eingeloggt
 |{Event}      a|
-|{Result}     a|
+- Der Planer klickt "Festival hinzufügen"
+
+- Im vom Planer gewählten Zeitslot sind keine Locations mehr verfügbar
+|{Result}     a|Dem Planer wird angezeigt, dass im gewählten Zeitslot 
+keine Locations mehr verfügbar sind
 |===
 
 [cols="1h, 4"]
@@ -1304,8 +1397,17 @@ auf welcher Bühne welche Künstler zu welcher Uhrzeit spielen
 |ID            |<<AT0171>>
 |Anwendungsfall|<<AF017>>
 |{Pre}        a|
+- Der Manager ist Eingeloggt
+
+- Es existiert noch kein Account mit Nutzernamen "Jan"
 |{Event}      a|
-|{Result}     a|
+- Der Manager klickt auf "Account anlegen"
+
+- Er gibt die folgenden Nutzerdaten an: 
+** Nutzername: Jan
+** Passwort: test
+
+|{Result}     a|Der Account wird angelegt
 |===
 
 [cols="1h, 4"]
@@ -1313,8 +1415,35 @@ auf welcher Bühne welche Künstler zu welcher Uhrzeit spielen
 |ID            |<<AT0172>>
 |Anwendungsfall|<<AF017>>
 |{Pre}        a|
+- Der Manager ist Eingeloggt
+
+- Es existiert bereits ein Account mit Nutzernamen "Jan"
 |{Event}      a|
-|{Result}     a|
+- Der Manager klickt auf "Account anlegen"
+
+- Er gibt die folgenden Nutzerdaten an: 
+** Nutzername: Jan
+** Passwort: test
+
+|{Result}     a|Dem Manager wird angezeigt, dass er einen anderen Nutzernamen wählen muss
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0173>>
+|Anwendungsfall|<<AF017>>
+|{Pre}        a|Der Manager ist eingeloggt
+|{Event}      a|Er klickt auf "Statistiken" in der Navigationsleiste
+|{Result}     a|Im werden Betriebswirtschaftliche Informationen angezeigt
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0174>>
+|Anwendungsfall|<<AF017>>
+|{Pre}        a|Der Manager ist eingeloggt
+|{Event}      a|Er klickt auf "Angemeldete Mitarbeiter" in der Navigationsleiste
+|{Result}     a|Im wird angezeigt, welche Mitarbeiter aktuell eingeloggt sind
 |===
 
 [#12]
