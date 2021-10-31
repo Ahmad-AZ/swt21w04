@@ -12,7 +12,7 @@
 |0.3     | In Arbeit   | 29.10.2021          | Georg, Jan, Ahmad
        | -
 |1.0     | Großteils fertig   | 31.10.2021          | Georg, Jan, Ahmad
-       | -
+       | Robert muss seinen Prototyp noch ergänzen
 |===
 
 == Inhaltsverzeichnis
@@ -188,7 +188,7 @@ a|Festival Personal:
 
 [#5_1]
 === Kontextdiagramm
-image::diagrams/ContextDiagram.png[]
+image::diagrams/context_diagram.png[]
 
 [#5_2]
 === Top-Level-Architektur
@@ -217,7 +217,7 @@ betriebswirtschaftliche Informationen über das Unternehmen anzeigen lassen
 
 [#6_2]
 === Überblick Anwendungsfalldiagramm
-image::diagrams/UseCaseDiagram.PNG[]
+image::diagrams/use_case_diagram.PNG[]
 Anwendungsfall-Diagramm, das alle Anwendungsfälle und alle Akteure darstellt
 
 [#6_3]
@@ -241,6 +241,7 @@ Anwendungsfall-Diagramm, das alle Anwendungsfälle und alle Akteure darstellt
 |Erweiterungen               |
 |Funktionale Anforderungen   |<<F0001>>
 |===
+image::diagrams/sequence_diagrams/buy_ticket.jpg[]
 
 [cols="1h, 3"]
 [[AF002]]
@@ -360,6 +361,7 @@ _Nachricht empfangen_:
 |Erweiterungen               |
 |Funktionale Anforderungen   |<<F0001>>
 |===
+image::diagrams/sequence_diagrams/leader_terminal.jpg[]
 
 [cols="1h, 3"]
 [[AF008]]
@@ -422,6 +424,7 @@ Ein Nutzer öffnet den "Lageplan" Tab
 |Erweiterungen                 |Location wechseln
 |Funktionale Anforderungen    |<<F0001>>
 |===
+image::diagrams/sequence_diagrams/change_location.jpg[]
 
 [cols="1h, 3"]
 [[AF011]]
@@ -497,6 +500,7 @@ _Logout_:
 |Erweiterungen               |
 |Funktionale Anforderungen   |<<F0001>>
 |===
+image::diagrams/sequence_diagrams/staff_login.jpg[]
 
 [cols="1h, 3"]
 [[AF014]]
@@ -554,6 +558,7 @@ Ein Planer ist eingeloggt
 2. Er gibt grundlegende Informationen wie Name und Zeitraum des Festivals an
 |Funktionale Anforderungen   |<<F0001>>
 |===
+image::diagrams/sequence_diagrams/add_festival.jpg[]
 
 [cols="1h, 3"]
 [[AF017]]
@@ -574,6 +579,7 @@ Umsatz, Ausgaben,... anzeigen
 |Erweiterungen               |
 |Funktionale Anforderungen   |<<F0001>>
 |===
+image::diagrams/sequence_diagrams/add_staff.jpg[]
 
 [#7]
 == Funktionale Anforderungen
@@ -933,7 +939,7 @@ Für jeden Dialog:
 
 [#10_1]
 === Überblick: Klassendiagramm
-image::diagrams/ClassDiagram.png[]
+image::diagrams/class_diagram.png[]
 
 [#10_2]
 === Klassen und Enumerationen
