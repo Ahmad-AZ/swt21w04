@@ -217,6 +217,8 @@ betriebswirtschaftliche Informationen über das Unternehmen anzeigen lassen
 
 [#6_2]
 === Überblick Anwendungsfalldiagramm
+image::diagrams/use_case_diagram.PNG[]
+Anwendungsfall-Diagramm, das alle Anwendungsfälle und alle Akteure darstellt
 
 [#6_3]
 === Anwendungsfallbeschreibungen
