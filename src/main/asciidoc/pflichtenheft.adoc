@@ -217,7 +217,6 @@ betriebswirtschaftliche Informationen über das Unternehmen anzeigen lassen
 
 [#6_2]
 === Überblick Anwendungsfalldiagramm
-image::diagrams/UseCaseDiagram.png[]
 
 [#6_3]
 === Anwendungsfallbeschreibungen
