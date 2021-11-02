@@ -10,7 +10,23 @@
  <body>
   <script language="javascript" />
 	document.writeln(menu("agency", "stages", "agency/"));
-	const descDialog =	{};
+	const descDialog =
+	{
+		primaryTable : "materials",
+		foreignTables : 
+		{
+			"suppliers" : 
+			{
+				"html": function(referedData)
+				{
+					let retValue= referedData.name;
+					// alert(toList(referedData)+"\n"+retValue);				
+					return retValue;
+				}
+			}
+		}	
+	
+	};
 	var data = 
 	{
 		"materials" : new Data(materials, dataScheme.materials),

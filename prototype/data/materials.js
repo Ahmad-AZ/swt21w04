@@ -4,7 +4,7 @@ const materials=
 	{
 		name:"große Bühne",
 		rentalPrice:15000.00, //zur Miete mit Aufbau
-		idSuppliers:"2",
+		idSupplier:"2",
 		height:24.0,
 		width:50.0,
 		depth:20.0
@@ -13,7 +13,7 @@ const materials=
 	{
 		name:"kleine Bühne",
 		rentalPrice:10000.00, //zur Miete mit Aufbau
-		idSuppliers:"2",
+		idSupplier:"2",
 		height:12.0,
 		width:25.0,
 		depth:10.0

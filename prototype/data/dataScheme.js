@@ -157,7 +157,7 @@ const dataScheme=
 				type:"varchar",
 				length:80
 			},
-			email:
+			eMail:
 			{
 				type:"varchar",
 				length:120
@@ -447,6 +447,10 @@ const dataScheme=
 			{
 				type:"varchar",
 				length:45
+			},
+			rentalPrice:
+			{
+				type:"float",
 			},
 			height:
 			{

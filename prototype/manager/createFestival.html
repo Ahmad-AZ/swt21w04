@@ -12,7 +12,29 @@
  <body>
   <script language="javascript" />
 	document.writeln(menu("manager", "createFestival"));
-	const descDialog =	{};
+	const descDialog =
+	{
+		primaryTable : "locations",
+		foreignTables : 
+		{
+			"addresses" : 
+			{
+				"html": function(referedData)
+				{
+					let retValue= 
+						referedData.name+"<br />"+
+						referedData.street+"<br />"+
+						referedData.zip+" "+
+						referedData.city+"<br />"+
+						referedData.country;
+					// alert(toList(referedData)+"\n"+retValue);				
+					return retValue;
+				}
+			},
+			"locationAreas": {},
+			"festivals": {}
+		}
+	};
 	var data = 
 	{
 		"locations" : new Data(locations, dataScheme.locations),
