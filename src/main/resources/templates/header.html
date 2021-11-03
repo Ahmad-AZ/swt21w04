@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Header</title>
+    </head>
+    <body>
+        <div th:fragment="header">
+            <div class="left menu">user specific menus here</div>
+            <div class="right menu">
+                <a class="item" th:href="@{/login}" sec:authorize="!isAuthenticated()" th:text="#{header.login}">Login</a>
+                <form class="item" sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+                    Authenticated as <span sec:authentication="name"></span>
+                    <button type="submit" class="ui button" th:text="#{header.logout}">Logout</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
