@@ -2,21 +2,43 @@
  <head>
   <title>Festivalmanager Manager Personal einstellen</title>
   <script language="javascript" src="../menu.js"></script>
+  <script language="javascript" src="../dialog.js"></script>
+  <script language="javascript" src="../data/dataScheme.js"></script>
+  <script language="javascript" src="../data/festivals.js"></script>
+  <script language="javascript" src="../data/workers.js"></script>
+  <script language="javascript" src="../data/employments.js"></script>
  </head>
  <body>
   <script language="javascript" />
-   document.writeln(menu("manager", "hireStaff"));
+	document.writeln(menu("manager", "hireStaff"));
+	const descChooseDialog = {};
+	const dataChooseDialog = {"festivals" : new Data(festivals, dataScheme.festivals)};
+	const descTableDialog =	{};
+	const dataTableDialog =
+	{
+		"workers" : new Data(workers, dataScheme.workers),
+		"employments" : new Data(employments, dataScheme.employments),
+		"addresses": new Data(addresses, dataScheme.addresses)
+	};
   </script>
 
-  <table>
-   <tr><td>
-    Neben den genannten K&uuml;nstlern ist weiteres Personal erforderlich, 
-    <br />wie Sicherheitspersonal (mindestens einer pro 100 Besuchern),
-	<br />Bedienung an den Cateringstanden,
-	<br />B&uuml;hnentechniker (Anzahl wird durch die Band bestimmt)
-	<br />sowie ein Veranstaltungsleiter.
-	<br />Jede Arbeitskraft wird dabei auf Stundenbasis bezahlt.
-   </td></tr>
+  <select name="Festival" id="idFestival">
+   <option value="1">Rock am Ring</option>
+   <option value="2">Rock im Park</option>
+   <option value="3">Wacken</option>
+  </select>
+
+  <table border="1">
+   <tr><th>Arbeiter</th><th>AnstellungsBeginn</th><th>Anstellungsende</th><th>Arbeitszeit</th><th>Stundenlohn</th><th>Login</th><th>Passwort</th><th>Nutzergruppe</th>
+   <tr><td>RoMenz<br/>robert.menzel@outlook.com<br />html, javascript, php, sql, java, c#, c++</td><td>2022-06-03</td><td>2022-06-03</td><td>1600 min</td><td>15.00 €</td><td>RoMenz</td><td>******</td><td>Entwickler</td></tr>
   </table>
+
+   <br /><br />
+   <hr>
+    Mockup:
+  <script>
+	document.writeln(chooseDialog(descChooseDialog, dataChooseDialog));
+    document.writeln(tableDialog(descTableDialog, dataTableDialog));	
+  </script>
  </body>
 </html>

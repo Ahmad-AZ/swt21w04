@@ -2,22 +2,90 @@
  <head>
   <title>Festivalmanager Manager Festival anlegen</title>
   <script language="javascript" src="../menu.js"></script>
+  <script language="javascript" src="../dialog.js"></script>
+  <script language="javascript" src="../data/dataScheme.js"></script>
+  <script language="javascript" src="../data/locations.js"></script>
+  <script language="javascript" src="../data/locationAreas.js"></script>
+  <script language="javascript" src="../data/addresses.js"></script>
+  <script language="javascript" src="../data/festivals.js"></script>
  </head>
  <body>
   <script language="javascript" />
-   document.writeln(menu("manager", "createFestival"));
+	document.writeln(menu("manager", "createFestival"));
+	const descDialog =
+	{
+		primaryTable : "locations",
+		foreignTables : 
+		{
+			"addresses" : 
+			{
+				"html": function(referedData)
+				{
+					let retValue= 
+						referedData.name+"<br />"+
+						referedData.street+"<br />"+
+						referedData.zip+" "+
+						referedData.city+"<br />"+
+						referedData.country;
+					// alert(toList(referedData)+"\n"+retValue);				
+					return retValue;
+				}
+			},
+			"locationAreas": {},
+			"festivals": {}
+		}
+	};
+	var data = 
+	{
+		"locations" : new Data(locations, dataScheme.locations),
+		"addresses" : new Data(addresses, dataScheme.addresses),
+		"locationAreas" : new Data(locationAreas, dataScheme.locationAreas),
+		"festivals" : new Data(festivals, dataScheme.festivals)
+	};
   </script>
 
-  <table>
-   <tr><td>
-    Hier muss ein Termin festgelegt werden und die passende Location gebucht werden.
-	<br />Doppelbuchungen der Location sind auf jeden Fall zu vermeiden.
-	<br />Jede Location bietet Platz für eine maximale Anzahl von Besuchern und Bühnen.
-	<br />Außerdem ist jede Location in verschiedene, eindeutig gekennzeichnete Bereiche unterteilt,
-	<br/>die wiederum einen Teil der maximalen Besucherzahl fassen k&ouml;nnen und sich au&szlig;erdem
-	<br />in Camping-, Park, Catering- und Stagebereiche einordnen lassen.
-	<br />Das Gelände muss visualisiert werden können.
-   </td></tr>
+  <form><fieldset>
+  <table border="1">
+   <tr><th></th><th>Name</th><th>Besucheranz.</th><th>B&uuml;hnenanz.</th><th>Adresse</th></tr>
+   <tr>
+    <td><input type="radio" id="mc" name="Location" value="1" checked="checked"></td>
+    <td>N&uuml;rburgring</td><td>10000</td><td>3</td><td>N&uuml;rburgring<br>Nordschleife<br>53520 Nürburg<br>Deutschland</td>
+   </tr>
+   <tr>
+	<td valign="top" border="0"></td>
+    <td colspan="4">
+     <table border="1">
+      <tr><th>verriegelt</th><th>Art</th><th>Besucheranz.</td><td>Name</td></tr>
+      <tr><td>nicht verriegelt</td><td>Camping</td><td>5000</td><td>Camping Area #1</td></tr>
+      <tr><td>nicht verriegelt</td><td>Catering</td><td>1000</td><td>Catering Area #2</td></tr>
+      <tr><td>verriegelt</td><td>Parkplatz</td><td>7000</td><td>Parkplatz</td></tr>
+      <tr><td>nicht verriegelt</td><td>Stage</td><td>7000</td><td>Main Stage</td></tr>
+      <tr><td>nicht verriegelt</td><td>Stage</td><td>3000</td><td>Alterna Stage</td></tr>
+     </table>
+	</td>
+   </tr>
+   <tr>
+    <td><input type="radio" id="mc" name="Location" value="1"></td>
+    <td>Zeppelinfeld</td><td>10000</td><td>3</td><td>Rock im Park<br>Zeppelinfeld<br>Nürnberg<br>Deutschland</tr>
+   </tr>
+   <tr>
+    <td><input type="radio" id="mc" name="idLocation" value="3"></td>
+    <td>Wacken</td><td>15000</td><td>4</td><td>Wacken Open Air<br>Wacken Open Air Gelände<br>25596 Wacken<br>Deutschland  </td></tr>
+   </tr>
   </table>
+  </fieldset>
+  Beginn:
+  <input type="datetime" name="begin">
+  Ende:
+  <input type="datetime" name="end">
+  <input type="submit" value="buchen">
+  </form>
+
+   <br /><br />
+   <hr>
+    Mockup:
+  <script>
+   document.writeln(tableDialog(descDialog, data));
+  </script>
  </body>
 </html>

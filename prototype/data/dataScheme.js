@@ -1,6 +1,6 @@
 const dataScheme=
 {
-	adresses:
+	addresses:
 	{
 		primarykey:
 		{
@@ -90,8 +90,8 @@ const dataScheme=
 				{
 					1:"camping",
 					2:"park",
-					1:"catering",
-					2:"stage"
+					3:"catering",
+					4:"stage"
 				}
 			},
 			cntVisitors:
@@ -157,7 +157,7 @@ const dataScheme=
 				type:"varchar",
 				length:80
 			},
-			email:
+			eMail:
 			{
 				type:"varchar",
 				length:120
@@ -447,6 +447,10 @@ const dataScheme=
 			{
 				type:"varchar",
 				length:45
+			},
+			rentalPrice:
+			{
+				type:"float",
 			},
 			height:
 			{

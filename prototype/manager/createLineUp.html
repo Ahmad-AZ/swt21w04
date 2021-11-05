@@ -2,52 +2,48 @@
  <head>
   <title>Festivalmanager Manager LineUp anlegen</title>
   <script language="javascript" src="../menu.js"></script>
+  <script language="javascript" src="../dialog.js"></script>
+  <script language="javascript" src="../data/dataScheme.js"></script>
+  <script language="javascript" src="../data/bands.js"></script>
+  <script language="javascript" src="../data/performances.js"></script>
+  <script language="javascript" src="../data/festivals.js"></script>
+  <script language="javascript" src="../data/locationAreas.js"></script>
  </head>
  <body>
   <script language="javascript" />
-   document.writeln(menu("manager", "createLineUp"));
+	document.writeln(menu("manager", "createLineUp"));
+	
+	const descChooseDialog = {};
+	const dataChooseDialog = {"festivals" : new Data(festivals, dataScheme.festivals)};
+	const descTableDialog = {};
+	const dataTableDialog =
+	{
+		"performances" : new Data(performances, dataScheme.performances),
+		"bands" : new Data(bands, dataScheme.bands),
+		"festivals": new Data(festivals, dataScheme.festivals),
+		"locationAreas": new Data(locationAreas, dataScheme.locationAreas)
+	};
   </script>
+  
+  <select name="Festival" id="idFestival">
+   <option value="1">Rock am Ring</option>
+   <option value="2">Rock im Park</option>
+   <option value="3">Wacken</option>
+  </select>
+
   <table border="1">
-   <tr>
-    <td colspan="2">
-     In dieser Phase muss das &quot;Line Up&quot; zusammengestellt werden.
-	 <br />Dazu m&uuml;ssen Angebote bei bestimmten K&uuml;nstlern eingeholt werden.
-	 <br />Anschlie&szlig;end werden aus diesen Angeboten K&uuml;nstler ausgew&auml;hlt
-	 <br />und es muss ein Spielplan f&uuml;r jede B&uuml;hne erstellt werden.
-    </td>
-   </tr>
-   <tr>
-    <td>Name</td>
-    <td>Line-Up planen</td>
-   </tr>
-   <tr>
-    <td>Beschreibung</td>
-    <td>Im Festivalmanager können Bands für bestimmte Bühnen und Zeiten gebucht werden.</td>
-   </tr>
-   <tr>
-    <td>Akteure</td>
-    <td>Festivalleiter, Planungsabteilung</td>
-   </tr>
-   <tr>
-    <td>Auslöser</td>
-	<td>Ein Nutzer öffnet den "Personal und Künstler" Tab.</td>
-   </tr>
-   <tr>
-    <td>Voraussetzung(en)</td>
-	<td>Ein Nutzer mit Planungsberechtigungen ist eingeloggt.</td>
-   </tr>
-   <tr>
-    <td>Essentielle Schritte</td>
-	<td>
-	 <ol>
-	  <li />Der "Personal und Künstler" Tab wird aufgerufen.
-      <li />Von einer Liste von Künstlern können Angebote eingeholt werden
-      <li />
-	   Aus den erhaltenen Angeboten können verschiedene Künstler ausgewählt werden,
-	   denen anschließend eine Bühne und Zeit zugewiesen wird
-	 </ol>
-	</td>
-   </tr>
+   <tr><th>Band</th><th>Stage</th><th>Tantiemen</th></tr>
+   <tr><td>B-Sides</td><td>Alterna Stage</td><td>-10000 €</td></tr>
+   <tr><td>The Rolling Stones</td><td>Main Stage</td><td>150000 €</td></tr>
+   <tr><td>AC/DC</td><td>Main Stage</td><td>80000 €</td></tr>
   </table>
+
+   <br /><br />
+   <hr>
+    Mockup:
+   <script>
+	document.writeln(chooseDialog(descChooseDialog, dataChooseDialog));
+	document.writeln(tableDialog(descTableDialog, dataTableDialog));
+   </script>
  </body>
 </html>

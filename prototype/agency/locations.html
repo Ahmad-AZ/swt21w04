@@ -2,11 +2,90 @@
  <head>
   <title>Festivalmanager Agentur</title>
   <script language="javascript" src="../menu.js"></script>
+  <script language="javascript" src="../dialog.js"></script>
+  <script language="javascript" src="../data/dataScheme.js"></script>
+  <script language="javascript" src="../data/locations.js"></script>
+  <script language="javascript" src="../data/locationAreas.js"></script>
+  <script language="javascript" src="../data/addresses.js"></script>
  </head>
  <body>
   <script language="javascript" />
-   document.writeln(menu("agency", "locations"));
+	document.writeln(menu("agency", "locations"));
+	const descDialog =
+	{
+		primaryTable : "locations",
+		foreignTables : 
+		{
+			"addresses" : 
+			{
+				"html": function(referedData)
+				{
+					let retValue= 
+						referedData.name+"<br />"+
+						referedData.street+"<br />"+
+						referedData.zip+" "+
+						referedData.city+"<br />"+
+						referedData.country;
+					// alert(toList(referedData)+"\n"+retValue);				
+					return retValue;
+				}
+			},
+			"locationAreas":{}
+		}	
+	};
+	var data = 
+	{
+		"locations" : new Data(locations, dataScheme.locations),
+		"addresses" : new Data(addresses, dataScheme.addresses),
+		"locationAreas" : new Data(locationAreas, dataScheme.locationAreas)
+	};
   </script>
-  Hier können dann die Locations von der Agentur eingepflegt werden.
+  
+  <table border="1">
+   <tr><th>Name</th><th>Besucheranz.</th><th>B&uuml;hnenanz.</th><th>Adresse</th></tr>
+   <tr><td>N&uuml;rburgring</td><td>10000</td><td>3</td><td>N&uuml;rburgring<br>Nordschleife<br>53520 Nürburg<br>Deutschland</td></tr>
+   <tr>
+    <td colspan="4">
+	 <table><tr>
+	  <td valign="top">[-]</td>
+	  <td>
+	  
+       <table border="1">
+        <tr><th>verriegelt</th><th>Art</th><th>Besucheranz.</td><td>Name</td></tr>
+        <tr><td>nicht verriegelt</td><td>Camping</td><td>5000</td><td>Camping Area #1</td></tr>
+        <tr><td>nicht verriegelt</td><td>Catering</td><td>1000</td><td>CateringArea #2</td></tr>
+        <tr><td>verriegelt</td><td>Parkplatz</td><td>7000</td><td>Parkplatz</td></tr>
+        <tr><td>nicht verriegelt</td><td>Stage</td><td>7000</td><td>Main Stage</td></tr>
+        <tr><td>nicht verriegelt</td><td>Stage</td><td>3000</td><td>Alterna Stage</td></tr>
+       </table>
+	  </td>
+	 </tr></table>
+	  
+	</td>
+   </tr>
+   <tr><td>Zeppelinfeld</td><td>10000</td><td>3</td><td>Rock im Park<br>Zeppelinfeld<br>Nürnberg<br>Deutschland</tr>
+   <tr>
+    <td colspan="4">
+	 <table><tr>
+	  <td valign="top">[+]</td>
+	  <td></td>
+	 </tr></table>
+	</td>
+   </tr>
+   <tr><td>Wacken</td><td>15000</td><td>4</td><td>Wacken Open Air<br>Wacken Open Air Gelände<br>25596 Wacken<br>Deutschland  </td></tr>
+   <tr>
+    <td colspan="4">
+	 <table><tr>
+	  <td valign="top">[+]</td>
+	  <td></td>
+	 </tr></table>
+	</td>
+   </tr>
+  </table>
+  
+  <br /><br />
+  <hr>
+  Mockup:
+  <script>document.writeln(tableDialog(descDialog, data));</script>
  </body>
 </html>
