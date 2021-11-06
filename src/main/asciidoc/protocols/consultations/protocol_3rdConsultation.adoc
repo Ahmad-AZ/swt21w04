@@ -1,0 +1,35 @@
+= Protokoll Gruppe 04
+
+Treffen am 26.10.2021
+
+Ort:      BigBlueButton +
+Beginn:   18:30 Uhr +
+Ende:     20:00 Uhr
+
+__Schriftführer:__ Georg Kunze
+(Jan abwesend)
+
+*Nächstes Treffen:* +
+29.10.2021, 11:10 Uhr, Discord
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Tom Morgenstern (Auftraggeber)
+- Adrian Scholze
+- Ahmad Abu Zahra
+- Georg Kunze
+- Tuấn Giang Trịnh
+- Robert Menzel
+
+== Bemerkungen
+- Es wurde besprochen, wer dem Videoshop welches Feature hinzufügt
+- Jan muss in seine Videoshop Readme noch eintragen, welches Feature er ergänzt
+- Es wurde besprochen, welche Änderungen am Pflichtenheft noch nötig sind
+** Für die Interessengruppen müssen Prioritäten ergänzt werden
+** Die Abschnitte müssen verlinkt und nummeriert werden
+** Die Abschnittsbeschreibungen sollen entfernt werden
+- Es wurde Roberts GUI Prototyp disskutiert
+
+== Aktueller Stand
+Die Arbeit am Pflichtenheft wurde begonnen und muss bis Sonntag beendet werden.
