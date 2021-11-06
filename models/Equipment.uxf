@@ -1,0 +1,29 @@
+<diagram program="umletino" version="14.3.0"><zoom_level>10</zoom_level><element><id>UMLPackage</id><coordinates><x>180</x><y>60</y><w>1160</w><h>810</h></coordinates><panel_attributes>equipment</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>650</x><y>240</y><w>270</w><h>110</h></coordinates><panel_attributes>/Equipment/
+--
+- name : String
+- rentalPerDay : int
+--
++ Equipment(name : String, rentalPerDay : int)
++ getName() : String
++ getRentalPerDay() : int</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>880</x><y>440</y><w>210</w><h>80</h></coordinates><panel_attributes>Toilet
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>640</x><y>440</y><w>210</w><h>80</h></coordinates><panel_attributes>CateringStand
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>410</x><y>440</y><w>210</w><h>80</h></coordinates><panel_attributes>Stage
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>830</x><y>340</y><w>110</w><h>120</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;90;100</additional_attributes></element><element><id>Relation</id><coordinates><x>750</x><y>340</y><w>70</w><h>120</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>50;10;10;100</additional_attributes></element><element><id>Relation</id><coordinates><x>560</x><y>340</y><w>190</w><h>120</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>170;10;10;100</additional_attributes></element><element><id>UMLClass</id><coordinates><x>270</x><y>150</y><w>270</w><h>110</h></coordinates><panel_attributes>Equipments
+--
+
+--
++ Equipments()
++ getAllEquipments() 
++ getEquipments(class : Equipment)
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>790</x><y>110</y><w>340</w><h>110</h></coordinates><panel_attributes>EquipmentsInitializer
+--
+
+--
++ EquipmentsInitializer(equipments : Equipments)
++ initialize() : void</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>530</x><y>190</y><w>140</w><h>80</h></coordinates><panel_attributes>lt=&lt;-
+m1=0..n
+r1= - equipments</panel_attributes><additional_attributes>120;60;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>530</x><y>130</y><w>280</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=1</panel_attributes><additional_attributes>260;10;10;40</additional_attributes></element></diagram>
