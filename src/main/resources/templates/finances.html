@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html(title=Finanzen)}">
+<head>
+</head>
+<body>
+<section layout:fragment="content">
+    <h2>Finanzübersicht</h2>
+    <b>Erwartete Verkaufszahlen</b>
+    <form>
+        <label for="campingTickets">Camping-Tickets:</label><br>
+        <input type="text" id="campingTickets" name="campingTickets"><br>
+        <label for="oneDayTickets">Tagestickets:</label><br>
+        <input type="text" id="oneDayTickets" name="oneDayTickets"><br>
+    </form>
+    <br>
+    <b>Finanzdaten</b>
+    <table class="ui celled table">
+        <thead>
+        <tr>
+            <th>Größe</th>
+            <th>Wert</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Voraussichtliche Kosten</td>
+            <td th:text="${cost + '&euro;'}">0.00&euro;</td>
+        </tr>
+        <tr>
+            <td>Voraussichtlicher Umsatz</td>
+            <td th:text="${revenue + '&euro;'}">0.00&euro;</td>
+        </tr>
+        <tr>
+            <td>Verkaufte Camping-Tickets</td>
+            <td th:text="${nCampingTickets}">0</td>
+        </tr>
+        <tr>
+            <td>Verkaufte Tagestickets</td>
+            <td th:text="${nOneDayTickets}">0</td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+</body>
+</html>
