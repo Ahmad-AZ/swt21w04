@@ -1,0 +1,50 @@
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><element><id>UMLPackage</id><coordinates><x>30</x><y>43</y><w>870</w><h>640</h></coordinates><panel_attributes>Name</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>70</x><y>83</y><w>210</w><h>220</h></coordinates><panel_attributes>
+TicketShop
+
+--
+
+-Tickets : List&lt;Ticket&gt;
+-ticketStock: TicketStock
+
+--
+
++TicketImStock( ) : int 
++isAvailable( ) : boolean
++printTicket( ) : Ticket
++getPriceOfTicket( ) : float 
++sellTicket( quantity: int ) : 
+
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>550</x><y>103</y><w>260</w><h>190</h></coordinates><panel_attributes>
+TicketStock
+--
+
+
+--
+
++getNumberOfTickes(): Map&lt;String, Integer&gt;
++addTickets(tickets : Tickets)
++updateQuantity(ticket : Tickets)
++getSalesOfTicket(ticket : Ticket) : float
++maxNumberOfTickets(number : int )
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>190</x><y>403</y><w>360</w><h>220</h></coordinates><panel_attributes>
+Ticket
+--
+
+-festivalName: String
+-date : Date 
+-ticketNum: long
+--
+
++Ticket(festivalName : String, date : Date, TicketNUm : long, 
+ticketType :TicketType)
+
++getTicketNum() : long
++isValide( ticketNum ) : boolean</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>560</x><y>423</y><w>300</w><h>150</h></coordinates><panel_attributes>Salespoint</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>50</x><y>453</y><w>100</w><h>30</h></coordinates><panel_attributes>java.util.Date</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>140</x><y>453</y><w>70</w><h>30</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;50;10</additional_attributes></element><element><id>Relation</id><coordinates><x>100</x><y>300</y><w>110</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;120;90;120</additional_attributes></element><element><id>UMLClass</id><coordinates><x>310</x><y>260</y><w>130</w><h>90</h></coordinates><panel_attributes>&lt;&lt;enumeration&gt;&gt;
+TicketType
+--
+CAMPING
+TAGES_TICKET</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>370</x><y>340</y><w>30</w><h>80</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;10;10;60</additional_attributes></element><element><id>Relation</id><coordinates><x>270</x><y>150</y><w>300</w><h>50</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+r1= - ticketStock</panel_attributes><additional_attributes>280;20;10;20</additional_attributes></element></diagram>
