@@ -20,6 +20,11 @@ public class Festival {
 		this.endDate = endDate;
 	}
 
+	public Festival() {
+
+	}
+
+
 	public Date getStartDate() {
 		return startDate;
 	}
