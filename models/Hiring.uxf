@@ -1,4 +1,4 @@
-<diagram program="umletino" version="14.3.0"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>940</x><y>669</y><w>260</w><h>90</h></coordinates><panel_attributes>Employee
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>940</x><y>669</y><w>260</w><h>90</h></coordinates><panel_attributes>Employee
 --
 - name : String
 
@@ -91,6 +91,8 @@ r1= - skill</panel_attributes><additional_attributes>70;10;10;80</additional_att
 
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>840</x><y>289</y><w>90</w><h>130</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;70;110</additional_attributes></element><element><id>Relation</id><coordinates><x>630</x><y>519</y><w>340</w><h>300</h></coordinates><panel_attributes>lt=&lt;-
 m1=0..n
-r1= - offers</panel_attributes><additional_attributes>280;10;280;280;10;280</additional_attributes></element><element><id>Relation</id><coordinates><x>230</x><y>330</y><w>110</w><h>120</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
-m2=1</panel_attributes><additional_attributes>10;100;90;10</additional_attributes></element><element><id>Relation</id><coordinates><x>160</x><y>540</y><w>200</w><h>240</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
-m2=1</panel_attributes><additional_attributes>10;10;180;220</additional_attributes></element></diagram>
+r1= - offers</panel_attributes><additional_attributes>280;10;280;280;10;280</additional_attributes></element><element><id>Relation</id><coordinates><x>230</x><y>330</y><w>170</w><h>120</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=1
+r2=- offersArtists</panel_attributes><additional_attributes>10;100;90;10</additional_attributes></element><element><id>Relation</id><coordinates><x>160</x><y>540</y><w>200</w><h>310</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=1
+r2= - Employees</panel_attributes><additional_attributes>10;10;10;280;180;280</additional_attributes></element></diagram>
