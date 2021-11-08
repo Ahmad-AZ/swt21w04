@@ -1,28 +1,28 @@
-<diagram program="umletino" version="14.3.0"><zoom_level>10</zoom_level><element><id>UMLPackage</id><coordinates><x>70</x><y>70</y><w>1120</w><h>690</h></coordinates><panel_attributes>location</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>90</x><y>300</y><w>670</w><h>260</h></coordinates><panel_attributes>Location
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><element><id>UMLPackage</id><coordinates><x>70</x><y>70</y><w>1180</w><h>690</h></coordinates><panel_attributes>location</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>90</x><y>300</y><w>670</w><h>260</h></coordinates><panel_attributes>Location
 --
 - name : String
-- pricePerDay : int
+- pricePerDay : Money
 - adress : String
 - visitorCapacity: int
 - stageCapacity : int
 --
-+ Location(name : String, pricePerDay : int, map : Map, adress : String, visitorCapacity : int, stageCapacity : int)
-+ getPricePerDay() : int
++ Location(name : String, pricePerDay : Money, groundView : GroundView, adress : String, visitorCapacity : int, stageCapacity : int)
++ getPricePerDay() : Money
 + getBookings() 
 + getFreeTerms() 
-+ getMap() : Map
++ getGroundView() : GroundView
 + getAdress() : String
 + getVisitorCapacity() : int
-+ getStageCapacity() : int</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>730</x><y>110</y><w>280</w><h>120</h></coordinates><panel_attributes>Booking
++ getStageCapacity() : int</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>750</x><y>110</y><w>280</w><h>120</h></coordinates><panel_attributes>Booking
 --
 - startDate : Date
 - endDate : Date
 --
 + Booking(startDate : Date, endDate : Date)
 + getStartDate() : Date
-+ getEndDate() : Date</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>560</x><y>140</y><w>190</w><h>180</h></coordinates><panel_attributes>lt=&lt;-
++ getEndDate() : Date</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>560</x><y>140</y><w>210</w><h>180</h></coordinates><panel_attributes>lt=&lt;-
 m1=0..n
-r1= - bookings</panel_attributes><additional_attributes>170;10;10;160</additional_attributes></element><element><id>UMLClass</id><coordinates><x>480</x><y>620</y><w>340</w><h>120</h></coordinates><panel_attributes>Locations
+r1= - bookings</panel_attributes><additional_attributes>190;10;10;160</additional_attributes></element><element><id>UMLClass</id><coordinates><x>480</x><y>620</y><w>340</w><h>120</h></coordinates><panel_attributes>Locations
 --
 
 --
@@ -31,12 +31,12 @@ r1= - bookings</panel_attributes><additional_attributes>170;10;10;160</additiona
 + getAllLocations() : List&lt;Location&gt;
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>290</x><y>540</y><w>240</w><h>100</h></coordinates><panel_attributes>lt=&lt;-
 m1=0..n
-r1= - locations</panel_attributes><additional_attributes>10;20;220;80</additional_attributes></element><element><id>UMLClass</id><coordinates><x>220</x><y>150</y><w>100</w><h>30</h></coordinates><panel_attributes>GroundView</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>170</y><w>160</w><h>150</h></coordinates><panel_attributes>lt=&lt;-
+r1= - locations</panel_attributes><additional_attributes>10;20;220;80</additional_attributes></element><element><id>UMLClass</id><coordinates><x>160</x><y>150</y><w>100</w><h>30</h></coordinates><panel_attributes>GroundView</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>170</y><w>100</w><h>150</h></coordinates><panel_attributes>lt=&lt;-
 m1=1
-r1= - groundView</panel_attributes><additional_attributes>70;10;10;130</additional_attributes></element><element><id>UMLClass</id><coordinates><x>830</x><y>310</y><w>340</w><h>120</h></coordinates><panel_attributes>LocationsInitializer
+r1= - groundView</panel_attributes><additional_attributes>10;10;10;130</additional_attributes></element><element><id>UMLClass</id><coordinates><x>830</x><y>350</y><w>340</w><h>120</h></coordinates><panel_attributes>LocationsInitializer
 --
 
 --
 + LocationsInitializer(locations : Locations)
-+ initialize() : void</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>780</x><y>420</y><w>150</w><h>220</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
-m2=1</panel_attributes><additional_attributes>130;10;10;200</additional_attributes></element></diagram>
++ initialize() : void</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>780</x><y>460</y><w>150</w><h>180</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=1</panel_attributes><additional_attributes>130;10;10;160</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1100</x><y>150</y><w>100</w><h>30</h></coordinates><panel_attributes>java.util.Date</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1020</x><y>142</y><w>100</w><h>40</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>80;20;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>400</x><y>180</y><w>190</w><h>30</h></coordinates><panel_attributes>javax.money.MonetaryAmount</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>440</x><y>200</y><w>40</w><h>120</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;20;100</additional_attributes></element></diagram>
