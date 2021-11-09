@@ -1,0 +1,41 @@
+<diagram program="umletino" version="14.3.0"><zoom_level>10</zoom_level><element><id>UMLPackage</id><coordinates><x>310</x><y>70</y><w>730</w><h>570</h></coordinates><panel_attributes>finances
+--
+bg=white
+fg=black</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>570</x><y>10</y><w>170</w><h>30</h></coordinates><panel_attributes>javax.money.MonetaryAmount</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>510</x><y>190</y><w>220</w><h>120</h></coordinates><panel_attributes>Payment
+--
++setPayments(hires : List,
+rentedEquipment : List) : void
++getWagesTotal() : MonetaryAmount
++getWagesArtists() : MonetaryAmount
++getWagesStaff() : MonetaryAmount
++getRentingFees() : MonetaryAmount</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>350</x><y>360</y><w>240</w><h>80</h></coordinates><panel_attributes>Income
+--
++setTicketSales(ticketSales : List) : void
++getIncome() : MonetaryAmount
++getIncomeAfterTax() : MonetaryAmount</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>780</x><y>350</y><w>100</w><h>70</h></coordinates><panel_attributes>Finances
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>740</x><y>520</y><w>210</w><h>100</h></coordinates><panel_attributes>FinancesController
+--
++finances(model : Model, 
+hires : List, 
+rentedEquipment : List,
+ticketSales : List) : String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>0</x><y>190</y><w>270</w><h>160</h></coordinates><panel_attributes>Spring
+--
+bg=white
+fg=black</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>20</x><y>240</y><w>230</w><h>70</h></coordinates><panel_attributes>template=T, ID
+&lt;&lt;interface&gt;&gt;
+org.springframework.data.repository
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>400</x><y>530</y><w>210</w><h>40</h></coordinates><panel_attributes>PurchsasesRepository</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>650</x><y>30</y><w>60</w><h>180</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>10;10;10;160</additional_attributes></element><element><id>Relation</id><coordinates><x>460</x><y>0</y><w>130</w><h>380</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>110;20;10;20;10;360</additional_attributes></element><element><id>Relation</id><coordinates><x>730</x><y>10</y><w>120</w><h>360</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>10;20;100;20;100;340</additional_attributes></element><element><id>Relation</id><coordinates><x>120</x><y>300</y><w>300</w><h>290</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;bind&gt;&gt;
+&lt;T-&gt;Order, ID-&gt;long&gt;</panel_attributes><additional_attributes>10;10;10;270;280;270</additional_attributes></element><element><id>Relation</id><coordinates><x>460</x><y>430</y><w>90</w><h>120</h></coordinates><panel_attributes>lt=&lt;-
+-purchases
+m1=1</panel_attributes><additional_attributes>10;100;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>820</x><y>410</y><w>80</w><h>130</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+finances</panel_attributes><additional_attributes>10;10;10;110</additional_attributes></element><element><id>Relation</id><coordinates><x>720</x><y>200</y><w>110</w><h>170</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+payment</panel_attributes><additional_attributes>10;20;90;20;90;150</additional_attributes></element><element><id>Relation</id><coordinates><x>580</x><y>370</y><w>220</w><h>50</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+income</panel_attributes><additional_attributes>10;20;200;20</additional_attributes></element></diagram>
