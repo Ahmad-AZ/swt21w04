@@ -6,13 +6,11 @@ Dieser Testplan stellt eine vereinfachte Version der IEEE 829-1998 Vorlage dar.
 Wozu dient das Dokument? Zielgruppe?
 
 == Aufbau der Testbezeichner
-Nach welchem Schema sind die Tests benannt?
+Wir verwenden das Schema "Testtyp - Anwendungsfall - Nummer"
+wobei Testtyp U für Unit Tests und der Testtyp I für Integrationstests steht.
+Die Nummer wird seperat für Integrations- und Unittests von 1 hochgezählt
 
-*Bsp.*
-
-*U - Unit Test, I - Integrationstest*
-
-*U-1, U-2, I-1*
+Also zum Beispiel U-AF001-1
 
 == Test Gegenstände
 
@@ -40,6 +38,33 @@ Jede testbezogene Aufgabe muss einem Ansprechpartner zugeordnet werden.
 // See http://asciidoctor.org/docs/user-manual/#tables
 [options="headers"]
 |===
-|ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
-|…  |…              |…              |…       |…
+|ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe |Verantwortlicher
+|U-AF011-1  |AF011              |
+Das aktuell ausgewählte Festival kann 3000 Besucher haben              |
+Anzahl Sicherheitskräfte: 10       |
+Fehlermeldung wegen zu wenigen Sicherheitskräften   |Adrian, Tuan
+
+|U-AF011-2  |AF011              |
+Das aktuell ausgewählte Festival kann 3000 Besucher haben              |
+Anzahl Sicherheitskräfte: 30       |
+Anzahl Sicherheitskräfte wird auf 30 gesezt   |Adrian, Tuan
+
+|U-AF012-1  |AF012              |
+Das aktuell ausgewählte Festival kann 3000 Besucher haben              |
+Vorraussichtlich verkaufte Tagestickets: 4000       |
+Fehlermeldung wegen zu wenig verfügbaren Tickets   |Jan
+
+|I-AF012-1  |AF012, AF010              |
+Es wurden zwei Bühnen für 10000€ gebucht, ansonsten wurde kein Equipment gebucht             |
+Öffnen der Finanzübersicht       |
+Als Kosten für Equipment werden 20000€ angezeigt   |Jan, Adrian, Tuan
+
+|I-AF014-2  |AF012, AF011              |
+Es wurden Sicherheitskräfte gebucht die insgesamt Lohnkosten von 10000€ verursachen gebucht und sonst kein Personal gebucht             |
+Öffnen der Finanzübersicht       |
+Als Kosten für Personal werden 10000€ angezeigt   |Jan, Adrian, Tuan
+
+|I-AF014-1  |AF014, AF001              ||
+Der Preis für Camping-Tickets wird auf 200€ gesetzt       |
+Ein ausgedruckte Camping-Ticket hat den Preis 200€ aufgedruckt   |Ahmad, Jan
 |===
