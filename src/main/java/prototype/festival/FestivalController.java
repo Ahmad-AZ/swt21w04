@@ -27,11 +27,11 @@ public class FestivalController {
 //		return "detail";
 //	}
 //	
-	@GetMapping("/festivalCatalog")
+	@GetMapping("/festivalOverview")
 	public String festivals(Model model) {
 
 		model.addAttribute("festivalList", festivalManagement.findAll());
 
-		return "festivals"; 
+		return "festivalOverview"; 
 	}
 }
