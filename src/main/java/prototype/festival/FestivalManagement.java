@@ -2,8 +2,9 @@ package prototype.festival;
 
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+
 
 @Service
 @Transactional

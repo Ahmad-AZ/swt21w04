@@ -13,11 +13,25 @@ public class FestivalController {
 		this.festivalManagement = festivalManagement;
 	}
 	
-	@GetMapping("/festival")
-	public String festival(Model model) {
+//	@GetMapping("/festivals/{disc}")
+//	String detail(@PathVariable Disc disc, Model model, CommentAndRating form) {
+//
+//		var quantity = inventory.findByProductIdentifier(disc.getId()) //
+//				.map(InventoryItem::getQuantity) //
+//				.orElse(NONE);
+//
+//		model.addAttribute("disc", disc);
+//		model.addAttribute("quantity", quantity);
+//		model.addAttribute("orderable", quantity.isGreaterThan(NONE));
+//
+//		return "detail";
+//	}
+//	
+	@GetMapping("/festivalCatalog")
+	public String festivals(Model model) {
 
 		model.addAttribute("festivalList", festivalManagement.findAll());
 
-		return "festival"; 
+		return "festivals"; 
 	}
 }
