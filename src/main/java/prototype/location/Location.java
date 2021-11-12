@@ -20,9 +20,11 @@ public class Location extends Product {
 
 	private int visitorCapacity;
 	private int stageCapacity;
-	
+
+
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Booking> bookings = new ArrayList<>();
+
 	
 	public Location(String name, String adress, Money pricePerDay, int visitorCapacity, int stageCapacity) {
 		super(name, pricePerDay);
@@ -43,6 +45,7 @@ public class Location extends Product {
 	public int getStageCapacity() {
 		return stageCapacity;
 	}
+
 
 	public List<Booking> getBookings() {
 		return bookings;
