@@ -3,7 +3,6 @@ package prototype.location;
 import java.util.Date;
 
 public class Booking {
-	
 	private Date startDate;
 	private Date endDate;
 	

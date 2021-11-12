@@ -16,8 +16,8 @@ public class FestivalController {
 	@GetMapping("/festival")
 	public String festival(Model model) {
 
-		model.addAttribute("festivals", festivalManagement.findAll());
+		model.addAttribute("festivalList", festivalManagement.findAll());
 
-		return "festival";
+		return "festival"; 
 	}
 }

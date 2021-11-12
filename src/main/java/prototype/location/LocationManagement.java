@@ -1,15 +1,16 @@
 package prototype.location;
 
-import com.mysema.commons.lang.Assert;
+
+
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 @Service
 @Transactional
 public class LocationManagement {
-
+	
 	private final LocationRepository locations;
 
 	/**
@@ -22,7 +23,7 @@ public class LocationManagement {
 
 	/**
 	 *
-	 * @return all location entittes
+	 * @return all location entities
 	 */
 	public Streamable<Location> findAll(){
 		return locations.findAll();

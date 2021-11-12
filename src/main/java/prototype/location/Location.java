@@ -1,9 +1,9 @@
 package prototype.location;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -13,9 +13,7 @@ import org.salespointframework.catalog.Product;
 
 
 
-@Entity
 public class Location extends Product {
-	
 	private  @Id @GeneratedValue long id;
 
 	private String adress;
@@ -34,8 +32,6 @@ public class Location extends Product {
 		this.stageCapacity = stageCapacity;
 	}
 
-	public Location() {	}
-
 	public String getAdress() {
 		return adress;
 	}
@@ -51,6 +47,4 @@ public class Location extends Product {
 	public List<Booking> getBookings() {
 		return bookings;
 	}
-	
-
 }

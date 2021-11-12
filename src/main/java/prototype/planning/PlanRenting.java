@@ -19,14 +19,15 @@ public class PlanRenting extends Planning {
 		equipments.add(equipment);
 	}
 	*/
-	public boolean unrent(Equipment equipment){
-		if (!equipments.contain(equipment)){
-			System.out.println('there is no such equipment to remove');
-			return false;
-		}
-		equipments.remove(equipment);
-		return true;
-	}
+	
+//	public boolean unrent(Equipment equipment){
+//		if (!equipments.contain(equipment)){
+//			System.out.println('there is no such equipment to remove');
+//			return false;
+//		}
+//		equipments.remove(equipment);
+//		return true;
+//	}
 
 
 }

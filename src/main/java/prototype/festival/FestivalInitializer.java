@@ -19,11 +19,11 @@ public class FestivalInitializer implements DataInitializer {
 		this.festivalManagement = festivalManagement;
 	}
 	
-	
+	  
 	@Override
 	public void initialize() {
 		LOG.info("Creating default Festivals");
-		festivalManagement.createFestival(new NewFestivalForm("firstFestival"));
+		festivalManagement.createFestival(new NewFestivalForm("firstFestival"));  
 	}
 
 }

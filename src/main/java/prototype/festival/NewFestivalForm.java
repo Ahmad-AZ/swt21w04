@@ -6,7 +6,7 @@ import javax.validation.constraints.NotEmpty;
 
 class NewFestivalForm {
 	
-	//@NotEmpty
+	@NotEmpty   
 	private final String name;
 	
 	public NewFestivalForm(String name) {
