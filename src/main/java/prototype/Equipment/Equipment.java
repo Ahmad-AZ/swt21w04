@@ -1,5 +1,6 @@
 package prototype.Equipment;
 
+import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Product;
 
 import javax.persistence.Entity;
@@ -13,8 +14,11 @@ public class Equipment extends Product {
 	private EquipmentType equipmentType;
 	private String name;
 
-	public Equipment(String name, EquipmentType equipmentType){
-		this.name = name;
+	@SuppressWarnings({ "unused", "deprecation" })
+	private Equipment(){}
+
+	public Equipment(String name, Money price, EquipmentType equipmentType){
+		super(name, price);
 		this.equipmentType = equipmentType;
 	}
 
