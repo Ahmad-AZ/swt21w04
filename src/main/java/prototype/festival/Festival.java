@@ -10,18 +10,20 @@ public class Festival {
 
 	// das Id braucht man, wenn man Festival in der Zukunft aktulisiert
 	private  @Id @GeneratedValue long id;
-
+	private String name;
 	private Date startDate;
 	private Date endDate;
 
 
-	public Festival(Date startDate, Date endDate) {
+	public Festival(String name, Date startDate, Date endDate) {
+		this.name = name;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		
 	}
 
-	public Festival() {
-
+	public Festival(String name) {
+		this.name = name;
 	}
 
 
@@ -35,6 +37,10 @@ public class Festival {
 
 	public Date getEndDate() {
 		return endDate;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 

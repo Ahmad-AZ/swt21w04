@@ -12,9 +12,18 @@ import org.springframework.stereotype.Component;
 public class FestivalInitializer implements DataInitializer {
 
 	private static final Logger LOG = (Logger) LoggerFactory.getLogger(FestivalInitializer.class);
+	
+	private FestivalManagement festivalManagement;
+	
+	public FestivalInitializer(FestivalManagement festivalManagement) {
+		this.festivalManagement = festivalManagement;
+	}
+	
+	
 	@Override
 	public void initialize() {
 		LOG.info("Creating default Festivals");
+		festivalManagement.createFestival(new NewFestivalForm("firstFestival"));
 	}
 
 }
