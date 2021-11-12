@@ -22,4 +22,4 @@ const locations=
 		idAddress:7
 	}
 }
-if (debug) document.writeln("location data okay okay+<br>");
+if (debug) document.writeln("prototype.location data okay okay+<br>");

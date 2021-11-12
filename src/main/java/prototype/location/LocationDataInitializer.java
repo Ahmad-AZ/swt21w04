@@ -1,4 +1,4 @@
-package location;
+package prototype.location;
 
 import static org.salespointframework.core.Currencies.EURO;
 
@@ -6,7 +6,7 @@ import org.javamoney.moneta.Money;
 import org.salespointframework.core.DataInitializer;
 import org.springframework.stereotype.Component;
 
-// import prototype.location.Location;
+// import prototype.prototype.location.Location;
 
 
 @Component

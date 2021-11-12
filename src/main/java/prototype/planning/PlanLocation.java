@@ -1,17 +1,22 @@
 package prototype.planning;
 
-public class PlanLocation {
+import prototype.location.Location;
+import prototype.festival.Festival;
 
-	public PlanLocation() {}
+import java.util.Set;
 
-	/**
-	 *
+public class PlanLocation extends Planning {
+
+	public PlanLocation(Festival festival) {
+		super(festival);
+	}
 
 	public boolean bookLocation(Location location){
 		return true;
 	}
-	public void getAllLocations(){
-		return
+	public Set <Location> getAllLocations(){
+		return null;
+		//return HashSet <Location>;
 	}
-	 */
+
 }

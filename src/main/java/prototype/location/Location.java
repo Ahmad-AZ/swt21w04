@@ -1,4 +1,4 @@
-package location;
+package prototype.location;
 
 import java.util.*;
 
@@ -33,6 +33,8 @@ public class Location extends Product {
 		this.visitorCapacity = visitorCapacity;
 		this.stageCapacity = stageCapacity;
 	}
+
+	public Location() {	}
 
 	public String getAdress() {
 		return adress;

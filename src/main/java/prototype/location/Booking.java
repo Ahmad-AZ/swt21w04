@@ -1,4 +1,4 @@
-package location;
+package prototype.location;
 
 import java.util.Date;
 
