@@ -5,8 +5,11 @@ import prototype.festival.Festival;
 import java.util.Date;
 
 public class PlanDate extends Planning {
+
 	private Date startDate, endDate;
+
 	PlanDate(Festival festival) {
+
 		super(festival);
 	}
 
