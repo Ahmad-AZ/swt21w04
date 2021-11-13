@@ -43,7 +43,10 @@ public class Location{
 	public Location() {
 		
 	}
-
+	public long getId() {
+		return id;
+	}
+	
 	public String getAdress() {
 		return adress;
 	}

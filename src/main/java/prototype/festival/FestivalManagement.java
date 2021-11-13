@@ -20,6 +20,10 @@ public class FestivalManagement {
 		return festivals.save(new Festival(form.getName()));
 	}
 	
+	public Festival saveFestival(Festival festival) {
+		return festivals.save(festival);
+	}
+	
 	public Streamable<Festival> findAll() {
 		return festivals.findAll();
 	}

@@ -23,7 +23,12 @@
 		        </thead>
 		        <tbody>
 		        <tr th:each="location : ${locationList}">
-		            <td th:text="${location.name}">Keine gefunden</td>
+		            <td>
+			            <form method="post" name="location" role="location" class="ui form" id="location" th:action="@{/selectLocationPre}" th:object="${location}">
+			        		<input type="radio" id="location" name="location" th:value="${location.id}"/>
+			        		<button type="submit" class="ui button" th:text="${location.name}">Location</button>
+			            </form>
+		            </td>
 		            <td th:text="${location.id}">Keine id gefunden</td>
 		            
 		        </tr>

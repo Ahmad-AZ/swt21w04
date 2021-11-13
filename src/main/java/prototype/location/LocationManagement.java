@@ -9,7 +9,7 @@ import org.springframework.util.Assert;
 
 @Service
 @Transactional
-public class LocationManagement {
+public class LocationManagement { 
 	
 	private final LocationRepository locations;
 

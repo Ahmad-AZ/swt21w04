@@ -23,17 +23,18 @@ public class Festival {
 	private Location location;
 	
 //	@OneToOne()
-//	private Finances finances;
+//	private Finances finances; 
 
 	public Festival(String name, Date startDate, Date endDate) {
 		this.name = name;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		
+		this.location = null;
 	}
 
 	public Festival(String name) {
 		this.name = name;
+		this.location = null;
 	}
 	
 	public Festival() {
@@ -63,6 +64,10 @@ public class Festival {
 	
 	public Location getLocation() {
 		return location; 
+	}
+	
+	public void setLocation(Location location) {
+		this.location=location;
 	}
 	
 //	public boolean equals(Festival festival) {

@@ -3,6 +3,11 @@ package prototype.location;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import prototype.festival.Festival;
 
 @Controller
 public class LocationController {
@@ -16,9 +21,20 @@ public class LocationController {
 	// shows Locations Overview
 	@GetMapping("/locationOverview")
 	public String locationOverview(Model model) {
-
-		model.addAttribute("LocationList", locationManagement.findAll());
+		
+		model.addAttribute("locationList", locationManagement.findAll());
 
 		return "locationOverview"; 
 	}
+	
+//	@GetMapping("/selectLocation")
+//	public String selectLocation(Model model, @ModelAttribute("currentFestival") Festival currentFestival, @ModelAttribute("location") Location location) {
+//		System.out.println(currentFestival.getName());
+//		currentFestival.setLocation(location);
+//		System.out.println(currentFestival.getLocation().getName());
+//
+//		long id = currentFestival.getId();
+//		
+//		return "redirect:/festivalOverview/"+id;
+//	}
 }

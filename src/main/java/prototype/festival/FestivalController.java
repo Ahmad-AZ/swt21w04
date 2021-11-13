@@ -8,7 +8,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import prototype.location.Location;
 
 @Controller
 public class FestivalController {
@@ -26,19 +29,18 @@ public class FestivalController {
 	@GetMapping("/festivalOverview/{festival}")
 	public String festivalDetail(@PathVariable Festival festival, Model model) {
 		Streamable<Festival> festivals= festivalManagement.findAll();
-		for(Festival aFestival : festivals) {
-			System.out.println(aFestival.getId());
-			if(aFestival.getId() == festival.getId()) {
-				model.addAttribute("festival", aFestival);
-				if(aFestival.getLocation() != null) {
-					System.out.println(aFestival.getLocation().getName());
-					model.addAttribute("location", aFestival.getLocation());
-				} 
-				break;
-			}
+		
+		if(festival.getLocation() != null) 
+			System.out.println(festival.getLocation().getName());
+			
+		System.out.println(festival.getId());
+		model.addAttribute("festival", festival);
+		if(festival.getLocation() != null) {
+			System.out.println(festival.getLocation().getName());
+			model.addAttribute("location", festival.getLocation());
 		}
-		
-		
+
+	
 		currentFestival = festival;
 		return "festivalDetail";
 	}
@@ -79,12 +81,25 @@ public class FestivalController {
 	// shows Festival Overview
 	@GetMapping("/festivalOverview")
 	public String festivals(Model model) {
-
+		
 		model.addAttribute("festivalList", festivalManagement.findAll());
 
 		return "festivalOverview"; 
 	}
-
+	
+	@PostMapping("/selectLocationPre")
+	// TODO: @PreAuthorize("hasRole('BOSS')")
+	String selectLocationPre(Model model, @RequestParam("location") Location location) {
+		
+		currentFestival.setLocation(location);
+		festivalManagement.saveFestival(currentFestival);
+		System.out.println(currentFestival.getName());
+		System.out.println(currentFestival.getId());
+		System.out.println(currentFestival.getLocation().getName());
+		long id = currentFestival.getId();
+		return "redirect:/festivalOverview/"+id;
+	}
+	
 	@GetMapping("/financesPre1")
 	// TODO: @PreAuthorize("hasRole('BOSS')")
 	String financesPre1(Model model, RedirectAttributes ra) {
