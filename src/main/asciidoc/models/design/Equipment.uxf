@@ -1,46 +1,45 @@
-<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;UMLClass&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;400&lt;/x&gt;&lt;y&gt;180&lt;/y&gt;&lt;w&gt;190&lt;/w&gt;&lt;h&gt;30&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;javax.money.MonetaryAmount&lt;/panel_attributes&gt;&lt;additional_attributes&gt;&lt;/additional_attributes&gt;&lt;/element&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;440&lt;/x&gt;&lt;y&gt;200&lt;/y&gt;&lt;w&gt;40&lt;/w&gt;&lt;h&gt;120&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;.&lt;/panel_attributes&gt;&lt;additional_attributes&gt;10;10;20;100&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;Space for diagram notes</help_text><element><id>UMLPackage</id><coordinates><x>0</x><y>40</y><w>1160</w><h>810</h></coordinates><panel_attributes>equipment</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>380</x><y>340</y><w>420</w><h>190</h></coordinates><panel_attributes>/Equipment/
+<diagram program="umletino" version="14.3.0"><zoom_level>10</zoom_level><help_text>&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;UMLClass&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;400&lt;/x&gt;&lt;y&gt;180&lt;/y&gt;&lt;w&gt;190&lt;/w&gt;&lt;h&gt;30&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;javax.money.MonetaryAmount&lt;/panel_attributes&gt;&lt;additional_attributes&gt;&lt;/additional_attributes&gt;&lt;/element&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;440&lt;/x&gt;&lt;y&gt;200&lt;/y&gt;&lt;w&gt;40&lt;/w&gt;&lt;h&gt;120&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;.&lt;/panel_attributes&gt;&lt;additional_attributes&gt;10;10;20;100&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;Space for diagram notes[waiting for message]</help_text><element><id>UMLPackage</id><coordinates><x>0</x><y>100</y><w>1010</w><h>740</h></coordinates><panel_attributes>equipment</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>140</x><y>340</y><w>420</w><h>190</h></coordinates><panel_attributes>/Equipment/
 --
 - name : String
 - rentalPerDay : Money
 - length : int
 - width : int
 --
-+ Equipment(name : String, rentalPerDay : int, length : int, width : int)
++ Equipment(name : String, rentalPerDay : Money, length : int, width : int)
 + getName() : String
 + getRentalPerDay() : int
 + getLength() : int
 + getWidth() : int
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>350</x><y>710</y><w>550</w><h>110</h></coordinates><panel_attributes>Toilet
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>440</x><y>720</y><w>550</w><h>110</h></coordinates><panel_attributes>Toilet
 --
 - mensToilets : int
 - womensToilets : int
 --
 + Toilet(name : String, rentalPerDay : int, length : int, width : int, mensToilet : int, womensToilet : int)
 + getMensToilets() : int
-+ getWomensToilets() : int</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>720</x><y>590</y><w>390</w><h>80</h></coordinates><panel_attributes>CateringStall
++ getWomensToilets() : int</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>600</x><y>490</y><w>390</w><h>80</h></coordinates><panel_attributes>CateringStall
 --
 
 --
-+ Catering(name : String, rentalPerDay : int, length : int, width : int)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>70</x><y>590</y><w>550</w><h>110</h></coordinates><panel_attributes>Stage
++ Catering(name : String, rentalPerDay : int, length : int, width : int)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>30</x><y>590</y><w>550</w><h>110</h></coordinates><panel_attributes>Stage
 --
 - stageWidth : int
 - stageLength: int
 --
 + Stage(name : String, rentalPerDay : int, length : int, width : int, stageWidth : int, stageLength : int)
 + getStageWidth() : int
-+ getStageLength() : int</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>620</x><y>520</y><w>90</w><h>210</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;70;190</additional_attributes></element><element><id>Relation</id><coordinates><x>750</x><y>520</y><w>40</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;20;70</additional_attributes></element><element><id>Relation</id><coordinates><x>450</x><y>520</y><w>70</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>50;10;10;70</additional_attributes></element><element><id>UMLClass</id><coordinates><x>20</x><y>220</y><w>270</w><h>110</h></coordinates><panel_attributes>Equipments
---
-
---
-+ Equipments()
-+ getAllEquipments() 
-+ getEquipments(class : Equipment)
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>580</x><y>180</y><w>340</w><h>110</h></coordinates><panel_attributes>EquipmentsInitializer
---
-
---
-+ EquipmentsInitializer(equipments : Equipments)
-+ initialize() : void</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>280</x><y>260</y><w>120</w><h>110</h></coordinates><panel_attributes>lt=&lt;-
++ getStageLength() : int</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>520</x><y>520</y><w>280</w><h>220</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;260;200</additional_attributes></element><element><id>Relation</id><coordinates><x>550</x><y>490</y><w>70</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;50;10</additional_attributes></element><element><id>Relation</id><coordinates><x>250</x><y>520</y><w>40</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;20;80</additional_attributes></element><element><id>Relation</id><coordinates><x>400</x><y>230</y><w>280</w><h>130</h></coordinates><panel_attributes>lt=&lt;-
 m1=0..n
-r1= - equipments</panel_attributes><additional_attributes>100;90;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>280</x><y>200</y><w>320</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
-m2=1</panel_attributes><additional_attributes>300;10;10;40</additional_attributes></element><element><id>UMLClass</id><coordinates><x>900</x><y>380</y><w>190</w><h>30</h></coordinates><panel_attributes>javax.money.MonetaryAmount</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>790</x><y>370</y><w>130</w><h>50</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>110;30;10;10</additional_attributes></element></diagram>
+r1= - equipments</panel_attributes><additional_attributes>10;110;260;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>140</x><y>210</y><w>190</w><h>30</h></coordinates><panel_attributes>org.javamoney.moneta.Money;</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>250</x><y>230</y><w>60</w><h>130</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;40;110</additional_attributes></element><element><id>UMLClass</id><coordinates><x>580</x><y>170</y><w>200</w><h>70</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
+EquipmentRepository
+--
++findAll(): Streamable&lt;Equipment&gt;</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>760</x><y>190</y><w>320</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>300;10;16;10</additional_attributes></element><element><id>UMLPackage</id><coordinates><x>1030</x><y>130</y><w>270</w><h>360</h></coordinates><panel_attributes>spring boot
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1060</x><y>170</y><w>210</w><h>60</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
+CrudRepository&lt;Equipment&gt;
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>580</x><y>300</y><w>400</w><h>60</h></coordinates><panel_attributes>EquipmentDataInitilizer
+--
++EquipmentDataInittializer(equipmentRepository: EquipmentRepository)
++initializer(): void</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>970</x><y>290</y><w>120</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>100;10;10;50</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1060</x><y>270</y><w>210</w><h>60</h></coordinates><panel_attributes>DataInitializer
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>550</x><y>350</y><w>220</w><h>150</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>200;10;200;130;10;130</additional_attributes></element></diagram>
