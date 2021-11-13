@@ -30,6 +30,10 @@ public class Festival {
 	public Festival() {
 		
 	}
+	
+	public long getId() {
+		return id;
+	}
 
 
 	public Date getStartDate() {
@@ -47,6 +51,9 @@ public class Festival {
 	public String getName() {
 		return name;
 	}
-
+	
+//	public boolean equals(Festival festival) {
+//		return this.id == festival.getId();
+//	}
 
 }

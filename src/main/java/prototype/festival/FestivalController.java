@@ -1,10 +1,12 @@
 package prototype.festival;
 
+import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -12,25 +14,29 @@ public class FestivalController {
 
 	private final FestivalManagement festivalManagement;
 
+
 	public FestivalController(FestivalManagement festivalManagement) {
 		this.festivalManagement = festivalManagement;
+		
 	}
 	
-//	@GetMapping("/festivals/{disc}")
-//	String detail(@PathVariable Disc disc, Model model, CommentAndRating form) {
-//
-//		var quantity = inventory.findByProductIdentifier(disc.getId()) //
-//				.map(InventoryItem::getQuantity) //
-//				.orElse(NONE);
-//
-//		model.addAttribute("disc", disc);
-//		model.addAttribute("quantity", quantity);
-//		model.addAttribute("orderable", quantity.isGreaterThan(NONE));
-//
-//		return "detail";
-//	}
+	@GetMapping("/festivalOverview/{festival}")
+	public String festivalDetail(@PathVariable Festival festival, Model model) {
+		Streamable<Festival> festivals= festivalManagement.findAll();
+		for(Festival aFestival : festivals) {
+			System.out.println(aFestival.getId());
+			if(aFestival.getId() == festival.getId()) {
+				model.addAttribute("festival", aFestival);
+				break;
+			}
+		}
+		
+
+		return "festivalDetail";
+	}
+	
 	@PostMapping("/newFestival")
-	String registerNew(@Validated NewFestivalForm form, Errors result) {
+	public String registerNew(@Validated NewFestivalForm form, Errors result) {
 		
 //		Streamable<F> customers = customerManagement.findAll();
 //		for (Customer customer : customers) {
@@ -58,7 +64,7 @@ public class FestivalController {
 	
 	// gives NewFestivalForm to fill out
 	@GetMapping("/newFestival")
-	String register(Model model, NewFestivalForm form) {
+	public String register(Model model, NewFestivalForm form) {
 		return "newFestival";
 	}
 	

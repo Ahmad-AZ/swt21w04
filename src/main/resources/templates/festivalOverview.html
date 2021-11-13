@@ -12,15 +12,30 @@
 	</header>
 	<section layout:fragment="content">
 		<a class="item" th:href="@{/newFestival}">Neues Festival erstellen</a>
+		
+		<h3>Festivals auswählbar</h3>
+		<div class="ui link cards" th:remove="all-but-first">
+            <div class="ui card" th:each="festival : ${festivalList}">
+                <div class="content">
+                    <a class="header" th:href="@{/festivalOverview/{id}(id=${festival.id})}" th:text="${festival.name}">Etwas andres</a>
+                </div>
+            </div>
+        </div>
+		
+		<h3>Festivals nicht auswählbar</h3>
 		<table class="ui celled table">
 		        <thead>
 		        <tr>
 		            <th>Festivals</th>
+  		            <th>id</th>
+
 		        </tr>
 		        </thead>
 		        <tbody>
 		        <tr th:each="festival : ${festivalList}">
 		            <td th:text="${festival.name}">Keine gefunden</td>
+		            <td th:text="${festival.id}">Keine id gefunden</td>
+		            
 		        </tr>
 		        </tbody>
 		</table>
