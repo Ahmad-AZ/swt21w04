@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import static org.salespointframework.core.Currencies.EURO;
 
 @Component
 @Order(10)
@@ -17,7 +18,9 @@ public class EquipmentDataInitializer implements DataInitializer {
 
 	EquipmentDataInitializer(EquipmentRepository equipmentRepository){
 		this.equipmentRepository = equipmentRepository;
-		Equipment equipment1 = new Equipment("stage1", Equipment.EquipmentType.STAGE);
+		Equipment equipment1 = new Equipment("stage1",
+				//Money.of(9.99, EURO),
+				EquipmentType.STAGE);
 		equipmentRepository.save(equipment1);
 	}
 
