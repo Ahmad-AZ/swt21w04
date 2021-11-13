@@ -15,38 +15,52 @@ import org.salespointframework.catalog.Product;
 
 
 @Entity
-public class Location  {
+public class Location {
 	private  @Id @GeneratedValue long id; 
+	
+	private String name;
+	private Money pricePerDay;
+	private String adress;
 
-//	private String adress;
-//
-//	private int visitorCapacity;
-//	private int stageCapacity; 
+	private int visitorCapacity;
+	private int stageCapacity; 
 
  
 //	@OneToMany(cascade = CascadeType.ALL)
 //	private List<Booking> bookings = new ArrayList<>();
 
 	
-	public Location(String name, String adress, MonetaryAmount pricePerDay, int visitorCapacity, int stageCapacity) {
-//		super(name, pricePerDay);
+	public Location(String name, String adress, Money pricePerDay, int visitorCapacity, int stageCapacity) {
+		this.name = name;
+		this.pricePerDay = pricePerDay;
+		this.adress = adress;
+		this.visitorCapacity = visitorCapacity;
+		this.stageCapacity = stageCapacity; 
+	}
+	
+	public Location() {
 		
-//		this.adress = adress;
-//		this.visitorCapacity = visitorCapacity;
-//		this.stageCapacity = stageCapacity; 
 	}
 
-//	public String getAdress() {
-//		return adress;
-//	}
-//
-//	public int getVisitorCapacity() {
-//		return visitorCapacity;
-//	}
-//
-//	public int getStageCapacity() {
-//		return stageCapacity;
-//	}
+	public String getAdress() {
+		return adress;
+	}
+
+	public int getVisitorCapacity() {
+		return visitorCapacity;
+	}
+
+	public int getStageCapacity() {
+		return stageCapacity;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public Money getPricePerDay() {
+		return pricePerDay;
+	}
 
  
 //	public List<Booking> getBookings() {

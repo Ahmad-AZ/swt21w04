@@ -2,6 +2,7 @@
 //
 //import org.salespointframework.catalog.Catalog;
 //
-//public interface LocationCatalog extends Catalog<Location>{
-//	
+//
+//public interface LocationCatalog extends Catalog<Location> { 
+//
 //}

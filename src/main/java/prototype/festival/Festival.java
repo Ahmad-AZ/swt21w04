@@ -4,6 +4,10 @@ package prototype.festival;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+import prototype.location.Location;
+
 import java.util.Date;
 
 @Entity
@@ -14,6 +18,9 @@ public class Festival {
 	private String name;
 	private Date startDate;
 	private Date endDate;
+	
+	@OneToOne()
+	private Location location;
 
 
 	public Festival(String name, Date startDate, Date endDate) {
