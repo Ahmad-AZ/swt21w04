@@ -20,7 +20,7 @@ public class LocationDataInitializer implements DataInitializer{
 	
 	public LocationDataInitializer(LocationRepository locations) {
 		this.locations = locations;
-		Location l1 = new Location("Homeee", "athome", null, 12, 1);
+		Location l1 = new Location("Homeee", "athome", Money.of(100, EURO), 12, 1);
 		locations.save(l1);
 	}
 	

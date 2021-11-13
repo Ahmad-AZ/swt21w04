@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
 import org.javamoney.moneta.Money;
@@ -19,6 +20,7 @@ public class Location{
 	private  @Id @GeneratedValue long id; 
 	
 	private String name;
+	@Lob()
 	private Money pricePerDay;
 	private String adress;
 
