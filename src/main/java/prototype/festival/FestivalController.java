@@ -8,15 +8,18 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class FestivalController {
 
 	private final FestivalManagement festivalManagement;
+	private Festival currentFestival;
 
  
 	public FestivalController(FestivalManagement festivalManagement) {
 		this.festivalManagement = festivalManagement;
+		this.currentFestival = null;
 		
 	}
 	
@@ -36,7 +39,7 @@ public class FestivalController {
 		}
 		
 		
-
+		currentFestival = festival;
 		return "festivalDetail";
 	}
 	
@@ -80,5 +83,13 @@ public class FestivalController {
 		model.addAttribute("festivalList", festivalManagement.findAll());
 
 		return "festivalOverview"; 
+	}
+
+	@GetMapping("/financesPre1")
+	// TODO: @PreAuthorize("hasRole('BOSS')")
+	String financesPre1(Model model, RedirectAttributes ra) {
+		ra.addFlashAttribute("currentFestival", currentFestival);
+		System.out.println(currentFestival.getName());
+		return "redirect:finances";
 	}
 }
