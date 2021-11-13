@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html(title=Locations)}">
+<head>
+</head>
+<body>
+	<header>
+		<nav th:include="header :: header"></nav>
+		<h1>Locations Übersicht</h1>
+	</header>
+	<section layout:fragment="content">
+		
+		<h3>Locations nicht auswählbar</h3>
+		<table class="ui celled table">
+		        <thead>
+		        <tr>
+		            <th>Locations</th>
+  		            <th>id</th>
+
+		        </tr>
+		        </thead>
+		        <tbody>
+		        <tr th:each="location : ${locationList}">
+		            <td th:text="${location.name}">Keine gefunden</td>
+		            <td th:text="${location.id}">Keine id gefunden</td>
+		            
+		        </tr>
+		        </tbody>
+		</table>
+    </section>
+</body>
+</html>

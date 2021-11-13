@@ -14,7 +14,7 @@ public class FestivalController {
 
 	private final FestivalManagement festivalManagement;
 
-
+ 
 	public FestivalController(FestivalManagement festivalManagement) {
 		this.festivalManagement = festivalManagement;
 		
@@ -27,9 +27,14 @@ public class FestivalController {
 			System.out.println(aFestival.getId());
 			if(aFestival.getId() == festival.getId()) {
 				model.addAttribute("festival", aFestival);
+				if(aFestival.getLocation() != null) {
+					System.out.println(aFestival.getLocation().getName());
+					model.addAttribute("location", aFestival.getLocation());
+				} 
 				break;
 			}
 		}
+		
 		
 
 		return "festivalDetail";

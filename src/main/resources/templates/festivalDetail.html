@@ -15,7 +15,12 @@
                 <div class="item">
                     <div class="content">
     		            <td th:text="${festival.name}">Keine gefunden</td>
-
+    		            <br/>
+						<td th:text="${festival.id}">Keine id gefunden</td>
+						<br/>
+ 						<p th:if="${location==null}">noch keine ausgewählt</p>
+ 						<br/>
+ 						<p th:if="${location!=null}" th:text"${location.name}">hier sollte ihre Location stehen</p>
                     </div>
                 </div>
             </div>

@@ -15,7 +15,7 @@ import org.salespointframework.catalog.Product;
 
 
 @Entity
-public class Location {
+public class Location{
 	private  @Id @GeneratedValue long id; 
 	
 	private String name;
