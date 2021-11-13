@@ -14,7 +14,7 @@
 
     <form class="ui form" method="post" id="form" th:action="@{/newFestival}" th:object="${newFestivalForm}">
         <label for="name"><pre>Name:</pre></label>
-        <input type="text" id="name" name="name" th:field="*{name}" th:errorclass="fieldError" type="text" required="required"/><br>
+        <input id="name" name="name" th:field="*{name}" type="text" required="required"/><br>
         <label for="startDate"><pre>Start Date:</pre></label>
         <input type="date" id="startDate" name="startDate"
                 value="2022-01-01"
