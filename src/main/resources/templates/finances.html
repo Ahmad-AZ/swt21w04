@@ -12,7 +12,7 @@
 <h1>Finanzübersicht</h1>
 <section layout:fragment="content">
     <b>Erwartete Verkaufszahlen</b>
-    <form>
+    <form action="/setTicketNumber">
         <label for="campingTickets">Camping-Tickets:</label><br>
         <input type="text" id="nCampingTickets" name="nCampingTickets"><br>
         <label for="oneDayTickets">Tagestickets:</label><br>
@@ -21,7 +21,7 @@
     </form>
     <br>
     <b>Ticketpreise</b>
-    <form>
+    <form action="/setTicketPrice">
         <label for="campingTickets">Camping-Tickets:</label><br>
         <input type="text" id="priceCampingTickets" name="priceCampingTickets"><br>
         <label for="oneDayTickets">Tagestickets:</label><br>
@@ -67,11 +67,11 @@
             <td th:text="${soldOneDayTickets}">0</td>
         </tr>
         <tr>
-            <td>Erwartete Verkaufszahlen Camping-Tickets</td>
+            <td>Erwartete Verkäufe Camping-Tickets   </td>
             <td th:text="${nCampingTickets}">0</td>
         </tr>
         <tr>
-            <td>Erwartete Verkaufszahlen Tagestickets</td>
+            <td>Erwartete Verkäufe Tagestickets   </td>
             <td th:text="${nOneDayTickets}">0</td>
         </tr>
         </tbody>

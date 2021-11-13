@@ -13,7 +13,6 @@ import java.util.Date;
 @Entity
 public class Festival {
 
-	// das Id braucht man, wenn man Festival in der Zukunft aktulisiert
 	private  @Id @GeneratedValue long id;
 	private String name;
 	private Date startDate;

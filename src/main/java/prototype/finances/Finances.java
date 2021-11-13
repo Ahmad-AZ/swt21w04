@@ -17,7 +17,6 @@ public class Finances {
 		try {
 			Money locationPricePerDay = currentFestival.getLocation().getPricePerDay();
 			locationPrice = locationPricePerDay.multiply(durationDays);
-			System.out.println(locationPrice);
 		}
 		catch (Exception e) {}
 
@@ -25,9 +24,14 @@ public class Finances {
 		return cost;
 	}
 
+
 	public Money getRevenue(Festival currentFestival) {
 		Money revenue = Money.of(0, EURO);
 		return revenue;
 	}
 
+
+	public Money getProfit(Money cost, Money revenue) {
+		return revenue.subtract(cost);
+	}
 }
