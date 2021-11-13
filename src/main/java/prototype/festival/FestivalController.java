@@ -1,5 +1,7 @@
 package prototype.festival;
 
+import java.util.Calendar;
+
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +37,12 @@ public class FestivalController {
 			
 		System.out.println(festival.getId());
 		model.addAttribute("festival", festival);
+		String startDate = festival.getStartDate().toString();
+		startDate = startDate.substring(0, startDate.length()-10);
+		String endDate = festival.getEndDate().toString();
+		endDate = endDate.substring(0, endDate.length()-10);
+		model.addAttribute("startDate", startDate);
+		model.addAttribute("endDate", endDate);
 		if(festival.getLocation() != null) {
 			System.out.println(festival.getLocation().getName());
 			model.addAttribute("location", festival.getLocation());
@@ -46,7 +54,7 @@ public class FestivalController {
 	}
 	
 	@PostMapping("/newFestival")
-	public String registerNew(@Validated NewFestivalForm form, Errors result) {
+	public String createNewFestival(@Validated NewFestivalForm form, Errors result) {
 		
 //		Streamable<F> customers = customerManagement.findAll();
 //		for (Customer customer : customers) {
@@ -61,7 +69,7 @@ public class FestivalController {
 //		}
 
 		if (result.hasErrors()) {
-			return "register";
+			return "newFestival";
 		}
 
 		// create Festival if no error appears
@@ -73,8 +81,8 @@ public class FestivalController {
 	
 	
 	// gives NewFestivalForm to fill out
-	@GetMapping("/newFestival")
-	public String register(Model model, NewFestivalForm form) {
+	@GetMapping("/newFestival") 
+	public String newFestival(Model model, NewFestivalForm form) {
 		return "newFestival";
 	}
 	

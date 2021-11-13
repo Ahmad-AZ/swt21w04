@@ -1,5 +1,9 @@
 package prototype.festival;
 
+
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import org.salespointframework.core.DataInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +23,9 @@ public class FestivalInitializer implements DataInitializer {
 	public FestivalInitializer(FestivalManagement festivalManagement, FestivalRepository festivals) {
 		this.festivalManagement = festivalManagement;
 		this.festivals = festivals;
-		Festival f1 = new Festival("firstFestival");
+		Date startDate = new GregorianCalendar(2021, 11, 11).getTime();
+		Date endDate = new GregorianCalendar(2021, 11, 14).getTime();
+		Festival f1 = new Festival("Beispiel Festival", startDate, endDate);
 		festivals.save(f1);
 	}
 

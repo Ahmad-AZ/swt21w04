@@ -17,7 +17,7 @@ public class FestivalManagement {
 	
 	public Festival createFestival(NewFestivalForm form) {
 		// save Festival in Repository
-		return festivals.save(new Festival(form.getName()));
+		return festivals.save(new Festival(form.getName(), form.getStartDate(), form.getEndDate()));
 	}
 	
 	public Festival saveFestival(Festival festival) {

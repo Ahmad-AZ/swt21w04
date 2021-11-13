@@ -1,7 +1,7 @@
 /* CSS RESET */
 
 html, body {
-	width: 100%;
+	width: 90%;
 	height: 100%;
 }
 
@@ -11,6 +11,7 @@ html, body {
 }
 
 body {
+	
 	margin: 0 auto;
 	font: 13px/22px Helvetica, Arial, sans-serif;
 	background: #ffffff;
@@ -38,6 +39,7 @@ h1 {
 	display: flex;
 	border-bottom: 1px solid black;
 }
+
 
 .item {
 	background-color: #007bff;

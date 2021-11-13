@@ -18,8 +18,12 @@ public class LocationDataInitializer implements DataInitializer{
 	
 	public LocationDataInitializer(LocationRepository locations) {
 		this.locations = locations;
-		Location l1 = new Location("Homeee", "athome", Money.of(100, EURO), 12, 1);
+		Location l1 = new Location("Kulturpalast", "Dresden", Money.of(1550, EURO), 1500, 12);
 		locations.save(l1);
+		Location l2 = new Location("Hörsaalzentrum", "Dresden", Money.of(1828, EURO), 1828, 6);
+		locations.save(l2);
+		Location l3 = new Location("Rundkino", "Dresden", Money.of(1760, EURO), 1500, 8);
+		locations.save(l3);
 	}
 	
 	@Override 
