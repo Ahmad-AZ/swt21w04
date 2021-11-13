@@ -26,9 +26,9 @@ public class FestivalInitializer implements DataInitializer {
 	  
 	@Override
 	public void initialize() {  
-		LOG.info("Creating default Festivals");
-		System.out.println("creating festivalsssssssssss");
-		festivalManagement.createFestival(new NewFestivalForm("firstFestival"));  
+//		LOG.info("Creating default Festivals");
+//		System.out.println("creating festivalsssssssssss");
+//		festivalManagement.createFestival(new NewFestivalForm("firstFestival"));  
 	}
 
 }

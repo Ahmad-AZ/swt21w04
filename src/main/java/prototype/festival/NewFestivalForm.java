@@ -1,4 +1,4 @@
-package prototype.festival; 
+package prototype.festival;    
 
 
 import javax.validation.constraints.NotEmpty;
