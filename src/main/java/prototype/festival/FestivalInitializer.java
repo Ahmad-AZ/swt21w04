@@ -14,9 +14,13 @@ public class FestivalInitializer implements DataInitializer {
 	private static final Logger LOG = (Logger) LoggerFactory.getLogger(FestivalInitializer.class);
 	
 	private FestivalManagement festivalManagement;
+	private FestivalRepository festivals;
 	
-	public FestivalInitializer(FestivalManagement festivalManagement) {
+	public FestivalInitializer(FestivalManagement festivalManagement, FestivalRepository festivals) {
 		this.festivalManagement = festivalManagement;
+		this.festivals = festivals;
+		Festival f1 = new Festival("firstFestival");
+		festivals.save(f1);
 	}
 
 	  

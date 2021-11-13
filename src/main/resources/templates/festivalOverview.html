@@ -17,8 +17,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr >
-                    <td >Keine gefunden</td>
+                <tr th:each="festival : ${festivalList}">
+                    <td th:text="${festival.name}">Keine gefunden</td>
                 </tr>
                 </tbody>
             </table>

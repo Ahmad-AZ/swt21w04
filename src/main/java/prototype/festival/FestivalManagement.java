@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class FestivalManagement {
 	private final FestivalRepository festivals;
 	
-	public FestivalManagement(FestivalRepository festival) {
+	FestivalManagement(FestivalRepository festival) {
 		this.festivals = festival;
 	}
 	

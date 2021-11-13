@@ -1,5 +1,6 @@
 package prototype.festival;
 
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -24,6 +25,10 @@ public class Festival {
 
 	public Festival(String name) {
 		this.name = name;
+	}
+	
+	public Festival() {
+		
 	}
 
 
