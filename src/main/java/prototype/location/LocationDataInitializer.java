@@ -14,8 +14,6 @@ import org.springframework.stereotype.Component;
 @Order(20)
 public class LocationDataInitializer implements DataInitializer{
 	
-
-	 
 	private LocationRepository locations;
 	
 	public LocationDataInitializer(LocationRepository locations) {

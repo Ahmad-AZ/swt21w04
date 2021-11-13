@@ -3,6 +3,7 @@ package prototype.Equipment;
 import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Product;
 
+import javax.money.MonetaryAmount;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,18 +13,19 @@ public class Equipment {
 
 	private @Id	@GeneratedValue long id;
 
-	public static enum EquipmentType {
-		STAGE, LIGHT;
-	}
 
 	private EquipmentType equipmentType;
 	private String name;
+//	private Money money;
 
 	public Equipment(){}
 
-	public Equipment(String name, EquipmentType equipmentType){
+	public Equipment(String name,
+//					 Money money,
+					 EquipmentType equipmentType){
 		this.name = name;
 		this.equipmentType = equipmentType;
+//		this.money = money;
 	}
 
 	public EquipmentType getEquipmentType() {
