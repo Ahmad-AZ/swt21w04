@@ -35,10 +35,10 @@ Das Pflichtenheft ist fast fertig.
 [option="headers"]
 |===
 |Issue |Titel |Beschreibung |Verantwortlicher |Status
-|…     |Klassenbeschreibungen     |Klassenbeschreibungen für das Pflichtenheft schreiben            |Georg                |Noch nicht angefangen
-|…     |Anwendungsfälle     |Die Anwendungsfälle und Akteure in das Pflichtenheft eintragen            |Jan                |Großteils fertig
-|…     |Anwendungstestfälle     |Abschnitt Anwendungstestfälle im Pflichtenheft schreiben            |Jan                |Noch nicht angefangen
-|…     |Diagramme 1     |Klassendiagramm und TLA beenden            |Adrian                |Großteils fertig
-|…     |Diagramme 2     |Anwendungsfalldiagramm und Sequenzdiagramme bauen            |Ahmad, Tuan                |Noch nicht angefangen
-|…     |Prototyp     |Einen GUI Prototypen entwickeln            |Robert              |In Arbeit
+|     |Klassenbeschreibungen     |Klassenbeschreibungen für das Pflichtenheft schreiben            |Georg                |Noch nicht angefangen
+|     |Anwendungsfälle     |Die Anwendungsfälle und Akteure in das Pflichtenheft eintragen            |Jan                |Großteils fertig
+|     |Anwendungstestfälle     |Abschnitt Anwendungstestfälle im Pflichtenheft schreiben            |Jan                |Noch nicht angefangen
+|     |Diagramme 1     |Klassendiagramm und TLA beenden            |Adrian                |Großteils fertig
+|     |Diagramme 2     |Anwendungsfalldiagramm und Sequenzdiagramme bauen            |Ahmad, Tuan                |Noch nicht angefangen
+|     |Prototyp     |Einen GUI Prototypen entwickeln            |Robert              |In Arbeit
 |===

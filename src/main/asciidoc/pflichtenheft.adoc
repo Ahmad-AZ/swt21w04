@@ -13,6 +13,8 @@
        | -
 |1.0     | Großteils fertig   | 31.10.2021          | Georg, Jan, Ahmad
        | Robert muss seinen Prototyp noch ergänzen
+|1.1     | Fertiges Pflichtenheft   | 05.11.2021          | Georg, Jan, Ahmad
+       |
 |===
 
 == Inhaltsverzeichnis
@@ -188,11 +190,11 @@ a|Festival Personal:
 
 [#5_1]
 === Kontextdiagramm
-image::diagrams/context_diagram.png[]
+image::diagrams/requirements_specification/context_diagram.png[]
 
 [#5_2]
 === Top-Level-Architektur
-image::diagrams/TLA.png[]
+image::diagrams/requirements_specification/TLA.png[]
 
 [#6]
 == Anwendungsfälle
@@ -217,7 +219,7 @@ betriebswirtschaftliche Informationen über das Unternehmen anzeigen lassen
 
 [#6_2]
 === Überblick Anwendungsfalldiagramm
-image::diagrams/use_case_diagram.PNG[]
+image::diagrams/requirements_specification/use_case_diagram.PNG[]
 Anwendungsfall-Diagramm, das alle Anwendungsfälle und alle Akteure darstellt
 
 [#6_3]
@@ -241,7 +243,7 @@ Anwendungsfall-Diagramm, das alle Anwendungsfälle und alle Akteure darstellt
 |Erweiterungen               |
 |Funktionale Anforderungen   |<<F0001>>
 |===
-image::diagrams/sequence_diagrams/buy_ticket.jpg[]
+image::diagrams/requirements_specification/sequence_diagrams/buy_ticket.jpg[]
 
 [cols="1h, 3"]
 [[AF002]]
@@ -361,7 +363,7 @@ _Nachricht empfangen_:
 |Erweiterungen               |
 |Funktionale Anforderungen   |<<F0001>>
 |===
-image::diagrams/sequence_diagrams/leader_terminal.jpg[]
+image::diagrams/requirements_specification/sequence_diagrams/leader_terminal.jpg[]
 
 [cols="1h, 3"]
 [[AF008]]
@@ -424,7 +426,7 @@ Ein Nutzer öffnet den "Lageplan" Tab
 |Erweiterungen                 |Location wechseln
 |Funktionale Anforderungen    |<<F0001>>
 |===
-image::diagrams/sequence_diagrams/change_location.jpg[]
+image::diagrams/requirements_specification/sequence_diagrams/change_location.jpg[]
 
 [cols="1h, 3"]
 [[AF011]]
@@ -500,7 +502,7 @@ _Logout_:
 |Erweiterungen               |
 |Funktionale Anforderungen   |<<F0001>>
 |===
-image::diagrams/sequence_diagrams/staff_login.jpg[]
+image::diagrams/requirements_specification/sequence_diagrams/staff_login.jpg[]
 
 [cols="1h, 3"]
 [[AF014]]
@@ -558,7 +560,7 @@ Ein Planer ist eingeloggt
 2. Er gibt grundlegende Informationen wie Name und Zeitraum des Festivals an
 |Funktionale Anforderungen   |<<F0001>>
 |===
-image::diagrams/sequence_diagrams/add_festival.jpg[]
+image::diagrams/requirements_specification/sequence_diagrams/add_festival.jpg[]
 
 [cols="1h, 3"]
 [[AF017]]
@@ -579,7 +581,7 @@ Umsatz, Ausgaben,... anzeigen
 |Erweiterungen               |
 |Funktionale Anforderungen   |<<F0001>>
 |===
-image::diagrams/sequence_diagrams/add_staff.jpg[]
+image::diagrams/requirements_specification/sequence_diagrams/add_staff.jpg[]
 
 [#7]
 == Funktionale Anforderungen
@@ -947,43 +949,31 @@ Für jeden Dialog:
 - Agentur – Bands erfassen
 * Hier können dann die Bands von der Agentur eingepflegt werden.
      Dazu muss ein Bandname, eine Addresse, eine eMail und die Anzahl der Mitglieder angegeben werden.
-* -
-* -
-* -
+
 - Agentur - Locations erfassen
 * Hier können die Locations von der Agentur erfasst werden.
     Dazu müssen der Name, die Besucherzahl, die Bühnenanzahl und die Adresse angegeben werden.
 	Pro Location können Bereiche eingepflegt werden.
 	Die Bereiche haben eine Art (Camping, Parkplatz, Catering und Stage), eine Besucheranzahl und einen Namen.
-* -
-* -
-* -
+
 - Agentur - Personal erfassen
 * Hier wird das verfügbare Personal erfasst.
     Pro Arbeiter wird ein Nickname, eine eMail- Adresse, die Adresse und ein Text zur Qualifikation eingegeben.
-* -
-* -
-* -
+
 - Agentur – Bühnenmaterial erfassen
 * Hier wird das verfügbare Equipment erfasst.
     Für jedes Gerät wird ein Name, der Mietpreis pro Tag,  der Anbieter sowie Höhe, Breite und Tiefe eingegeben.
-* -
-* -
-* -
+
 - Manager . Location buchen
 * Hier muss ein Termin festgelegt werden und die passende Location gebucht werden.
     Doppelbuchungen der Location sind auf jeden Fall zu vermeiden.
     Jede Location bietet Platz für eine maximale Anzahl von Besuchern und Bühnen.
     Außerdem ist jede Location in verschiedene, eindeutig gekennzeichnete Bereiche unterteilt, die wiederum einen Teil der maximalen Besucherzahl fassen können und sich außerdem in Camping-, Park, Catering- und Stagebereiche einordnen lassen.
-* -
-* -
-* -
+
 - Manager – Festival managen
 * Sobald die Location gebucht ist können hier für dieses Festival Anpassungen durchgeführt werden, wie die Bühnenpositionierung, Toilettenbestückung, Cateringstände und es muss möglich sein, bestimmte Bereiche zu sperren.
     Die genannten Gegenstände werden von externen Anbietern gemietet.
-* -
-* -
-* -
+
 - Manager – LineUp anlegen
 * In dieser Phase muss das "Line Up" zusammengestellt werden.
     Dazu müssen Angebote bei bestimmten Künstlern eingeholt werden.
@@ -996,17 +986,13 @@ Für jeden Dialog:
     Bühnentechniker (Anzahl wird durch die Band bestimmt)
     sowie ein Veranstaltungsleiter.
     Jede Arbeitskraft wird dabei auf Stundenbasis bezahlt.
-* -
-* -
-* -
-
 
 [#10]
 == Datenmodell
 
 [#10_1]
 === Überblick: Klassendiagramm
-image::diagrams/class_diagram.png[]
+image::diagrams/requirements_specification/class_diagram.png[]
 
 [#10_2]
 === Klassen und Enumerationen
