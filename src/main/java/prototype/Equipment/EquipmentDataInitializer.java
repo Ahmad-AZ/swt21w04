@@ -18,9 +18,7 @@ public class EquipmentDataInitializer implements DataInitializer {
 
 	EquipmentDataInitializer(EquipmentRepository equipmentRepository){
 		this.equipmentRepository = equipmentRepository;
-		Equipment equipment1 = new Equipment("stage1",
-				//Money.of(9.99, EURO),
-				EquipmentType.STAGE);
+		Equipment equipment1 = new Equipment("stage1", Money.of(9.99, EURO), 10,12);
 		equipmentRepository.save(equipment1);
 	}
 
