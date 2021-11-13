@@ -7,21 +7,23 @@
 </head>
 <body>
 	<header>
-		<h1>Festival</h1>
+		<nav th:include="header :: header"></nav>
+		<h1>Festival Übersicht</h1>
 	</header>
 	<section layout:fragment="content">
-		 <table class="ui celled table">
-                <thead>
-                <tr>
-                    <th>Festivals</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="festival : ${festivalList}">
-                    <td th:text="${festival.name}">Keine gefunden</td>
-                </tr>
-                </tbody>
-            </table>
+		<a class="item" th:href="@{/newFestival}">Neues Festival erstellen</a>
+		<table class="ui celled table">
+		        <thead>
+		        <tr>
+		            <th>Festivals</th>
+		        </tr>
+		        </thead>
+		        <tbody>
+		        <tr th:each="festival : ${festivalList}">
+		            <td th:text="${festival.name}">Keine gefunden</td>
+		        </tr>
+		        </tbody>
+		</table>
     </section>
 </body>
 </html>

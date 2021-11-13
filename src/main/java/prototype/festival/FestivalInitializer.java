@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-@Order(10)
+@Order(10)  
 public class FestivalInitializer implements DataInitializer {
 
 	private static final Logger LOG = (Logger) LoggerFactory.getLogger(FestivalInitializer.class);
