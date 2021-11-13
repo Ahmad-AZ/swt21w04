@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html(title=Festival)}">
+<head>
+</head>
+<body>
+<header>
+    <h1>Festival</h1>
+</header>
+<section layout:fragment="content">
+    <h2>Add new Festival</h2>
+
+    <form class="ui form" method="post" id="form" th:action="@{/addFestival}">
+        <label for="name"><pre>Name:</pre></label>
+        <input type="text" id="name" name="name" th:field="*{name}" th:errorclass="fieldError" type="text" required="required"/><br>
+        <label for="startDate"><pre>Start Date:</pre></label>
+        <input type="date" id="startDate" name="startDate"
+                value="2022-01-01"
+                min="2021-13-11" max="2023-01-01">
+        <br>
+        <label for="endDate"><pre>End Date:</pre></label>
+        <input type="date" id="endDate" name="endDate"
+               value="2022-01-01"
+               min="2021-13-11" max="2023-01-01">
+        <br>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+</section>
+</body>
+</html>
