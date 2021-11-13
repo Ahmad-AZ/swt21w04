@@ -7,6 +7,7 @@ import javax.money.MonetaryAmount;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 @Entity
 public class Equipment {
@@ -16,16 +17,17 @@ public class Equipment {
 
 	private EquipmentType equipmentType;
 	private String name;
-//	private Money money;
+	@Lob
+	private Money money;
 
 	public Equipment(){}
 
 	public Equipment(String name,
-//					 Money money,
+					 Money money,
 					 EquipmentType equipmentType){
 		this.name = name;
 		this.equipmentType = equipmentType;
-//		this.money = money;
+		this.money = money;
 	}
 
 	public EquipmentType getEquipmentType() {
