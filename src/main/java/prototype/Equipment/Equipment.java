@@ -14,29 +14,50 @@ public class Equipment {
 
 	private @Id	@GeneratedValue long id;
 
-
-	private EquipmentType equipmentType;
 	private String name;
 	@Lob
-	private Money money;
+	private Money rentalPerDay;
+	private int length, width;
 
 	public Equipment(){}
 
-	public Equipment(String name,
-					 Money money,
-					 EquipmentType equipmentType){
+	public Equipment(String name, Money rentalPerDay, int length, int width){
 		this.name = name;
-		this.equipmentType = equipmentType;
-		this.money = money;
+		this.rentalPerDay = rentalPerDay;
+		this.length = length;
+		this.width = width;
 	}
 
-	public EquipmentType getEquipmentType() {
-		return equipmentType;
+	public Money getRentalPerDay() {
+		return rentalPerDay;
 	}
 
+	public int getLength() {
+		return length;
+	}
 
-	public void setEquipmentType(EquipmentType equipmentType) {
-		this.equipmentType = equipmentType;
+	public int getWidth() {
+		return width;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setRentalPerDay(Money rentalPerDay) {
+		this.rentalPerDay = rentalPerDay;
+	}
+
+	public void setLength(int length) {
+		this.length = length;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
 	}
 
 	public String getName() {
