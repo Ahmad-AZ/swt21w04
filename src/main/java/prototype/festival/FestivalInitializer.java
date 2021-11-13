@@ -25,7 +25,7 @@ public class FestivalInitializer implements DataInitializer {
 		this.festivals = festivals;
 		Date startDate = new GregorianCalendar(2021, 11, 11).getTime();
 		Date endDate = new GregorianCalendar(2021, 11, 14).getTime();
-		Festival f1 = new Festival("Beispiel Festival", startDate, endDate);
+		Festival f1 = new Festival("Beispielfestival", startDate, endDate);
 		festivals.save(f1);
 	}
 

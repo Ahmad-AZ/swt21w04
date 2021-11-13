@@ -1,19 +1,32 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout.html(title=Finanzen)}">
 <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
+    <title>Finanzübersicht</title>
 </head>
 <body>
+<div th:include="header :: header"></div>
+<h1>Finanzübersicht</h1>
 <section layout:fragment="content">
-    <h2>Finanzübersicht</h2>
     <b>Erwartete Verkaufszahlen</b>
     <form>
         <label for="campingTickets">Camping-Tickets:</label><br>
-        <input type="text" id="campingTickets" name="campingTickets"><br>
+        <input type="text" id="nCampingTickets" name="nCampingTickets"><br>
         <label for="oneDayTickets">Tagestickets:</label><br>
-        <input type="text" id="oneDayTickets" name="oneDayTickets"><br>
+        <input type="text" id="nOneDayTickets" name="nOneDayTickets"><br>
+        <input type ="submit" value="Auswählen"><br>
+    </form>
+    <br>
+    <b>Ticketpreise</b>
+    <form>
+        <label for="campingTickets">Camping-Tickets:</label><br>
+        <input type="text" id="priceCampingTickets" name="priceCampingTickets"><br>
+        <label for="oneDayTickets">Tagestickets:</label><br>
+        <input type="text" id="priceOneDayTickets" name="priceOneDayTickets"><br>
+        <input type ="submit" value="Auswählen"><br>
     </form>
     <br>
     <b>Finanzdaten</b>
@@ -34,11 +47,31 @@
             <td th:text="${revenue + '&euro;'}">0.00&euro;</td>
         </tr>
         <tr>
+            <td>Voraussichtlicher Gewinn</td>
+            <td th:text="${profit + '&euro;'}">0.00&euro;</td>
+        </tr>
+        <tr>
+            <td>Preis Camping-Tickets</td>
+            <td th:text="${priceCampingTickets + '&euro;'}">0.00&euro;</td>
+        </tr>
+        <tr>
+            <td>Preis Tagestickets</td>
+            <td th:text="${priceOneDayTickets + '&euro;'}">0.00&euro;</td>
+        </tr>
+        <tr>
             <td>Verkaufte Camping-Tickets</td>
-            <td th:text="${nCampingTickets}">0</td>
+            <td th:text="${soldCampingTickets}">0</td>
         </tr>
         <tr>
             <td>Verkaufte Tagestickets</td>
+            <td th:text="${soldOneDayTickets}">0</td>
+        </tr>
+        <tr>
+            <td>Erwartete Verkaufszahlen Camping-Tickets</td>
+            <td th:text="${nCampingTickets}">0</td>
+        </tr>
+        <tr>
+            <td>Erwartete Verkaufszahlen Tagestickets</td>
             <td th:text="${nOneDayTickets}">0</td>
         </tr>
         </tbody>
