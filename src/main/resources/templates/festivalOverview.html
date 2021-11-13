@@ -4,16 +4,19 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout.html(title=Festivals)}">
 <head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
+	    <title>Festivalübersicht</title>
 </head>
 <body>
 	<header>
 		<nav th:include="header :: header"></nav>
-		<h1>Festival Übersicht</h1>
+		<h1>Festivalübersicht</h1>
 	</header>
 	<section layout:fragment="content">
 		<a class="item" th:href="@{/newFestival}">Neues Festival erstellen</a>
 		
-		<h3>Festivals auswählbar</h3>
+
 		<div class="ui link cards" th:remove="all-but-first">
             <div class="ui card" th:each="festival : ${festivalList}">
                 <div class="content">
@@ -22,23 +25,6 @@
             </div>
         </div>
 		
-		<h3>Festivals nicht auswählbar</h3>
-		<table class="ui celled table">
-		        <thead>
-		        <tr>
-		            <th>Festivals</th>
-  		            <th>id</th>
-
-		        </tr>
-		        </thead>
-		        <tbody>
-		        <tr th:each="festival : ${festivalList}">
-		            <td th:text="${festival.name}">Keine gefunden</td>
-		            <td th:text="${festival.id}">Keine id gefunden</td>
-		            
-		        </tr>
-		        </tbody>
-		</table>
     </section>
 </body>
 </html>

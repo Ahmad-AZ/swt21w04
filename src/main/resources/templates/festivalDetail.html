@@ -4,29 +4,35 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout.html(title=${festival.name})}">
 <head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
+	    <title>Festivaldetails</title>
 </head>
 <body>
 	<header>
 		<nav th:include="header :: header"></nav>
-		<h1>Festival Details</h1>
+		<h1>Festivaldetails</h1>
 	</header>
 	<section layout:fragment="content">
-		 <div class="ui items">
-                <div class="item">
-                    <div class="content">
-    		            <td th:text="${festival.name}">Keine gefunden</td>
-    		            <br/>
-						<td th:text="${festival.id}">Keine id gefunden</td>
-						<br/>
- 						<p th:if="${location==null}">noch keine ausgewählt</p>
- 						<br/>
- 						<p th:if="${location!=null}" th:text="${location.name}">hier sollte ihre Location stehen</p>
- 						<br/>
- 						<a class="item" href="locationOverview.html" th:href="@{/locationOverview}">Location auswählen</a>
-                    </div>
+                <div class="content">
+                	<p>Name:</p>
+		            <p th:text="${festival.name}">Keine gefunden</p>
+		            <br/>
+					<p>Anfangsdatum:</p>
+					<p th:text="${startDate}">Keine gefunden</p>
+					<br/>
+					<p>Enddatum:</p>
+					<p th:text="${endDate}">Keine gefunden</p>
+					<br/>
+					<p>Location:</p>
+					<p th:if="${location==null}">Keine</p>
+					<p th:if="${location!=null}" th:text="${location.name}">hier sollte ihre Location stehen</p>
+					<br/>
+					<a class="item" href="locationOverview.html" th:href="@{/locationOverview}">Location auswählen</a>
+					<a class="item" href="finances.html" th:href="@{/financesPre1}">Finanzen</a>
                 </div>
-            </div>
-		<a class="item" href="finances.html" th:href="@{/financesPre1}">Finanzen</a>
+           
+		
     </section>
 </body>
 </html>

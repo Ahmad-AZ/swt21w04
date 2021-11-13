@@ -3,37 +3,49 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout.html(title=Locations)}">
+      
 <head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
+	<title>Location-Auswahl</title>
 </head>
 <body>
 	<header>
 		<nav th:include="header :: header"></nav>
-		<h1>Locations Übersicht</h1>
+		<h1>Location-Auswahl</h1>
 	</header>
 	<section layout:fragment="content">
 		
-		<h3>Locations nicht auswählbar</h3>
-		<table class="ui celled table">
-		        <thead>
-		        <tr>
-		            <th>Locations</th>
-  		            <th>id</th>
-
-		        </tr>
-		        </thead>
-		        <tbody>
-		        <tr th:each="location : ${locationList}">
-		            <td>
-			            <form method="post" name="location" role="location" class="ui form" id="location" th:action="@{/selectLocationPre}" th:object="${location}">
-			        		<input type="radio" id="location" name="location" th:value="${location.id}"/>
-			        		<button type="submit" class="ui button" th:text="${location.name}">Location</button>
-			            </form>
-		            </td>
-		            <td th:text="${location.id}">Keine id gefunden</td>
-		            
-		        </tr>
-		        </tbody>
-		</table>
+		<h3>Verfügbare Loctaions</h3>
+		<form method="post" name="location" role="location" class="ui form" id="location" th:action="@{/selectLocationPre}" th:object="${location}">
+			<table class="ui celled table">
+			        <thead>
+			        <tr>
+			        	<th>Auswahl</th>
+			            <th>Locations</th>
+	  		            <th>Preis pro Tag</th>
+	  		            <th>maximale Besucheranzahl</th>
+	  		            <th>maximale Bühnenanzahl</th>
+	
+			        </tr>
+			        </thead>
+			        <tbody>
+			        <tr th:each="location : ${locationList}">
+			            <td>
+				        		<input type="radio" id="location" name="location" th:value="${location.id}" required="required"/>
+			            </td>
+			            <td>
+				        		<label th:text="${location.name}">Location</label>
+			            </td>
+			            <td th:text="${location.pricePerDay}">Preis</td>
+			            <td th:text="${location.visitorCapacity}">Besucher</td>
+			            <td th:text="${location.stageCapacity}">Bühnen</td>
+			            
+			        </tr>
+			        </tbody>
+			</table>
+			<button type="submit" class="ui button" >Buchen</button>
+		</form>
     </section>
 </body>
 </html>
