@@ -138,6 +138,19 @@ image::models/design/developer_documentation/class_diagrams/staff.png[]
 |CreateStaffForm |Klasse, die das Formular um Personen aus dem Repository zu entfernen repräsentiert
 |===
 
+=== Catering
+
+image::models/design/developer_documentation/class_diagrams/catering.png[]
+
+[options="header"]
+|===
+|Klasse/Enumeration |Beschreibung
+|CateringProduct|Instanz eines Produktes welches im Catering- Bereich verkauft wird.
+|CateringStock|Instanz des Lagers eines Festivals.
+|CateringManagement|Erlaubt es das Lager zu managen.
+|===
+
+
 === Rückverfolgbarkeit zwischen Analyse- und Entwurfsmodell
 _Die folgende Tabelle zeigt die Rückverfolgbarkeit zwischen Entwurfs- und Analysemodell. Falls eine Klasse aus einem externen Framework im Entwurfsmodell eine Klasse des Analysemodells ersetzt,
 wird die Art der Verwendung dieser externen Klasse in der Spalte *Art der Verwendung* mithilfe der folgenden Begriffe definiert:_
