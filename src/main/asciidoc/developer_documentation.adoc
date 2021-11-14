@@ -15,8 +15,18 @@
 
 == Randbedingungen
 * Hardware-Vorgaben
+	- Client:
+		** muss eine Website anzeigen -> min. 4Gb RAM, 1-2 CPU Kerne
+	- Server:
+		** hostet eine Website -> RAM und CPU bedarf hängt von Anzahl und größe der Veranstaltungen ab
 * Software-Vorgaben
-* Vorgaben zum Betrieb des Software
+	- Browserunterstützung:
+		** Chrome ab version 92
+		** Firefox ab version 85
+	- Java-version: 16
+* Vorgaben zum Betrieb der Software
+    - der Server kann in einem CLI ausgeführt werden
+    - der Client erfordert eine grafische Oberfläche mit Webbrowser
 
 == Kontextabgrenzung
 * Kontextdiagramm
