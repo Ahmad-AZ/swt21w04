@@ -46,7 +46,7 @@
 
 === Festival
 
-image::models/design/developer_documentation/class_diagrams/festival.png
+image::models/design/developer_documentation/class_diagrams/festival.png[]
 
 [options="header"]
 |=== 
@@ -54,7 +54,7 @@ image::models/design/developer_documentation/class_diagrams/festival.png
 |Festival|Klasse, die Festivals als zentrale Objekte beschreibt
 |FestivalManagement|Klasse, um Festival-Instanzen zu verwalten
 |FestivalController|Spring MCV Controller, welcher Anfragen bezüglich Erstellung und Bearbeitung von Festivals verarbeitet
-|FestivalRepository|Speicherort Schnittstelle, um Festival-Instanzen zu speichern
+|FestivalRepository|Speicherortschnittstelle, um Festival-Instanzen zu speichern
 |FestivalInitializer|Implementierung des DataInitializer um Festivalvorlagen zu erstellen
 |NewFestivalForm|Klasse, um Benutzereingabe bei der Festivalerstellung zu validieren
 |Schedule|Klasse, die den Programmablauf des Festivals auf den jeweiligen Bühnen beschreibt 
