@@ -19,7 +19,7 @@ public class Finances {
 			Money locationPricePerDay = currentFestival.getLocation().getPricePerDay();
 			locationPrice = locationPricePerDay.multiply(durationDays);
 		}
-		catch (Exception e) {}
+		catch (NullPointerException e) {}
 
 		cost = cost.add(locationPrice);
 		return cost;

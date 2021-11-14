@@ -29,6 +29,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -58,7 +59,7 @@ public class Application {
 
 		@Bean
 		@Override
-		public UserDetailsService userDetailsService() {
+		public UserDetailsManager userDetailsService() {
 			UserDetails admin =
 					User.withDefaultPasswordEncoder()
 							.username("admin")

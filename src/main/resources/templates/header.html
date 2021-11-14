@@ -7,10 +7,9 @@
     <body>
         <div th:fragment="header">
             <div class="header">
-                <div class="uimenu">
-                    <a class="item border-right" href=".">Action 1</a>
-                    <a class="item border-right" href=".">Action 2</a>
-                    <a class="item border-right" href=".">Action 3</a>
+                <div class="menu">
+                    <a class="item border-right" href="/staff" sec:authorize="hasRole('USER_MANAGEMENT') || hasRole('ADMIN')">Personal einsehen</a>
+                    <a class="item border-right" href="/staff/create" sec:authorize="hasRole('USER_MANAGEMENT') || hasRole('ADMIN')">Personal hinzufügen</a>
                     <a class="item" href="festivalOverview.html" th:href="@{/festivalOverview}">Festivals</a>
                 </div>
                 <div class="menu">
