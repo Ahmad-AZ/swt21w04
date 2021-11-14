@@ -841,6 +841,7 @@ mieten
 [#7_2]
 
 
+
 === Kann-Kriterien
 [options="header", cols="4h, 1, 2, 15"]
 |===
@@ -863,15 +864,21 @@ Das System sollte die Funktionalität bieten, den Katalog zu filtern
 
 |[[F00029]]<<F00029>>
 |v0.1
-|Warenkorb bearbeiten
+| Daten ändern
 a|
-Das System sollte die Funktionalität bieten, den Warenkorb
+Das System sollte die Funktionalität bieten, den Festivaldaten
 ändern zu können.
 
 Dies beinhaltet:
 
 - Entfernen einzelner Produkte
 - Änderung eines ausgefüllten Tippscheins
+
+|[[F00030]]<<F00030>>
+|v0.1
+|Barcode
+a|
+Das System sollte die Funktionalität bieten, QR Code für die Tickets zu erstellen.
 
 
 
