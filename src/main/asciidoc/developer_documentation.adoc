@@ -1,9 +1,11 @@
 [options="header"]
 [cols="1, 3, 3"]
 |===
-|Version | Bearbeitungsdatum   | Autor 
-|...	| ... | ...
+|Version | Bearbeitungsdatum   | Autor
+|1.0	| 14.11.2021 | Adrian
 |===
+
+:numbered:
 
 == Entwicklerdokumentation
 
@@ -22,7 +24,7 @@
 == Lösungsstrategie
 === Erfüllung der Qualitätsziele
 [options="header"]
-|=== 
+|===
 |Qualitätsziel |Lösungsansatz
 |... |...
 |===
@@ -39,16 +41,81 @@
 [options="header", cols="1,2"]
 |===
 |Externes Package |Verwendet von (Klasse der eigenen Anwendung)
-|... |... 
+|... |...
 |===
 
 == Bausteinsicht
-* Entwurfsklassendiagramme der einzelnen Packages
+
+=== Festival
+
+image::models/design/developer_documentation/class_diagrams/festival.png[]
 
 [options="header"]
-|=== 
-|Klasse/Enumeration |Description
-|...|...
+|===
+|Klasse/Enumeration |Beschreibung
+|Festival|Klasse, die Festivals als zentrale Objekte beschreibt
+|FestivalManagement|Klasse, um Festival-Instanzen zu verwalten
+|FestivalController|Spring MCV Controller, welcher Anfragen bezüglich Erstellung und Bearbeitung von Festivals verarbeitet
+|FestivalRepository|Speicherortschnittstelle, um Festival-Instanzen zu speichern
+|FestivalInitializer|Implementierung des DataInitializer, um Festivalvorlagen zu erstellen
+|NewFestivalForm|Klasse, um Benutzereingabe bei der Festivalerstellung zu validieren
+|Schedule|Klasse, die den Programmablauf des Festivals auf den jeweiligen Bühnen beschreibt 
+|Map|Klasse, die den Beschrifteten Übersichtsplan über den Festivalort beschreibt
+|Position|Klasse, die Bereiche auf dem Übersichtsplan beschreibt
+|Area|Abstrakte Oberklasse aller möglichen Bereichsarten auf dem Übersichtsplan
+|LockedArea|Klasse, um einen gesperrten Bereich zu beschreiben
+|ParkingArea|Klasse, um einen Parkplatz zu beschreiben
+|CateringArea|Klasse, um einen Imbissbereich zu beschreiben
+|StageArea|Klasse, um einen Bühnenbereich zu beschreiben
+|ToiletArea|Klasse, um einen Toiletenbereich zu beschreiben
+|CampingArea|Klasse, um einen Zeltplatz zu beschreiben
+
+|===
+
+=== Location
+
+image::models/design/developer_documentation/class_diagrams/location.png[]
+
+[options="header"]
+|===
+|Klasse/Enumeration |Beschreibung
+|Location|Klasse, die Locations als dem Festival hinzufügbare Objekte beschreibt
+|LocationManagement|Klasse, um Location-Instanzen zu verwalten
+|LocationController|Spring MVC Controller, welcher Anfragen bezüglich des anzeigens von Locations behandelt
+|LocationRepository|Speicherortschnittstelle, um Location-Instanzen zu speichern
+|LocationDataInitializer|Implementierung des Datainitializers, um bereitgestellte Locations zu erstellen
+|GroundView|Klasse, die den Grundriss der Location enthält
+|Bookings|Klasse, die Buchungen beschreibt, die einer Location zugewiesen werden können
+|===
+
+=== PaketName...
+
+image::models/design/developer_documentation/class_diagrams/ticketshop.png[]
+
+[options="header"]
+|===
+|Klasse/Enumeration |Beschreibung
+|===
+
+=== Staff
+
+image::models/design/developer_documentation/class_diagrams/staff.png[]
+
+[options="header"]
+|===
+|Klasse/Enumeration |Beschreibung
+|Person |Basisklasse für das Personal, die alle gemeinsamen Eigenschaften enthält
+|Planner |Klasse, die den Planer repräsentiert
+|AdmissionStaff |Klasse, die das Einlaspersonal repräsentiert
+|TicketSeller |Klasse, die einen Ticketverkäufer repräsentiert
+|CateringStaff |Klasse, die einen Catering Angestellten repräsentiert
+|FestivalManager |Klasse, die den Festivalmanager repräsentiert
+|FestivalLeader |Klasse, die den Festivalleiter repräsentiert
+|MessagingSystem |Ein System zum speichern von internen Nachrichten
+|StaffRepository |Speicherschnittstelle um die Personendaten zu speichern
+|StaffController |Der Controller für das Webinterface zu verwaltung des Personals
+|CreateStaffForm |Klasse, die das Formular um Personen zu erstellen repräsentiert
+|CreateStaffForm |Klasse, die das Formular um Personen aus dem Repository zu entfernen repräsentiert
 |===
 
 === Rückverfolgbarkeit zwischen Analyse- und Entwurfsmodell
