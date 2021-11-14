@@ -92,6 +92,7 @@ Die für die Tests notwendigen Daten werden in die Testklassen einprogrammiert.
 == Testfälle und Verantwortlichkeit
 // See http://asciidoctor.org/docs/user-manual/#tables
 
+*Unit-Tests*
 [options="headers"]
 |===
 |ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe |Verantwortlicher
@@ -110,17 +111,94 @@ Das aktuell ausgewählte Festival kann 3000 Besucher haben              |
 Vorraussichtlich verkaufte Tagestickets: 4000       |
 Fehlermeldung wegen zu wenig verfügbaren Tickets   |Jan
 
+|U-AF012-3  |AF012              a|
+- Es wurde für das ausgewählte Festival noch kein Equipment gebucht
+und kein Personal angestellt
+- Camping-Tickets sollen 200€ kosten, Tagestickets 50€ a|
+- Erwartete Verkäufe Camping-Tickets: 1000
+- Erwartete Verkäufe Tagestickets: 1000 |
+Umsatz: 2050000,00€ |Jan
+
+|U-AF012-4  |AF012              |
+Für das ausgewählte Festival werden ein Umsatz von 2 * 10^6€ und Kosten von
+7 * 10^5€ erwartet |
+Öffnen der Fianzübersicht |
+Gewinn: 1300000,00€ |Jan
+
+|U-AF013-1  |AF013              a|
+- Es ist aktuell kein Benutzer eingeloggt
+- Die Accountdaten (Testplaner, Testpasswort) gehören zu einem Account mit Rolle "Planer" |
+Login: (Testplaner, Testpasswort) |
+Es können alle Funktionen für Planer verwendet werden,
+und keine Funktionene für andere Rollen | Georg
+
+|U-AF006-1  |AF006              |
+Im Getränkelager ist 200 mal Cola und 1500 mal Wasser vorhanden |
+Nachbestellen: 700 mal Cola |
+900 mal Cola auf Lager | Robert
+
+|U-AF016-1  |AF016              |
+Die Location "Festivalwiese 1" ist im Zeitraum 01.03.22-04.03.22 belegt |
+Location für neues Festival im Zeitraum 01.03.22-04.03.22: "Festivalwiese 1" |
+Warnung das Doppelbuchung nicht möglich ist | Adrian, Tuan
+
+|U-AF016-2  |AF016              | |
+Datum für neues Festival: 04.06.12-08.06.12|
+Warnung das dieses Datum schon vergangen ist | Adrian, Tuan
+
+|U-AF003-1  |AF003              |
+Die Ticketnummer 1111-1111 ist eine valide Ticketnummer für eine Camping-Ticket |
+Einlasspersonal prüft Ticketnummer 1111-1111|
+Bestätitgung der Ticketnummer | Ahmad
+
+|===
+
+*Integrationstests*
+[options="headers"]
+|===
+|ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe |Verantwortlicher
+
 |I-AF012-1  |AF012, AF010              |
 Es wurden zwei Bühnen für 10000€ gebucht, ansonsten wurde kein Equipment gebucht             |
 Öffnen der Finanzübersicht       |
 Als Kosten für Equipment werden 20000€ angezeigt   |Jan, Adrian, Tuan
+
+|I-AF014-1  |AF014, AF001              ||
+Der Preis für Camping-Tickets wird auf 200€ gesetzt       |
+Ein ausgedruckte Camping-Ticket hat den Preis 200€ aufgedruckt   |Ahmad, Jan
 
 |I-AF014-2  |AF012, AF011              |
 Es wurden Sicherheitskräfte gebucht die insgesamt Lohnkosten von 10000€ verursachen gebucht und sonst kein Personal gebucht             |
 Öffnen der Finanzübersicht       |
 Als Kosten für Personal werden 10000€ angezeigt   |Jan, Adrian, Tuan
 
-|I-AF014-1  |AF014, AF001              ||
-Der Preis für Camping-Tickets wird auf 200€ gesetzt       |
-Ein ausgedruckte Camping-Ticket hat den Preis 200€ aufgedruckt   |Ahmad, Jan
+|I-AF005-1  |AF014, AF005              |
+Es ist Bockwurst auf Lager |
+Verkauf einer Bockwurst für 3,50€ |
+Umsatz in der Finanzübersicht erhöht sich um 3,50€ |Robert, Jan
+
+|I-AF009-1  |AF008, AF009              |
+Für "Bühne 1" eines Festivals wurde "Künstler 1" gebucht  |
+Öffnen des Spielplans an einem Besucherterminal |
+Für "Bühne 1" wird "Künstler 1" angezeigt |Adrian, Tuan, Georg
+
+|I-AF008-2  |AF008, AF010              |
+Für Ein Festival wurde die Location "Festivalwiese 1" gebucht |
+Öffnen des Lageplans an einem Besucherterminal |
+Es wird der Lageplan zu "Festivalwiese 1" angezeigt |Adrian, Tuan, Georg
+
+|I-AF017-1  |AF017, AF013              |
+Der Mitarbeiter "Planer 1" ist eingeloggt |
+Öffnen der Überischt eingeloggter Mitarbeiter |
+"Planer 1" wird als eingeloggter Mitarbeiter angezeigt |Georg
+
+|I-AF001-1  |AF001, AF016              |
+Ein Festival findet auf "Festivalwiese 1" statt |
+Camping-Ticket ausdrucken für Festival auf "Festivalwiese 1" |
+Auf dem ausgedruckten Ticket wird die Location "Festivalwiese 1" angezeigt |Ahmad
+
+|I-AF007-1  |AF007, AF001              |
+Es wurden 200 Camping-Tickets und 100 Tagestickets verkauft |
+Öffnen eines Terminals für Festivalleiter |
+Verkaufte Camping-Tickets: 200, verkaufte Tagestickets: 100 |Ahmad
 |===
