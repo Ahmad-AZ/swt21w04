@@ -38,10 +38,13 @@ image::models/analysis/TLA.png[]
 
 === Entwurfsentscheidungen
 * Verwendete Muster
+
 Wir verwenden das Model- View- Controller- Muster des Spring Frameworks.
 * Persistenz
+
 Wir verwenden die Persistenz der javax- Entity Klassen.
 * Benutzeroberfläche
+
 Die Benutzeroberfläche ist eine HTML- Anwendung.
 * Verwendung externer Frameworks
 
