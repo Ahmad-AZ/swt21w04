@@ -104,6 +104,18 @@ image::models/design/developer_documentation/class_diagrams/staff.png[]
 [options="header"]
 |===
 |Klasse/Enumeration |Beschreibung
+|Person |Basisklasse für das Personal, die alle gemeinsamen Eigenschaften enthält
+|Planner |Klasse, die den Planer repräsentiert
+|AdmissionStaff |Klasse, die das Einlaspersonal repräsentiert
+|TicketSeller |Klasse, die einen Ticketverkäufer repräsentiert
+|CateringStaff |Klasse, die einen Catering Angestellten repräsentiert
+|FestivalManager |Klasse, die den Festivalmanager repräsentiert
+|FestivalLeader |Klasse, die den Festivalleiter repräsentiert
+|MessagingSystem |Ein System zum speichern von internen Nachrichten
+|StaffRepository |Speicherschnittstelle um die Personendaten zu speichern
+|StaffController |Der Controller für das Webinterface zu verwaltung des Personals
+|CreateStaffForm |Klasse, die das Formular um Personen zu erstellen repräsentiert
+|CreateStaffForm |Klasse, die das Formular um Personen aus dem Repository zu entfernen repräsentiert
 |===
 
 === Rückverfolgbarkeit zwischen Analyse- und Entwurfsmodell
