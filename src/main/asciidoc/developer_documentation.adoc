@@ -90,7 +90,7 @@ image::models/design/developer_documentation/class_diagrams/location.png[]
 
 === PaketName...
 
-image::models/design/developer_documentation/class_diagrams/location.png[]
+image::models/design/developer_documentation/class_diagrams/ticketshop.png[]
 
 [options="header"]
 |=== 
