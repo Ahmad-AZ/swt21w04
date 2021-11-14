@@ -1,7 +1,7 @@
 /* CSS RESET */
 
 html, body {
-	width: 90%;
+	width: 100%;
 	height: 100%;
 }
 
@@ -32,6 +32,24 @@ h1 {
 	align-items: center;
 	justify-content: space-between;
 	background-color: white;
+}
+
+.main {
+	width: 100%;
+	height: 95vh;
+	background-color: white;
+}
+
+.overlay {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	z-index: 2;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0,0,0,0);
 }
 
 .menu {
@@ -86,4 +104,30 @@ button:hover {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+}
+
+.form {
+	background-color: lightgrey;
+	border: 2px solid black;
+	width: 50%;
+	height: 50%;
+	position: absolute;
+	left: 25%;
+	top: 25%;
+}
+
+.list {
+	display: flex;
+	flex-direction: column;
+	width: 50%;
+	left: 25%;
+	margin: 10px;
+}
+
+.list-entry {
+	display: flex;
+	flex-direction: row;
+	margin: 10px;
+	border-bottom: 1px solid gray;
+	justify-content: space-between;
 }
