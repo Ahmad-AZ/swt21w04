@@ -1,6 +1,5 @@
 package prototype.staff;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.provisioning.UserDetailsManager;
@@ -14,13 +13,12 @@ import java.util.Optional;
 
 @Controller
 public class StaffController {
-	private StaffRepository staffRepository;
+	private final StaffRepository staffRepository;
+	private final UserDetailsManager userDetailsManager;
 
-	@Autowired
-	private UserDetailsManager userDetailsManager;
-
-	public StaffController(StaffRepository staffRepository) {
+	public StaffController(StaffRepository staffRepository, UserDetailsManager userDetailsManager) {
 		this.staffRepository = staffRepository;
+		this.userDetailsManager = userDetailsManager;
 	}
 
 	@GetMapping("/staff")
