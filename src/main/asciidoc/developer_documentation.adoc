@@ -5,6 +5,8 @@
 |1.0	| 14.11.2021 | Adrian
 |===
 
+:numbered:
+
 == Entwicklerdokumentation
 
 == Einführung und Ziele
@@ -50,12 +52,12 @@ image::models/design/developer_documentation/class_diagrams/festival.png[]
 
 [options="header"]
 |=== 
-|Klasse/Enumeration |Description
+|Klasse/Enumeration |Beschreibung
 |Festival|Klasse, die Festivals als zentrale Objekte beschreibt
 |FestivalManagement|Klasse, um Festival-Instanzen zu verwalten
 |FestivalController|Spring MCV Controller, welcher Anfragen bezüglich Erstellung und Bearbeitung von Festivals verarbeitet
 |FestivalRepository|Speicherortschnittstelle, um Festival-Instanzen zu speichern
-|FestivalInitializer|Implementierung des DataInitializer um Festivalvorlagen zu erstellen
+|FestivalInitializer|Implementierung des DataInitializer, um Festivalvorlagen zu erstellen
 |NewFestivalForm|Klasse, um Benutzereingabe bei der Festivalerstellung zu validieren
 |Schedule|Klasse, die den Programmablauf des Festivals auf den jeweiligen Bühnen beschreibt 
 |Map|Klasse, die den Beschrifteten Übersichtsplan über den Festivalort beschreibt
@@ -68,6 +70,31 @@ image::models/design/developer_documentation/class_diagrams/festival.png[]
 |ToiletArea|Klasse, um einen Toiletenbereich zu beschreiben
 |CampingArea|Klasse, um einen Zeltplatz zu beschreiben
 
+|===
+
+=== Location
+
+image::models/design/developer_documentation/class_diagrams/location.png[]
+
+[options="header"]
+|=== 
+|Klasse/Enumeration |Beschreibung
+|Location|Klasse, die Locations als dem Festival hinzufügbare Objekte beschreibt
+|LocationManagement|Klasse, um Location-Instanzen zu verwalten
+|LocationController|Spring MVC Controller, welcher Anfragen bezüglich des anzeigens von Locations behandelt
+|LocationRepository|Speicherortschnittstelle, um Location-Instanzen zu speichern
+|LocationDataInitializer|Implementierung des Datainitializers, um bereitgestellte Locations zu erstellen
+|GroundView|Klasse, die den Grundriss der Location enthält
+|Bookings|Klasse, die Buchungen beschreibt, die einer Location zugewiesen werden können
+|===
+
+=== PaketName...
+
+image::models/design/developer_documentation/class_diagrams/location.png[]
+
+[options="header"]
+|=== 
+|Klasse/Enumeration |Beschreibung
 |===
 
 === Rückverfolgbarkeit zwischen Analyse- und Entwurfsmodell
