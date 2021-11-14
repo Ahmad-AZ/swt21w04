@@ -94,8 +94,11 @@ class FinancesController {
 		if (nCampingTickets < 0 || nOneDayTickets < 0)
 			return financesPage(model, this.currentFestival);
 
-		if (nCampingTickets + nOneDayTickets > currentFestival.getLocation().getVisitorCapacity())
-			return financesPage(model, this.currentFestival);
+		try {
+			if (nCampingTickets + nOneDayTickets > currentFestival.getLocation().getVisitorCapacity())
+				return financesPage(model, this.currentFestival);
+		}
+		catch (NullPointerException e) {}
 
 		this.nCampingTickets = nCampingTickets;
 		this.nOneDayTickets = nOneDayTickets;
