@@ -173,6 +173,11 @@ Es wurde noch keine Location für das gewählte Festival ausgesucht |
 Fehlermeldung weil noch keine Location ausgewählt wurde | Adrian, Tuan
 
 |U-AF010-2 |AF010              |
+Es wurde schon eine Location für das gewählte Festival ausgesucht |
+Öffnen des "Location anpassen" Tabs |
+Warnung das bei Auswahl einer neuen Location der Lageplan zurückgesetzt wird | Adrian, Tuan
+
+|U-AF010-3 |AF010              |
 Es wurde die Location "Festivalwiese 1" für das gewählte Festival ausgesucht |
 Auswählen einer Fläche für "Bühne 1" im "Location Anpassen" Tab |
 "Bühne 1" erfolgreich gebucht | Adrian, Tuan
@@ -201,6 +206,24 @@ Es sind noch 2 Tickets an der Abendkasse verfügbar |
 Ticketkauf: 2 mal Abendkasse |
 2 mal Abendkasse Tickets verkauft | Ahmad
 
+|U-AF004-1 |AF004              | |
+Nachricht senden: "" |
+Nachricht darf nicht leer sein | Georg (?)
+
+|U-AF004-2 |AF004              | |
+Nachricht senden: "Testnachricht" |
+Nachricht gesendet | Georg (?)
+
+|U-AF015-1 |AF015              |
+Das aktuell ausgewählte Festival findet im Zeitraum 30.07.22-02.08.22 statt |
+Ticket ausdrucken |
+Auf dem ausgedruckten Ticket steht der Text
+"Datum: 30.07.22-02.08.22" | Ahmad
+
+|U-AF009-1 |AF009              |
+Auf "Bühne 1" spielt am 30.07.22 "Künstler 1" |
+"Künstler 2" als Künstler der am 30.07.22 auf "Bühne 1" auftritt |
+Fehlermeldung weil "Bühne 1" in diesem Zeitslot schon belegt ist | Adrian, Tuan
 |===
 
 *Integrationstests*
