@@ -46,7 +46,7 @@
 
 === Festival
 
-image:models/design/developer_documentation/class_diagrams/festival.png
+image::models/design/developer_documentation/class_diagrams/festival.png
 
 [options="header"]
 |=== 
