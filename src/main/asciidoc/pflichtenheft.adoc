@@ -949,7 +949,6 @@ Für jeden Dialog:
 - Agentur – Bands erfassen
 * Hier können dann die Bands von der Agentur eingepflegt werden.
      Dazu muss ein Bandname, eine Addresse, eine eMail und die Anzahl der Mitglieder angegeben werden.
-
 - Agentur - Locations erfassen
 * Hier können die Locations von der Agentur erfasst werden.
     Dazu müssen der Name, die Besucherzahl, die Bühnenanzahl und die Adresse angegeben werden.
