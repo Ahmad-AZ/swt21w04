@@ -128,9 +128,15 @@ Gewinn: 1300000,00€ |Jan
 |U-AF013-1  |AF013              a|
 - Es ist aktuell kein Benutzer eingeloggt
 - Die Accountdaten (Testplaner, Testpasswort) gehören zu einem Account mit Rolle "Planer" |
-Login: (Testplaner, Testpasswort) |
+Login: (Planer1, Testpasswort) |
 Es können alle Funktionen für Planer verwendet werden,
 und keine Funktionene für andere Rollen | Georg
+
+|U-AF013-2  |AF013              a|
+- Es ist aktuell kein Benutzer eingeloggt
+- Die Accountdaten (Testplaner, Testkeinpasswort) gehören zu keinem Account |
+Login: (Planer1, Testkeinpasswort) |
+Die Software kann nur als Besucherterminal genutzt werden | Georg
 
 |U-AF006-1  |AF006              |
 Im Getränkelager ist 200 mal Cola und 1500 mal Wasser vorhanden |
@@ -143,13 +149,57 @@ Location für neues Festival im Zeitraum 01.03.22-04.03.22: "Festivalwiese 1" |
 Warnung das Doppelbuchung nicht möglich ist | Adrian, Tuan
 
 |U-AF016-2  |AF016              | |
-Datum für neues Festival: 04.06.12-08.06.12|
+Datum für neues Festival: 04.06.12-08.06.12 |
 Warnung das dieses Datum schon vergangen ist | Adrian, Tuan
 
 |U-AF003-1  |AF003              |
 Die Ticketnummer 1111-1111 ist eine valide Ticketnummer für eine Camping-Ticket |
-Einlasspersonal prüft Ticketnummer 1111-1111|
+Einlasspersonal prüft Ticketnummer 1111-1111 |
 Bestätitgung der Ticketnummer | Ahmad
+
+|U-AF017-1  |AF017              |
+Es existiert noch kein Account mit Namen "Planer1" |
+Managerterminal Account anlegen: (Planer1, Testpasswort) |
+Account erfolgreich angelegt | Georg
+
+|U-AF017-2 |AF017              |
+Es existiert schon ein Account mit Namen "Planer1" |
+Managerterminal Account anlegen: (Planer1, Testpasswort) |
+Es existiert schon ein Account mit Namen "Planer1" | Georg
+
+|U-AF010-1 |AF010              |
+Es wurde noch keine Location für das gewählte Festival ausgesucht |
+Öffnen des "Location anpassen" Tabs |
+Fehlermeldung weil noch keine Location ausgewählt wurde | Adrian, Tuan
+
+|U-AF010-2 |AF010              |
+Es wurde die Location "Festivalwiese 1" für das gewählte Festival ausgesucht |
+Auswählen einer Fläche für "Bühne 1" im "Location Anpassen" Tab |
+"Bühne 1" erfolgreich gebucht | Adrian, Tuan
+
+|U-AF005-1 |AF005              |
+Es sind keine Colas mehr auf Lager |
+Catering-Verkauf: 1 mal Cola |
+Fehlermeldung weil Cola nicht mehr auf Lager ist | Robert
+
+|U-AF005-2 |AF005              |
+Es sind noch 200 Colas auf Lager |
+Catering-Verkauf: 1 mal Cola |
+1 mal Cola verkauft | Robert
+
+|U-AF014-1 |AF014              | |
+Preis für Camping-Tickets: 100,123€ |
+Fehlermeldung weil eingegebene Wert nur zwei Nachkommastellen haben darf | Jan
+
+|U-AF002-1 |AF002              |
+Es sind noch 2 Tickets an der Abendkasse verfügbar |
+Ticketkauf: 5 mal Abendkasse |
+Fehlermeldung weil nur noch 2 Tickets verfügbar sind | Ahmad
+
+|U-AF002-2 |AF002              |
+Es sind noch 2 Tickets an der Abendkasse verfügbar |
+Ticketkauf: 2 mal Abendkasse |
+2 mal Abendkasse Tickets verkauft | Ahmad
 
 |===
 
@@ -201,4 +251,9 @@ Auf dem ausgedruckten Ticket wird die Location "Festivalwiese 1" angezeigt |Ahma
 Es wurden 200 Camping-Tickets und 100 Tagestickets verkauft |
 Öffnen eines Terminals für Festivalleiter |
 Verkaufte Camping-Tickets: 200, verkaufte Tagestickets: 100 |Ahmad
+
+|I-AF007-1  |AF007, AF010              |
+Für "Bühne 1" eines Festivals wurde "Künstler 1" gebucht |
+Öffnen eines Terminals für Festivalleiter |
+Bühnenbelegung für "Bühne 1": "Künstler 1" |Adrian, Tuan
 |===
