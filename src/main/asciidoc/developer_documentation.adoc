@@ -2,7 +2,7 @@
 [cols="1, 3, 3"]
 |===
 |Version | Bearbeitungsdatum   | Autor
-|1.0	| 14.11.2021 | Adrian
+|1.0	| 14.11.2021 | Adrian, Robert, Georg
 |===
 
 :numbered:
@@ -11,7 +11,33 @@
 
 == Einführung und Ziele
 * Aufgabenstellung
+	- Entwicklung eines Systems zum Management von Festivals
+	- Features:
+		** Planung von Festivals
+			*** Ort, Datum
+			*** Aufbau des Festivalgeländes
+			*** Buchung des Personals
+			*** Buchung benötigter Gegenstände (Bühnen, Toiletten)
+		** Ticketsystem
+			*** Erstellung eindeutiger/einzigartiger Tickets
+			*** Verkauf -> Interface für das Verkaufspersonal
+			*** Eingangskontrolle -> Interface für das Kontrollspersonal
+		** Verkaufsinterface für Catering
+			*** Bearbeitung des Lagerbestands
+		** Internes Nachrichtensystem
+			*** Personal kann Nachrichten an den Festivalleiter senden
+		** Buchung von Künstlern
+		** Management des Personals
+		** Kostenaufstellung (Mieten, Gagen, Personal, ...)
+		** Besucherterminals mit Lage- und Spielplan
 * Qualitätsziele
+	- Benutzerfreundlichkeit
+	- einfache Wartung / Erweiterung -> Modularität
+	- persistente Datenhaltung
+	- stabile Webanwendung
+	- Wiederverwendung bestehender Lösungen
+	- Wiederverwendbarkeit
+	- Fehlerfreiheit
 
 == Randbedingungen
 * Hardware-Vorgaben
