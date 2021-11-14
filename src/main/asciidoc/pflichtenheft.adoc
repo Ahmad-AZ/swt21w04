@@ -664,31 +664,24 @@ ausgefülltes Formular zur Bestellung dem Warenkorb hinzuzufügen.
 
 |[[F00007]]<<F00007>>
 |v0.1
-|Warenkorb
-a|
-Das System muss jedem registrierten und authentifizierten
-Benutzer einen Warenkorb zur Verfügung stellen, in dem er
-ausgewählte Produkte zwischenspeichern kann. Der Warenkorb
-muss temporär beständig und für jeden Benutzer einzigartig
-sein.
+|Nachrichten senden
+a|Das System muss einem Benutzer die Möglichkeit bieten, Nachrichten zu dem Festivalleiter
+zu senden.
+
 
 |[[F00008]]<<F00008>>
 |v0.1
-|Warenkorb ansehen
+|Nachrichten empfangen
 a|
-Das System muss einem Benutzer die Möglichkeit bieten, den
-Inhalt des Warenkorbs zu authentifizieren.
-Der Warenkorb muss folgende Angaben enthalten:
-
-- Datum
-- Eingefüllte Daten eines Festivals
+Das System muss einem Benutzer die Möglichkeit bieten, Nachrichten zu empfangen.
 
 |[[F00009]]<<F00009>>
 |v0.1
-| Im Warenkorb kaufen
-a|
-Das System muss einem Benutzer die Möglichkeit bieten, mit den
-Bestellungen im Warenkorb zur Kasse zu gehen und diese zu bezahlen.
+|
+a|Das System muss in der Lage sein, Ticket zu einem Festival mit erstellen.
+- Anzahl der Tickets
+- Ticket Preis
+
 
 
 |[[F00010]]<<F00010>>
@@ -700,16 +693,15 @@ Das System muss in der Lage sein, Bestelldaten  dauerhaft zu speichern.
 
 |[[F00011]]<<F00011>>
 |v0.1
-|Bestellung anlegen
+|Das System muss einem Planer die Funktionalität zur Verfügung
+stellen, einen Termin eines Festivals zu bearbeiten.
 a|
-Das System muss in der Lage sein, eine Bestellung aus dem Inhalt
-eines Warenkorbs zu erstellen.
 
-Ein Auftrag muss mit dem Status "OFFEN" initialisiert werden.
 
 |[[F00012]]<<F00012>>
 |v0.1
-|Bestellung bezahlen
+|Das System muss einem Planer die Funktionalität zur Verfügung
+stellen, neue Mitarbieter einzustellen.
 a|
 
 |[[F00013]]<<F00013>>
@@ -827,9 +819,29 @@ a|
 Das System muss einem Admin die Möglichkeit geben,
 betriebswirtschaftliche Daten, wie Umsatz, Ausgaben,... , abzurufen und grafisch zu visualiseren.
 
+
+
+|[[F00026]]<<F00026>>
+|v0.1
+| Logins verteilen
+a|
+Das System muss einem Festivalmanager die Möglichkeit geben, die Logins an den Mitarbeiter zu verteilen.
+
+
+
+|[[F00027]]<<F00027>>
+|v0.1
+| Ausrüstungen mieten
+a|
+Das System muss einem Planer die Möglichkeit bieten, die Benötigte Ausrüstungen (Agentur – Bühnenmaterial ) von einem anderen Anbieter
+mieten
+
 |===
 
 [#7_2]
+
+
+
 === Kann-Kriterien
 [options="header", cols="4h, 1, 2, 15"]
 |===
@@ -840,7 +852,7 @@ betriebswirtschaftliche Daten, wie Umsatz, Ausgaben,... , abzurufen und grafisch
 |Beschreibung
 
 
-|[[F00026]]<<F00026>>
+|[[F00028]]<<F00028>>
 |v0.1
 | Katalog filtern
 a|
@@ -850,17 +862,23 @@ Das System sollte die Funktionalität bieten, den Katalog zu filtern
 
 
 
-|[[F00027]]<<F00027>>
+|[[F00029]]<<F00029>>
 |v0.1
-|Warenkorb bearbeiten
+| Daten ändern
 a|
-Das System sollte die Funktionalität bieten, den Warenkorb
+Das System sollte die Funktionalität bieten, den Festivaldaten
 ändern zu können.
 
 Dies beinhaltet:
 
 - Entfernen einzelner Produkte
 - Änderung eines ausgefüllten Tippscheins
+
+|[[F00030]]<<F00030>>
+|v0.1
+|Barcode
+a|
+Das System sollte die Funktionalität bieten, QR Code für die Tickets zu erstellen.
 
 
 
