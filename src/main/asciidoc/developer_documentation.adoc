@@ -29,7 +29,7 @@
     - der Client erfordert eine grafische Oberfläche mit Webbrowser
 
 == Kontextabgrenzung
-* Kontextdiagramm
+image::models/design/developer_documentation/Package.png[]
 
 == Lösungsstrategie
 === Erfüllung der Qualitätsziele
@@ -108,9 +108,9 @@ image::models/design/developer_documentation/class_diagrams/location.png[]
 |Bookings|Klasse, die Buchungen beschreibt, die einer Location zugewiesen werden können
 |===
 
-=== PaketName...
+=== Ticketshop
 
-image::models/design/developer_documentation/class_diagrams/ticketshop.png[]
+image::models/design/developer_documentation/class_diagrams/ticketShop.png[]
 
 [options="header"]
 |===
@@ -150,6 +150,20 @@ image::models/design/developer_documentation/class_diagrams/catering.png[]
 |CateringManagement|Erlaubt es das Lager zu managen.
 |===
 
+=== Finances
+
+image::models/design/developer_documentation/class_diagrams/finances.png[]
+
+[options="header"]
+|===
+|Klasse/Enumeration |Beschreibung
+|FinancesController | Bildet die Schnittstelle zwischen der finances.html Datei, ihren HTML-Forms und dem finances package
+|FinancesManagement | Ist für den Austausch von Daten zwischen dem Controller und den Models zuständig
+|Finances | Ist für die Berechnung der Finanzdaten aus allen erhaltenen Daten zuständig
+|Payment | Ist für die Berechnung von Daten zur Bezahlung von Mitarbeitern und Equipment zuständig 
+|Income | Ist für die Berechnung von Daten zum Umsatz zuständig
+|PurchasesRepository | Speichert Verkäufe vom Catering package um Berechnung von Finanzdaten zu ermöglichen
+|===
 
 === Rückverfolgbarkeit zwischen Analyse- und Entwurfsmodell
 _Die folgende Tabelle zeigt die Rückverfolgbarkeit zwischen Entwurfs- und Analysemodell. Falls eine Klasse aus einem externen Framework im Entwurfsmodell eine Klasse des Analysemodells ersetzt,
@@ -162,13 +176,14 @@ wird die Art der Verwendung dieser externen Klasse in der Spalte *Art der Verwen
 [options="header"]
 |===
 |Klasse/Enumeration (Analysemodell) |Klasse/Enumeration (Entwurfsmodell) |Art der Verwendung
-|...|...|...
+|Message |org.springframework.jms.core.JmsTemplate |Inheritance/Interface-Implementation
+|Finances.income |org.springframework.data.repository |Class Attribute
+|StaffToHire |org.springframework.data.repository |Class Attribute
 |===
 
 == Laufzeitsicht
-* Darstellung der Komponenteninteraktion anhand eines Sequenzdiagramms, welches die relevantesten Interaktionen darstellt.
 
-Planung:
+=== Planung:
 
 image::models/design/developer_documentation/sequence_diagrams/planning.jpg[]
 
