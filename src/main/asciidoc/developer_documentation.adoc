@@ -26,8 +26,11 @@
 [options="header"]
 |===
 |Qualitätsziel |Lösungsansatz
-|... |...
-|===
+|persistente Datenhaltung |Verwendung der javax Entities
+|stabile Webanwendung|Verwendung des Spring Frameworks
+|Wiederverwendung bestehender Lösungen|Verwendung des SalesPoint
+|Wiederverwendbarkeit|komplette Programmierung in OOP
+|Fehlerfreiheit|Testen mit dem jUnit
 
 === Softwarearchitektur
 * Beschreibung der Architektur anhand der Top-Level-Architektur oder eines Client-Server-Diagramms
