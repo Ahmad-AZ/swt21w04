@@ -1,7 +1,7 @@
 /* CSS RESET */
 
 html, body {
-	width: 100%;
+	width: 90%;
 	height: 100%;
 }
 
@@ -11,9 +11,10 @@ html, body {
 }
 
 body {
+	
 	margin: 0 auto;
 	font: 13px/22px Helvetica, Arial, sans-serif;
-	background: #f0f0f0;
+	background: #ffffff;
 }
 
 h1 {
@@ -25,18 +26,64 @@ h1 {
 .header {
 	float: top;
 	width: 100%;
-	min-height: 5vh;
-	display: block;
-	background-color: gray;
+	height: 5vh;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	background-color: white;
 }
 
-.right {
-	float: right;
+.menu {
+	height: 5vh;
+	display: flex;
+	border-bottom: 1px solid black;
 }
 
-.left {
-	float: left;
-}
 
 .item {
+	background-color: #007bff;
+	border: none;
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 2vh;
+}
+
+.item:hover {
+	background-color: #20a0ff;
+}
+
+a.item, span.item {
+	height: 2vh;
+	padding: 1.5vh 1vh;
+	text-align: center;
+}
+
+button.item {
+	height: 5vh;
+	padding: 0 1vh;
+}
+
+/* somehow gets deactivated when changing other button css properties */
+button:hover {
+	cursor: pointer;
+}
+
+.border-left {
+	border-left: 1px solid black;
+}
+
+.border-right {
+	border-right: 1px solid black;
+}
+
+.unselectable {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }

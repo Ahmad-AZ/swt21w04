@@ -121,4 +121,4 @@ const locationAreas =
 		idLocation:"3"
 	}
 }
-if (debug) document.writeln("location area data okay+<br>");
+if (debug) document.writeln("prototype.location area data okay+<br>");
