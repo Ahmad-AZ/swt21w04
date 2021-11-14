@@ -70,7 +70,7 @@ wird die Art der Verwendung dieser externen Klasse in der Spalte *Art der Verwen
 
 Planung:
 
-image::diagrams/developer_documentation/sequence_diagrams/planning.jpg[]
+image::models/design/developer_documentation/sequence_diagrams/planning.jpg[]
 
 == Technische Schulden
 * Auflistung der nicht erreichten Quality Gates und der zugehörigen SonarQube Issues zum Zeitpunkt der Abgabe
