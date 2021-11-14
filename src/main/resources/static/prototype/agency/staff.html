@@ -1,0 +1,52 @@
+<html>
+ <head>
+  <title>Festivalmanager Agentur</title>
+  <script language="javascript" src="../menu.js"></script>
+  <script language="javascript" src="../dialog.js"></script>
+  <script language="javascript" src="../data/dataScheme.js"></script>
+  <script language="javascript" src="../data/workers.js"></script>
+  <script language="javascript" src="../data/addresses.js"></script>
+ </head>
+ <body>
+  <script language="javascript" />
+   document.writeln(menu("agency", "staff"));
+	const descDialog =
+	{
+		primaryTable : "workers",
+		foreignTables : 
+		{
+			"addresses" : 
+			{
+				"html": function(referedData)
+				{
+					let retValue= 
+						referedData.name+"<br />"+
+						referedData.street+"<br />"+
+						referedData.zip+" "+
+						referedData.city+"<br />"+
+						referedData.country;
+					// alert(toList(referedData)+"\n"+retValue);				
+					return retValue;
+				}
+			}
+		}		
+	};
+	var data = 
+	{
+		"workers" : new Data(workers, dataScheme.workers),
+		"addresses": new Data(addresses, dataScheme.addresses)
+	};
+   </script>
+   <table border="1">
+	<tr><th>Name</th><th>eMail</th><th>Adresse</th><th>Qualifikation</th></tr>
+	<tr><td>RoMenz</td><td>robert.menzel@outlook.com</td><td>Robert Menzel<br>Schweizer Str. 12<br>01069<br>Dresden<br>Germany</td><td>html, javascript, php, sql, java, c#, c++</td></tr>
+   </table>
+   
+   <br /><br />
+   <hr>
+    Mockup:
+   <script>
+	document.writeln(tableDialog(descDialog, data));
+  </script>
+ </body>
+</html>

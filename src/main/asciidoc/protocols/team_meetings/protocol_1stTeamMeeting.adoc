@@ -1,0 +1,48 @@
+= Protokoll Gruppe 04
+
+Treffen am 23.10.2021
+
+Ort:      Discord +
+Beginn:   10:00 Uhr +
+Ende:     11:40 Uhr
+
+__Schriftführer:__ Jan Biedermann
+
+*Nächstes Treffen:* +
+24.10.2021, 13:00 Uhr, Discord
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Adrian Scholze
+- Jan Biedermann
+- Ahmad Abu Zahra
+- Georg Kunze
+- Tuấn Giang Trịnh
+- Robert Menzel
+
+== Bemerkungen
+- Es wurden Entscheidungen über Rollen in der Gruppe getroffen:
++
+** Jan ist Schriftführer
++
+** Georg ist Scrum Master
++
+** Adrian leitet die Erstellung von UML-Diagrammen
+- Wir haben gemeinsam Anwendungsfälle für den Festivalmanager gesammelt
+- Es wurden die Aufgaben für diese Woche verteilt:
++
+** Robert erstellt einen GUI Prototypen
++
+** Ahmad schreibt die funktionalen Anforderungen
++
+** Georg und Jan erstellen die Tabellen zu den besprochenen Anwendungsfällen und schreiben die Erklärungen zu den Akteuren
++
+** Adrian teilt die Arbeit für UML Diagramme unter sich, Robert und Ahmad auf
++
+** Georg schreibt Inhaltsverzeichnis, Interessengruppen und Produktnutzung im Pflichtenheft
++
+** Jan schreibt Zusammenfassung, Aufgabenstellung und Zielstellung und Systemgrenze und TLA im Pflichtenheft
+
+== Aktueller Stand
+Wir haben Klarheit über die Anwendungsfälle des Festivalmanagers gewonnen

@@ -1,0 +1,43 @@
+<html>
+ <head>
+  <title>Festivalmanager Tickets</title>
+  <script language="javascript" src="../menu.js"></script>  
+ </head>
+ <body>
+  <script language="javascript" />
+   document.writeln(menu("tickets", "accessControl"));
+  </script> 
+  <table border="1">
+   <tr>
+    <td>Name</td>
+    <td>Eingangskontrolle</td>
+   <tr>
+    <td>Beschreibung</td>
+    <td>Am Eingang zu der Location, auf der ein Event stattfindet werden die Tickets der Besucher kontrolliert</td>
+   </tr>
+   <tr>
+    <td>Akteure</td>
+    <td>Sicherheits-Personal, Besucher</td>
+   </tr>
+   <tr>
+    <td>Auslöser</td>
+	<td>Ein Besucher möchte das Festival-Gelände betreten</td>
+   </tr>
+   <tr>
+    <td>Voraussetzung</td>
+    <td>Es läuft gerade ein Festival an dieser Location</td>
+   </tr>
+   <tr>
+    <td>Essentielle Schritte</td>
+    <td>
+	 <ul>
+	  <li />Ablesen der Ticketnummer
+      <li />Abfrage ob die Ticketnummer für dieses Event gültig ist
+      <li />Ticketnummer für alle weiteren abfragen als ungültig markieren
+	  um doppeltes einchecken mit dem selben Ticket zu vermeiden
+	 </ul>
+	</td>
+   </tr>
+  </table>
+ </body>
+</html>

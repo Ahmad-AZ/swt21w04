@@ -1,0 +1,31 @@
+= Protokoll Gruppe 04
+
+Treffen am 19.10.2021
+
+Ort:      BigBlueButton +
+Beginn:   16:40 Uhr +
+Ende:     18:10 Uhr
+
+__Schriftführer:__ Jan Biedermann
+
+*Nächstes Treffen:* +
+23.10.2021, 10:00 Uhr, Discord
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Tom Morgenstern (Auftraggeber)
+- Adrian Scholze
+- Jan Biedermann
+- Ahmad Abu Zahra
+- Georg Kunze
+- Tuấn Giang Trịnh
+- Robert Menzel
+
+== Bemerkungen
+- Als Termin für die Konsultation nehmen wir nun die siebte Doppelstunde am Dienstag
+- Das Protokoll zur ersten Konstultation soll noch vervollständigt werden
+- Robert und Adrian müssen ihre Guestbook Erweiterungen noch nachreichen
+- Um das Praktikum zu bestehen muss man in SonarQube passed sein und mindestens 60% test coverage und maximal 5% duplications haben
+- Bis nächste Woche soll an mehreren Punkten im Pflichtenheft gearbeitet werden, jeder soll sich einen Branch im Videoshop repository anlegen, jeder soll sich eine Aufgabe für den Videoshop aussuchen und mit der Bearbeitung dieser Aufgabe anfangen
+- Deadline für Videoshop und Pflichtenheft ist der 31.10.2021

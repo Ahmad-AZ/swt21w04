@@ -1,0 +1,47 @@
+<html>
+ <head>
+  <title>Festivalmanager Besucher</title>
+  <script language="javascript" src="../menu.js"></script>
+ </head>
+ <body>
+  <script language="javascript" />
+   document.writeln(menu("visitor", ""));
+  </script> 
+  <table border="1">
+   <tr>
+    <td>Name</td>
+	<td>Terminal für Festivalbesucher</td>
+   </tr>
+   <tr>
+    <td>Beschreibung</td>
+	<td>Festivalbesucher sollen sich am Terminal über Lageplan und Spielplan informieren können.</td>
+   </tr>
+   <tr>
+    <td>Akteure</td>
+	<td>Festivalbesucher</td>
+   </tr>
+   <tr>
+    <td>Auslöser</td>
+	<td>
+	 Öffnen des Festivalmanagers: Wenn sich noch kein Mitarbeiter angemeldet hat
+	 werden Informationen zum Festival gezeigt
+	 <br />
+     Mitarbeiterlogout: Wenn kein Mitarbeiter angemeldet ist werden Informationen zum Festival angezeigt
+	</td>
+   </tr>
+   <tr>
+	<td>Voraussetzung(en)</td>
+    <td>siehe [Link zu Login]</td>
+   </tr>
+   <tr>
+    <td>Essentielle Schritte</td>
+    <td>
+	 <ol>
+	  <li />Besuchermodus wird durch starten des Programms oder Logout eines Mitarbeiters aktiviert
+      <li />Besucher kann Informationen über das Festival einsehen
+	 </ol>
+	</td>
+   </tr>
+  </table>
+ </body>
+</html>

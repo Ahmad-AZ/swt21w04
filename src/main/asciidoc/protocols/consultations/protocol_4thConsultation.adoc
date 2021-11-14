@@ -1,0 +1,44 @@
+= Protokoll Gruppe 04
+
+Treffen am 02.11.2021
+
+Ort:      BigBlueButton +
+Beginn:   18:30 Uhr +
+Ende:     19:30 Uhr
+
+__Schriftführer:__ Jan Biedermann
+
+*Nächstes Treffen:* +
+03.11.2021, 11:10 Uhr, Discord
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Tom Morgenstern (Auftraggeber)
+- Adrian Scholze
+- Jan Biedermann
+- Ahmad Abu Zahra
+- Georg Kunze
+- Tuấn Giang Trịnh
+- Robert Menzel
+
+== Bemerkungen
+- Neuer Konsultationstermin: Dienstag, 18:00-19:30
+
+- Aufgaben für diese Woche:
+** Komponenten unter den Teammitgliedern aufteilen
+** Entwicklerdokumentation, Testplan und Anwendungsprototyp anfangen
+** Robert und Ahmad müssen in ihrer Videoshop Readme noch angeben, welches Feature
+sie ergänzt haben
+** Robert muss im Pflichtenheft die leeren Stichpunkte im Abschnitt zum GUI Prototyp entfernen
+
+- Während der Implementation muss das Pflichtenheft nicht mehr angepasst werden,
+die Entwicklerdokumentation aber schon
+- Abgaben sollten in Zukunft vor Ablauf der Frist auf den main Branch gemerged werden,
+auf dem main Branch sollten sich nur stabile Versionen der Software befinden
+- Abgabetermin für Entwicklerdokumentation, Testplan und Anwendungsprototyp ist der 14.11, Mitternacht
+- In der Entwicklerdokumentation soll eine zentrale "Festival" Komponente benutzt werden,
+die im Pflichtenheft nicht bedacht wurde
+
+== Aktueller Stand
+Das Pflichtenheft ist fertig, alle Teammitglieder haben ihr Feature für den Videoshop implementiert. 

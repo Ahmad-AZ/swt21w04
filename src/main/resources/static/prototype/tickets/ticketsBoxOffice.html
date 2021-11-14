@@ -1,0 +1,50 @@
+<html>
+ <head>
+  <title>Festivalmanager Tickets Abendkasse</title>
+  <script language="javascript" src="../menu.js"></script>  
+ </head>
+ <body>
+  <script language="javascript" />
+   document.writeln(menu("tickets", "ticketsBoxOffice"));
+  </script> 
+  <table border="1">
+   <tr>
+    <td>Name</td>
+	<td>Abendkasse-Ticketverkauf</td>
+   <tr>
+    <td>Beschreibung</td>
+	<td>
+	 ab 3 Tagen vor Eventbegin sollen Tickets an der Abendkasse gekauft werden können.
+	 <br />Dabei wird in Camping und Tagestickets unterschieden.
+	 <br />Alle Teckits haben eine eindeutige Nummer, die für die Eingangskontrolle verwendet wird.
+	</td>
+   </tr>
+   <tr>
+    <td>Akteure</td>
+    <td>Ticket-Verkäufer, Besucher</td>
+   </tr>
+   <tr>
+    <td>Auslöser</td>
+	<td>Ein Besucher möchte ein Ticket kaufen</td>
+   </tr>
+   <tr>
+    <td>Voraussetzung(en)</td>
+	<td>
+     Es sind noch Tickets vorhanden
+     <br />Das Ticket wird ab 3 Tagen vor Event begin verkauft
+    </td>
+   </tr>
+   <tr>
+    <td>Essentielle Schritte</td>
+    <td>
+	 <ul>
+	  <li />Auswahl zwischen Camping und Tagesticket
+      <li />Generierung einer eindeutigen Nummer für das Ticket
+      <li />Abfrage des Ticketpreises (abhängig vom Ticket-Typ und Event)
+      <li />Verkauf des Tickets (Verkäufer verlang Geld)
+	 </ul>
+	</td>
+   </tr>
+  </table>
+ </body>
+</html>
