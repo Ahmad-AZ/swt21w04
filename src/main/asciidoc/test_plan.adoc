@@ -10,7 +10,8 @@ Mit den Integrationstests wird geprüft, ob die Komponenten der Software korrekt
 Es wird außerdem darauf eingegangen, wie genau die Tests durchgeführt werden sollen.
 
 Auch für den Auftraggeber kann dieses Dokument von Interesse sein,
-weil es einige Anforderungen aus dem Pflichtenheft konkretisiert.
+weil es einige Anforderungen aus dem Pflichtenheft konkretisiert und
+am Ende der Entwicklung als Abnahmetest dienen kann.
 Die Benutzer der Software zählen nicht zur Zielgruppe des Test-Plans.
 
 == Aufbau der Testbezeichner
@@ -22,23 +23,71 @@ Also zum Beispiel U-AF001-1
 
 == Test Gegenstände
 
+[options="headers"]
+|===
+|Komponente |Test Gegenstände
+|Festival a|
+- Festival
+
+- Location
+
+- Schedule
+
+- Map
+
+- Equipment
+|Catering a|
+- Catering
+
+- Catering Stock
+|Planung a|
+- Planning
+
+- Offers
+
+- Hire
+
+- Renting
+|Ticketshop a|
+- Ticketshop
+- Ticket
+|Finanzen a| 
+- FinancesController
+
+- Finances
+
+- Payment
+
+- Income
+|Nachrichten a|
+|===
+
 == Zu testende Funktionalitäten
+Für alle großen Klassen sind Unit-Tests notwendig. Große Klassen sind zum Beispiel "Festival" und "FinancesController".
+Nicht zu großen Klassen zählen zum Beispiel Repository Implementationen.
+
+Zu testen ist außerdem das Zusammenspiel der Klassen innerhalb der Packages,
+wofür es mehrere Integrationstests gibt. Die übgrigen Integrationstests sollen Fehler bei
+der Integration seperater Packages deutlich machen.
 
 == Nicht zu testende Funktionalitäten
-z.B. Bibliotheken von Drittanbietern (eigene Tests beschränken sich auf Schnittstelle, bzw. Zusammenspiel).
+Unit-Tests für die von uns verwendeten Bibliotheken von Drittanbietern (hauptsächlich salespoint, spring und javax) werden nicht durchgeführt.
+Eigenständige Integrationstests für das Zusammenspiel mit Bibliotheksklassen sind nicht vorgesehen.
+Stattdessen wird mit den Integrationstests für Komponenten auch geprüft, ob es Fehler bei der Integration der Bibliotheksklassen gibt. 
 
 == Herangehensweise
-*Bsp.:*
+Für Unit-Testfälle werden mit JUnit entsprechende Testklassen mit
+Before-, After- und Test-Annotationen erstellt.
 
-*Klassen werden mit JUnit getestet.*
-
-*Integrationstest nach Bottom-Up Prinzip*
+Die Integrationstests werden ebenfalls mit JUnit implementiert,
+dabei wird das Bottom-Up Prinzip verwendet:
+Es wird zuerst das zusammenspiel innerhalb der einzelnen Komponenten getestet,
+dann werden die Komponeten miteinander getestet.
 
 == Umgebungsvoraussetzungen
-* Wird spezielle Hardware benötigt?
-* Welche Daten müssen bereitgestellt werden? Wie werden die Daten bereitgestellt?
-* Wird zusätzliche Software für das Testen benötigt?
-* Wie kommuniziert die Software während des Testens? Internet? Netzwerk?
+Die Tests werden mit JUnit und Maven durchgeführt. Spezielle Hardware oder Kommunikation über
+Netzwerk oder Internet sind nicht notwendig.
+Die für die Tests notwendigen Daten werden in die Testklassen einprogrammiert.
 
 == Testfälle und Verantwortlichkeit
 // See http://asciidoctor.org/docs/user-manual/#tables
