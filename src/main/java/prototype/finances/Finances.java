@@ -7,6 +7,7 @@ import static org.salespointframework.core.Currencies.EURO;
 
 public class Finances {
 
+
 	public Money getCost(Festival currentFestival) {
 
 		Money cost = Money.of(0, EURO);
@@ -25,8 +26,13 @@ public class Finances {
 	}
 
 
-	public Money getRevenue(Festival currentFestival) {
+	public Money getRevenue(Festival currentFestival,
+				Money priceCampingTickets, Money priceOneDayTickets,
+				long nCampingTickets, long nOneDayTickets) {
+
 		Money revenue = Money.of(0, EURO);
+		revenue = revenue.add(priceCampingTickets.multiply(nCampingTickets));
+		revenue = revenue.add(priceOneDayTickets.multiply(nOneDayTickets));
 		return revenue;
 	}
 
@@ -34,4 +40,5 @@ public class Finances {
 	public Money getProfit(Money cost, Money revenue) {
 		return revenue.subtract(cost);
 	}
+
 }

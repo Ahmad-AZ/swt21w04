@@ -6,14 +6,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.annotation.SessionScope;
 import prototype.festival.Festival;
 
 import static org.salespointframework.core.Currencies.EURO;
 
 
 @Controller
-@SessionScope
 class FinancesController {
 
 
@@ -62,7 +60,9 @@ class FinancesController {
 		this.currentFestival = currentFestival;
 
 		Money cost = finances.getCost(currentFestival);
-		Money revenue = finances.getRevenue(currentFestival);
+		Money revenue = finances.getRevenue(currentFestival,
+				priceCampingTickets, priceOneDayTickets,
+				nCampingTickets, nOneDayTickets);
 		Money profit = finances.getProfit(cost, revenue);
 
 		String costStr = String.format("%.2f", cost.getNumber().doubleValue());
@@ -87,10 +87,15 @@ class FinancesController {
 
 
 	@GetMapping("/setTicketNumber")
-	@Scope("session")
 	public String ticketNumberForm(Model model,
 								  @RequestParam("nCampingTickets") long nCampingTickets,
 								  @RequestParam("nOneDayTickets") long nOneDayTickets) {
+
+		if (nCampingTickets < 0 || nOneDayTickets < 0)
+			return financesPage(model, this.currentFestival);
+
+		if (nCampingTickets + nOneDayTickets > currentFestival.getLocation().getVisitorCapacity())
+			return financesPage(model, this.currentFestival);
 
 		this.nCampingTickets = nCampingTickets;
 		this.nOneDayTickets = nOneDayTickets;
@@ -102,24 +107,18 @@ class FinancesController {
 
 
 	@GetMapping("/setTicketPrice")
-	@Scope("session")
 	public String ticketPriceForm(Model model,
-								  @RequestParam("priceCampingTickets") String priceCampingTicketsStr,
-								  @RequestParam("priceOneDayTickets") String priceOneDayTicketsStr) {
+								  @RequestParam("priceCampingTickets") Double priceCampingTickets,
+								  @RequestParam("priceOneDayTickets") Double priceOneDayTickets) {
 
-		priceCampingTicketsStr = priceCampingTicketsStr.replace(",", ".");
-		priceOneDayTicketsStr = priceOneDayTicketsStr.replace(",", ".");
-		Double priceCampingTicketsDouble = Double.parseDouble(priceCampingTicketsStr);
-		Double priceOneDayTicketsDouble = Double.parseDouble(priceOneDayTicketsStr);
+		if (priceCampingTickets < 0 || priceOneDayTickets < 0)
+			return financesPage(model, this.currentFestival);
 
-		this.priceCampingTickets = Money.of(priceCampingTicketsDouble, EURO);
-		this.priceOneDayTickets = Money.of(priceOneDayTicketsDouble, EURO);
+		this.priceCampingTickets = Money.of(priceCampingTickets, EURO);
+		this.priceOneDayTickets = Money.of(priceOneDayTickets, EURO);
 
-		priceCampingTicketsStr = String.format("%.2f", priceCampingTickets.getNumber().doubleValue());
-		priceOneDayTicketsStr = String.format("%.2f", priceOneDayTickets.getNumber().doubleValue());
-
-		model.addAttribute("priceCampingTickets", priceCampingTicketsStr);
-		model.addAttribute("priceOneDayTickets", priceOneDayTicketsStr);
+		model.addAttribute("priceCampingTickets", String.format("%.2f", priceCampingTickets));
+		model.addAttribute("priceOneDayTickets", String.format("%.2f", priceOneDayTickets));
 		return financesPage(model, this.currentFestival);
 	}
 
