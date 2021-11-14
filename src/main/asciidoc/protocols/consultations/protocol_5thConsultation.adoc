@@ -1,0 +1,56 @@
+= Protokoll Gruppe 04
+
+Treffen am 09.11.2021
+
+Ort:      BigBlueButton +
+Beginn:   18:00 Uhr +
+Ende:     19:10 Uhr
+
+__Schriftführer:__ Jan Biedermann
+
+*Nächstes Treffen:* +
+45. KW, Discord
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Tom Morgenstern (Auftraggeber)
+- Adrian Scholze
+- Jan Biedermann
+- Ahmad Abu Zahra
+- Georg Kunze
+- Tuấn Giang Trịnh
+- Robert Menzel
+
+== Bemerkungen
+- Diagramme und Screenshots für Analyse und Design sollen in die enstprechenden Unterordner einsortiert werden,
+Robert soll die Ordner von seinem Prototyp aufräumen
+
+- Für die richtige Implementierung soll ein Developement Branch erstellt werden,
+der etwa alle zwei Tage auf den Main gemerged wird
+
+- Das Datenmodell im Pflichtenheft wurde mit einer 1 benotet, die restlichen Teile mit einer 2
+
+== Aktueller Stand
+Der Prototyp kann starten, wir haben angefangen an Entwicklerdokumentation und Testplan zu arbeiten.
+
+== Planung des nächsten Sprints
+// See http://asciidoctor.org/docs/user-manual/=tables
+*Issue referenziert die Issue ID von GitHub*
+
+Weil in dieser Woche kein Team-Meeting auf Discord statt gefunden hat,
+wird die Aufgabenverteilung hier protokolliert.
+
+Jeder erstellt das Klassendiagramm für seine Komponente
+und die entsprechenden Klassenbeschreibungen in der Entwicklerdokumentation.
+
+[option="headers"]
+|===
+|Issue |Titel |Beschreibung |Verantwortlicher |Status
+| |Lauffähiger Prototyp | Einen Prototyp der Software erstellen | Adrian, Tuan, Jan, Georg | Grundgerüst ist fertig
+| |Testplan | Den Testplan ausfüllen | Jan | Testfälle wurde angefangen
+| |Entwicklerdokumentation 1 | Abschnitte Einführung und Ziele, Randbedingungen ausfüllen | Georg | Noch nicht angefangen
+| |Entwicklerdokumentation 2 | Abschnitt Laufzeitsicht beenden |Ahmad |Ein Sequenzdiagramm sind fertig
+| |Entwicklerdokumentation 3 | Abschnitt Lösungsstrategie ausfüllen | Robert | Noch nicht angefangen
+
+|===
