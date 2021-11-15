@@ -2,7 +2,7 @@
 [cols="1, 3, 3, 4"]
 |===
 |Version | Bearbeitungsdatum   | Autor | Vermerk
-|1.0	| 14.11.2021 | Adrian, Robert, Georg, Jan | Ahmad muss noch Lauzeitsicht und seine Klassenbeschreibung ergänzen
+|1.0	| 14.11.2021 | Adrian, Robert, Georg, Jan |
 |===
 
 :numbered:
