@@ -197,6 +197,12 @@ image::models/design/developer_documentation/class_diagrams/ticketShop.png[]
 [options="header"]
 |===
 |Klasse/Enumeration |Beschreibung
+| TicketShopController   | Klasse,
+|Ticket |
+| TicketStock|
+| TicketService|
+
+
 |===
 
 === Staff
@@ -265,9 +271,25 @@ wird die Art der Verwendung dieser externen Klasse in der Spalte *Art der Verwen
 
 == Laufzeitsicht
 
-=== Planung:
+=== Planung
 
 image::models/design/developer_documentation/sequence_diagrams/planning.jpg[]
+
+
+=== TicketShop
+
+image::models/design/developer_documentation/sequence_diagrams/seq_ticketshop.png[]
+
+=== Staff
+
+image::models/design/developer_documentation/sequence_diagrams/seq_staff.png[]
+
+=== Catering
+image::models/design/developer_documentation/sequence_diagrams/seq_catering.png[]
+
+
+
+
 
 == Technische Schulden
 * Auflistung der nicht erreichten Quality Gates und der zugehörigen SonarQube Issues zum Zeitpunkt der Abgabe
