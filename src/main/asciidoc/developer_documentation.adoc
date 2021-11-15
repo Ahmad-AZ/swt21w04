@@ -197,10 +197,11 @@ image::models/design/developer_documentation/class_diagrams/ticketShop.png[]
 [options="header"]
 |===
 |Klasse/Enumeration |Beschreibung
-| TicketShopController   | Klasse,
-|Ticket |
-| TicketStock|
-| TicketService|
+| TicketShopController   | Ein Spring MVC Controller, um die Anfrage zu bearbeiten, Tickets zu verkaufen.
+|Ticket | Klasse, die die neue Tickets für ein Festival beschreibt
+| TicketStock| Klasse, um den Lagerbestand des Tickets anzuzeigen
+| TicketService| Klasse, wo die Geschäftslogik-methode für ein Ticket implementiert
+|enum | zeigt den Typ des Tickets an
 
 
 |===
