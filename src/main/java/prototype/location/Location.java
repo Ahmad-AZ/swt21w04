@@ -7,6 +7,7 @@ import javax.money.MonetaryAmount;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
@@ -17,7 +18,8 @@ import org.salespointframework.catalog.Product;
 
 @Entity
 public class Location{
-	private  @Id @GeneratedValue long id; 
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
 	
 	private String name;
 	@Lob()

@@ -17,16 +17,19 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import prototype.location.Location;
+import prototype.location.LocationManagement;
 
 @Controller
 public class FestivalController {
 
 	private final FestivalManagement festivalManagement;
+	private final LocationManagement locationManagement;
 	private Festival currentFestival;
 
  
-	public FestivalController(FestivalManagement festivalManagement) {
+	public FestivalController(FestivalManagement festivalManagement, LocationManagement locationManagement) {
 		this.festivalManagement = festivalManagement;
+		this.locationManagement = locationManagement;
 		this.currentFestival = null;
 		
 	}
@@ -108,15 +111,24 @@ public class FestivalController {
 	
 	@PostMapping("/selectLocationPre")
 	// TODO: @PreAuthorize("hasRole('BOSS')")
-	String selectLocationPre(Model model, @RequestParam("location") Location location) {
+	String selectLocationPre(Model model, @RequestParam("location") Long locationId) {
+		Optional<Location> location = locationManagement.findById(locationId);
 		
-		currentFestival.setLocation(location);
-		festivalManagement.saveFestival(currentFestival);
-		System.out.println(currentFestival.getName());
-		System.out.println(currentFestival.getId());
-		System.out.println(currentFestival.getLocation().getName());
-		long id = currentFestival.getId();
-		return "redirect:/festivalOverview/"+id;
+		if (location.isPresent()) {
+			Location current = location.get();
+		
+			currentFestival.setLocation(current);
+			festivalManagement.saveFestival(currentFestival);
+			System.out.println(currentFestival.getName());
+			System.out.println(currentFestival.getId());
+			System.out.println(currentFestival.getLocation().getName());
+			long id = currentFestival.getId();
+			return "redirect:/festivalOverview/"+id;
+		} else {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
+		}
 	}
 	
 	@GetMapping("/financesPre1")
