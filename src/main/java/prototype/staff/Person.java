@@ -1,9 +1,8 @@
 package prototype.staff;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.salespointframework.useraccount.UserAccount;
+
+import javax.persistence.*;
 
 @Entity
 public class Person {
@@ -13,10 +12,14 @@ public class Person {
 
 	private String name;
 
+	@OneToOne
+	private UserAccount account;
+
 	public Person() {}
 
-	public Person(String name) {
+	public Person(String name, UserAccount account) {
 		this.name = name;
+		this.account = account;
 	}
 
 	public long getId() {
@@ -25,5 +28,9 @@ public class Person {
 
 	public String getName() {
 		return name;
+	}
+
+	public UserAccount getAccount() {
+		return account;
 	}
 }
