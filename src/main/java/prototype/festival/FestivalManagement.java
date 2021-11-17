@@ -4,7 +4,7 @@ import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -28,4 +28,7 @@ public class FestivalManagement {
 		return festivals.findAll();
 	}
 
+	public Optional<Festival> findById(Long id) {
+		return festivals.findById(id);
+	}
 }
