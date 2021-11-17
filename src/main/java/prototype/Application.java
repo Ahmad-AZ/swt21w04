@@ -15,66 +15,28 @@
  */
 package prototype;
 
-import java.util.stream.Stream;
-
-import org.springframework.boot.CommandLineRunner;
+import org.salespointframework.EnableSalespoint;
+import org.salespointframework.SalespointSecurityConfiguration;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.provisioning.UserDetailsManager;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@SpringBootApplication
+@EnableSalespoint
 public class Application {
+
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
 
 	@Configuration
-	@EnableGlobalMethodSecurity(prePostEnabled = true)
-	static class SecurityConfiguration extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
-		@Override
-		public void addViewControllers(ViewControllerRegistry registry) {
-			registry.addViewController("/login").setViewName("login");
-		}
+	static class WebSecurityConfiguration extends SalespointSecurityConfiguration {
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-
-			http.csrf().disable();
-
-			http.authorizeRequests().anyRequest().permitAll().and()
-					.formLogin().and()
-					.logout().logoutSuccessUrl("/").clearAuthentication(true);
-		}
-
-		@Bean
-		@Override
-		public UserDetailsManager userDetailsService() {
-			UserDetails admin =
-					User.withDefaultPasswordEncoder()
-							.username("admin")
-							.password("adminpw")
-							.roles("USER", "ADMIN")
-							.build();
-
-			UserDetails test =
-					User.withDefaultPasswordEncoder()
-							.username("test")
-							.password("testpw")
-							.roles("USER")
-							.build();
-
-			return new InMemoryUserDetailsManager(admin, test);
+			http.csrf().disable();  // for lab purposes, that's ok!
+			http.authorizeRequests().antMatchers("/**").permitAll().and()
+					.formLogin().loginProcessingUrl("/login").and()
+					.logout().logoutUrl("/logout").logoutSuccessUrl("/");
 		}
 	}
 }
