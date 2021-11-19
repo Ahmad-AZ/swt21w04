@@ -1,54 +1,257 @@
 [options="header"]
-[cols="1, 3, 3"]
+[cols="1, 3, 3, 4"]
 |===
-|Version | Bearbeitungsdatum   | Autor 
-|...	| ... | ...
+|Version | Bearbeitungsdatum   | Autor | Vermerk
+|1.0	| 14.11.2021 | Adrian, Robert, Georg, Jan |
 |===
+
+:numbered:
 
 == Entwicklerdokumentation
 
 == Einführung und Ziele
 * Aufgabenstellung
+	- Entwicklung eines Systems zum Management von Festivals
+	- Features:
+		** Planung von Festivals
+			*** Ort, Datum
+			*** Aufbau des Festivalgeländes
+			*** Buchung des Personals
+			*** Buchung benötigter Gegenstände (Bühnen, Toiletten)
+		** Ticketsystem
+			*** Erstellung eindeutiger/einzigartiger Tickets
+			*** Verkauf -> Interface für das Verkaufspersonal
+			*** Eingangskontrolle -> Interface für das Kontrollspersonal
+		** Verkaufsinterface für Catering
+			*** Bearbeitung des Lagerbestands
+		** Internes Nachrichtensystem
+			*** Personal kann Nachrichten an den Festivalleiter senden
+		** Buchung von Künstlern
+		** Management des Personals
+		** Kostenaufstellung (Mieten, Gagen, Personal, ...)
+		** Besucherterminals mit Lage- und Spielplan
 * Qualitätsziele
+	- Benutzerfreundlichkeit
+	- einfache Wartung / Erweiterung -> Modularität
+	- persistente Datenhaltung
+	- stabile Webanwendung
+	- Wiederverwendung bestehender Lösungen
+	- Wiederverwendbarkeit
+	- Fehlerfreiheit
 
 == Randbedingungen
 * Hardware-Vorgaben
+	- Client:
+		** muss eine Website anzeigen -> min. 4Gb RAM, 1-2 CPU Kerne
+	- Server:
+		** hostet eine Website -> RAM und CPU bedarf hängt von Anzahl und größe der Veranstaltungen ab
 * Software-Vorgaben
-* Vorgaben zum Betrieb des Software
+	- Browserunterstützung:
+		** Chrome ab version 92
+		** Firefox ab version 85
+	- Java-version: 16
+* Vorgaben zum Betrieb der Software
+    - der Server kann in einem CLI ausgeführt werden
+    - der Client erfordert eine grafische Oberfläche mit Webbrowser
 
 == Kontextabgrenzung
-* Kontextdiagramm
+image::models/design/developer_documentation/Package.png[]
 
 == Lösungsstrategie
 === Erfüllung der Qualitätsziele
 [options="header"]
-|=== 
+|===
 |Qualitätsziel |Lösungsansatz
-|... |...
+|persistente Datenhaltung |Verwendung der javax Entities
+|stabile Webanwendung|Verwendung des Spring Frameworks
+|Wiederverwendung bestehender Lösungen|Verwendung des SalesPoint
+|Wiederverwendbarkeit|komplette Programmierung in OOP und Bausteinen
+|Fehlerfreiheit|Testen mit dem jUnit
 |===
 
 === Softwarearchitektur
-* Beschreibung der Architektur anhand der Top-Level-Architektur oder eines Client-Server-Diagramms
+image::models/analysis/TLA.png[]
 
 === Entwurfsentscheidungen
 * Verwendete Muster
+  - Wir verwenden das Model- View- Controller- Muster des Spring Frameworks.
+  - Wir verwenden Observer bei dem Catering Stock.
+  - Wir verwenden TemplateMethod bei den Areas.
+  - Wir verwenden TemplateMethod für die Rollen beim Personal.
 * Persistenz
+  - Wir verwenden die Persistenz der javax- Entity Klassen.
 * Benutzeroberfläche
+  - Die Benutzeroberfläche ist eine HTML- Anwendung.
 * Verwendung externer Frameworks
 
 [options="header", cols="1,2"]
 |===
 |Externes Package |Verwendet von (Klasse der eigenen Anwendung)
-|... |... 
+|java.util a|
+- Booking
+- FestivalInitializer
+- NewFestivalForm
+- PlanDate
+
+|org.salespointframework.accountancy a|
+- FinancesController
+
+|org.salespointframework.catalog a|
+- EquipmentCatalog
+
+|org.salespointframework.core a|
+- Finances
+- FinancesController
+- LocationDataInitializer
+- EquipmentDataInitializer
+
+|org.springframework.data a|
+- PurchasesRepository
+- LocationManagement
+- LocationRepository
+- FestivalController
+- FestivalManagement
+- FestivalRepository
+- EquipmentCatalog
+- EquipmentRepository
+- StaffRepository
+
+|org.springframework.boot a| 
+- Application
+
+|org.springframework.validation a|
+- FestivalController
+
+|org.springframework.security a|
+- FinancesController
+- StaffController
+- Application
+
+|org.springframework.ui |Alle Controller
+
+|org.javamoney.moneta.Money a|
+- Finances
+- FinancesController
+- LocationDataInitializer
+- Location
+- Catering
+
+|javax.persistence a|
+- Location
+- Festival
+- Equipment
+- Person
+
+|javax.validation a|
+- CreateStaffForm
+- RemoveStaffForm
 |===
 
 == Bausteinsicht
-* Entwurfsklassendiagramme der einzelnen Packages
+
+=== Festival
+
+image::models/design/developer_documentation/class_diagrams/festival.png[]
 
 [options="header"]
-|=== 
-|Klasse/Enumeration |Description
-|...|...
+|===
+|Klasse/Enumeration |Beschreibung
+|Festival|Klasse, die Festivals als zentrale Objekte beschreibt
+|FestivalManagement|Klasse, um Festival-Instanzen zu verwalten
+|FestivalController|Spring MCV Controller, welcher Anfragen bezüglich Erstellung und Bearbeitung von Festivals verarbeitet
+|FestivalRepository|Speicherortschnittstelle, um Festival-Instanzen zu speichern
+|FestivalInitializer|Implementierung des DataInitializer, um Festivalvorlagen zu erstellen
+|NewFestivalForm|Klasse, um Benutzereingabe bei der Festivalerstellung zu validieren
+|Schedule|Klasse, die den Programmablauf des Festivals auf den jeweiligen Bühnen beschreibt 
+|Map|Klasse, die den Beschrifteten Übersichtsplan über den Festivalort beschreibt
+|Position|Klasse, die Bereiche auf dem Übersichtsplan beschreibt
+|Area|Abstrakte Oberklasse aller möglichen Bereichsarten auf dem Übersichtsplan
+|LockedArea|Klasse, um einen gesperrten Bereich zu beschreiben
+|ParkingArea|Klasse, um einen Parkplatz zu beschreiben
+|CateringArea|Klasse, um einen Imbissbereich zu beschreiben
+|StageArea|Klasse, um einen Bühnenbereich zu beschreiben
+|ToiletArea|Klasse, um einen Toiletenbereich zu beschreiben
+|CampingArea|Klasse, um einen Zeltplatz zu beschreiben
+|===
+
+=== Location
+
+image::models/design/developer_documentation/class_diagrams/location.png[]
+
+[options="header"]
+|===
+|Klasse/Enumeration |Beschreibung
+|Location|Klasse, die Locations als dem Festival hinzufügbare Objekte beschreibt
+|LocationManagement|Klasse, um Location-Instanzen zu verwalten
+|LocationController|Spring MVC Controller, welcher Anfragen bezüglich des anzeigens von Locations behandelt
+|LocationRepository|Speicherortschnittstelle, um Location-Instanzen zu speichern
+|LocationDataInitializer|Implementierung des Datainitializers, um bereitgestellte Locations zu erstellen
+|GroundView|Klasse, die den Grundriss der Location enthält
+|Bookings|Klasse, die Buchungen beschreibt, die einer Location zugewiesen werden können
+|===
+
+=== Ticketshop
+
+image::models/design/developer_documentation/class_diagrams/ticketShop.png[]
+
+[options="header"]
+|===
+|Klasse/Enumeration |Beschreibung
+| TicketShopController   | Ein Spring MVC Controller, um die Anfrage zu bearbeiten, Tickets zu verkaufen.
+|Ticket | Klasse, die die neue Tickets für ein Festival beschreibt
+| TicketStock| Klasse, um den Lagerbestand des Tickets anzuzeigen
+| TicketService| Klasse, wo die Geschäftslogik-methode für ein Ticket implementiert
+|enum | zeigt den Typ des Tickets an
+
+
+|===
+
+=== Staff
+
+image::models/design/developer_documentation/class_diagrams/staff.png[]
+
+[options="header"]
+|===
+|Klasse/Enumeration |Beschreibung
+|Person |Basisklasse für das Personal, die alle gemeinsamen Eigenschaften enthält
+|Planner |Klasse, die den Planer repräsentiert
+|AdmissionStaff |Klasse, die das Einlaspersonal repräsentiert
+|TicketSeller |Klasse, die einen Ticketverkäufer repräsentiert
+|CateringStaff |Klasse, die einen Catering Angestellten repräsentiert
+|FestivalManager |Klasse, die den Festivalmanager repräsentiert
+|FestivalLeader |Klasse, die den Festivalleiter repräsentiert
+|MessagingSystem |Ein System zum speichern von internen Nachrichten
+|StaffRepository |Speicherschnittstelle um die Personendaten zu speichern
+|StaffController |Der Controller für das Webinterface zu verwaltung des Personals
+|CreateStaffForm |Klasse, die das Formular um Personen zu erstellen repräsentiert
+|CreateStaffForm |Klasse, die das Formular um Personen aus dem Repository zu entfernen repräsentiert
+|===
+
+=== Catering
+
+image::models/design/developer_documentation/class_diagrams/catering.png[]
+
+[options="header"]
+|===
+|Klasse/Enumeration |Beschreibung
+|CateringProduct|Instanz eines Produktes welches im Catering- Bereich verkauft wird.
+|CateringStock|Instanz des Lagers eines Festivals.
+|CateringManagement|Erlaubt es das Lager zu managen.
+|===
+
+=== Finances
+
+image::models/design/developer_documentation/class_diagrams/finances.png[]
+
+[options="header"]
+|===
+|Klasse/Enumeration |Beschreibung
+|FinancesController | Bildet die Schnittstelle zwischen der finances.html Datei, ihren HTML-Forms und dem finances package
+|FinancesManagement | Ist für den Austausch von Daten zwischen dem Controller und den Models zuständig
+|Finances | Ist für die Berechnung der Finanzdaten aus allen erhaltenen Daten zuständig
+|Payment | Ist für die Berechnung von Daten zur Bezahlung von Mitarbeitern und Equipment zuständig 
+|Income | Ist für die Berechnung von Daten zum Umsatz zuständig
+|PurchasesRepository | Speichert Verkäufe vom Catering package um Berechnung von Finanzdaten zu ermöglichen
 |===
 
 === Rückverfolgbarkeit zwischen Analyse- und Entwurfsmodell
@@ -62,11 +265,32 @@ wird die Art der Verwendung dieser externen Klasse in der Spalte *Art der Verwen
 [options="header"]
 |===
 |Klasse/Enumeration (Analysemodell) |Klasse/Enumeration (Entwurfsmodell) |Art der Verwendung
-|...|...|...
+|Message |org.springframework.jms.core.JmsTemplate |Inheritance/Interface-Implementation
+|Finances.income |org.springframework.data.repository |Class Attribute
+|StaffToHire |org.springframework.data.repository |Class Attribute
 |===
 
 == Laufzeitsicht
-* Darstellung der Komponenteninteraktion anhand eines Sequenzdiagramms, welches die relevantesten Interaktionen darstellt.
+
+=== Planung
+
+image::models/design/developer_documentation/sequence_diagrams/planning.jpg[]
+
+
+=== TicketShop
+
+image::models/design/developer_documentation/sequence_diagrams/seq_ticketshop.png[]
+
+=== Staff
+
+image::models/design/developer_documentation/sequence_diagrams/seq_staff.png[]
+
+=== Catering
+image::models/design/developer_documentation/sequence_diagrams/seq_catering.png[]
+
+
+
+
 
 == Technische Schulden
 * Auflistung der nicht erreichten Quality Gates und der zugehörigen SonarQube Issues zum Zeitpunkt der Abgabe

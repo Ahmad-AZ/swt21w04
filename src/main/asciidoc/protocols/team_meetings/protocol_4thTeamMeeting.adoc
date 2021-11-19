@@ -1,0 +1,66 @@
+= Protokoll Gruppe 04
+
+Treffen am 03.11.2021
+
+Ort:      Discord +
+Beginn:   11:10 Uhr +
+Ende:     11:45 Uhr
+
+__Schriftführer:__ Jan Biedermann
+
+*Nächstes Treffen:* +
+45. KW, Discord
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Adrian Scholze
+- Jan Biedermann
+- Ahmad Abu Zahra
+- Georg Kunze
+- Tuấn Giang Trịnh
+
+== Bemerkungen
+- Es wurden die Komponenten der Software unter dem Teammitgliedern aufgeteilt:
+** Tuan und Adrian: Planung
+** Jan: Finanzübersicht
+** Ahmad: Ticketshop
+** Georg: Anmeldung und Rollen
+** Robert: Catering
+- Es wurden die Aufgaben bis zur nächsten Pflichtkonsultation eingeteilt
+
+== Aktueller Stand
+Diese Woche beginnt die Arbeit am Prototyp und an der Entwicklerdokumentation.
+
+== Retrospektive des letzten Sprints
+*Issue referenziert die Issue ID von GitHub*
+// Wie ist der Status der im letzten Sprint erstellten Issues/veteilten Aufgaben?
+
+// See http://asciidoctor.org/docs/user-manual/=tables
+[option="headers"]
+|===
+|Issue |Aufgabe |Status |Bemerkung
+|     |Klassenbeschreibungen für Pflichtenheft       |Fertig      |
+|     |Anwendungsfälle für Pflichtenheft       |Fertig      |
+|     |Anwendungstestfälle für Pflichtenheft       |Fertig      |
+|     |Diagramme für Pflichtenheft       |Fertig      |
+|     |GUI Prototyp für Pflichtenheft       |Fertig      |
+Wurde zum Teil erst nach Ende der Abgabefrist hochgeladen
+|===
+
+== Planung des nächsten Sprints
+*Issue referenziert die Issue ID von GitHub*
+
+// See http://asciidoctor.org/docs/user-manual/=tables
+[option="headers"]
+|===
+|Issue |Titel |Beschreibung |Verantwortlicher |Status
+|     |Unit- / Integrationstests     |Mit Testfällen für den Testplan anfangen            
+|Jan                |Noch nicht angefangen
+|     |Sequenzdiagramm     |Ein Sequenzdiagramm für die Entwicklerdokumentation erstellen            
+|Tuan                |Noch nicht angefangen
+|     |Klassendiagramme     |Ein Grundgerüst für alle Klassendiagramme in der Entwicklerdokumentation erstellen            
+|Ahmad, Adrian                |Noch nicht angefangen
+|     |Prototyp     |Das Grundgerüst für einen lauffähigen Prototypen bauen, in dem alle Teammitglieder an ihren Komponenten arbeiten können            
+|Georg, Robert                |Noch nicht angefangen
+|===

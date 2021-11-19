@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html(title=Festivals)}">
+<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
+	    <title>Festivalübersicht</title>
+</head>
+<body>
+	<header>
+		<nav th:include="header :: header"></nav>
+		<h1>Festivalübersicht</h1>
+	</header>
+	<section layout:fragment="content">
+		<a class="item" th:href="@{/newFestival}" sec:authorize="hasRole('FESTIVAL_MANAGEMENT') || hasRole('ADMIN')">Neues Festival erstellen</a>
+		
+
+		<div class="ui link cards" th:remove="all-but-first">
+            <div class="ui card" th:each="festival : ${festivalList}">
+                <div class="content">
+                    <a class="header" th:href="@{/festivalOverview/{id}(id=${festival.id})}" th:text="${festival.name}">Etwas andres</a>
+                </div>
+            </div>
+        </div>
+		
+    </section>
+</body>
+</html>

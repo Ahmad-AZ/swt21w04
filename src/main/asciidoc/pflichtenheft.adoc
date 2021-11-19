@@ -13,6 +13,8 @@
        | -
 |1.0     | Großteils fertig   | 31.10.2021          | Georg, Jan, Ahmad
        | Robert muss seinen Prototyp noch ergänzen
+|1.1     | Fertiges Pflichtenheft   | 05.11.2021          | Georg, Jan, Ahmad
+       |
 |===
 
 == Inhaltsverzeichnis
@@ -188,11 +190,11 @@ a|Festival Personal:
 
 [#5_1]
 === Kontextdiagramm
-image::diagrams/context_diagram.png[]
+image::models/analysis/requirements_specification/context_diagram.png[]
 
 [#5_2]
 === Top-Level-Architektur
-image::diagrams/TLA.png[]
+image::models/analysis/requirements_specification/TLA.png[]
 
 [#6]
 == Anwendungsfälle
@@ -217,7 +219,7 @@ betriebswirtschaftliche Informationen über das Unternehmen anzeigen lassen
 
 [#6_2]
 === Überblick Anwendungsfalldiagramm
-image::diagrams/use_case_diagram.PNG[]
+image::models/analysis/requirements_specification/use_case_diagram.PNG[]
 Anwendungsfall-Diagramm, das alle Anwendungsfälle und alle Akteure darstellt
 
 [#6_3]
@@ -241,7 +243,7 @@ Anwendungsfall-Diagramm, das alle Anwendungsfälle und alle Akteure darstellt
 |Erweiterungen               |
 |Funktionale Anforderungen   |<<F0001>>
 |===
-image::diagrams/sequence_diagrams/buy_ticket.jpg[]
+image::models/analysis/requirements_specification/sequence_diagrams/buy_ticket.jpg[]
 
 [cols="1h, 3"]
 [[AF002]]
@@ -361,7 +363,7 @@ _Nachricht empfangen_:
 |Erweiterungen               |
 |Funktionale Anforderungen   |<<F0001>>
 |===
-image::diagrams/sequence_diagrams/leader_terminal.jpg[]
+image::models/analysis/requirements_specification/sequence_diagrams/leader_terminal.jpg[]
 
 [cols="1h, 3"]
 [[AF008]]
@@ -424,7 +426,7 @@ Ein Nutzer öffnet den "Lageplan" Tab
 |Erweiterungen                 |Location wechseln
 |Funktionale Anforderungen    |<<F0001>>
 |===
-image::diagrams/sequence_diagrams/change_location.jpg[]
+image::models/analysis/requirements_specification/sequence_diagrams/change_location.jpg[]
 
 [cols="1h, 3"]
 [[AF011]]
@@ -500,7 +502,7 @@ _Logout_:
 |Erweiterungen               |
 |Funktionale Anforderungen   |<<F0001>>
 |===
-image::diagrams/sequence_diagrams/staff_login.jpg[]
+image::models/analysis/requirements_specification/sequence_diagrams/staff_login.jpg[]
 
 [cols="1h, 3"]
 [[AF014]]
@@ -558,7 +560,7 @@ Ein Planer ist eingeloggt
 2. Er gibt grundlegende Informationen wie Name und Zeitraum des Festivals an
 |Funktionale Anforderungen   |<<F0001>>
 |===
-image::diagrams/sequence_diagrams/add_festival.jpg[]
+image::models/analysis/requirements_specification/sequence_diagrams/add_festival.jpg[]
 
 [cols="1h, 3"]
 [[AF017]]
@@ -579,7 +581,7 @@ Umsatz, Ausgaben,... anzeigen
 |Erweiterungen               |
 |Funktionale Anforderungen   |<<F0001>>
 |===
-image::diagrams/sequence_diagrams/add_staff.jpg[]
+image::models/analysis/requirements_specification/sequence_diagrams/add_staff.jpg[]
 
 [#7]
 == Funktionale Anforderungen
@@ -662,31 +664,24 @@ ausgefülltes Formular zur Bestellung dem Warenkorb hinzuzufügen.
 
 |[[F00007]]<<F00007>>
 |v0.1
-|Warenkorb
-a|
-Das System muss jedem registrierten und authentifizierten
-Benutzer einen Warenkorb zur Verfügung stellen, in dem er
-ausgewählte Produkte zwischenspeichern kann. Der Warenkorb
-muss temporär beständig und für jeden Benutzer einzigartig
-sein.
+|Nachrichten senden
+a|Das System muss einem Benutzer die Möglichkeit bieten, Nachrichten zu dem Festivalleiter
+zu senden.
+
 
 |[[F00008]]<<F00008>>
 |v0.1
-|Warenkorb ansehen
+|Nachrichten empfangen
 a|
-Das System muss einem Benutzer die Möglichkeit bieten, den
-Inhalt des Warenkorbs zu authentifizieren.
-Der Warenkorb muss folgende Angaben enthalten:
-
-- Datum
-- Eingefüllte Daten eines Festivals
+Das System muss einem Benutzer die Möglichkeit bieten, Nachrichten zu empfangen.
 
 |[[F00009]]<<F00009>>
 |v0.1
-| Im Warenkorb kaufen
-a|
-Das System muss einem Benutzer die Möglichkeit bieten, mit den
-Bestellungen im Warenkorb zur Kasse zu gehen und diese zu bezahlen.
+|
+a|Das System muss in der Lage sein, Ticket zu einem Festival mit erstellen.
+- Anzahl der Tickets
+- Ticket Preis
+
 
 
 |[[F00010]]<<F00010>>
@@ -698,16 +693,15 @@ Das System muss in der Lage sein, Bestelldaten  dauerhaft zu speichern.
 
 |[[F00011]]<<F00011>>
 |v0.1
-|Bestellung anlegen
+|Das System muss einem Planer die Funktionalität zur Verfügung
+stellen, einen Termin eines Festivals zu bearbeiten.
 a|
-Das System muss in der Lage sein, eine Bestellung aus dem Inhalt
-eines Warenkorbs zu erstellen.
 
-Ein Auftrag muss mit dem Status "OFFEN" initialisiert werden.
 
 |[[F00012]]<<F00012>>
 |v0.1
-|Bestellung bezahlen
+|Das System muss einem Planer die Funktionalität zur Verfügung
+stellen, neue Mitarbieter einzustellen.
 a|
 
 |[[F00013]]<<F00013>>
@@ -825,9 +819,29 @@ a|
 Das System muss einem Admin die Möglichkeit geben,
 betriebswirtschaftliche Daten, wie Umsatz, Ausgaben,... , abzurufen und grafisch zu visualiseren.
 
+
+
+|[[F00026]]<<F00026>>
+|v0.1
+| Logins verteilen
+a|
+Das System muss einem Festivalmanager die Möglichkeit geben, die Logins an den Mitarbeiter zu verteilen.
+
+
+
+|[[F00027]]<<F00027>>
+|v0.1
+| Ausrüstungen mieten
+a|
+Das System muss einem Planer die Möglichkeit bieten, die Benötigte Ausrüstungen (Agentur – Bühnenmaterial ) von einem anderen Anbieter
+mieten
+
 |===
 
 [#7_2]
+
+
+
 === Kann-Kriterien
 [options="header", cols="4h, 1, 2, 15"]
 |===
@@ -838,7 +852,7 @@ betriebswirtschaftliche Daten, wie Umsatz, Ausgaben,... , abzurufen und grafisch
 |Beschreibung
 
 
-|[[F00026]]<<F00026>>
+|[[F00028]]<<F00028>>
 |v0.1
 | Katalog filtern
 a|
@@ -848,17 +862,23 @@ Das System sollte die Funktionalität bieten, den Katalog zu filtern
 
 
 
-|[[F00027]]<<F00027>>
+|[[F00029]]<<F00029>>
 |v0.1
-|Warenkorb bearbeiten
+| Daten ändern
 a|
-Das System sollte die Funktionalität bieten, den Warenkorb
+Das System sollte die Funktionalität bieten, den Festivaldaten
 ändern zu können.
 
 Dies beinhaltet:
 
 - Entfernen einzelner Produkte
 - Änderung eines ausgefüllten Tippscheins
+
+|[[F00030]]<<F00030>>
+|v0.1
+|Barcode
+a|
+Das System sollte die Funktionalität bieten, QR Code für die Tickets zu erstellen.
 
 
 
@@ -925,15 +945,15 @@ Konkrete Absprachen - beispielsweise ob der grafische Prototyp oder die Dialogla
 Erstellen Sie ein Übersichtsdiagramm, das das Zusammenspiel Ihrer Masken zur Laufzeit darstellt. Also mit welchen Aktionen zwischen den Masken navigiert wird.
 //Die nachfolgende Abbildung zeigt eine an die Pinnwand gezeichnete Dialoglandkarte. Ihre Karte sollte zusätzlich die Buttons/Funktionen darstellen, mit deren Hilfe Sie zwischen den Masken navigieren.
 
-image::ui/ScrSht 1 Login.png[]
-image::ui/ScrSht 2.png[]
-image::ui/ScrSht 3.png[]
-image::ui/ScrSht 4.png[]
-image::ui/ScrSht 5.png[]
-image::ui/ScrSht 6.png[]
-image::ui/ScrSht 7.png[]
-image::ui/ScrSht 8.png[]
-image::ui/ScrSht 9.png[]
+image::models/analysis/ui/ScrSht 1 Login.png[]
+image::models/analysis/ui/ScrSht 2.png[]
+image::models/analysis/ui/ScrSht 3.png[]
+image::models/analysis/ui/ScrSht 4.png[]
+image::models/analysis/ui/ScrSht 5.png[]
+image::models/analysis/ui/ScrSht 6.png[]
+image::models/analysis/ui/ScrSht 7.png[]
+image::models/analysis/ui/ScrSht 8.png[]
+image::models/analysis/ui/ScrSht 9.png[]
 
 [#9_2]
 === Dialogbeschreibung
@@ -947,43 +967,30 @@ Für jeden Dialog:
 - Agentur – Bands erfassen
 * Hier können dann die Bands von der Agentur eingepflegt werden.
      Dazu muss ein Bandname, eine Addresse, eine eMail und die Anzahl der Mitglieder angegeben werden.
-* -
-* -
-* -
 - Agentur - Locations erfassen
 * Hier können die Locations von der Agentur erfasst werden.
     Dazu müssen der Name, die Besucherzahl, die Bühnenanzahl und die Adresse angegeben werden.
 	Pro Location können Bereiche eingepflegt werden.
 	Die Bereiche haben eine Art (Camping, Parkplatz, Catering und Stage), eine Besucheranzahl und einen Namen.
-* -
-* -
-* -
+
 - Agentur - Personal erfassen
 * Hier wird das verfügbare Personal erfasst.
     Pro Arbeiter wird ein Nickname, eine eMail- Adresse, die Adresse und ein Text zur Qualifikation eingegeben.
-* -
-* -
-* -
+
 - Agentur – Bühnenmaterial erfassen
 * Hier wird das verfügbare Equipment erfasst.
     Für jedes Gerät wird ein Name, der Mietpreis pro Tag,  der Anbieter sowie Höhe, Breite und Tiefe eingegeben.
-* -
-* -
-* -
+
 - Manager . Location buchen
 * Hier muss ein Termin festgelegt werden und die passende Location gebucht werden.
     Doppelbuchungen der Location sind auf jeden Fall zu vermeiden.
     Jede Location bietet Platz für eine maximale Anzahl von Besuchern und Bühnen.
     Außerdem ist jede Location in verschiedene, eindeutig gekennzeichnete Bereiche unterteilt, die wiederum einen Teil der maximalen Besucherzahl fassen können und sich außerdem in Camping-, Park, Catering- und Stagebereiche einordnen lassen.
-* -
-* -
-* -
+
 - Manager – Festival managen
 * Sobald die Location gebucht ist können hier für dieses Festival Anpassungen durchgeführt werden, wie die Bühnenpositionierung, Toilettenbestückung, Cateringstände und es muss möglich sein, bestimmte Bereiche zu sperren.
     Die genannten Gegenstände werden von externen Anbietern gemietet.
-* -
-* -
-* -
+
 - Manager – LineUp anlegen
 * In dieser Phase muss das "Line Up" zusammengestellt werden.
     Dazu müssen Angebote bei bestimmten Künstlern eingeholt werden.
@@ -996,17 +1003,13 @@ Für jeden Dialog:
     Bühnentechniker (Anzahl wird durch die Band bestimmt)
     sowie ein Veranstaltungsleiter.
     Jede Arbeitskraft wird dabei auf Stundenbasis bezahlt.
-* -
-* -
-* -
-
 
 [#10]
 == Datenmodell
 
 [#10_1]
 === Überblick: Klassendiagramm
-image::diagrams/class_diagram.png[]
+image::models/analysis/requirements_specification/class_diagram.png[]
 
 [#10_2]
 === Klassen und Enumerationen

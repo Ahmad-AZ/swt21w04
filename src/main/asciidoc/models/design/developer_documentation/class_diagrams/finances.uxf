@@ -1,0 +1,61 @@
+<diagram program="umletino" version="14.3.0"><zoom_level>10</zoom_level><element><id>UMLPackage</id><coordinates><x>320</x><y>88</y><w>820</w><h>750</h></coordinates><panel_attributes>finances
+--
+bg=white
+fg=black</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>630</x><y>28</y><w>200</w><h>30</h></coordinates><panel_attributes>org.javamoney.moneta.Money</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>510</x><y>208</y><w>320</w><h>120</h></coordinates><panel_attributes>Payment
+--
++ setFestival(currentFestival : Festival) : void
++ getWagesTotal() : Money
++ getWagesArtists() : Money
++ getWagesStaff() : Money
++ getRentingFees() : Money</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>450</x><y>378</y><w>260</w><h>80</h></coordinates><panel_attributes>Income
+--
++ setFestival(currentFestival : Festival) : void
++ getIncome() : Money
++ getIncomeAfterTax() : Money</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>790</x><y>368</y><w>280</w><h>80</h></coordinates><panel_attributes>Finances
+--
++ getCost(currentFestival : Festival) : Money
++ getRevenue(currentFestival : Festival) : Money
++ getProfit(cost : Money, revenue : Money) : Money</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>560</x><y>628</y><w>540</w><h>190</h></coordinates><panel_attributes>FinancesController
+--
+- currentFestival : Festival
+- nCampingTickets : long
+- nOneDayTickets : long
+- soldCampingTickets : long
+- soldOneDayTickets : long
+--
++ FinancesController()
++ financesPage(model : Model, currentFestival : Festival) : String
++ ticketNumberForm(model : Model, nCampingTickets: long, nOneDayTickets: long) : String
++ ticketPriceForm(model : Model, priceCampingTickets: long, priceOneDayTickets: long) : String
+- resetAttributes() : void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>40</x><y>468</y><w>260</w><h>250</h></coordinates><panel_attributes>Spring
+--
+bg=white
+fg=black</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>60</x><y>528</y><w>230</w><h>70</h></coordinates><panel_attributes>template=T, ID
+&lt;&lt;interface&gt;&gt;
+org.springframework.data.repository
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>500</x><y>548</y><w>210</w><h>40</h></coordinates><panel_attributes>PurchsasesRepository</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>750</x><y>48</y><w>60</w><h>180</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>10;10;10;160</additional_attributes></element><element><id>Relation</id><coordinates><x>460</x><y>18</y><w>190</w><h>380</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>170;20;10;20;10;360</additional_attributes></element><element><id>Relation</id><coordinates><x>820</x><y>28</y><w>130</w><h>360</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>10;20;110;20;110;340</additional_attributes></element><element><id>Relation</id><coordinates><x>260</x><y>548</y><w>260</w><h>50</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;bind&gt;&gt;
+&lt;T-&gt;Order, ID-&gt;long&gt;</panel_attributes><additional_attributes>10;20;240;20</additional_attributes></element><element><id>Relation</id><coordinates><x>560</x><y>448</y><w>90</w><h>120</h></coordinates><panel_attributes>lt=&lt;-
+-purchases
+m1=1</panel_attributes><additional_attributes>10;100;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>920</x><y>438</y><w>80</w><h>210</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+finances</panel_attributes><additional_attributes>10;10;10;190</additional_attributes></element><element><id>Relation</id><coordinates><x>820</x><y>218</y><w>110</w><h>170</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+payment</panel_attributes><additional_attributes>10;20;90;20;90;150</additional_attributes></element><element><id>Relation</id><coordinates><x>700</x><y>388</y><w>110</w><h>50</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+income</panel_attributes><additional_attributes>10;20;90;20</additional_attributes></element><element><id>UMLPackage</id><coordinates><x>1160</x><y>348</y><w>160</w><h>110</h></coordinates><panel_attributes>festival
+--
+bg=white
+fg=black</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1180</x><y>388</y><w>100</w><h>50</h></coordinates><panel_attributes>Festival
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1060</x><y>388</y><w>120</w><h>40</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>100;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>1090</x><y>448</y><w>210</w><h>260</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>160;10;160;240;10;240</additional_attributes></element><element><id>UMLClass</id><coordinates><x>60</x><y>658</y><w>210</w><h>30</h></coordinates><panel_attributes>org.springframework.ui.Model</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>270</x><y>768</y><w>310</w><h>40</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>10;20;290;20</additional_attributes></element><element><id>UMLPackage</id><coordinates><x>40</x><y>728</y><w>260</w><h>90</h></coordinates><panel_attributes>Spring
+--
+bg=white
+fg=black</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>60</x><y>770</y><w>220</w><h>30</h></coordinates><panel_attributes>org.salespointframework.accountancy</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>360</x><y>700</y><w>150</w><h>30</h></coordinates><panel_attributes>FinancesManagement
+--</panel_attributes><additional_attributes></additional_attributes></element></diagram>

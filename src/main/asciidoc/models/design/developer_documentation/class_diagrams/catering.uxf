@@ -1,0 +1,52 @@
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLPackage</id><coordinates><x>100</x><y>3</y><w>980</w><h>700</h></coordinates><panel_attributes>catering</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>150</x><y>53</y><w>380</w><h>320</h></coordinates><panel_attributes>
+CateringProduct
+
+--
+-productId : int
+-productName: String
+-date:Date
+-buyingPrice:float
+-sellingPrice:float
+-quantity:int
+--
++CateringProdict(productId : int ,
+productName :  String, date:Date, 
+buyingPrice : float, sellingPrice :float, quanitiy : int  )
+
++getPrice( ) : flaot
++getTimeOfBuyingTime( ) : Date
++getQuantity( ) : int
++setQuantity(quantity :int )
++getSellingPrice( ) : float
++getProductName(  ) : String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>610</x><y>53</y><w>400</w><h>230</h></coordinates><panel_attributes>
+CateringStock
+
+--
+
+-products : List&lt;CateringProduct&gt;
+
+--
+
+
++getNumberOfProduct(product : CateringProduct): Map&lt;String, Integer&gt;
++addCateringProduct(newProduct : CateringProduct)
++updateQuantity(newProduct : CateringProduct)
++reorder(cateringProduct : CateringProduct)
++getSalesOfProduct(cateringProduct : CateringProduct) : float
++notify() 
+
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>340</x><y>413</y><w>330</w><h>210</h></coordinates><panel_attributes>
+CateringManagement
+
+--
+
+-cateringStock : CateringStock 
+-cateringProduct: CateringProduct
+
+--
+
++notify()
++oderProduct(  caterintProduct : CateringProduct)
++getSalesOfCatering( cateringProduct: CateringProduct): float
++addProduct(cateringProduct: CateringProduct)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>363</y><w>170</w><h>250</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;230;150;230</additional_attributes></element><element><id>Relation</id><coordinates><x>660</x><y>273</y><w>170</w><h>200</h></coordinates><panel_attributes></panel_attributes><additional_attributes>150;10;150;180;10;180</additional_attributes></element><element><id>Relation</id><coordinates><x>520</x><y>183</y><w>110</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>90;10;10;10</additional_attributes></element><element><id>Text</id><coordinates><x>690</x><y>433</y><w>100</w><h>30</h></coordinates><panel_attributes>-cateringStock</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>750</x><y>463</y><w>300</w><h>150</h></coordinates><panel_attributes>Salespoint</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>930</x><y>503</y><w>100</w><h>30</h></coordinates><panel_attributes>Quanitiy</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>970</x><y>273</y><w>30</w><h>250</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;230;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>800</x><y>503</y><w>100</w><h>30</h></coordinates><panel_attributes>Inventory</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>880</x><y>270</y><w>30</w><h>250</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;230;10;10</additional_attributes></element></diagram>
