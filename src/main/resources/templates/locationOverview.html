@@ -19,32 +19,13 @@
 		
 		<h3>Verfügbare Loctaions</h3>
 		<form method="post" name="location" role="location" class="ui form" id="location" th:action="@{/selectLocationPre}" th:object="${location}">
-			<table class="ui celled table">
-			        <thead>
-			        <tr>
-			        	<th>Auswahl</th>
-			            <th>Locations</th>
-	  		            <th>Preis pro Tag</th>
-	  		            <th>maximale Besucheranzahl</th>
-	  		            <th>maximale Bühnenanzahl</th>
-	
-			        </tr>
-			        </thead>
-			        <tbody>
-			        <tr th:each="location : ${locationList}">
-			            <td>
-				        		<input type="radio" id="location" name="location" th:value="${location.id}" required="required"/>
-			            </td>
-			            <td>
-				        		<label th:text="${location.name}">Location</label>
-			            </td>
-			            <td th:text="${location.pricePerDay}">Preis</td>
-			            <td th:text="${location.visitorCapacity}">Besucher</td>
-			            <td th:text="${location.stageCapacity}">Bühnen</td>
-			            
-			        </tr>
-			        </tbody>
-			</table>
+			<div class="ui link cards" th:remove="all-but-first">
+	            <div class="ui card" th:each="location : ${locationList}">
+	                <div class="content">
+	                    <a class="header" th:href="@{/locationOverview/{id}(id=${location.id})}" th:text="${location.name}">Etwas andres</a>
+	                </div>
+	            </div>
+	        </div>
 			<button type="submit" class="ui button" >Buchen</button>
 		</form>
     </section>

@@ -1,6 +1,7 @@
 package prototype.location;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.money.MonetaryAmount;
@@ -30,8 +31,8 @@ public class Location{
 	private int stageCapacity; 
 
  
-//	@OneToMany(cascade = CascadeType.ALL)
-//	private List<Booking> bookings = new ArrayList<>();
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Booking> bookings = new ArrayList<>();
 
 	
 	public Location(String name, String adress, Money pricePerDay, int visitorCapacity, int stageCapacity) {
@@ -68,9 +69,13 @@ public class Location{
 	public Money getPricePerDay() {
 		return pricePerDay;
 	}
-
+	
+	public boolean addBooking(Date startDate, Date endDate) {
+		Booking booking = new Booking(startDate, endDate);
+		return bookings.add(booking);
+	}
  
-//	public List<Booking> getBookings() {
-//		return bookings;
-//	}
+	public List<Booking> getBookings() {
+		return bookings;
+	}
 }

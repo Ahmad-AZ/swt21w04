@@ -138,6 +138,7 @@ public class FestivalController {
 	// TODO: @PreAuthorize("hasRole('BOSS')")
 	String locationPre1(Model model, RedirectAttributes ra) {
 		ra.addFlashAttribute("currentFestival", currentFestival);
+		ra.addFlashAttribute("fm", festivalManagement);
 		System.out.println(currentFestival.getName());
 		return "redirect:locationOverview";
 	}

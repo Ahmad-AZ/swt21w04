@@ -24,6 +24,9 @@ public class LocationManagement {
 		Assert.notNull(locations, "LoationRepository must not be null");
 		this.locations = locations;
 	}
+	public Location saveLocation(Location location) {
+		return locations.save(location);
+	}
 
 	/**
 	 *
