@@ -14,19 +14,23 @@ public class LocationController {
 	
 	private final LocationManagement locationManagement;
 	
+	
 	public LocationController(LocationManagement locationManagement) {
 		this.locationManagement = locationManagement;
 	}
 	
 	// shows Locations Overview
-	@GetMapping("/locationOverview")
-	public String locationOverview(Model model) {
+	@GetMapping("/locationOverview")  
+	public String locationOverview(Model model, @ModelAttribute("currentFestival") Festival currentFestival) {
 		
 		model.addAttribute("locationList", locationManagement.findAll());
-
+		
+		// required for second nav-bar
+		model.addAttribute("festival", currentFestival);
+		
 		return "locationOverview"; 
-	}
-	
+	} 
+	 
 //	@GetMapping("/selectLocation")
 //	public String selectLocation(Model model, @ModelAttribute("currentFestival") Festival currentFestival, @ModelAttribute("location") Location location) {
 //		System.out.println(currentFestival.getName());

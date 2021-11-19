@@ -24,11 +24,11 @@ public class PlanLocation extends Planning {
 		}
 		return false;
 	}
-/*
 
-	public Streamable<Location> getAllLocations(){
-		return findAll();
-	}
-*/
+
+//	public Streamable<Location> getAllLocations(){
+//		return findAll();
+//	}
+
 
 }

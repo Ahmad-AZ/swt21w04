@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import prototype.location.Location;
+import prototype.planning.Planning;
 
 import java.util.Date;
 
@@ -25,6 +26,7 @@ public class Festival {
 	
 //	@OneToOne()
 //	private Finances finances; 
+	
 
 	public Festival(String name, Date startDate, Date endDate) {
 		this.name = name;

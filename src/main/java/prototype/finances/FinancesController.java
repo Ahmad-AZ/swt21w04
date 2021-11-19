@@ -81,7 +81,10 @@ class FinancesController {
 		model.addAttribute("nOneDayTickets", this.nOneDayTickets);
 		model.addAttribute("soldCampingTickets", this.soldCampingTickets);
 		model.addAttribute("soldOneDayTickets", this.soldCampingTickets);
-
+		
+		// required for second nav-bar
+		model.addAttribute("festival", currentFestival);
+		
 		return "finances";
 	}
 

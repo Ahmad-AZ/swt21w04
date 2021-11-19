@@ -9,6 +9,8 @@
     </head>
     <body>
         <div th:include="header :: header"></div>
+        <h1>Personal</h1>
+        <div th:include="festivalHeader :: festivalHeader"></div>
         <div class="main">
             <ul class="list">
                 <li class="list-entry" th:each="entry, it : ${entries}">

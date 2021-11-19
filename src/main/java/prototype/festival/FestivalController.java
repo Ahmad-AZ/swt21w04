@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import prototype.location.Location;
 import prototype.location.LocationManagement;
+import prototype.planning.Planning;
 
 @Controller
 public class FestivalController {
@@ -25,12 +26,14 @@ public class FestivalController {
 	private final FestivalManagement festivalManagement;
 	private final LocationManagement locationManagement;
 	private Festival currentFestival;
+	private long currentId;
 
  
 	public FestivalController(FestivalManagement festivalManagement, LocationManagement locationManagement) {
 		this.festivalManagement = festivalManagement;
 		this.locationManagement = locationManagement;
 		this.currentFestival = null;
+		this.currentId = 0;
 		
 	}
 	
@@ -57,7 +60,7 @@ public class FestivalController {
 				System.out.println(current.getLocation().getName());
 				model.addAttribute("location", current.getLocation());
 			}
-
+			currentId = festivalId;
 			currentFestival = current;
 			return "festivalDetail";
 		} else {
@@ -130,6 +133,16 @@ public class FestivalController {
 			);
 		}
 	}
+	
+	@GetMapping("/locationPre1")
+	// TODO: @PreAuthorize("hasRole('BOSS')")
+	String locationPre1(Model model, RedirectAttributes ra) {
+		ra.addFlashAttribute("currentFestival", currentFestival);
+		System.out.println(currentFestival.getName());
+		return "redirect:locationOverview";
+	}
+	
+	
 	
 	@GetMapping("/financesPre1")
 	// TODO: @PreAuthorize("hasRole('BOSS')")
