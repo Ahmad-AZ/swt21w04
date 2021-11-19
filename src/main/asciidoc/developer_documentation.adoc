@@ -257,6 +257,37 @@ image::models/design/developer_documentation/class_diagrams/planning.png[]
 |PlanSchedule|Planen in Benuztszeitraum von Equiments in dem Fest.
 |===
 
+=== Equipment
+image::models/design/developer_documentation/class_diagrams/equipment.png[]
+
+[options="header"]
+|===
+|Klasse/Enumeration |Beschreibung
+|Equipment|Abstrakte Klasse, zeigt die Geräte die in Festivals benutzt werden.
+|Stage|Kindklasse von Equipment
+|Toilet|Kindklasse von Equipment
+|CateringStall|Kindklasse von Equipment.
+|EquipmentRepository|Datenbank, die alle Equipment enthält (erbt sich aus CrudRepository)
+|EquipmentDataInitializer|Implementierung des Datainitializers, um bereitgestellte Equipment zu erstellen
+|===
+
+=== Hiring
+image::models/design/developer_documentation/class_diagrams/hiring.png[]
+
+[options="header"]
+|===
+|Klasse/Enumeration |Beschreibung
+|OffersArtist|Enthält Information von alle Offer, Fee in einem Fest.
+|Offer|Abstraktklasse, füge Employees oder Artists hinzu
+|OfferArtist|füge Artist und Show in Fest hinzu (Kindklasse von Offer)
+|OfferEmployee|füge Employee in Fest hinzu (Kindklasse von Offer)
+|Artist|klasse von Artist.
+|Employee|klasse von Employee.
+|Show|klasse von Show, enhält ind Information von dem Show.
+|EmployeeManagement|erlaubt hiring zu managieren .
+|OffersInitializer|Implementierung des Datainitializers, um bereitgestellte Offers zu erstellen
+|===
+
 === Finances
 
 image::models/design/developer_documentation/class_diagrams/finances.png[]
