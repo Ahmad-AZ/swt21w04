@@ -27,15 +27,15 @@ public class Location{
 	private Money pricePerDay;
 	private String adress;
 
-	private int visitorCapacity;
-	private int stageCapacity; 
+	private long visitorCapacity;
+	private long stageCapacity; 
 
  
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Booking> bookings = new ArrayList<>();
 
 	
-	public Location(String name, String adress, Money pricePerDay, int visitorCapacity, int stageCapacity) {
+	public Location(String name, String adress, Money pricePerDay, long visitorCapacity, long stageCapacity) {
 		this.name = name;
 		this.pricePerDay = pricePerDay;
 		this.adress = adress;
@@ -54,11 +54,11 @@ public class Location{
 		return adress;
 	}
 
-	public int getVisitorCapacity() {
+	public long getVisitorCapacity() {
 		return visitorCapacity;
 	}
 
-	public int getStageCapacity() {
+	public long getStageCapacity() {
 		return stageCapacity;
 	}
 
