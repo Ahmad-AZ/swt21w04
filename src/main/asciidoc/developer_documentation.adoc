@@ -239,6 +239,24 @@ image::models/design/developer_documentation/class_diagrams/catering.png[]
 |CateringManagement|Erlaubt es das Lager zu managen.
 |===
 
+=== Planning
+image::models/design/developer_documentation/class_diagrams/planning.png[]
+
+[options="header"]
+|===
+|Klasse/Enumeration |Beschreibung
+|Planning|Abstrakte Klasse, um einen Festival zu plannen.
+|PlanningController|Bildet die Schnittstelle zwischen HTMLs Datein, Befehle und dem planning package.
+|PlanLocation|Planen die Position von einem Festival.
+|PlanDate|Planen den Datum von dem Fest.
+|PlanOffers|Planen die Künstler von dem Fest.
+|PlanRenting|Planen die Equipments von dem Fest.
+|PlanHire|Planen die Arbeitsnehmer von dem Fest.
+|PlanDate|Planen die Position von Equipments in dem Fest.
+|PlanAreas|Planen die Positon von Equipement in dem Fest.
+|PlanSchedule|Planen in Benuztszeitraum von Equiments in dem Fest.
+|===
+
 === Finances
 
 image::models/design/developer_documentation/class_diagrams/finances.png[]
