@@ -95,6 +95,21 @@ public class LocationController {
 		return "newLocation";
 	}
 	
+	@PostMapping("/saveLocation")
+	public String saveLocation(@Validated NewLocationForm form, Errors result, @RequestParam("location") Long locationId) {
+		Optional<Location> location = locationManagement.findById(locationId);
+		
+		if (location.isPresent()) {
+			Location current = location.get();
+			locationManagement.editLocation(current, form);
+			return "redirect:/locations";
+			
+		} else {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
+		}
+	}
 	
 	
 	

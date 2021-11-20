@@ -15,8 +15,6 @@
 		<h1>Locations</h1>
 	</header>
 	<section layout:fragment="content">
-		
-		<h3>Locations</h3>
 		<form method="post" name="location" role="location" class="ui form" id="location" th:object="${location}">
 			<div class="ui link cards" th:remove="all-but-first">
 	            <div class="ui card" th:each="location : ${locationList}">

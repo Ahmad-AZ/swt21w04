@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import org.javamoney.moneta.Money;
 import org.salespointframework.catalog.Product;
@@ -22,6 +23,7 @@ public class Location{
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
+	@NotNull
 	private String name;
 	@Lob()
 	private Money pricePerDay;
@@ -36,38 +38,19 @@ public class Location{
 
 	
 	public Location(String name, String adress, Money pricePerDay, long visitorCapacity, long stageCapacity) {
-		this.name = name;
-		this.pricePerDay = pricePerDay;
-		this.adress = adress;
-		this.visitorCapacity = visitorCapacity;
-		this.stageCapacity = stageCapacity; 
+		this.setName(name);
+		this.setPricePerDay(pricePerDay);
+		this.setAdress(adress);
+		this.setVisitorCapacity(visitorCapacity);
+		this.setStageCapacity(stageCapacity); 
 	}
 	
 	public Location() {
 		
 	}
+	
 	public long getId() {
 		return id;
-	}
-	
-	public String getAdress() {
-		return adress;
-	}
-
-	public long getVisitorCapacity() {
-		return visitorCapacity;
-	}
-
-	public long getStageCapacity() {
-		return stageCapacity;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public Money getPricePerDay() {
-		return pricePerDay;
 	}
 	
 	public boolean addBooking(Date startDate, Date endDate) {
@@ -77,5 +60,45 @@ public class Location{
  
 	public List<Booking> getBookings() {
 		return bookings;
+	}
+
+	public String getAdress() {
+		return adress;
+	}
+
+	public void setAdress(String adress) {
+		this.adress = adress;
+	}
+
+	public long getVisitorCapacity() {
+		return visitorCapacity;
+	}
+
+	public void setVisitorCapacity(long visitorCapacity) {
+		this.visitorCapacity = visitorCapacity;
+	}
+
+	public long getStageCapacity() {
+		return stageCapacity;
+	}
+
+	public void setStageCapacity(long stageCapacity) {
+		this.stageCapacity = stageCapacity;
+	}
+
+	public Money getPricePerDay() {
+		return pricePerDay;
+	}
+
+	public void setPricePerDay(Money pricePerDay) {
+		this.pricePerDay = pricePerDay;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

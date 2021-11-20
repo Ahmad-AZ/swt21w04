@@ -34,6 +34,16 @@ public class LocationManagement {
 		return locations.save(new Location(form.getName(), form.getAdress(), pricePerDay, form.getVisitorCapacity(), form.getStageCapacity()));
 	}
 	
+	public Location editLocation(Location location, NewLocationForm form) {
+		Money pricePerDay = Money.of(form.getPricePerDay(), EURO);
+		location.setPricePerDay(pricePerDay);
+		location.setAdress(form.getAdress());
+		location.setName(form.getName());
+		location.setStageCapacity(form.getStageCapacity());
+		location.setVisitorCapacity(form.getVisitorCapacity());
+		return locations.save(location);
+	}
+	
 	public Location saveLocation(Location location) {
 		return locations.save(location);
 	}

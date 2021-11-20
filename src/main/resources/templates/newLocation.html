@@ -23,12 +23,11 @@
         <label for="adress"><pre>Adresse:</pre></label>
         <input id="adress" name="adress" th:field="*{adress}" type="text" required="required"/><br>
         <label for="pricePerDay"><pre>Preis pro Tag:</pre></label>
-    	<input id="pricePerDay" type="number" step="0.01" name="pricePerDay" th:required="required"/> <i>€</i></br>
+    	<input id="pricePerDay" type="number" step="0.01" name="pricePerDay" th:required="required" min="0.00"/> <i>€</i></br>
         <label for="visitorCapacity"><pre>maximale Besucheranzahl:</pre></label>
-        <input id="visitorCapacity" type="number" name="visitorCapacity" step="1" required="required"/><br>
+        <input id="visitorCapacity" type="number" name="visitorCapacity" step="1" required="required" min="0"/><br>
        	<label for="stageCapacity"><pre>maximale Bühnenanzahl:</pre></label>
-        <input id="stageCapacity" type="number" name="stageCapacity" step="1" required="required"/><br>
-        <br>
+        <input id="stageCapacity" type="number" name="stageCapacity" step="1" required="required" min="0"/><br>
         <br>
         <input type="submit" value="Erstellen">
     </form>

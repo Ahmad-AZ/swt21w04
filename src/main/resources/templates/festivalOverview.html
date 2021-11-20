@@ -15,8 +15,6 @@
 	</header>
 	<section layout:fragment="content">
 		<a class="item" th:href="@{/newFestival}" sec:authorize="hasRole('FESTIVAL_MANAGEMENT') || hasRole('ADMIN')">Neues Festival erstellen</a>
-		
-
 		<div class="ui link cards" th:remove="all-but-first">
             <div class="ui card" th:each="festival : ${festivalList}">
                 <div class="content">
