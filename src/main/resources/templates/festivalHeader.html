@@ -12,6 +12,7 @@
                     <a class="item border-right" href="/staff" sec:authorize="hasRole('USER_MANAGEMENT') || hasRole('ADMIN')">Personal einsehen</a>
                     <a class="item border-right" href="/staff/create" sec:authorize="hasRole('USER_MANAGEMENT') || hasRole('ADMIN')">Personal hinzufügen</a>
                    	<a class="item" href="locationOverview.html" th:href="@{/locationPre1}">Location</a>
+                    <a class="item" href="artistOverview.html" th:href="@{/artistPre}">Artists</a>
 					<a class="item" href="finances.html" th:href="@{/financesPre1}">Finanzen</a>
                 </div>
             </div>
