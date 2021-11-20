@@ -1,16 +1,15 @@
 package prototype.festival;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
+import prototype.hiring.Artist;
 import prototype.location.Location;
 import prototype.planning.Planning;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Festival {
@@ -20,6 +19,8 @@ public class Festival {
 	private String name;
 	private Date startDate;
 	private Date endDate;
+	@OneToMany
+	private Set<Artist> artists;
 	
 	@OneToOne()
 	private Location location;
@@ -71,6 +72,13 @@ public class Festival {
 	
 	public void setLocation(Location location) {
 		this.location=location;
+	}
+	public boolean addArtist(Artist artist){
+		if (artists.contains(artist)){
+			return false;
+		}
+		artists.add(artist);
+		return true;
 	}
 	
 //	public boolean equals(Festival festival) {

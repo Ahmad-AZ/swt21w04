@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import prototype.hiring.Artist;
+import prototype.hiring.ArtistRepository;
 import prototype.location.Location;
 import prototype.location.LocationManagement;
 import prototype.planning.Planning;
@@ -26,6 +28,7 @@ public class FestivalController {
 	private final FestivalManagement festivalManagement;
 	private final LocationManagement locationManagement;
 	private Festival currentFestival;
+	private ArtistRepository artistRepository;
 	private long currentId;
 
  
@@ -142,9 +145,40 @@ public class FestivalController {
 		System.out.println(currentFestival.getName());
 		return "redirect:locationOverview";
 	}
-	
-	
-	
+
+	@PostMapping("/selectArtistPre")
+		// TODO: @PreAuthorize("hasRole('BOSS')")
+	String selectArtistPre(Model model, @RequestParam("artist") Long artistId) {
+		Optional<Artist> artist = artistRepository.findById(artistId);
+
+		if (artist.isPresent()) {
+			Artist current = artist.get();
+
+			currentFestival.addArtist(current);
+			festivalManagement.saveFestival(currentFestival);
+			System.out.println(currentFestival.getName());
+			System.out.println(currentFestival.getId());
+			long id = currentFestival.getId();
+			return "redirect:/festivalOverview/"+id;
+		} else {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
+		}
+	}
+
+
+	@GetMapping("/artistPre1")
+	// TODO: @PreAuthorize("hasRole('BOSS')")
+	String artistPre1(Model model, RedirectAttributes ra) {
+		ra.addFlashAttribute("currentFestival", currentFestival);
+		ra.addFlashAttribute("fm", festivalManagement);
+		System.out.println(currentFestival.getName());
+		return "redirect:artistOverview";
+	}
+
+
+
 	@GetMapping("/financesPre1")
 	// TODO: @PreAuthorize("hasRole('BOSS')")
 	String financesPre1(Model model, RedirectAttributes ra) {
