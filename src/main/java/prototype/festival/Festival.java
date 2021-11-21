@@ -8,6 +8,7 @@ import prototype.location.Location;
 import prototype.planning.Planning;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -34,11 +35,13 @@ public class Festival {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.location = null;
+		this.artists = new HashSet<>();
 	}
 
 	public Festival(String name) {
 		this.name = name;
 		this.location = null;
+		this.artists = new HashSet<>();
 	}
 	
 	public Festival() {
