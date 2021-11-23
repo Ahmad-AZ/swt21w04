@@ -17,20 +17,20 @@ import org.springframework.web.server.ResponseStatusException;
 
 import prototype.festival.Festival;
 import prototype.festival.FestivalManagement;
-import prototype.planning.PlanLocation;
+import prototype.planning.PlanLocationManagement;
 import prototype.planning.Planning;
 
 @Controller
 public class LocationController {
 	
 	private final LocationManagement locationManagement;
-	private Festival currentFestival;
-	private PlanLocation planning;
-	private FestivalManagement festivalManagement;
+	//private Festival currentFestival;
+	//private PlanLocation planning;
+	//private FestivalManagement festivalManagement;
 	
 	public LocationController(LocationManagement locationManagement) {
 		this.locationManagement = locationManagement;
-		this.currentFestival = null;
+		//this.currentFestival = null;
 		
 	}
 	
@@ -112,62 +112,62 @@ public class LocationController {
 	}
 	
 	
-	
-	
-	// shows Locations Overview
-	@GetMapping("/locationOverview")  
-	public String locationOverview(Model model, @ModelAttribute("currentFestival") Festival currentFestival, 
-			@ModelAttribute("fm") FestivalManagement fm) {
-		this.currentFestival = currentFestival;
-		this.festivalManagement = fm;
-		planning = new PlanLocation(currentFestival, festivalManagement, locationManagement);
-		model.addAttribute("locationList", locationManagement.findAll());
-		
-		// required for second nav-bar
-		model.addAttribute("festival", currentFestival);
-		
-		return "locationOverview"; 
-	} 
-	
-	@GetMapping("/locationOverview/{locationId}")
-	public String locationDetail(@PathVariable Long locationId, Model model) {
-		Optional<Location> location = locationManagement.findById(locationId);
-		
-		if (location.isPresent()) {
-			Location current = location.get();
-
-			System.out.println(locationId);
-			model.addAttribute("location", current);
-			
-			// required for second nav-bar
-			model.addAttribute("festival", currentFestival);
-			 
-			return "locationDetail";
-			
-		} else {
-			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
-		}
-	}
-	 
-	@PostMapping("/bookLocation")
-	public String selectLocation(@RequestParam("location") Long locationId) {
-		Optional<Location> location = locationManagement.findById(locationId);
-		
-		if (location.isPresent()) {
-			Location current = location.get();
-			System.out.println(currentFestival.getName());
-			planning.bookLocation(current);
-			System.out.println(currentFestival.getLocation().getName());
-	
-			long id = current.getId();
-			return "redirect:/locationPre1";
-			
-		} else {
-			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
-		}
-	}
+//	
+//	
+//	// shows Locations Overview
+//	@GetMapping("/locationOverview")  
+//	public String locationOverview(Model model, @ModelAttribute("currentFestival") Festival currentFestival, 
+//			@ModelAttribute("fm") FestivalManagement fm) {
+//		this.currentFestival = currentFestival;
+//		this.festivalManagement = fm;
+//		planning = new PlanLocation(currentFestival, festivalManagement, locationManagement);
+//		model.addAttribute("locationList", locationManagement.findAll());
+//		
+//		// required for second nav-bar
+//		model.addAttribute("festival", currentFestival);
+//		
+//		return "locationOverview"; 
+//	} 
+//	
+//	@GetMapping("/locationOverview/{locationId}")
+//	public String locationDetail(@PathVariable Long locationId, Model model) {
+//		Optional<Location> location = locationManagement.findById(locationId);
+//		
+//		if (location.isPresent()) {
+//			Location current = location.get();
+//
+//			System.out.println(locationId);
+//			model.addAttribute("location", current);
+//			
+//			// required for second nav-bar
+//			model.addAttribute("festival", currentFestival);
+//			 
+//			return "locationDetail";
+//			
+//		} else {
+//			throw new ResponseStatusException(
+//					HttpStatus.NOT_FOUND, "entity not found"
+//			);
+//		}
+//	}
+//	 
+//	@PostMapping("/bookLocation")
+//	public String selectLocation(@RequestParam("location") Long locationId) {
+//		Optional<Location> location = locationManagement.findById(locationId);
+//		
+//		if (location.isPresent()) {
+//			Location current = location.get();
+//			System.out.println(currentFestival.getName());
+//			planning.bookLocation(current);
+//			System.out.println(currentFestival.getLocation().getName());
+//	
+//			long id = current.getId();
+//			return "redirect:/locationPre1";
+//			
+//		} else {
+//			throw new ResponseStatusException(
+//					HttpStatus.NOT_FOUND, "entity not found"
+//			);
+//		}
+//	}
 }
