@@ -12,6 +12,7 @@
 	<header>
 		<nav th:include="header :: header"></nav>
 		<h1>Festivaldetails</h1>
+		<nav th:include="festivalHeader :: festivalHeader"></nav>
 	</header>
 	<section layout:fragment="content">
                 <div class="content">
@@ -28,8 +29,6 @@
 					<p th:if="${location==null}">Keine</p>
 					<p th:if="${location!=null}" th:text="${location.name}">hier sollte ihre Location stehen</p>
 					<br/>
-					<a class="item" href="locationOverview.html" th:href="@{/locationOverview}">Location auswählen</a>
-					<a class="item" href="finances.html" th:href="@{/financesPre1}">Finanzen</a>
                 </div>
            
 		

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html(title=${location.name})}">
+<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
+	    <title>Locationdetails</title>
+</head>
+<body>
+	<header>
+		<nav th:include="header :: header"></nav>
+		<h1>Locationdetails</h1>
+		<nav th:include="festivalHeader :: festivalHeader"></nav>
+	</header>
+	<section layout:fragment="content">
+          <div class="content">
+        	<p>Name:</p>
+            <p th:text="${location.name}">Keine gefunden</p>
+            <br/>
+            <p>Adresse:</p>
+            <p th:text="${location.adress}">Keine gefunden</p>
+            <br/>
+			<p>Preis pro Tag:</p>
+			<p th:text="${location.pricePerDay}">Keine gefunden</p>
+			<br/>
+			<p>maximale Besucheranzahl:</p>
+			<p th:text="${location.visitorCapacity}">Keine gefunden</p>
+			<br/>
+			<p>maximale Bühnenanzahl</p>
+			<p th:text="${location.stageCapacity}">Keine gefunden</p>
+			<br/>
+			<form class="ui form" method="post" th:action="@{/bookLocation}">
+				<input type="hidden" name="location" th:value="${location.id}"/>
+				<button type="submit" class="ui button" >Buchen</button>
+			</form>
+        </div>
+
+    </section>
+</body>
+</html>

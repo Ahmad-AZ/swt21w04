@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html(title=artists)}">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
+    <title>artist-Auswahl</title>
+</head>
+<body>
+    <header>
+        <nav th:include="header :: header"></nav>
+        <h1>Künstler-Auswahl</h1>
+        <div th:include="festivalHeader :: festivalHeader"></div>
+    </header>
+    <section layout:fragment="content">
+
+        <h3>Verfügbare Künstler</h3>
+        <form method="post" name="artist" role="artist" class="ui form" id="artist" th:action="@{/selectArtist}" th:object="${artist}">
+            <div class="ui link cards" th:remove="all-but-first">
+                <div class="ui card" th:each="artist : ${artistList}">
+                    <div class="content">
+                        <a class="header" th:href="@{/artistOverview/{id}(id=${artist.id})}" th:text="${artist.name}">Etwas andres</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+</body>

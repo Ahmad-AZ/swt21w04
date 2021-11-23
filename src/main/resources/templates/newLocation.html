@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html(title=Location)}">
+<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
+        <title>Neue Location</title>
+</head>
+<body>
+<header>
+	<nav th:include="header :: header"></nav>
+    <h1>Location erstellen</h1>
+    
+</header>
+<section layout:fragment="content">
+    <h2>Locationdaten</h2>
+
+    <form class="ui form" method="post" id="form" th:action="@{/newLocation}" th:object="${newLocationForm}">
+        <label for="name"><pre>Name:</pre></label>
+        <input id="name" name="name" th:field="*{name}" type="text" required="required"/><br>
+        <label for="adress"><pre>Adresse:</pre></label>
+        <input id="adress" name="adress" th:field="*{adress}" type="text" required="required"/><br>
+        <label for="pricePerDay"><pre>Preis pro Tag:</pre></label>
+    	<input id="pricePerDay" type="number" step="0.01" name="pricePerDay" th:required="required" min="0.00"/> <i>€</i></br>
+        <label for="visitorCapacity"><pre>maximale Besucheranzahl:</pre></label>
+        <input id="visitorCapacity" type="number" name="visitorCapacity" step="1" required="required" min="0"/><br>
+       	<label for="stageCapacity"><pre>maximale Bühnenanzahl:</pre></label>
+        <input id="stageCapacity" type="number" name="stageCapacity" step="1" required="required" min="0"/><br>
+        <br>
+        <input type="submit" value="Erstellen">
+    </form>
+</section>
+</body>
+</html>
