@@ -114,34 +114,11 @@ public class FestivalController {
 
 		return "festivalOverview"; 
 	}
-	
-	@PostMapping("/selectLocationPre")
-	// TODO: @PreAuthorize("hasRole('BOSS')")
-	String selectLocationPre(Model model, @RequestParam("location") Long locationId) {
-		Optional<Location> location = locationManagement.findById(locationId);
 		
-		if (location.isPresent()) {
-			Location current = location.get();
-		
-			currentFestival.setLocation(current);
-			festivalManagement.saveFestival(currentFestival);
-			System.out.println(currentFestival.getName());
-			System.out.println(currentFestival.getId());
-			System.out.println(currentFestival.getLocation().getName());
-			long id = currentFestival.getId();
-			return "redirect:/festivalOverview/"+id;
-		} else {
-			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
-		}
-	}
-	
 	@GetMapping("/locationPre1")
 	// TODO: @PreAuthorize("hasRole('BOSS')")
 	String locationPre1(Model model, RedirectAttributes ra) {
 		ra.addFlashAttribute("currentFestival", currentFestival);
-		ra.addFlashAttribute("fm", festivalManagement);
 		System.out.println(currentFestival.getName());
 		return "redirect:locationOverview";
 	}
@@ -177,8 +154,7 @@ public class FestivalController {
 		return "redirect:artistOverview";
 	}
 
-
-
+	
 	@GetMapping("/financesPre1")
 	// TODO: @PreAuthorize("hasRole('BOSS')")
 	String financesPre1(Model model, RedirectAttributes ra) {
