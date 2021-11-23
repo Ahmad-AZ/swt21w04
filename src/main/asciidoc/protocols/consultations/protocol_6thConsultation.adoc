@@ -1,0 +1,33 @@
+= Protokoll Gruppe 04
+
+Treffen am 15.11.2021
+
+Ort:      BigBlueButton +
+Beginn:   18:00 Uhr +
+Ende:     18:50 Uhr
+
+__Schriftführer:__ Jan Biedermann
+
+*Nächstes Treffen:* +
+46. KW, Discord
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Tom Morgenstern (Auftraggeber)
+- Adrian Scholze
+- Jan Biedermann
+- Ahmad Abu Zahra
+- Georg Kunze
+- Tuấn Giang Trịnh
+- Robert Menzel
+
+== Bemerkungen
+- Der Nächste Meilenstein sind die Basisfunktionalitäten des Festivalmanagers,
+die bis 28.11. eingebaut werden müssen, details siehe OPAL Forum
+- Zum 28.11. sollten möglichst auch schon einige Tests fertig sein
+- Seit einigen Tagen funktioniert der CI Build nicht, vermutlich liegt das daran, dass wir die Klasse Application.java verändert haben
+- Weil Application.java verändert wurde hat außerdem das Salespoint-Framework nicht mehr funktioniert
+
+== Aktueller Stand
+Lauffähiger Prototyp, Testplan und eine erste Arbeitsversion der Entwicklerdokumentation sind fertig
