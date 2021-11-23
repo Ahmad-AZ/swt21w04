@@ -19,7 +19,7 @@ public class ArtistDataInitializer implements DataInitializer {
 		artists.save(camila);
 		artists.save(shawn);
 	}
-
+ 
 	@Override
 	public void initialize() {
 
