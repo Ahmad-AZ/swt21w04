@@ -18,8 +18,8 @@ import java.util.List;
 public class PlanLocationManagement {
 
 	private Streamable<Location> locationList;
-	private LocationManagement locationManagement;
-	private FestivalManagement festivalManagement;
+	private final LocationManagement locationManagement;
+	private final FestivalManagement festivalManagement;
 	
 	public PlanLocationManagement(FestivalManagement festivalManagement, LocationManagement locationManagement) {
 		this.locationManagement = locationManagement;
