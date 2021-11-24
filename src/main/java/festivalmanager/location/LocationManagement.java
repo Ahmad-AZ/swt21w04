@@ -45,6 +45,11 @@ public class LocationManagement {
 	public Location saveLocation(Location location) {
 		return locations.save(location);
 	}
+	
+	public void removeLocation(long locationId) {
+		// id == 0 throws Error
+		locations.deleteById(locationId);
+	}
 
 	/**
 	 *

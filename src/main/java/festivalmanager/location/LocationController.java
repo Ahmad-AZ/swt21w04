@@ -3,6 +3,7 @@ package festivalmanager.location;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
+
+import festivalmanager.staff.Person;
+import festivalmanager.staff.RemoveStaffForm;
 
 @Controller
 public class LocationController {
@@ -102,6 +106,31 @@ public class LocationController {
 					HttpStatus.NOT_FOUND, "entity not found"
 			);
 		}
+	}
+	
+	@GetMapping("locations/remove/{id}")
+	//@PreAuthorize("hasRole('ADMIN')")
+	public String getRemoveLocationDialog(@PathVariable("id") long id, Model model) {
+		model.addAttribute("locatoins", locationManagement.findAll());
+		model.addAttribute("currentId", id);
+		model.addAttribute("dialog", "remove_location");
+
+		Optional<Location> current = locationManagement.findById(id);
+		if (current.isPresent()) {
+			model.addAttribute("currentName", current.get().getName());
+		} else {
+			model.addAttribute("currentName", "");
+		}
+
+		return "/locations";
+	}
+	
+	@PostMapping("/locations/remove")
+//	@PreAuthorize("hasRole('ADMIN')")
+	public String removLocation(@RequestParam("id") Long locationId) {
+		locationManagement.removeLocation(locationId);
+
+		return "redirect:/locations";
 	}
 	
 }
