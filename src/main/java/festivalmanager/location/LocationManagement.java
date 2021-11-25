@@ -29,7 +29,8 @@ public class LocationManagement {
 	public Location createLocation(NewLocationForm form) {
 		// save Festival in Repository
 		Money pricePerDay = Money.of(form.getPricePerDay(), EURO);
-		return locations.save(new Location(form.getName(), form.getAdress(), pricePerDay, form.getVisitorCapacity(), form.getStageCapacity()));
+		return locations.save(new Location(form.getName(), form.getAdress(), pricePerDay, form.getVisitorCapacity(), 
+				form.getStageCapacity()));
 	}
 	
 	public Location editLocation(Location location, NewLocationForm form) {
