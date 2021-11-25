@@ -13,8 +13,7 @@ public class Finances {
 		Money cost = Money.of(0, EURO);
 		Money locationPrice = Money.of(0, EURO);
 
-		long durationMs = currentFestival.getEndDate().getTime() - currentFestival.getStartDate().getTime();
-		long durationDays = durationMs / 86400000 + 1;
+		long durationDays = currentFestival.getEndDate().toEpochDay() - currentFestival.getStartDate().toEpochDay() + 1;
 		try {
 			Money locationPricePerDay = currentFestival.getLocation().getPricePerDay();
 			locationPrice = locationPricePerDay.multiply(durationDays);
