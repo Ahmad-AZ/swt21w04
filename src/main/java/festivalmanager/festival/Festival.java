@@ -6,6 +6,7 @@ import javax.persistence.*;
 import festivalmanager.hiring.Artist;
 import festivalmanager.location.Location;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,8 +17,8 @@ public class Festival {
 	private long id;
 
 	private String name;
-	private Date startDate;
-	private Date endDate;
+	private LocalDate startDate;
+	private LocalDate endDate;
 	@OneToMany
 	private Set<Artist> artists;
 	
@@ -28,7 +29,7 @@ public class Festival {
 //	private Finances finances; 
 	
 
-	public Festival(String name, Date startDate, Date endDate) {
+	public Festival(String name, LocalDate startDate, LocalDate endDate) {
 		this.name = name;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -51,16 +52,20 @@ public class Festival {
 	}
 
 
-	public Date getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	} 
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
+	}
+	
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
 	}
 
 	public String getName() {

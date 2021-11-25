@@ -1,5 +1,6 @@
 package festivalmanager.location;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -51,12 +52,12 @@ public class Location{
 		return id;
 	}
 	
-	public boolean addBooking(Date startDate, Date endDate) {
+	public boolean addBooking(LocalDate startDate, LocalDate endDate) {
 		Booking booking = new Booking(startDate, endDate);
 		return bookings.add(booking);
 	}
 	
-	public boolean removeBooking(Date startDate, Date endDate) {
+	public boolean removeBooking(LocalDate startDate, LocalDate endDate) {
 		for (Booking aBooking : bookings) {
 			if(aBooking.getStartDate().equals(startDate) && aBooking.getEndDate().equals(endDate)) {
 				return bookings.remove(aBooking);
