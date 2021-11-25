@@ -1,9 +1,12 @@
 package festivalmanager.ticketShop;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 
 @Entity
@@ -17,15 +20,9 @@ public class Ticket {
 	@Column
 	private String festivalName;
 
-	public String getFestivalName() {
-		return festivalName;
-	}
-
-	public void setFestivalName(String festivalName) {
-		this.festivalName = festivalName;
-	}
-
-	private LocalDate date;
+	@Column
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	private String festivalDate;
 	@Column
 	private int ticketsCount;
 	@Column
@@ -35,9 +32,9 @@ public class Ticket {
 
 
 
-	public Ticket(String festivalName, LocalDate date, int ticketsCount, TicketType ticketType, float ticketPrice) {
+	public Ticket(String festivalName, String date, int ticketsCount, TicketType ticketType, float ticketPrice) {
 		this.festivalName = festivalName.toLowerCase();
-		this.date = date;
+		this.festivalDate = date;
 		this.ticketsCount = ticketsCount;
 		this.ticketType = ticketType;
 		this.ticketPrice = ticketPrice;
@@ -51,8 +48,8 @@ public class Ticket {
 		return id;
 	}
 
-	public LocalDate getDate() {
-		return date;
+	public String getFestivalDate() {
+		return festivalDate;
 	}
 
 	public TicketType getTicketType() {
@@ -67,8 +64,8 @@ public class Ticket {
 		return ticketsCount;
 	}
 
-	public void setDate(LocalDate date) {
-		this.date = date;
+	public void setFestivalDate(String festivalDate) {
+		this.festivalDate = festivalDate;
 	}
 
 	public void setTicketsCount(int ticketsCount) {
@@ -83,7 +80,13 @@ public class Ticket {
 		this.ticketPrice = ticketPrice;
 	}
 
+	public String getFestivalName() {
+		return festivalName;
+	}
 
+	public void setFestivalName(String festivalName) {
+		this.festivalName = festivalName;
+	}
 
 
 }

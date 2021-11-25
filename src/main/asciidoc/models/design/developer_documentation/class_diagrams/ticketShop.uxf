@@ -28,12 +28,12 @@ Ticket
 --
 - id :long
 -festivalName: String
--date : Date 
+-festivalDate : Date
 -ticketCount: long
 -ticketType: TicketType
 --
 
-+Ticket(festivalName : String, date : Date, TicketNUm : long, 
++Ticket(festivalName : String, festivalDate : Date, TicketNUm : long,
 ticketType :TicketType)
 
 +getTicketNum() : long
