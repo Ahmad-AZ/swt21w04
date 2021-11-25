@@ -55,6 +55,16 @@ public class Location{
 		Booking booking = new Booking(startDate, endDate);
 		return bookings.add(booking);
 	}
+	
+	public boolean removeBooking(Date startDate, Date endDate) {
+		for (Booking aBooking : bookings) {
+			if(aBooking.getStartDate().equals(startDate) && aBooking.getEndDate().equals(endDate)) {
+				return bookings.remove(aBooking);
+			}
+		}
+		return false;
+		
+	}
  
 	public List<Booking> getBookings() {
 		return bookings;

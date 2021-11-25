@@ -109,7 +109,6 @@ public class LocationController {
 	}
 	
 	@GetMapping("locations/remove/{id}")
-	//@PreAuthorize("hasRole('ADMIN')")
 	public String getRemoveLocationDialog(@PathVariable("id") long id, Model model) {
 		model.addAttribute("locatoins", locationManagement.findAll());
 		model.addAttribute("currentId", id);
@@ -126,8 +125,7 @@ public class LocationController {
 	}
 	
 	@PostMapping("/locations/remove")
-//	@PreAuthorize("hasRole('ADMIN')")
-	public String removLocation(@RequestParam("id") Long locationId) {
+	public String removeLocation(@RequestParam("id") Long locationId) {
 		locationManagement.removeLocation(locationId);
 
 		return "redirect:/locations";

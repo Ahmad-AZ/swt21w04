@@ -83,6 +83,7 @@ public class PlanLocationController {
 				System.out.println(currentFestival.getLocation().getName());
 		
 				long id = current.getId();
+				// reload locationOverview page
 				return "redirect:/locationPre1";
 				
 			} else {
@@ -90,5 +91,13 @@ public class PlanLocationController {
 						HttpStatus.NOT_FOUND, "entity not found"
 				);
 			}
+		}
+		
+		@GetMapping("/locationOverview/unbook")
+		public String unbookLocation() {
+			planLocationManagement.unbookLocation(currentFestival);
+			
+			// reload locationOverview page
+			return "redirect:/locationPre1";
 		}
 }

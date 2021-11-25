@@ -2,16 +2,15 @@ package festivalmanager.planning;
 
 import festivalmanager.festival.Festival;
 
-public class PlanHires extends Planning {
+public class PlanStaff extends Planning {
+
+	PlanStaff(Festival festival) {
+		super(festival);
+		// TODO Auto-generated constructor stub
+	}
 
 	private int numberOfTechnicans, numberOfSecurity;
 
-	/**
-	 *
-	 * @param festival
-	 */
-	PlanHires(Festival festival) {
-		super(festival);
-	}
+
 
 }
