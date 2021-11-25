@@ -34,9 +34,15 @@ public class PlanLocationController {
 		@GetMapping("/locationOverview")  
 		public String locationOverview(Model model, @ModelAttribute("currentFestival") Festival currentFestival) {
 			this.currentFestival = currentFestival;
-//			this.festivalManagement = fm;
-//			planning = new PlanLocation(currentFestival, festivalManagement, locationManagement);
+			Location bookedLocation = currentFestival.getLocation();
 			model.addAttribute("locationList", locationManagement.findAll());
+			if(bookedLocation != null) {
+				model.addAttribute("bookedLocation", bookedLocation);
+			}
+			else {
+				model.addAttribute("bookedLocation", null);
+			}
+			
 			
 			// required for second nav-bar
 			model.addAttribute("festival", currentFestival);

@@ -17,12 +17,14 @@
 	</header>
 	<section layout:fragment="content">
 		
-		<h3>Verfügbare Loctaions</h3>
-		<form method="post" name="location" role="location" class="ui form" id="location" th:action="@{/selectLocationPre}" th:object="${location}">
+		<h3>Verfügbare Locations</h3>
+		<form method="post" name="location" role="location" class="ui form" id="location" th:object="${location}">
 			<div class="ui link cards" th:remove="all-but-first">
 	            <div class="ui card" th:each="location : ${locationList}">
 	                <div class="content">
+	                    <a th:if="${location.id == bookedLocation.id}">O</a>
 	                    <a class="header" th:href="@{/locationOverview/{id}(id=${location.id})}" th:text="${location.name}">Etwas andres</a>
+	                    
 	                </div>
 	            </div>
 	        </div>

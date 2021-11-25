@@ -20,10 +20,18 @@
 	            <div class="ui card" th:each="location : ${locationList}">
 	                <div class="content">
 	                    <a class="header" th:href="@{/locations/{id}(id=${location.id})}" th:text="${location.name}">Etwas andres</a>
+	                    <a th:href="@{/locations/remove/{id}(id = ${location.id})}">X</a>
 	                </div>
 	            </div>
 	        </div>
 		</form>
-		<a class="item" th:href="@{/newLocation}" sec:authorize="hasRole('FESTIVAL_MANAGEMENT') || hasRole('ADMIN')">Neues Location erstellen</a>
+		<a class="item" th:href="@{/newLocation}" sec:authorize="hasRole('FESTIVAL_MANAGEMENT') || hasRole('ADMIN')">Neue Location erstellen</a>
+		<div class="overlay" th:if="${dialog} == 'remove_location'">
+            <form class="form" action="/locations/remove" method="post">
+                Location löschen:<a th:text="${currentName}"></a> </br>
+                <input type="hidden" name="id" th:value="${currentId}">
+                <input type="submit" title="Löschen">
+            </form>
+        </div>
 </body>
 </html>

@@ -22,6 +22,6 @@ public class ArtistDataInitializer implements DataInitializer {
  
 	@Override
 	public void initialize() {
-
+		//empty because initialization works in Constructor
 	}
 }

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Order(10)        
 public class FestivalInitializer implements DataInitializer {
 
-	private static final Logger LOG = (Logger) LoggerFactory.getLogger(FestivalInitializer.class);
+	private static final Logger LOG = LoggerFactory.getLogger(FestivalInitializer.class);
 	
 	private FestivalManagement festivalManagement;
 	private FestivalRepository festivals;

@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.data.util.Streamable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -45,9 +46,9 @@ public class FestivalController {
 		if (festival.isPresent()) {
 			Festival current = festival.get();
 
-			if (current.getLocation() != null)
+			if (current.getLocation() != null) {
 				System.out.println(current.getLocation().getName());
-
+			}
 			System.out.println(festivalId);
 			model.addAttribute("festival", current);
 			String startDate = current.getStartDate().toString();
@@ -113,7 +114,6 @@ public class FestivalController {
 	}
 		
 	@GetMapping("/locationPre1")
-	// TODO: @PreAuthorize("hasRole('BOSS')")
 	String locationPre1(Model model, RedirectAttributes ra) {
 		ra.addFlashAttribute("currentFestival", currentFestival);
 		System.out.println(currentFestival.getName());
@@ -121,7 +121,6 @@ public class FestivalController {
 	}
 
 	@PostMapping("/selectArtistPre")
-		// TODO: @PreAuthorize("hasRole('BOSS')")
 	String selectArtistPre(Model model, @RequestParam("artist") Long artistId) {
 		Optional<Artist> artist = artistRepository.findById(artistId);
 
@@ -143,7 +142,6 @@ public class FestivalController {
 
 
 	@GetMapping("/artistPre1")
-	// TODO: @PreAuthorize("hasRole('BOSS')")
 	String artistPre1(Model model, RedirectAttributes ra) {
 		ra.addFlashAttribute("currentFestival", currentFestival);
 		ra.addFlashAttribute("fm", festivalManagement);
@@ -153,7 +151,6 @@ public class FestivalController {
 
 	
 	@GetMapping("/financesPre1")
-	// TODO: @PreAuthorize("hasRole('BOSS')")
 	String financesPre1(Model model, RedirectAttributes ra) {
 		ra.addFlashAttribute("currentFestival", currentFestival);
 		System.out.println(currentFestival.getName());
