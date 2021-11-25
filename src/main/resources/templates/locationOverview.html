@@ -22,13 +22,14 @@
 			<div class="ui link cards" th:remove="all-but-first">
 	            <div class="ui card" th:each="location : ${locationList}">
 	                <div class="content">
-	                    <a th:if="${location.id == bookedLocation.id}">O</a>
+	                    <a th:if="${location.id == bookedLocationId}">O</a>
 	                    <a class="header" th:href="@{/locationOverview/{id}(id=${location.id})}" th:text="${location.name}">Etwas andres</a>
-	                    
 	                </div>
 	            </div>
 	        </div>
-		</form>
+		</form>	
+		</br></br>
+		<p>O ... gebuchtes Festival</p>
     </section>
 </body>
 </html>

@@ -37,10 +37,10 @@ public class PlanLocationController {
 			Location bookedLocation = currentFestival.getLocation();
 			model.addAttribute("locationList", locationManagement.findAll());
 			if(bookedLocation != null) {
-				model.addAttribute("bookedLocation", bookedLocation);
+				model.addAttribute("bookedLocationId", bookedLocation.getId());
 			}
 			else {
-				model.addAttribute("bookedLocation", null);
+				model.addAttribute("bookedLocationId", 0);
 			}
 			
 			
