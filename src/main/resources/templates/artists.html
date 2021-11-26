@@ -26,7 +26,7 @@
             </div>
         </div>
     </form>
-    <a class="item" th:href="@{/newartist}" sec:authorize="hasRole('FESTIVAL_MANAGEMENT') || hasRole('ADMIN')">Neue artist erstellen</a>
+    <a class="item" th:href="@{/newArtist}" sec:authorize="hasRole('FESTIVAL_MANAGEMENT') || hasRole('ADMIN')">Neue artist erstellen</a>
     <div class="overlay" th:if="${dialog} == 'remove_artist'">
         <form class="form" action="/artists/remove" method="post">
             artist löschen:<a th:text="${currentName}"></a> </br>

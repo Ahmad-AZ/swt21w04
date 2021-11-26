@@ -4,6 +4,8 @@ import festivalmanager.location.Location;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import festivalmanager.festival.Festival;
@@ -87,6 +89,16 @@ public class HiringController {
 					HttpStatus.NOT_FOUND, "entity not found"
 			);
 		}
+	}
+
+	@PostMapping("/newArtist")
+	public String createNewArtist(@Validated NewArtistForm form, Errors result){
+		if(result.hasErrors()){
+			return "newArtist";
+		}
+
+		hiringManagement.createAritst(form);
+		return "redirect:/artists";
 	}
 //	@PostMapping("/bookArtist")
 //	public String selectLocation(@RequestParam("artist") Long artistId) {
