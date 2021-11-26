@@ -1,5 +1,6 @@
 package festivalmanager.hiring;
 
+import festivalmanager.location.Location;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,6 +42,29 @@ public class HiringController {
 		model.addAttribute("festival", currentFestival);
 
 		return "artistOverview";
+	}
+
+	@GetMapping("artists/remove/{id}")
+	public String getRemoveArtistDialog(@PathVariable("id") long id, Model model) {
+		model.addAttribute("locatoins", hiringManagement.findAll());
+		model.addAttribute("currentId", id);
+		model.addAttribute("dialog", "remove_artist");
+
+		Optional<Artist> current = hiringManagement.findById(id);
+		if (current.isPresent()) {
+			model.addAttribute("currentName", current.get().getName());
+		} else {
+			model.addAttribute("currentName", "");
+		}
+
+		return "/artists";
+	}
+
+	@PostMapping("/artists/remove")
+	public String removeArtist(@RequestParam("id") Long artistId) {
+		hiringManagement.removeArtist(artistId);
+
+		return "redirect:/artists";
 	}
 
 	@GetMapping("/artistOverview/{artistId}")

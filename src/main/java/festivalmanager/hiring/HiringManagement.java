@@ -24,4 +24,8 @@ public class HiringManagement {
 	public Optional<Artist> findById(Long id){
 		return artists.findById(id);
 	}
+
+	public void removeArtist(Long artistId) {
+		artists.deleteById(artistId);
+	}
 }
