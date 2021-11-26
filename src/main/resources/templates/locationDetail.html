@@ -16,6 +16,14 @@
 	</header>
 	<section layout:fragment="content">
           <div class="content">
+          	</br>
+          	<a class="item" href="locationOverview.html" th:href="@{/locationPre1}">Zurück</a>
+          	</br></br>
+          	<div class="image">
+          		<img th:src="@{/resources/img/{name}.jpg(name=${location.image})}"
+                             src="../static/resources/img/HSZ_image.jpg"/>
+          	</div>                             
+            </br>
         	<p>Name:</p>
             <p th:text="${location.name}">Keine gefunden</p>
             <br/>
@@ -28,14 +36,19 @@
 			<p>maximale Besucheranzahl:</p>
 			<p th:text="${location.visitorCapacity}">Keine gefunden</p>
 			<br/>
-			<p>maximale Bühnenanzahl</p>
+			<p>maximale Bühnenanzahl:</p>
 			<p th:text="${location.stageCapacity}">Keine gefunden</p>
 			<br/>
+			<p>Grundriss:</p>
+			<div class="groundView">
+ 			<img th:src="@{/resources/img/{name}.jpg(name=${location.groundView})}"
+                             src="../static/resources/img/HSZ_groundview.jpg"/>
+			</div>
+            </br>                            
 			<form class="ui form" method="post" th:action="@{/bookLocation}">
 				<input type="hidden" name="location" th:value="${location.id}"/>
 				<button type="submit" class="ui button" >Buchen</button>
 			</form>
-			<a class="item" href="locationOverview.html" th:href="@{/locationPre1}">Zurück</a>
         </div>
 
     </section>

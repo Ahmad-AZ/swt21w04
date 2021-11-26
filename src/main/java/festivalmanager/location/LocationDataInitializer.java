@@ -16,11 +16,11 @@ public class LocationDataInitializer implements DataInitializer{
 	
 	public LocationDataInitializer(LocationRepository locations) {
 		this.locations = locations;
-		Location l1 = new Location("Kulturpalast", "Dresden", Money.of(1550, EURO), 1500, 12);
+		Location l1 = new Location("Kulturpalast", "Dresden", Money.of(1550, EURO), 1500, 12, "Kulturpalast_image", "Kulturpalast_groundview");
 		locations.save(l1);
-		Location l2 = new Location("Hörsaalzentrum", "Dresden", Money.of(1828, EURO), 1828, 6);
+		Location l2 = new Location("Hörsaalzentrum", "Dresden", Money.of(1828, EURO), 1828, 6, "HSZ_image", "HSZ_groundview");
 		locations.save(l2);
-		Location l3 = new Location("Rundkino", "Dresden", Money.of(1760, EURO), 1500, 8);
+		Location l3 = new Location("Rundkino", "Dresden", Money.of(1760, EURO), 1500, 8, "Rundkino_image", "Rundkino_groundview");
 		locations.save(l3);
 	}
 	

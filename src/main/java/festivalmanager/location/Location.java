@@ -24,6 +24,10 @@ public class Location{
 	
 	@NotNull
 	private String name;
+	
+	private String image;
+	private String groundView;
+	
 	@Lob()
 	private Money pricePerDay;
 	private String adress;
@@ -36,12 +40,14 @@ public class Location{
 	private List<Booking> bookings = new ArrayList<>();
 
 	
-	public Location(String name, String adress, Money pricePerDay, long visitorCapacity, long stageCapacity) {
+	public Location(String name, String adress, Money pricePerDay, long visitorCapacity, long stageCapacity, String image, String groundView) {
 		this.setName(name);
 		this.setPricePerDay(pricePerDay);
 		this.setAdress(adress);
 		this.setVisitorCapacity(visitorCapacity);
 		this.setStageCapacity(stageCapacity); 
+		this.setImage(image);
+		this.setGroundView(groundView);
 	}
 	
 	public Location() {
@@ -58,7 +64,7 @@ public class Location{
 	}
 	
 	public boolean removeBooking(LocalDate startDate, LocalDate endDate) {
-		for (Booking aBooking : bookings) {
+		for (Booking aBooking : bookings) { 
 			if(aBooking.getStartDate().equals(startDate) && aBooking.getEndDate().equals(endDate)) {
 				return bookings.remove(aBooking);
 			}
@@ -109,5 +115,21 @@ public class Location{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public String getGroundView() {
+		return groundView;
+	}
+
+	public void setGroundView(String groundView) {
+		this.groundView = groundView;
 	}
 }

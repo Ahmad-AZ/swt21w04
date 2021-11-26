@@ -131,3 +131,9 @@ button:hover {
 	border-bottom: 1px solid gray;
 	justify-content: space-between;
 }
+
+.image {
+	width: auto;
+	height:auto;
+	display: block;
+}
