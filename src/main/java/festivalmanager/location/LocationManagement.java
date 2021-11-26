@@ -29,8 +29,23 @@ public class LocationManagement {
 	public Location createLocation(NewLocationForm form) {
 		// save Festival in Repository
 		Money pricePerDay = Money.of(form.getPricePerDay(), EURO);
+		String image, groundView;
+		if (form.getImageFile().isEmpty()) {
+			image = "Blank_image";
+		}
+		else {
+			System.out.println("image setted");
+			image = form.getImage();
+		}
+		if (form.getGroundViewFile().isEmpty()) {
+			groundView = "Blank_groundview";
+		}
+		else {
+			System.out.println("groundview setted");
+			groundView = form.getGroundView();
+		}		
 		return locations.save(new Location(form.getName(), form.getAdress(), pricePerDay, form.getVisitorCapacity(), 
-				form.getStageCapacity(), form.getImage(), form.getGroundView()));
+				form.getStageCapacity(), image, groundView));
 	}
 	
 	public Location editLocation(Location location, NewLocationForm form) {
@@ -40,6 +55,13 @@ public class LocationManagement {
 		location.setName(form.getName());
 		location.setStageCapacity(form.getStageCapacity());
 		location.setVisitorCapacity(form.getVisitorCapacity());
+		if (form.getImageFile() != null) {
+			location.setImage(form.getImage());
+		}
+		if (form.getGroundViewFile() != null) {
+			location.setGroundView(form.getGroundView());
+		}
+	
 		return locations.save(location);
 	}
 	

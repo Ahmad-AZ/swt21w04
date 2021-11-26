@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import org.javamoney.moneta.Money;
+import org.salespointframework.time.Interval;
 
 
 @Entity
@@ -59,6 +60,14 @@ public class Location{
 	}
 	
 	public boolean addBooking(LocalDate startDate, LocalDate endDate) {
+		Interval festivalDateInterval = Interval.from(startDate.atStartOfDay()).to(endDate.atTime(23,59));
+		for (Booking aBooking : bookings) { 
+			if(festivalDateInterval.contains(aBooking.getStartDate().atStartOfDay()) || festivalDateInterval.contains(aBooking.getEndDate().atTime(23,59))) {
+				System.out.println("Location belegt");
+				return false;
+			}
+		}
+		System.out.println("nicht belegt");
 		Booking booking = new Booking(startDate, endDate);
 		return bookings.add(booking);
 	}

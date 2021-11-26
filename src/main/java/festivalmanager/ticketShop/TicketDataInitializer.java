@@ -29,25 +29,25 @@ public class TicketDataInitializer implements DataInitializer {
 
 
 
-		ticketRepository.save(new Ticket("", "16/05/2021",5,TicketType.DAY_TICKET,100));
-
-
-
-		ticketRepository.save(new Ticket("", "16/05/2021",5,TicketType.CAMPING,111));
-
-
-
-		ticketRepository.save(new Ticket("", "16/05/2021",5,TicketType.CAMPING, 125.5F));
-
-
-
-		ticketRepository.save(new Ticket("", "16/05/2021",5,TicketType.DAY_TICKET,52));
-
-
-
-		ticketRepository.save(new Ticket("", "16/05/2021",5,TicketType.DAY_TICKET,156));
-
-
+//		ticketRepository.save(new Ticket("", "16/05/2021",5,TicketType.DAY_TICKET,100));
+//
+//
+//
+//		ticketRepository.save(new Ticket("", "16/05/2021",5,TicketType.CAMPING,111));
+//
+//
+//
+//		ticketRepository.save(new Ticket("", "16/05/2021",5,TicketType.CAMPING, 125.5F));
+//
+//
+//
+//		ticketRepository.save(new Ticket("", "16/05/2021",5,TicketType.DAY_TICKET,52));
+//
+//
+//
+//		ticketRepository.save(new Ticket("", "16/05/2021",5,TicketType.DAY_TICKET,156));
+//
+//
 
 
 
