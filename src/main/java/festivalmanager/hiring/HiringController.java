@@ -12,22 +12,22 @@ import java.util.Optional;
 
 @Controller
 public class HiringController {
-//	private final OffersArtists offersArtists;
-	private final ArtistRepository artistRepository;
+	private final HiringManagement hiringManagement;
 	private Festival currentFestival;
 	private FestivalManagement festivalManagement;
 
 	public HiringController(
 //			OffersArtists offersArtists,
-			ArtistRepository artistRepository) {
+			ArtistRepository artistRepository,
+			HiringManagement hiringManagement) {
+		this.hiringManagement = hiringManagement;
 //		this.offersArtists = offersArtists;
-		this.artistRepository = artistRepository;
 		this.currentFestival = null;
 	}
 
 	@GetMapping("/artists")
 	public String artists(Model model) {
-		model.addAttribute("artistsList", artistRepository);
+		model.addAttribute("artistList", hiringManagement.findAll());
 		return "artists";
 	}
 	@GetMapping("/artistOverview")
@@ -35,7 +35,7 @@ public class HiringController {
 								   @ModelAttribute("fm") FestivalManagement fm) {
 		this.currentFestival = currentFestival;
 		this.festivalManagement = fm;
-		model.addAttribute("artistList", artistRepository.findAll());
+		model.addAttribute("artistList", hiringManagement.findAll());
 
 		// required for second nav-bar
 		model.addAttribute("festival", currentFestival);
@@ -45,7 +45,7 @@ public class HiringController {
 
 	@GetMapping("/artistOverview/{artistId}")
 	public String artistDetail(@PathVariable Long artistId, Model model) {
-		Optional<Artist> artist = artistRepository.findById(artistId);
+		Optional<Artist> artist = hiringManagement.findById(artistId);
 
 		if (artist.isPresent()) {
 			Artist current = artist.get();
@@ -64,22 +64,22 @@ public class HiringController {
 			);
 		}
 	}
-	@PostMapping("/bookArtist")
-	public String selectLocation(@RequestParam("artist") Long artistId) {
-		Optional<Artist> artist = artistRepository.findById(artistId);
-
-		if (artist.isPresent()) {
-			Artist current = artist.get();
-			artistRepository.save(current);
-			boolean add = currentFestival.addArtist(current);
-			festivalManagement.saveFestival(currentFestival);
-			long id = current.getId();
-			return "redirect:/artistPre1";
-
-		} else {
-			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
-		}
-	}
+//	@PostMapping("/bookArtist")
+//	public String selectLocation(@RequestParam("artist") Long artistId) {
+//		Optional<Artist> artist = hiringManagement.findById(artistId);
+//
+//		if (artist.isPresent()) {
+//			Artist current = artist.get();
+//			artistRepository.save(current);
+//			boolean add = currentFestival.addArtist(current);
+//			festivalManagement.saveFestival(currentFestival);
+//			long id = current.getId();
+//			return "redirect:/artistPre1";
+//
+//		} else {
+//			throw new ResponseStatusException(
+//					HttpStatus.NOT_FOUND, "entity not found"
+//			);
+//		}
+//	}
 }

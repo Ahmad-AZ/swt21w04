@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html(title=artists)}">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
+    <title>artist-Auswahl</title>
+</head>
+<body>
+<header>
+    <nav th:include="header :: header"></nav>
+    <h1>artists</h1>
+</header>
+<section layout:fragment="content">
+    <form method="post" name="artist" role="artist" class="ui form" id="artist" th:object="${artist}">
+        <div class="ui link cards" th:remove="all-but-first">
+            <div class="ui card" th:each="artist : ${artistList}">
+                <div class="content">
+                    <a th:href="@{/artists/remove/{id}(id = ${artist.id})}">X</a>
+                    <a class="header" th:href="@{/artists/{id}(id=${artist.id})}" th:text="${artist.name}">Etwas andres</a>
+
+                </div>
+            </div>
+        </div>
+    </form>
+    <a class="item" th:href="@{/newartist}" sec:authorize="hasRole('FESTIVAL_MANAGEMENT') || hasRole('ADMIN')">Neue artist erstellen</a>
+    <div class="overlay" th:if="${dialog} == 'remove_artist'">
+        <form class="form" action="/artists/remove" method="post">
+            artist löschen:<a th:text="${currentName}"></a> </br>
+            <input type="hidden" name="id" th:value="${currentId}">
+            <input type="submit" title="Löschen">
+            <a class="item" href="artists.html" th:href="@{/artists}">Abbrechen</a>
+        </form>
+    </div>
+</body>
+</html>
