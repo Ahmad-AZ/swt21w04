@@ -74,10 +74,7 @@ public class LocationController {
 //			result.rejectValue("passwordReputation", null, "Passwörter stimmen nicht überein.");
 //
 //		}
-
-		System.out.println(form.getImage());
-		System.out.println(form.getGroundView());
-
+		
 		if (result.hasErrors()) {
 			return "newLocation";
 		}
@@ -96,11 +93,21 @@ public class LocationController {
 	}
 	
 	@PostMapping("/saveLocation")
-	public String saveLocation(@Validated NewLocationForm form, Errors result, @RequestParam("location") Long locationId) {
+	public String saveLocation(@Validated NewLocationForm form, Errors result, @RequestParam("location") Long locationId, Model model) {
+		
 		Optional<Location> location = locationManagement.findById(locationId);
 		
 		if (location.isPresent()) {
 			Location current = location.get();
+			if (result.hasErrors()) {
+				System.out.println("form has errors");
+				model.addAttribute("location", current);
+				Double pricePerDay = current.getPricePerDay().getNumber().doubleValue();
+				System.out.println(pricePerDay);
+				model.addAttribute("pricePerDay", pricePerDay);
+				return "locationEdit";
+			}
+			
 			locationManagement.editLocation(current, form);
 			return "redirect:/locations";
 			

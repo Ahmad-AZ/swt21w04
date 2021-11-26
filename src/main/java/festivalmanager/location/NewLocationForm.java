@@ -68,6 +68,14 @@ class NewLocationForm {
 	public Long getStageCapacity() {
 		return stageCapacity;
 	}
+	
+	public MultipartFile getImageFile() {
+		return image;
+	}
+	
+	public MultipartFile getGroundViewFile() {
+		return groundView;
+	}
 
 	public String getImage() {
         // normalize the file path

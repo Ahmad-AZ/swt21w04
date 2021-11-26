@@ -15,7 +15,7 @@
 	</header>
 	<section layout:fragment="content">
           <div class="content">
-        	<form class="ui form" method="post" id="form" th:action="@{/saveLocation}" th:object="${location}">
+        	<form class="ui form" method="post" id="form" th:action="@{/saveLocation}" th:object="${location}" enctype="multipart/form-data">
 		        <label for="name"><pre>Name:</pre></label>
 		        <input id="name" name="name" th:field="*{name}" type="text" th:required="required"/><br>
 		        <label for="adress"><pre>Adresse:</pre></label>
@@ -26,6 +26,10 @@
 		        <input id="visitorCapacity" type="number" step="1" name="visitorCapacity" th:field="*{visitorCapacity}" th:required="required" min="0"/><br>
 		       	<label for="stageCapacity"><pre>maximale Bühnenanzahl:</pre></label>
 		        <input id="stageCapacity" type="number" step="1" name="stageCapacity" th:field="*{stageCapacity}" th:required="required" min="0"/><br>
+		        <label for="image"><pre>Neues Bild:</pre></label>
+				<input id="image" type="file" name="image" class="custom-file-input" accept=".jpg"/><br>
+				<label for="groundView"><pre>Neuer Grundriss:</pre></label>
+				<input id="groundView" type="file" name="groundView" class="custom-file-input" accept=".jpg" /><br>
 		        </br>
 		        <input type="hidden" name="location" th:value="${location.id}"/>
 				<Button type="submit" class="ui button">Speichern</Button>

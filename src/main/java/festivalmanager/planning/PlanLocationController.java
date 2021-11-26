@@ -58,6 +58,8 @@ public class PlanLocationController {
 				Location current = location.get();
 
 				System.out.println(locationId);
+				System.out.println(current.getImage());
+				System.out.println(current.getGroundView());
 				model.addAttribute("location", current);
 				
 				// required for second nav-bar
