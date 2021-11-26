@@ -5,10 +5,7 @@ package festivalmanager.ticketShop;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 
@@ -40,6 +37,26 @@ public class TicketController {
 		model.addAttribute("tickets", ticket);
 
 		return "ticketResult";
+	}
+
+
+
+	// TODO: 11/26/2021 return a ticket implementation
+	@PostMapping("/tickets/{ticketType}/{count}/{festivalName}")
+	public String buyTicket(@RequestParam TicketType ticketType, @RequestParam int count, @RequestParam String festivalName, Model model){
+
+
+
+		return "ticketPrint";
+	}
+
+
+	@GetMapping("/ticket")
+	public String ticketOverview(Model model){
+
+		model.addAttribute("tickets",new Ticket() );
+
+		return "ticketShop";
 	}
 
 

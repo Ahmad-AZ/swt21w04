@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html(title=ticketShop)}">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}"/>
+
+</head>
+<body>
+<header>
+    <nav th:include="header :: header"></nav>
+    <h1>Tickets are created</h1>
+</header>
+<section layout:fragment="content">
+</section>
+
+
+<form class="item" th:action="@{/tickets/buyTicket}" method="post" th:object="${tickets}">
+
+
+    <label for="f">Festival name:</label><br>
+    <input type="text" id="f" th:field="*{festivalName}" required><br><br>
+
+
+    <select name="ticketType" id="type" th:field="*{ticketType}">
+        <option th:each="ticketType : ${T(festivalmanager.ticketShop.TicketType).values()}"
+                th:value="${ticketType}" th:text="${ticketType.displayValue}"></option>
+
+    </select><br><br>
+
+
+    <label for="n">Tickets Count:</label><br>
+    <input type="text" id="n" th:field="*{campingTicketsCount}" required><br><br>
+
+    <!--        <label for="price1">Ticket Count  </label><br>-->
+    <!--        <input type="number" id="price1" ><br><br>-->
+
+    <!--        <div th:if="${tickets.ticketType.name()=='CAMPING'}">-->
+
+    <!--            <label for="price">Ticket Count  </label><br>-->
+    <!--            <input type="number" id="price" th:field="*{campingTicketsCount}"><br><br>-->
+    <!--        </div>-->
+
+    <!--        <div th:if="${tickets.ticketType.name()=='DAY_TICKET'}">-->
+    <!--            <p for=""></p>-->
+    <!--        </div>-->
+
+
+    <!--        <label for="price">Ticket Count  </label><br>-->
+    <!--        <input type="number" id="price" th:field="*{dayTicketPrice}"><br><br>-->
+
+    <input type="submit" value="buy">
+</form>
+
+
+</body>
+</html>

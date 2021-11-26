@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 
 
 @Service
@@ -26,4 +27,13 @@ public class TicketManagement {
 
 		return ticketRepository.save(ticket);
 	}
+
+	public List<Ticket> allTickets(){
+
+		return ticketRepository.findAll();
+	}
+
+
+
+
 }
