@@ -1,6 +1,5 @@
 package festivalmanager.hiring;
 
-import festivalmanager.location.Location;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -100,6 +99,12 @@ public class HiringController {
 		hiringManagement.createAritst(form);
 		return "redirect:/artists";
 	}
+
+	@GetMapping("/newArtist")
+	public String newArtist(Model model, NewArtistForm form) {
+		return "newArtist";
+	}
+
 //	@PostMapping("/bookArtist")
 //	public String selectLocation(@RequestParam("artist") Long artistId) {
 //		Optional<Artist> artist = hiringManagement.findById(artistId);

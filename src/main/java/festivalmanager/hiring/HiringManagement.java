@@ -21,10 +21,7 @@ public class HiringManagement {
 
 	public Artist createAritst(NewArtistForm form){
 		Assert.notNull(form, "form must not be null");
-		if (this.findByName(form.getName()) == null){
-			return artists.save(new Artist(form.getName()));
-		}
-		return null;
+		return artists.save(new Artist(form.getName()));
 	}
 
 	public Streamable<Artist> findAll(){
@@ -39,13 +36,13 @@ public class HiringManagement {
 		artists.deleteById(artistId);
 	}
 
-	public Artist findByName(String name){
-		List<Artist> artistList = (List<Artist>) artists.findAll();
-		for (Artist artist: artistList) {
-			if (artist.getName() == name){
-				return artist;
-			}
-		}
-		return null;
-	}
+//	public Artist findByName(String name){
+//		List<Artist> artistList = (List<Artist>) artists.findAll();
+//		for (Artist artist: artistList) {
+//			if (artist.getName() == name){
+//				return artist;
+//			}
+//		}
+//		return null;
+//	}
 }
