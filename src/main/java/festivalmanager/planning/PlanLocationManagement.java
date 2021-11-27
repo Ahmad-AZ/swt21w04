@@ -26,8 +26,9 @@ public class PlanLocationManagement {
 	public boolean bookLocation(Location location, Festival festival){
 		location.removeBooking(festival.getStartDate(), festival.getEndDate());
 		boolean succes = location.addBooking(festival.getStartDate(), festival.getEndDate());
+		locationManagement.saveLocation(location);
 		if(succes) {
-			locationManagement.saveLocation(location);
+			
 			festival.setLocation(location);
 			festivalManagement.saveFestival(festival);
 			return true;
@@ -35,11 +36,11 @@ public class PlanLocationManagement {
 		return false;
 	}
 	
-	public void unbookLocation(Festival festival) {
-		Location currentLocation = festival.getLocation();
+	public void unbookLocation(Location location, Festival festival) {
 		festival.setLocation(null);
 		festivalManagement.saveFestival(festival);
-		currentLocation.removeBooking(festival.getStartDate(), festival.getEndDate());
+		location.removeBooking(festival.getStartDate(), festival.getEndDate());
+		locationManagement.saveLocation(location);
 	}
 
 
