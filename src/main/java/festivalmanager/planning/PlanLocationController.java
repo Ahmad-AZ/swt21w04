@@ -63,6 +63,7 @@ public class PlanLocationController {
 				System.out.println(current.getImage());
 				System.out.println(current.getGroundView());
 				model.addAttribute("location", current);
+				System.out.println(current.getBookings().toString());				
 				
 				// to hide book Button if Location is booked
 				if (currentFestival.getLocation() != null) {
@@ -84,18 +85,52 @@ public class PlanLocationController {
 			}
 		}
 		 
+//		@PostMapping("/bookLocation")
+//		public String bookLocation(@RequestParam("location") Long locationId, RedirectAttributes ra) {
+//			Optional<Location> location = locationManagement.findById(locationId);
+//			if (location.isPresent()) {
+//				Location current = location.get();
+//				System.out.println(currentFestival.getName());
+//				boolean success = planLocationManagement.bookLocation(current, currentFestival);
+//				System.out.println(success);
+////				System.out.println(currentFestival.getLocation().getName());
+//				if(!success) {
+//					ra.addFlashAttribute("message", "Location ist im Festivalzeitraum belegt");
+//					return "redirect:/locationOverview/"+ current.getId();
+//				}
+//		
+//				long id = current.getId();
+//				// reload locationOverview page
+//				return "redirect:/locationPre1";
+//				
+//			} else {
+//				throw new ResponseStatusException(
+//						HttpStatus.NOT_FOUND, "entity not found"
+//				);
+//			}
+//		}
+		
 		@PostMapping("/bookLocation")
-		public String bookLocation(@RequestParam("location") Long locationId, RedirectAttributes ra) {
+		public String bookLocation(@RequestParam("location") Long locationId, @RequestParam("currentlyBooked") boolean currentlyBooked, RedirectAttributes ra) {
 			Optional<Location> location = locationManagement.findById(locationId);
 			if (location.isPresent()) {
 				Location current = location.get();
-				System.out.println(currentFestival.getName());
-				boolean success = planLocationManagement.bookLocation(current, currentFestival);
-				System.out.println(success);
-//				System.out.println(currentFestival.getLocation().getName());
-				if(!success) {
-					ra.addFlashAttribute("message", "Location ist im Festivalzeitraum belegt");
-					return "redirect:/locationOverview/"+ current.getId();
+				
+				// unbook curetnly booked location
+				System.out.println("currentlyBooked boolean:"+currentlyBooked);
+				if(currentlyBooked) {
+					planLocationManagement.unbookLocation(current, currentFestival);
+				}
+				// book Location
+				else {
+					boolean success = planLocationManagement.bookLocation(current, currentFestival);
+					System.out.println("success:"+success);
+
+					if(!success) {
+						ra.addFlashAttribute("message", "Location ist im Festivalzeitraum belegt");
+						return "redirect:/locationOverview/"+ current.getId();
+					}
+					System.out.println("actually booked location:" + currentFestival.getLocation().getName());
 				}
 		
 				long id = current.getId();
@@ -109,11 +144,19 @@ public class PlanLocationController {
 			}
 		}
 		
-		@GetMapping("/locationOverview/unbook")
+		@GetMapping("/locationOverview/unbook") 
 		public String unbookLocation() {
-			planLocationManagement.unbookLocation(currentFestival);
+			Optional<Location> location = locationManagement.findById(currentFestival.getLocation().getId());
+			if (location.isPresent()) {
+				Location current = location.get();
+				planLocationManagement.unbookLocation(current, currentFestival);
 			
-			// reload locationOverview page
-			return "redirect:/locationPre1";
+				// reload locationOverview page
+				return "redirect:/locationPre1";
+			} else {
+				throw new ResponseStatusException(
+						HttpStatus.NOT_FOUND, "entity not found"
+				);
+			}
 		}
 }

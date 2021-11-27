@@ -1,6 +1,7 @@
 package festivalmanager.location;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,12 +12,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import org.javamoney.moneta.Money;
 import org.salespointframework.time.Interval;
+import org.springframework.data.util.Streamable;
 
+//@NamedEntityGraph(
+//	    name = "graph.locationBookings",
+//	    attributeNodes = @NamedAttributeNode("booking")
+//	)
 
 @Entity
 public class Location{
@@ -60,9 +67,17 @@ public class Location{
 	}
 	
 	public boolean addBooking(LocalDate startDate, LocalDate endDate) {
+//		//Test Interval overleap functionality
+//		Interval a = Interval.from(LocalDateTime.of(2021, 11, 1, 0, 0)).to(LocalDateTime.of(2021, 11, 25, 23, 59));
+//		Interval b = Interval.from(LocalDateTime.of(2021, 11, 5, 0, 0)).to(LocalDateTime.of(2021, 11, 14, 23, 59));
+//		boolean intervaltry = b.overlaps(a);
+//		System.out.println("Interval try:"+ intervaltry);
+		
 		Interval festivalDateInterval = Interval.from(startDate.atStartOfDay()).to(endDate.atTime(23,59));
 		for (Booking aBooking : bookings) { 
-			if(festivalDateInterval.contains(aBooking.getStartDate().atStartOfDay()) || festivalDateInterval.contains(aBooking.getEndDate().atTime(23,59))) {
+			Interval aBookingDateInterval = Interval.from(aBooking.getStartDate().atStartOfDay()).to(aBooking.getEndDate().atTime(23,59));
+			// startDate or endDate in an existing BookingInterval
+			if(aBookingDateInterval.overlaps(festivalDateInterval)) {
 				System.out.println("Location belegt");
 				return false;
 			}
@@ -82,7 +97,7 @@ public class Location{
 		
 	}
  
-	public List<Booking> getBookings() {
+	public Iterable<Booking> getBookings() {
 		return bookings;
 	}
 

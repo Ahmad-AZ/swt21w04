@@ -26,6 +26,7 @@
             </br>
         	<p>Name:</p>
             <p th:text="${location.name}">Keine gefunden</p>
+            <p th:text="${location.name}">Keine gefunden</p>
             <br/>
             <p>Adresse:</p>
             <p th:text="${location.adress}">Keine gefunden</p>
@@ -39,9 +40,9 @@
 			<p>maximale Bühnenanzahl:</p>
 			<p th:text="${location.stageCapacity}">Keine gefunden</p>
 			<br/>
-			<div class="booking_list">
-					<p>Buchungen</p>	
-			</div>
+			<p>Buchungen</p>
+
+
 			</br>
 			<p>Grundriss:</p>
 			<div class="groundView">
@@ -49,9 +50,11 @@
                              src="../static/resources/img/location/HSZ_groundview.jpg"/>
 			</div>
             </br>                           
-			<form class="ui form" method="post" th:action="@{/bookLocation}" th:if="${currentlyBooked == false}" th:object="${booking}">
+			<form class="ui form" method="post" th:action="@{/bookLocation}" th:object="${booking}">
 				<input type="hidden" name="location" th:value="${location.id}"/>
-				<button type="submit" class="ui button" >Buchen</button>
+				<input type="hidden" name="currentlyBooked" th:value="${currentlyBooked == true}"/>
+				<button type="submit" class="ui button" th:if="${currentlyBooked == false}">Buchen</button>
+				<button type="submit" class="ui button" th:if="${currentlyBooked == true}">Buchung zurücknehmen</button>
 				<p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p> 
 			</form>
         </div>

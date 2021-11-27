@@ -1,5 +1,6 @@
 package festivalmanager.location;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -9,16 +10,20 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "COMMENTS")
-public class Booking {
+@Table(name = "BOOKINGS")
+public class Booking implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private @Id @GeneratedValue long id;
 	
 	private LocalDate startDate;
 	private LocalDate endDate;
 	
 	@SuppressWarnings("unused")
-
 	private Booking() {}
 	
 	public Booking(LocalDate startDate, LocalDate endDate) {
