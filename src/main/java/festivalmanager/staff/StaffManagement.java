@@ -25,13 +25,13 @@ public class StaffManagement {
 		this.userAccountManagement = userAccountManagement;
 	}
 
-	public Person createPerson(CreateStaffForm form) {
+	public Person createPerson(long festivalId, CreateStaffForm form) {
 		Assert.notNull(form, "Registration form must not be null!");
 
 		var password = Password.UnencryptedPassword.of(form.getPassword());
-		var userAccount = userAccountManagement.create(form.getName(), password, Role.of("USER"));
+		var userAccount = userAccountManagement.create(form.getName(), password, Role.of(form.getRole()));
 
-		return staff.save(new Person(form.getName(), userAccount));
+		return staff.save(new Person(festivalId, form.getName(), form.getRole(), userAccount));
 	}
 
 	public void removePerson(RemoveStaffForm form) {
@@ -44,6 +44,9 @@ public class StaffManagement {
 
 	public Streamable<Person> findAll() {
 		return staff.findAll();
+	}
+	public Streamable<Person> findByFestivalId(long festivalId) {
+		return staff.findByFestivalId(festivalId);
 	}
 
 	public Optional<Person> findById(long id) {
