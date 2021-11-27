@@ -51,6 +51,24 @@ public class StaffController {
 		return "staff.html";
 	}
 
+	@GetMapping("/staff/{festivalId}/detail/{userId}")
+	@PreAuthorize("hasRole('ADMIN')")
+	public String getPersonDetailView(@PathVariable("festivalId") long festivalId, @PathVariable("userId") long userId, Model model) {
+		model.addAttribute("entries", staffManagement.findByFestivalId(festivalId));
+
+		Optional<Person> user = staffManagement.findById(userId);
+		if (user.isPresent()) {
+			model.addAttribute("person", user.get());
+		}
+
+		Optional<Festival> festival = festivalManagement.findById(festivalId);
+		if (festival.isPresent()) {
+			model.addAttribute("festival", festival.get());
+		}
+
+		return "person.html";
+	}
+
 	@GetMapping("/staff/{festivalId}/remove/{userId}")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String getRemoveStaffDialog(@PathVariable("festivalId") long festivalId, @PathVariable("userId") long userId, Model model) {
