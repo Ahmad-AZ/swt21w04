@@ -9,6 +9,7 @@ import festivalmanager.location.Location;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -34,13 +35,13 @@ public class Festival {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.location = null;
-		this.artists = new HashSet<>();
+		this.artists = new HashSet<Artist>();
 	}
 
 	public Festival(String name) {
 		this.name = name;
 		this.location = null;
-		this.artists = new HashSet<>();
+		this.artists = new HashSet<Artist>();
 	}
 	
 	public Festival() {
@@ -82,12 +83,11 @@ public class Festival {
 	public void setLocation(Location location) {
 		this.location=location;
 	}
-	public boolean addArtist(Artist artist){
-		if (artists.contains(artist)){
-			return false;
-		}
+	public void addArtist(Artist artist){
 		artists.add(artist);
-		return true;
+	}
+	public boolean artistsIsEmpty(){
+		return this.artists.isEmpty();
 	}
 	
 //	public boolean equals(Festival festival) {
