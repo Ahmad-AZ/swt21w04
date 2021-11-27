@@ -75,6 +75,9 @@ public class Festival {
 	public Location getLocation() {
 		return location; 
 	}
+	public Set<Artist> getArtist(){
+		return this.artists;
+	}
 	
 	public void setLocation(Location location) {
 		this.location=location;

@@ -32,18 +32,18 @@ public class HiringController {
 		model.addAttribute("artistList", hiringManagement.findAll());
 		return "artists";
 	}
-	@GetMapping("/artistOverview")
-	public String artistOverview(Model model, @ModelAttribute("currentFestival") Festival currentFestival,
-								   @ModelAttribute("fm") FestivalManagement fm) {
-		this.currentFestival = currentFestival;
-		this.festivalManagement = fm;
-		model.addAttribute("artistList", hiringManagement.findAll());
-
-		// required for second nav-bar
-		model.addAttribute("festival", currentFestival);
-
-		return "artistOverview";
-	}
+//	@GetMapping("/artistOverview")
+//	public String artistOverview(Model model, @ModelAttribute("currentFestival") Festival currentFestival,
+//								   @ModelAttribute("fm") FestivalManagement fm) {
+//		this.currentFestival = currentFestival;
+//		this.festivalManagement = fm;
+//		model.addAttribute("artistList", hiringManagement.findAll());
+//
+//		// required for second nav-bar
+//		model.addAttribute("festival", currentFestival);
+//
+//		return "artistOverview";
+//	}
 
 	@GetMapping("/artists/{artistId}")
 	public String artistEdit(@PathVariable Long artistId, Model model) {
@@ -86,27 +86,27 @@ public class HiringController {
 		return "redirect:/artists";
 	}
 
-	@GetMapping("/artistOverview/{artistId}")
-	public String artistDetail(@PathVariable Long artistId, Model model) {
-		Optional<Artist> artist = hiringManagement.findById(artistId);
-
-		if (artist.isPresent()) {
-			Artist current = artist.get();
-
-			System.out.println(artistId);
-			model.addAttribute("artist", current);
-
-			// required for second nav-bar
-			model.addAttribute("festival", currentFestival);
-
-			return "artistDetail";
-
-		} else {
-			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
-		}
-	}
+//	@GetMapping("/artistOverview/{artistId}")
+//	public String artistDetail(@PathVariable Long artistId, Model model) {
+//		Optional<Artist> artist = hiringManagement.findById(artistId);
+//
+//		if (artist.isPresent()) {
+//			Artist current = artist.get();
+//
+//			System.out.println(artistId);
+//			model.addAttribute("artist", current);
+//
+//			// required for second nav-bar
+//			model.addAttribute("festival", currentFestival);
+//
+//			return "artistDetail";
+//
+//		} else {
+//			throw new ResponseStatusException(
+//					HttpStatus.NOT_FOUND, "entity not found"
+//			);
+//		}
+//	}
 
 	@PostMapping("/saveArtist")
 	public String saveArtist(@Validated NewArtistForm form, Errors result, @RequestParam("artist") Long artistId, Model model) {
