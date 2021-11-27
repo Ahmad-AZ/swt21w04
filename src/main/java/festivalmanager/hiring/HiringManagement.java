@@ -2,12 +2,15 @@ package festivalmanager.hiring;
 
 
 import com.mysema.commons.lang.Assert;
+import org.javamoney.moneta.Money;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+
+import static org.salespointframework.core.Currencies.EURO;
 
 @Service
 @Transactional
@@ -34,6 +37,12 @@ public class HiringManagement {
 
 	public void removeArtist(Long artistId) {
 		artists.deleteById(artistId);
+	}
+
+	public Artist editArtist(Artist artist, NewArtistForm form) {
+		artist.setName(form.getName());
+
+		return artists.save(artist);
 	}
 
 //	public Artist findByName(String name){

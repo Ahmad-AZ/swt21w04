@@ -45,6 +45,24 @@ public class HiringController {
 		return "artistOverview";
 	}
 
+	@GetMapping("/artists/{artistId}")
+	public String artistEdit(@PathVariable Long artistId, Model model) {
+		Optional<Artist> artist = hiringManagement.findById(artistId);
+
+		if (artist.isPresent()) {
+			Artist current = artist.get();
+
+			System.out.println(artistId);
+			model.addAttribute("artist", current);
+			return "artistEdit";
+
+		} else {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
+		}
+	}
+
 	@GetMapping("artists/remove/{id}")
 	public String getRemoveArtistDialog(@PathVariable("id") long id, Model model) {
 		model.addAttribute("locatoins", hiringManagement.findAll());
@@ -90,6 +108,30 @@ public class HiringController {
 		}
 	}
 
+	@PostMapping("/saveArtist")
+	public String saveArtist(@Validated NewArtistForm form, Errors result, @RequestParam("artist") Long artistId, Model model) {
+
+		Optional<Artist> artist = hiringManagement.findById(artistId);
+
+		if (artist.isPresent()) {
+			Artist current = artist.get();
+			if (result.hasErrors()) {
+				System.out.println("form has errors");
+				model.addAttribute("artist", current);
+
+				return "artistEdit";
+			}
+
+			hiringManagement.editArtist(current, form);
+			return "redirect:/artists";
+
+		} else {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
+		}
+	}
+
 	@PostMapping("/newArtist")
 	public String createNewArtist(@Validated NewArtistForm form, Errors result){
 		if(result.hasErrors()){
@@ -106,7 +148,7 @@ public class HiringController {
 	}
 
 //	@PostMapping("/bookArtist")
-//	public String selectLocation(@RequestParam("artist") Long artistId) {
+//	public String selectartist(@RequestParam("artist") Long artistId) {
 //		Optional<Artist> artist = hiringManagement.findById(artistId);
 //
 //		if (artist.isPresent()) {
