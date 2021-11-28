@@ -8,7 +8,7 @@ import java.util.List;
 public class TicketStock {
 
 
-	private List<Ticket> ticketList;
+	private List<Ticket> ticketStock;
 
 
 	public String getCountOfTickets( ){
@@ -21,7 +21,7 @@ public class TicketStock {
 	public void  addTickets(@NonNull Ticket ticket ){
 
 
-		ticketList.add(ticket);
+		ticketStock.add(ticket);
 
 	}
 
