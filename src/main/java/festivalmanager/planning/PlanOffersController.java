@@ -1,6 +1,7 @@
 package festivalmanager.planning;
 
 import festivalmanager.festival.Festival;
+import festivalmanager.festival.FestivalManagement;
 import festivalmanager.hiring.Artist;
 import festivalmanager.hiring.HiringManagement;
 import org.springframework.http.HttpStatus;
@@ -10,43 +11,62 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Optional;
-import java.util.Set;
 
 @Controller
 public class PlanOffersController {
 	private final PlanOffersManagement planOffersManagement;
 	private final HiringManagement hiringManagement;
 	private Festival currentFestival;
+	private final FestivalManagement festivalManagement;
 
-	public PlanOffersController(PlanOffersManagement planOffersManagement, HiringManagement hiringManagement) {
+	public PlanOffersController(PlanOffersManagement planOffersManagement, HiringManagement hiringManagement, FestivalManagement festivalManagement) {
 		this.planOffersManagement = planOffersManagement;
 		this.hiringManagement = hiringManagement;
+		this.festivalManagement = festivalManagement;
 		this.currentFestival = null;
 	}
 	@GetMapping("/artistOverview")
 	public String artistOverview(Model model, @ModelAttribute("currentFestival") Festival currentFestival) {
-		this.currentFestival = currentFestival;
-		model.addAttribute("artistList", hiringManagement.findAll());
-//		System.out.println(currentFestival.artistsIsEmpty());
-//		if (!currentFestival.artistsIsEmpty()) {
-//			System.out.println("nafsd");
-//		}
-////			Iterator<Artist> iterator = currentFestival.getArtist().iterator();
-////			while (iterator.hasNext()) {
-////				model.addAttribute("bookedArtistId",iterator.next().getId());
-////			}
-////		}
-//		else{
-//			model.addAttribute("bookedArtistId", 0);
-//
-//		}
-		// required for second nav-bar
-		model.addAttribute("festival", currentFestival);
+		Optional<Festival> festival = festivalManagement.findById(currentFestival.getId());
+		if (festival.isPresent()) {
+			Festival current = festival.get();
+			this.currentFestival = current;
+			model.addAttribute("artistList", hiringManagement.findAll());
+			//		System.out.println("why it comes currentFestivalnothing"+currentFestival.getLocation());
+			//		if (!currentFestival.artistsIsEmpty()) {
+			//			System.out.println("nafsd");
+			//		}
+			////			Iterator<Artist> iterator = currentFestival.getArtist().iterator();
+			////			while (iterator.hasNext()) {
+			////				model.addAttribute("bookedArtistId",iterator.next().getId());
+			////			}
+			////		}
+			//		else{
+			//			model.addAttribute("bookedArtistId", 0);
+			//
+			//		}
+			// required for second nav-bar
+			model.addAttribute("festival", current);
+			System.out.println(current.artistsIsEmpty());
+			if (!current.artistsIsEmpty()) {
+				Iterator<Artist> iterator = current.getArtist().iterator();
+				while (iterator.hasNext()) {
+					model.addAttribute("bookedArtist", iterator.next().getId());
+				}
+			}
+			else{
+				model.addAttribute("bookedArtist", 0);
+			}
 
-		return "artistOverview";
+			return "artistOverview";
+		}
+		else{
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
+		}
 	}
 	@GetMapping("/artistOverview/{artistId}")
 	public String artistDetail(@PathVariable Long artistId, Model model) {
@@ -85,7 +105,11 @@ public class PlanOffersController {
 		Optional<Artist> artist = hiringManagement.findById(artistId);
 		if (artist.isPresent()) {
 			Artist current = artist.get();
-//			currentFestival.addArtist(current);
+			System.out.println("hallo");
+			currentFestival.addArtist(current);
+			for (Artist artist1:currentFestival.getArtist()){
+				System.out.println(artist1.getName());
+			}
 			return "redirect:/artistPre1";
 		}
 		else {
