@@ -1,7 +1,7 @@
 package festivalmanager.ticketShop;
 
 
-//import com.sun.istack.NotNull;
+import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
@@ -33,10 +33,7 @@ public class TicketManagement {
 		return ticketRepository.findAll();
 	}
 
-	public TicketStock getTicketStock()
-	{
-		return ticketStock;
-	}
+
 
 
 }

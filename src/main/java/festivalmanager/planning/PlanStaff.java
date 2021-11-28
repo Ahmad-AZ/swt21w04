@@ -11,13 +11,6 @@ public class PlanStaff extends Planning {
 
 	private int numberOfTechnicans, numberOfSecurity;
 
-	public int getNumberOfTechnicans()
-	{
-		return numberOfTechnicans;
-	}
 
-	public int getNumberOfSecurity()
-	{
-		return numberOfSecurity;
-	}
+
 }

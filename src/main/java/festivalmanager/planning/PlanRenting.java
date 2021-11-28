@@ -1,5 +1,4 @@
 package festivalmanager.planning;
-
 import festivalmanager.Equipment.Equipment;
 import festivalmanager.festival.Festival;
 
@@ -18,15 +17,15 @@ public class PlanRenting extends Planning {
 	PlanRenting(Festival festival) {
 
 		super(festival);
-		equipments = new ArrayList<>();
+		equipments=new ArrayList<>();
 	}
 
-	public void rent(Equipment equipment) {
+	public void rent(Equipment equipment){
 		equipments.add(equipment);
 	}
 
-	public boolean unrent(Equipment equipment) {
-		if (!equipments.contains(equipment)) {
+	public boolean unrent(Equipment equipment){
+		if (!equipments.contains(equipment)){
 			System.out.println("there is no such equipment to remove");
 			return false;
 		}
@@ -34,8 +33,5 @@ public class PlanRenting extends Planning {
 		return true;
 	}
 
-	public int getNumberOfStage() {
-		return numberOfStage;
-	}
 
 }

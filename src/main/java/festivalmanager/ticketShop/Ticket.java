@@ -1,13 +1,13 @@
 package festivalmanager.ticketShop;
 
 
-//import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 
-//import java.time.LocalDate;
-//import java.util.Date;
+import java.time.LocalDate;
+import java.util.Date;
 
 
 @Entity
@@ -54,7 +54,7 @@ public class Ticket {
 		return festivalName;
 	}
 
-	//@Required
+	@Required
 	public void setFestivalName(String festivalName) {
 		this.festivalName = festivalName;
 	}
