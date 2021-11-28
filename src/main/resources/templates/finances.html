@@ -49,7 +49,15 @@
         </thead>
         <tbody>
         <tr>
-            <td>Voraussichtliche Kosten</td>
+            <td>Kosten für Künstler</td>
+            <td th:text="${artistCost + '&euro;'}">0.00&euro;</td>
+        </tr>
+        <tr>
+            <td>Kosten für Location</td>
+            <td th:text="${locationCost + '&euro;'}">0.00&euro;</td>
+        </tr>
+        <tr>
+            <td>Voraussichtliche Gesamtkosten</td>
             <td th:text="${cost + '&euro;'}">0.00&euro;</td>
         </tr>
         <tr>
