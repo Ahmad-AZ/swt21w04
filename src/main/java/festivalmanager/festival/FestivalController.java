@@ -156,8 +156,7 @@ public class FestivalController {
 
 	@GetMapping("/financesPre1")
 	String financesPre1(Model model, RedirectAttributes ra) {
-		ra.addFlashAttribute("currentFestival", currentFestival);
-		System.out.println(currentFestival.getName());
+		ra.addFlashAttribute("currentFestivalId", currentFestival.getId());
 		return "redirect:finances";
 	}
 
