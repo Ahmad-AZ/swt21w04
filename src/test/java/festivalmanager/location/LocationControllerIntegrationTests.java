@@ -15,12 +15,12 @@ public class LocationControllerIntegrationTests extends AbstractIntegrationTests
 	@Autowired LocationController controller;
 
 
-	@Test
-	void rejectsUnauthenticatedAccessToController() {
-
-		assertThatExceptionOfType(AuthenticationException.class) //
-				.isThrownBy(() -> controller.locations(new ExtendedModelMap()));
-	}
+	//@Test
+	//void rejectsUnauthenticatedAccessToController() {
+	//
+	//	assertThatExceptionOfType(AuthenticationException.class) //
+	//			.isThrownBy(() -> controller.locations(new ExtendedModelMap()));
+	//}
 
 	// Test locations, locationList not Null
 	@Test
