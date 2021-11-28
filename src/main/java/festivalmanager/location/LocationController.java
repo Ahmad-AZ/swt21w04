@@ -22,14 +22,9 @@ import festivalmanager.staff.forms.RemoveStaffForm;
 public class LocationController {
 	
 	private final LocationManagement locationManagement;
-	//private Festival currentFestival;
-	//private PlanLocation planning;
-	//private FestivalManagement festivalManagement;
 	
 	public LocationController(LocationManagement locationManagement) {
 		this.locationManagement = locationManagement;
-		//this.currentFestival = null;
-		
 	}
 	
 	
