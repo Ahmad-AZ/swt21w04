@@ -107,6 +107,10 @@ public class PlanOffersController {
 			Artist current = artist.get();
 			System.out.println("hallo");
 			currentFestival.addArtist(current);
+
+			// Temporarily added by Jan to get finances working, to be edited by Tuan
+			festivalManagement.saveFestival(currentFestival);
+
 			for (Artist artist1:currentFestival.getArtist()){
 				System.out.println(artist1.getName());
 			}

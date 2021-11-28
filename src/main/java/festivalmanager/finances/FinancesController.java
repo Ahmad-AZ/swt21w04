@@ -66,17 +66,23 @@ class FinancesController {
 		this.financesManagement.updateFestival(currentFestivalId);
 		this.currentFestival = festivalManagement.findById(currentFestivalId).get();
 
+		Money artistsCost = financesManagement.getArtistsCost();
+		Money locationCost = financesManagement.getLocationCost();
 		Money cost = financesManagement.getCost();
 		Money revenue = financesManagement.getRevenue(currentFestival,
 				priceCampingTickets, priceOneDayTickets, nCampingTickets, nOneDayTickets);
 		Money profit = financesManagement.getProfit(cost, revenue);
 
+		String artistsCostStr = String.format("%.2f", artistsCost.getNumber().doubleValue());
+		String locationCostStr = String.format("%.2f", locationCost.getNumber().doubleValue());
 		String costStr = String.format("%.2f", cost.getNumber().doubleValue());
 		String revenueStr = String.format("%.2f", revenue.getNumber().doubleValue());
 		String profitStr = String.format("%.2f", profit.getNumber().doubleValue());
 		String priceCampingTicketsStr = String.format("%.2f", priceCampingTickets.getNumber().doubleValue());
 		String priceOneDayTicketsStr = String.format("%.2f", priceOneDayTickets.getNumber().doubleValue());
 
+		model.addAttribute("artistsCost", artistsCostStr);
+		model.addAttribute("locationCost", locationCostStr);
 		model.addAttribute("cost", costStr);
 		model.addAttribute("revenue", revenueStr);
 		model.addAttribute("profit", profitStr);

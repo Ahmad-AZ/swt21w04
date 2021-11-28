@@ -58,15 +58,15 @@ public class FinancesManagement {
 
 	public Money getArtistsCost() {
 
-		Money artistCost = Money.of(0, EURO);
+		Money artistsCost = Money.of(0, EURO);
 
 		if (!currentFestival.artistsIsEmpty()) {
 			for (Artist artist: currentFestival.getArtist()) {
-
+				artistsCost = artistsCost.add(artist.getPrice());
 			}
 		}
 
-		return artistCost;
+		return artistsCost;
 	}
 
 
