@@ -30,14 +30,22 @@ public class LocationManagement {
 		// save Festival in Repository
 		Money pricePerDay = Money.of(form.getPricePerDay(), EURO);
 		String image, groundView;
-		if (form.getImageFile().isEmpty()) {
+		// for unit tests
+		if (form.getImageFile() == null) {
+			image = "Blank_image";
+		}
+		else if (form.getImageFile().isEmpty()) {
 			image = "Blank_image";
 		}
 		else {
 			System.out.println("image setted");
 			image = form.getImage();
 		}
-		if (form.getGroundViewFile().isEmpty()) {
+		// for unit tests
+		if (form.getGroundViewFile() == null) {
+			groundView = "Blank_groundview";
+		}
+		else if (form.getGroundViewFile().isEmpty()) {
 			groundView = "Blank_groundview";
 		}
 		else {
