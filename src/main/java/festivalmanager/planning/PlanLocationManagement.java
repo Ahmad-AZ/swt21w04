@@ -13,14 +13,12 @@ import festivalmanager.location.LocationManagement;
 @Transactional
 public class PlanLocationManagement {
 
-	private Streamable<Location> locationList;
 	private final LocationManagement locationManagement;
 	private final FestivalManagement festivalManagement;
 	
 	public PlanLocationManagement(FestivalManagement festivalManagement, LocationManagement locationManagement) {
 		this.locationManagement = locationManagement;
 		this.festivalManagement = festivalManagement;
-		locationList = locationManagement.findAll();
 	}
 
 	public boolean bookLocation(Location location, Festival festival){
@@ -42,11 +40,6 @@ public class PlanLocationManagement {
 		location.removeBooking(festival.getStartDate(), festival.getEndDate());
 		locationManagement.saveLocation(location);
 	}
-
-
-//	public Streamable<Location> getAllLocations(){
-//		return findAll();
-//	}
 
 
 }
