@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 class NewLocationForm {
 	
-	private final String UPLOAD_DIR = Paths.get("src\\main\\resources\\static\\resources\\img\\location").toAbsolutePath().toString()+ "\\";
+	private final String UPLOAD_DIR = Paths.get("target\\classes\\static\\resources\\img\\location").toAbsolutePath().toString()+ "\\";
 	
 	@NotEmpty   
 	private final String name; 

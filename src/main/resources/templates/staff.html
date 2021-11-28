@@ -15,8 +15,7 @@
         <div class="main">
             <ul class="list">
                 <li class="list-entry" th:each="entry, it : ${entries}">
-                    <p th:text="${entry.name}"></p>
-                    <p th:text="${entry.role}"></p>
+                    <a th:href="@{/staff/{festivalId}/detail/{id}(id = ${entry.id}, festivalId = ${festival.id})}" th:text="${entry.name}"></a>
                     <a th:href="@{/staff/{festivalId}/remove/{id}(id = ${entry.id}, festivalId = ${festival.id})}">X</a>
                 </li>
             </ul>
