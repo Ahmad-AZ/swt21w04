@@ -63,12 +63,13 @@ class FinancesController {
 				this.currentFestival.getId() != currentFestivalId) {
 			resetAttributes();
 		}
+		this.currentFestivalId = currentFestivalId;
+		this.financesManagement.updateFestival(currentFestivalId);
 		this.currentFestival = festivalManagement.findById(currentFestivalId).get();
 
-		Money cost = financesManagement.getCost(currentFestival);
+		Money cost = financesManagement.getCost();
 		Money revenue = financesManagement.getRevenue(currentFestival,
-				priceCampingTickets, priceOneDayTickets,
-				nCampingTickets, nOneDayTickets);
+				priceCampingTickets, priceOneDayTickets, nCampingTickets, nOneDayTickets);
 		Money profit = financesManagement.getProfit(cost, revenue);
 
 		String costStr = String.format("%.2f", cost.getNumber().doubleValue());
