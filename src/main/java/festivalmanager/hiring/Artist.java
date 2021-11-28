@@ -23,7 +23,10 @@ public class Artist {
 		// Temporarily added by Jan to get finances working, to be edited by Tuan
 		this.price = Money.of(11010.10, EURO);
 	}
-	public Artist() {}
+	public Artist() {
+		// Temporarily added by Jan to get finances working, to be edited by Tuan
+		this.price = Money.of(11010.10, EURO);
+	}
 
 	public long getId() {
 		return id;
