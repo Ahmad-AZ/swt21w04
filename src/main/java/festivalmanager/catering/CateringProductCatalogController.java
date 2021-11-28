@@ -16,7 +16,7 @@ public class CateringProductCatalogController {
         return catalog;
     }
 
-    @GetMapping("/cateringproductcatalog.html")
+    @GetMapping("/cateringProductCatalog.html")
     String products(Model model) {
 
         model.addAttribute("productcatalog", catalog.findAll());
