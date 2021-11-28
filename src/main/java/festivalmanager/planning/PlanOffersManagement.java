@@ -22,8 +22,21 @@ public class PlanOffersManagement {
 		artistList = hiringManagement.findAll();
 	}
 
-	public boolean bookArtist(Artist artist, Festival festival){
+	public boolean bookArtist(Artist artist, Festival festival) {
 
 		return false;
 	}
+
+	protected Streamable<Artist> getArtistList() {
+		return artistList;
+	}
+
+	protected HiringManagement getHiringManagement() {
+		return hiringManagement;
+	}
+
+	protected FestivalManagement getFestivalManagement() {
+		return festivalManagement;
+	}
+
 }

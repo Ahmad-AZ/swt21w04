@@ -12,6 +12,7 @@ public class Person {
 
 	private long festivalId;
 	private String name;
+
 	private String role;
 
 	@OneToOne
@@ -33,8 +34,13 @@ public class Person {
 	public String getName() {
 		return name;
 	}
+
 	public String getRole() {
 		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	public UserAccount getAccount() {

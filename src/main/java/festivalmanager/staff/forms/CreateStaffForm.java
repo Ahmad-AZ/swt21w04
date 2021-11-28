@@ -1,4 +1,4 @@
-package festivalmanager.staff;
+package festivalmanager.staff.forms;
 
 import javax.validation.constraints.NotEmpty;
 

@@ -21,12 +21,14 @@ public class PlanOffersController {
 	private Festival currentFestival;
 	private final FestivalManagement festivalManagement;
 
-	public PlanOffersController(PlanOffersManagement planOffersManagement, HiringManagement hiringManagement, FestivalManagement festivalManagement) {
+	public PlanOffersController(PlanOffersManagement planOffersManagement, HiringManagement hiringManagement,
+			FestivalManagement festivalManagement) {
 		this.planOffersManagement = planOffersManagement;
 		this.hiringManagement = hiringManagement;
 		this.festivalManagement = festivalManagement;
 		this.currentFestival = null;
 	}
+
 	@GetMapping("/artistOverview")
 	public String artistOverview(Model model, @ModelAttribute("currentFestival") Festival currentFestival) {
 		Optional<Festival> festival = festivalManagement.findById(currentFestival.getId());
@@ -34,19 +36,20 @@ public class PlanOffersController {
 			Festival current = festival.get();
 			this.currentFestival = current;
 			model.addAttribute("artistList", hiringManagement.findAll());
-			//		System.out.println("why it comes currentFestivalnothing"+currentFestival.getLocation());
-			//		if (!currentFestival.artistsIsEmpty()) {
-			//			System.out.println("nafsd");
-			//		}
-			////			Iterator<Artist> iterator = currentFestival.getArtist().iterator();
-			////			while (iterator.hasNext()) {
-			////				model.addAttribute("bookedArtistId",iterator.next().getId());
-			////			}
-			////		}
-			//		else{
-			//			model.addAttribute("bookedArtistId", 0);
+			// System.out.println("why it comes
+			// currentFestivalnothing"+currentFestival.getLocation());
+			// if (!currentFestival.artistsIsEmpty()) {
+			// System.out.println("nafsd");
+			// }
+			//// Iterator<Artist> iterator = currentFestival.getArtist().iterator();
+			//// while (iterator.hasNext()) {
+			//// model.addAttribute("bookedArtistId",iterator.next().getId());
+			//// }
+			//// }
+			// else{
+			// model.addAttribute("bookedArtistId", 0);
 			//
-			//		}
+			// }
 			// required for second nav-bar
 			model.addAttribute("festival", current);
 			System.out.println(current.artistsIsEmpty());
@@ -55,19 +58,17 @@ public class PlanOffersController {
 				while (iterator.hasNext()) {
 					model.addAttribute("bookedArtist", iterator.next().getId());
 				}
-			}
-			else{
+			} else {
 				model.addAttribute("bookedArtist", 0);
 			}
 
 			return "artistOverview";
-		}
-		else{
+		} else {
 			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
+					HttpStatus.NOT_FOUND, "entity not found");
 		}
 	}
+
 	@GetMapping("/artistOverview/{artistId}")
 	public String artistDetail(@PathVariable Long artistId, Model model) {
 		Optional<Artist> artist = hiringManagement.findById(artistId);
@@ -78,16 +79,16 @@ public class PlanOffersController {
 			model.addAttribute("artist", current);
 
 			// to hide book Button if artist is booked
-//			if (!currentFestival.getArtist().isEmpty()) {
-//				for (Artist artist1: currentFestival.getArtist()) {
-//					if (artist1.getId() == current.getId()) {
-//						model.addAttribute("currentlyBooked", true);
-//					}
-//				}
-//			}
-//			else {
+			// if (!currentFestival.getArtist().isEmpty()) {
+			// for (Artist artist1: currentFestival.getArtist()) {
+			// if (artist1.getId() == current.getId()) {
+			// model.addAttribute("currentlyBooked", true);
+			// }
+			// }
+			// }
+			// else {
 			model.addAttribute("currentlyBooked", false);
-//			}
+			// }
 
 			// required for second nav-bar
 			model.addAttribute("festival", currentFestival);
@@ -96,27 +97,30 @@ public class PlanOffersController {
 
 		} else {
 			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
+					HttpStatus.NOT_FOUND, "entity not found");
 		}
 	}
+
 	@PostMapping("/bookArtist")
-	public String bookArtist(@RequestParam("artist") Long artistId, @RequestParam("currentlyBooked") boolean currentlyBooked, RedirectAttributes ra) {
+	public String bookArtist(@RequestParam("artist") Long artistId,
+			@RequestParam("currentlyBooked") boolean currentlyBooked, RedirectAttributes ra) {
 		Optional<Artist> artist = hiringManagement.findById(artistId);
 		if (artist.isPresent()) {
 			Artist current = artist.get();
 			System.out.println("hallo");
 			currentFestival.addArtist(current);
-			for (Artist artist1:currentFestival.getArtist()){
+			for (Artist artist1 : currentFestival.getArtist()) {
 				System.out.println(artist1.getName());
 			}
 			return "redirect:/artistPre1";
-		}
-		else {
+		} else {
 			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
+					HttpStatus.NOT_FOUND, "entity not found");
 		}
+	}
+
+	protected PlanOffersManagement getPlanOffersManagement() {
+		return planOffersManagement;
 	}
 
 }

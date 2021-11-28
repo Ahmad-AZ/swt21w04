@@ -2,6 +2,7 @@ package festivalmanager.staff;
 
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
+import festivalmanager.staff.forms.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -105,5 +106,57 @@ public class StaffController {
 		this.staffManagement.removePerson(form);
 
 		return "redirect:/staff/" + festivalId;
+	}
+
+	@GetMapping("/staff/{festivalId}/change_role/{userId}")
+	@PreAuthorize("hasRole('ADMIN')")
+	public String getChangeRoleDialog(@PathVariable("festivalId") long festivalId, @PathVariable("userId") long userId, Model model) {
+		model.addAttribute("dialog", "change_role");
+
+		Optional<Person> user = staffManagement.findById(userId);
+		if (user.isPresent()) {
+			model.addAttribute("person", user.get());
+		}
+
+		Optional<Festival> festival = festivalManagement.findById(festivalId);
+		if (festival.isPresent()) {
+			model.addAttribute("festival", festival.get());
+		}
+
+		return "person.html";
+	}
+
+	@GetMapping("/staff/{festivalId}/change_password/{userId}")
+	@PreAuthorize("hasRole('ADMIN')")
+	public String getChangePasswordDialog(@PathVariable("festivalId") long festivalId, @PathVariable("userId") long userId, Model model) {
+		model.addAttribute("dialog", "change_password");
+
+		Optional<Person> user = staffManagement.findById(userId);
+		if (user.isPresent()) {
+			model.addAttribute("person", user.get());
+		}
+
+		Optional<Festival> festival = festivalManagement.findById(festivalId);
+		if (festival.isPresent()) {
+			model.addAttribute("festival", festival.get());
+		}
+
+		return "person.html";
+	}
+
+	@PostMapping("/staff/{festivalId}/change_role/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
+	public String changeName(@PathVariable("festivalId") long festivalId, @PathVariable("id") long id, ChangeRoleForm form) {
+		this.staffManagement.changeRole(form);
+
+		return "redirect:/staff/" + festivalId + "/detail/" + id;
+	}
+
+	@PostMapping("/staff/{festivalId}/change_password/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
+	public String changeName(@PathVariable("festivalId") long festivalId, @PathVariable("id") long id, ChangePasswordForm form) {
+		this.staffManagement.changePassword(form);
+
+		return "redirect:/staff/" + festivalId + "/detail/" + id;
 	}
 }

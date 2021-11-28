@@ -1,5 +1,6 @@
 package festivalmanager.staff;
 
+import festivalmanager.staff.forms.*;
 import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccountManagement;
@@ -39,6 +40,22 @@ public class StaffManagement {
 		if (person.isPresent()) {
 			userAccountManagement.delete(person.get().getAccount());
 			staff.deleteById(person.get().getId());
+		}
+	}
+
+	public void changeRole(ChangeRoleForm form) {
+		Optional<Person> person = findById(form.getId());
+		if (person.isPresent()) {
+			person.get().getAccount().remove(Role.of(person.get().getRole()));
+			person.get().getAccount().add(Role.of(form.getRole()));
+			person.get().setRole(form.getRole());
+		}
+	}
+
+	public void changePassword(ChangePasswordForm form) {
+		Optional<Person> person = findById(form.getId());
+		if (person.isPresent()) {
+			userAccountManagement.changePassword(person.get().getAccount(), Password.UnencryptedPassword.of(form.getPassword()));
 		}
 	}
 
