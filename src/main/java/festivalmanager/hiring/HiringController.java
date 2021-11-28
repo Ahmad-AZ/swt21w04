@@ -19,11 +19,11 @@ public class HiringController {
 	private FestivalManagement festivalManagement;
 
 	public HiringController(
-			// OffersArtists offersArtists,
+//			OffersArtists offersArtists,
 			ArtistRepository artistRepository,
 			HiringManagement hiringManagement) {
 		this.hiringManagement = hiringManagement;
-		// this.offersArtists = offersArtists;
+//		this.offersArtists = offersArtists;
 		this.currentFestival = null;
 	}
 
@@ -32,19 +32,18 @@ public class HiringController {
 		model.addAttribute("artistList", hiringManagement.findAll());
 		return "artists";
 	}
-	// @GetMapping("/artistOverview")
-	// public String artistOverview(Model model, @ModelAttribute("currentFestival")
-	// Festival currentFestival,
-	// @ModelAttribute("fm") FestivalManagement fm) {
-	// this.currentFestival = currentFestival;
-	// this.festivalManagement = fm;
-	// model.addAttribute("artistList", hiringManagement.findAll());
-	//
-	// // required for second nav-bar
-	// model.addAttribute("festival", currentFestival);
-	//
-	// return "artistOverview";
-	// }
+//	@GetMapping("/artistOverview")
+//	public String artistOverview(Model model, @ModelAttribute("currentFestival") Festival currentFestival,
+//								   @ModelAttribute("fm") FestivalManagement fm) {
+//		this.currentFestival = currentFestival;
+//		this.festivalManagement = fm;
+//		model.addAttribute("artistList", hiringManagement.findAll());
+//
+//		// required for second nav-bar
+//		model.addAttribute("festival", currentFestival);
+//
+//		return "artistOverview";
+//	}
 
 	@GetMapping("/artists/{artistId}")
 	public String artistEdit(@PathVariable Long artistId, Model model) {
@@ -59,7 +58,8 @@ public class HiringController {
 
 		} else {
 			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found");
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
 		}
 	}
 
@@ -86,31 +86,30 @@ public class HiringController {
 		return "redirect:/artists";
 	}
 
-	// @GetMapping("/artistOverview/{artistId}")
-	// public String artistDetail(@PathVariable Long artistId, Model model) {
-	// Optional<Artist> artist = hiringManagement.findById(artistId);
-	//
-	// if (artist.isPresent()) {
-	// Artist current = artist.get();
-	//
-	// System.out.println(artistId);
-	// model.addAttribute("artist", current);
-	//
-	// // required for second nav-bar
-	// model.addAttribute("festival", currentFestival);
-	//
-	// return "artistDetail";
-	//
-	// } else {
-	// throw new ResponseStatusException(
-	// HttpStatus.NOT_FOUND, "entity not found"
-	// );
-	// }
-	// }
+//	@GetMapping("/artistOverview/{artistId}")
+//	public String artistDetail(@PathVariable Long artistId, Model model) {
+//		Optional<Artist> artist = hiringManagement.findById(artistId);
+//
+//		if (artist.isPresent()) {
+//			Artist current = artist.get();
+//
+//			System.out.println(artistId);
+//			model.addAttribute("artist", current);
+//
+//			// required for second nav-bar
+//			model.addAttribute("festival", currentFestival);
+//
+//			return "artistDetail";
+//
+//		} else {
+//			throw new ResponseStatusException(
+//					HttpStatus.NOT_FOUND, "entity not found"
+//			);
+//		}
+//	}
 
 	@PostMapping("/saveArtist")
-	public String saveArtist(@Validated NewArtistForm form, Errors result, @RequestParam("artist") Long artistId,
-			Model model) {
+	public String saveArtist(@Validated NewArtistForm form, Errors result, @RequestParam("artist") Long artistId, Model model) {
 
 		Optional<Artist> artist = hiringManagement.findById(artistId);
 
@@ -128,13 +127,14 @@ public class HiringController {
 
 		} else {
 			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found");
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
 		}
 	}
 
 	@PostMapping("/newArtist")
-	public String createNewArtist(@Validated NewArtistForm form, Errors result) {
-		if (result.hasErrors()) {
+	public String createNewArtist(@Validated NewArtistForm form, Errors result){
+		if(result.hasErrors()){
 			return "newArtist";
 		}
 
@@ -147,30 +147,22 @@ public class HiringController {
 		return "newArtist";
 	}
 
-	// @PostMapping("/bookArtist")
-	// public String selectartist(@RequestParam("artist") Long artistId) {
-	// Optional<Artist> artist = hiringManagement.findById(artistId);
-	//
-	// if (artist.isPresent()) {
-	// Artist current = artist.get();
-	// artistRepository.save(current);
-	// boolean add = currentFestival.addArtist(current);
-	// festivalManagement.saveFestival(currentFestival);
-	// long id = current.getId();
-	// return "redirect:/artistPre1";
-	//
-	// } else {
-	// throw new ResponseStatusException(
-	// HttpStatus.NOT_FOUND, "entity not found"
-	// );
-	// }
-	// }
-
-	protected Festival getCurrentFestival() {
-		return currentFestival;
-	}
-
-	protected FestivalManagement getFestivalManagement() {
-		return festivalManagement;
-	}
+//	@PostMapping("/bookArtist")
+//	public String selectartist(@RequestParam("artist") Long artistId) {
+//		Optional<Artist> artist = hiringManagement.findById(artistId);
+//
+//		if (artist.isPresent()) {
+//			Artist current = artist.get();
+//			artistRepository.save(current);
+//			boolean add = currentFestival.addArtist(current);
+//			festivalManagement.saveFestival(currentFestival);
+//			long id = current.getId();
+//			return "redirect:/artistPre1";
+//
+//		} else {
+//			throw new ResponseStatusException(
+//					HttpStatus.NOT_FOUND, "entity not found"
+//			);
+//		}
+//	}
 }

@@ -10,7 +10,7 @@ public class ArtistDataInitializer implements DataInitializer {
 
 	private ArtistRepository artists;
 
-	public ArtistDataInitializer(ArtistRepository artists) {
+	public ArtistDataInitializer(ArtistRepository artists){
 		this.artists = artists;
 		Artist jackson = new Artist("Michael Jackson");
 		Artist shawn = new Artist("Shawn Mendes");
@@ -19,13 +19,9 @@ public class ArtistDataInitializer implements DataInitializer {
 		artists.save(camila);
 		artists.save(shawn);
 	}
-
+ 
 	@Override
 	public void initialize() {
-		// empty because initialization works in Constructor
-	}
-
-	protected ArtistRepository getArtistRepository() {
-		return artists;
+		//empty because initialization works in Constructor
 	}
 }
