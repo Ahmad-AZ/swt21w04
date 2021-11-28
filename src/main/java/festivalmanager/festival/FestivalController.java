@@ -61,6 +61,7 @@ public class FestivalController {
 //			endDate = endDate.substring(0, endDate.length() - 10);
 			model.addAttribute("startDate", current.getStartDate());
 			model.addAttribute("endDate", current.getEndDate());
+			model.addAttribute("artists", current.getArtist());
 			if (current.getLocation() != null) {
 				System.out.println(current.getLocation().getName());
 				model.addAttribute("location", current.getLocation());
