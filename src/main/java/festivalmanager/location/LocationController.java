@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import festivalmanager.staff.Person;
-import festivalmanager.staff.RemoveStaffForm;
+import festivalmanager.staff.forms.RemoveStaffForm;
 
 @Controller
 public class LocationController {

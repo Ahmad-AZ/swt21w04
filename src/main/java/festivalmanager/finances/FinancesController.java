@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
-//import festivalmanager.finances.FinancesManagement;
+import festivalmanager.finances.FinancesManagement;
 
 import static org.salespointframework.core.Currencies.EURO;
 
@@ -55,7 +55,7 @@ class FinancesController {
 	@Scope("session")
 	// TODO: @PreAuthorize("hasRole('PLANNER')")
 	String financesPage(Model model,
-					@ModelAttribute("currentFestival") Festival currentFestival) {
+					@ModelAttribute("currentFestivalId") long currentFestivalId) {
 
 		if(this.currentFestival != null &&
 				this.currentFestival.getId() != currentFestival.getId()) {
@@ -105,7 +105,7 @@ class FinancesController {
 
 		try {
 			if (nCampingTickets + nOneDayTickets > currentFestival.getLocation().getVisitorCapacity())
-				return financesPage(model, this.currentFestival);
+				return financesPage(model, this.currentFestivalId);
 		}
 		catch (NullPointerException e) {}
 
