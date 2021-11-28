@@ -12,23 +12,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import festivalmanager.staff.Person;
-import festivalmanager.staff.RemoveStaffForm;
+import festivalmanager.staff.forms.RemoveStaffForm;
 
 @Controller
 public class LocationController {
 	
 	private final LocationManagement locationManagement;
-	//private Festival currentFestival;
-	//private PlanLocation planning;
-	//private FestivalManagement festivalManagement;
 	
 	public LocationController(LocationManagement locationManagement) {
 		this.locationManagement = locationManagement;
-		//this.currentFestival = null;
-		
 	}
 	
 	
@@ -73,7 +69,7 @@ public class LocationController {
 //			result.rejectValue("passwordReputation", null, "Passwörter stimmen nicht überein.");
 //
 //		}
-
+		
 		if (result.hasErrors()) {
 			return "newLocation";
 		}
@@ -85,7 +81,6 @@ public class LocationController {
 	}
 	
 	
-	
 	// gives NewLocationForm to fill out
 	@GetMapping("/newLocation") 
 	public String newLocation(Model model, NewLocationForm form) {
@@ -93,11 +88,21 @@ public class LocationController {
 	}
 	
 	@PostMapping("/saveLocation")
-	public String saveLocation(@Validated NewLocationForm form, Errors result, @RequestParam("location") Long locationId) {
+	public String saveLocation(@Validated NewLocationForm form, Errors result, @RequestParam("location") Long locationId, Model model) {
+		
 		Optional<Location> location = locationManagement.findById(locationId);
 		
 		if (location.isPresent()) {
 			Location current = location.get();
+			if (result.hasErrors()) {
+				System.out.println("form has errors");
+				model.addAttribute("location", current);
+				Double pricePerDay = current.getPricePerDay().getNumber().doubleValue();
+				System.out.println(pricePerDay);
+				model.addAttribute("pricePerDay", pricePerDay);
+				return "locationEdit";
+			}
+			
 			locationManagement.editLocation(current, form);
 			return "redirect:/locations";
 			
@@ -109,7 +114,6 @@ public class LocationController {
 	}
 	
 	@GetMapping("locations/remove/{id}")
-	//@PreAuthorize("hasRole('ADMIN')")
 	public String getRemoveLocationDialog(@PathVariable("id") long id, Model model) {
 		model.addAttribute("locatoins", locationManagement.findAll());
 		model.addAttribute("currentId", id);
@@ -126,8 +130,7 @@ public class LocationController {
 	}
 	
 	@PostMapping("/locations/remove")
-//	@PreAuthorize("hasRole('ADMIN')")
-	public String removLocation(@RequestParam("id") Long locationId) {
+	public String removeLocation(@RequestParam("id") Long locationId) {
 		locationManagement.removeLocation(locationId);
 
 		return "redirect:/locations";

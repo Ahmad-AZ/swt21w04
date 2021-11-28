@@ -19,16 +19,20 @@
 		
 		<h3>Verfügbare Locations</h3>
 		<form method="post" name="location" role="location" class="ui form" id="location" th:object="${location}">
-			<div class="ui link cards" th:remove="all-but-first">
-	            <div class="ui card" th:each="location : ${locationList}">
-	                <div class="content">
-	                    <a th:if="${location.id == bookedLocation.id}">O</a>
-	                    <a class="header" th:href="@{/locationOverview/{id}(id=${location.id})}" th:text="${location.name}">Etwas andres</a>
-	                    
-	                </div>
-	            </div>
-	        </div>
-		</form>
+	             <div class="content">
+	                 <ul class="list">
+                		<li class="list-entry" th:each="location : ${locationList}">
+		                    <a th:if="${location.id == bookedLocationId}">O</a>
+		                    <a class="header" th:href="@{/locationOverview/{id}(id=${location.id})}" th:text="${location.name}">Etwas andres</a>
+	                    </li>
+	                 </ul>
+	              </div>
+		</form>	
+		</br></br>
+		<p>O ... gebuchtes Festival</p>
+		
+			<a class="header" th:href="@{/locationOverview/unbook}" th:if="${bookedLocationId != 0}">Buchung löschen</a>
+
     </section>
 </body>
 </html>

@@ -16,13 +16,21 @@
 </header>
 <section layout:fragment="content">
     <div class="content">
+        </br>
+        <a class="item" href="artistOverview.html" th:href="@{/artistPre1}">Zurück</a>
+
+        </br>
         <p>Name:</p>
         <p th:text="${artist.name}">Keine gefunden</p>
-        <br/>
-<!--        <form class="ui form" method="post" th:action="@{/bookArtist}">-->
-<!--            <input type="hidden" name="artist" th:value="${artist.id}"/>-->
-<!--            <button type="submit" class="ui button" >Buchen</button>-->
-<!--        </form>-->
+        <p>Buchungen</p>
+        </br>
+        <form class="ui form" method="post" th:action="@{/bookArtist}" th:object="${booking}">
+            <input type="hidden" name="artist" th:value="${artist.id}"/>
+            <input type="hidden" name="currentlyBooked" th:value="${currentlyBooked == true}"/>
+            <button type="submit" class="ui button" th:if="${currentlyBooked == false}">Buchen</button>
+            <button type="submit" class="ui button" th:if="${currentlyBooked == true}">Buchung zurücknehmen</button>
+            <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
+        </form>
     </div>
 
 </section>

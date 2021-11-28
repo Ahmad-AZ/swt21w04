@@ -4,13 +4,13 @@ CateringProduct
 --
 -productId : int
 -productName: String
--date:Date
+-festivalDate:Date
 -buyingPrice:float
 -sellingPrice:float
 -quantity:int
 --
 +CateringProdict(productId : int ,
-productName :  String, date:Date, 
+productName :  String, festivalDate:Date,
 buyingPrice : float, sellingPrice :float, quanitiy : int  )
 
 +getPrice( ) : flaot

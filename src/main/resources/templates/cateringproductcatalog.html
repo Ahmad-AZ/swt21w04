@@ -1,0 +1,22 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
+		<title>Catering Produkte</title>
+	</head>
+	<body>
+		<h1>Catering Produkte</h1>
+        <table border="1">
+            <tr><th>Produktnr.</th><th>Produktname</th><th>Verkaufspreis</th><th>Pfand</th></tr>
+
+            <tr th:each="product : ${catalog}">
+				<td th:text="${product.getID()}">1</td>
+				<td th:text="${product.getName()}">Coca Cola</td>
+				<td th:text="${product.getPrice()}">2,50 €</td>
+				<td th:text="${product.getDeposit()}">0,25 €</td>
+			</tr>
+        </table>
+		<a href="cateringaddproduct.html">Produkt hinzuf&uuml;gen</a>
+	</body>
+</html>

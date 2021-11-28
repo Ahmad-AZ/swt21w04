@@ -21,18 +21,20 @@
         <label for="name"><pre>Name:</pre></label>
         <input id="name" name="name" th:field="*{name}" type="text" required="required"/><br>
         <label for="startDate"><pre>Anfangsdatum:</pre></label>
+        
         <input type="date" id="startDate" name="startDate"
-                value="2022-01-01"
-                min="2021-13-11" max="2023-01-01">
+                th:value="${dateNow}"
+                th:min="${dateNow}" max="2023-01-01">
         <br>
         <label for="endDate"><pre>Enddatum:</pre></label>
         <input type="date" id="endDate" name="endDate"
-               value="2022-01-01"
-               min="2021-13-11" max="2023-01-01">
+               th:value="${dateNow}"
+               th:min="${dateNow}" max="2023-01-01">
         <br>
         <br>
         <input type="submit" value="Erstellen">
     </form>
+    <a class="item" href="festivalOverview.html" th:href="@{/festivalOverview}">Zurück</a>
 </section>
 </body>
 </html>

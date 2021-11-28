@@ -31,11 +31,8 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.20</version>
-        </dependency>
+
+
 
         <!--
             Additional project dependencies go here.
@@ -50,6 +47,7 @@
 
             Use Maven Central for package search (https://search.maven.org/).
         -->
+
 
 	</dependencies>
 

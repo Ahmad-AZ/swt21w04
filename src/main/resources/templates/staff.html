@@ -1,7 +1,8 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout.html}">
+      layout:decorate="~{layout.html}"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
         <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
@@ -14,23 +15,32 @@
         <div class="main">
             <ul class="list">
                 <li class="list-entry" th:each="entry, it : ${entries}">
-                    <p th:text="${entry.name}"></p>
-                    <a th:href="@{/staff/remove/{id}(id = ${entry.id})}">X</a>
+                    <a th:href="@{/staff/{festivalId}/detail/{id}(id = ${entry.id}, festivalId = ${festival.id})}" th:text="${entry.name}"></a>
+                    <a th:href="@{/staff/{festivalId}/remove/{id}(id = ${entry.id}, festivalId = ${festival.id})}">X</a>
                 </li>
             </ul>
         </div>
         <div class="overlay" th:if="${dialog} == 'create_staff'">
-            <form class="form" action="/staff/create" method="post">
+            <form class="form" th:action="@{/staff/{festivalId}/create(festivalId = ${festival.id})}" method="post">
                 <input type="text" name="name">
+                <select name="role" id="role">
+                    <option value="ADMIN">Admin</option>
+                    <option value="MANAGER">Manager</option>
+                    <option value="CATERING">Catering</option>
+                </select>
                 <input type="password" name="password">
-                <input type="submit" title="Create">
+                <input type="submit" value="Hinzufügen">
+                <a th:href="@{/staff/{festivalId}(festivalId = ${festival.id})}">Abbrechen</a>
             </form>
         </div>
         <div class="overlay" th:if="${dialog} == 'remove_staff'">
-            <form class="form" action="/staff/remove" method="post">
-                delete user <a th:text="${currentName}"></a>
+            <form class="form" th:action="@{/staff/{festivalId}/remove(festivalId = ${festival.id})}" method="post">
+                <p>
+                    Wollen sie den Nutzer <a th:text="${currentName}"></a> wirklich entfernen
+                </p>
                 <input type="hidden" name="id" th:value="${currentId}">
-                <input type="submit" title="Remove">
+                <input type="submit" value="Entfernen">
+                <a th:href="@{/staff/{festivalId}(festivalId = ${festival.id})}">Abbrechen</a>
             </form>
         </div>
     </body>

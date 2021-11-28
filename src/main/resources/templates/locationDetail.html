@@ -16,7 +16,16 @@
 	</header>
 	<section layout:fragment="content">
           <div class="content">
+          	</br>
+          	<a class="item" href="locationOverview.html" th:href="@{/locationPre1}">Zurück</a>
+          	</br></br>
+          	<div class="image">
+          		<img th:src="@{/resources/img/location/{name}.jpg(name=${location.image})}"
+                             src="../static/resources/img/location/HSZ_image.jpg"/>
+          	</div>                             
+            </br>
         	<p>Name:</p>
+            <p th:text="${location.name}">Keine gefunden</p>
             <p th:text="${location.name}">Keine gefunden</p>
             <br/>
             <p>Adresse:</p>
@@ -28,14 +37,26 @@
 			<p>maximale Besucheranzahl:</p>
 			<p th:text="${location.visitorCapacity}">Keine gefunden</p>
 			<br/>
-			<p>maximale Bühnenanzahl</p>
+			<p>maximale Bühnenanzahl:</p>
 			<p th:text="${location.stageCapacity}">Keine gefunden</p>
 			<br/>
-			<form class="ui form" method="post" th:action="@{/bookLocation}">
+			<p>Buchungen</p>
+
+
+			</br>
+			<p>Grundriss:</p>
+			<div class="groundView">
+ 			<img th:src="@{/resources/img/location/{name}.jpg(name=${location.groundView})}"
+                             src="../static/resources/img/location/HSZ_groundview.jpg"/>
+			</div>
+            </br>                           
+			<form class="ui form" method="post" th:action="@{/bookLocation}" th:object="${booking}">
 				<input type="hidden" name="location" th:value="${location.id}"/>
-				<button type="submit" class="ui button" >Buchen</button>
+				<input type="hidden" name="currentlyBooked" th:value="${currentlyBooked == true}"/>
+				<button type="submit" class="ui button" th:if="${currentlyBooked == false}">Buchen</button>
+				<button type="submit" class="ui button" th:if="${currentlyBooked == true}">Buchung zurücknehmen</button>
+				<p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p> 
 			</form>
-			<a class="item" href="locationOverview.html" th:href="@{/locationPre1}">Zurück</a>
         </div>
 
     </section>

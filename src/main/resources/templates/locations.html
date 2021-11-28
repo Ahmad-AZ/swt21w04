@@ -19,8 +19,9 @@
 			<div class="ui link cards" th:remove="all-but-first">
 	            <div class="ui card" th:each="location : ${locationList}">
 	                <div class="content">
+	               		<a th:href="@{/locations/remove/{id}(id = ${location.id})}">X</a>
 	                    <a class="header" th:href="@{/locations/{id}(id=${location.id})}" th:text="${location.name}">Etwas andres</a>
-	                    <a th:href="@{/locations/remove/{id}(id = ${location.id})}">X</a>
+	                    
 	                </div>
 	            </div>
 	        </div>
@@ -31,6 +32,7 @@
                 Location löschen:<a th:text="${currentName}"></a> </br>
                 <input type="hidden" name="id" th:value="${currentId}">
                 <input type="submit" title="Löschen">
+                <a class="item" href="locations.html" th:href="@{/locations}">Abbrechen</a>
             </form>
         </div>
 </body>

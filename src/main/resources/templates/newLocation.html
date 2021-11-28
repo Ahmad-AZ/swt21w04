@@ -17,9 +17,12 @@
 <section layout:fragment="content">
     <h2>Locationdaten</h2>
 
-    <form class="ui form" method="post" id="form" th:action="@{/newLocation}" th:object="${newLocationForm}">
+    <form class="ui form" method="post" id="form" th:action="@{/newLocation}" th:object="${newLocationForm}" enctype="multipart/form-data" >
         <label for="name"><pre>Name:</pre></label>
-        <input id="name" name="name" th:field="*{name}" type="text" required="required"/><br>
+        <input id="name" name="name" th:field="*{name}" th:errorclass="fieldError" type="text" required="required"/><br>
+        <div class="ui negative message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+            <p>Der Name darf nicht leer sein.</p>
+        </div>
         <label for="adress"><pre>Adresse:</pre></label>
         <input id="adress" name="adress" th:field="*{adress}" type="text" required="required"/><br>
         <label for="pricePerDay"><pre>Preis pro Tag:</pre></label>
@@ -28,9 +31,15 @@
         <input id="visitorCapacity" type="number" name="visitorCapacity" step="1" required="required" min="0"/><br>
        	<label for="stageCapacity"><pre>maximale Bühnenanzahl:</pre></label>
         <input id="stageCapacity" type="number" name="stageCapacity" step="1" required="required" min="0"/><br>
+   		<label for="image"><pre>Bild:</pre></label>
+		<input id="image" type="file" name="image" class="custom-file-input" accept=".jpg" /><br>
+		<label for="groundView"><pre>Grundriss:</pre></label>
+		<input id="groundView" type="file" name="groundView" class="custom-file-input" accept=".jpg" /><br>
+		
         <br>
         <input type="submit" value="Erstellen">
     </form>
+    <a class="item" href="locations.html" th:href="@{/locations}">Zurück</a>
 </section>
 </body>
 </html>

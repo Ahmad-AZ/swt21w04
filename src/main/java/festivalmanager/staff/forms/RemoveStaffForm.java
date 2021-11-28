@@ -1,4 +1,4 @@
-package festivalmanager.staff;
+package festivalmanager.staff.forms;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -10,7 +10,7 @@ public class RemoveStaffForm {
 		this.id = id;
 	}
 
-	Long getId() {
+	public Long getId() {
 		return id;
 	}
 }

@@ -33,13 +33,13 @@ Ticket
 --
 - id :long
 -festivalName: Festival
--date : LocalDate 
+-festivalDate : LocalDate
 -ticketsCount: long
 -ticketType: TicketType
 -ticketPrice: float
 --
 
-+Ticket(festivalName : String, date : Date, TicketNUm : long, 
++Ticket(festivalName : String, festivalDate : Date, TicketNUm : long,
 ticketType :TicketType)
 
 +getTicketNum() : long

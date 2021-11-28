@@ -1,5 +1,8 @@
 package festivalmanager.festival;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import org.springframework.data.util.Streamable;
@@ -28,6 +31,7 @@ public class FestivalController {
 	private Festival currentFestival;
 	private ArtistRepository artistRepository;
 	private long currentId;
+	private DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-dd-mm");
 
  
 	public FestivalController(FestivalManagement festivalManagement, LocationManagement locationManagement) {
@@ -51,12 +55,13 @@ public class FestivalController {
 			}
 			System.out.println(festivalId);
 			model.addAttribute("festival", current);
-			String startDate = current.getStartDate().toString();
-			startDate = startDate.substring(0, startDate.length() - 10);
-			String endDate = current.getEndDate().toString();
-			endDate = endDate.substring(0, endDate.length() - 10);
-			model.addAttribute("startDate", startDate);
-			model.addAttribute("endDate", endDate);
+//			String startDate = current.getStartDate().toString();
+//			startDate = startDate.substring(0, startDate.length() - 10);
+//			String endDate = current.getEndDate().toString();
+//			endDate = endDate.substring(0, endDate.length() - 10);
+			model.addAttribute("startDate", current.getStartDate());
+			model.addAttribute("endDate", current.getEndDate());
+			model.addAttribute("artists", current.getArtist());
 			if (current.getLocation() != null) {
 				System.out.println(current.getLocation().getName());
 				model.addAttribute("location", current.getLocation());
@@ -85,6 +90,8 @@ public class FestivalController {
 //			result.rejectValue("passwordReputation", null, "Passwörter stimmen nicht überein.");
 //
 //		}
+		
+		// add Errors startDate before end Date
 
 		if (result.hasErrors()) {
 			return "newFestival";
@@ -101,6 +108,9 @@ public class FestivalController {
 	// gives NewFestivalForm to fill out
 	@GetMapping("/newFestival") 
 	public String newFestival(Model model, NewFestivalForm form) {
+		System.out.println(LocalDate.now());
+		System.out.println();
+		model.addAttribute("dateNow", LocalDate.now());
 		return "newFestival";
 	}
 	
@@ -152,8 +162,7 @@ public class FestivalController {
 	
 	@GetMapping("/financesPre1")
 	String financesPre1(Model model, RedirectAttributes ra) {
-		ra.addFlashAttribute("currentFestival", currentFestival);
-		System.out.println(currentFestival.getName());
+		ra.addFlashAttribute("currentFestivalId", currentFestival.getId());
 		return "redirect:finances";
 	}
 }

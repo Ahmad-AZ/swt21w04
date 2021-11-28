@@ -17,15 +17,19 @@
     </header>
     <section layout:fragment="content">
 
-        <h3>Verfügbare Künstler</h3>
-        <form method="post" name="artist" role="artist" class="ui form" id="artist" th:action="@{/selectArtist}" th:object="${artist}">
-            <div class="ui link cards" th:remove="all-but-first">
-                <div class="ui card" th:each="artist : ${artistList}">
-                    <div class="content">
+        <form method="post" name="artist" role="artist" class="ui form" id="artist" th:object="${artist}">
+            <div class="content">
+                <ul class="list">
+                    <li class="list-entry" th:each="artist : ${artistList}">
+                        <a th:if="${artist.id == bookedArtistId}">O</a>
                         <a class="header" th:href="@{/artistOverview/{id}(id=${artist.id})}" th:text="${artist.name}">Etwas andres</a>
-                    </div>
-                </div>
+                    </li>
+                </ul>
             </div>
         </form>
+        </br></br>
+        <p>O ... gebuchtes Festival</p>
+
+        <a class="header" th:href="@{/artistOverview/unbook}" th:if="${bookedArtistId != 0}">Buchung löschen</a>
     </section>
 </body>

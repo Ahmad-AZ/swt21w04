@@ -1,9 +1,13 @@
 package festivalmanager.ticketShop;
 
 
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 
 @Entity
@@ -17,70 +21,90 @@ public class Ticket {
 	@Column
 	private String festivalName;
 
+	@Column
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	private String festivalDate;
+	@Column
+	private int DayTicketsCount;
+	@Column
+	private int CampingTicketsCount;
+	@Column
+	private TicketType ticketType;
+	@Column
+	private float DayTicketPrice;
+
+	@Column
+	private float CampingTicketPrice;
+
+
+	public Ticket() {
+	}
+
+	public Ticket(String festivalName, String festivalDate, int dayTicketsCount, int campingTicketsCount, TicketType ticketType, float dayTicketPrice, float campingTicketPrice) {
+		this.festivalName = festivalName;
+		this.festivalDate = festivalDate;
+		DayTicketsCount = dayTicketsCount;
+		CampingTicketsCount = campingTicketsCount;
+		this.ticketType = ticketType;
+		DayTicketPrice = dayTicketPrice;
+		CampingTicketPrice = campingTicketPrice;
+	}
+
 	public String getFestivalName() {
 		return festivalName;
 	}
 
+	@Required
 	public void setFestivalName(String festivalName) {
 		this.festivalName = festivalName;
 	}
 
-	private LocalDate date;
-	@Column
-	private int ticketsCount;
-	@Column
-	private TicketType ticketType;
-	@Column
-	private float ticketPrice;
-
-
-
-	public Ticket(String festivalName, LocalDate date, int ticketsCount, TicketType ticketType, float ticketPrice) {
-		this.festivalName = festivalName.toLowerCase();
-		this.date = date;
-		this.ticketsCount = ticketsCount;
-		this.ticketType = ticketType;
-		this.ticketPrice = ticketPrice;
+	public String getFestivalDate() {
+		return festivalDate;
 	}
 
-	public Ticket() {
-
+	public void setFestivalDate(String festivalDate) {
+		this.festivalDate = festivalDate;
 	}
 
-	public long getId() {
-		return id;
+	public int getDayTicketsCount() {
+		return DayTicketsCount;
 	}
 
-	public LocalDate getDate() {
-		return date;
+	public void setDayTicketsCount(int dayTicketsCount) {
+		DayTicketsCount = dayTicketsCount;
+	}
+
+	public int getCampingTicketsCount() {
+		return CampingTicketsCount;
+	}
+
+	public void setCampingTicketsCount(int campingTicketsCount) {
+		CampingTicketsCount = campingTicketsCount;
 	}
 
 	public TicketType getTicketType() {
 		return ticketType;
 	}
 
-	public float getTicketPrice() {
-		return ticketPrice;
-	}
-
-	public int getTicketsCount() {
-		return ticketsCount;
-	}
-
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
-
-	public void setTicketsCount(int ticketsCount) {
-		this.ticketsCount = ticketsCount;
-	}
-
 	public void setTicketType(TicketType ticketType) {
 		this.ticketType = ticketType;
 	}
 
-	public void setTicketPrice(float ticketPrice) {
-		this.ticketPrice = ticketPrice;
+	public float getDayTicketPrice() {
+		return DayTicketPrice;
+	}
+
+	public void setDayTicketPrice(float dayTicketPrice) {
+		DayTicketPrice = dayTicketPrice;
+	}
+
+	public float getCampingTicketPrice() {
+		return CampingTicketPrice;
+	}
+
+	public void setCampingTicketPrice(float campingTicketPrice) {
+		CampingTicketPrice = campingTicketPrice;
 	}
 
 

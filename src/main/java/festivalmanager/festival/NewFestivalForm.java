@@ -1,6 +1,7 @@
 package festivalmanager.festival;
 
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.validation.constraints.NotEmpty;
@@ -14,13 +15,13 @@ class NewFestivalForm {
 	private final String name; 
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private final Date startDate;
+	private final LocalDate startDate;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private final Date endDate;
+	private final LocalDate endDate;
 	
 	
-	public NewFestivalForm(String name, Date startDate, Date endDate) {
+	public NewFestivalForm(String name, LocalDate startDate, LocalDate endDate) {
 		this.name = name;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -30,11 +31,11 @@ class NewFestivalForm {
 		return name;
 	}
 
-	public Date getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
 
-	public Date getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
 }

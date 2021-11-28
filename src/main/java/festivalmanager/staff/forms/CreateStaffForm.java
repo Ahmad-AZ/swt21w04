@@ -1,4 +1,4 @@
-package festivalmanager.staff;
+package festivalmanager.staff.forms;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -9,9 +9,13 @@ public class CreateStaffForm {
 	@NotEmpty(message = "{CreateStaffForm.password.NotEmpty}")
 	private final String password;
 
-	public CreateStaffForm(String name, String password) {
+	@NotEmpty(message = "{CreateStaffForm.role.NotEmpty}")
+	private final String role;
+
+	public CreateStaffForm(String name, String password, String role) {
 		this.name = name;
 		this.password = password;
+		this.role = role;
 	}
 
 	public String getName() {
@@ -20,5 +24,9 @@ public class CreateStaffForm {
 
 	public String getPassword() {
 		return password;
+	}
+
+	public String getRole() {
+		return role;
 	}
 }

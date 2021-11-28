@@ -29,6 +29,15 @@
 					<p th:if="${location==null}">Keine</p>
 					<p th:if="${location!=null}" th:text="${location.name}">hier sollte ihre Location stehen</p>
 					<br/>
+					<p>Artist:</p>
+					<p th:if="${festival.artistsIsEmpty()}">Keine</p>
+					<p th:if="${!festival.artistsIsEmpty()}">
+						<div class th:each="artist : ${artists}" th:object="${artist}" th:text="${artist.name}">
+							Artist Name
+						</div>
+					</p>
+					<br/>
+
                 </div>
            
 		
