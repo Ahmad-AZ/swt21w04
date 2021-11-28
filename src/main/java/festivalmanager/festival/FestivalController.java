@@ -77,7 +77,7 @@ public class FestivalController {
 	}
 	
 	@PostMapping("/newFestival")
-	public String createNewFestival(@Validated NewFestivalForm form, Errors result) {
+	public String createNewFestival(@Validated NewFestivalForm form, Errors result, Model model) {
 		
 //		Streamable<F> customers = customerManagement.findAll();
 //		for (Customer customer : customers) {
@@ -91,9 +91,13 @@ public class FestivalController {
 //
 //		}
 		
-		// add Errors startDate before end Date
+		if (form.getEndDate().isBefore(form.getStartDate())) {
+		result.rejectValue("name", null, "Das Enddatum liegt vor dem StartDatum.");
 
+		}
+		
 		if (result.hasErrors()) {
+			model.addAttribute("dateNow", LocalDate.now());
 			return "newFestival";
 		}
 

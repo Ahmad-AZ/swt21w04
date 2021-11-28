@@ -19,7 +19,7 @@
 
     <form class="ui form" method="post" id="form" th:action="@{/newFestival}" th:object="${newFestivalForm}">
         <label for="name"><pre>Name:</pre></label>
-        <input id="name" name="name" th:field="*{name}" type="text" required="required"/><br>
+        <input id="name" name="name" th:field="*{name}" th:errorclass="fieldError" type="text" required="required"/><br>
         <label for="startDate"><pre>Anfangsdatum:</pre></label>
         
         <input type="date" id="startDate" name="startDate"
@@ -29,8 +29,8 @@
         <label for="endDate"><pre>Enddatum:</pre></label>
         <input type="date" id="endDate" name="endDate"
                th:value="${dateNow}"
-               th:min="${dateNow}" max="2023-01-01">
-        <br>
+               th:min="${dateNow}" max="2023-01-01" >
+        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">EndDatum vor StartDatum.</p>
         <br>
         <input type="submit" value="Erstellen">
     </form>

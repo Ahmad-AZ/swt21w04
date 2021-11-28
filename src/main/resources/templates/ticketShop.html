@@ -17,11 +17,7 @@
 </section>
 
 
-<form class="item" th:action="@{/tickets/buyTicket}" method="post" th:object="${tickets}">
-
-
-    <label for="f">Festival name:</label><br>
-    <input type="text" id="f" th:field="*{festivalName}" required><br><br>
+<form class="item" th:action="@{/tickets/buy}" method="post" th:object="${tickets}">
 
 
     <select name="ticketType" id="type" th:field="*{ticketType}">
@@ -31,27 +27,14 @@
     </select><br><br>
 
 
-    <label for="n">Tickets Count:</label><br>
-    <input type="text" id="n" th:field="*{campingTicketsCount}" required><br><br>
-
-    <!--        <label for="price1">Ticket Count  </label><br>-->
-    <!--        <input type="number" id="price1" ><br><br>-->
-
-    <!--        <div th:if="${tickets.ticketType.name()=='CAMPING'}">-->
-
-    <!--            <label for="price">Ticket Count  </label><br>-->
-    <!--            <input type="number" id="price" th:field="*{campingTicketsCount}"><br><br>-->
-    <!--        </div>-->
-
-    <!--        <div th:if="${tickets.ticketType.name()=='DAY_TICKET'}">-->
-    <!--            <p for=""></p>-->
-    <!--        </div>-->
+        <label >Tickets anzahl:</label><br>
+        <input th:if="${tickets.getTicketType()=='CAMPING'}" type="text" id="count1" th:field="*{campingTicketsCount}" required><br><br>
+        <input th:unless="${tickets.getTicketType()=='CAMPING'}" type="text"  id ="count2"th:field="*{dayTicketsCount}" required><br><br>
 
 
-    <!--        <label for="price">Ticket Count  </label><br>-->
-    <!--        <input type="number" id="price" th:field="*{dayTicketPrice}"><br><br>-->
 
-    <input type="submit" value="buy">
+
+    <input type="submit" value="kaufen">
 </form>
 
 
