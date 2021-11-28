@@ -40,4 +40,9 @@ public class Person {
 	public UserAccount getAccount() {
 		return account;
 	}
+
+	public long getFestivalID()
+	{
+		return festivalId;
+	}
 }
