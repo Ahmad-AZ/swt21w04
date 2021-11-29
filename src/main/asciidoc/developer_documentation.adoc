@@ -326,8 +326,8 @@ wird die Art der Verwendung dieser externen Klasse in der Spalte *Art der Verwen
 image::models/design/developer_documentation/sequence_diagrams/planning.jpg[]
 
 
-=== TicketShop
-
+=== TickesdtShop
+                 
 image::models/design/developer_documentation/sequence_diagrams/seq_ticketshop.png[]
 
 === Staff
@@ -336,6 +336,19 @@ image::models/design/developer_documentation/sequence_diagrams/seq_staff.png[]
 
 === Catering
 image::models/design/developer_documentation/sequence_diagrams/seq_catering.png[]
+
+===  Nachrichtensystem
+
+image::models/design/developer_documentation/sequence_diagrams/seq_messagingsystem.png[]
+
+===  Location
+
+image::models/design/developer_documentation/sequence_diagrams/seq_location.png[]
+
+
+
+
+
 
 
 
