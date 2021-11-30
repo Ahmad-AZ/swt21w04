@@ -24,6 +24,7 @@ __Teilnehmer:__
 
 == Bemerkungen
 Auswertung des letzten Meilensteins:
+
 - Die Entwicklerdokumentation wurde mit einer 3 bewertet, der Testplan und
 der Anwendungsprototyp mit einer 2
 - Im Testplan fehlen Integrationstests zu einigen Komponenten, vor allem dem Nachrichtensystem
@@ -32,6 +33,7 @@ der Anwendungsprototyp mit einer 2
 eingetragen werden, Management Klassen aber schon
 
 Sonstige Hinweise:
+
 - Bei Abgabe der Basisfunktionalitäten sollten mindestens 30% Test Coverage erreicht wurden sein
 - Vor allem die Diagramme in der Entwicklerdokumentation sollten während
 der Implementierungsphase aktuell gehalten werden
