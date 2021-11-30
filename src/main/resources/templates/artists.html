@@ -12,7 +12,7 @@
 <body>
 <header>
     <nav th:include="header :: header"></nav>
-    <h1>artists</h1>
+    <h1>Künstler</h1>
 </header>
 <section layout:fragment="content">
     <form method="post" name="artist" role="artist" class="ui form" id="artist" th:object="${artist}">
@@ -26,7 +26,7 @@
             </div>
         </div>
     </form>
-    <a class="item" th:href="@{/newArtist}" sec:authorize="hasRole('FESTIVAL_MANAGEMENT') || hasRole('ADMIN')">Neue artist erstellen</a>
+    <a class="item" th:href="@{/newArtist}" sec:authorize="hasRole('FESTIVAL_MANAGEMENT') || hasRole('ADMIN')">Neuen Künstler erstellen</a>
     <div class="overlay" th:if="${dialog} == 'remove_artist'">
         <form class="form" action="/artists/remove" method="post">
             artist löschen:<a th:text="${currentName}"></a> </br>

@@ -1,15 +1,16 @@
 package festivalmanager.hiring;
 
+
 import com.mysema.commons.lang.Assert;
-//import org.javamoney.moneta.Money;
+import org.javamoney.moneta.Money;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-//import java.util.List;
+import java.util.List;
 import java.util.Optional;
 
-//import static org.salespointframework.core.Currencies.EURO;
+import static org.salespointframework.core.Currencies.EURO;
 
 @Service
 @Transactional
@@ -21,16 +22,16 @@ public class HiringManagement {
 		this.artists = artists;
 	}
 
-	public Artist createAritst(NewArtistForm form) {
+	public Artist createAritst(NewArtistForm form){
 		Assert.notNull(form, "form must not be null");
 		return artists.save(new Artist(form.getName()));
 	}
 
-	public Streamable<Artist> findAll() {
+	public Streamable<Artist> findAll(){
 		return artists.findAll();
 	}
 
-	public Optional<Artist> findById(Long id) {
+	public Optional<Artist> findById(Long id){
 		return artists.findById(id);
 	}
 
@@ -44,13 +45,13 @@ public class HiringManagement {
 		return artists.save(artist);
 	}
 
-	// public Artist findByName(String name){
-	// List<Artist> artistList = (List<Artist>) artists.findAll();
-	// for (Artist artist: artistList) {
-	// if (artist.getName() == name){
-	// return artist;
-	// }
-	// }
-	// return null;
-	// }
+//	public Artist findByName(String name){
+//		List<Artist> artistList = (List<Artist>) artists.findAll();
+//		for (Artist artist: artistList) {
+//			if (artist.getName() == name){
+//				return artist;
+//			}
+//		}
+//		return null;
+//	}
 }

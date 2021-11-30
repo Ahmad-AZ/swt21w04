@@ -11,7 +11,7 @@ import java.util.Optional;
 public class FestivalManagement {
 	private final FestivalRepository festivals;
 	
-	FestivalManagement(FestivalRepository festival) {
+	public FestivalManagement(FestivalRepository festival) {
 		this.festivals = festival;
 	}
 	

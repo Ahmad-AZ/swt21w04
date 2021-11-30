@@ -1,35 +1,21 @@
-<diagram program="umletino" version="14.3.0"><zoom_level>10</zoom_level><help_text></help_text><element><id>UMLClass</id><coordinates><x>690</x><y>717</y><w>210</w><h>360</h></coordinates><panel_attributes>
-/Person/
-
+<diagram program="umletino" version="14.3.0"><zoom_level>10</zoom_level><help_text></help_text><element><id>UMLClass</id><coordinates><x>410</x><y>570</y><w>420</w><h>230</h></coordinates><panel_attributes>/Person/
 --
 - id:long
+- festivalId: long
 - name: String
-- age:String
-- kindOfWork: String
-- fee: int
+- userAccount: UserAccount
+- role: String
 --
++ Person(festivalId: long, name: String, role: String, account: UserAccount)
++ getId(): long
++ getFestivalId(): long
 + getName(name: String): String
-+ setName(Name:String): String
-
-+ getAge(name: String): String
-+ setAge(Name:String): String
-
-+ getAge(name: String): String
-+ setAge(Name:String): String
-
-+ getId():long
-+ setId(id : long):long
-
-+ getFee(). int
-+ setFee(salary:int): int 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>680</x><y>1170</y><w>210</w><h>200</h></coordinates><panel_attributes>TicketSeller
-
++ getRole(name: String): String
++ setRole(Name:String): void
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>400</x><y>993</y><w>210</w><h>110</h></coordinates><panel_attributes>TicketSeller
 --
-
 -ticket: TicktShop
-
 --
-
 +printTicket():String
 +getTicketPrice(): int
 +checkTicket():boolean
@@ -37,24 +23,18 @@
 
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>780</x><y>1070</y><w>30</w><h>120</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;100</additional_attributes></element><element><id>UMLClass</id><coordinates><x>400</x><y>1190</y><w>210</w><h>190</h></coordinates><panel_attributes>CateringStaff
-
-
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>500</x><y>793</y><w>30</w><h>220</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;200</additional_attributes></element><element><id>UMLClass</id><coordinates><x>110</x><y>883</y><w>210</w><h>140</h></coordinates><panel_attributes>CateringStaff
 --
 -invoice:float
 -cateringManagment: CateringManagment
 -message : Messages 
 --
-
-
 +selectDrinks(): float
 +selectMeals(): float 
 +getInvoice():float
-
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>110</x><y>563</y><w>210</w><h>150</h></coordinates><panel_attributes>Festivalleader
 --
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>390</x><y>710</y><w>210</w><h>210</h></coordinates><panel_attributes>Festivalleader
 
---
 --
 +getStageOccupancy():String 
 +getVisitorsNumber(): float
@@ -62,48 +42,23 @@
 +oder(placeOrder: String):void
 +getCateringSales ():float
 +getMessages():String
-
-
-
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>110</x><y>753</y><w>210</w><h>100</h></coordinates><panel_attributes>Festivalmanager
 --
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>400</x><y>980</y><w>210</w><h>190</h></coordinates><panel_attributes>
-
-Festivalmanager
---
-
 -finances:Finances
 --
-
 +shareLogIn():void
 +getIncome(finances:Finances) :float
-
-
-
-
---</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>950</x><y>1140</y><w>210</w><h>190</h></coordinates><panel_attributes>
-AdmissionStaff
-
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>670</x><y>993</y><w>210</w><h>110</h></coordinates><panel_attributes>AdmissionStaff
 --
-
 -ticket : Ticket
-
 --
-
-
 -checkTicketValidity(Ticket.id:long):boolean
-
-
-
---
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>990</x><y>717</y><w>210</w><h>280</h></coordinates><panel_attributes>Planner
-
-
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>900</x><y>690</y><w>270</w><h>190</h></coordinates><panel_attributes>Planner
 --
 -festival: Festival 
 -finances : Finances
 -ticket :Ticket
 --
-
 +getFestivalCosts(  ): float
 +getTicktsNumber(  ):int
 +setTicketPrice(  ): void
@@ -115,25 +70,26 @@ AdmissionStaff
 
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>890</x><y>827</y><w>120</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;100;10</additional_attributes></element><element><id>Relation</id><coordinates><x>590</x><y>820</y><w>120</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>100;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>600</x><y>990</y><w>110</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>90;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>600</x><y>1070</y><w>160</w><h>160</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>140;10;140;60;40;60;40;140;10;140</additional_attributes></element><element><id>Relation</id><coordinates><x>810</x><y>1067</y><w>160</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;70;110;70;110;120;140;120</additional_attributes></element><element><id>UMLClass</id><coordinates><x>690</x><y>447</y><w>210</w><h>190</h></coordinates><panel_attributes>MessagingSystem
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>820</x><y>700</y><w>100</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;80;10</additional_attributes></element><element><id>Relation</id><coordinates><x>310</x><y>673</y><w>120</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>100;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>310</x><y>793</y><w>170</w><h>130</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>150;10;150;110;10;110</additional_attributes></element><element><id>Relation</id><coordinates><x>700</x><y>790</y><w>30</w><h>220</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;200</additional_attributes></element><element><id>UMLClass</id><coordinates><x>410</x><y>300</y><w>210</w><h>190</h></coordinates><panel_attributes>MessagingSystem
 --
 - messages: List&lt;String&gt;
 --
 + sendMessage(content: String): void
-+ getMessages(): List&lt;String&gt;</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>480</x><y>557</y><w>230</w><h>170</h></coordinates><panel_attributes>lt=-
++ getMessages(): List&lt;String&gt;</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>200</x><y>410</y><w>230</w><h>170</h></coordinates><panel_attributes>lt=-
 m1=1
 m2=1
-getMessages</panel_attributes><additional_attributes>10;150;10;10;210;10</additional_attributes></element><element><id>Relation</id><coordinates><x>780</x><y>627</y><w>100</w><h>110</h></coordinates><panel_attributes>lt=-
+getMessages</panel_attributes><additional_attributes>10;150;10;10;210;10</additional_attributes></element><element><id>Relation</id><coordinates><x>500</x><y>480</y><w>100</w><h>110</h></coordinates><panel_attributes>lt=-
 m1=1
 m2=0..n
-sendMessage</panel_attributes><additional_attributes>10;10;10;90</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1030</x><y>557</y><w>100</w><h>30</h></coordinates><panel_attributes>Java.util.List</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1030</x><y>507</y><w>100</w><h>30</h></coordinates><panel_attributes>Java.util.String</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>890</x><y>517</y><w>160</w><h>30</h></coordinates><panel_attributes>lt=.&gt;</panel_attributes><additional_attributes>10;10;140;10</additional_attributes></element><element><id>Relation</id><coordinates><x>890</x><y>567</y><w>160</w><h>30</h></coordinates><panel_attributes>lt=.&gt;</panel_attributes><additional_attributes>10;10;140;10</additional_attributes></element><element><id>UMLPackage</id><coordinates><x>1250</x><y>147</y><w>590</w><h>130</h></coordinates><panel_attributes>Spring
+sendMessage</panel_attributes><additional_attributes>10;10;10;90</additional_attributes></element><element><id>UMLClass</id><coordinates><x>750</x><y>410</y><w>100</w><h>30</h></coordinates><panel_attributes>Java.util.List</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>750</x><y>360</y><w>100</w><h>30</h></coordinates><panel_attributes>Java.util.String</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>610</x><y>370</y><w>160</w><h>30</h></coordinates><panel_attributes>lt=.&gt;</panel_attributes><additional_attributes>10;10;140;10</additional_attributes></element><element><id>Relation</id><coordinates><x>610</x><y>420</y><w>160</w><h>30</h></coordinates><panel_attributes>lt=.&gt;</panel_attributes><additional_attributes>10;10;140;10</additional_attributes></element><element><id>UMLPackage</id><coordinates><x>970</x><y>0</y><w>1240</w><h>130</h></coordinates><panel_attributes>Spring
 --
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1300</x><y>637</y><w>210</w><h>80</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>930</x><y>490</y><w>320</w><h>100</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
 StaffRepository
 --
 
 --
-+ findAll(): Streamable&lt;Person&gt;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1610</x><y>557</y><w>510</w><h>170</h></coordinates><panel_attributes>StaffController
++ findAll(): Streamable&lt;Person&gt;
++ findByFestivalId(festivalId: long): Streamable&lt;Person&gt;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1330</x><y>410</y><w>510</w><h>170</h></coordinates><panel_attributes>StaffController
 --
 - staffRepository: StaffRepository
 - userDetailsManager: UserDetailsManager
@@ -144,28 +100,59 @@ StaffRepository
 + getCreateStaffDialog(model: Model): String
 + getRemoveStaffDialog(id: long, model: Model): String
 + createStaff(form: CreateStaffForm): String
-+ removeStaff(iform: RemoveStaffForm): String</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>870</x><y>657</y><w>450</w><h>80</h></coordinates><panel_attributes>lt=-
++ removeStaff(iform: RemoveStaffForm): String</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>590</x><y>510</y><w>360</w><h>80</h></coordinates><panel_attributes>lt=-
 m1=1
-m2=0..n</panel_attributes><additional_attributes>430;10;10;10;10;60</additional_attributes></element><element><id>Relation</id><coordinates><x>1500</x><y>647</y><w>130</w><h>40</h></coordinates><panel_attributes>lt=-
+m2=0..n</panel_attributes><additional_attributes>340;10;10;10;10;60</additional_attributes></element><element><id>Relation</id><coordinates><x>1240</x><y>500</y><w>110</w><h>40</h></coordinates><panel_attributes>lt=-
 m1=1
-m2=1</panel_attributes><additional_attributes>10;10;110;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1310</x><y>250</y><w>160</w><h>410</h></coordinates><panel_attributes>lt=&lt;&lt;-
-&lt;T = Person, ID = long&gt;</panel_attributes><additional_attributes>10;10;10;390</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1470</x><y>197</y><w>160</w><h>60</h></coordinates><panel_attributes>template=T
+m2=1</panel_attributes><additional_attributes>10;10;90;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1050</x><y>103</y><w>160</w><h>410</h></coordinates><panel_attributes>lt=&lt;&lt;-
+&lt;T = Person, ID = long&gt;</panel_attributes><additional_attributes>10;10;10;390</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1190</x><y>50</y><w>160</w><h>60</h></coordinates><panel_attributes>template=T
 &lt;&lt;interface&gt;&gt;
-Streamable</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1660</x><y>207</y><w>130</w><h>50</h></coordinates><panel_attributes>UserDetailsManager</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1710</x><y>247</y><w>30</w><h>330</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;10;310</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1610</x><y>817</y><w>280</w><h>110</h></coordinates><panel_attributes>CreateStaffForm
+Streamable</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1380</x><y>60</y><w>130</w><h>50</h></coordinates><panel_attributes>UserDetailsManager</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1430</x><y>100</y><w>30</w><h>330</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;10;310</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1420</x><y>720</y><w>280</w><h>110</h></coordinates><panel_attributes>CreateStaffForm
 --
 - name: String
 - password: String
 --
 + CreateStaffForm(name: String, password: String)
 + getName(): name
-+ getPassword(): password</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1950</x><y>717</y><w>30</w><h>120</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;100;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1910</x><y>817</y><w>210</w><h>110</h></coordinates><panel_attributes>RemoveStaffForm
++ getPassword(): password</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1360</x><y>570</y><w>80</w><h>380</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>60;360;10;360;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1420</x><y>850</y><w>210</w><h>110</h></coordinates><panel_attributes>RemoveStaffForm
 --
 - id: long
 --
 + RemoveStaffForm(id: long)
-+ getId(): long</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1720</x><y>717</y><w>30</w><h>120</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;100;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1280</x><y>197</y><w>160</w><h>60</h></coordinates><panel_attributes>template=T | ID
++ getId(): long</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1360</x><y>570</y><w>80</w><h>260</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>60;240;10;240;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1000</x><y>50</y><w>160</w><h>60</h></coordinates><panel_attributes>template=T | ID
 &lt;&lt;interface&gt;&gt;
-CrudRepository</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1490</x><y>250</y><w>100</w><h>410</h></coordinates><panel_attributes>lt=&lt;&lt;-
-&lt;T = Person&gt;</panel_attributes><additional_attributes>10;10;10;390</additional_attributes></element><element><id>UMLPackage</id><coordinates><x>340</x><y>357</y><w>1880</w><h>1060</h></coordinates><panel_attributes>staff
+CrudRepository</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1210</x><y>103</y><w>100</w><h>410</h></coordinates><panel_attributes>lt=&lt;&lt;-
+&lt;T = Person&gt;</panel_attributes><additional_attributes>10;10;10;390</additional_attributes></element><element><id>UMLPackage</id><coordinates><x>70</x><y>140</y><w>2440</w><h>1160</h></coordinates><panel_attributes>staff
 --
-</panel_attributes><additional_attributes></additional_attributes></element></diagram>
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1640</x><y>200</y><w>410</w><h>130</h></coordinates><panel_attributes>StaffDataInitializer
+--
+- userAccountManagement: UserAccountManagement
+- staffManagement: StaffManagement
+--
++ StaffDataInitializer(userAccountManagement: UserAccountManagement,
+            staffManagement: StaffManagement)
++ initialize(): void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1920</x><y>410</y><w>530</w><h>170</h></coordinates><panel_attributes>StaffManagement
+--
+- staff: StaffRepository
+- userAccountManagement: UserAccountManagement
+--
++ StaffManagement(staff: StaffRepository, userAccountManagement: UserAccountManagement)
++ createPerson(festivalId: long, form: CreateStaffForm): Person</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1830</x><y>500</y><w>110</w><h>30</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>90;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>2000</x><y>320</y><w>30</w><h>110</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;90;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1960</x><y>43</y><w>170</w><h>50</h></coordinates><panel_attributes>UserAccountManagement
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>2000</x><y>83</y><w>30</w><h>140</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;10;120</additional_attributes></element><element><id>Relation</id><coordinates><x>2090</x><y>84</y><w>30</w><h>340</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;10;320</additional_attributes></element><element><id>Relation</id><coordinates><x>1230</x><y>364</y><w>710</w><h>150</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>690;80;620;20;10;20;10;130</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1420</x><y>980</y><w>290</w><h>110</h></coordinates><panel_attributes>ChangePasswordForm
+--
+- id: long
+- password: String
+--
++ ChangePasswordForm(password: String, id: long)
++ getId(): long
++ getPassword(): String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1420</x><y>1110</y><w>240</w><h>110</h></coordinates><panel_attributes>ChangeRoleForm
+--
+- id: long
+- role: String
+--
++ RemoveStaffForm(role: String, id: long)
++ getId(): long
++ getRole(): String</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1360</x><y>570</y><w>80</w><h>500</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>60;480;10;480;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1360</x><y>570</y><w>80</w><h>620</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>60;600;10;600;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1690</x><y>570</y><w>270</w><h>260</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;240;250;240;250;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1620</x><y>570</y><w>340</w><h>380</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;360;320;360;320;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1700</x><y>570</y><w>260</w><h>500</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;480;240;480;240;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1650</x><y>570</y><w>310</w><h>620</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;600;290;600;290;10</additional_attributes></element><element><id>UMLPackage</id><coordinates><x>1330</x><y>650</y><w>670</w><h>580</h></coordinates><panel_attributes>forms
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>310</x><y>763</y><w>120</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>100;10;10;10</additional_attributes></element></diagram>

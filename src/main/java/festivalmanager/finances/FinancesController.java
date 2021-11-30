@@ -7,12 +7,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
-//import festivalmanager.finances.FinancesManagement;
+import festivalmanager.finances.FinancesManagement;
 
 import static org.salespointframework.core.Currencies.EURO;
 
+
 @Controller
 class FinancesController {
+
 
 	private Finances finances;
 	private long currentFestivalId;
@@ -25,8 +27,7 @@ class FinancesController {
 	private long soldCampingTickets;
 	private long soldOneDayTickets;
 
-	// Ticket prices will be stored permanently in the Ticket Class in the real
-	// application,
+	// Ticket prices will be stored permanently in the Ticket Class in the real application,
 	// but the Ticket class is not a part of this prototype
 	private Money priceCampingTickets;
 	private Money priceOneDayTickets;
@@ -39,6 +40,7 @@ class FinancesController {
 		resetAttributes();
 	}
 
+
 	private void resetAttributes() {
 		nCampingTickets = 0;
 		nOneDayTickets = 0;
@@ -48,30 +50,39 @@ class FinancesController {
 		priceOneDayTickets = Money.of(0, EURO);
 	}
 
+
 	@GetMapping("/finances")
 	@Scope("session")
 	// TODO: @PreAuthorize("hasRole('PLANNER')")
 	String financesPage(Model model,
-			@ModelAttribute("currentFestivalId") long currentFestivalId) {
+					@ModelAttribute("currentFestivalId") long currentFestivalId) {
 
-		if (this.currentFestival != null &&
-				this.currentFestival.getId() != currentFestivalId) {
+		if(this.currentFestival != null &&
+				this.currentFestival.getId() != currentFestival.getId()) {
+
 			resetAttributes();
 		}
+		this.currentFestivalId = currentFestivalId;
+		this.financesManagement.updateFestival(currentFestivalId);
 		this.currentFestival = festivalManagement.findById(currentFestivalId).get();
 
-		Money cost = financesManagement.getCost(currentFestival);
+		Money artistsCost = financesManagement.getArtistsCost();
+		Money locationCost = financesManagement.getLocationCost();
+		Money cost = financesManagement.getCost();
 		Money revenue = financesManagement.getRevenue(currentFestival,
-				priceCampingTickets, priceOneDayTickets,
-				nCampingTickets, nOneDayTickets);
+				priceCampingTickets, priceOneDayTickets, nCampingTickets, nOneDayTickets);
 		Money profit = financesManagement.getProfit(cost, revenue);
 
+		String artistsCostStr = String.format("%.2f", artistsCost.getNumber().doubleValue());
+		String locationCostStr = String.format("%.2f", locationCost.getNumber().doubleValue());
 		String costStr = String.format("%.2f", cost.getNumber().doubleValue());
 		String revenueStr = String.format("%.2f", revenue.getNumber().doubleValue());
 		String profitStr = String.format("%.2f", profit.getNumber().doubleValue());
 		String priceCampingTicketsStr = String.format("%.2f", priceCampingTickets.getNumber().doubleValue());
 		String priceOneDayTicketsStr = String.format("%.2f", priceOneDayTickets.getNumber().doubleValue());
 
+		model.addAttribute("artistsCost", artistsCostStr);
+		model.addAttribute("locationCost", locationCostStr);
 		model.addAttribute("cost", costStr);
 		model.addAttribute("revenue", revenueStr);
 		model.addAttribute("profit", profitStr);
@@ -82,17 +93,18 @@ class FinancesController {
 		model.addAttribute("nOneDayTickets", this.nOneDayTickets);
 		model.addAttribute("soldCampingTickets", this.soldCampingTickets);
 		model.addAttribute("soldOneDayTickets", this.soldCampingTickets);
-
+		
 		// required for second nav-bar
 		model.addAttribute("festival", currentFestival);
-
+		
 		return "finances";
 	}
 
+
 	@GetMapping("/setTicketNumber")
 	public String ticketNumberForm(Model model,
-			@RequestParam("nCampingTickets") long nCampingTickets,
-			@RequestParam("nOneDayTickets") long nOneDayTickets) {
+								  @RequestParam("nCampingTickets") long nCampingTickets,
+								  @RequestParam("nOneDayTickets") long nOneDayTickets) {
 
 		if (nCampingTickets < 0 || nOneDayTickets < 0)
 			return financesPage(model, this.currentFestivalId);
@@ -100,9 +112,8 @@ class FinancesController {
 		try {
 			if (nCampingTickets + nOneDayTickets > currentFestival.getLocation().getVisitorCapacity())
 				return financesPage(model, this.currentFestivalId);
-		} catch (Exception ex) {
-			System.err.println(ex);
 		}
+		catch (NullPointerException e) {}
 
 		this.nCampingTickets = nCampingTickets;
 		this.nOneDayTickets = nOneDayTickets;
@@ -112,10 +123,11 @@ class FinancesController {
 		return financesPage(model, this.currentFestivalId);
 	}
 
+
 	@GetMapping("/setTicketPrice")
 	public String ticketPriceForm(Model model,
-			@RequestParam("priceCampingTickets") Double priceCampingTickets,
-			@RequestParam("priceOneDayTickets") Double priceOneDayTickets) {
+								  @RequestParam("priceCampingTickets") Double priceCampingTickets,
+								  @RequestParam("priceOneDayTickets") Double priceOneDayTickets) {
 
 		if (priceCampingTickets < 0 || priceOneDayTickets < 0)
 			return financesPage(model, this.currentFestivalId);
@@ -128,11 +140,4 @@ class FinancesController {
 		return financesPage(model, this.currentFestivalId);
 	}
 
-	protected long getSoldOneDayTickets() {
-		return soldOneDayTickets;
-	}
-
-	public Finances getFinances() {
-		return finances;
-	}
 }

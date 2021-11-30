@@ -2,8 +2,8 @@ package festivalmanager.ticketShop;
 
 public enum TicketType {
 
-	DAY_TICKET("Day Ticket"),
-	CAMPING("Camping"),
+	DAY_TICKET("Tagesticket"),
+	CAMPING("Camping Ticket"),
 	;
 
 	private final String displayValue;

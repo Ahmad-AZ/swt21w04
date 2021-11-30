@@ -30,9 +30,4 @@ class StaffDataInitializer implements DataInitializer {
 
 		userAccountManagement.create("admin", Password.UnencryptedPassword.of("adminpw"), Role.of("ADMIN"));
 	}
-
-	protected StaffManagement getStaffManagement()
-	{
-		return staffManagement;
-	}
 }
