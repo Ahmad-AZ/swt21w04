@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -42,6 +44,9 @@ public class Location{
 
 	private long visitorCapacity;
 	private long stageCapacity; 
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Area> areas = new ArrayList<>();
 
  
 	@OneToMany(cascade = CascadeType.ALL)

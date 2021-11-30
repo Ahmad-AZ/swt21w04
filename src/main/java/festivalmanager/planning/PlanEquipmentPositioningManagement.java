@@ -5,19 +5,12 @@ import festivalmanager.festival.Festival;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlanRenting extends Planning {
+public class PlanEquipmentPositioningManagement {
 
 	private int numberOfStage;
 	private List<Equipment> equipments;
 
-	/**
-	 *
-	 * @param festival
-	 */
-	PlanRenting(Festival festival) {
-
-		super(festival);
-		equipments=new ArrayList<>();
+	public PlanEquipmentPositioningManagement(Festival festival) {
 	}
 
 	public void rent(Equipment equipment){
