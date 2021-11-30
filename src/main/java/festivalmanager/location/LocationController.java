@@ -34,7 +34,7 @@ public class LocationController {
 		return "locations";
 	}
 	
-	@GetMapping("/locations/{locationId}")
+	@GetMapping("/locations/{locationId}/edit")
 	public String locationEdit(@PathVariable Long locationId, Model model) {
 		Optional<Location> location = locationManagement.findById(locationId);
 		
@@ -47,6 +47,25 @@ public class LocationController {
 			System.out.println(pricePerDay);
 			model.addAttribute("pricePerDay", pricePerDay);
 			return "locationEdit";
+			
+		} else {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
+		}
+	}
+	
+	@GetMapping("/locations/{locationId}") 
+	public String locationDetail(@PathVariable Long locationId, Model model) {
+		Optional<Location> location = locationManagement.findById(locationId);
+		
+		if (location.isPresent()) {
+			Location current = location.get();
+
+			model.addAttribute("location", current);
+			model.addAttribute("hasBookings", current.hasBookings());			
+			 
+			return "locationDetail";
 			
 		} else {
 			throw new ResponseStatusException(
