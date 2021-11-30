@@ -12,7 +12,7 @@
                     <a class="item border-right" th:href="@{/staff/{id}(id=${festival.id})}" sec:authorize="hasRole('USER_MANAGEMENT') || hasRole('ADMIN')">Personal einsehen</a>
                     <a class="item border-right" th:href="@{/staff/{id}/create/(id=${festival.id})}" sec:authorize="hasRole('USER_MANAGEMENT') || hasRole('ADMIN')">Personal hinzufügen</a>
                    	<a class="item" href="locationOverview.html" th:href="@{/locationPre1}">Location</a>
-                    <a class="item" href="artistOverview.html" th:href="@{/artistPre1}">Artist</a>
+                    <a class="item" href="artistOverview.html" th:href="@{/artistPre1}">Künstler</a>
 					<a class="item" href="finances.html" th:href="@{/financesPre1}">Finanzen</a>
                     <a class="item" href="cateringproductcatalog.html" th:href="@{/catering}">Catering</a>
                     <a class="item" href="ticketShop.html" th:href="@{/ticketShop}">Ticket Shop</a>

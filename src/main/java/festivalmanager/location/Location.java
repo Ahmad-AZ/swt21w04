@@ -94,11 +94,14 @@ public class Location{
 			}
 		}
 		return false;
-		
 	}
  
 	public Iterable<Booking> getBookings() {
 		return bookings;
+	}
+	
+	public boolean hasBookings() {
+		return !(bookings.isEmpty());
 	}
 
 	public String getAdress() {

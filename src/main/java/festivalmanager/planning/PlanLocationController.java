@@ -24,6 +24,7 @@ public class PlanLocationController {
 	private final PlanLocationManagement planLocationManagement;
 	private final LocationManagement locationManagement;
 	private Festival currentFestival;
+	private long currentFestivalId;
 	
 	public PlanLocationController(PlanLocationManagement planLocationManagement, LocationManagement locationManagement) {
 		this.planLocationManagement = planLocationManagement;
@@ -63,7 +64,8 @@ public class PlanLocationController {
 				System.out.println(current.getImage());
 				System.out.println(current.getGroundView());
 				model.addAttribute("location", current);
-				System.out.println(current.getBookings().toString());				
+				model.addAttribute("hasBookings", current.hasBookings());
+				System.out.println(current.getBookings());				
 				
 				// to hide book Button if Location is booked
 				if (currentFestival.getLocation() != null) {

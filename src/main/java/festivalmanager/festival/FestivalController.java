@@ -27,16 +27,12 @@ import festivalmanager.location.LocationManagement;
 public class FestivalController {
 
 	private final FestivalManagement festivalManagement;
-	private final LocationManagement locationManagement;
 	private Festival currentFestival;
 	private ArtistRepository artistRepository;
 	private long currentId;
-	private DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-dd-mm");
-
  
-	public FestivalController(FestivalManagement festivalManagement, LocationManagement locationManagement) {
+	public FestivalController(FestivalManagement festivalManagement) {
 		this.festivalManagement = festivalManagement;
-		this.locationManagement = locationManagement;
 		this.currentFestival = null;
 		this.currentId = 0;
 		
@@ -55,12 +51,6 @@ public class FestivalController {
 			}
 			System.out.println(festivalId);
 			model.addAttribute("festival", current);
-//			String startDate = current.getStartDate().toString();
-//			startDate = startDate.substring(0, startDate.length() - 10);
-//			String endDate = current.getEndDate().toString();
-//			endDate = endDate.substring(0, endDate.length() - 10);
-			model.addAttribute("startDate", current.getStartDate());
-			model.addAttribute("endDate", current.getEndDate());
 			model.addAttribute("artists", current.getArtist());
 			if (current.getLocation() != null) {
 				System.out.println(current.getLocation().getName());
