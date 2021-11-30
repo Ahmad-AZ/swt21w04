@@ -1,0 +1,60 @@
+= Protokoll Gruppe 04
+
+Treffen am 30.11.2021
+
+Ort:      BigBlueButton +
+Beginn:   18:00 Uhr +
+Ende:     19:00 Uhr
+
+__Schriftführer:__ Jan Biedermann
+
+*Nächstes Treffen:* +
+47. KW, Discord
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Tom Morgenstern (Auftraggeber)
+- Adrian Scholze
+- Jan Biedermann
+- Ahmad Abu Zahra
+- Georg Kunze
+- Tuấn Giang Trịnh
+- Robert Menzel
+
+== Bemerkungen
+
+Feedback zu den Basisfunktionalitäten:
+
+- "Location" und "Künstler" in der oberen Navigationsleiste zu "Locationverwaltung" und "Künstlerverwaltung" umbenennen, 
+Beide Tabs sollten zu einer Übersichtsseite führen, und nicht direkt in den Bearbeitungsmodus
+- Die gebuchten Künstler werden nocht nicht angezeigt
+- Robert muss beim Catering noch die Navigationsleiste einbauen
+und die "Produkt Hinzufügen" Seite reparieren
+- Der Ticketpreis soll nicht im Finanzen Tab eingegeben werden
+- Der Besuchermodus soll eingebaut werden, so dass man als Benutzer
+ohne Login nicht auf alle Funktionen zugreigen kann
+
+
+Zwischenpräsentation:
+
+- Die Zwischenpräsentation findet voraussichtlich nächste Woche statt, Doodle-Umfrage per E-Mail folgt,
+die 10 Minuten Dauer für Präsentation der Anwendung und Präsentation von Analyse/Entwurf sollten eingehalten werden
+- Bei der Präsentation der Erebnisse aus Analyse/Entwurf sollte jedes Teammitglied sprechen,
+bei der Präsentation der Anwendung nicht unbedingt
+- Die Präsentation ist mit Kamera zu halten, es ist eine kleine PowerPoint vorzubereiten
+- Zielgruppe für die Präsentation ist der Kunde, nicht ein Entwickler,
+d.h. man sollte zum Beispiel keine Klassendiagramme vorstsellen und eher das Packagediagramm besprechen
+
+Sonstige Hinweise:
+
+- Die Laufzeitsichten sollen alle bis nächste Woche Fertig sein
+(sonst Verwarnung)
+- Der Security-Hotspot in SonarQube sollte dringend entfernt werden
+- Die Muss-Kriterien müssen unbedingt wirklich zum 12.12.21 fertig sein
+- In JExam muss man sich wenn die Prüfungseinschreibung anfängt beim SWT Projekt und für die Abschlusspräsentation des
+Projekts separat einschreiben
+
+== Aktueller Stand
+Die Basisfunktionalitäten sind fertig implementiert und Test Coverage in SonarQube ist
+zum Zeitpunkt der Abgabe bei 35%.
