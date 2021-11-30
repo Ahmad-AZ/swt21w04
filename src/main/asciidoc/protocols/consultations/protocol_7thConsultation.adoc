@@ -1,0 +1,57 @@
+= Protokoll Gruppe 04
+
+Treffen am 23.11.2021
+
+Ort:      BigBlueButton +
+Beginn:   18:00 Uhr +
+Ende:     19:10 Uhr
+
+__Schriftführer:__ Jan Biedermann
+
+*Nächstes Treffen:* +
+47. KW, Discord
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Tom Morgenstern (Auftraggeber)
+- Adrian Scholze
+- Jan Biedermann
+- Ahmad Abu Zahra
+- Georg Kunze
+- Tuấn Giang Trịnh
+- Robert Menzel
+
+== Bemerkungen
+Auswertung des letzten Meilensteins:
+- Die Entwicklerdokumentation wurde mit einer 3 bewertet, der Testplan und
+der Anwendungsprototyp mit einer 2
+- Im Testplan fehlen Integrationstests zu einigen Komponenten, vor allem dem Nachrichtensystem
+- Die fehlenden Laufzeitsichten in der Entwicklerdokumentation müssen noch ergänzt werden
+- Im Packagediagramm müssen Data Initializer und Controller nicht
+eingetragen werden, Management Klassen aber schon
+
+Sonstige Hinweise:
+- Bei Abgabe der Basisfunktionalitäten sollten mindestens 30% Test Coverage erreicht wurden sein
+- Vor allem die Diagramme in der Entwicklerdokumentation sollten während
+der Implementierungsphase aktuell gehalten werden
+- Wenn der Zurückbutton vom Browser in der Anwendung nicht funktioniert, ist das nicht so schlimm
+- Theoretisch ist laut Aufgabenstellung auch die Freigabe des Festivals ein Muss-Kriterium, das tatsächlich zu implementieren wäre aber sehr aufwendig
+- Bis nächste Woche sollte unbedingt SonarQube wieder funktionieren
+
+== Aktueller Stand
+Wir haben mit der Arbeit an den Basisfunktionalitäten angefangen
+
+== Retrospektive des letzten Sprints
+*Issue referenziert die Issue ID von GitHub*
+// Wie ist der Status der im letzten Sprint erstellten Issues/veteilten Aufgaben?
+
+// See http://asciidoctor.org/docs/user-manual/=tables
+[option="headers"]
+|===
+|Issue |Aufgabe |Status |Bemerkung
+| |Basisfunktionalität Planung |Adrian und Tuan haben mit der Arbeit angefangen |
+| |Basisfunktionalität Finanzen |Das Finanzen Package ist auf dem Stand aus dem Prototyp |
+| |Basisfunktionalität Catering |Robert hat angefangen an den Catering-Klassen zu arbeiten |
+| |Basisfunktionalität Personal und Login |Georg hat angefangen an den Klassen für das Personal zu arbeiten, Login ist auf dem Stand aus dem Prototyp |
+|===
