@@ -16,11 +16,16 @@ public class CateringProductCatalogController {
         return catalog;
     }
 
-    @GetMapping("/cateringProductCatalog.html")
+    @GetMapping("/cateringProductCatalog")
     String products(Model model) {
 
         model.addAttribute("productcatalog", catalog.findAll());
-        return "cateringproductcatalog";
+        return "cateringProductCatalog";
+    }
+
+    @GetMapping("/cateringAddProduct.html")
+    String addProduct(Model model) {
+        return "cateringAddProduct";
     }
 
 }
