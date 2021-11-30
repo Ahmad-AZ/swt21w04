@@ -10,13 +10,13 @@
         <table border="1">
             <tr><th>Produktnr.</th><th>Produktname</th><th>Verkaufspreis</th><th>Pfand</th></tr>
 
-            <tr th:each="product : ${catalog}">
-				<td th:text="${product.getID()}">1</td>
+            <tr th:each="product : ${productcatalog}">
+				<td th:text="${product.getId()}">1</td>
 				<td th:text="${product.getName()}">Coca Cola</td>
 				<td th:text="${product.getPrice()}">2,50 €</td>
 				<td th:text="${product.getDeposit()}">0,25 €</td>
 			</tr>
         </table>
-		<a href="cateringaddproduct.html">Produkt hinzuf&uuml;gen</a>
+		<a href="cateringAddProduct.html">Produkt hinzuf&uuml;gen</a>
 	</body>
 </html>
