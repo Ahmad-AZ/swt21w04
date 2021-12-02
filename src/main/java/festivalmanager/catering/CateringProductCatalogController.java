@@ -23,9 +23,14 @@ public class CateringProductCatalogController {
         return "cateringProductCatalog";
     }
 
-    @GetMapping("/cateringAddProduct.html")
+    @GetMapping("/cateringAddProduct")
     String addProduct(Model model) {
         return "cateringAddProduct";
+    }
+
+    @GetMapping("/cateringEditProduct")
+    String editProduct(Model model) {
+        return "cateringEditProduct";
     }
 
 }
