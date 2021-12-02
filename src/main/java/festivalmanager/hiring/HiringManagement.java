@@ -20,11 +20,12 @@ public class HiringManagement {
 	public HiringManagement(ArtistRepository artists) {
 		Assert.notNull(artists, "ArtistRepository must not be null");
 		this.artists = artists;
+
 	}
 
 	public Artist createAritst(NewArtistForm form){
 		Assert.notNull(form, "form must not be null");
-		return artists.save(new Artist(form.getName()));
+		return artists.save(new Artist(form.getName(), form.getPrice()));
 	}
 
 	public Streamable<Artist> findAll(){
