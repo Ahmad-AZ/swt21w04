@@ -100,6 +100,10 @@ public class Location{
 		}
 		return false;
 	}
+	
+	public void clearAllBookings() {
+		bookings.clear();
+	}
  
 	public Iterable<Booking> getBookings() {
 		return bookings;

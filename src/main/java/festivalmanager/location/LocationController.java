@@ -141,6 +141,7 @@ public class LocationController {
 		Optional<Location> current = locationManagement.findById(id);
 		if (current.isPresent()) {
 			model.addAttribute("currentName", current.get().getName());
+			model.addAttribute("locationHasBookings", current.get().hasBookings());
 		} else {
 			model.addAttribute("currentName", "");
 		}
@@ -151,7 +152,6 @@ public class LocationController {
 	@PostMapping("/locations/remove")
 	public String removeLocation(@RequestParam("id") Long locationId) {
 		locationManagement.removeLocation(locationId);
-
 		return "redirect:/locations";
 	}
 	

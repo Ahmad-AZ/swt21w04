@@ -34,131 +34,106 @@ public class PlanLocationController {
 	}
 	
 	// shows Locations Overview
-		@GetMapping("/locationOverview")  
-		public String locationOverview(Model model, @ModelAttribute("currentFestival") Festival currentFestival) {
-			this.currentFestival = currentFestival;
-			Location bookedLocation = currentFestival.getLocation();
-			model.addAttribute("locationList", locationManagement.findAll());
-			if(bookedLocation != null) {
-				model.addAttribute("bookedLocationId", bookedLocation.getId());
+	@GetMapping("/locationOverview")  
+	public String locationOverview(Model model, @ModelAttribute("currentFestival") Festival currentFestival) {
+		this.currentFestival = currentFestival;
+		Location bookedLocation = currentFestival.getLocation();
+		model.addAttribute("locationList", locationManagement.findAll());
+		if(bookedLocation != null) {
+			model.addAttribute("bookedLocationId", bookedLocation.getId());
+		}
+		else {
+			model.addAttribute("bookedLocationId", 0);
+		}
+		
+		
+		// required for second nav-bar
+		model.addAttribute("festival", currentFestival);
+		
+		return "locationOverview"; 
+	} 
+		
+	@GetMapping("/locationOverview/{locationId}")
+	public String locationDetail(@PathVariable Long locationId, Model model) {
+		Optional<Location> location = locationManagement.findById(locationId);
+		
+		if (location.isPresent()) {
+			Location current = location.get();
+
+			System.out.println(locationId);
+			System.out.println(current.getImage());
+			System.out.println(current.getGroundView());
+			model.addAttribute("location", current);
+			model.addAttribute("hasBookings", current.hasBookings());
+			System.out.println(current.getBookings());				
+			
+			// to hide book Button if Location is booked
+			if (currentFestival.getLocation() != null) {
+				model.addAttribute("currentlyBooked", currentFestival.getLocation().getId() == current.getId());
 			}
 			else {
-				model.addAttribute("bookedLocationId", 0);
+				model.addAttribute("currentlyBooked", false);
 			}
-			
-			
+
 			// required for second nav-bar
 			model.addAttribute("festival", currentFestival);
+			 
+			return "locationDetail";
 			
-			return "locationOverview"; 
-		} 
-		
-		@GetMapping("/locationOverview/{locationId}")
-		public String locationDetail(@PathVariable Long locationId, Model model) {
-			Optional<Location> location = locationManagement.findById(locationId);
+		} else {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
+		}
+	}
+		 		
+	@PostMapping("/bookLocation")
+	public String bookLocation(@RequestParam("location") Long locationId, @RequestParam("currentlyBooked") boolean currentlyBooked, RedirectAttributes ra) {
+		Optional<Location> location = locationManagement.findById(locationId);
+		if (location.isPresent()) {
+			Location current = location.get();
 			
-			if (location.isPresent()) {
-				Location current = location.get();
-
-				System.out.println(locationId);
-				System.out.println(current.getImage());
-				System.out.println(current.getGroundView());
-				model.addAttribute("location", current);
-				model.addAttribute("hasBookings", current.hasBookings());
-				System.out.println(current.getBookings());				
-				
-				// to hide book Button if Location is booked
-				if (currentFestival.getLocation() != null) {
-					model.addAttribute("currentlyBooked", currentFestival.getLocation().getId() == current.getId());
-				}
-				else {
-					model.addAttribute("currentlyBooked", false);
-				}
-
-				// required for second nav-bar
-				model.addAttribute("festival", currentFestival);
-				 
-				return "locationDetail";
-				
-			} else {
-				throw new ResponseStatusException(
-						HttpStatus.NOT_FOUND, "entity not found"
-				);
-			}
-		}
-		 
-//		@PostMapping("/bookLocation")
-//		public String bookLocation(@RequestParam("location") Long locationId, RedirectAttributes ra) {
-//			Optional<Location> location = locationManagement.findById(locationId);
-//			if (location.isPresent()) {
-//				Location current = location.get();
-//				System.out.println(currentFestival.getName());
-//				boolean success = planLocationManagement.bookLocation(current, currentFestival);
-//				System.out.println(success);
-////				System.out.println(currentFestival.getLocation().getName());
-//				if(!success) {
-//					ra.addFlashAttribute("message", "Location ist im Festivalzeitraum belegt");
-//					return "redirect:/locationOverview/"+ current.getId();
-//				}
-//		
-//				long id = current.getId();
-//				// reload locationOverview page
-//				return "redirect:/locationPre1";
-//				
-//			} else {
-//				throw new ResponseStatusException(
-//						HttpStatus.NOT_FOUND, "entity not found"
-//				);
-//			}
-//		}
-		
-		@PostMapping("/bookLocation")
-		public String bookLocation(@RequestParam("location") Long locationId, @RequestParam("currentlyBooked") boolean currentlyBooked, RedirectAttributes ra) {
-			Optional<Location> location = locationManagement.findById(locationId);
-			if (location.isPresent()) {
-				Location current = location.get();
-				
-				// unbook curetnly booked location
-				System.out.println("currentlyBooked boolean:"+currentlyBooked);
-				if(currentlyBooked) {
-					planLocationManagement.unbookLocation(current, currentFestival);
-				}
-				// book Location
-				else {
-					boolean success = planLocationManagement.bookLocation(current, currentFestival);
-					System.out.println("success:"+success);
-
-					if(!success) {
-						ra.addFlashAttribute("message", "Location ist im Festivalzeitraum belegt");
-						return "redirect:/locationOverview/"+ current.getId();
-					}
-					System.out.println("actually booked location:" + currentFestival.getLocation().getName());
-				}
-		
-				long id = current.getId();
-				// reload locationOverview page
-				return "redirect:/locationPre1";
-				
-			} else {
-				throw new ResponseStatusException(
-						HttpStatus.NOT_FOUND, "entity not found"
-				);
-			}
-		}
-		
-		@GetMapping("/locationOverview/unbook") 
-		public String unbookLocation() {
-			Optional<Location> location = locationManagement.findById(currentFestival.getLocation().getId());
-			if (location.isPresent()) {
-				Location current = location.get();
+			// unbook curetnly booked location
+			System.out.println("currentlyBooked boolean:"+currentlyBooked);
+			if(currentlyBooked) {
 				planLocationManagement.unbookLocation(current, currentFestival);
-			
-				// reload locationOverview page
-				return "redirect:/locationPre1";
-			} else {
-				throw new ResponseStatusException(
-						HttpStatus.NOT_FOUND, "entity not found"
-				);
 			}
+			// book Location
+			else {
+				boolean success = planLocationManagement.bookLocation(current, currentFestival);
+				System.out.println("success:"+success);
+
+				if(!success) {
+					ra.addFlashAttribute("message", "Location ist im Festivalzeitraum belegt");
+					return "redirect:/locationOverview/"+ current.getId();
+				}
+				System.out.println("actually booked location:" + currentFestival.getLocation().getName());
+			}
+	
+			long id = current.getId();
+			// reload locationOverview page
+			return "redirect:/locationPre1";
+			
+		} else {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
 		}
+	}
+	
+	@GetMapping("/locationOverview/unbook") 
+	public String unbookLocation() {
+		Optional<Location> location = locationManagement.findById(currentFestival.getLocation().getId());
+		if (location.isPresent()) {
+			Location current = location.get();
+			planLocationManagement.unbookLocation(current, currentFestival);
+		
+			// reload locationOverview page
+			return "redirect:/locationPre1";
+		} else {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
+		}
+	}
 }

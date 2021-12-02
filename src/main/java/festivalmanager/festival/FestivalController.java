@@ -159,4 +159,11 @@ public class FestivalController {
 		ra.addFlashAttribute("currentFestivalId", currentFestival.getId());
 		return "redirect:finances";
 	}
+	
+	@GetMapping("/schedulePre1")
+	String schedulePre1(Model model, RedirectAttributes ra) {
+		ra.addFlashAttribute("currentFestivalId", currentFestival.getId());
+		System.out.println(currentFestival.getName());
+		return "redirect:schedule";
+	}
 }

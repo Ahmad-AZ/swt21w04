@@ -24,10 +24,8 @@ class NewLocationForm {
 	@NotEmpty  
 	private final String adress;
 	
- 
 	private final MultipartFile image;
 	
-
 	private final MultipartFile groundView;
 	
 	@Min(value = 0) 
