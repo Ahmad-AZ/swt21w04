@@ -16,15 +16,15 @@
 	</header>
 	<section layout:fragment="content">
 		<form method="post" name="location" role="location" class="ui form" id="location" th:object="${location}">
-			<div class="ui link cards" th:remove="all-but-first">
-	            <div class="ui card" th:each="location : ${locationList}">
-	                <div class="content">
-	               		<a th:href="@{/locations/remove/{id}(id = ${location.id})}">X</a>
-	                    <a class="header" th:href="@{/locations/{id}(id=${location.id})}" th:text="${location.name}">Etwas andres</a>
-	                    
-	                </div>
-	            </div>
-	        </div>
+			<div class="content">
+	             <ul class="list">
+	        		<li class="list-entry" th:each="location : ${locationList}">
+  						<a class="header" th:href="@{/locations/{id}(id=${location.id})}" th:text="${location.name}">Etwas andres</a>
+	                    <a class="header" th:href="@{/locations/{id}/edit(id=${location.id})}">Bearbeiten</a>
+	               		<a class="header" th:href="@{/locations/remove/{id}(id = ${location.id})}">Löschen</a>	       
+	                </li>
+	             </ul>
+	          </div>                	                    
 		</form>
 		<a class="item" th:href="@{/newLocation}" sec:authorize="hasRole('FESTIVAL_MANAGEMENT') || hasRole('ADMIN')">Neue Location erstellen</a>
 		<div class="overlay" th:if="${dialog} == 'remove_location'">

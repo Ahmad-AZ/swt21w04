@@ -12,11 +12,12 @@
 	<header>
 		<nav th:include="header :: header"></nav>
 		<h1>Locationdetails</h1>
+		<nav th:include="festivalHeader :: festivalHeader"></nav>
 	</header>
 	<section layout:fragment="content">
           <div class="content">
           	</br>
-          	<a class="item" href="locations.html" th:href="@{/locations}">Zurück</a>
+          	<a class="item" href="locationOverview.html" th:href="@{/locationPre1}">Zurück</a>
           	</br></br>
           	<div class="image">
           		<img th:src="@{/resources/img/location/{name}.jpg(name=${location.image})}"
@@ -59,6 +60,13 @@
                              src="../static/resources/img/location/HSZ_groundview.jpg"/>
 			</div>
             </br>                           
+			<form class="ui form" method="post" th:action="@{/bookLocation}" th:object="${booking}">
+				<input type="hidden" name="location" th:value="${location.id}"/>
+				<input type="hidden" name="currentlyBooked" th:value="${currentlyBooked == true}"/>
+				<button type="submit" class="ui button" th:if="${currentlyBooked == false}">Buchen</button>
+				<button type="submit" class="ui button" th:if="${currentlyBooked == true}">Buchung zurücknehmen</button>
+				<p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p> 
+			</form>
         </div>
 
     </section>
