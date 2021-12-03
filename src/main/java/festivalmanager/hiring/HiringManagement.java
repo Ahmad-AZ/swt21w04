@@ -42,6 +42,7 @@ public class HiringManagement {
 
 	public Artist editArtist(Artist artist, NewArtistForm form) {
 		artist.setName(form.getName());
+		artist.setPrice(form.getPrice());
 
 		return artists.save(artist);
 	}

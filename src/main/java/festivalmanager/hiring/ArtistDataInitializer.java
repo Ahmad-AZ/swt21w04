@@ -18,6 +18,20 @@ public class ArtistDataInitializer implements DataInitializer {
 		Artist jackson = new Artist("Michael Jackson", Money.of(99.9, EURO));
 		Artist shawn = new Artist("Shawn Mendes", Money.of(74.9, EURO));
 		Artist camila = new Artist("Camila Cabello", Money.of(83, EURO));
+
+		Show criminal = new Show("Smooth criminal");
+		Show bad = new Show("bad");
+		Show senorita = new Show("senorita");
+		Show treat = new Show("treat you better");
+		Show havana = new Show("havana");
+		Show never = new Show("never be the same");
+		jackson.addShow(criminal);
+		jackson.addShow(bad);
+		shawn.addShow(senorita);
+		shawn.addShow(treat);
+		camila.addShow(havana);
+		camila.addShow(never);
+
 		artists.save(jackson);
 		artists.save(camila);
 		artists.save(shawn);
