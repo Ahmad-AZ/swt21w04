@@ -2,11 +2,11 @@ package festivalmanager.hiring;
 
 import org.javamoney.moneta.Money;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.salespointframework.core.Currencies.EURO;
 
 @Entity
@@ -14,18 +14,17 @@ public class Artist {
 	@Id@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String name;
-
-	// Temporarily added by Jan to get finances working, to be edited by Tuan
 	private Money price;
+	@OneToMany
+	private List<Show> shows;
 
-	public Artist(@NotNull String name) {
+	public Artist(@NotNull String name, @NotNull Money price) {
 		this.name = name;
-		// Temporarily added by Jan to get finances working, to be edited by Tuan
-		this.price = Money.of(11010.10, EURO);
+		this.price = price;
+		this.shows = new ArrayList<>();
 	}
 	public Artist() {
-		// Temporarily added by Jan to get finances working, to be edited by Tuan
-		this.price = Money.of(11010.10, EURO);
+		this.shows = new ArrayList<>();
 	}
 
 	public long getId() {
@@ -40,8 +39,15 @@ public class Artist {
 		this.name = name;
 	}
 
-	// Temporarily added by Jan to get finances working, to be edited by Tuan
 	public Money getPrice() {
 		return price;
+	}
+
+	public void setPrice(Money price) {
+		this.price = price;
+	}
+
+	public void addShow(Show show){
+		shows.add(show);
 	}
 }
