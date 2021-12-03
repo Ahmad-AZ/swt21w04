@@ -16,6 +16,28 @@
 		<div th:include="festivalHeader :: festivalHeader"></div>
 	</header>
 	<section layout:fragment="content">
+	 <div class="comment" >
+            <div class="content">
+           		<div class="text" th:text="${day}">Tag 1</div>
+		        <table class="ui celled table" >
+		            <thead >
+		            	<th> Stage</th>
+		            	<th> TimeSlot1</th> 
+		            	<th> TimeSlot2</th>
+		            	<th> TimeSlot3</th>
+		            	<th> TimeSlot4</th>
+		            	<th> TimeSlot5</th>
+		            </thead>
+		            <tbody th:remove="all-but-first">   
+		            	<tr >
+		            		<td>StageNumber</td> 
+		                    <td class="text" >Show1</td>
+		                    <td class="text">Show2</td>
+		            	</tr>
+		            </tbody>
+				</table>
+            </div>
+        </div>
 		
 		
     </section>

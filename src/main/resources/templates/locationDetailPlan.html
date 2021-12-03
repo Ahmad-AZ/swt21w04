@@ -41,6 +41,7 @@
 			<br/>
 			<p>Buchungen:</p>
 			<p th:if="${hasBookings == false}">Keine</p>		
+			<div>
 			<table class="ui celled table" th:if="${hasBookings != false}">
                 <thead>
                 	<th>Startdatum</th>
@@ -53,6 +54,7 @@
                 	</tr>
                 </tbody>
 			</table>
+			</div>
 			</br>
 			<p>Grundriss:</p>
 			<div class="groundView">
