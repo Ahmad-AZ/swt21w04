@@ -41,7 +41,6 @@ public class FestivalController {
 	@GetMapping("/festivalOverview/{festivalId}")
 	public String festivalDetail(@PathVariable Long festivalId, Model model) {
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
-		Streamable<Festival> festivals = festivalManagement.findAll();
 
 		if (festival.isPresent()) {
 			Festival current = festival.get();

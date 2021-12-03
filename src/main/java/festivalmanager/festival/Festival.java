@@ -91,8 +91,18 @@ public class Festival {
 		return this.artists.isEmpty();
 	}
 
-	public void addEquipments(Equipments equipments) {
-		this.rentedEquipments.add(equipments);
+	public boolean setEquipments(Equipments equipments) {
+		if(rentedEquipments.contains(equipments)) {
+			int index = rentedEquipments.indexOf(equipments);
+			if(rentedEquipments.get(index).getId() != equipments.getId()) {
+				System.out.println("equipment ids does not match ");
+			}
+			rentedEquipments.set(index, equipments);
+			return true;
+		}
+		else {
+			return rentedEquipments.add(equipments);
+		}		
 	}
 	
 	public Iterable<Equipments> getEquipments(){
