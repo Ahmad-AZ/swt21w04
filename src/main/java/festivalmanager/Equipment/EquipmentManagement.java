@@ -25,6 +25,7 @@ public class EquipmentManagement {
 	}
 	
 	public Optional<Equipment> findById(Long id) {
+		System.out.println("find id " + id);
 		return equipments.findById(id);
 	}
 }

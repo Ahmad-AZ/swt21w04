@@ -1,6 +1,7 @@
 package festivalmanager.planning;
 import festivalmanager.Equipment.Equipment;
 import festivalmanager.Equipment.EquipmentManagement;
+import festivalmanager.Equipment.Equipments;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 
@@ -16,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PlanEquipmentManagement {
 	
-	private int currentMaxNumberOfStage;
+	private long currentMaxNumberOfStage;
 	private final FestivalManagement festivalManagement;
 	private final EquipmentManagement equipmentManagement;
 
@@ -25,10 +26,20 @@ public class PlanEquipmentManagement {
 		this.equipmentManagement = equipmentManagement;
 	}
 
-//	public void rent(Equipment equipment, int amount, Festival festival){
-//		festival.addE
-//	}
-//
+	public boolean rentEquipment(long id, long amount, Festival festival){
+		currentMaxNumberOfStage= festival.getLocation().getStageCapacity();
+		if(amount<= festival.getLocation().getStageCapacity()) {
+			Equipments equipments = new Equipments(equipmentManagement.findById(id).get(), amount);
+			festival.setEquipments(equipments);
+			System.out.println("works");
+			festivalManagement.saveFestival(festival);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 //	public boolean unrent(Equipment equipment){
 //		if (!equipments.contains(equipment)){
 //			System.out.println("there is no such equipment to remove");

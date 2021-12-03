@@ -12,11 +12,11 @@ public class Equipments {
 	
 	@Lob
 	private Equipment equipment;
-	private int amount;
+	private long amount;
 	
 	public Equipments() {}
 	
-	public Equipments(Equipment equipment, int amount) {
+	public Equipments(Equipment equipment, long amount) {
 		this.setId(equipment.getId());
 		this.setEquipment(equipment);
 		this.setAmount(amount);
@@ -30,11 +30,11 @@ public class Equipments {
 		this.equipment = equipment;
 	}
 
-	public int getAmount() {
+	public long getAmount() {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
+	public void setAmount(long amount) {
 		this.amount = amount;
 	}
 

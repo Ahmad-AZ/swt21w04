@@ -18,15 +18,15 @@
 	<section layout:fragment="content">
 		<div class="equipments" th:each="equipments : ${equipmentsList}">
 			<div class="content">
-				 <form action="/rentEquipmentmount">
+				 <form action="/rentEquipmentAmount">
 				 	<div class="text" th:text="${equipments.equipment.name}">Name</div>
 				 	<label for="amount">Anzahl</label>
-				 	<input id="amount" type="number" name="amount" th:value="${equipments.amount}"/>
+				 	<input type="hidden" name="equipmentsId" th:value="${equipments.id}"/>
+				 	<input id="amount" type="number" name="equipmentsAmount" th:value="${equipments.amount}"/>
 			        <input type ="submit" th:value="Anwenden"><br>
 			    </form>
 			</div>
-		</div>
-			
+		</div>			
     </section>
 </body>
 </html>
