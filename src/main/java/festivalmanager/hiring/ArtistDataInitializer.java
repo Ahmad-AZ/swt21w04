@@ -16,10 +16,10 @@ public class ArtistDataInitializer implements DataInitializer {
 	public ArtistDataInitializer(ArtistRepository artists){
 		this.artists = artists;
 		Artist jackson = new Artist("Michael Jackson", Money.of(99.9, EURO));
-		Show criminal = new Show("Smooth criminal");
 		Artist shawn = new Artist("Shawn Mendes", Money.of(74.9, EURO));
 		Artist camila = new Artist("Camila Cabello", Money.of(83, EURO));
 
+		Show criminal = new Show("Smooth criminal");
 		Show bad = new Show("bad");
 		Show senorita = new Show("senorita");
 		Show treat = new Show("treat you better");
