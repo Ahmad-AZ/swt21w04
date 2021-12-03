@@ -23,7 +23,11 @@
         <div class="ui negative message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
             <p>Der Name darf nicht leer sein.</p>
         </div>
+        <input id="price" name="name" th:field="*{price}" th:errorclass="fieldError" type="number" required="required"/><br>
+        <div class="ui negative message" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">
+            <p>Der Name darf nicht leer sein.</p>
         <br>
+        </div>
         <input type="submit" value="Erstellen">
     </form>
     <a class="item" href="Artists.html" th:href="@{/artists}">Zurück</a>

@@ -16,14 +16,14 @@
 </header>
 <section layout:fragment="content">
     <form method="post" name="artist" role="artist" class="ui form" id="artist" th:object="${artist}">
-        <div class="ui link cards" th:remove="all-but-first">
-            <div class="ui card" th:each="artist : ${artistList}">
-                <div class="content">
-                    <a th:href="@{/artists/remove/{id}(id = ${artist.id})}">X</a>
+        <div class="content">
+            <ul class="list">
+                <li class="list-entry" th:each="artist : ${artistList}">
                     <a class="header" th:href="@{/artists/{id}(id=${artist.id})}" th:text="${artist.name}">Etwas andres</a>
-
-                </div>
-            </div>
+                    <a class="header" th:href="@{/artists/{id}/edit(id=${artist.id})}">Bearbeiten</a>
+                    <a class="header" th:href="@{/artists/remove/{id}(id = ${artist.id})}">Löschen</a>
+                </li>
+            </ul>
         </div>
     </form>
     <a class="item" th:href="@{/newArtist}" sec:authorize="hasRole('FESTIVAL_MANAGEMENT') || hasRole('ADMIN')">Neuen Künstler erstellen</a>
@@ -35,5 +35,6 @@
             <a class="item" href="artists.html" th:href="@{/artists}">Abbrechen</a>
         </form>
     </div>
+</section>
 </body>
 </html>

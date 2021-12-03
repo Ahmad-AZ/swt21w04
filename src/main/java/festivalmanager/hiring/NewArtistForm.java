@@ -7,9 +7,9 @@ import javax.validation.constraints.NotNull;
 public class NewArtistForm {
 
 	private final String name;
-	private final Money price;
+	private final int price;
 
-	public NewArtistForm(@NotNull String name, @NotNull Money price) {
+	public NewArtistForm(@NotNull String name, @NotNull int price) {
 		this.name = name;
 		this.price = price;
 	}
@@ -17,7 +17,7 @@ public class NewArtistForm {
 	public String getName() {
 		return name;
 	}
-	public Money getPrice() {
+	public int getPrice() {
 		return price;
 	}
 }

@@ -18,6 +18,7 @@
         <form class="ui form" method="post" id="form" th:action="@{/saveArtist}" th:object="${artist}" enctype="multipart/form-data">
             <label for="name"><pre>Name:</pre></label>
             <input id="name" name="name" th:field="*{name}" type="text" th:required="required"/><br>
+            <input id="price" name="price" th:field="*{price}" type="text" th:required="required"/><br>
             <input type="hidden" name="artist" th:value="${artist.id}"/>
             <Button type="submit" class="ui button">Speichern</Button>
         </form>

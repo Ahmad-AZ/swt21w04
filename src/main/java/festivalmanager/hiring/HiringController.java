@@ -44,8 +44,25 @@ public class HiringController {
 //
 //		return "artistOverview";
 //	}
-
 	@GetMapping("/artists/{artistId}")
+	public String artistDetail(@PathVariable Long artistId, Model model){
+		Optional<Artist> artist = hiringManagement.findById(artistId);
+
+		if (artist.isPresent()) {
+			Artist current = artist.get();
+			model.addAttribute("artist", current);
+			//model.addAttribute("hasBookings", current.hasBookings());
+
+			return "artistDetail";
+		}
+		else {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
+		}
+	}
+
+	@GetMapping("/artists/{artistId}/edit")
 	public String artistEdit(@PathVariable Long artistId, Model model) {
 		Optional<Artist> artist = hiringManagement.findById(artistId);
 
