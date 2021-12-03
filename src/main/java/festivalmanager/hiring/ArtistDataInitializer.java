@@ -10,7 +10,7 @@ import static org.salespointframework.core.Currencies.EURO;
 @Component
 @Order(20)
 public class ArtistDataInitializer implements DataInitializer {
-
+ 
 	private ArtistRepository artists;
 
 	public ArtistDataInitializer(ArtistRepository artists){

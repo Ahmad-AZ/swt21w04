@@ -15,6 +15,7 @@ public class Position {
 	public Position(int x1, int y1, int x2, int y2) {
 		
 	}
+	public Position() {}
 
 	public int getX1() {
 		return x1;

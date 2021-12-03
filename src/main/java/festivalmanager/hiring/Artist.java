@@ -14,8 +14,10 @@ public class Artist {
 	@Id@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String name;
+	@Lob()
 	private Money price;
-	@OneToMany
+	
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Show> shows;
 
 	public Artist(@NotNull String name, @NotNull Money price) {

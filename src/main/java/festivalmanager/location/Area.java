@@ -22,11 +22,14 @@ public class Area {
 	private Position position;
 	private AreaType type;
 	
+	private int visitorCapacity;
+	
 	public Area() {}
 	
-	public Area(Position position, AreaType type){
+	public Area(Position position, AreaType type, int visitorCapacity){
 		this.setPosition(position);
 		this.setType(type);
+		this.setVisitorCapacity(visitorCapacity);
 	}
 	
 	public long getId() {
@@ -47,6 +50,14 @@ public class Area {
 
 	public void setType(AreaType type) {
 		this.type = type;
+	}
+
+	public int getVisitorCapacity() {
+		return visitorCapacity;
+	}
+
+	public void setVisitorCapacity(int visitorCapacity) {
+		this.visitorCapacity = visitorCapacity;
 	}
 
 }

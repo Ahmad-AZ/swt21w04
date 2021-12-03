@@ -3,16 +3,12 @@ package festivalmanager.festival;
 
 import javax.persistence.*;
 
-import org.springframework.data.util.Streamable;
-
-import festivalmanager.Equipment.Equipment;
 import festivalmanager.Equipment.Equipments;
 import festivalmanager.hiring.Artist;
 import festivalmanager.location.Location;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
