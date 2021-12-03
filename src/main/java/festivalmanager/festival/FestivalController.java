@@ -166,4 +166,11 @@ public class FestivalController {
 		System.out.println(currentFestival.getName());
 		return "redirect:schedule";
 	}
+	
+	@GetMapping("/equipmentsPre1")
+	String equipmentsPre1(Model model, RedirectAttributes ra) {
+		ra.addFlashAttribute("currentFestivalId", currentFestival.getId());
+		System.out.println(currentFestival.getName());
+		return "redirect:equipments";
+	}
 }

@@ -18,16 +18,16 @@ public class EquipmentDataInitializer implements DataInitializer {
 
 	EquipmentDataInitializer(EquipmentRepository equipmentRepository){
 		this.equipmentRepository = equipmentRepository;
-		Equipment equipment1 = new Equipment("stage1", Money.of(9.99, EURO), 10,12);
+		Equipment equipment1 = new Equipment("stage1", Money.of(9.99, EURO), 10, 12);
 		equipmentRepository.save(equipment1);
 	}
 
 	@Override
 	public void initialize() {
 
-		if (equipmentRepository.findAll().iterator().hasNext()){
-			return;
-		}
+//		if (equipmentRepository.findAll().iterator().hasNext()){
+//			return;
+//		}
 
 		//LOG.info("Create default catalog entries");
 

@@ -9,7 +9,7 @@ import javax.persistence.Lob;
 
 @Entity
 public class Equipment {
-
+	
 	private @Id	@GeneratedValue long id;
 
 	private String name;

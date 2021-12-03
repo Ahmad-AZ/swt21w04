@@ -3,10 +3,15 @@ package festivalmanager.festival;
 
 import javax.persistence.*;
 
+import org.springframework.data.util.Streamable;
+
+import festivalmanager.Equipment.Equipment;
+import festivalmanager.Equipment.Equipments;
 import festivalmanager.hiring.Artist;
 import festivalmanager.location.Location;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -26,8 +31,8 @@ public class Festival {
 	@OneToOne()
 	private Location location;
 	
-//	@OneToOne()
-//	private Finances finances; 
+	@OneToMany
+	private List<Equipments> rentedEquipments = new ArrayList<>(); 
 	
 
 	public Festival(String name, LocalDate startDate, LocalDate endDate) {
@@ -89,9 +94,14 @@ public class Festival {
 	public boolean artistsIsEmpty(){
 		return this.artists.isEmpty();
 	}
+
+	public void addEquipments(Equipments equipments) {
+		this.rentedEquipments.add(equipments);
+	}
 	
-//	public boolean equals(Festival festival) {
-//		return this.id == festival.getId();
-//	}
+	public Iterable<Equipments> getEquipments(){
+		return rentedEquipments;
+	}
+
 
 }
