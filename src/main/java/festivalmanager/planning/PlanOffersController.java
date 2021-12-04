@@ -97,6 +97,9 @@ public class PlanOffersController {
 		Optional<Artist> artist = hiringManagement.findById(artistId);
 		if (artist.isPresent()) {
 			Artist current = artist.get();
+			if (currentlyBooked) {
+				planOffersManagement.unbookArtist(current, currentFestival);
+			}
 			currentFestival.addArtist(current);
 			festivalManagement.saveFestival(currentFestival);
 

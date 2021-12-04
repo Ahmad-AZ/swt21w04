@@ -35,7 +35,8 @@
             <input type="hidden" name="artist" th:value="${artist.id}"/>
             <input type="hidden" name="currentlyBooked" th:value="${ArtistCurrentlyBooked == true}"/>
             <button type="submit" class="ui button" th:if="${ArtistCurrentlyBooked == false}">Buchen</button>
-            <button type="submit" class="ui button" th:if="${ArtistCurrentlyBooked == true}">Buchung zurücknehmen</button>
+            <div th:if="${ArtistCurrentlyBooked == true}" >Künstler schon gebucht</div>
+<!--            <button type="submit" class="ui button" th:if="${ArtistCurrentlyBooked == true}">Buchung zurücknehmen</button>-->
             <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
         </form>
     </div>

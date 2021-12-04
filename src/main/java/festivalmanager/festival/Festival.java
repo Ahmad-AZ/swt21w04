@@ -96,7 +96,22 @@ public class Festival {
 		return rentedEquipments;
 	}
 
-	public void deleteArtist() {
+	public void deleteAll() {
 		this.artists = new HashSet<>();
 	}
+
+//	public void deleteArtist(Artist artist){
+//		Iterator <Artist> i = artists.iterator();
+//		while (i.hasNext()) {
+//			if (i.next().getId() == artist.getId()){
+//				artists.remove(i);
+//			}
+//		}
+//		for (Artist artist1 : artists) {
+//			if (artist1.getId() == artist.getId()){
+//				artists.remove(artist1);
+//			}
+//		}
+//
+//	}
 }
