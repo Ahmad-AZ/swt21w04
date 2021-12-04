@@ -5,6 +5,8 @@ import org.salespointframework.core.DataInitializer;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 import static org.salespointframework.core.Currencies.EURO;
 
 @Component
@@ -18,6 +20,7 @@ public class ArtistDataInitializer implements DataInitializer {
 		Artist jackson = new Artist("Michael Jackson", Money.of(99.9, EURO));
 		Artist shawn = new Artist("Shawn Mendes", Money.of(74.9, EURO));
 		Artist camila = new Artist("Camila Cabello", Money.of(83, EURO));
+		jackson.addBooking(LocalDate.of(2021, 12, 23), LocalDate.of(2022, 1,1));
 
 		Show criminal = new Show("Smooth criminal");
 		Show bad = new Show("bad");
