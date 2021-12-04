@@ -48,6 +48,10 @@ public class HiringManagement {
 		return artists.save(artist);
 	}
 
+	public Artist saveArtist(Artist artist) {
+		return artists.save(artist);
+	}
+
 //	public Artist findByName(String name){
 //		List<Artist> artistList = (List<Artist>) artists.findAll();
 //		for (Artist artist: artistList) {

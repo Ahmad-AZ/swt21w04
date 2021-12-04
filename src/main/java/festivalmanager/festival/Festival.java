@@ -96,5 +96,7 @@ public class Festival {
 		return rentedEquipments;
 	}
 
-
+	public void deleteArtist() {
+		this.artists = new HashSet<>();
+	}
 }

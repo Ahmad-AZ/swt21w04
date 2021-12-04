@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -109,5 +111,20 @@ public class PlanOffersController {
 			);
 		}
 	}
-
+	@GetMapping("/artistOverview/unbook")
+	public String unbookArtist(){
+		for (Artist artist1 : currentFestival.getArtist()){
+			Optional<Artist> artist = hiringManagement.findById(artist1.getId());
+			if (artist.isPresent()) {
+				Artist current = artist.get();
+				planOffersManagement.unbookArtist(current, currentFestival);
+			}
+			else{
+				throw new ResponseStatusException(
+						HttpStatus.NOT_FOUND, "entity not found"
+				);
+			}
+		}
+		return "redirect:/artistPre1";
+	}
 }

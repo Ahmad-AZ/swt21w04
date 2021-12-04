@@ -26,4 +26,11 @@ public class PlanOffersManagement {
 
 		return false;
 	}
+
+	public void unbookArtist(Artist artist, Festival festival) {
+		festival.deleteArtist();
+		festivalManagement.saveFestival(festival);
+		artist.removeBooking(festival.getStartDate(), festival.getEndDate());
+		hiringManagement.saveArtist(artist);
+	}
 }
