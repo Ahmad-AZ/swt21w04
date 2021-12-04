@@ -51,16 +51,9 @@ public class PlanEquipmentController {
 			List<Equipments> equipmentsList = new ArrayList<>();
 			//List<Equipments> festivalEquipments = current.getEquipments();
 			System.out.println(equipmentManagement.findById((long) 1).get().getName());
-			for(Equipment aEquipment : equipmentManagement.findAll()) {
-				for(Equipments aFestivalEquipments : current.getEquipments()) {
-					if(aFestivalEquipments.getEquipment().equals(aEquipment)) {
-						// add currently rented amount of aEquipment to equipmentsList
-						equipmentsList.add(aFestivalEquipments);
-					}
-				}
-				// add 0 value for current aEquipment to equipmentsList
-				equipmentsList.add(new Equipments(aEquipment, 0));
-				System.out.println("aEquipment" + aEquipment.getId());
+			for (Equipment anEquipment : equipmentManagement.findAll()) {
+				long amount = current.getEquipments().getOrDefault(anEquipment.getId(), (long) 0);
+				equipmentsList.add(new Equipments(anEquipment, amount));
 			}
 			model.addAttribute("equipmentsList", equipmentsList);
 			

@@ -1,9 +1,6 @@
 package festivalmanager.Equipment;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.*;
 
 @Entity
 public class Equipments {
@@ -11,6 +8,7 @@ public class Equipments {
 	private @Id	long id;
 	
 	@Lob
+	@OneToOne
 	private Equipment equipment;
 	private long amount;
 	
