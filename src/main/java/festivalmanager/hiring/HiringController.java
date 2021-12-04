@@ -51,7 +51,8 @@ public class HiringController {
 		if (artist.isPresent()) {
 			Artist current = artist.get();
 			model.addAttribute("artist", current);
-			//model.addAttribute("hasBookings", current.hasBookings());
+			model.addAttribute("hasBookings", current.hasBookings());
+			model.addAttribute("show", current.getShows());
 
 			return "artistDetail";
 		}

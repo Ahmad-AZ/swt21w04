@@ -55,8 +55,16 @@ public class Artist {
 		this.price = price;
 	}
 
+	public Iterable<Show> getShows() {
+		return this.shows;
+	}
+
 	public void addShow(Show show){
 		shows.add(show);
+	}
+
+	public boolean hasBookings() {
+		return !(bookingArtists.isEmpty());
 	}
 
 	public boolean addBooking(LocalDate startDate, LocalDate endDate) {
