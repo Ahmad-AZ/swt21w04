@@ -63,10 +63,6 @@ public class Artist {
 		shows.add(show);
 	}
 
-	public boolean hasBookings() {
-		return !(bookingArtists.isEmpty());
-	}
-
 	public boolean addBooking(LocalDate startDate, LocalDate endDate) {
 		Interval festivalDateInterval = Interval.from(startDate.atStartOfDay()).to(endDate.atTime(23,59));
 		for (BookingArtist aBooking : bookingArtists) {

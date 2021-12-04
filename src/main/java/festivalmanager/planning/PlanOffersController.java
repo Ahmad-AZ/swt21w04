@@ -76,23 +76,16 @@ public class PlanOffersController {
 			Artist current = artist.get();
 
 			model.addAttribute("artist", current);
+			model.addAttribute("hasBookings", current.hasBookingArtist());
 
-			// to hide book Button if artist is booked
-//			if (!currentFestival.getArtist().isEmpty()) {
-//				for (Artist artist1: currentFestival.getArtist()) {
-//					if (artist1.getId() == current.getId()) {
-//						model.addAttribute("currentlyBooked", true);
-//					}
-//				}
-//			}
-//			else {
-			model.addAttribute("currentlyBooked", false);
+//			if (!currentFestival.artistsIsEmpty()){
+//				model.addAttribute("currentlyBooked", currentFestival.getArtist());
 //			}
 
 			// required for second nav-bar
 			model.addAttribute("festival", currentFestival);
 
-			return "artistDetail";
+			return "artistDetailPlan";
 
 		} else {
 			throw new ResponseStatusException(
