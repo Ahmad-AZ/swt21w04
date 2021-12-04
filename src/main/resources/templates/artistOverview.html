@@ -21,15 +21,15 @@
             <div class="content">
                 <ul class="list">
                     <li class="list-entry" th:each="artist : ${artistList}">
-                        <a th:if="${artist.id == bookedArtistId}">O</a>
                         <a class="header" th:href="@{/artistOverview/{id}(id=${artist.id})}" th:text="${artist.name}">Etwas andres</a>
                     </li>
                 </ul>
             </div>
         </form>
         </br></br>
-        <p>O ... gebuchte Künstler</p>
-
+        <div>Gebuchte Künstler</div>
+        <div th:if="${noArtist == true}">Keine</div>
+        <div th:each="artist : ${bookedArtistId}" class="text" th:text="${artist.getName()}"></div>
         <a class="header" th:href="@{/artistOverview/unbook}" th:if="${bookedArtistId != 0}">Buchung löschen</a>
     </section>
 </body>

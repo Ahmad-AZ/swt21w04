@@ -74,7 +74,7 @@ public class Festival {
 	public Location getLocation() {
 		return location; 
 	}
-	public Set<Artist> getArtist(){
+	public Iterable<Artist> getArtist(){
 		return this.artists;
 	}
 	
