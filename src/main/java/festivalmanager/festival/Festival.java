@@ -3,15 +3,12 @@ package festivalmanager.festival;
 
 import javax.persistence.*;
 
-import festivalmanager.Equipment.Equipments;
+import festivalmanager.Equipment.Equipment;
 import festivalmanager.hiring.Artist;
 import festivalmanager.location.Location;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Festival {
@@ -27,8 +24,8 @@ public class Festival {
 	@OneToOne()
 	private Location location;
 	
-	@OneToMany
-	private List<Equipments> rentedEquipments = new ArrayList<>(); 
+	@ElementCollection
+	private Map<Long, Long> rentedEquipments = new HashMap<>();
 	
 
 	public Festival(String name, LocalDate startDate, LocalDate endDate) {
@@ -91,21 +88,11 @@ public class Festival {
 		return this.artists.isEmpty();
 	}
 
-	public boolean setEquipments(Equipments equipments) {
-		if(rentedEquipments.contains(equipments)) {
-			int index = rentedEquipments.indexOf(equipments);
-			if(rentedEquipments.get(index).getId() != equipments.getId()) {
-				System.out.println("equipment ids does not match ");
-			}
-			rentedEquipments.set(index, equipments);
-			return true;
-		}
-		else {
-			return rentedEquipments.add(equipments);
-		}		
+	public void setEquipments(long id, long amount) {
+		rentedEquipments.put(id, amount);
 	}
 	
-	public Iterable<Equipments> getEquipments(){
+	public Map<Long, Long> getEquipments(){
 		return rentedEquipments;
 	}
 

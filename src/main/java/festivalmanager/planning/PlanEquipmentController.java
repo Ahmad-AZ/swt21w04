@@ -1,7 +1,9 @@
 package festivalmanager.planning;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.HashMap;
+
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -14,10 +16,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 import festivalmanager.Equipment.Equipment;
 import festivalmanager.Equipment.EquipmentManagement;
-import festivalmanager.Equipment.Equipments;
+
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
-import festivalmanager.location.Location;
+
 
 @Controller
 public class PlanEquipmentController {
@@ -45,24 +47,15 @@ public class PlanEquipmentController {
 		if (festival.isPresent()) {
 			Festival current = festival.get();
 			currentFestival = current;
-			List<Equipment> eq = new ArrayList<>();
-			eq = equipmentManagement.findAll().toList();
-			System.out.println("ListId: " + eq.get(0).getId());
-			List<Equipments> equipmentsList = new ArrayList<>();
-			//List<Equipments> festivalEquipments = current.getEquipments();
-			System.out.println(equipmentManagement.findById((long) 1).get().getName());
-			for(Equipment aEquipment : equipmentManagement.findAll()) {
-				for(Equipments aFestivalEquipments : current.getEquipments()) {
-					if(aFestivalEquipments.getEquipment().equals(aEquipment)) {
-						// add currently rented amount of aEquipment to equipmentsList
-						equipmentsList.add(aFestivalEquipments);
-					}
-				}
-				// add 0 value for current aEquipment to equipmentsList
-				equipmentsList.add(new Equipments(aEquipment, 0));
-				System.out.println("aEquipment" + aEquipment.getId());
+					
+			Map<Equipment, Long> equipmentsMap = new HashMap<>();
+						
+			for (Equipment anEquipment : equipmentManagement.findAll()) {
+				long amount = current.getEquipments().getOrDefault(anEquipment.getId(), (long) 0);
+				equipmentsMap.put(anEquipment, amount);
 			}
-			model.addAttribute("equipmentsList", equipmentsList);
+
+			model.addAttribute("equipmentsMap", equipmentsMap);
 			
 			// required for secound nav-bar
 			model.addAttribute("festival", current);

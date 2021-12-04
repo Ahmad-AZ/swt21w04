@@ -1,7 +1,7 @@
 package festivalmanager.planning;
 import festivalmanager.Equipment.Equipment;
 import festivalmanager.Equipment.EquipmentManagement;
-import festivalmanager.Equipment.Equipments;
+
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 
@@ -28,9 +28,9 @@ public class PlanEquipmentManagement {
 
 	public boolean rentEquipment(long id, long amount, Festival festival){
 		currentMaxNumberOfStage= festival.getLocation().getStageCapacity();
+		
 		if(amount<= festival.getLocation().getStageCapacity()) {
-			Equipments equipments = new Equipments(equipmentManagement.findById(id).get(), amount);
-			festival.setEquipments(equipments);
+			festival.setEquipments(id, amount);
 			System.out.println("works");
 			festivalManagement.saveFestival(festival);
 			return true;
