@@ -27,6 +27,10 @@
         <br/>
         <p>Buchungen:</p>
         <p th:if="${hasBookings == false}">Keine</p>
+        <br/>
+        <p>Show:</p>
+        <div th:each="show : ${artist.getShows()}" class="text" th:text="${show.getName()}"></div>
+        <br/>
         <table class="ui celled table" th:if="${hasBookings != false}">
             <thead>
             <th>Startdatum</th>

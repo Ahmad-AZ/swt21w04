@@ -52,6 +52,7 @@ public class HiringController {
 			Artist current = artist.get();
 			model.addAttribute("artist", current);
 			model.addAttribute("hasBookings", current.hasBookings());
+			model.addAttribute("show", current.getShows());
 
 			return "artistDetail";
 		}
