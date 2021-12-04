@@ -1,7 +1,7 @@
 package festivalmanager.planning;
 import festivalmanager.Equipment.Equipment;
 import festivalmanager.Equipment.EquipmentManagement;
-import festivalmanager.Equipment.Equipments;
+
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 

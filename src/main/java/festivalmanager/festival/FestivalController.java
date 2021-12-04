@@ -123,31 +123,10 @@ public class FestivalController {
 		return "redirect:locationOverview";
 	}
 
-	@PostMapping("/selectArtistPre")
-	String selectArtistPre(Model model, @RequestParam("artist") Long artistId) {
-		Optional<Artist> artist = artistRepository.findById(artistId);
-
-		if (artist.isPresent()) {
-			Artist current = artist.get();
-
-			currentFestival.addArtist(current);
-			festivalManagement.saveFestival(currentFestival);
-			System.out.println(currentFestival.getName());
-			System.out.println(currentFestival.getId());
-			long id = currentFestival.getId();
-			return "redirect:/festivalOverview/"+id;
-		} else {
-			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
-		}
-	}
-
 
 	@GetMapping("/artistPre1")
 	String artistPre1(Model model, RedirectAttributes ra) {
 		ra.addFlashAttribute("currentFestival", currentFestival);
-		ra.addFlashAttribute("fm", festivalManagement);
 		System.out.println(currentFestival.getName());
 		return "redirect:artistOverview";
 	}

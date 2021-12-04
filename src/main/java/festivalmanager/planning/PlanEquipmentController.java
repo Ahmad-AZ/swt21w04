@@ -1,8 +1,8 @@
 package festivalmanager.planning;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
-import java.util.List;
+
 import java.util.Map;
 import java.util.Optional;
 
@@ -16,10 +16,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 import festivalmanager.Equipment.Equipment;
 import festivalmanager.Equipment.EquipmentManagement;
-import festivalmanager.Equipment.Equipments;
+
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
-import festivalmanager.location.Location;
+
 
 @Controller
 public class PlanEquipmentController {

@@ -4,7 +4,6 @@ package festivalmanager.festival;
 import javax.persistence.*;
 
 import festivalmanager.Equipment.Equipment;
-import festivalmanager.Equipment.Equipments;
 import festivalmanager.hiring.Artist;
 import festivalmanager.location.Location;
 

@@ -11,21 +11,28 @@ import javax.persistence.Lob;
 @Entity
 public class Equipment {
 	
+	public static enum EquipmentType {
+		STAGE, CATERING_STALL, TOILET
+	}
+	
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-
+	
 	private String name;
 	@Lob
 	private Money rentalPerDay;
+	
+	private EquipmentType type;
 	private int length, width;
 
 	public Equipment(){}
 
-	public Equipment(String name, Money rentalPerDay, int length, int width){
+	public Equipment(String name, Money rentalPerDay, int length, int width, EquipmentType type){
 		this.name = name;
 		this.rentalPerDay = rentalPerDay;
 		this.length = length;
 		this.width = width;
+		this.setType(type);
 	}
 
 	public Money getRentalPerDay() {
@@ -62,6 +69,14 @@ public class Equipment {
 
 	public long getId(){
 		return id;
+	}
+
+	public EquipmentType getType() {
+		return type;
+	}
+
+	public void setType(EquipmentType type) {
+		this.type = type;
 	}
 
 }
