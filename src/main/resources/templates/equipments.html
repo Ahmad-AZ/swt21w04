@@ -16,13 +16,13 @@
 		<div th:include="festivalHeader :: festivalHeader"></div>
 	</header>
 	<section layout:fragment="content">
-		<div class="equipments" th:each="equipments : ${equipmentsList}">
+		<div class="equipments" th:each="equipment : ${equipmentsMap.keySet()}">
 			<div class="content">
 				 <form action="/rentEquipmentAmount">
-				 	<div class="text" th:text="${equipments.equipment.name}">Name</div>
+				 	<div class="text" th:text="${equipment.name}">Name</div>
 				 	<label for="amount">Anzahl</label>
-				 	<input type="hidden" name="equipmentsId" th:value="${equipments.id}"/>
-				 	<input id="amount" type="number" name="equipmentsAmount" th:value="${equipments.amount}"/>
+				 	<input type="hidden" name="equipmentsId" th:value="${equipment.id}"/>
+				 	<input id="amount" type="number" name="equipmentsAmount" th:value="${equipmentsMap.get(equipment)}"/>
 			        <input type ="submit" th:value="Anwenden"><br>
 			    </form>
 			</div>

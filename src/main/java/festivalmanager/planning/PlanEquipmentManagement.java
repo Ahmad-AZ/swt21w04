@@ -28,6 +28,7 @@ public class PlanEquipmentManagement {
 
 	public boolean rentEquipment(long id, long amount, Festival festival){
 		currentMaxNumberOfStage= festival.getLocation().getStageCapacity();
+		
 		if(amount<= festival.getLocation().getStageCapacity()) {
 			festival.setEquipments(id, amount);
 			System.out.println("works");

@@ -1,7 +1,9 @@
 package festivalmanager.planning;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -45,17 +47,15 @@ public class PlanEquipmentController {
 		if (festival.isPresent()) {
 			Festival current = festival.get();
 			currentFestival = current;
-			List<Equipment> eq = new ArrayList<>();
-			eq = equipmentManagement.findAll().toList();
-			System.out.println("ListId: " + eq.get(0).getId());
-			List<Equipments> equipmentsList = new ArrayList<>();
-			//List<Equipments> festivalEquipments = current.getEquipments();
-			System.out.println(equipmentManagement.findById((long) 1).get().getName());
+					
+			Map<Equipment, Long> equipmentsMap = new HashMap<>();
+						
 			for (Equipment anEquipment : equipmentManagement.findAll()) {
 				long amount = current.getEquipments().getOrDefault(anEquipment.getId(), (long) 0);
-				equipmentsList.add(new Equipments(anEquipment, amount));
+				equipmentsMap.put(anEquipment, amount);
 			}
-			model.addAttribute("equipmentsList", equipmentsList);
+
+			model.addAttribute("equipmentsMap", equipmentsMap);
 			
 			// required for secound nav-bar
 			model.addAttribute("festival", current);

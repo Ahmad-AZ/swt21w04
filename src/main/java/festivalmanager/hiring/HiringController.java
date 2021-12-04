@@ -22,7 +22,7 @@ public class HiringController {
 //			OffersArtists offersArtists,
 			ArtistRepository artistRepository,
 			HiringManagement hiringManagement) {
-		this.hiringManagement = hiringManagement;
+		this.hiringManagement = hiringManagement; 
 //		this.offersArtists = offersArtists;
 		this.currentFestival = null;
 	}
