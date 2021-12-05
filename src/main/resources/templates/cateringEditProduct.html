@@ -11,7 +11,7 @@
             <h1>Catering Produkt bearbeiten</h1>
 		</header>
 		<section layout:fragment="content">
-            <form class="ui form" method="post" th:action="@{/cateringEditProduct/editData}" th:if="${product}">
+            <form class="ui form" method="post" th:action="@{/cateringEditProduct/editData/{id}(id=${product.getId()})}}" th:if="${product}">
                 <table border="1">
                     <tr>
                         <td>Produktname</td>
