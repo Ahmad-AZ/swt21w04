@@ -6,15 +6,20 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
 import festivalmanager.Equipment.Equipment;
+import festivalmanager.Equipment.Equipment.EquipmentType;
 import festivalmanager.Equipment.EquipmentManagement;
 
 import festivalmanager.festival.Festival;
@@ -54,7 +59,6 @@ public class PlanEquipmentController {
 				long amount = current.getEquipments().getOrDefault(anEquipment.getId(), (long) 0);
 				equipmentsMap.put(anEquipment, amount);
 			}
-
 			model.addAttribute("equipmentsMap", equipmentsMap);
 			
 			// required for secound nav-bar
@@ -68,11 +72,23 @@ public class PlanEquipmentController {
 		
 	}
 	
-	@GetMapping("/rentEquipmentAmount")
+	@PostMapping("/rentEquipmentAmount")
 	public String rentEquipmentAmount(Model model,
 					  @RequestParam("equipmentsId") long equipmentsId,
 					  @RequestParam("equipmentsAmount") long equipmentsAmount) {
-		System.out.println("inputid" + equipmentsId);
+		//System.out.println("inputid" + equipmentsId);
+		
+
+		Equipment equipment = equipmentManagement.findById(equipmentsId).get();
+		if(equipment.getType().equals(EquipmentType.STAGE)) {
+			// TODO:  for more Stage types: get number of already rented stages 
+//			if(equipmentsAmount > currentFestival.getLocation().getStageCapacity()) {
+//				reuslt.rejectValue("equipmentError", null, "Die maximale Bühnenanzahl darf nicht überschritten werden");
+//				return "equipments";
+//			}
+		
+		}
+
 		planEquipmentManagement.rentEquipment(equipmentsId, equipmentsAmount, currentFestival);
 		
 		return "redirect:/equipmentsPre1";

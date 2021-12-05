@@ -7,6 +7,7 @@ import festivalmanager.festival.FestivalManagement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +30,10 @@ public class PlanEquipmentManagement {
 	public boolean rentEquipment(long id, long amount, Festival festival){
 		currentMaxNumberOfStage= festival.getLocation().getStageCapacity();
 		
-		if(amount<= festival.getLocation().getStageCapacity()) {
+		Equipment equipment = equipmentManagement.findById(id).get();
+		
+		// only if type == stage + check current rented stages
+		if(amount <= festival.getLocation().getStageCapacity()) {
 			festival.setEquipments(id, amount);
 			System.out.println("works");
 			festivalManagement.saveFestival(festival);

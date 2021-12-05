@@ -26,11 +26,11 @@ class StaffDataInitializer implements DataInitializer {
 	@Override
 	public void initialize() {
 		if (userAccountManagement.findByUsername("admin").isEmpty()) {
-			staffManagement.createPerson(-1, new CreateStaffForm("admin", "adminpw", "ADMIN"));
+			staffManagement.createPerson(-1, new CreateStaffForm("admin", "adminpw", "ADMIN", 0.0));
 		}
 
 		if (userAccountManagement.findByUsername("manager").isEmpty()) {
-			staffManagement.createPerson(-1, new CreateStaffForm("manager", "managerpw", "MANAGER"));
+			staffManagement.createPerson(-1, new CreateStaffForm("manager", "managerpw", "MANAGER", 0.0));
 		}
 	}
 }

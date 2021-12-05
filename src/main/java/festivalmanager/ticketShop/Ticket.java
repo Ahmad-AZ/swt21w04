@@ -18,12 +18,18 @@ public class Ticket {
 
 	private @Id @GeneratedValue long id;
 
-	@Column
-	private String festivalName;
+
+	public int getFestivalId() {
+		return festivalId;
+	}
+
+	public void setFestivalId(int festivalId) {
+		this.festivalId = festivalId;
+	}
 
 	@Column
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
-	private String festivalDate;
+	private int festivalId;
+
 	@Column
 	private int DayTicketsCount;
 	@Column
@@ -40,9 +46,8 @@ public class Ticket {
 	public Ticket() {
 	}
 
-	public Ticket(String festivalName, String festivalDate, int dayTicketsCount, int campingTicketsCount, TicketType ticketType, float dayTicketPrice, float campingTicketPrice) {
-		this.festivalName = festivalName;
-		this.festivalDate = festivalDate;
+	public Ticket(int festivalId, int dayTicketsCount, int campingTicketsCount, TicketType ticketType, float dayTicketPrice, float campingTicketPrice) {
+		this.festivalId= festivalId;
 		DayTicketsCount = dayTicketsCount;
 		CampingTicketsCount = campingTicketsCount;
 		this.ticketType = ticketType;
@@ -50,22 +55,7 @@ public class Ticket {
 		CampingTicketPrice = campingTicketPrice;
 	}
 
-	public String getFestivalName() {
-		return festivalName;
-	}
 
-	@Required
-	public void setFestivalName(String festivalName) {
-		this.festivalName = festivalName;
-	}
-
-	public String getFestivalDate() {
-		return festivalDate;
-	}
-
-	public void setFestivalDate(String festivalDate) {
-		this.festivalDate = festivalDate;
-	}
 
 	public int getDayTicketsCount() {
 		return DayTicketsCount;

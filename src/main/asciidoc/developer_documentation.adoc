@@ -350,9 +350,10 @@ image::models/design/developer_documentation/sequence_diagrams/seq_location.png[
 
 image::models/design/developer_documentation/sequence_diagrams/seq_finances.png[]
 
+=== Festival
 
 
-
+image::models/design/developer_documentation/sequence_diagrams/seq_festival.png[]
 
 
 == Technische Schulden
