@@ -99,6 +99,7 @@ public class Festival {
 	public void deleteAll() {
 		this.artists = new HashSet<>();
 	}
+	
 
 //	public void deleteArtist(Artist artist){
 //		Iterator <Artist> i = artists.iterator();

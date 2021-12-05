@@ -18,14 +18,16 @@
 	<section layout:fragment="content">
 		<div class="equipments" th:each="equipment : ${equipmentsMap.keySet()}">
 			<div class="content">
-				 <form action="/rentEquipmentAmount">
+			
+				 <form method="post" id="form" th:action="@{/rentEquipmentAmount}">
 				 	<div class="text" th:text="${equipment.name}">Name</div>
 				 	<label for="amount">Anzahl</label>
-				 	<input type="hidden" name="equipmentsId" th:value="${equipment.id}"/>
-				 	<input id="amount" type="number" name="equipmentsAmount" th:value="${equipmentsMap.get(equipment)}"/>
+				 	<input type="hidden" name="equipmentsId" th:value="${equipment.id}"/>	
+				 	<input id="amount" type="number" name="equipmentsAmount" th:value="${equipmentsMap.get(equipment)}"/>					
 			        <input type ="submit" th:value="Anwenden"><br>
 			    </form>
 			</div>
+			</br>
 		</div>			
     </section>
 </body>
