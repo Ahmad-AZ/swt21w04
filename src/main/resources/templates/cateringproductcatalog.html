@@ -12,7 +12,14 @@
 		</header>
 		<section layout:fragment="content">
 			<table border="1">
-				<tr><th>Aktionen</th><th>Produktname</th><th>Verkaufspreis</th><th>Pfand</th><th>F&uuml;llmenge</th></tr>
+				<tr>
+					<th>Aktionen</th>
+					<th>Produktname</th>
+					<th>Verkaufspreis</th>
+					<th>Pfand</th>
+					<th>F&uuml;llmenge</th>
+					<th>Aktionen</th>
+				</tr>
 
 				<tr th:each="product : ${productcatalog}">
 					<td>
@@ -22,6 +29,9 @@
 					<td th:text="${product.getPrice()}">2,50 €</td>
 					<td th:text="${product.getDeposit()}">0,25 €</td>
 					<td th:text="${product.getFilling()}">0,33</td>
+					<td>
+						<a th:href="@{/cateringDeleteProduct/{id}(id=${product.getId()})}">l&ouml;schen</a>
+					</td>
 				</tr>
 			</table>
 			<a href="cateringAddProduct">Produkt hinzuf&uuml;gen</a>

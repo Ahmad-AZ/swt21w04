@@ -33,6 +33,14 @@ public class CateringProductCatalogController {
         return "cateringAddProduct";
     }
 
+    @PostMapping("/cateringAddProduct/editData")
+    String addProduct(Model model, FormularData formularData) {
+        CateringProduct product = new CateringProduct(formularData.name, formularData.price, formularData.deposit,
+                formularData.filling);
+        catalog.save(product);
+        return "redirect:/cateringProductCatalog";
+    }
+
     @GetMapping("/cateringEditProduct")
     String editProduct(Model model) {
         return "cateringEditProduct";
@@ -86,6 +94,28 @@ public class CateringProductCatalogController {
             if (changed) {
                 catalog.save(product);
             }
+
+        }
+        return "redirect:/cateringProductCatalog";
+    }
+
+    @GetMapping("/cateringDeleteProduct/{productid}")
+    String deleteProduct(@PathVariable ProductIdentifier productid, Model model) {
+        Optional<CateringProduct> oProduct = catalog.findById(productid);
+        if (oProduct.isPresent()) {
+            CateringProduct product = oProduct.get();
+            model.addAttribute("product", product);
+        }
+
+        return "cateringDeleteProduct";
+    }
+
+    @PostMapping("/cateringDeleteProduct/delete/{productid}")
+    String deleteProduct(@PathVariable ProductIdentifier productid) {
+        Optional<CateringProduct> oProduct = catalog.findById(productid);
+        if (oProduct.isPresent()) {
+            CateringProduct product = oProduct.get();
+            catalog.delete(product);
 
         }
         return "redirect:/cateringProductCatalog";
