@@ -97,6 +97,10 @@ button:hover {
 	border-right: 1px solid black;
 }
 
+.border-top {
+	border-top: 1px solid black;
+}
+
 .unselectable {
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;

@@ -8,14 +8,11 @@
         <div th:fragment="header">
             <div class="header">
                 <div class="menu">
-                    <a class="item" >Finanzen FIV-GmbH</a>
-                    <a class="item" href="festivalOverview.html" th:href="@{/festivalOverview}">Festivals</a>
-                    <a class="item" href="locations.html" th:href="@{/locations}">Locations</a>
-                    <a class="item" href="artists.html" th:href="@{/artists}">Künstler</a>
-
-
-
+                    <a class="item border-right" href="festivalOverview.html" th:href="@{/festivalOverview}">Festivals</a>
+                    <a class="item border-right" href="locations.html" th:href="@{/locations}">Locations</a>
+                    <a class="item border-right" href="artists.html" th:href="@{/artists}">Künstler</a>
                 </div>
+
                 <div class="menu">
                     <span class="item border-left unselectable" sec:authorize="isAuthenticated()" sec:authentication="name"></span>
                     <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
