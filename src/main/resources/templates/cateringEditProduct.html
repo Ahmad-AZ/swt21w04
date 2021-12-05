@@ -11,24 +11,33 @@
             <h1>Catering Produkt bearbeiten</h1>
 		</header>
 		<section layout:fragment="content">
-            <table border="1">
-                <tr>
-                    <td>Produktname</td>
-                    <td><input type="text" id="name"></td>
-                </tr>
-                <tr>
-                    <td>Verkaufspreis</td>
-                    <td><input type="number" id="price"></td>
-                </tr>
-                <tr>
-                    <td>Pfand</td>
-                    <td><input type="number" id="deposit"></td>
-                </tr>
-                <tr>
-                    <td>F&uuml;llmenge</td>
-                    <td><input type="number" id="deposit"></td>
-                </tr>
-            </table>
+            <form class="ui form" method="post" th:action="@{/cateringEditProduct/editData}" th:if="${product}">
+                <table border="1">
+                    <tr>
+                        <td>Produktname</td>
+                        <td>
+                            <input type="hidden" name="productID" value="0" th:value="${product.getId()}"/>
+                            <input type="text" name="name" th:value="${product.getName()}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Verkaufspreis</td>
+                        <td><input type="text" name="price" th:value="${product.getPrice()}"></td>
+                    </tr>
+                    <tr>
+                        <td>Pfand</td>
+                        <td><input type="text" name="deposit" th:value="${product.getDeposit()}"></td>
+                    </tr>
+                    <tr>
+                        <td>F&uuml;llmenge</td>
+                        <td><input type="number" name="filling" th:value="${product.getFilling()}"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button type="submit">absenden</button></td>
+                    </tr>
+                </table>
+            </form>
         </section>
     </body>
 </html>

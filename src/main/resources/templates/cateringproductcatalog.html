@@ -12,10 +12,12 @@
 		</header>
 		<section layout:fragment="content">
 			<table border="1">
-				<tr><th>Produktnr.</th><th>Produktname</th><th>Verkaufspreis</th><th>Pfand</th></tr>
+				<tr><th>Aktionen</th><th>Produktname</th><th>Verkaufspreis</th><th>Pfand</th></tr>
 
 				<tr th:each="product : ${productcatalog}">
-					<td th:text="${product.getId()}">1</td>
+					<td>
+						<a th:href="@{/cateringEditProduct/{id}(id=${product.getId()})}">bearbeiten</a>
+					</td>
 					<td th:text="${product.getName()}">Coca Cola</td>
 					<td th:text="${product.getPrice()}">2,50 €</td>
 					<td th:text="${product.getDeposit()}">0,25 €</td>
