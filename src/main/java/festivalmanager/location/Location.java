@@ -1,12 +1,9 @@
 package festivalmanager.location;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -14,18 +11,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.NamedEntityGraph;
+
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import org.javamoney.moneta.Money;
 import org.salespointframework.time.Interval;
-import org.springframework.data.util.Streamable;
 
-//@NamedEntityGraph(
-//	    name = "graph.locationBookings",
-//	    attributeNodes = @NamedAttributeNode("booking")
-//	)
 
 @Entity
 public class Location{

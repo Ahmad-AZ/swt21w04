@@ -41,7 +41,6 @@ public class FestivalController {
 	@GetMapping("/festivalOverview/{festivalId}")
 	public String festivalDetail(@PathVariable Long festivalId, Model model) {
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
-		Streamable<Festival> festivals = festivalManagement.findAll();
 
 		if (festival.isPresent()) {
 			Festival current = festival.get();
@@ -124,31 +123,10 @@ public class FestivalController {
 		return "redirect:locationOverview";
 	}
 
-	@PostMapping("/selectArtistPre")
-	String selectArtistPre(Model model, @RequestParam("artist") Long artistId) {
-		Optional<Artist> artist = artistRepository.findById(artistId);
-
-		if (artist.isPresent()) {
-			Artist current = artist.get();
-
-			currentFestival.addArtist(current);
-			festivalManagement.saveFestival(currentFestival);
-			System.out.println(currentFestival.getName());
-			System.out.println(currentFestival.getId());
-			long id = currentFestival.getId();
-			return "redirect:/festivalOverview/"+id;
-		} else {
-			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
-		}
-	}
-
 
 	@GetMapping("/artistPre1")
 	String artistPre1(Model model, RedirectAttributes ra) {
 		ra.addFlashAttribute("currentFestival", currentFestival);
-		ra.addFlashAttribute("fm", festivalManagement);
 		System.out.println(currentFestival.getName());
 		return "redirect:artistOverview";
 	}
@@ -165,5 +143,12 @@ public class FestivalController {
 		ra.addFlashAttribute("currentFestivalId", currentFestival.getId());
 		System.out.println(currentFestival.getName());
 		return "redirect:schedule";
+	}
+	
+	@GetMapping("/equipmentsPre1")
+	String equipmentsPre1(Model model, RedirectAttributes ra) {
+		ra.addFlashAttribute("currentFestivalId", currentFestival.getId());
+		System.out.println(currentFestival.getName());
+		return "redirect:equipments";
 	}
 }

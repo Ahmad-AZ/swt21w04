@@ -1,12 +1,15 @@
 package festivalmanager.hiring;
 
+import festivalmanager.location.Booking;
 import org.javamoney.moneta.Money;
+import org.salespointframework.time.Interval;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.salespointframework.core.Currencies.EURO;
 
 @Entity
@@ -14,18 +17,22 @@ public class Artist {
 	@Id@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String name;
-
-	// Temporarily added by Jan to get finances working, to be edited by Tuan
+	@Lob()
 	private Money price;
 
-	public Artist(@NotNull String name) {
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<BookingArtist> bookingArtists = new ArrayList<>();
+
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Show> shows;
+
+	public Artist(@NotNull String name, @NotNull Money price) {
 		this.name = name;
-		// Temporarily added by Jan to get finances working, to be edited by Tuan
-		this.price = Money.of(11010.10, EURO);
+		this.price = price;
+		this.shows = new ArrayList<>();
 	}
 	public Artist() {
-		// Temporarily added by Jan to get finances working, to be edited by Tuan
-		this.price = Money.of(11010.10, EURO);
+		this.shows = new ArrayList<>();
 	}
 
 	public long getId() {
@@ -40,8 +47,51 @@ public class Artist {
 		this.name = name;
 	}
 
-	// Temporarily added by Jan to get finances working, to be edited by Tuan
 	public Money getPrice() {
 		return price;
 	}
+
+	public void setPrice(Money price) {
+		this.price = price;
+	}
+
+	public Iterable<Show> getShows() {
+		return this.shows;
+	}
+
+	public void addShow(Show show){
+		shows.add(show);
+	}
+
+	public boolean addBooking(LocalDate startDate, LocalDate endDate) {
+		Interval festivalDateInterval = Interval.from(startDate.atStartOfDay()).to(endDate.atTime(23,59));
+		for (BookingArtist aBooking : bookingArtists) {
+			Interval aBookingDateInterval = Interval.from(aBooking.getStartDate().atStartOfDay()).to(aBooking.getEndDate().atTime(23, 59));
+			if (aBookingDateInterval.overlaps(festivalDateInterval)) {
+				System.out.println("Künstlerbelegt");
+				return false;
+			}
+		}
+		System.out.println("Künstler nicht belegt");
+		BookingArtist bookingArtist = new BookingArtist(startDate, endDate);
+		return bookingArtists.add(bookingArtist);
+	}
+
+	public boolean removeBooking(LocalDate startDate, LocalDate endDate) {
+		for (BookingArtist aBooking : bookingArtists) {
+			if (aBooking.getStartDate().equals(startDate) && aBooking.getEndDate().equals(endDate)) {
+				return bookingArtists.remove(aBooking);
+			}
+		}
+		return false;
+	}
+
+	public Iterable<BookingArtist> getBookingArtist() {
+		return bookingArtists;
+	}
+
+	public boolean hasBookingArtist() {
+		return !(bookingArtists.isEmpty());
+	}
+
 }

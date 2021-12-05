@@ -78,7 +78,7 @@ public class PlanLocationController {
 			// required for second nav-bar
 			model.addAttribute("festival", currentFestival);
 			 
-			return "locationDetail";
+			return "locationDetailPlan";
 			
 		} else {
 			throw new ResponseStatusException(
