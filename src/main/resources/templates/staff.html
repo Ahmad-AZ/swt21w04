@@ -14,6 +14,9 @@
         <div th:include="festivalHeader :: festivalHeader"></div>
         <div class="main">
             <ul class="list">
+                <li class="list-entry">
+                    <a th:href="@{/staff/{id}/create/(id=${festival.id})}"><h2>Personal hinzufügen</h2></a>
+                </li>
                 <li class="list-entry" th:each="entry, it : ${entries}">
                     <a th:href="@{/staff/{festivalId}/detail/{id}(id = ${entry.id}, festivalId = ${festival.id})}" th:text="${entry.name}"></a>
                     <a th:href="@{/staff/{festivalId}/remove/{id}(id = ${entry.id}, festivalId = ${festival.id})}">X</a>
