@@ -9,6 +9,7 @@
         <header>
 			<nav th:include="header :: header"></nav>
             <h1>Catering Produkt bearbeiten</h1>
+            <div th:include="festivalHeader :: festivalHeader"></div>
 		</header>
 		<section layout:fragment="content">
             <form class="ui form" method="post" th:action="@{/cateringEditProduct/editData/{id}(id=${product.getId()})}" th:if="${product}">

@@ -1,9 +1,13 @@
 package festivalmanager.catering;
 
+import festivalmanager.festival.Festival;
+import festivalmanager.festival.FestivalManagement;
+import festivalmanager.festival.LongOrNull;
 import org.salespointframework.catalog.ProductIdentifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import java.util.Optional;
@@ -11,10 +15,14 @@ import org.javamoney.moneta.Money;
 
 @Controller
 public class CateringProductCatalogController {
+
+	private Festival currentFestival;
+	private FestivalManagement festivalManagement;
     private CateringProductCatalog catalog;
 
-    public CateringProductCatalogController(CateringProductCatalog catalog) {
+    public CateringProductCatalogController(CateringProductCatalog catalog, FestivalManagement festivalManagement) {
         this.catalog = catalog;
+		this.festivalManagement = festivalManagement;
     }
 
     public CateringProductCatalog getCatalog() {
@@ -22,15 +30,21 @@ public class CateringProductCatalogController {
     }
 
     @GetMapping("/cateringProductCatalog")
-    String products(Model model) {
+    String products(Model model, @ModelAttribute("currentFestivalId") LongOrNull currentFestivalId) {
+		if (currentFestivalId.getValue() != null) {
+			long longId = currentFestivalId.getValue();
+			this.currentFestival = festivalManagement.findById(longId).get();
+		}
 
-        model.addAttribute("productcatalog", catalog.findAll());
+		model.addAttribute("productcatalog", catalog.findAll());
+		model.addAttribute("festival", currentFestival);
         return "cateringProductCatalog";
     }
 
     @GetMapping("/cateringAddProduct")
     String addProduct(Model model) {
-        return "cateringAddProduct";
+		model.addAttribute("festival", currentFestival);
+		return "cateringAddProduct";
     }
 
     @PostMapping("/cateringAddProduct/editData")
@@ -38,6 +52,7 @@ public class CateringProductCatalogController {
         CateringProduct product = new CateringProduct(formularData.name, formularData.price, formularData.deposit,
                 formularData.filling);
         catalog.save(product);
+		model.addAttribute("festival", currentFestival);
         return "redirect:/cateringProductCatalog";
     }
 
@@ -56,6 +71,7 @@ public class CateringProductCatalogController {
             model.addAttribute("product", product);
         }
 
+		model.addAttribute("festival", currentFestival);
         return "cateringEditProduct";
     }
 
@@ -96,6 +112,7 @@ public class CateringProductCatalogController {
             }
 
         }
+		model.addAttribute("festival", currentFestival);
         return "redirect:/cateringProductCatalog";
     }
 
@@ -107,6 +124,7 @@ public class CateringProductCatalogController {
             model.addAttribute("product", product);
         }
 
+		model.addAttribute("festival", currentFestival);
         return "cateringDeleteProduct";
     }
 

@@ -1,5 +1,7 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout.html(title=Catering Produkte)}">
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
@@ -9,6 +11,7 @@
 		<header>
 			<nav th:include="header :: header"></nav>
 			<h1>Catering Produkte</h1>
+			<div th:include="festivalHeader :: festivalHeader"></div>
 		</header>
 		<section layout:fragment="content">
 			<table border="1">

@@ -151,4 +151,10 @@ public class FestivalController {
 		System.out.println(currentFestival.getName());
 		return "redirect:equipments";
 	}
+
+	@GetMapping("/cateringProductCatalogPre1")
+	String cateringProductCatalogPre1(Model model, RedirectAttributes ra) {
+		ra.addFlashAttribute("currentFestivalId", new LongOrNull(currentFestival.getId()));
+		return "redirect:cateringProductCatalog";
+	}
 }

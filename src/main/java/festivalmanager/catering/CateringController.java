@@ -10,7 +10,7 @@ public class CateringController {
 
 	@GetMapping("/catering")
 	public String cateringPage(Model model) {
-		return "cateringproductcatalog";
+		return "catering";
 	}
 
 }
