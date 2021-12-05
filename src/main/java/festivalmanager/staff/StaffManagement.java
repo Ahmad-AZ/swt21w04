@@ -32,7 +32,7 @@ public class StaffManagement {
 		var password = Password.UnencryptedPassword.of(form.getPassword());
 		var userAccount = userAccountManagement.create(form.getName(), password, Role.of(form.getRole()));
 
-		return staff.save(new Person(festivalId, form.getName(), form.getRole(), userAccount));
+		return staff.save(new Person(festivalId, form.getName(), form.getRole(), form.getSalary(), userAccount));
 	}
 
 	public void removePerson(RemoveStaffForm form) {
