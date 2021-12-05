@@ -50,8 +50,8 @@ public class CateringProductCatalogController {
         return "cateringEditProduct";
     }
 
-    @PostMapping("/cateringEditProduct/editData")
-    String editProductData(Model model, CateringProduct formularData) {
+    @PostMapping("/cateringEditProduct/editData/{productid}")
+    String editProductData(@PathVariable ProductIdentifier productid, Model model, CateringProduct formularData) {
 
         System.out.println("Name:" + formularData.getName());
         return "redirect:/cateringProductCatalog";
