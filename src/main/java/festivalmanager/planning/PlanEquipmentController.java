@@ -7,7 +7,9 @@ import java.util.Map;
 import java.util.Optional;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.validator.constraints.Range;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -73,7 +75,7 @@ public class PlanEquipmentController {
 	}
 	
 	@PostMapping("/rentEquipmentAmount")
-	public String rentEquipmentAmount(Model model,
+	public String rentEquipmentAmount(Model model, // @Valid EquipmentsForm form, Errors errors) {
 					  @RequestParam("equipmentsId") long equipmentsId,
 					  @RequestParam("equipmentsAmount") long equipmentsAmount) {
 		//System.out.println("inputid" + equipmentsId);
@@ -82,10 +84,12 @@ public class PlanEquipmentController {
 		Equipment equipment = equipmentManagement.findById(equipmentsId).get();
 		if(equipment.getType().equals(EquipmentType.STAGE)) {
 			// TODO:  for more Stage types: get number of already rented stages 
-//			if(equipmentsAmount > currentFestival.getLocation().getStageCapacity()) {
+			if(equipmentsAmount > currentFestival.getLocation().getStageCapacity()) {
 //				reuslt.rejectValue("equipmentError", null, "Die maximale Bühnenanzahl darf nicht überschritten werden");
 //				return "equipments";
-//			}
+				// set Amount to max if higher than max
+				equipmentsAmount = currentFestival.getLocation().getStageCapacity();
+			}
 		
 		}
 
@@ -93,4 +97,7 @@ public class PlanEquipmentController {
 		
 		return "redirect:/equipmentsPre1";
 	}
+	
 }
+
+
