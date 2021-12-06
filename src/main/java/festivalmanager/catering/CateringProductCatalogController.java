@@ -101,7 +101,7 @@ public class CateringProductCatalogController {
                 System.out.println("Pfand:" + formularData.deposit);
             }
 
-            if (product.getFilling() != formularData.filling) {
+            if (Double.compare(product.getFilling(), formularData.filling) != 0) {
                 changed = true;
                 product.setFilling(formularData.filling);
                 System.out.println("Füllmenge:" + formularData.filling);

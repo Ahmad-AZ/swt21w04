@@ -25,7 +25,7 @@ public class TicketController {
 
 
 	// TODO: @PreAuthorize("hasRole('PLANNER')")
-	@RequestMapping("/tickets")
+	@GetMapping("/tickets")
 	public String showTicketInfo(Model model) {
 
 
