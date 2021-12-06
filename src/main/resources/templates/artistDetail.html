@@ -6,33 +6,45 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
-    <title>artistdetails</title>
+    <title>Artistdetails</title>
 </head>
 <body>
 <header>
     <nav th:include="header :: header"></nav>
-    <h1>Künstler-Details</h1>
-    <nav th:include="festivalHeader :: festivalHeader"></nav>
+    <h1>Artistdetails</h1>
 </header>
 <section layout:fragment="content">
     <div class="content">
         </br>
-        <a class="item" href="artistOverview.html" th:href="@{/artistPre1}">Zurück</a>
-
+        <a class="item" href="artists.html" th:href="@{/artists}">Zurück</a>
+        </br></br>
         </br>
         <p>Name:</p>
         <p th:text="${artist.name}">Keine gefunden</p>
-        <p>Buchungen</p>
+        <br/>
+        <p>Preis pro Tag:</p>
+        <p th:text="${artist.price}">Keine gefunden</p>
+        <br/>
+        <p>Buchungen:</p>
+        <p th:if="${hasBookings == false}">Keine</p>
+        <br/>
+        <p>Show:</p>
+        <div th:each="show : ${artist.getShows()}" class="text" th:text="${show.getName()}"></div>
+        <br/>
+        <table class="ui celled table" th:if="${hasBookings != false}">
+            <thead>
+            <th>Startdatum</th>
+            <th>Enddatum</th>
+            </thead>
+            <tbody th:remove="all-but-first">
+            <tr th:each="booking : ${artist.getBookingArtist()}">
+                <td class="text" th:text="${booking.startDate}">Startdatum</td>
+                <td class="text" th:text="${booking.endDate}">Enddatum</td>
+            </tr>
+            </tbody>
+        </table>
         </br>
-        <form class="ui form" method="post" th:action="@{/bookArtist}" th:object="${booking}">
-            <input type="hidden" name="artist" th:value="${artist.id}"/>
-            <input type="hidden" name="currentlyBooked" th:value="${currentlyBooked == true}"/>
-            <button type="submit" class="ui button" th:if="${currentlyBooked == false}">Buchen</button>
-            <button type="submit" class="ui button" th:if="${currentlyBooked == true}">Buchung zurücknehmen</button>
-            <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
-        </form>
     </div>
 
 </section>
 </body>
-</html>

@@ -4,6 +4,7 @@ import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.hiring.Artist;
 import festivalmanager.hiring.HiringManagement;
+import org.springframework.data.util.Streamable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -34,20 +37,12 @@ public class PlanOffersController {
 			Festival current = festival.get();
 			this.currentFestival = current;
 			model.addAttribute("artistList", hiringManagement.findAll());
-			//		System.out.println("why it comes currentFestivalnothing"+currentFestival.getLocation());
-			//		if (!currentFestival.artistsIsEmpty()) {
-			//			System.out.println("nafsd");
-			//		}
-			////			Iterator<Artist> iterator = currentFestival.getArtist().iterator();
-			////			while (iterator.hasNext()) {
-			////				model.addAttribute("bookedArtistId",iterator.next().getId());
-			////			}
-			////		}
-			//		else{
-			//			model.addAttribute("bookedArtistId", 0);
-			//
-			//		}
-			// required for second nav-bar
+			if (!current.artistsIsEmpty()){
+				model.addAttribute("bookedArtistId", current.getArtist());
+			}
+			else {
+				model.addAttribute("noArtist", true);
+			}
 			model.addAttribute("festival", current);
 			System.out.println(current.artistsIsEmpty());
 			if (!current.artistsIsEmpty()) {
@@ -76,23 +71,20 @@ public class PlanOffersController {
 			Artist current = artist.get();
 
 			model.addAttribute("artist", current);
+			model.addAttribute("hasBookings", current.hasBookingArtist());
 
-			// to hide book Button if artist is booked
-//			if (!currentFestival.getArtist().isEmpty()) {
-//				for (Artist artist1: currentFestival.getArtist()) {
-//					if (artist1.getId() == current.getId()) {
-//						model.addAttribute("currentlyBooked", true);
-//					}
-//				}
-//			}
-//			else {
-			model.addAttribute("currentlyBooked", false);
-//			}
+			if (!currentFestival.artistsIsEmpty()){
+				for (Artist artist1 : currentFestival.getArtist()) {
+					model.addAttribute("ArtistCurrentlyBooked", artist1.getId() == current.getId());
+				}
+			}
+			else{
+				model.addAttribute("ArtistCurrentlyBooked", false);
+			}
 
-			// required for second nav-bar
 			model.addAttribute("festival", currentFestival);
 
-			return "artistDetail";
+			return "artistDetailPlan";
 
 		} else {
 			throw new ResponseStatusException(
@@ -105,10 +97,10 @@ public class PlanOffersController {
 		Optional<Artist> artist = hiringManagement.findById(artistId);
 		if (artist.isPresent()) {
 			Artist current = artist.get();
-			System.out.println("hallo");
+			if (currentlyBooked) {
+				planOffersManagement.unbookArtist(current, currentFestival);
+			}
 			currentFestival.addArtist(current);
-
-			// Temporarily added by Jan to get finances working, to be edited by Tuan
 			festivalManagement.saveFestival(currentFestival);
 
 			for (Artist artist1:currentFestival.getArtist()){
@@ -122,5 +114,20 @@ public class PlanOffersController {
 			);
 		}
 	}
-
+	@GetMapping("/artistOverview/unbook")
+	public String unbookArtist(){
+		for (Artist artist1 : currentFestival.getArtist()){
+			Optional<Artist> artist = hiringManagement.findById(artist1.getId());
+			if (artist.isPresent()) {
+				Artist current = artist.get();
+				planOffersManagement.unbookArtist(current, currentFestival);
+			}
+			else{
+				throw new ResponseStatusException(
+						HttpStatus.NOT_FOUND, "entity not found"
+				);
+			}
+		}
+		return "redirect:/artistPre1";
+	}
 }

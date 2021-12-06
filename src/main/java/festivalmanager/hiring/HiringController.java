@@ -22,7 +22,7 @@ public class HiringController {
 //			OffersArtists offersArtists,
 			ArtistRepository artistRepository,
 			HiringManagement hiringManagement) {
-		this.hiringManagement = hiringManagement;
+		this.hiringManagement = hiringManagement; 
 //		this.offersArtists = offersArtists;
 		this.currentFestival = null;
 	}
@@ -44,8 +44,26 @@ public class HiringController {
 //
 //		return "artistOverview";
 //	}
-
 	@GetMapping("/artists/{artistId}")
+	public String artistDetail(@PathVariable Long artistId, Model model){
+		Optional<Artist> artist = hiringManagement.findById(artistId);
+
+		if (artist.isPresent()) {
+			Artist current = artist.get();
+			model.addAttribute("artist", current);
+			model.addAttribute("hasBookings", current.hasBookingArtist());
+			model.addAttribute("show", current.getShows());
+
+			return "artistDetail";
+		}
+		else {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
+		}
+	}
+
+	@GetMapping("/artists/{artistId}/edit")
 	public String artistEdit(@PathVariable Long artistId, Model model) {
 		Optional<Artist> artist = hiringManagement.findById(artistId);
 

@@ -1,0 +1,42 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
+		<title>Catering Produkt hinzuf&uuml;gen</title>
+	</head>
+	<body>
+        <header>
+			<nav th:include="header :: header"></nav>
+            <h1>Catering Produkt hinzuf&uuml;gen</h1>
+            <div th:include="festivalHeader :: festivalHeader"></div>
+		</header>
+		<section layout:fragment="content">
+            <form class="ui form" method="post" th:action="@{/cateringAddProduct/editData}">
+                <table border="1">
+                    <tr>
+                        <td>Produktname</td>
+                        <td><input type="text" name="name"></td>
+                    </tr>
+                    <tr>
+                        <td>Verkaufspreis</td>
+                        <td><input type="text" name="price" value="EUR 2.50"></td>
+                    </tr>
+                    <tr>
+                        <td>Pfand</td>
+                        <td><input type="text" name="deposit" value="EUR 0.25"></td>
+                    </tr>
+                    <tr>
+                        <td>F&uuml;llmenge</td>
+                        <td><input type="number" step="0.01" name="filling" value="0.00"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button type="submit">hinzuf&uuml;gen</button></td>
+                    </tr>
+                </table>
+            </form>
+            </section>
+        </section>
+    </body>
+</html>

@@ -12,7 +12,6 @@ import javax.persistence.Entity;
 
 @Entity
 public class CateringProduct extends Product {
-    private int productID;
     private Money deposit;
     private double filling;
 
@@ -20,23 +19,26 @@ public class CateringProduct extends Product {
     private CateringProduct() {
     }
 
-    public CateringProduct(int productID, String productName, Money salesPrice, Money deposit, double filling) {
+    public CateringProduct(String productName, Money salesPrice, Money deposit, double filling) {
         super(productName, salesPrice);
 
-        this.productID = productID;
         this.deposit = deposit;
         this.filling = filling;
-    }
-
-    public int getProductID() {
-        return productID;
     }
 
     public double getFilling() {
         return filling;
     }
 
+    public void setFilling(double filling) {
+        this.filling = filling;
+    }
+
     public Money getDeposit() {
         return deposit;
+    }
+
+    public void setDeposit(Money deposit) {
+        this.deposit = deposit;
     }
 }

@@ -17,40 +17,34 @@
 
 
 
-    <form class="item"  th:action="@{/tickets/create}" method="post" th:object="${ticket}">
-        <label for="name">Festival name:</label><br>
-        <input type="text" id="name"  th:field="*{festivalName}" required><br><br>
-
-        <label for="date">Festival Date:</label><br>
-        <input type="date" id="date" th:field="*{festivalDate}" required><br><br>
+    <div style="text-align: center">
 
 
-        <label for="count1">Quantity of Camping Tickets </label><br>
-        <input type="number" id="count1" th:field="*{campingTicketsCount}"><br><br>
+        <form class="item"  th:action="@{/tickets/create}" method="post" th:object="${ticket}">
+
+            <h5>Anzahl der Tickets</h5>
+            <label for="count1">Camping-Tickets:</label><br>
+            <input type="number" id="count1" th:field="*{campingTicketsCount}"><br><br>
+
+            <label for="count">Tagestickets:</label><br>
+            <input type="number" id="count" th:field="*{dayTicketsCount}"><br><br>
 
 
-        <label for="price1">Camping Ticket Price </label><br>
-        <input type="number" id="price1" th:field="*{campingTicketPrice}"><br><br>
+            <h5>Ticketpreise</h5>
+            <label for="price1">Camping-Tickets:</label><br>
+            <input type="number" id="price1" th:field="*{campingTicketPrice}"><br><br>
 
-        <label for="count">Quantity of Day Tickets </label><br>
-        <input type="number" id="count" th:field="*{dayTicketsCount}"><br><br>
+            <label for="price">Day Ticket Price </label><br>
+            <input type="number" id="price" th:field="*{dayTicketPrice}"><br><br>
 
 
-        <label for="price">Day Ticket Price </label><br>
-        <input type="number" id="price" th:field="*{dayTicketPrice}"><br><br>
+            <br><br>
 
-        <label for="type">Choose Ticket Type:</label><br>
+            <input type="submit" value="Auswählen">
+        </form>
 
-        <select name="ticketType" id="type" th:field="*{ticketType}">
-            <option th:each="ticketType : ${T(festivalmanager.ticketShop.TicketType).values()}"
-                    th:value="${ticketType}" th:text="${ticketType.displayValue}" ></option>
+    </div>
 
-        </select>
-
-        <br><br>
-
-        <input type="submit" value="Submit">
-    </form>
 
 
 </section>

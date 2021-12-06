@@ -30,6 +30,10 @@ public class Booking implements Serializable {
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}
+	
+	public long getId() {
+		return id;
+	}
 
 	public LocalDate getEndDate() {
 		return endDate;

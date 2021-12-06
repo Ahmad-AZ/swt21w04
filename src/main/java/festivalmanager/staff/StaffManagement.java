@@ -32,7 +32,7 @@ public class StaffManagement {
 		var password = Password.UnencryptedPassword.of(form.getPassword());
 		var userAccount = userAccountManagement.create(form.getName(), password, Role.of(form.getRole()));
 
-		return staff.save(new Person(festivalId, form.getName(), form.getRole(), userAccount));
+		return staff.save(new Person(festivalId, form.getName(), form.getRole(), form.getSalary(), userAccount));
 	}
 
 	public void removePerson(RemoveStaffForm form) {
@@ -46,6 +46,10 @@ public class StaffManagement {
 	public void changeRole(ChangeRoleForm form) {
 		Optional<Person> person = findById(form.getId());
 		if (person.isPresent()) {
+			if (person.get().getRole().equals("ADMIN") || person.get().getRole().equals("MANAGER")) {
+				return;
+			}
+
 			person.get().getAccount().remove(Role.of(person.get().getRole()));
 			person.get().getAccount().add(Role.of(form.getRole()));
 			person.get().setRole(form.getRole());
@@ -63,7 +67,7 @@ public class StaffManagement {
 		return staff.findAll();
 	}
 	public Streamable<Person> findByFestivalId(long festivalId) {
-		return staff.findByFestivalId(festivalId);
+		return staff.findByFestivalId(festivalId).and(staff.findByFestivalId(-1));
 	}
 
 	public Optional<Person> findById(long id) {

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html(title=${location.name})}">
+<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
+	    <title>Locationdetails</title>
+</head>
+<body>
+	<header>
+		<nav th:include="header :: header"></nav>
+		<h1>Locationdetails</h1>
+		<nav th:include="festivalHeader :: festivalHeader"></nav>
+	</header>
+	<section layout:fragment="content">
+          <div class="content">
+          	</br>
+          	<a class="item" href="locationOverview.html" th:href="@{/locationPre1}">Zurück</a>
+          	</br></br>
+          	<div class="image">
+          		<img th:src="@{/resources/img/location/{name}.jpg(name=${location.image})}"
+                             src="../static/resources/img/location/HSZ_image.jpg"/>
+          	</div>                             
+            </br>
+        	<p>Name:</p>
+            <p th:text="${location.name}">Keine gefunden</p>
+            <br/>
+            <p>Adresse:</p>
+            <p th:text="${location.adress}">Keine gefunden</p>
+            <br/>
+			<p>Preis pro Tag:</p>
+			<p th:text="${location.pricePerDay}">Keine gefunden</p>
+			<br/>
+			<p>maximale Besucheranzahl:</p>
+			<p th:text="${location.visitorCapacity}">Keine gefunden</p>
+			<br/>
+			<p>maximale Bühnenanzahl:</p>
+			<p th:text="${location.stageCapacity}">Keine gefunden</p>
+			<br/>
+			<p>Buchungen:</p>
+			<p th:if="${hasBookings == false}">Keine</p>		
+			<div>
+			<table class="ui celled table" th:if="${hasBookings != false}">
+                <thead>
+                	<th>Startdatum</th>
+                	<th>Enddatum</th> 
+                </thead>
+                <tbody th:remove="all-but-first">   
+                	<tr th:each="booking : ${location.bookings}"> 
+                        <td class="text" th:text="${booking.startDate}">Startdatum</td>
+                        <td class="text" th:text="${booking.endDate}">Enddatum</td>
+                	</tr>
+                </tbody>
+			</table>
+			</div>
+			</br>
+			<p>Grundriss:</p>
+			<div class="groundView">
+ 			<img th:src="@{/resources/img/location/{name}.jpg(name=${location.groundView})}"
+                             src="../static/resources/img/location/HSZ_groundview.jpg"/>
+			</div>
+            </br>                           
+			<form class="ui form" method="post" th:action="@{/bookLocation}" th:object="${booking}">
+				<input type="hidden" name="location" th:value="${location.id}"/>
+				<input type="hidden" name="currentlyBooked" th:value="${currentlyBooked == true}"/>
+				<button type="submit" class="ui button" th:if="${currentlyBooked == false}">Buchen</button>
+				<button type="submit" class="ui button" th:if="${currentlyBooked == true}">Buchung zurücknehmen</button>
+				<p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p> 
+			</form>
+        </div>
+
+    </section>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package festivalmanager.staff;
 
+import festivalmanager.staff.forms.CreateStaffForm;
 import org.salespointframework.core.DataInitializer;
 import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.Role;
@@ -24,10 +25,12 @@ class StaffDataInitializer implements DataInitializer {
 
 	@Override
 	public void initialize() {
-		if (userAccountManagement.findByUsername("admin").isPresent()) {
-			return;
+		if (userAccountManagement.findByUsername("admin").isEmpty()) {
+			staffManagement.createPerson(-1, new CreateStaffForm("admin", "adminpw", "ADMIN", 0.0));
 		}
 
-		userAccountManagement.create("admin", Password.UnencryptedPassword.of("adminpw"), Role.of("ADMIN"));
+		if (userAccountManagement.findByUsername("manager").isEmpty()) {
+			staffManagement.createPerson(-1, new CreateStaffForm("manager", "managerpw", "MANAGER", 0.0));
+		}
 	}
 }

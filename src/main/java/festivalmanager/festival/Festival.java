@@ -3,14 +3,12 @@ package festivalmanager.festival;
 
 import javax.persistence.*;
 
+import festivalmanager.Equipment.Equipment;
 import festivalmanager.hiring.Artist;
 import festivalmanager.location.Location;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Festival {
@@ -26,8 +24,8 @@ public class Festival {
 	@OneToOne()
 	private Location location;
 	
-//	@OneToOne()
-//	private Finances finances; 
+	@ElementCollection
+	private Map<Long, Long> rentedEquipments = new HashMap<>();
 	
 
 	public Festival(String name, LocalDate startDate, LocalDate endDate) {
@@ -76,7 +74,7 @@ public class Festival {
 	public Location getLocation() {
 		return location; 
 	}
-	public Set<Artist> getArtist(){
+	public Iterable<Artist> getArtist(){
 		return this.artists;
 	}
 	
@@ -89,9 +87,32 @@ public class Festival {
 	public boolean artistsIsEmpty(){
 		return this.artists.isEmpty();
 	}
-	
-//	public boolean equals(Festival festival) {
-//		return this.id == festival.getId();
-//	}
 
+	public void setEquipments(long id, long amount) {
+		rentedEquipments.put(id, amount);
+	}
+	
+	public Map<Long, Long> getEquipments(){
+		return rentedEquipments;
+	}
+
+	public void deleteAll() {
+		this.artists = new HashSet<>();
+	}
+	
+
+//	public void deleteArtist(Artist artist){
+//		Iterator <Artist> i = artists.iterator();
+//		while (i.hasNext()) {
+//			if (i.next().getId() == artist.getId()){
+//				artists.remove(i);
+//			}
+//		}
+//		for (Artist artist1 : artists) {
+//			if (artist1.getId() == artist.getId()){
+//				artists.remove(artist1);
+//			}
+//		}
+//
+//	}
 }

@@ -11,13 +11,15 @@
 <body>
 <header>
     <nav th:include="header :: header"></nav>
-    <h1>Artist bearbeiten</h1>
+    <h1>Künstler bearbeiten</h1>
 </header>
 <section layout:fragment="content">
     <div class="content">
         <form class="ui form" method="post" id="form" th:action="@{/saveArtist}" th:object="${artist}" enctype="multipart/form-data">
             <label for="name"><pre>Name:</pre></label>
             <input id="name" name="name" th:field="*{name}" type="text" th:required="required"/><br>
+            <label for="price"><pre>Preis pro Tag:</pre></label>
+            <input id="price" type="number" step="0.01" name="price" th:value="${price}" th:required="required" min="0.00"/> <i>€</i></br>
             <input type="hidden" name="artist" th:value="${artist.id}"/>
             <Button type="submit" class="ui button">Speichern</Button>
         </form>

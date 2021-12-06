@@ -15,6 +15,7 @@
             <div class="list">
                 <div>Benutzername: <a th:text="${person.name}"></a></div>
                 <div>Rolle: <a th:text="${person.role}" th:href="@{/staff/{festivalId}/change_role/{id}(id = ${person.id}, festivalId = ${festival.id})}"></a></div>
+                <div>Stundenlohn: <a th:text="${person.salary}"></a></div>
                 <a th:href="@{/staff/{festivalId}/change_password/{id}(id = ${person.id}, festivalId = ${festival.id})}">Passwort ändern</a>
             </div>
         </div>

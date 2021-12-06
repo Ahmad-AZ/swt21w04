@@ -20,16 +20,16 @@
 		            <p th:text="${festival.name}">Keine gefunden</p>
 		            <br/>
 					<p>Anfangsdatum:</p>
-					<p th:text="${startDate}">Keine gefunden</p>
+					<p th:text="${festival.startDate}">Keine gefunden</p>
 					<br/>
 					<p>Enddatum:</p>
-					<p th:text="${endDate}">Keine gefunden</p>
+					<p th:text="${festival.endDate}">Keine gefunden</p>
 					<br/>
 					<p>Location:</p>
-					<p th:if="${location==null}">Keine</p>
-					<p th:if="${location!=null}" th:text="${location.name}">hier sollte ihre Location stehen</p>
+					<p th:if="${festival.location==null}">Keine</p>
+					<p th:if="${festival.location!=null}" th:text="${location.name}">hier sollte ihre Location stehen</p>
 					<br/>
-					<p>Artist:</p>
+					<p>Künstler:</p>
 					<p th:if="${festival.artistsIsEmpty()}">Keine</p>
 					<p th:if="${!festival.artistsIsEmpty()}">
 						<div class th:each="artist : ${artists}" th:object="${artist}" th:text="${artist.name}">

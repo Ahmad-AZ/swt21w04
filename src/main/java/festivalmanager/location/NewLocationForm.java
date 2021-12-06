@@ -10,6 +10,7 @@ import java.nio.file.StandardCopyOption;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,18 +20,19 @@ class NewLocationForm {
 	private final String UPLOAD_DIR = Paths.get("target\\classes\\static\\resources\\img\\location").toAbsolutePath().toString()+ "\\";
 	
 	@NotEmpty   
+	@NotNull
 	private final String name; 
 	
-	@NotEmpty  
+	@NotEmpty
+	@NotNull
 	private final String adress;
 	
- 
 	private final MultipartFile image;
 	
-
 	private final MultipartFile groundView;
 	
 	@Min(value = 0) 
+	@NotNull
 	private final Double pricePerDay;
 
 	@Min(value = 0)  

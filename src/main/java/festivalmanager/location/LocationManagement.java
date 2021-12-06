@@ -64,10 +64,14 @@ public class LocationManagement {
 		location.setStageCapacity(form.getStageCapacity());
 		location.setVisitorCapacity(form.getVisitorCapacity());
 		if (form.getImageFile() != null) {
-			location.setImage(form.getImage());
+			if (!(form.getImageFile().isEmpty())) {
+				location.setImage(form.getImage());
+			}	
 		}
 		if (form.getGroundViewFile() != null) {
-			location.setGroundView(form.getGroundView());
+			if (!(form.getGroundViewFile().isEmpty())) {
+				location.setGroundView(form.getGroundView());
+			}
 		}
 	
 		return locations.save(location);

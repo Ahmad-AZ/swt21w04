@@ -15,15 +15,18 @@ public class Person {
 
 	private String role;
 
+	private double salary;
+
 	@OneToOne
 	private UserAccount account;
 
 	public Person() {}
 
-	public Person(long festivalId, String name, String role, UserAccount account) {
+	public Person(long festivalId, String name, String role, double salary, UserAccount account) {
 		this.festivalId = festivalId;
 		this.name = name;
 		this.role = role;
+		this.salary = salary;
 		this.account = account;
 	}
 
@@ -43,6 +46,9 @@ public class Person {
 		this.role = role;
 	}
 
+	public Double getSalary() {
+		return salary;
+	}
 	public UserAccount getAccount() {
 		return account;
 	}

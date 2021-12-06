@@ -20,11 +20,13 @@ public class HiringManagement {
 	public HiringManagement(ArtistRepository artists) {
 		Assert.notNull(artists, "ArtistRepository must not be null");
 		this.artists = artists;
+
 	}
 
 	public Artist createAritst(NewArtistForm form){
 		Assert.notNull(form, "form must not be null");
-		return artists.save(new Artist(form.getName()));
+		Money price = Money.of(form.getPrice(), EURO);
+		return artists.save(new Artist(form.getName(), price));
 	}
 
 	public Streamable<Artist> findAll(){
@@ -41,7 +43,12 @@ public class HiringManagement {
 
 	public Artist editArtist(Artist artist, NewArtistForm form) {
 		artist.setName(form.getName());
+		artist.setPrice(Money.of(form.getPrice(), EURO));
 
+		return artists.save(artist);
+	}
+
+	public Artist saveArtist(Artist artist) {
 		return artists.save(artist);
 	}
 
