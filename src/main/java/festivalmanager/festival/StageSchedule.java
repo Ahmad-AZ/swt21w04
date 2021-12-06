@@ -26,6 +26,8 @@ public class StageSchedule {
 	@ElementCollection
 	private Map<TimeSlot, Long> stageSchedule = new HashMap<>();
 	
+	public StageSchedule() {}
+	
 	public StageSchedule(Long stageId) {
 		setStageId(stageId);
 	}

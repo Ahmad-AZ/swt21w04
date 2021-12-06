@@ -2,6 +2,7 @@ package festivalmanager.planning;
 
 import java.util.Optional;
 
+import org.salespointframework.time.Interval;
 import org.springframework.data.util.Streamable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -31,11 +32,13 @@ public class PlanScheduleController {
 		if(currentFestivalId != 0) {
 			this.currentFestivalId = currentFestivalId;
 		}
-		
 		Optional<Festival> festival = festivalManagement.findById(currentFestivalId);
 		if (festival.isPresent()) {
 			Festival current = festival.get();
+
 			
+			model.addAttribute("dayList", current.getFestivalInterval());
+			model.addAttribute("stageList", planScheduleManagement.getStages(currentFestivalId));
 			model.addAttribute("festival", current);
 			return "schedule";
 		} else {

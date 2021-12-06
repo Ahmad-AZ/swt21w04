@@ -28,13 +28,14 @@
 		            	<th> TimeSlot4</th>
 		            	<th> TimeSlot5</th>
 		            </thead>
-		            <tbody th:remove="all-but-first" >   
-		            	<tr >
-		            		<td>StageNumber</td> 
-		                    <td class="text" >Show1</td>
+		            <tbody th:remove="all-but-first" th:each="stage : ${stageList}">   
+		            	<tr>
+		            		<td> <div class="text" th:text="${stage}"/></td> 
+		                    
 		                    <td class="text">Show2</td>
 		            	</tr>
 		            </tbody>
+		            
 				</table>
             </div>
         </div>

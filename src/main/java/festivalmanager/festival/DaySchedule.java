@@ -1,5 +1,6 @@
 package festivalmanager.festival;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,17 +18,23 @@ import javax.persistence.OneToMany;
 import festivalmanager.festival.StageSchedule.TimeSlot;
 
 @Entity
-public class DaySchedule {
+public class DaySchedule implements Serializable {
 		
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6550089235475594083L;
+
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
 	private LocalDate day;
 	
-	
-	// StageId, StageScheduleId
 	@OneToMany
 	private List<StageSchedule> stageSchedules = new ArrayList<>();
+	
+	
+	public DaySchedule() {}
 	
 	public DaySchedule(LocalDate day) {
 		this.setDay(day);

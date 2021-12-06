@@ -1,7 +1,8 @@
 package festivalmanager.planning;
 import festivalmanager.Equipment.Equipment;
+import festivalmanager.Equipment.Equipment.EquipmentType;
 import festivalmanager.Equipment.EquipmentManagement;
-
+import festivalmanager.Equipment.Stage;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 
@@ -28,22 +29,33 @@ public class PlanEquipmentManagement {
 	}
 
 	public boolean rentEquipment(long id, long amount, Festival festival){
-		currentMaxNumberOfStage= festival.getLocation().getStageCapacity();
 		
 		Equipment equipment = equipmentManagement.findById(id).get();
 		
-		// only if type == stage + check current rented stages
-		if(amount <= festival.getLocation().getStageCapacity()) {
-			festival.setEquipments(id, amount);
-			System.out.println("works");
-			festivalManagement.saveFestival(festival);
-			return true;
-		}
-		else {
-			return false;
-		}
+	
+		festival.setEquipments(id, amount);
+		festivalManagement.saveFestival(festival);
+		return true;
 	}
 	
+	public boolean rentStage(String name, Equipment equipment, long festivalId) {
+		
+		Stage stage = new Stage(name, equipment.getRentalPerDay(), equipment.getLength(), equipment.getWidth());
+		equipmentManagement.saveEquipment(stage);
+		Festival festival = festivalManagement.findById(festivalId).get();
+		festivalManagement.saveFestival(festival);
+		
+		return true;
+	}
+	
+//	public boolean rentStage(Stage stage, Festival festival) {
+//		
+//		festival.addStage(stage);
+//		festivalManagement.saveFestival(festival);
+//		
+//		return true;
+//	}
+//	
 //	public boolean unrent(Equipment equipment){
 //		if (!equipments.contains(equipment)){
 //			System.out.println("there is no such equipment to remove");
