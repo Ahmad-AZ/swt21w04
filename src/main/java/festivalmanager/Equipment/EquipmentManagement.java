@@ -32,4 +32,8 @@ public class EquipmentManagement {
 		System.out.println("find id " + id);
 		return equipments.findById(id);
 	}
+	
+	public void removeById(Long id) {
+		equipments.deleteById(id);
+	}
 }

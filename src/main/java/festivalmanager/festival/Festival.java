@@ -137,12 +137,16 @@ public class Festival {
 		return null;
 	}
 	
-	public List<Stage> getStages(){
+	public Iterable<Stage> getStages(){
 		return stages;
 	}
 	
 	public boolean addStage(Stage stage) {
 		return stages.add(stage);
+	}
+	
+	public boolean removeStage(Stage stage) {
+		return stages.remove(stage);
 	}
 	
 

@@ -16,6 +16,7 @@
 		<div th:include="festivalHeader :: festivalHeader"></div>
 	</header>
 	<section layout:fragment="content">
+		<h3>Gegenstände</h3>
 		<div class="equipments" th:each="equipment : ${equipmentsMap.keySet()}">
 			<div class="normal equipments">
 				 <form method="post" id="form" th:action="@{/rentEquipmentAmount}">
@@ -25,10 +26,12 @@
 					 	<input id="amount" type="number" name="equipmentsAmount" th:value="${equipmentsMap.get(equipment)}"/>					
 				        <input type ="submit" th:value="Anwenden"><br>
 			    </form>
+			    </br>
 			</div>
 		</div>
+		<h3>Bühnen</h3>	
 		<form role="form" th:action="@{/addStage}" method="post">
-            <div class="text">Bühne </div>
+            <div class="text" th:text="${equipmentStage.name}">Name</div>
             <div class="field" >
                 <label for="name">Name</label>
                 <input id="name" name="name" required="required"></input>
@@ -38,6 +41,16 @@
             </div>
             <input type ="submit" th:value="Mieten"><br>
         </form>	
+        </br>
+        <h4>gemietete Bühnen</h4>
+        <div class="stageList">
+            <ul class="list">
+                <li class="list-entry" th:each="stage : ${stageList}">
+                    <p th:text="${stage.name}">Bühnen Name</p>
+                    <a th:href="@{equipments/remove/{id} (id = ${stage.id})}">X</a>
+                </li>
+            </ul>
+        </div>
     </section>
 </body>
 </html>
