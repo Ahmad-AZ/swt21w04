@@ -7,7 +7,11 @@ import java.util.Map;
 import java.util.Optional;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Range;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +25,7 @@ import org.springframework.web.server.ResponseStatusException;
 import festivalmanager.Equipment.Equipment;
 import festivalmanager.Equipment.Equipment.EquipmentType;
 import festivalmanager.Equipment.EquipmentManagement;
-
+import festivalmanager.Equipment.Stage;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 
@@ -41,7 +45,7 @@ public class PlanEquipmentController {
 		this.currentFestivalId = 0;
 	}
 	
-	// shows Locations Overview
+	// shows Equipments Overview
 	@GetMapping("/equipments")  
 	public String equipments(Model model, @ModelAttribute("currentFestivalId") long currentFestivalId) {
 		if(currentFestivalId != 0) {
@@ -57,8 +61,14 @@ public class PlanEquipmentController {
 						
 			for (Equipment anEquipment : equipmentManagement.findAll()) {
 				long amount = current.getEquipments().getOrDefault(anEquipment.getId(), (long) 0);
-				equipmentsMap.put(anEquipment, amount);
+				if(anEquipment.getType().equals(EquipmentType.STAGE)) {
+					model.addAttribute("equipmentStage", anEquipment);
+					System.out.println("ontime");
+				}else {
+					equipmentsMap.put(anEquipment, amount);
+				}
 			}
+
 			model.addAttribute("equipmentsMap", equipmentsMap);
 			
 			// required for secound nav-bar
@@ -68,29 +78,79 @@ public class PlanEquipmentController {
 			throw new ResponseStatusException(
 					HttpStatus.NOT_FOUND, "entity not found"
 			);
-		}
-		
+		}	
 	}
 	
+//	@PostMapping("/addStage")
+//	public String stages(@Valid StageEquipment stageForm, Errors errors) {
+//		if(errors.hasErrors()) {
+//			System.out.println(errors);
+//			return "equipments";
+//		} 
+//		System.out.println("here");
+//		planEquipmentManagement.rentStage(stageForm.toStage(), currentFestival);
+//		
+//		return "redirect:/equipmentsPre1";
+//	}
+	 
+	@PostMapping("/addStage")
+	public String addStages(@RequestParam("equipmentsId") long equipmentsId, @RequestParam("name") String name) {
+		
+		Equipment equipment = equipmentManagement.findById(equipmentsId).get();
+		
+		planEquipmentManagement.rentStage(name, equipment, currentFestival.getId());
+		
+		return "redirect:/equipmentsPre1";
+	}
+	
+	
 	@PostMapping("/rentEquipmentAmount")
-	public String rentEquipmentAmount(Model model,
+	public String rentEquipmentAmount(Model model, // @Valid EquipmentsForm form, Errors errors) {
 					  @RequestParam("equipmentsId") long equipmentsId,
 					  @RequestParam("equipmentsAmount") long equipmentsAmount) {
-		//System.out.println("inputid" + equipmentsId);
+	
 		
 
 		Equipment equipment = equipmentManagement.findById(equipmentsId).get();
 		if(equipment.getType().equals(EquipmentType.STAGE)) {
 			// TODO:  for more Stage types: get number of already rented stages 
-//			if(equipmentsAmount > currentFestival.getLocation().getStageCapacity()) {
+			if(equipmentsAmount > currentFestival.getLocation().getStageCapacity()) {
 //				reuslt.rejectValue("equipmentError", null, "Die maximale Bühnenanzahl darf nicht überschritten werden");
 //				return "equipments";
-//			}
-		
+				// set Amount to max if higher than max
+				equipmentsAmount = currentFestival.getLocation().getStageCapacity();
+			}
+			// TODO: new input to give names for stages			
+			
+		}else {
+			planEquipmentManagement.rentEquipment(equipmentsId, equipmentsAmount, currentFestival);
 		}
-
-		planEquipmentManagement.rentEquipment(equipmentsId, equipmentsAmount, currentFestival);
-		
 		return "redirect:/equipmentsPre1";
 	}
+	
+	
+	
+//	interface StageEquipment {
+//
+//		@NotEmpty
+//		String getName();
+//		
+//		@NotEmpty
+//		@Min(value = 0) 
+//		Double getRentalPerDay();
+//		
+//		@NotEmpty
+//		@Min(value = 0) 
+//		Integer getLength();
+//		
+//		@NotEmpty
+//		@Min(value = 0) 
+//		Integer getWidth();
+//		
+//		default Stage toStage() {
+//			return new Stage(getName(), getRentalPerDay(), getLength(), getWidth());
+//		}
+//	}
 }
+
+

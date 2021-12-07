@@ -17,18 +17,27 @@
 	</header>
 	<section layout:fragment="content">
 		<div class="equipments" th:each="equipment : ${equipmentsMap.keySet()}">
-			<div class="content">
-			
+			<div class="normal equipments">
 				 <form method="post" id="form" th:action="@{/rentEquipmentAmount}">
-				 	<div class="text" th:text="${equipment.name}">Name</div>
-				 	<label for="amount">Anzahl</label>
-				 	<input type="hidden" name="equipmentsId" th:value="${equipment.id}"/>	
-				 	<input id="amount" type="number" name="equipmentsAmount" th:value="${equipmentsMap.get(equipment)}"/>					
-			        <input type ="submit" th:value="Anwenden"><br>
+					  	<div class="text" th:text="${equipment.name}">Name</div>
+					 	<label for="amount">Anzahl</label>
+					 	<input type="hidden" name="equipmentsId" th:value="${equipment.id}"/>	
+					 	<input id="amount" type="number" name="equipmentsAmount" th:value="${equipmentsMap.get(equipment)}"/>					
+				        <input type ="submit" th:value="Anwenden"><br>
 			    </form>
 			</div>
-			</br>
-		</div>			
+		</div>
+		<form role="form" th:action="@{/addStage}" method="post">
+            <div class="text">Bühne </div>
+            <div class="field" >
+                <label for="name">Name</label>
+                <input id="name" name="name" required="required"></input>
+            </div>
+            <div class="field" >
+                <input name="equipmentsId" type="hidden" th:value="${equipmentStage.id}" required="required"/>
+            </div>
+            <input type ="submit" th:value="Mieten"><br>
+        </form>	
     </section>
 </body>
 </html>

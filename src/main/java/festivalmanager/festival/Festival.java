@@ -3,7 +3,10 @@ package festivalmanager.festival;
 
 import javax.persistence.*;
 
+import org.salespointframework.time.Interval;
+
 import festivalmanager.Equipment.Equipment;
+import festivalmanager.Equipment.Stage;
 import festivalmanager.hiring.Artist;
 import festivalmanager.location.Location;
 
@@ -24,9 +27,14 @@ public class Festival {
 	@OneToOne()
 	private Location location;
 	
+	@OneToMany()
+	private Set<DaySchedule> daySchedules = new HashSet<>();
+	
 	@ElementCollection
 	private Map<Long, Long> rentedEquipments = new HashMap<>();
 	
+	@OneToMany()
+	private List<Stage> stages = new ArrayList<>();
 
 	public Festival(String name, LocalDate startDate, LocalDate endDate) {
 		this.name = name;
@@ -66,6 +74,19 @@ public class Festival {
 	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
+	
+	public List<LocalDate> getFestivalInterval() {
+		List<LocalDate> dateList = new ArrayList<>();
+		LocalDate currentDate = startDate;
+		Interval festivalInterval = Interval.from(startDate.atStartOfDay()).to(endDate.atTime(23, 5));
+		while(festivalInterval.contains(currentDate.atTime(12, 00))) {
+			dateList.add(currentDate);
+			currentDate = currentDate.plusDays(1);
+			System.out.println( currentDate);
+		}
+		
+		return dateList;
+	}
 
 	public String getName() {
 		return name;
@@ -100,10 +121,34 @@ public class Festival {
 		this.artists = new HashSet<>();
 	}
 	
+	public boolean addDaySchedule(DaySchedule daySchedule) {
+		return daySchedules.add(daySchedule);
+	}
+	public Set<DaySchedule> getDaySchedules(){
+		return daySchedules;
+	}
+	
+	public DaySchedule getDaySchedule(LocalDate day){
+		for(DaySchedule aDaySchedule : daySchedules) {
+			if(aDaySchedule.getDay().equals(day)) {
+				return aDaySchedule;
+			}
+		}
+		return null;
+	}
+	
+	public List<Stage> getStages(){
+		return stages;
+	}
+	
+	public boolean addStage(Stage stage) {
+		return stages.add(stage);
+	}
+	
 
 //	public void deleteArtist(Artist artist){
 //		Iterator <Artist> i = artists.iterator();
-//		while (i.hasNext()) {
+//		while (i.hasNext()) { 
 //			if (i.next().getId() == artist.getId()){
 //				artists.remove(i);
 //			}
