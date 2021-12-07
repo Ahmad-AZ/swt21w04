@@ -22,15 +22,17 @@
 
 <div class="box">
     <div class='inner'>
-        <h1 th:text="${tickets.festivalId}"> festivalname</h1>
+
         <div class='info clearfix'>
 
-            <div class='wp' >Tickets<h2 th:text="${ticketCount}"></h2></div>
+            <div class="wp">Festivalname:<h2 th:text="${festival}"></h2></div>
             <div class='wp'>Type<h2 th:text="${tickets.getTicketType().displayValue}" ></h2></div>
 
         </div>
         <div class='total clearfix'>
+            <h2>Tickets <p th:text="${ticketCount}"> </p></h2>
             <h2>Total : <p th:text="${'€ '+ticketPrice}"></p></h2>
+
         </div>
     </div>
 </div>

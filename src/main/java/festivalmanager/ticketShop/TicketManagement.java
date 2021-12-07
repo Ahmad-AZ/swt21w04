@@ -1,39 +1,53 @@
 package festivalmanager.ticketShop;
 
 
-import com.sun.istack.NotNull;
+import festivalmanager.festival.Festival;
+import festivalmanager.festival.FestivalManagement;
+import festivalmanager.festival.FestivalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.devtools.classpath.ClassPathRestartStrategy;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
 public class TicketManagement {
 
-
 	@Autowired
-	final TicketRepository ticketRepository;
-	private TicketStock ticketStock;
+	private TicketRepository ticketRepo;
 
-	public TicketManagement(TicketRepository ticketRepository) {
-		this.ticketRepository = ticketRepository;
+	private FestivalManagement festival;
+
+	private Festival currentFestival;
+
+
+	public TicketManagement(FestivalManagement festival) {
+		this.festival = festival;
+		this.currentFestival = null;
 	}
-
 
 	public Ticket createTickets(@NonNull Ticket ticket) {
 
 
-		return ticketRepository.save(ticket);
-	}
-
-	public List<Ticket> allTickets(){
-
-		return ticketRepository.findAll();
+		return ticketRepo.save(ticket);
 	}
 
 
+	public Ticket allTicketsByFestival(long festivalId) {
+
+		return ticketRepo.findAllByFestivalId(festivalId);
+	}
+
+
+
+
+	public Festival findFestivalById(long id) {
+
+		return festival.findById(id).get();
+	}
 
 
 }

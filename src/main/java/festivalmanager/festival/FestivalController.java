@@ -157,4 +157,31 @@ public class FestivalController {
 		ra.addFlashAttribute("currentFestivalId", new LongOrNull(currentFestival.getId()));
 		return "redirect:cateringProductCatalog";
 	}
+
+
+	@GetMapping("/ticketsPre1")
+	String ticketShopPre1(RedirectAttributes rd){
+		rd.addFlashAttribute("festival", currentFestival);
+
+		return "redirect:/tickets";
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

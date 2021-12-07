@@ -18,20 +18,14 @@ public class Ticket {
 
 	private @Id @GeneratedValue long id;
 
-
-	public int getFestivalId() {
-		return festivalId;
-	}
-
-	public void setFestivalId(int festivalId) {
-		this.festivalId = festivalId;
-	}
-
 	@Column
-	private int festivalId;
+	private long festivalId;
+	private String festivalName;
 
 	@Column
 	private int DayTicketsCount;
+
+
 	@Column
 	private int CampingTicketsCount;
 	@Column
@@ -46,8 +40,9 @@ public class Ticket {
 	public Ticket() {
 	}
 
-	public Ticket(int festivalId, int dayTicketsCount, int campingTicketsCount, TicketType ticketType, float dayTicketPrice, float campingTicketPrice) {
+	public Ticket(long festivalId,String festivalName,  int dayTicketsCount, int campingTicketsCount, TicketType ticketType, float dayTicketPrice, float campingTicketPrice) {
 		this.festivalId= festivalId;
+		this.festivalName=festivalName;
 		DayTicketsCount = dayTicketsCount;
 		CampingTicketsCount = campingTicketsCount;
 		this.ticketType = ticketType;
@@ -97,7 +92,21 @@ public class Ticket {
 		CampingTicketPrice = campingTicketPrice;
 	}
 
+	public long getFestivalId() {
+		return festivalId;
+	}
 
+	public void setFestivalId(long festivalId) {
+		this.festivalId = festivalId;
+	}
+
+	public String getFestivalName() {
+		return festivalName;
+	}
+
+	public void setFestivalName(String festivalName) {
+		this.festivalName = festivalName;
+	}
 
 
 }
