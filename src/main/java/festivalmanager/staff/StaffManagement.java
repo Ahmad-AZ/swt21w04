@@ -3,6 +3,7 @@ package festivalmanager.staff;
 import festivalmanager.staff.forms.*;
 import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.Role;
+import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManagement;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ public class StaffManagement {
 	public void removePerson(RemoveStaffForm form) {
 		Optional<Person> person = staff.findById(form.getId());
 		if (person.isPresent()) {
-			userAccountManagement.delete(person.get().getAccount());
+			userAccountManagement.delete(person.get().getUserAccount());
 			staff.deleteById(person.get().getId());
 		}
 	}
@@ -50,8 +51,8 @@ public class StaffManagement {
 				return;
 			}
 
-			person.get().getAccount().remove(Role.of(person.get().getRole()));
-			person.get().getAccount().add(Role.of(form.getRole()));
+			person.get().getUserAccount().remove(Role.of(person.get().getRole()));
+			person.get().getUserAccount().add(Role.of(form.getRole()));
 			person.get().setRole(form.getRole());
 		}
 	}
@@ -59,7 +60,7 @@ public class StaffManagement {
 	public void changePassword(ChangePasswordForm form) {
 		Optional<Person> person = findById(form.getId());
 		if (person.isPresent()) {
-			userAccountManagement.changePassword(person.get().getAccount(), Password.UnencryptedPassword.of(form.getPassword()));
+			userAccountManagement.changePassword(person.get().getUserAccount(), Password.UnencryptedPassword.of(form.getPassword()));
 		}
 	}
 
@@ -72,5 +73,9 @@ public class StaffManagement {
 
 	public Optional<Person> findById(long id) {
 		return staff.findById(id);
+	}
+
+	public Optional<Person> findByUserAccount(UserAccount account) {
+		return staff.findByUserAccount(account);
 	}
 }
