@@ -15,6 +15,10 @@ public class MessageManagement {
 		this.repository = repository;
 	}
 
+	public void sendMessage(SendMessageForm form) {
+		repository.save(new Message(form));
+	}
+
 	Streamable<Message> findAll() {
 		return repository.findAll();
 	}

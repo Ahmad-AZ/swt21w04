@@ -16,13 +16,13 @@ import org.javamoney.moneta.Money;
 @Controller
 public class CateringProductCatalogController {
 
-	private Festival currentFestival;
-	private FestivalManagement festivalManagement;
+    private Festival currentFestival;
+    private FestivalManagement festivalManagement;
     private CateringProductCatalog catalog;
 
     public CateringProductCatalogController(CateringProductCatalog catalog, FestivalManagement festivalManagement) {
         this.catalog = catalog;
-		this.festivalManagement = festivalManagement;
+        this.festivalManagement = festivalManagement;
     }
 
     public CateringProductCatalog getCatalog() {
@@ -31,28 +31,30 @@ public class CateringProductCatalogController {
 
     @GetMapping("/cateringProductCatalog")
     String products(Model model, @ModelAttribute("currentFestivalId") LongOrNull currentFestivalId) {
-		if (currentFestivalId.getValue() != null) {
-			long longId = currentFestivalId.getValue();
-			this.currentFestival = festivalManagement.findById(longId).get();
-		}
+        if (currentFestivalId.getValue() != null) {
+            long longId = currentFestivalId.getValue();
+            this.currentFestival = festivalManagement.findById(longId).get();
+        }
 
-		model.addAttribute("productcatalog", catalog.findAll());
-		model.addAttribute("festival", currentFestival);
+        model.addAttribute("productcatalog", catalog.findAll());
+        model.addAttribute("festival", currentFestival);
         return "cateringProductCatalog";
     }
 
     @GetMapping("/cateringAddProduct")
     String addProduct(Model model) {
-		model.addAttribute("festival", currentFestival);
-		return "cateringAddProduct";
+        model.addAttribute("festival", currentFestival);
+        return "cateringAddProduct";
     }
 
     @PostMapping("/cateringAddProduct/editData")
     String addProduct(Model model, FormularData formularData) {
-        CateringProduct product = new CateringProduct(formularData.name, formularData.price, formularData.deposit,
+        Money formPrice = Money.parse(formularData.price);
+        Money formDeposit = Money.parse(formularData.deposit);
+        CateringProduct product = new CateringProduct(formularData.name, formPrice, formDeposit,
                 formularData.filling);
         catalog.save(product);
-		model.addAttribute("festival", currentFestival);
+        model.addAttribute("festival", currentFestival);
         return "redirect:/cateringProductCatalog";
     }
 
@@ -71,7 +73,7 @@ public class CateringProductCatalogController {
             model.addAttribute("product", product);
         }
 
-		model.addAttribute("festival", currentFestival);
+        model.addAttribute("festival", currentFestival);
         return "cateringEditProduct";
     }
 
@@ -89,16 +91,18 @@ public class CateringProductCatalogController {
                 System.out.println("Name:" + formularData.name);
             }
 
-            if (!product.getPrice().equals(formularData.price)) {
+            Money formprice = Money.parse(formularData.price);
+            if (!product.getPrice().equals(formprice)) {
                 changed = true;
-                product.setPrice(formularData.price);
-                System.out.println("Preis:" + formularData.price);
+                product.setPrice(formprice);
+                System.out.println("Preis:" + formprice);
             }
 
-            if (!product.getDeposit().equals(formularData.deposit)) {
+            Money formdeposit = Money.parse(formularData.deposit);
+            if (!product.getDeposit().equals(formdeposit)) {
                 changed = true;
-                product.setDeposit(formularData.deposit);
-                System.out.println("Pfand:" + formularData.deposit);
+                product.setDeposit(formdeposit);
+                System.out.println("Pfand:" + formdeposit);
             }
 
             if (Double.compare(product.getFilling(), formularData.filling) != 0) {
@@ -112,7 +116,7 @@ public class CateringProductCatalogController {
             }
 
         }
-		model.addAttribute("festival", currentFestival);
+        model.addAttribute("festival", currentFestival);
         return "redirect:/cateringProductCatalog";
     }
 
@@ -124,7 +128,7 @@ public class CateringProductCatalogController {
             model.addAttribute("product", product);
         }
 
-		model.addAttribute("festival", currentFestival);
+        model.addAttribute("festival", currentFestival);
         return "cateringDeleteProduct";
     }
 
@@ -141,10 +145,10 @@ public class CateringProductCatalogController {
 
     class FormularData {
         String name;
-        Money price, deposit;
+        String price, deposit;
         double filling;
 
-        public FormularData(String name, Money price, Money deposit, double filling) {
+        public FormularData(String name, String price, String deposit, double filling) {
             this.name = name;
             this.price = price;
             this.deposit = deposit;
