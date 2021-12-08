@@ -9,5 +9,28 @@
     </head>
     <body>
         <div th:include="header :: header"></div>
+        <div class="main">
+            <a th:href="@{/messages/{userId}/send(userId = ${userId})}">Nachricht senden</a>
+            <div>
+                <ul>
+                    <li th:each="message : ${messages}">
+                        <h3 th:text="${message.title}"></h3>
+                        <p th:text="${message.content}"></p>
+                    </li>
+                </ul>
+            </div>
+            <div class="overlay" th:if="${dialog} == 'send_message'">
+                <form class="form" th:action="@{/messages/{userId}/send(userId = ${userId})}" method="post">
+                    <select name="receiverId">
+                        <option th:each="user : ${possible_receivers}" th:text="${user.name}" th:value="${user.id}"></option>
+                    </select>
+                    <input type="text" name="title">
+                    <textarea name="content"></textarea>
+                    <input type="hidden" name="senderId" th:value="${userId}">
+                    <input type="submit" value="Entfernen">
+                    <a th:href="@{/messages/{userId}(userId = ${userId})}">Abbrechen</a>
+                </form>
+            </div>
+        </div>
     </body>
 </html>

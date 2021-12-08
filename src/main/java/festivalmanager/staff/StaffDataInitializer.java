@@ -32,5 +32,9 @@ class StaffDataInitializer implements DataInitializer {
 		if (userAccountManagement.findByUsername("manager").isEmpty()) {
 			staffManagement.createPerson(-1, new CreateStaffForm("manager", "managerpw", "MANAGER", 0.0));
 		}
+
+		if (userAccountManagement.findByUsername("catering").isEmpty()) {
+			staffManagement.createPerson(0, new CreateStaffForm("catering", "cateringpw", "CATERING", 0.0));
+		}
 	}
 }

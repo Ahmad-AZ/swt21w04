@@ -6,16 +6,16 @@ public class SendMessageForm {
 	@NotEmpty(message = "{SendMessageForm.senderId.NotEmpty}")
 	private final long senderId;
 
-	@NotEmpty(message = "{SendMessageForm.senderId.receiverId}")
+	@NotEmpty(message = "{SendMessageForm.receiverId.NotEmpty}")
 	private final long receiverId;
 
-	@NotEmpty(message = "{SendMessageForm.senderId.title}")
+	@NotEmpty(message = "{SendMessageForm.title.NotEmpty}")
 	private final String title;
 
-	@NotEmpty(message = "{SendMessageForm.senderId.content}")
+	@NotEmpty(message = "{SendMessageForm.content.NotEmpty}")
 	private final String content;
 
-	SendMessageForm(long senderId, long receiverId, String title, String content) {
+	public SendMessageForm(long senderId, long receiverId, String title, String content) {
 		this.senderId = senderId;
 		this.receiverId = receiverId;
 		this.title = title;

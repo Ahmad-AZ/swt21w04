@@ -68,7 +68,13 @@ public class StaffManagement {
 		return staff.findAll();
 	}
 	public Streamable<Person> findByFestivalId(long festivalId) {
-		return staff.findByFestivalId(festivalId).and(staff.findByFestivalId(-1));
+		if (festivalId == -1) {
+			// admins can see everyone
+			return staff.findAll();
+		} else {
+			// everyone can see people from festival and admins
+			return staff.findByFestivalId(festivalId).and(staff.findByFestivalId(-1));
+		}
 	}
 
 	public Optional<Person> findById(long id) {
