@@ -1,52 +1,59 @@
 package festivalmanager.ticketShop;
 
 
-import org.springframework.security.access.prepost.PreAuthorize;
+import com.sun.istack.NotNull;
+import festivalmanager.festival.Festival;
+import festivalmanager.festival.FestivalRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.annotation.Nullable;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 
 public class TicketController {
 
 
-	final TicketManagement ticketManagement;
+	private  TicketManagement ticketManagement;
+	private Festival currentFestival;
 
 
 	public TicketController(TicketManagement ticketManagement) {
 		this.ticketManagement = ticketManagement;
-
+		this.currentFestival = null;
 	}
-
-
 
 	// TODO: @PreAuthorize("hasRole('PLANNER')")
 	@GetMapping("/tickets")
-	public String showTicketInfo(Model model) {
+	public String showTicketInfo(@ModelAttribute Festival festival, Model model) {
 
+		this.currentFestival = festival;
+
+		System.out.println("current festival in ticket shop " + currentFestival.getName());
 
 
 		model.addAttribute("ticket", new Ticket());
-		//model.addAttribute("festival", id);
-		//System.out.println("festival id ==" + id);
+		model.addAttribute("festival", this.currentFestival);
+
 		return "ticketFrom";
 	}
 
+
 	// TODO: @PreAuthorize("hasRole('PLANNER')")
 	@PostMapping("/tickets/create")
-	public String newTickets(@ModelAttribute Ticket ticket, Model model) {
+	public String newTickets(@ModelAttribute Ticket ticket, RedirectAttributes rd) {
 
-
-
+		ticket.setFestivalName(currentFestival.getName());
+		ticket.setFestivalId(currentFestival.getId());
 		ticketManagement.createTickets(ticket);
-		model.addAttribute("tickets", ticket);
 
 
-		return "ticketResult";
+		rd.addFlashAttribute("ticket", ticket);
+
+		return "redirect:/ticketShop";
 	}
 
 
@@ -54,33 +61,53 @@ public class TicketController {
 
 	// TODO: @PreAuthorize("hasRole('TicketSeller')")
 	@PostMapping("/tickets/buy")
-	public String buyTicket(@ModelAttribute Ticket ticket, Model model) {
+	public String buyTicket( @ModelAttribute Ticket ticket, Model model) {
 
-		model.addAttribute("tickets", ticket);
 
-		int ticketCount;
+		int soldTicket;
 		double ticketPrice;
-		if (ticket.getDayTicketsCount() == 0) {
-			ticketCount = ticket.getCampingTicketsCount();
-			ticketPrice = ticket.getCampingTicketPrice();
-		} else {
-			ticketCount = ticket.getDayTicketsCount();
-			ticketPrice = ticket.getDayTicketPrice();
+		Ticket currentTickets = ticketManagement.allTicketsByFestival(currentFestival.getId());
+		if (currentTickets == null) {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
 		}
 
-		model.addAttribute("ticketCount", ticketCount);
-		model.addAttribute("ticketPrice", ticketPrice);
 
+		int currCampingTickets = currentTickets.getDayTicketsCount();
+		int currDayTickets = currentTickets.getDayTicketsCount();
+
+		// TODO: 12/7/2021 check for count of tickets
+
+		if (ticket.getDayTicketsCount() == 0) {
+
+			soldTicket = ticket.getCampingTicketsCount();
+			currentTickets.setCampingTicketsCount(currCampingTickets - soldTicket);
+			ticketPrice = currentTickets.getCampingTicketPrice();
+
+
+		} else {
+			soldTicket = ticket.getDayTicketsCount();
+			currentTickets.setCampingTicketsCount(currDayTickets - soldTicket);
+
+			ticketPrice = currentTickets.getDayTicketPrice();
+
+		}
+
+		model.addAttribute("ticketCount", soldTicket);
+		model.addAttribute("ticketPrice", ticketPrice);
+		model.addAttribute("festival",currentFestival.getName());
+		model.addAttribute("tickets", ticket);
 
 		return "ticketPrint";
 	}
 
 	// TODO: @PreAuthorize("hasRole('TicketSeller')")
 	@GetMapping("/ticketShop")
-	public String ticketOverview(Model model) {
+	public String ticketOverview(@ModelAttribute Ticket ticket, Model model) {
 
 
-		model.addAttribute("tickets", new Ticket());
+		model.addAttribute("tickets", ticket);
 
 		return "ticketShop";
 	}

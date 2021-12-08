@@ -4,6 +4,7 @@ import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.festival.LongOrNull;
 import org.salespointframework.catalog.ProductIdentifier;
+import static org.salespointframework.core.Currencies.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +12,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import java.util.Optional;
-import org.javamoney.moneta.Money;
+
+import javax.money.format.MonetaryParseException;
+
+import org.javamoney.moneta.*;
 
 @Controller
 public class CateringProductCatalogController {
@@ -49,13 +53,33 @@ public class CateringProductCatalogController {
 
     @PostMapping("/cateringAddProduct/editData")
     String addProduct(Model model, FormularData formularData) {
-        Money formPrice = Money.parse(formularData.price);
-        Money formDeposit = Money.parse(formularData.deposit);
+        boolean failure = false;
+
+        Money formPrice = Money.of(2.50, EURO);
+        try {
+            formPrice = Money.parse(formularData.price);
+        } catch (MonetaryParseException ex) {
+            failure = true;
+        }
+
+        Money formDeposit = Money.of(0.25, EURO);
+        try {
+            formDeposit = Money.parse(formularData.deposit);
+        } catch (MonetaryParseException ex) {
+            failure = true;
+        }
+
         CateringProduct product = new CateringProduct(formularData.name, formPrice, formDeposit,
                 formularData.filling);
-        catalog.save(product);
+
+        if (!failure)
+            catalog.save(product);
+        else
+            model.addAttribute("product", product);
+
         model.addAttribute("festival", currentFestival);
-        return "redirect:/cateringProductCatalog";
+
+        return (failure) ? "/cateringAddProduct" : "redirect:/cateringProductCatalog";
     }
 
     @GetMapping("/cateringEditProduct")
@@ -79,11 +103,13 @@ public class CateringProductCatalogController {
 
     @PostMapping("/cateringEditProduct/editData/{productid}")
     String editProductData(@PathVariable ProductIdentifier productid, Model model, FormularData formularData) {
+        boolean changed = false;
+        boolean failure = false;
+        CateringProduct product;
 
         Optional<CateringProduct> oProduct = catalog.findById(productid);
         if (oProduct.isPresent()) {
-            CateringProduct product = oProduct.get();
-            boolean changed = false;
+            product = oProduct.get();
 
             if (!product.getName().equals(formularData.name)) {
                 changed = true;
@@ -91,14 +117,24 @@ public class CateringProductCatalogController {
                 System.out.println("Name:" + formularData.name);
             }
 
-            Money formprice = Money.parse(formularData.price);
+            Money formprice = Money.of(2.50, EURO);
+            try {
+                formprice = Money.parse(formularData.price);
+            } catch (MonetaryParseException ex) {
+                failure = true;
+            }
             if (!product.getPrice().equals(formprice)) {
                 changed = true;
                 product.setPrice(formprice);
                 System.out.println("Preis:" + formprice);
             }
 
-            Money formdeposit = Money.parse(formularData.deposit);
+            Money formdeposit = Money.of(0.25, EURO);
+            try {
+                formdeposit = Money.parse(formularData.deposit);
+            } catch (MonetaryParseException ex) {
+                failure = true;
+            }
             if (!product.getDeposit().equals(formdeposit)) {
                 changed = true;
                 product.setDeposit(formdeposit);
@@ -116,8 +152,10 @@ public class CateringProductCatalogController {
             }
 
         }
+
         model.addAttribute("festival", currentFestival);
-        return "redirect:/cateringProductCatalog";
+
+        return (failure) ? "redirect:/cateringEditProduct/" + productid : "redirect:/cateringProductCatalog";
     }
 
     @GetMapping("/cateringDeleteProduct/{productid}")
