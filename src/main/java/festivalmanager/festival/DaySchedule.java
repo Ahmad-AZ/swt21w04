@@ -15,7 +15,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import festivalmanager.festival.StageSchedule.TimeSlot;
+import festivalmanager.Equipment.Stage;
+import festivalmanager.hiring.Show;
 
 @Entity
 public class DaySchedule implements Serializable {
@@ -48,13 +49,13 @@ public class DaySchedule implements Serializable {
 		this.day = day;
 	}
 	
-	public List<StageSchedule> getdaySchedule(){
+	public List<StageSchedule> getdaySchedules(){
 		return stageSchedules;
 	}
 	
-	public Map<TimeSlot, Long> getStageSchedule(Long stageId){
+	public List<Schedule> getStageSchedule(Stage stage){
 		for (StageSchedule aStageSchedule : stageSchedules) {
-			if(aStageSchedule.getStageId() == stageId) {
+			if(aStageSchedule.getStage().equals(stage)) {
 				return aStageSchedule.getStageSchedule();
 			}
 		}

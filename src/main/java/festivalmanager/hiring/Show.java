@@ -10,7 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "SHOWS")
+
 public class Show implements Serializable{
 
 	/**

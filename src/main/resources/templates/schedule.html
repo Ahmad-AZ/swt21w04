@@ -21,7 +21,7 @@
            		<div class="text" th:text="${day}">Tag 1</div>
 		        <table class="ui celled table" >
 		            <thead >
-		            	<th> Stage</th>
+		            	<th> Bühnenname</th>
 		            	<th> TimeSlot1</th> 
 		            	<th> TimeSlot2</th>
 		            	<th> TimeSlot3</th>
@@ -30,14 +30,18 @@
 		            </thead>
 		            <tbody th:remove="all-but-first" th:each="stage : ${stageList}">   
 		            	<tr>
-		            		<td> <div class="text" th:text="${stage}"/></td> 
-		                    
+		            		<td> <div class="text" th:text="${stage.name}"/></td> 
+		                    <td>
+		                    	<p th:text"${current.getDaySchedule(${day}).getStageSchedule(${stage}).getShowAtTS1().name}"></p>
+		                    	<a th:href="@{/schedule/{day}/{stageId}/{timeSlot} (day = ${day}, stageId = ${stage.id}, timeSlot = TS1)}">Setzen</a>
+		                    </td>
 		                    <td class="text">Show2</td>
 		            	</tr>
 		            </tbody>
 		            
 				</table>
             </div>
+            </br>
         </div>
 		
 		

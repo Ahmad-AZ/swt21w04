@@ -43,6 +43,7 @@ public class PlanEquipmentManagement {
 		Stage stage = new Stage(name, equipment.getRentalPerDay(), equipment.getLength(), equipment.getWidth());
 		equipmentManagement.saveEquipment(stage);
 		Festival festival = festivalManagement.findById(festivalId).get();
+//		if(festival.getStages().)
 		festival.addStage(stage);
 		festivalManagement.saveFestival(festival);
 		

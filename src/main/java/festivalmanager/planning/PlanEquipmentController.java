@@ -103,11 +103,14 @@ public class PlanEquipmentController {
 //	}
 	 
 	@PostMapping("/addStage")
-	public String addStages(@RequestParam("equipmentsId") long equipmentsId, @RequestParam("name") String name) {
+	public String addStages(@RequestParam("equipmentsId") @NotNull long equipmentsId, @RequestParam("name") @NotEmpty String name) {
 		
 		Equipment equipment = equipmentManagement.findById(equipmentsId).get();
 		
-		planEquipmentManagement.rentStage(name, equipment, currentFestival.getId());
+		boolean success = planEquipmentManagement.rentStage(name, equipment, currentFestivalId);
+		if(success == false) {
+			
+		}
 		return "redirect:/equipmentsPre1";
 		
 	}
@@ -121,7 +124,7 @@ public class PlanEquipmentController {
 	
 			if(current.getType().equals(EquipmentType.STAGE)) {
 				Stage stage = (Stage) current;
-				planEquipmentManagement.unrentStage(stage,currentFestival.getId());
+				planEquipmentManagement.unrentStage(stage,currentFestivalId);
 			}
 			else {
 				System.out.println("Equipment is not Stage");
@@ -141,7 +144,7 @@ public class PlanEquipmentController {
 	
 	
 	@PostMapping("/rentEquipmentAmount")
-	public String rentEquipmentAmount(Model model, // @Valid EquipmentsForm form, Errors errors) {
+	public String rentEquipmentAmount(Model model, 
 					  @RequestParam("equipmentsId") long equipmentsId,
 					  @RequestParam("equipmentsAmount") long equipmentsAmount) {
 	

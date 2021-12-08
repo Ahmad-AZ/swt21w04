@@ -81,7 +81,7 @@ public class FestivalController {
 //		}
 		
 		if (form.getEndDate().isBefore(form.getStartDate())) {
-		result.rejectValue("name", null, "Das Enddatum liegt vor dem StartDatum.");
+		result.rejectValue("endDate", null, "Das Enddatum liegt vor dem StartDatum.");
 
 		}
 		
