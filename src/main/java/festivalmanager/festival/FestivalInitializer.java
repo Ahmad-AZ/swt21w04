@@ -25,8 +25,11 @@ public class FestivalInitializer implements DataInitializer {
 		this.festivalManagement = festivalManagement;
 		this.festivals = festivals;
 		Festival f1 = new Festival("Beispielfestival", LocalDate.of(2021, 12, 6), LocalDate.of(2021, 12, 11));
+		Festival f2 = new Festival("adminfestival", LocalDate.of(2022, 2, 6), LocalDate.of(2022, 2, 9));
+
 		System.out.println("FestivalId: "+ f1.getId());
 		festivals.save(f1);
+		festivals.save(f2);
 	}
 
 	  

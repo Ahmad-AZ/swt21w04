@@ -23,7 +23,6 @@ public class Artist {
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<BookingArtist> bookingArtists = new ArrayList<>();
 
-
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Show> shows;
 
