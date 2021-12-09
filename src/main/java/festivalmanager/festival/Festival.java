@@ -23,7 +23,7 @@ public class Festival {
 	private String name;
 	private LocalDate startDate;
 	private LocalDate endDate;
-	@OneToMany
+	@OneToMany(cascade =  CascadeType.ALL)
 	private Set<Artist> artists;
 	
 	@OneToOne()

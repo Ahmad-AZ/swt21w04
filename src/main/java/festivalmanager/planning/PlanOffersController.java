@@ -100,11 +100,13 @@ public class PlanOffersController {
 			if (currentlyBooked) {
 				planOffersManagement.unbookArtist(current, currentFestival);
 			}
-			currentFestival.addArtist(current);
-			festivalManagement.saveFestival(currentFestival);
-
-			for (Artist artist1:currentFestival.getArtist()){
-				System.out.println(artist1.getName());
+			else {
+				boolean success = planOffersManagement.bookArtist(current, currentFestival);
+				System.out.println("book artist success " + success);
+				if(!success) {
+					ra.addFlashAttribute("message", "Künstler ist im diesem Zeitraum belegt");
+					return "redirect:/artistOverview"+ current.getId();
+				}
 			}
 			return "redirect:/artistPre1";
 		}
