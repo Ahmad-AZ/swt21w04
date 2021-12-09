@@ -67,9 +67,11 @@ public class StaffManagement {
 				return;
 			}
 
-			person.get().getUserAccount().remove(Role.of(person.get().getRole()));
-			person.get().getUserAccount().add(Role.of(form.getRole()));
-			person.get().setRole(form.getRole());
+			if (List.of(roles).contains(form.getRole())) {
+				person.get().getUserAccount().remove(Role.of(person.get().getRole()));
+				person.get().getUserAccount().add(Role.of(form.getRole()));
+				person.get().setRole(form.getRole());
+			}
 		}
 	}
 

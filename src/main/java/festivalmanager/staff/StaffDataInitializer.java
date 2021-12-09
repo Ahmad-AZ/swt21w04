@@ -33,8 +33,48 @@ class StaffDataInitializer implements DataInitializer {
 			staffManagement.createPerson(-1, new CreateStaffForm("manager", "managerpw", "MANAGER", 0.0));
 		}
 
-		if (userAccountManagement.findByUsername("catering").isEmpty()) {
-			staffManagement.createPerson(0, new CreateStaffForm("catering", "cateringpw", "CATERING", 0.0));
+		if (userAccountManagement.findByUsername("planner_1").isEmpty()) {
+			staffManagement.createPerson(-1, new CreateStaffForm("catering", "plannerpw", "PLANNER", 0.0));
+		}
+
+		if (userAccountManagement.findByUsername("planner_2").isEmpty()) {
+			staffManagement.createPerson(-1, new CreateStaffForm("catering", "plannerpw", "PLANNER", 0.0));
+		}
+
+		if (userAccountManagement.findByUsername("festival_leader").isEmpty()) {
+			staffManagement.createPerson(0, new CreateStaffForm("catering", "staffpw", "FESTIVAL_LEADER", 0.0));
+		}
+
+		if (userAccountManagement.findByUsername("ticket_seller_1").isEmpty()) {
+			staffManagement.createPerson(0, new CreateStaffForm("catering", "staffpw", "TICKET_SELLER", 0.0));
+		}
+
+		if (userAccountManagement.findByUsername("admission_1").isEmpty()) {
+			staffManagement.createPerson(0, new CreateStaffForm("catering", "staffpw", "ADMISSION", 0.0));
+		}
+
+		if (userAccountManagement.findByUsername("admission_2").isEmpty()) {
+			staffManagement.createPerson(0, new CreateStaffForm("catering", "staffpw", "ADMISSION", 0.0));
+		}
+
+		if (userAccountManagement.findByUsername("security_1").isEmpty()) {
+			staffManagement.createPerson(0, new CreateStaffForm("catering", "staffpw", "SECURITY", 0.0));
+		}
+
+		if (userAccountManagement.findByUsername("security_2").isEmpty()) {
+			staffManagement.createPerson(0, new CreateStaffForm("catering", "staffpw", "SECURITY", 0.0));
+		}
+
+		if (userAccountManagement.findByUsername("security_3").isEmpty()) {
+			staffManagement.createPerson(0, new CreateStaffForm("catering", "staffpw", "SECURITY", 0.0));
+		}
+
+		if (userAccountManagement.findByUsername("catering_1").isEmpty()) {
+			staffManagement.createPerson(0, new CreateStaffForm("catering", "staffpw", "CATERING", 0.0));
+		}
+
+		if (userAccountManagement.findByUsername("catering_2").isEmpty()) {
+			staffManagement.createPerson(0, new CreateStaffForm("catering", "staffpw", "CATERING", 0.0));
 		}
 	}
 }
