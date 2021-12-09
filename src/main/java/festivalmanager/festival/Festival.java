@@ -167,38 +167,7 @@ public class Festival {
 		return false;
 	}
 	
-//	public boolean addDaySchedule(DaySchedule daySchedule) {
-//		return daySchedules.add(daySchedule);
-//	}
-//	public Set<DaySchedule> getDaySchedules(){
-//		return daySchedules;
-//	}
-//	
-//	public DaySchedule getDaySchedule(LocalDate day){
-//		for(DaySchedule aDaySchedule : daySchedules) {
-//			if(aDaySchedule.getDay().equals(day)) {
-//				return aDaySchedule;
-//			}
-//		}
-//		return null;
-//	}
-//	
-//	public boolean setSchedule(LocalDate day, Stage stage, Schedule schedule) {
-//		// if dayScheudel already exists
-//		for(DaySchedule aDaySchedule : daySchedules) {
-//			if(aDaySchedule.getDay().equals(day)) {
-//				return aDaySchedule.setStageSchedule(stage, schedule);
-//			}
-//		}
-//		// else make new
-//		DaySchedule daySchedule = new DaySchedule(day);
-//		boolean success = daySchedule.setStageSchedule(stage, schedule);
-//		daySchedules.add(daySchedule);
-//		
-//		return success;
-//				
-//	}
-	
+
 	public Iterable<Stage> getStages(){
 		return stages;
 	}

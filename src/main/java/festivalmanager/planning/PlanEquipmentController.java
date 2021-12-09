@@ -77,11 +77,14 @@ public class PlanEquipmentController {
 			
 			// show current Stage List form Festival
 			model.addAttribute("stageList", current.getStages());
-
+			
 			model.addAttribute("equipmentsMap", equipmentsMap);
 			
 			// required for secound nav-bar
 			model.addAttribute("festival", current);
+			
+			//required for groundView
+			model.addAttribute("location", current.getLocation());
 			return "equipments";
 		} else {
 			throw new ResponseStatusException(

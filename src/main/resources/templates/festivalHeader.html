@@ -11,16 +11,19 @@
                 	<a class="item border-right" th:href="@{/festivalOverview/{id}(id=${festival.id})}" th:text="${festival.name}">Festivaldetails</a>
                     <a class="item border-right" th:href="@{/staff/{id}(id=${festival.id})}" sec:authorize="hasRole('USER_MANAGEMENT') || hasRole('ADMIN')">Personal</a>
                    	<a class="item border-right" href="locationOverview.html" th:href="@{/locationPre1}">Location</a>
+                   	<a class="item border-right" th:if="${festival.location!=null}" href="equipments.html" th:href="@{/equipmentsPre1}">Gegenstände</a>
                     <a class="item border-right" href="artistOverview.html" th:href="@{/artistPre1}">Künstler</a>
 					<a class="item border-right" href="finances.html" th:href="@{/financesPre1}">Finanzen</a>
                     <a class="item border-right" href="cateringProductCatalog.html" th:href="@{/cateringProductCatalogPre1}">Catering</a>
-
+					
 
 <!--                    sec:authorize="hasRole('Planner')"-->
                     <a class="item border-right"  th:href="@{/ticketsPre1}" >Ticket Shop</a>
 
 					<a class="item border-right" href="schedule.html" th:href="@{/schedulePre1}">Programm</a>
-					<a class="item border-right" th:if="${festival.location!=null}" href="equipments.html" th:href="@{/equipmentsPre1}">Gegenstände</a>
+					<a class="item border-right" th:href="@{/scheduleVisitorView/{id}(id=${festival.id})}">Spielplan</a>
+					<a class="item border-right" th:if="${festival.location!=null}" th:href="@{/mapVisitorView/{id}(id=${festival.id})}">Karte</a>
+
                 </div>
             </div>
         </div>
