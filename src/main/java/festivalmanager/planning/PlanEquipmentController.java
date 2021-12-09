@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
@@ -28,6 +29,7 @@ import festivalmanager.Equipment.EquipmentManagement;
 import festivalmanager.Equipment.Stage;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
+import festivalmanager.location.Location;
 
 
 @Controller
@@ -61,13 +63,20 @@ public class PlanEquipmentController {
 						
 			for (Equipment anEquipment : equipmentManagement.findAll()) {
 				long amount = current.getEquipments().getOrDefault(anEquipment.getId(), (long) 0);
+				// Stages would be handled extra
 				if(anEquipment.getType().equals(EquipmentType.STAGE)) {
-					model.addAttribute("equipmentStage", anEquipment);
-					System.out.println("ontime");
+					// Stage children Objects should not been visible here
+					if(!(anEquipment.getClass().getName().equals(Stage.class.getName()))) {
+						model.addAttribute("equipmentStage", anEquipment);
+					}
+
 				}else {
 					equipmentsMap.put(anEquipment, amount);
 				}
 			}
+			
+			// show current Stage List form Festival
+			model.addAttribute("stageList", current.getStages());
 
 			model.addAttribute("equipmentsMap", equipmentsMap);
 			
@@ -94,18 +103,48 @@ public class PlanEquipmentController {
 //	}
 	 
 	@PostMapping("/addStage")
-	public String addStages(@RequestParam("equipmentsId") long equipmentsId, @RequestParam("name") String name) {
+	public String addStages(@RequestParam("equipmentsId") @NotNull long equipmentsId, @RequestParam("name") @NotEmpty String name) {
 		
 		Equipment equipment = equipmentManagement.findById(equipmentsId).get();
 		
-		planEquipmentManagement.rentStage(name, equipment, currentFestival.getId());
+		boolean success = planEquipmentManagement.rentStage(name, equipment, currentFestivalId);
+		if(success == false) {
+			
+		}
+		return "redirect:/equipmentsPre1";
+		
+	}
+	
+	@GetMapping("equipments/remove/{id}")
+	public String removeStage(@PathVariable("id") Long id) {
+		
+		Optional<Equipment> equipment = equipmentManagement.findById(id);
+		if(equipment.isPresent()) {
+			Equipment current = equipment.get();
+	
+			if(current.getType().equals(EquipmentType.STAGE)) {
+				Stage stage = (Stage) current;
+				planEquipmentManagement.unrentStage(stage,currentFestivalId);
+			}
+			else {
+				System.out.println("Equipment is not Stage");
+			}
+		}
+		else {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
+		}
+		
+		
+		
 		
 		return "redirect:/equipmentsPre1";
 	}
 	
 	
 	@PostMapping("/rentEquipmentAmount")
-	public String rentEquipmentAmount(Model model, // @Valid EquipmentsForm form, Errors errors) {
+	public String rentEquipmentAmount(Model model, 
 					  @RequestParam("equipmentsId") long equipmentsId,
 					  @RequestParam("equipmentsAmount") long equipmentsAmount) {
 	

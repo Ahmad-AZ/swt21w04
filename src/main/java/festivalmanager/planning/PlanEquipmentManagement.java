@@ -43,9 +43,20 @@ public class PlanEquipmentManagement {
 		Stage stage = new Stage(name, equipment.getRentalPerDay(), equipment.getLength(), equipment.getWidth());
 		equipmentManagement.saveEquipment(stage);
 		Festival festival = festivalManagement.findById(festivalId).get();
+//		if(festival.getStages().)
+		festival.addStage(stage);
 		festivalManagement.saveFestival(festival);
 		
 		return true;
+	}
+	
+	public boolean unrentStage(Stage stage, Long festivalId) {
+		Festival festival = festivalManagement.findById(festivalId).get();
+	
+		boolean success = festival.removeStage(stage);
+		equipmentManagement.removeById(stage.getId());
+		return success;
+	
 	}
 	
 //	public boolean rentStage(Stage stage, Festival festival) {

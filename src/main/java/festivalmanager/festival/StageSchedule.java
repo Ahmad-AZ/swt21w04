@@ -1,47 +1,74 @@
 package festivalmanager.festival;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.ElementCollection;
+
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
-import festivalmanager.Equipment.Equipment;
+import festivalmanager.Equipment.Stage;
+import festivalmanager.festival.Schedule.TimeSlot;
+import festivalmanager.hiring.Show;
 
 @Entity
-public class StageSchedule {
-
-	public static enum TimeSlot {
-		TS1, TS2, TS3, TS4, TS5
-	}
+public class StageSchedule implements Serializable{
+ 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4489866224720215803L;
 	
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	private Long stageId;
+	private Stage stage;
 	
-	@ElementCollection
-	private Map<TimeSlot, Long> stageSchedule = new HashMap<>();
+	@OneToMany
+	private List<Schedule> schedules = new ArrayList<>();
 	
 	public StageSchedule() {}
 	
-	public StageSchedule(Long stageId) {
-		setStageId(stageId);
-	}
-
-	public Long getStageId() {
-		return stageId;
-	}
-
-	public void setStageId(Long stageId) {
-		this.stageId = stageId;
+	public StageSchedule(Stage stage) {
+		this.setStage(stage);
 	}
 	
-	public Map<TimeSlot, Long> getStageSchedule(){
-		return stageSchedule;
+	public List<Schedule> getSchedules(){
+		return schedules;
+	}
+	public boolean setSchedule(Schedule schedule) {
+		// if Timeslot is already filled replace
+		for(Schedule aSchedule : schedules) {
+			if(aSchedule.getTimeSlot().equals(schedule.getTimeSlot())) {
+				schedules.set(schedules.indexOf(aSchedule), schedule);
+				return true;
+			}
+		}
+		// else add new
+		return schedules.add(schedule);
+	}
+	
+	public Show getShowAtTS1() {
+		for(Schedule aSchedule : schedules) {
+			if(aSchedule.getTimeSlot().equals(TimeSlot.TS1)) {
+				return aSchedule.getShow();
+			}
+		}
+		return null;
+	}
+	
+
+	public Stage getStage() {
+		return stage;
+	}
+
+	public void setStage(Stage stage) {
+		this.stage = stage;
 	}
 
 }

@@ -16,11 +16,8 @@
                     <a class="item border-right" href="cateringProductCatalog.html" th:href="@{/cateringProductCatalogPre1}">Catering</a>
 
 
-<!--                    sec:authorize="hasRole('TicketSeller')"-->
-                    <a class="item border-right" th:href="@{/ticketShop}">Ticket Shop</a>
 <!--                    sec:authorize="hasRole('Planner')"-->
-<!--                        send the festival id -->
-                    <a class="item border-right"  th:href="@{/tickets}" sec:authorize="hasRole('Planner')">Ticket Form</a>
+                    <a class="item border-right"  th:href="@{/ticketsPre1}" >Ticket Shop</a>
 
 					<a class="item border-right" href="schedule.html" th:href="@{/schedulePre1}">Programm</a>
 					<a class="item border-right" th:if="${festival.location!=null}" href="equipments.html" th:href="@{/equipmentsPre1}">Gegenstände</a>

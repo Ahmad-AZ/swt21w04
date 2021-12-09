@@ -7,7 +7,9 @@ import org.salespointframework.time.Interval;
 
 import festivalmanager.Equipment.Equipment;
 import festivalmanager.Equipment.Stage;
+import festivalmanager.festival.Schedule.TimeSlot;
 import festivalmanager.hiring.Artist;
+import festivalmanager.hiring.Show;
 import festivalmanager.location.Location;
 
 import java.time.LocalDate;
@@ -27,8 +29,8 @@ public class Festival {
 	@OneToOne()
 	private Location location;
 	
-	@OneToMany()
-	private Set<DaySchedule> daySchedules = new HashSet<>();
+	@OneToMany(cascade = CascadeType.ALL)
+	private Set<Schedule> schedules = new HashSet<>();
 	
 	@ElementCollection
 	private Map<Long, Long> rentedEquipments = new HashMap<>();
@@ -120,29 +122,93 @@ public class Festival {
 	public void deleteAll() {
 		this.artists = new HashSet<>();
 	}
-	
-	public boolean addDaySchedule(DaySchedule daySchedule) {
-		return daySchedules.add(daySchedule);
-	}
-	public Set<DaySchedule> getDaySchedules(){
-		return daySchedules;
+	public Set<Schedule> getSchedules(){
+		return schedules;
 	}
 	
-	public DaySchedule getDaySchedule(LocalDate day){
-		for(DaySchedule aDaySchedule : daySchedules) {
-			if(aDaySchedule.getDay().equals(day)) {
-				return aDaySchedule;
+	public boolean addSchedule(TimeSlot timeSlot, Show show, Stage stage, LocalDate date) {
+
+		return schedules.add(new Schedule(timeSlot, show, stage, date));
+	}
+	
+	public Schedule getSchedule(TimeSlot timeSlot, Stage stage, LocalDate date) {
+		for(Schedule aSchedule : schedules) {
+			if(aSchedule.getDate().equals(date) && aSchedule.getStage().equals(stage) && aSchedule.getTimeSlot().equals(timeSlot)) {
+				return aSchedule;
 			}
 		}
 		return null;
 	}
 	
-	public List<Stage> getStages(){
+	public String getScheduleShowName(TimeSlot timeSlot, Stage stage, LocalDate date) {
+		for(Schedule aSchedule : schedules) {
+			if(aSchedule.getDate().equals(date) && aSchedule.getStage().equals(stage) && aSchedule.getTimeSlot().equals(timeSlot)) {
+				return aSchedule.getShow().getName();
+			}
+		}
+		return "Keine";
+	}
+	
+	public boolean containsSchedule(TimeSlot timeSlot, Stage stage, LocalDate date) {
+		for(Schedule aSchedule : schedules) {
+			if(aSchedule.getDate().equals(date) && aSchedule.getStage().equals(stage) && aSchedule.getTimeSlot().equals(timeSlot)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean removeSchedule(TimeSlot timeSlot, Stage stage, LocalDate date) {
+		for(Schedule aSchedule : schedules) {
+			if(aSchedule.getDate().equals(date) && aSchedule.getStage().equals(stage) && aSchedule.getTimeSlot().equals(timeSlot)) {
+				return schedules.remove(aSchedule);
+			}
+		}
+		return false;
+	}
+	
+//	public boolean addDaySchedule(DaySchedule daySchedule) {
+//		return daySchedules.add(daySchedule);
+//	}
+//	public Set<DaySchedule> getDaySchedules(){
+//		return daySchedules;
+//	}
+//	
+//	public DaySchedule getDaySchedule(LocalDate day){
+//		for(DaySchedule aDaySchedule : daySchedules) {
+//			if(aDaySchedule.getDay().equals(day)) {
+//				return aDaySchedule;
+//			}
+//		}
+//		return null;
+//	}
+//	
+//	public boolean setSchedule(LocalDate day, Stage stage, Schedule schedule) {
+//		// if dayScheudel already exists
+//		for(DaySchedule aDaySchedule : daySchedules) {
+//			if(aDaySchedule.getDay().equals(day)) {
+//				return aDaySchedule.setStageSchedule(stage, schedule);
+//			}
+//		}
+//		// else make new
+//		DaySchedule daySchedule = new DaySchedule(day);
+//		boolean success = daySchedule.setStageSchedule(stage, schedule);
+//		daySchedules.add(daySchedule);
+//		
+//		return success;
+//				
+//	}
+	
+	public Iterable<Stage> getStages(){
 		return stages;
 	}
 	
 	public boolean addStage(Stage stage) {
 		return stages.add(stage);
+	}
+	
+	public boolean removeStage(Stage stage) {
+		return stages.remove(stage);
 	}
 	
 

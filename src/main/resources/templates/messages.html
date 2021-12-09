@@ -9,5 +9,42 @@
     </head>
     <body>
         <div th:include="header :: header"></div>
+        <div class="main">
+            <div>
+                <ul class="list">
+                    <li class="list-entry">
+                        <h2><a th:href="@{/messages/{userId}/send(userId = ${userId})}">Nachricht senden</a></h2>
+                    </li>
+                    <li class="list-entry" th:each="message : ${messages}">
+                        <h3 th:text="${message.title}"></h3>
+                        <p th:text="${message.content}"></p>
+                    </li>
+                </ul>
+            </div>
+            <div class="overlay" th:if="${dialog} == 'send_message'">
+                <form class="form" th:action="@{/messages/{userId}/send(userId = ${userId})}" method="post">
+                    <h2 class="form-title">Nachricht senden</h2>
+                    <div class="form-item">
+                        <label class="form-label">Empfänger:</label>
+                        <select class="form-input" name="receiverId">
+                            <option th:each="user : ${possible_receivers}" th:text="${user.name}" th:value="${user.id}"></option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label class="form-label">Titel</label>
+                        <input type="text" name="title">
+                    </div>
+                    <div class="form-item-vertical">
+                        <label class="form-label">Inhalt:</label>
+                        <textarea class="form-input" style="height: 20vh" name="content"></textarea>
+                    </div>
+                    <div class="form-item">
+                        <a th:href="@{/messages/{userId}(userId = ${userId})}">Abbrechen</a>
+                        <input class="form-input" type="submit" value="Senden">
+                    </div>
+                    <input type="hidden" name="senderId" th:value="${userId}">
+                </form>
+            </div>
+        </div>
     </body>
 </html>

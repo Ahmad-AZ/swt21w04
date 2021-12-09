@@ -81,7 +81,7 @@ public class FestivalController {
 //		}
 		
 		if (form.getEndDate().isBefore(form.getStartDate())) {
-		result.rejectValue("name", null, "Das Enddatum liegt vor dem StartDatum.");
+		result.rejectValue("endDate", null, "Das Enddatum liegt vor dem StartDatum.");
 
 		}
 		
@@ -157,4 +157,31 @@ public class FestivalController {
 		ra.addFlashAttribute("currentFestivalId", new LongOrNull(currentFestival.getId()));
 		return "redirect:cateringProductCatalog";
 	}
+
+
+	@GetMapping("/ticketsPre1")
+	String ticketShopPre1(RedirectAttributes rd){
+		rd.addFlashAttribute("festival", currentFestival);
+
+		return "redirect:/tickets";
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

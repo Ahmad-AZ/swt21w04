@@ -34,6 +34,10 @@ public class Person {
 		return id;
 	}
 
+	public long getFestivalId() {
+		return festivalId;
+	}
+
 	public String getName() {
 		return name;
 	}

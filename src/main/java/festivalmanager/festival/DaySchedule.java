@@ -15,7 +15,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import festivalmanager.festival.StageSchedule.TimeSlot;
+import festivalmanager.Equipment.Stage;
+import festivalmanager.hiring.Show;
 
 @Entity
 public class DaySchedule implements Serializable {
@@ -48,17 +49,41 @@ public class DaySchedule implements Serializable {
 		this.day = day;
 	}
 	
-	public List<StageSchedule> getdaySchedule(){
+	public List<StageSchedule> getDaySchedules(){
 		return stageSchedules;
 	}
 	
-	public Map<TimeSlot, Long> getStageSchedule(Long stageId){
+	public StageSchedule getStageSchedule(Stage stage){
 		for (StageSchedule aStageSchedule : stageSchedules) {
-			if(aStageSchedule.getStageId() == stageId) {
-				return aStageSchedule.getStageSchedule();
+			if(aStageSchedule.getStage().equals(stage)) {
+				return aStageSchedule;
 			}
 		}
 		return null;
+	}
+	
+	public StageSchedule getStageSchedule(long stageId){
+		for (StageSchedule aStageSchedule : stageSchedules) {
+			if(aStageSchedule.getStage().getId() == stageId) {
+				return aStageSchedule;
+			}
+		}
+		return null;
+	}
+	
+	public boolean setStageSchedule(Stage stage, Schedule schedule) {
+		// if StageSchedule already exsits
+		for (StageSchedule aStageSchedule : stageSchedules) {
+			if(aStageSchedule.getStage().equals(stage)) {
+				return aStageSchedule.setSchedule(schedule);
+			}
+		}
+		
+		// else add new StageSchedule
+		StageSchedule stageSchedule = new StageSchedule(stage);
+		boolean success = stageSchedule.setSchedule(schedule);
+		stageSchedules.add(stageSchedule);
+		return success;
 	}
 	
 	public long getId() {
