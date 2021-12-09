@@ -65,6 +65,22 @@ public class FestivalController {
 		}
 	}
 	
+	
+
+	@GetMapping("/mapVisitorView/{festivalId}")
+
+	public String getMapVisitorView(@PathVariable("festivalId") long festivalId, Model model) {
+
+		Optional<Festival> festival = festivalManagement.findById(festivalId);
+		if (festival.isPresent()) {
+			model.addAttribute("festival", festival.get());
+
+			model.addAttribute("location", festival.get().getLocation());
+		}
+
+		return "/mapVisitorView";
+	}
+	
 	@PostMapping("/newFestival")
 	public String createNewFestival(@Validated NewFestivalForm form, Errors result, Model model) {
 		

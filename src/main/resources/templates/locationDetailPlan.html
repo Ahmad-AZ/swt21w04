@@ -61,8 +61,8 @@
  			<img th:src="@{/resources/img/location/{name}.jpg(name=${location.groundView})}"
                              src="../static/resources/img/location/HSZ_groundview.jpg"/>
 			</div>
-            </br>                           
-			<form method="post" th:action="@{/bookLocation}" th:object="${booking}">
+            </br>           
+			<form class="form" method="post" th:action="@{/bookLocation}" th:object="${booking}">
 				<input type="hidden" name="location" th:value="${location.id}"/>
 				<input type="hidden" name="currentlyBooked" th:value="${currentlyBooked == true}"/>
 				<input type="submit" th:if="${currentlyBooked == false}" value="Buchen">

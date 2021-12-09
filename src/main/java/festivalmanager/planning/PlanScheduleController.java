@@ -5,10 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.constraints.NotEmpty;
 
-import org.salespointframework.time.Interval;
-import org.springframework.data.util.Streamable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -20,12 +17,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
-import festivalmanager.festival.DaySchedule;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.festival.Schedule.TimeSlot;
-import festivalmanager.festival.StageSchedule;
-import festivalmanager.location.Location;
+
 
 @Controller
 public class PlanScheduleController {
@@ -40,6 +35,36 @@ public class PlanScheduleController {
 		this.festivalManagement = festivalManagement;
 	}
 	
+	
+
+	@GetMapping("/scheduleVisitorView/{festivalId}")
+	public String getScheduleVisitorView(@PathVariable("festivalId") long festivalId, Model model) {
+		
+		Optional<Festival> festival = festivalManagement.findById(festivalId);
+		if (festival.isPresent()) {
+			Festival current = festival.get();
+			currentFestival = current;
+
+			
+			model.addAttribute("dayList", current.getFestivalInterval());
+			model.addAttribute("stageList", current.getStages());
+			
+			List<TimeSlot> tsl =  new ArrayList<>();
+			tsl.add(TimeSlot.TS1);
+			tsl.add(TimeSlot.TS2);
+			tsl.add(TimeSlot.TS3);
+			tsl.add(TimeSlot.TS4);
+			tsl.add(TimeSlot.TS5);
+			
+			model.addAttribute("timeSlotList",tsl);
+			// required for secound nav-bar
+			model.addAttribute("festival", current);
+		}
+		return "/scheduleVisitorView";
+
+	}
+	
+		
 	@GetMapping("/schedule")  
 	public String schedule(Model model, @ModelAttribute("currentFestivalId") long currentFestivalId) {
 		if(currentFestivalId != 0) {
@@ -62,15 +87,10 @@ public class PlanScheduleController {
 			tsl.add(TimeSlot.TS5);
 			
 			model.addAttribute("timeSlotList",tsl);
-//			for(DaySchedule aDaySchedule : current.getDaySchedules()) {
-//				for(StageSchedule aStageSchedule : aDaySchedule.getdaySchedules()) {
-//					
-//				}
-//			}
 			
 			// required for secound nav-bar
 			model.addAttribute("festival", current);
-			return "schedule";
+			return "/schedule";
 		} else {
 			throw new ResponseStatusException(
 					HttpStatus.NOT_FOUND, "entity not found"
