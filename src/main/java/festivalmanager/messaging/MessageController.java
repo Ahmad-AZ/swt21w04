@@ -20,7 +20,7 @@ public class MessageController {
 
 	public MessageController(MessageManagement messageManagement, StaffManagement staffManagement) {
 		Assert.notNull(messageManagement, "MessageManagement must not be null!");
-		Assert.notNull(messageManagement, "StaffManagement must not be null!");
+		Assert.notNull(staffManagement, "StaffManagement must not be null!");
 
 		this.messageManagement = messageManagement;
 		this.staffManagement = staffManagement;
