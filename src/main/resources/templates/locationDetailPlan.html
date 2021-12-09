@@ -62,11 +62,11 @@
                              src="../static/resources/img/location/HSZ_groundview.jpg"/>
 			</div>
             </br>                           
-			<form class="ui form" method="post" th:action="@{/bookLocation}" th:object="${booking}">
+			<form method="post" th:action="@{/bookLocation}" th:object="${booking}">
 				<input type="hidden" name="location" th:value="${location.id}"/>
 				<input type="hidden" name="currentlyBooked" th:value="${currentlyBooked == true}"/>
-				<button type="submit" class="ui button" th:if="${currentlyBooked == false}">Buchen</button>
-				<button type="submit" class="ui button" th:if="${currentlyBooked == true}">Buchung zurücknehmen</button>
+				<input type="submit" th:if="${currentlyBooked == false}" value="Buchen">
+				<input type="submit" th:if="${currentlyBooked == true}" value="Buchung zurücknehmen">
 				<p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p> 
 			</form>
         </div>
