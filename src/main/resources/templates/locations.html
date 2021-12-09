@@ -15,7 +15,7 @@
 		<h1>Locations</h1>
 	</header>
 	<section layout:fragment="content">
-		<form method="post" name="location" role="location" class="ui form" id="location" th:object="${location}">
+		<form method="post" name="location" role="location" id="location" th:object="${location}">
 			<div class="content">
 	             <ul class="list">
 	        		<li class="list-entry" th:each="location : ${locationList}">
@@ -29,10 +29,12 @@
 		<a class="item" th:href="@{/newLocation}" sec:authorize="hasRole('FESTIVAL_MANAGEMENT') || hasRole('ADMIN')">Neue Location erstellen</a>
 		<div class="overlay" th:if="${dialog} == 'remove_location'">
             <form class="form" action="/locations/remove" method="post">
-                Location löschen:<a th:text="${currentName}"></a> </br>
+				<h2 class="form-item" th:inline="text">Location [[${currentName}]] löschen</h2>
+				<div class="form-item">
+					<a href="locations.html" th:href="@{/locations}">Abbrechen</a>
+					<input class="form-input" type="submit" value="Löschen">
+				</div>
                 <input type="hidden" name="id" th:value="${currentId}">
-                <input type="submit" title="Löschen">
-                <a class="item" href="locations.html" th:href="@{/locations}">Abbrechen</a>
             </form>
         </div>
 	</section>

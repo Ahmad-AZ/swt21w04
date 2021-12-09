@@ -17,7 +17,7 @@
     </header>
     <section layout:fragment="content">
 
-        <form method="post" name="artist" role="artist" class="ui form" id="artist" th:object="${artist}">
+        <form method="post" name="artist" role="artist" id="artist" th:object="${artist}">
             <div class="content">
                 <ul class="list">
                     <li class="list-entry" th:each="artist : ${artistList}">
