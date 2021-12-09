@@ -99,9 +99,19 @@ public class HiringController {
 
 	@PostMapping("/artists/remove")
 	public String removeArtist(@RequestParam("id") Long artistId) {
-		hiringManagement.removeArtist(artistId);
+		try {
+			hiringManagement.removeArtist(artistId);
+			return "redirect:/artists";
 
-		return "redirect:/artists";
+		}
+		catch (Exception e) {
+			return "/artistsDeleteFailed";
+
+		}
+	}
+	@GetMapping("/artistsDeleteFailed")
+	public String artistsDeleteFailed() {
+		return "artistsDeleteFailed";
 	}
 
 //	@GetMapping("/artistOverview/{artistId}")
