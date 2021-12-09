@@ -31,18 +31,29 @@
 		            <tbody th:remove="all-but-first" th:each="stage : ${stageList}">   
 		            	<tr>
 		            		<td> <div class="text" th:text="${stage.name}"/></td> 
-		                    <td>
-		                    	<p th:text"${current.getDaySchedule(${day}).getStageSchedule(${stage}).getShowAtTS1().name}"></p>
-		                    	<a th:href="@{/schedule/{day}/{stageId}/{timeSlot} (day = ${day}, stageId = ${stage.id}, timeSlot = TS1)}">Setzen</a>
+		                    <td th:each="timeSlot : ${timeSlotList}">
+		                    	<div th:text="${festival.getScheduleShowName(timeSlot, stage, day)}">Keine</div>
+		                    	<a th:href="@{/schedule/{day}/{stageId}/{timeSlot} (day = ${day}, stageId = ${stage.id}, timeSlot = ${timeSlot})}">Setzen</a>
 		                    </td>
 		                    <td class="text">Show2</td>
 		            	</tr>
-		            </tbody>
+		           </tbody>
 		            
-				</table>
-            </div>
-            </br>
+			</table>
         </div>
+        </br>
+    </div>
+  	<div class="overlay" th:if="${dialog} == 'choose show'">
+        <form class="form" th:action="@{/schedule/{day}/{stageId}/{timeSlot}/chooseShow (day = ${day}, stageId = ${stageId}, timeSlot = ${timeSlot})}" method="post">
+            <select name="show" id="show" >
+                <option th:each="show : ${showsToAdd}" th:value="${show.id}" th:text="${show.name}">Admin</option>
+                <option th:value="0">Keine</option>
+            </select>
+            <input type="submit" value="Wählen">
+            <a th:href="@{/schedulePre1}">Abbrechen</a>
+        </form>
+    </div>
+        
 		
 		
     </section>

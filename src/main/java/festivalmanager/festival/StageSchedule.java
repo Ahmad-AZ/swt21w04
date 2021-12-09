@@ -38,10 +38,18 @@ public class StageSchedule implements Serializable{
 		this.setStage(stage);
 	}
 	
-	public List<Schedule> getStageSchedule(){
+	public List<Schedule> getSchedules(){
 		return schedules;
 	}
 	public boolean setSchedule(Schedule schedule) {
+		// if Timeslot is already filled replace
+		for(Schedule aSchedule : schedules) {
+			if(aSchedule.getTimeSlot().equals(schedule.getTimeSlot())) {
+				schedules.set(schedules.indexOf(aSchedule), schedule);
+				return true;
+			}
+		}
+		// else add new
 		return schedules.add(schedule);
 	}
 	
@@ -53,6 +61,7 @@ public class StageSchedule implements Serializable{
 		}
 		return null;
 	}
+	
 
 	public Stage getStage() {
 		return stage;

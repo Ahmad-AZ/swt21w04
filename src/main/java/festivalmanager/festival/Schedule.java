@@ -1,6 +1,7 @@
 package festivalmanager.festival;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 
+import festivalmanager.Equipment.Stage;
 import festivalmanager.hiring.Show;
 
 @Entity
@@ -29,12 +31,18 @@ public class Schedule implements Serializable{
 	private TimeSlot timeSlot;
 	@OneToOne
 	private Show show;
+	@OneToOne
+	private Stage stage;
+	
+	private LocalDate date;
 	
 	public Schedule() {}
 	
-	public Schedule(TimeSlot timeSlot, Show show) {
+	public Schedule(TimeSlot timeSlot, Show show, Stage stage, LocalDate date) {
 		this.setTimeSlot(timeSlot);
 		this.setShow(show);
+		this.setDate(date);
+		this.setStage(stage);
 	}
 
 	public TimeSlot getTimeSlot() {
@@ -46,11 +54,26 @@ public class Schedule implements Serializable{
 	}
 
 	public Show getShow() {
-		return show;
-		
+		return show;	
 	}
 
 	public void setShow(Show show) {
 		this.show = show;
+	}
+
+	public Stage getStage() {
+		return stage;
+	}
+
+	public void setStage(Stage stage) {
+		this.stage = stage;
+	}
+
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
 	}
 }

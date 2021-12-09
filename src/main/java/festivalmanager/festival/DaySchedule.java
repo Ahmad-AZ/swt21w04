@@ -49,17 +49,41 @@ public class DaySchedule implements Serializable {
 		this.day = day;
 	}
 	
-	public List<StageSchedule> getdaySchedules(){
+	public List<StageSchedule> getDaySchedules(){
 		return stageSchedules;
 	}
 	
-	public List<Schedule> getStageSchedule(Stage stage){
+	public StageSchedule getStageSchedule(Stage stage){
 		for (StageSchedule aStageSchedule : stageSchedules) {
 			if(aStageSchedule.getStage().equals(stage)) {
-				return aStageSchedule.getStageSchedule();
+				return aStageSchedule;
 			}
 		}
 		return null;
+	}
+	
+	public StageSchedule getStageSchedule(long stageId){
+		for (StageSchedule aStageSchedule : stageSchedules) {
+			if(aStageSchedule.getStage().getId() == stageId) {
+				return aStageSchedule;
+			}
+		}
+		return null;
+	}
+	
+	public boolean setStageSchedule(Stage stage, Schedule schedule) {
+		// if StageSchedule already exsits
+		for (StageSchedule aStageSchedule : stageSchedules) {
+			if(aStageSchedule.getStage().equals(stage)) {
+				return aStageSchedule.setSchedule(schedule);
+			}
+		}
+		
+		// else add new StageSchedule
+		StageSchedule stageSchedule = new StageSchedule(stage);
+		boolean success = stageSchedule.setSchedule(schedule);
+		stageSchedules.add(stageSchedule);
+		return success;
 	}
 	
 	public long getId() {
