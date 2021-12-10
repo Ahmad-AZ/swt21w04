@@ -3,6 +3,7 @@ package festivalmanager.planning;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -15,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import festivalmanager.festival.Festival;
+import festivalmanager.festival.FestivalManagement;
 import festivalmanager.location.Location;
 import festivalmanager.location.LocationManagement;
 
@@ -23,53 +25,68 @@ public class PlanLocationController {
 	
 	private final PlanLocationManagement planLocationManagement;
 	private final LocationManagement locationManagement;
+	private final FestivalManagement festivalManagement;
 	private Festival currentFestival;
 	private long currentFestivalId;
 	
-	public PlanLocationController(PlanLocationManagement planLocationManagement, LocationManagement locationManagement) {
+	public PlanLocationController(PlanLocationManagement planLocationManagement, LocationManagement locationManagement, FestivalManagement festivalManagement) {
 		this.planLocationManagement = planLocationManagement;
 		this.locationManagement = locationManagement;
+		this.festivalManagement = festivalManagement;
 		this.currentFestival = null;
+		this.currentFestivalId = 0;
 		
 	}
 	
 	// shows Locations Overview
-	@GetMapping("/locationOverview")  
-	public String locationOverview(Model model, @ModelAttribute("currentFestival") Festival currentFestival) {
-		this.currentFestival = currentFestival;
-		Location bookedLocation = currentFestival.getLocation();
-		model.addAttribute("locationList", locationManagement.findAll());
-		if(bookedLocation != null) {
-			model.addAttribute("bookedLocationId", bookedLocation.getId());
+	@GetMapping("/locationOverview/{festivalId}")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
+	public String locationOverview(Model model, @PathVariable("festivalId") long festivalId) {
+		Optional<Festival> festival = festivalManagement.findById(festivalId);
+		if (festival.isPresent()) {
+			Festival current = festival.get();
+			this.currentFestival = current;
+			this.currentFestivalId = festivalId;
+			Location bookedLocation = current.getLocation();
+			model.addAttribute("locationList", locationManagement.findAll());
+			if(bookedLocation != null) {
+				model.addAttribute("bookedLocationId", bookedLocation.getId());
+			}
+			else {
+				model.addAttribute("bookedLocationId", 0);
+			}
+			
+			model.addAttribute("festival", current);
+			return "/locationOverview"; 
+		} else {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
 		}
-		else {
-			model.addAttribute("bookedLocationId", 0);
-		}
-		
-		
-		// required for second nav-bar
-		model.addAttribute("festival", currentFestival);
-		
-		return "locationOverview"; 
+				
+
 	} 
 		
-	@GetMapping("/locationOverview/{locationId}")
-	public String locationDetail(@PathVariable Long locationId, Model model) {
+	@GetMapping("/locationOverview/{festivalId}/detail/{locationId}")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
+	public String locationDetail(@PathVariable("festivalId") long festivalId, @PathVariable("locationId") Long locationId, Model model) {
 		Optional<Location> location = locationManagement.findById(locationId);
+		Optional<Festival> festival = festivalManagement.findById(festivalId);
 		
-		if (location.isPresent()) {
-			Location current = location.get();
-
+		if (location.isPresent() && festival.isPresent()) {
+			Location currentLocation = location.get();
+			Festival currentFestival = festival.get();
+			
 			System.out.println(locationId);
-			System.out.println(current.getImage());
-			System.out.println(current.getGroundView());
-			model.addAttribute("location", current);
-			model.addAttribute("hasBookings", current.hasBookings());
-			System.out.println(current.getBookings());				
+			System.out.println(currentLocation.getImage());
+			System.out.println(currentLocation.getGroundView());
+			model.addAttribute("location", currentLocation);
+			model.addAttribute("hasBookings", currentLocation.hasBookings());
+			System.out.println(currentLocation.getBookings());				
 			
 			// to hide book Button if Location is booked
 			if (currentFestival.getLocation() != null) {
-				model.addAttribute("currentlyBooked", currentFestival.getLocation().getId() == current.getId());
+				model.addAttribute("currentlyBooked", currentFestival.getLocation().getId() == currentLocation.getId());
 			}
 			else {
 				model.addAttribute("currentlyBooked", false);
@@ -87,32 +104,36 @@ public class PlanLocationController {
 		}
 	}
 		 		
-	@PostMapping("/bookLocation")
-	public String bookLocation(@RequestParam("location") Long locationId, @RequestParam("currentlyBooked") boolean currentlyBooked, RedirectAttributes ra) {
+	@PostMapping("/locationOverview/{festivalId}/detail/{locationId}/bookLocation")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
+	public String bookLocation(@PathVariable("festivalId") long festivalId, @PathVariable("locationId") Long locationId, @RequestParam("currentlyBooked") boolean currentlyBooked, RedirectAttributes ra) {
 		Optional<Location> location = locationManagement.findById(locationId);
-		if (location.isPresent()) {
-			Location current = location.get();
+		Optional<Festival> festival = festivalManagement.findById(festivalId);
+		
+		if (location.isPresent() && festival.isPresent()) {
+			Location currentLocation = location.get();
+			Festival currentFestival = festival.get();
 			
 			// unbook curetnly booked location
 			System.out.println("currentlyBooked boolean:"+currentlyBooked);
 			if(currentlyBooked) {
-				planLocationManagement.unbookLocation(current, currentFestival);
+				planLocationManagement.unbookLocation(currentLocation, currentFestival);
 			}
 			// book Location
 			else {
-				boolean success = planLocationManagement.bookLocation(current, currentFestival);
+				boolean success = planLocationManagement.bookLocation(currentLocation, currentFestival);
 				System.out.println("success:"+success);
 
 				if(!success) {
 					ra.addFlashAttribute("message", "Location ist im Festivalzeitraum belegt");
-					return "redirect:/locationOverview/"+ current.getId();
+					return "redirect:/locationOverview/"+ festivalId + "/detail/" + locationId;
 				}
 				System.out.println("actually booked location:" + currentFestival.getLocation().getName());
 			}
 	
-			long id = current.getId();
+
 			// reload locationOverview page
-			return "redirect:/locationPre1";
+			return "redirect:/locationOverview/" + festivalId;
 			
 		} else {
 			throw new ResponseStatusException(
@@ -121,12 +142,17 @@ public class PlanLocationController {
 		}
 	}
 	
-	@GetMapping("/locationOverview/unbook") 
-	public String unbookLocation() {
-		Optional<Location> location = locationManagement.findById(currentFestival.getLocation().getId());
-		if (location.isPresent()) {
-			Location current = location.get();
-			planLocationManagement.unbookLocation(current, currentFestival);
+	@GetMapping("/locationOverview/{festivalId}unbook") 
+	public String unbookLocation(@PathVariable("festivalId") long festivalId) {
+		Optional<Festival> festival = festivalManagement.findById(festivalId);
+		
+		if (festival.isPresent()) {
+			Festival currentFestival = festival.get();
+			Optional<Location> location = locationManagement.findById(currentFestival.getLocation().getId());
+			if(location.isPresent()){
+				Location currentLocation = location.get();
+				planLocationManagement.unbookLocation(currentLocation, currentFestival);
+			}
 		
 			// reload locationOverview page
 			return "redirect:/locationPre1";

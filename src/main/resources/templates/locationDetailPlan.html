@@ -17,8 +17,15 @@
 	<section layout:fragment="content">
           <div class="content">
           	</br>
-          	<a class="item" href="locationOverview.html" th:href="@{/locationPre1}">Zurück</a>
-          	</br></br>
+          	<a class="item" th:href="@{/locationOverview/{id}(id=${festival.id})}">Zurück</a>
+          	</br> </br>
+          	<form class="form" method="post" th:action="@{/locationOverview/{festivalId}/detail/{locationId}/bookLocation (locationId=${location.id}, festivalId = ${festival.id})}" th:object="${booking}">
+				<input type="hidden" name="currentlyBooked" th:value="${currentlyBooked == true}"/>
+				<input type="submit" th:if="${currentlyBooked == false}" value="Buchen">
+				<input type="submit" th:if="${currentlyBooked == true}" value="Buchung zurücknehmen">
+				<p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p> 
+			</form>
+			</br>
           	<div class="image">
           		<img th:src="@{/resources/img/location/{name}.jpg(name=${location.image})}"
                              src="../static/resources/img/location/HSZ_image.jpg"/>
@@ -62,13 +69,7 @@
                              src="../static/resources/img/location/HSZ_groundview.jpg"/>
 			</div>
             </br>           
-			<form method="post" th:action="@{/bookLocation}" th:object="${booking}">
-				<input type="hidden" name="location" th:value="${location.id}"/>
-				<input type="hidden" name="currentlyBooked" th:value="${currentlyBooked == true}"/>
-				<input type="submit" th:if="${currentlyBooked == false}" value="Buchen">
-				<input type="submit" th:if="${currentlyBooked == true}" value="Buchung zurücknehmen">
-				<p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p> 
-			</form>
+			
         </div>
 
     </section>
