@@ -170,14 +170,6 @@ public class FestivalController {
 	}
 	
 		
-	@GetMapping("/locationPre1")
-	String locationPre1(Model model, RedirectAttributes ra) {
-		ra.addFlashAttribute("currentFestival", currentFestival);
-		System.out.println(currentFestival.getName());
-		return "redirect:locationOverview";
-	}
-
-
 	@GetMapping("/artistPre1")
 	String artistPre1(Model model, RedirectAttributes ra) {
 		ra.addFlashAttribute("currentFestival", currentFestival);

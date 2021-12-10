@@ -83,18 +83,6 @@ public class LocationController {
 	@PostMapping("/newLocation")
 	public String createNewLocation(@Validated NewLocationForm form, Errors result) {
 		
-//		Streamable<F> customers = customerManagement.findAll();
-//		for (Customer customer : customers) {
-//			if (form.getName().equals(customer.getUserAccount().getUsername())) {
-//				result.rejectValue("name", null, "Benutzername bereits vergeben");
-//			}
-//		}
-
-//		if (!form.getPassword().equals(form.getPasswordReputation())) {
-//			result.rejectValue("passwordReputation", null, "Passwörter stimmen nicht überein.");
-//
-//		}
-		
 		if (result.hasErrors()) {
 			return "newLocation";
 		}

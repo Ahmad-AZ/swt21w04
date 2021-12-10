@@ -123,38 +123,6 @@ public class PlanScheduleManagement {
 //				success = current.replaceSchedule(schedule);
 			}
 
-			
-//			boolean success = current.setSchedule(date, stage, schedule);
-			
-//			DaySchedule daySchedule = current.getDaySchedule(date);
-//			if(daySchedule == null) {
-//				daySchedule = new DaySchedule(date);
-//							
-//				
-//			} else {
-//				StageSchedule stageSchedule = daySchedule.getStageSchedule(stageId);
-//				
-//				if(stageSchedule == null) {
-//					// add StageSchedule
-//					stageSchedule = new StageSchedule(stage);
-//					
-//					
-//					
-//				} else {
-//					boolean scheduleSetted;
-//					for(Schedule aSchedule : stageSchedules) {
-//						if(aSchedule.getTimeSlot().equals(timeSlot)) {
-//							stageSchedules.set(stageSchedules.indexOf(aSchedule), schedule);
-//							scheduleSetted = true;
-//						}
-//					}
-//					if(!scheduleSetted) {
-//						stageSchedules.add(schedule);
-//					}
-//					 
-//				}
-//			}
-
 			festivalManagement.saveFestival(current);
 			return success;
 		} else {

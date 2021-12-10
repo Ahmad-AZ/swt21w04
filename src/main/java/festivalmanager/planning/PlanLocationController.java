@@ -29,7 +29,9 @@ public class PlanLocationController {
 	private Festival currentFestival;
 	private long currentFestivalId;
 	
-	public PlanLocationController(PlanLocationManagement planLocationManagement, LocationManagement locationManagement, FestivalManagement festivalManagement) {
+	public PlanLocationController(PlanLocationManagement planLocationManagement, 
+									LocationManagement locationManagement, 
+									FestivalManagement festivalManagement) {
 		this.planLocationManagement = planLocationManagement;
 		this.locationManagement = locationManagement;
 		this.festivalManagement = festivalManagement;
@@ -69,7 +71,8 @@ public class PlanLocationController {
 		
 	@GetMapping("/locationOverview/{festivalId}/detail/{locationId}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String locationDetail(@PathVariable("festivalId") long festivalId, @PathVariable("locationId") Long locationId, Model model) {
+	public String locationDetail(@PathVariable("festivalId") long festivalId, 
+									@PathVariable("locationId") Long locationId, Model model) {
 		Optional<Location> location = locationManagement.findById(locationId);
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
 		
@@ -106,7 +109,9 @@ public class PlanLocationController {
 		 		
 	@PostMapping("/locationOverview/{festivalId}/detail/{locationId}/bookLocation")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String bookLocation(@PathVariable("festivalId") long festivalId, @PathVariable("locationId") Long locationId, @RequestParam("currentlyBooked") boolean currentlyBooked, RedirectAttributes ra) {
+	public String bookLocation(@PathVariable("festivalId") long festivalId, 
+								@PathVariable("locationId") Long locationId, 
+								@RequestParam("currentlyBooked") boolean currentlyBooked, RedirectAttributes ra) {
 		Optional<Location> location = locationManagement.findById(locationId);
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
 		

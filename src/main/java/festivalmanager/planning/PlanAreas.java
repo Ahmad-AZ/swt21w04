@@ -2,8 +2,8 @@ package festivalmanager.planning;
 
 import festivalmanager.festival.Festival;
 
-public class PlanAreas extends Planning {
+public class PlanAreas {
 	PlanAreas(Festival festival) {
-		super(festival);
+
 	}
 }
