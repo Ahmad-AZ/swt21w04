@@ -91,11 +91,10 @@ public class TicketController {
 			currentTickets.setCampingTicketsCount(currDayTickets - soldTicket);
 
 			ticketPrice = currentTickets.getDayTicketPrice();
-
 		}
 
 		model.addAttribute("ticketCount", soldTicket);
-		model.addAttribute("ticketPrice", ticketPrice);
+		model.addAttribute("ticketPrice", ticketPrice*soldTicket);
 		model.addAttribute("festival",currentFestival.getName());
 		model.addAttribute("tickets", ticket);
 
