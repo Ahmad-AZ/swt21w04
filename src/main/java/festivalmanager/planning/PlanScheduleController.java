@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -99,6 +100,7 @@ public class PlanScheduleController {
 	}
 	
 	@GetMapping("/schedule/{day}/{stageId}/{timeSlot}")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String getShowSelectDialog(@PathVariable("day") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date, @PathVariable("stageId") long stageId, @PathVariable("timeSlot") String timeSlot, Model model) {
 		System.out.println(date);
 		System.out.println(stageId);
@@ -119,6 +121,7 @@ public class PlanScheduleController {
 	}
 	
 	@PostMapping("/schedule/{day}/{stageId}/{timeSlot}/chooseShow")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String chooseShow(@PathVariable("day") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date, 
 									@PathVariable("stageId") long stageId, 
 									@PathVariable("timeSlot") String timeSlot, 

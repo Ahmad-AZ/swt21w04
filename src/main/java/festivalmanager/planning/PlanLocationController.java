@@ -85,6 +85,7 @@ public class PlanLocationController {
 			System.out.println(currentLocation.getGroundView());
 			model.addAttribute("location", currentLocation);
 			model.addAttribute("hasBookings", currentLocation.hasBookings());
+			System.out.println(currentLocation.hasBookings());
 			System.out.println(currentLocation.getBookings());				
 			
 			// to hide book Button if Location is booked

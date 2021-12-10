@@ -35,12 +35,14 @@ public class LocationController {
 	
 	
 	@GetMapping("/locations")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String locations(Model model) {
 		model.addAttribute("locationList", locationManagement.findAll());
 		return "locations";
 	}
 	
 	@GetMapping("/locations/{locationId}/edit")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String locationEdit(@PathVariable Long locationId, Model model) {
 		Optional<Location> location = locationManagement.findById(locationId);
 		
@@ -61,7 +63,8 @@ public class LocationController {
 		}
 	}
 	
-	@GetMapping("/locations/{locationId}") 
+	@GetMapping("/locations/{locationId}")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String locationDetail(@PathVariable Long locationId, Model model) {
 		Optional<Location> location = locationManagement.findById(locationId);
 		
@@ -81,6 +84,7 @@ public class LocationController {
 	}
 	
 	@PostMapping("/newLocation")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String createNewLocation(@Validated NewLocationForm form, Errors result) {
 		
 		if (result.hasErrors()) {
@@ -95,12 +99,14 @@ public class LocationController {
 	
 	
 	// gives NewLocationForm to fill out
-	@GetMapping("/newLocation") 
+	@GetMapping("/newLocation")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String newLocation(Model model, NewLocationForm form) {
 		return "newLocation";
 	}
 	
 	@PostMapping("/saveLocation")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String saveLocation(@Validated NewLocationForm form, Errors result, @RequestParam("location") Long locationId, Model model) {
 		
 		Optional<Location> location = locationManagement.findById(locationId);
@@ -127,6 +133,7 @@ public class LocationController {
 	}
 	
 	@GetMapping("locations/remove/{id}")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String getRemoveLocationDialog(@PathVariable("id") long id, Model model) {
 		model.addAttribute("locations", locationManagement.findAll());
 		model.addAttribute("currentId", id);
@@ -145,6 +152,7 @@ public class LocationController {
 	}
 	
 	@PostMapping("/locations/remove")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String removeLocation(@Valid @RequestParam("id") @NotEmpty Long locationId, @ModelAttribute("delete") String dummy, Errors result) {
 		Optional<Location> current = locationManagement.findById(locationId);
 		if (current.isPresent()) {

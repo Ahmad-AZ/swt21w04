@@ -168,7 +168,24 @@ button:hover {
 }
 
 .image {
-	width: auto;
-	height:auto;
-	display: block;
+	width: 100%; 
+ 
+
 }
+
+.groundview {
+	width: 100%
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto ;
+
+  padding: 10px;
+}
+
+.item-groundView {
+  grid-column: 1 / 3;
+}
+
+

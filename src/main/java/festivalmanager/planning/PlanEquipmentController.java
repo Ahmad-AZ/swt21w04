@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -50,6 +51,7 @@ public class PlanEquipmentController {
 	
 	// shows Equipments Overview
 	@GetMapping("/equipments")  
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String equipments(Model model, @ModelAttribute("currentFestivalId") long currentFestivalId) {
 		if(currentFestivalId != 0) {
 			this.currentFestivalId = currentFestivalId;
@@ -96,6 +98,7 @@ public class PlanEquipmentController {
 	
 	 
 	@PostMapping("/addStage")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String addStages(@RequestParam("equipmentsId") @NotNull long equipmentsId, @RequestParam("name") @NotEmpty String name, RedirectAttributes ra) {
 				
 		Equipment equipment = equipmentManagement.findById(equipmentsId).get();
@@ -111,6 +114,7 @@ public class PlanEquipmentController {
 	}
 	
 	@GetMapping("equipments/remove/{id}")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String removeStage(@PathVariable("id") Long id) {
 		
 		Optional<Equipment> equipment = equipmentManagement.findById(id);
@@ -139,6 +143,7 @@ public class PlanEquipmentController {
 	
 	
 	@PostMapping("/rentEquipmentAmount")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String rentEquipmentAmount(Model model, 
 					  @RequestParam("equipmentsId") long equipmentsId,
 					  @RequestParam("equipmentsAmount") long equipmentsAmount) {
@@ -163,28 +168,6 @@ public class PlanEquipmentController {
 	}
 	
 	
-	
-//	interface StageEquipment {
-//
-//		@NotEmpty
-//		String getName();
-//		
-//		@NotEmpty
-//		@Min(value = 0) 
-//		Double getRentalPerDay();
-//		
-//		@NotEmpty
-//		@Min(value = 0) 
-//		Integer getLength();
-//		
-//		@NotEmpty
-//		@Min(value = 0) 
-//		Integer getWidth();
-//		
-//		default Stage toStage() {
-//			return new Stage(getName(), getRentalPerDay(), getLength(), getWidth());
-//		}
-//	}
 }
 
 

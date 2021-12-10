@@ -87,6 +87,7 @@ public class FestivalController {
 	
 	
 	@PostMapping("/newFestival")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String createNewFestival(@Validated NewFestivalForm form, Errors result, Model model) {
 		
 //		Streamable<F> customers = customerManagement.findAll();
@@ -121,6 +122,7 @@ public class FestivalController {
 	
 	// gives NewFestivalForm to fill out
 	@GetMapping("/newFestival") 
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String newFestival(Model model, NewFestivalForm form) {
 		System.out.println(LocalDate.now());
 		System.out.println();
@@ -138,6 +140,7 @@ public class FestivalController {
 	}
 	
 	@GetMapping("festivalOverview/remove/{id}")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('MANAGER')")
 	public String getRemoveFestivalDialog(@PathVariable("id") long id, Model model) {
 		model.addAttribute("festival", festivalManagement.findAll());
 		model.addAttribute("currentId", id);
@@ -156,6 +159,7 @@ public class FestivalController {
 	}
 	
 	@PostMapping("/festival/remove")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('MANAGER')")
 	public String removeLocation(@Valid @RequestParam("id") @NotEmpty Long festivalId) {
 		Optional<Festival> current = festivalManagement.findById(festivalId);
 		if (current.isPresent()) {
@@ -171,6 +175,7 @@ public class FestivalController {
 	
 		
 	@GetMapping("/artistPre1")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	String artistPre1(Model model, RedirectAttributes ra) {
 		ra.addFlashAttribute("currentFestival", currentFestival);
 		System.out.println(currentFestival.getName());
@@ -179,12 +184,14 @@ public class FestivalController {
 
 	
 	@GetMapping("/financesPre1")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	String financesPre1(Model model, RedirectAttributes ra) {
 		ra.addFlashAttribute("currentFestivalId", currentFestival.getId());
 		return "redirect:finances";
 	}
 	
 	@GetMapping("/schedulePre1")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	String schedulePre1(Model model, RedirectAttributes ra) {
 		ra.addFlashAttribute("currentFestivalId", currentFestival.getId());
 		System.out.println(currentFestival.getName());
@@ -192,6 +199,7 @@ public class FestivalController {
 	}
 	
 	@GetMapping("/equipmentsPre1")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	String equipmentsPre1(Model model, RedirectAttributes ra) {
 		ra.addFlashAttribute("currentFestivalId", currentFestival.getId());
 		System.out.println(currentFestival.getName());
@@ -199,6 +207,7 @@ public class FestivalController {
 	}
 
 	@GetMapping("/cateringProductCatalogPre1")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	String cateringProductCatalogPre1(Model model, RedirectAttributes ra) {
 		ra.addFlashAttribute("currentFestivalId", new LongOrNull(currentFestival.getId()));
 		return "redirect:cateringProductCatalog";
@@ -206,6 +215,7 @@ public class FestivalController {
 
 
 	@GetMapping("/ticketsPre1")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	String ticketShopPre1(RedirectAttributes rd){
 		rd.addFlashAttribute("festival", currentFestival);
 
