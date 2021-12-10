@@ -24,6 +24,11 @@ public class FestivalManagement {
 		return festivals.save(festival);
 	}
 	
+	public void deleteFestival(Festival festival) {
+		
+		festivals.delete(festival);
+	}
+	
 	public Streamable<Festival> findAll() {
 		return festivals.findAll();
 	}

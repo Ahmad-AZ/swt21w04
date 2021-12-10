@@ -105,7 +105,7 @@ public class PlanOffersController {
 				System.out.println("book artist success " + success);
 				if(!success) {
 					ra.addFlashAttribute("message", "Künstler ist im diesem Zeitraum belegt");
-					return "redirect:/artistOverview"+ current.getId();
+					return "redirect:/artistOverview/"+ current.getId();
 				}
 			}
 			return "redirect:/artistPre1";

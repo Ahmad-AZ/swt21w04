@@ -5,6 +5,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+
 import org.springframework.data.util.Streamable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import festivalmanager.hiring.Artist;
 import festivalmanager.hiring.ArtistRepository;
+import festivalmanager.location.Location;
 import festivalmanager.location.LocationManagement;
 
 @Controller
@@ -66,9 +71,8 @@ public class FestivalController {
 	}
 	
 	
-
+	// Map View for Visitors
 	@GetMapping("/mapVisitorView/{festivalId}")
-
 	public String getMapVisitorView(@PathVariable("festivalId") long festivalId, Model model) {
 
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
@@ -80,6 +84,7 @@ public class FestivalController {
 
 		return "/mapVisitorView";
 	}
+	
 	
 	@PostMapping("/newFestival")
 	public String createNewFestival(@Validated NewFestivalForm form, Errors result, Model model) {
@@ -131,6 +136,39 @@ public class FestivalController {
 
 		return "festivalOverview"; 
 	}
+	
+	@GetMapping("festivalOverview/remove/{id}")
+	public String getRemoveFestivalDialog(@PathVariable("id") long id, Model model) {
+		model.addAttribute("festival", festivalManagement.findAll());
+		model.addAttribute("currentId", id);
+		model.addAttribute("dialog", "remove_festival");
+
+		Optional<Festival> current = festivalManagement.findById(id);
+		if (current.isPresent()) {
+			model.addAttribute("currentName", current.get().getName());
+			model.addAttribute("running", false);
+
+		} else {
+			model.addAttribute("currentName", "");
+		}
+
+		return "/festivalOverview";
+	}
+	
+	@PostMapping("/festival/remove")
+	public String removeLocation(@Valid @RequestParam("id") @NotEmpty Long festivalId) {
+		Optional<Festival> current = festivalManagement.findById(festivalId);
+		if (current.isPresent()) {
+//			if(current.running()) {
+//				return "/festivalOverview";
+//			} else {
+			festivalManagement.deleteFestival(current.get());
+
+//			}
+		} 
+		return "redirect:/festivalOverview";
+	}
+	
 		
 	@GetMapping("/locationPre1")
 	String locationPre1(Model model, RedirectAttributes ra) {

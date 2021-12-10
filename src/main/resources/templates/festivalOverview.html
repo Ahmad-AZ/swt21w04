@@ -14,15 +14,28 @@
 		<h1>Festivalübersicht</h1>
 	</header>
 	<section layout:fragment="content">
-		<a class="item" th:href="@{/newFestival}" sec:authorize="hasRole('FESTIVAL_MANAGEMENT') || hasRole('ADMIN')">Neues Festival erstellen</a>
-		<div class="ui link cards" th:remove="all-but-first">
-            <div class="ui card" th:each="festival : ${festivalList}">
-                <div class="content">
-                    <a class="header" th:href="@{/festivalOverview/{id}(id=${festival.id})}" th:text="${festival.name}">Etwas andres</a>
-                </div>
-            </div>
+		<a class="item" th:href="@{/newFestival}" sec:authorize="hasRole('MANAGER') || hasRole('ADMIN')">Neues Festival erstellen</a>
+		<form method="post" name="festival" role="location" id="festival" th:object="${festival}">
+			<div class="content">
+	             <ul class="list">
+	        		<li class="list-entry" th:each="festival : ${festivalList}">
+	                    <a class="header" th:href="@{/festivalOverview/{id}(id=${festival.id})}" th:text="${festival.name}">Etwas andres</a>
+	                    <a class="header" th:href="@{/festivalOverview/remove/{id}(id = ${festival.id})}" sec:authorize="hasRole('MANAGER') || hasRole('ADMIN')">Löschen</a>	       
+    	            </li>
+	             </ul>
+	          </div>                	                    
+		</form>
+		<div class="overlay" th:if="${dialog} == 'remove_festival'">
+            <form class="form" action="/festival/remove" method="post">
+				<h2 class="form-item" th:inline="text">Festival [[${currentName}]] löschen</h2>
+				<div class="form-item">
+					<a href="festivalOverview.html" th:href="@{/festivalOverview}">Abbrechen</a>
+					<input th:if="${running == false}" class="form-input" name="delete" type="submit" value="Löschen">
+					<div class="form-label" th:if="${running != false}">Festival findet bereits statt</div>
+				</div>
+                <input type="hidden" name="id" th:value="${currentId}">
+            </form>
         </div>
-		
     </section>
 </body>
 </html>
