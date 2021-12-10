@@ -6,6 +6,8 @@ import festivalmanager.festival.FestivalManagement;
 import festivalmanager.festival.FestivalRepository;
 import festivalmanager.finances.FinancesManagement;
 import festivalmanager.hiring.Artist;
+import festivalmanager.hiring.HiringManagement;
+import festivalmanager.location.LocationManagement;
 import festivalmanager.location.Location;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.Test;
@@ -34,7 +36,9 @@ class FinancesTests {
 		testFestival.setEndDate(LocalDate.of(2021, 12, 6));
 		when(festivalRepository.findById(any())).thenReturn(Optional.of(testFestival));
 
-		FestivalManagement festivalManagement = new FestivalManagement(festivalRepository);
+		
+		
+		FestivalManagement festivalManagement = new FestivalManagement(festivalRepository, mock(LocationManagement.class), mock(HiringManagement.class));
 		festivalManagement.saveFestival(testFestival);
 
 		Location testLocation = new Location();
