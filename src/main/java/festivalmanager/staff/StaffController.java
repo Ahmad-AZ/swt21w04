@@ -38,11 +38,14 @@ public class StaffController {
 		return "staff.html";
 	}
 
-	@GetMapping("/staff/{festivalId}/create")
+	@GetMapping(value = {"/staff/{festivalId}/create", "/staff/{festivalId}/create/{error}"})
 	@PreAuthorize("hasRole('ADMIN')")
-	public String getCreateStaffDialog(@PathVariable("festivalId") long festivalId, Model model) {
+	public String getCreateStaffDialog(@PathVariable("festivalId") long festivalId, @PathVariable("error") Optional<String> error, Model model) {
 		model.addAttribute("entries", staffManagement.findByFestivalId(festivalId));
 		model.addAttribute("dialog", "create_staff");
+		if (error.isPresent()) {
+			model.addAttribute("error", error.get());
+		}
 
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
 		if (festival.isPresent()) {
@@ -95,7 +98,11 @@ public class StaffController {
 	@PostMapping("/staff/{festivalId}/create")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String createStaff(@PathVariable("festivalId") long festivalId, CreateStaffForm form) {
-		this.staffManagement.createPerson(festivalId, form);
+		try {
+			this.staffManagement.createPerson(festivalId, form);
+		} catch (IllegalArgumentException exception) {
+			return "redirect:/staff/" + festivalId + "/create/" + exception.getLocalizedMessage();
+		}
 
 		return "redirect:/staff/" + festivalId;
 	}
@@ -146,7 +153,7 @@ public class StaffController {
 
 	@PostMapping("/staff/{festivalId}/change_role/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public String changeName(@PathVariable("festivalId") long festivalId, @PathVariable("id") long id, ChangeRoleForm form) {
+	public String changeRole(@PathVariable("festivalId") long festivalId, @PathVariable("id") long id, ChangeRoleForm form) {
 		this.staffManagement.changeRole(form);
 
 		return "redirect:/staff/" + festivalId + "/detail/" + id;
@@ -154,7 +161,7 @@ public class StaffController {
 
 	@PostMapping("/staff/{festivalId}/change_password/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public String changeName(@PathVariable("festivalId") long festivalId, @PathVariable("id") long id, ChangePasswordForm form) {
+	public String changePassword(@PathVariable("festivalId") long festivalId, @PathVariable("id") long id, ChangePasswordForm form) {
 		this.staffManagement.changePassword(form);
 
 		return "redirect:/staff/" + festivalId + "/detail/" + id;
