@@ -5,11 +5,13 @@ import festivalmanager.festival.FestivalManagement;
 import festivalmanager.staff.forms.CreateStaffForm;
 import org.salespointframework.core.DataInitializer;
 import org.salespointframework.useraccount.UserAccountManagement;
+import org.springframework.core.annotation.Order;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 @Component
+@Order(11)
 class StaffDataInitializer implements DataInitializer {
 	private final UserAccountManagement userAccountManagement;
 	private final StaffManagement staffManagement;

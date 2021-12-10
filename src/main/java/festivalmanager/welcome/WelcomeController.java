@@ -51,13 +51,11 @@ public class WelcomeController {
 				Optional<Person> person = staffManagement.findByUserAccount(account.get());
 				if (person.isPresent()) {
 					return "redirect:/festivalOverview/" + person.get().getFestivalId();
-				} else {
-					return "redirect:/festivalOverview/";
 				}
 			}
 		}
 
 		// visitor page
-		return "index";
+		return "redirect:/festivalOverview/";
 	}
 }
