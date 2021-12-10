@@ -26,7 +26,7 @@
 	             </ul>
 	          </div>                	                    
 		</form>
-		<a class="item" th:href="@{/newLocation}" sec:authorize="hasRole('FESTIVAL_MANAGEMENT') || hasRole('ADMIN')">Neue Location erstellen</a>
+		<a class="item" th:href="@{/newLocation}" sec:authorize="hasRole('MANAGER') || hasRole('ADMIN') || hasRole('PLANNER')">Neue Location erstellen</a>
 		<div class="overlay" th:if="${dialog} == 'remove_location'">
             <form class="form" action="/locations/remove" method="post">
 				<h2 class="form-item" th:inline="text">Location [[${currentName}]] löschen</h2>

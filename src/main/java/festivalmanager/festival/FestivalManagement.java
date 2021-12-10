@@ -4,15 +4,23 @@ import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import festivalmanager.hiring.Artist;
+import festivalmanager.hiring.HiringManagement;
+import festivalmanager.location.LocationManagement;
+
 import java.util.Optional;
 
 @Service
 @Transactional
 public class FestivalManagement {
 	private final FestivalRepository festivals;
+	private final LocationManagement LocationManagement;
+	private final HiringManagement hiringManagement;
 	
-	public FestivalManagement(FestivalRepository festival) {
+	public FestivalManagement(FestivalRepository festival, LocationManagement LocationManagement, HiringManagement hiringManagement) {
 		this.festivals = festival;
+		this.LocationManagement = LocationManagement;
+		this.hiringManagement = hiringManagement;
 	}
 	
 	public Festival createFestival(NewFestivalForm form) {
@@ -25,7 +33,17 @@ public class FestivalManagement {
 	}
 	
 	public void deleteFestival(Festival festival) {
-		
+		// delete Location booking
+		if(festival.getLocation() != null) {
+			festival.getLocation().removeBooking(festival.getStartDate(), festival.getEndDate());
+			LocationManagement.saveLocation(festival.getLocation());
+		}
+		if(!festival.artistsIsEmpty()) {
+			for(Artist anArtist : festival.getArtist()) {
+				anArtist.removeBooking(festival.getStartDate(), festival.getEndDate());
+				hiringManagement.saveArtist(anArtist);
+			}
+		}
 		festivals.delete(festival);
 	}
 	

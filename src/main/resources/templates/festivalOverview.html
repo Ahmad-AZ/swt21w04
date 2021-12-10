@@ -14,7 +14,7 @@
 		<h1>Festivalübersicht</h1>
 	</header>
 	<section layout:fragment="content">
-		<a class="item" th:href="@{/newFestival}" sec:authorize="hasRole('MANAGER') || hasRole('ADMIN')">Neues Festival erstellen</a>
+		
 		<form method="post" name="festival" role="location" id="festival" th:object="${festival}">
 			<div class="content">
 	             <ul class="list">
@@ -25,6 +25,7 @@
 	             </ul>
 	          </div>                	                    
 		</form>
+		<a class="item" th:href="@{/newFestival}" sec:authorize="hasRole('MANAGER') || hasRole('ADMIN')">Neues Festival erstellen</a>
 		<div class="overlay" th:if="${dialog} == 'remove_festival'">
             <form class="form" action="/festival/remove" method="post">
 				<h2 class="form-item" th:inline="text">Festival [[${currentName}]] löschen</h2>
