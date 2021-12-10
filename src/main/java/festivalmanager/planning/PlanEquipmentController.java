@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import festivalmanager.Equipment.Equipment;
 import festivalmanager.Equipment.Equipment.EquipmentType;
@@ -93,26 +94,17 @@ public class PlanEquipmentController {
 		}	
 	}
 	
-//	@PostMapping("/addStage")
-//	public String stages(@Valid StageEquipment stageForm, Errors errors) {
-//		if(errors.hasErrors()) {
-//			System.out.println(errors);
-//			return "equipments";
-//		} 
-//		System.out.println("here");
-//		planEquipmentManagement.rentStage(stageForm.toStage(), currentFestival);
-//		
-//		return "redirect:/equipmentsPre1";
-//	}
 	 
 	@PostMapping("/addStage")
-	public String addStages(@RequestParam("equipmentsId") @NotNull long equipmentsId, @RequestParam("name") @NotEmpty String name) {
-		
+	public String addStages(@RequestParam("equipmentsId") @NotNull long equipmentsId, @RequestParam("name") @NotEmpty String name, RedirectAttributes ra) {
+				
 		Equipment equipment = equipmentManagement.findById(equipmentsId).get();
 		
 		boolean success = planEquipmentManagement.rentStage(name, equipment, currentFestivalId);
 		if(success == false) {
-			
+			ra.addFlashAttribute("message", "Bühne mit diesem Namen existiert bereits");
+			ra.addFlashAttribute("currentFestivalId", currentFestival.getId());
+			return "redirect:/equipments";
 		}
 		return "redirect:/equipmentsPre1";
 		

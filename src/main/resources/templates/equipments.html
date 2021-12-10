@@ -40,9 +40,8 @@
 				                <label for="name">Name</label>
 				                <input id="name" name="name" required="required"></input>
 				            </div>
-				            <div class="field" >
-				                <input name="equipmentsId" type="hidden" th:value="${equipmentStage.id}" required="required"/>
-				            </div>
+				            <input name="equipmentsId" type="hidden" th:value="${equipmentStage.id}" required="required"/>
+							<p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p> 
 				            <input type ="submit" th:value="Mieten"><br>
 				        </form>	
 				        </br>
