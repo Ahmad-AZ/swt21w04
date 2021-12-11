@@ -16,28 +16,50 @@
 		<div th:include="festivalHeader :: festivalHeader"></div>
 	</header>
 	<section layout:fragment="content">
-	 <div class="comment" >
-            <div class="content">
+	 <div class="schedule-list" >
+            <div class="schedules-day" th:each="day : ${dayList}">
            		<div class="text" th:text="${day}">Tag 1</div>
 		        <table class="ui celled table" >
 		            <thead >
-		            	<th> Stage</th>
-		            	<th> TimeSlot1</th> 
-		            	<th> TimeSlot2</th>
-		            	<th> TimeSlot3</th>
-		            	<th> TimeSlot4</th>
-		            	<th> TimeSlot5</th>
+		            	<th> Bühnenname</th>
+		            	<th> 10:00 - 12:00</th> 
+		            	<th> 13:00 - 15:00</th>
+		            	<th> 16:00 - 18:00</th>
+		            	<th> 19:00 - 21:00</th>
+		            	<th> 22:00 - 24:00</th>
 		            </thead>
-		            <tbody th:remove="all-but-first">   
-		            	<tr >
-		            		<td>StageNumber</td> 
-		                    <td class="text" >Show1</td>
-		                    <td class="text">Show2</td>
+		            <tbody th:remove="all-but-first" th:each="stage : ${stageList}">   
+		            	<tr>
+		            		<td> <div class="text" th:text="${stage.name}"/></td> 
+		                    <td th:each="timeSlot : ${timeSlotList}">
+		                    	<div th:text="${festival.getScheduleShowName(timeSlot, stage, day)}">Keine</div>
+		                    	<a sec:authorize="hasRole('USER_MANAGEMENT') || hasRole('ADMIN')" th:href="@{/schedule/{day}/{stageId}/{timeSlot} (day = ${day}, stageId = ${stage.id}, timeSlot = ${timeSlot})}">Setzen</a>
+		                    </td>
 		            	</tr>
-		            </tbody>
+		           </tbody>
+		            
 				</table>
+				</br>
+	        </div>
+
+    </div>
+  	<div class="overlay" th:if="${dialog} == 'choose show'">
+        <form class="form" th:action="@{/schedule/{day}/{stageId}/{timeSlot}/chooseShow (day = ${day}, stageId = ${stageId}, timeSlot = ${timeSlot})}" method="post">
+            <h2 class="form-title">Show wählen:</h2>
+            <div class="form-item">
+            	 <label class="form-label">Show: </label>
+	            <select class="form-input" name="show" id="show" >
+	                <option th:each="show : ${showsToAdd}" th:value="${show.id}" th:text="${show.name}">Admin</option>
+	                <option th:value="0">Keine</option>
+	            </select>
             </div>
-        </div>
+            <div class="form-item">
+            	<a th:href="@{/schedulePre1}">Abbrechen</a>
+            	<input class="form-input" type="submit" value="Wählen">
+            </div>
+        </form>
+    </div>
+        
 		
 		
     </section>

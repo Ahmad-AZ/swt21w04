@@ -24,8 +24,16 @@ public class EquipmentManagement {
 		return equipments.findAll();
 	}
 	
+	public Equipment saveEquipment(Equipment equipment) {
+		return equipments.save(equipment);
+	}
+	
 	public Optional<Equipment> findById(Long id) {
 		System.out.println("find id " + id);
 		return equipments.findById(id);
+	}
+	
+	public void removeById(Long id) {
+		equipments.deleteById(id);
 	}
 }

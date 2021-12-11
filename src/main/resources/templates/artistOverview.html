@@ -17,7 +17,7 @@
     </header>
     <section layout:fragment="content">
 
-        <form method="post" name="artist" role="artist" class="ui form" id="artist" th:object="${artist}">
+        <form method="post" name="artist" role="artist" id="artist" th:object="${artist}">
             <div class="content">
                 <ul class="list">
                     <li class="list-entry" th:each="artist : ${artistList}">
@@ -32,7 +32,7 @@
         <div th:each="artist : ${bookedArtistId}" class="text" th:text="${artist.getName()}"></div>
         <br/>
         <br/>
-        <a class="header" th:href="@{/artistOverview/unbook}" th:if="${bookedArtistId != 0}">Buchung löschen</a>
+        <a class="header" th:href="@{/artistOverview/unbook}" th:if="${bookedArtistId != 0}">Alle Buchungen löschen</a>
         <div>einzelne Löschung von Buchungen geht nicht wegen der Organisation von Fest</div>
 
     </section>

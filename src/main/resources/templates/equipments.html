@@ -16,19 +16,54 @@
 		<div th:include="festivalHeader :: festivalHeader"></div>
 	</header>
 	<section layout:fragment="content">
-		<div class="equipments" th:each="equipment : ${equipmentsMap.keySet()}">
-			<div class="content">
-			
-				 <form method="post" id="form" th:action="@{/rentEquipmentAmount}">
-				 	<div class="text" th:text="${equipment.name}">Name</div>
-				 	<label for="amount">Anzahl</label>
-				 	<input type="hidden" name="equipmentsId" th:value="${equipment.id}"/>	
-				 	<input id="amount" type="number" name="equipmentsAmount" th:value="${equipmentsMap.get(equipment)}"/>					
-			        <input type ="submit" th:value="Anwenden"><br>
-			    </form>
-			</div>
-			</br>
-		</div>			
+		<table class="invisible table">
+			<tbody>
+				<tr>
+					<td>
+						<h3>Gegenstände</h3>
+						<div class="equipments" th:each="equipment : ${equipmentsMap.keySet()}">
+							<div class="normal equipments">
+								 <form method="post" id="form" th:action="@{/rentEquipmentAmount}">
+									  	<div class="text" th:text="${equipment.name}">Name</div>
+									 	<label for="amount">Anzahl</label>
+									 	<input type="hidden" name="equipmentsId" th:value="${equipment.id}"/>	
+									 	<input id="amount" type="number" name="equipmentsAmount" th:value="${equipmentsMap.get(equipment)}"/>					
+								        <input type ="submit" th:value="Anwenden"><br>
+							    </form>
+							    </br>
+							</div>
+						</div>
+						<h3>Bühnen</h3>	
+						<form role="form" th:action="@{/addStage}" method="post">
+				            <div class="text" th:text="${equipmentStage.name}">Name</div>
+				            <div class="field" >
+				                <label for="name">Name</label>
+				                <input id="name" name="name" required="required"></input>
+				            </div>
+				            <input name="equipmentsId" type="hidden" th:value="${equipmentStage.id}" required="required"/>
+							<p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p> 
+				            <input type ="submit" th:value="Mieten"><br>
+				        </form>	
+				        </br>
+				        <h4>gemietete Bühnen</h4>
+				        <div class="stageList">
+				            <ul class="list">
+				                <li class="list-entry" th:each="stage : ${stageList}">
+				                    <p th:text="${stage.name}">Bühnen Name</p>
+				                    <a th:href="@{equipments/remove/{id} (id = ${stage.id})}">X</a>
+				                </li>
+				            </ul>
+				        </div>
+					</td>
+					<td>
+						<h3>Karte</h3>
+						<div class="image">
+          					<img th:src="@{/resources/img/location/{name}.jpg(name=${location.groundView})}"
+                             		src="../static/resources/img/location/HSZ_image.jpg"/>
+					</td>
+				</tr>
+			</tbody>
+		</table>
     </section>
 </body>
 </html>

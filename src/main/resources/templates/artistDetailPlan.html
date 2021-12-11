@@ -18,7 +18,15 @@
     <div class="content">
         </br>
         <a class="item" href="artistOverview.html" th:href="@{/artistPre1}">Zurück</a>
-
+        </br></br>
+		<form method="post" th:action="@{/bookArtist}" th:object="${booking}">
+            <input type="hidden" name="artist" th:value="${artist.id}"/>
+            <input type="hidden" name="currentlyBooked" th:value="${ArtistCurrentlyBooked == true}"/>
+            <input type="submit" th:if="${ArtistCurrentlyBooked == false}" value="Buchen">
+            <div th:if="${ArtistCurrentlyBooked == true}" >Künstler schon gebucht</div>
+<!--            <button type="submit" class="ui button" th:if="${ArtistCurrentlyBooked == true}">Buchung zurücknehmen</button>-->
+            <div class="ui-negative-message" th:text="${message}" th:if="${message ne null}"></div>
+        </form>
         </br>
         <p>Name:</p>
         <p th:text="${artist.name}">Keine gefunden</p>
@@ -26,19 +34,15 @@
         <p>Preis</p>
         <p th:text="${artist.getPrice()}">Keine gefunden</p>
         <br/>
+        <p>Anzahl der Bühnentechniker für Künstler/in</p>
+        <p th:text="${artist.stageTechnician}">Keine gefunden</p>
+        <br/>
         <p>Show:</p>
         <div th:each="show : ${artist.getShows()}" class="text" th:text="${show.getName()}"></div>
         <br/>
         <p>Buchungen</p>
         </br>
-        <form class="ui form" method="post" th:action="@{/bookArtist}" th:object="${booking}">
-            <input type="hidden" name="artist" th:value="${artist.id}"/>
-            <input type="hidden" name="currentlyBooked" th:value="${ArtistCurrentlyBooked == true}"/>
-            <button type="submit" class="ui button" th:if="${ArtistCurrentlyBooked == false}">Buchen</button>
-            <div th:if="${ArtistCurrentlyBooked == true}" >Künstler schon gebucht</div>
-<!--            <button type="submit" class="ui button" th:if="${ArtistCurrentlyBooked == true}">Buchung zurücknehmen</button>-->
-            <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
-        </form>
+        
     </div>
 
 </section>

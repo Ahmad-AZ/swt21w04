@@ -1,6 +1,8 @@
 package festivalmanager.catering;
 
+import org.javamoney.moneta.Money;
 import org.salespointframework.inventory.*;
+import org.salespointframework.quantity.*;
 import java.time.LocalDate;
 import javax.persistence.Entity;
 //import javax.persistence.ManyToOne;
@@ -9,9 +11,7 @@ import javax.persistence.Entity;
 
 @Entity
 public class CateringStockItem extends MultiInventoryItem {
-
-    private CateringProduct product;
-    private double buyingPrice;
+    private Money buyingPrice;
     private int amount;
     private LocalDate orderDate;
     private LocalDate bestBeforeDate;
@@ -20,20 +20,15 @@ public class CateringStockItem extends MultiInventoryItem {
     private CateringStockItem() {
     }
 
-    public CateringStockItem(CateringProduct product, double buyingPrice, int amount, LocalDate orderDate,
+    public CateringStockItem(CateringProduct product, Quantity quantity, Money buyingPrice, LocalDate orderDate,
             LocalDate bestBeforeDate) {
-        this.product = product;
+        super(product, quantity);
         this.buyingPrice = buyingPrice;
-        this.amount = amount;
         this.orderDate = orderDate;
         this.bestBeforeDate = bestBeforeDate;
     }
 
-    public CateringProduct getProduct() {
-        return product;
-    }
-
-    public double getBuyingPrice() {
+    public Money getBuyingPrice() {
         return buyingPrice;
     }
 

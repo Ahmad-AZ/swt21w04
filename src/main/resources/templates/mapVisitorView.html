@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html(title=${Karte})}">
+<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
+	    <title>Karte</title>
+</head>
+<body>
+	<header>
+		<nav th:include="header :: header"></nav>
+		<h1>Karte</h1>
+		<nav th:include="festivalHeader :: festivalHeader"></nav>
+	</header>
+	<section layout:fragment="content">
+		<div class="content">
+          	</br>
+          	<div class="image">
+          		<img th:src="@{/resources/img/location/{name}.jpg(name=${location.groundView})}"
+                             src="../static/resources/img/location/HSZ_groundView.jpg"/>
+          	</div>
+		</div>
+
+    </section>
+</body>
+</html>

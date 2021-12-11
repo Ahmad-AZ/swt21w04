@@ -24,11 +24,12 @@ public class FestivalInitializer implements DataInitializer {
 	public FestivalInitializer(FestivalManagement festivalManagement, FestivalRepository festivals) {
 		this.festivalManagement = festivalManagement;
 		this.festivals = festivals;
-		Date startDate = new GregorianCalendar(2021, 11, 11).getTime();
-		Date endDate = new GregorianCalendar(2021, 11, 14).getTime();
-		Festival f1 = new Festival("Beispielfestival", LocalDate.of(2021, 11, 14), LocalDate.of(2021, 12, 11));
+		Festival f1 = new Festival("Beispielfestival", LocalDate.of(2021, 12, 6), LocalDate.of(2021, 12, 11));
+		Festival f2 = new Festival("adminfestival", LocalDate.of(2022, 2, 6), LocalDate.of(2022, 2, 9));
+
 		System.out.println("FestivalId: "+ f1.getId());
 		festivals.save(f1);
+		festivals.save(f2);
 	}
 
 	  

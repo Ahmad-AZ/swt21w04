@@ -27,12 +27,12 @@ public class LocationControllerIntegrationTests extends AbstractIntegrationTests
 	@Autowired LocationController controller;
 	@Autowired LocationManagement lm ;
 
-//	@Test
-//	void rejectsUnauthenticatedAccessToController() {
-//
-//		assertThatExceptionOfType(AuthenticationException.class) //
-//				.isThrownBy(() -> controller.locations(new ExtendedModelMap()));
-//	}
+	@Test
+	void rejectsUnauthenticatedAccessToController() {
+
+		assertThatExceptionOfType(AuthenticationException.class) //
+				.isThrownBy(() -> controller.locations(new ExtendedModelMap()));
+	}
 
 	// Test locations, locationList not Null
 	@Test
@@ -43,55 +43,36 @@ public class LocationControllerIntegrationTests extends AbstractIntegrationTests
 
 		controller.locations(model);
 		assertThat(model.getAttribute("locationList")).isNotNull();
+		
+		// not sure if that works later with more Festivals
+//		Iterable<Object> object = (Iterable<Object>) model.asMap().get("locationList");
+//		assertThat(object).hasSize(6);
 	}
 	
 	@Test
-	@SuppressWarnings("unchecked")
+	@WithMockUser(roles = "ADMIN")
 	public void locationEditSuccessTest() {
 
 		Model model = new ExtendedModelMap();
 
-		// id from Kulturpalast empirical founded
-		Long id = (long) 6;
+
+		Money price = Money.of(1111, EURO);
 		Location location = new Location();
-		location.setPricePerDay(Money.of(1111, EURO));
+		location.setPricePerDay(price);
 		lm.saveLocation(location);
 		//LocationRepository lr = mock(LocationRepository.class);
 
-
+		Long locationId = location.getId();
+		System.out.println(locationId);
 		// when(lm.findById(any())).thenReturn(Optional.of(location));
-		String returnedView = controller.locationEdit(location.getId(), model);
-
+		String returnedView = controller.locationEdit(locationId, model);
 		assertThat(returnedView).isEqualTo("locationEdit");
-	}
-	
-	@Test 
-	void createNewFestival() {
 		
-		Long vc = (long) 1500;
-		Long sc = (long) 6;
-		Double ppD = (double) 1550.90;
-		NewLocationForm form = new NewLocationForm("name", "adress",  ppD, vc, sc, null, null);
-		Location savedLocation = lm.createLocation(form);
-		
-		Optional<Location> location = lm.findById(savedLocation.getId());
-		if (location.isPresent()) {
-			Location current = location.get();
-			
-			assertThat(current.getName()).isEqualTo("name");
-			assertThat(current.getAdress()).isEqualTo("adress");
-			assertThat(current.getPricePerDay()).isEqualTo(Money.of(1550.90, EURO));
-			assertThat(current.getVisitorCapacity()).isEqualByComparingTo((long) 1500);
-			assertThat(current.getStageCapacity()).isEqualByComparingTo((long) 6);
-			assertThat(current.getImage()).isEqualTo("Blank_image");
-			assertThat(current.getGroundView()).isEqualTo("Blank_groundview");
-			
-		} else {
-			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
-		}
+		assertThat(model.getAttribute("location")).isNotNull();
+		assertThat(model.getAttribute("pricePerDay")).isEqualTo(price.getNumber().doubleValue());
 	}
+		
+
 	
 	
 }

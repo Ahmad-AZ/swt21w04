@@ -2,8 +2,10 @@ package festivalmanager.catering;
 
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
-import festivalmanager.festival.LongOrNull;
+import festivalmanager.utils.CurrentPageManagement;
+import festivalmanager.utils.LongOrNull;
 import org.salespointframework.catalog.ProductIdentifier;
+import static org.salespointframework.core.Currencies.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,18 +13,24 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import java.util.Optional;
-import org.javamoney.moneta.Money;
+
+import javax.money.format.MonetaryParseException;
+
+import org.javamoney.moneta.*;
 
 @Controller
 public class CateringProductCatalogController {
 
-	private Festival currentFestival;
-	private FestivalManagement festivalManagement;
+    private Festival currentFestival;
+    private FestivalManagement festivalManagement;
+	private CurrentPageManagement currentPageManagement;
     private CateringProductCatalog catalog;
 
-    public CateringProductCatalogController(CateringProductCatalog catalog, FestivalManagement festivalManagement) {
+    public CateringProductCatalogController(CateringProductCatalog catalog, FestivalManagement festivalManagement,
+											CurrentPageManagement currentPageManagement) {
         this.catalog = catalog;
-		this.festivalManagement = festivalManagement;
+        this.festivalManagement = festivalManagement;
+		this.currentPageManagement = currentPageManagement;
     }
 
     public CateringProductCatalog getCatalog() {
@@ -31,33 +39,58 @@ public class CateringProductCatalogController {
 
     @GetMapping("/cateringProductCatalog")
     String products(Model model, @ModelAttribute("currentFestivalId") LongOrNull currentFestivalId) {
-		if (currentFestivalId.getValue() != null) {
-			long longId = currentFestivalId.getValue();
-			this.currentFestival = festivalManagement.findById(longId).get();
-		}
+        if (currentFestivalId.getValue() != null) {
+            long longId = currentFestivalId.getValue();
+            this.currentFestival = festivalManagement.findById(longId).get();
+        }
 
-		model.addAttribute("productcatalog", catalog.findAll());
-		model.addAttribute("festival", currentFestival);
+        model.addAttribute("productcatalog", catalog.findAll());
+        model.addAttribute("festival", currentFestival);
+		currentPageManagement.updateCurrentPage(model, "catering");
         return "cateringProductCatalog";
     }
 
     @GetMapping("/cateringAddProduct")
     String addProduct(Model model) {
-		model.addAttribute("festival", currentFestival);
-		return "cateringAddProduct";
+        model.addAttribute("festival", currentFestival);
+		currentPageManagement.updateCurrentPage(model, "catering");
+        return "cateringAddProduct";
     }
 
     @PostMapping("/cateringAddProduct/editData")
     String addProduct(Model model, FormularData formularData) {
-        CateringProduct product = new CateringProduct(formularData.name, formularData.price, formularData.deposit,
+        boolean failure = false;
+
+        Money formPrice = Money.of(2.50, EURO);
+        try {
+            formPrice = Money.parse(formularData.price);
+        } catch (MonetaryParseException ex) {
+            failure = true;
+        }
+
+        Money formDeposit = Money.of(0.25, EURO);
+        try {
+            formDeposit = Money.parse(formularData.deposit);
+        } catch (MonetaryParseException ex) {
+            failure = true;
+        }
+
+        CateringProduct product = new CateringProduct(formularData.name, formPrice, formDeposit,
                 formularData.filling);
-        catalog.save(product);
-		model.addAttribute("festival", currentFestival);
-        return "redirect:/cateringProductCatalog";
+
+        if (!failure)
+            catalog.save(product);
+        else
+            model.addAttribute("product", product);
+
+
+        return (failure) ? "/cateringAddProduct" : "redirect:/cateringProductCatalog";
     }
 
     @GetMapping("/cateringEditProduct")
     String editProduct(Model model) {
+		model.addAttribute("festival", currentFestival);
+		currentPageManagement.updateCurrentPage(model, "catering");
         return "cateringEditProduct";
     }
 
@@ -71,17 +104,20 @@ public class CateringProductCatalogController {
             model.addAttribute("product", product);
         }
 
-		model.addAttribute("festival", currentFestival);
+        model.addAttribute("festival", currentFestival);
+		currentPageManagement.updateCurrentPage(model, "catering");
         return "cateringEditProduct";
     }
 
     @PostMapping("/cateringEditProduct/editData/{productid}")
     String editProductData(@PathVariable ProductIdentifier productid, Model model, FormularData formularData) {
+        boolean changed = false;
+        boolean failure = false;
+        CateringProduct product;
 
         Optional<CateringProduct> oProduct = catalog.findById(productid);
         if (oProduct.isPresent()) {
-            CateringProduct product = oProduct.get();
-            boolean changed = false;
+            product = oProduct.get();
 
             if (!product.getName().equals(formularData.name)) {
                 changed = true;
@@ -89,16 +125,28 @@ public class CateringProductCatalogController {
                 System.out.println("Name:" + formularData.name);
             }
 
-            if (!product.getPrice().equals(formularData.price)) {
+            Money formprice = Money.of(2.50, EURO);
+            try {
+                formprice = Money.parse(formularData.price);
+            } catch (MonetaryParseException ex) {
+                failure = true;
+            }
+            if (!product.getPrice().equals(formprice)) {
                 changed = true;
-                product.setPrice(formularData.price);
-                System.out.println("Preis:" + formularData.price);
+                product.setPrice(formprice);
+                System.out.println("Preis:" + formprice);
             }
 
-            if (!product.getDeposit().equals(formularData.deposit)) {
+            Money formdeposit = Money.of(0.25, EURO);
+            try {
+                formdeposit = Money.parse(formularData.deposit);
+            } catch (MonetaryParseException ex) {
+                failure = true;
+            }
+            if (!product.getDeposit().equals(formdeposit)) {
                 changed = true;
-                product.setDeposit(formularData.deposit);
-                System.out.println("Pfand:" + formularData.deposit);
+                product.setDeposit(formdeposit);
+                System.out.println("Pfand:" + formdeposit);
             }
 
             if (Double.compare(product.getFilling(), formularData.filling) != 0) {
@@ -112,8 +160,8 @@ public class CateringProductCatalogController {
             }
 
         }
-		model.addAttribute("festival", currentFestival);
-        return "redirect:/cateringProductCatalog";
+
+        return (failure) ? "redirect:/cateringEditProduct/" + productid : "redirect:/cateringProductCatalog";
     }
 
     @GetMapping("/cateringDeleteProduct/{productid}")
@@ -124,7 +172,8 @@ public class CateringProductCatalogController {
             model.addAttribute("product", product);
         }
 
-		model.addAttribute("festival", currentFestival);
+		currentPageManagement.updateCurrentPage(model, "catering");
+        model.addAttribute("festival", currentFestival);
         return "cateringDeleteProduct";
     }
 
@@ -141,10 +190,10 @@ public class CateringProductCatalogController {
 
     class FormularData {
         String name;
-        Money price, deposit;
+        String price, deposit;
         double filling;
 
-        public FormularData(String name, Money price, Money deposit, double filling) {
+        public FormularData(String name, String price, String deposit, double filling) {
             this.name = name;
             this.price = price;
             this.deposit = deposit;

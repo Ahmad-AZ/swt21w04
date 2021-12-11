@@ -4,8 +4,10 @@ import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.hiring.Artist;
 import festivalmanager.hiring.HiringManagement;
+import festivalmanager.utils.CurrentPageManagement;
 import org.springframework.data.util.Streamable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,11 +25,13 @@ public class PlanOffersController {
 	private final HiringManagement hiringManagement;
 	private Festival currentFestival;
 	private final FestivalManagement festivalManagement;
+	private final CurrentPageManagement currentPageManagement;
 
-	public PlanOffersController(PlanOffersManagement planOffersManagement, HiringManagement hiringManagement, FestivalManagement festivalManagement) {
+	public PlanOffersController(PlanOffersManagement planOffersManagement, HiringManagement hiringManagement, FestivalManagement festivalManagement, CurrentPageManagement currentPageManagement) {
 		this.planOffersManagement = planOffersManagement;
 		this.hiringManagement = hiringManagement;
 		this.festivalManagement = festivalManagement;
+		this.currentPageManagement = currentPageManagement;
 		this.currentFestival = null;
 	}
 	@GetMapping("/artistOverview")
@@ -55,6 +59,7 @@ public class PlanOffersController {
 				model.addAttribute("bookedArtist", 0);
 			}
 
+			currentPageManagement.updateCurrentPage(model,"artists");
 			return "artistOverview";
 		}
 		else{
@@ -64,6 +69,7 @@ public class PlanOffersController {
 		}
 	}
 	@GetMapping("/artistOverview/{artistId}")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String artistDetail(@PathVariable Long artistId, Model model) {
 		Optional<Artist> artist = hiringManagement.findById(artistId);
 
@@ -84,6 +90,7 @@ public class PlanOffersController {
 
 			model.addAttribute("festival", currentFestival);
 
+			currentPageManagement.updateCurrentPage(model,"artists");
 			return "artistDetailPlan";
 
 		} else {
@@ -93,6 +100,7 @@ public class PlanOffersController {
 		}
 	}
 	@PostMapping("/bookArtist")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String bookArtist(@RequestParam("artist") Long artistId, @RequestParam("currentlyBooked") boolean currentlyBooked, RedirectAttributes ra) {
 		Optional<Artist> artist = hiringManagement.findById(artistId);
 		if (artist.isPresent()) {
@@ -100,11 +108,13 @@ public class PlanOffersController {
 			if (currentlyBooked) {
 				planOffersManagement.unbookArtist(current, currentFestival);
 			}
-			currentFestival.addArtist(current);
-			festivalManagement.saveFestival(currentFestival);
-
-			for (Artist artist1:currentFestival.getArtist()){
-				System.out.println(artist1.getName());
+			else {
+				boolean success = planOffersManagement.bookArtist(current, currentFestival);
+				System.out.println("book artist success " + success);
+				if(!success) {
+					ra.addFlashAttribute("message", "Künstler ist im diesem Zeitraum belegt");
+					return "redirect:/artistOverview/"+ current.getId();
+				}
 			}
 			return "redirect:/artistPre1";
 		}

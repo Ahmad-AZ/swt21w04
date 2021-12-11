@@ -23,6 +23,10 @@ h1 {
 	text-align:center;
 }
 
+textarea {
+	resize: none;
+}
+
 .header {
 	float: top;
 	width: 100%;
@@ -73,6 +77,10 @@ h1 {
 	background-color: #20a0ff;
 }
 
+.item.current {
+    background-color: #20a0ff;
+}
+
 a.item, span.item {
 	height: 2vh;
 	padding: 1.5vh 1vh;
@@ -111,13 +119,40 @@ button:hover {
 }
 
 .form {
-	background-color: lightgrey;
-	border: 2px solid black;
-	width: 50%;
-	height: 50%;
+	background-color: white;
+	border: 2px solid gray;
+	border-radius: 5px;
+	padding: 0 1%;
+	width: 30%;
+	display: flex;
+	flex-direction: column;
 	position: absolute;
-	left: 25%;
-	top: 25%;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.form-item {
+	margin: 5% 0;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.form-item-vertical {
+	margin: 5% 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.form-title {
+	margin: 5% 0;
+}
+
+.form-label {
+}
+
+.form-input {
 }
 
 .list {
@@ -137,7 +172,24 @@ button:hover {
 }
 
 .image {
-	width: auto;
-	height:auto;
-	display: block;
+	max-height: 400px;
+ 
+
 }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto ;
+
+  padding: 10px;
+}
+
+.grid-item-right{
+	text-align: right;
+}
+
+.item-groundView {
+  grid-column: 1 / 3;
+}
+
+

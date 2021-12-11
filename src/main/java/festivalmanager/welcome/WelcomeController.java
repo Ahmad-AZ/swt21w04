@@ -15,14 +15,47 @@
  */
 package festivalmanager.welcome;
 
+import festivalmanager.staff.Person;
+import festivalmanager.staff.StaffManagement;
+import org.salespointframework.useraccount.Role;
+import org.salespointframework.useraccount.UserAccount;
+import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.Optional;
 
 @Controller
 public class WelcomeController {
+	private final StaffManagement staffManagement;
+
+	public WelcomeController(StaffManagement staffManagement) {
+		Assert.notNull(staffManagement, "StaffManagement must not be null!");
+
+		this.staffManagement = staffManagement;
+	}
 
 	@GetMapping("/")
-	public String index() {
-		return "index";
+	public String index(Model model, @LoggedIn Optional<UserAccount> account) {
+		if (account.isPresent()) {
+			if (account.get().hasRole(Role.of("ADMIN"))) {
+				return "index";
+			} else if (account.get().hasRole(Role.of("MANAGER"))) {
+				return "index";
+			} else if (account.get().hasRole(Role.of("PLANNER"))) {
+				return "index";
+			} else {
+				// staff logged in therefore show festival overview page
+				Optional<Person> person = staffManagement.findByUserAccount(account.get());
+				if (person.isPresent()) {
+					return "redirect:/festivalOverview/" + person.get().getFestivalId();
+				}
+			}
+		}
+
+		// visitor page
+		return "redirect:/festivalOverview/";
 	}
 }

@@ -18,20 +18,24 @@ public class Person {
 	private double salary;
 
 	@OneToOne
-	private UserAccount account;
+	private UserAccount userAccount;
 
 	public Person() {}
 
-	public Person(long festivalId, String name, String role, double salary, UserAccount account) {
+	public Person(long festivalId, String name, String role, double salary, UserAccount userAccount) {
 		this.festivalId = festivalId;
 		this.name = name;
 		this.role = role;
 		this.salary = salary;
-		this.account = account;
+		this.userAccount = userAccount;
 	}
 
 	public long getId() {
 		return id;
+	}
+
+	public long getFestivalId() {
+		return festivalId;
 	}
 
 	public String getName() {
@@ -49,7 +53,7 @@ public class Person {
 	public Double getSalary() {
 		return salary;
 	}
-	public UserAccount getAccount() {
-		return account;
+	public UserAccount getUserAccount() {
+		return userAccount;
 	}
 }
