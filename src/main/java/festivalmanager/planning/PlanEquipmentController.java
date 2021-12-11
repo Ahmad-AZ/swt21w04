@@ -11,8 +11,10 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import festivalmanager.utils.CurrentPageManagement;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import festivalmanager.Equipment.Equipment;
 import festivalmanager.Equipment.Equipment.EquipmentType;
@@ -37,18 +40,21 @@ public class PlanEquipmentController {
 	private final PlanEquipmentManagement planEquipmentManagement;
 	private final FestivalManagement festivalManagement;
 	private final EquipmentManagement equipmentManagement;
+	private final CurrentPageManagement currentPageManagement;
 	private Festival currentFestival;
 	private long currentFestivalId;
 	
-	public PlanEquipmentController(PlanEquipmentManagement planEquipmentManagement, FestivalManagement festivalManagement, EquipmentManagement equipmentManagement) {
+	public PlanEquipmentController(PlanEquipmentManagement planEquipmentManagement, FestivalManagement festivalManagement, EquipmentManagement equipmentManagement, CurrentPageManagement currentPageManagement) {
 		this.planEquipmentManagement = planEquipmentManagement;
 		this.festivalManagement = festivalManagement;
 		this.equipmentManagement = equipmentManagement;
+		this.currentPageManagement = currentPageManagement;
 		this.currentFestivalId = 0;
 	}
 	
 	// shows Equipments Overview
 	@GetMapping("/equipments")  
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String equipments(Model model, @ModelAttribute("currentFestivalId") long currentFestivalId) {
 		if(currentFestivalId != 0) {
 			this.currentFestivalId = currentFestivalId;
@@ -77,11 +83,15 @@ public class PlanEquipmentController {
 			
 			// show current Stage List form Festival
 			model.addAttribute("stageList", current.getStages());
-
+			
 			model.addAttribute("equipmentsMap", equipmentsMap);
 			
 			// required for secound nav-bar
 			model.addAttribute("festival", current);
+			
+			//required for groundView
+			model.addAttribute("location", current.getLocation());
+			currentPageManagement.updateCurrentPage(model,"equipment");
 			return "equipments";
 		} else {
 			throw new ResponseStatusException(
@@ -90,32 +100,25 @@ public class PlanEquipmentController {
 		}	
 	}
 	
-//	@PostMapping("/addStage")
-//	public String stages(@Valid StageEquipment stageForm, Errors errors) {
-//		if(errors.hasErrors()) {
-//			System.out.println(errors);
-//			return "equipments";
-//		} 
-//		System.out.println("here");
-//		planEquipmentManagement.rentStage(stageForm.toStage(), currentFestival);
-//		
-//		return "redirect:/equipmentsPre1";
-//	}
 	 
 	@PostMapping("/addStage")
-	public String addStages(@RequestParam("equipmentsId") @NotNull long equipmentsId, @RequestParam("name") @NotEmpty String name) {
-		
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
+	public String addStages(@RequestParam("equipmentsId") @NotNull long equipmentsId, @RequestParam("name") @NotEmpty String name, RedirectAttributes ra) {
+				
 		Equipment equipment = equipmentManagement.findById(equipmentsId).get();
 		
 		boolean success = planEquipmentManagement.rentStage(name, equipment, currentFestivalId);
 		if(success == false) {
-			
+			ra.addFlashAttribute("message", "Bühne mit diesem Namen existiert bereits");
+			ra.addFlashAttribute("currentFestivalId", currentFestival.getId());
+			return "redirect:/equipments";
 		}
 		return "redirect:/equipmentsPre1";
 		
 	}
 	
 	@GetMapping("equipments/remove/{id}")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String removeStage(@PathVariable("id") Long id) {
 		
 		Optional<Equipment> equipment = equipmentManagement.findById(id);
@@ -135,15 +138,16 @@ public class PlanEquipmentController {
 					HttpStatus.NOT_FOUND, "entity not found"
 			);
 		}
-		
-		
-		
-		
+
+
+
+
 		return "redirect:/equipmentsPre1";
 	}
 	
 	
 	@PostMapping("/rentEquipmentAmount")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String rentEquipmentAmount(Model model, 
 					  @RequestParam("equipmentsId") long equipmentsId,
 					  @RequestParam("equipmentsAmount") long equipmentsAmount) {
@@ -168,28 +172,6 @@ public class PlanEquipmentController {
 	}
 	
 	
-	
-//	interface StageEquipment {
-//
-//		@NotEmpty
-//		String getName();
-//		
-//		@NotEmpty
-//		@Min(value = 0) 
-//		Double getRentalPerDay();
-//		
-//		@NotEmpty
-//		@Min(value = 0) 
-//		Integer getLength();
-//		
-//		@NotEmpty
-//		@Min(value = 0) 
-//		Integer getWidth();
-//		
-//		default Stage toStage() {
-//			return new Stage(getName(), getRentalPerDay(), getLength(), getWidth());
-//		}
-//	}
 }
 
 

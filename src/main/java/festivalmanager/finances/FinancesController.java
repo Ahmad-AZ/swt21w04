@@ -1,5 +1,6 @@
 package festivalmanager.finances;
 
+import festivalmanager.utils.CurrentPageManagement;
 import org.javamoney.moneta.Money;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -7,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
-import festivalmanager.finances.FinancesManagement;
 
 import static org.salespointframework.core.Currencies.EURO;
 
@@ -21,6 +21,7 @@ class FinancesController {
 	private Festival currentFestival;
 	private FinancesManagement financesManagement;
 	private FestivalManagement festivalManagement;
+	private CurrentPageManagement currentPageManagement;
 
 	private long nCampingTickets;
 	private long nOneDayTickets;
@@ -32,9 +33,12 @@ class FinancesController {
 	private Money priceCampingTickets;
 	private Money priceOneDayTickets;
 
-	FinancesController(FinancesManagement financesManagement, FestivalManagement festivalManagement) {
+	FinancesController(FinancesManagement financesManagement,
+					   FestivalManagement festivalManagement,
+					   CurrentPageManagement currentPageManagement) {
 		this.financesManagement = financesManagement;
 		this.festivalManagement = festivalManagement;
+		this.currentPageManagement = currentPageManagement;
 		this.finances = new Finances();
 		this.currentFestival = null;
 		resetAttributes();
@@ -52,8 +56,7 @@ class FinancesController {
 
 
 	@GetMapping("/finances")
-	@Scope("session")
-	// TODO: @PreAuthorize("hasRole('PLANNER')")
+	//@Scope("session")
 	String financesPage(Model model,
 					@ModelAttribute("currentFestivalId") long currentFestivalId) {
 
@@ -96,7 +99,8 @@ class FinancesController {
 		
 		// required for second nav-bar
 		model.addAttribute("festival", currentFestival);
-		
+
+		currentPageManagement.updateCurrentPage(model,"finances");
 		return "finances";
 	}
 

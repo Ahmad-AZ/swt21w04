@@ -4,6 +4,7 @@ package festivalmanager.ticketShop;
 import com.sun.istack.NotNull;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalRepository;
+import festivalmanager.utils.CurrentPageManagement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -19,10 +20,12 @@ public class TicketController {
 
 	private  TicketManagement ticketManagement;
 	private Festival currentFestival;
+	private CurrentPageManagement currentPageManagement;
 
 
-	public TicketController(TicketManagement ticketManagement) {
+	public TicketController(TicketManagement ticketManagement, CurrentPageManagement currentPageManagement) {
 		this.ticketManagement = ticketManagement;
+		this.currentPageManagement = currentPageManagement;
 		this.currentFestival = null;
 	}
 
@@ -38,6 +41,7 @@ public class TicketController {
 		model.addAttribute("ticket", new Ticket());
 		model.addAttribute("festival", this.currentFestival);
 
+		currentPageManagement.updateCurrentPage(model,"tickets");
 		return "ticketFrom";
 	}
 
@@ -91,11 +95,10 @@ public class TicketController {
 			currentTickets.setCampingTicketsCount(currDayTickets - soldTicket);
 
 			ticketPrice = currentTickets.getDayTicketPrice();
-
 		}
 
 		model.addAttribute("ticketCount", soldTicket);
-		model.addAttribute("ticketPrice", ticketPrice);
+		model.addAttribute("ticketPrice", ticketPrice*soldTicket);
 		model.addAttribute("festival",currentFestival.getName());
 		model.addAttribute("tickets", ticket);
 
@@ -109,6 +112,7 @@ public class TicketController {
 
 		model.addAttribute("tickets", ticket);
 
+		currentPageManagement.updateCurrentPage(model,"ticketShop");
 		return "ticketShop";
 	}
 

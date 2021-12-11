@@ -15,11 +15,9 @@ import festivalmanager.Equipment.Equipment;
 import festivalmanager.Equipment.Equipment.EquipmentType;
 import festivalmanager.Equipment.EquipmentManagement;
 import festivalmanager.Equipment.Stage;
-import festivalmanager.festival.DaySchedule;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.festival.Schedule;
-import festivalmanager.festival.StageSchedule;
 import festivalmanager.festival.Schedule.TimeSlot;
 import festivalmanager.hiring.Artist;
 import festivalmanager.hiring.Show;
@@ -118,44 +116,12 @@ public class PlanScheduleManagement {
 			
 			Schedule schedule = current.getSchedule(timeSlot, stage, date);
 			if(!current.containsSchedule(timeSlot, stage, date)) {				
-				success = current.addSchedule(timeSlot, show, stage, date);
+				success = current.addSchedule(new Schedule(timeSlot, show, stage, date));
 			} 
 			else {
 				schedule.setShow(show);
 //				success = current.replaceSchedule(schedule);
 			}
-
-			
-//			boolean success = current.setSchedule(date, stage, schedule);
-			
-//			DaySchedule daySchedule = current.getDaySchedule(date);
-//			if(daySchedule == null) {
-//				daySchedule = new DaySchedule(date);
-//							
-//				
-//			} else {
-//				StageSchedule stageSchedule = daySchedule.getStageSchedule(stageId);
-//				
-//				if(stageSchedule == null) {
-//					// add StageSchedule
-//					stageSchedule = new StageSchedule(stage);
-//					
-//					
-//					
-//				} else {
-//					boolean scheduleSetted;
-//					for(Schedule aSchedule : stageSchedules) {
-//						if(aSchedule.getTimeSlot().equals(timeSlot)) {
-//							stageSchedules.set(stageSchedules.indexOf(aSchedule), schedule);
-//							scheduleSetted = true;
-//						}
-//					}
-//					if(!scheduleSetted) {
-//						stageSchedules.add(schedule);
-//					}
-//					 
-//				}
-//			}
 
 			festivalManagement.saveFestival(current);
 			return success;

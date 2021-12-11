@@ -22,7 +22,7 @@
 
         <form class="item"  th:action="@{/tickets/create}" method="post" th:object="${ticket}">
             <h4 style="color: black" th:text="${festival.name}"> Festival</h4><br><br>
-            <h5>Anzahl der Tickets</h5>
+            <h5>Anzahl der Tickets</h5><br>
             <label for="count1">Camping-Tickets:</label><br>
             <input type="number" id="count1" th:field="*{campingTicketsCount}"><br><br>
 
@@ -30,11 +30,11 @@
             <input type="number" id="count" th:field="*{dayTicketsCount}"><br><br>
 
 
-            <h5>Ticketpreise</h5>
+            <h5>Ticketpreise</h5><br>
             <label for="price1">Camping-Tickets:</label><br>
             <input type="number" id="price1" th:field="*{campingTicketPrice}"><br><br>
 
-            <label for="price">Day Ticket Price </label><br>
+            <label for="price">Tagesticket</label><br>
             <input type="number" id="price" th:field="*{dayTicketPrice}"><br><br>
 
             <br><br>

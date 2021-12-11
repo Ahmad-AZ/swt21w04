@@ -2,7 +2,8 @@ package festivalmanager.catering;
 
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
-import festivalmanager.festival.LongOrNull;
+import festivalmanager.utils.CurrentPageManagement;
+import festivalmanager.utils.LongOrNull;
 import org.salespointframework.catalog.ProductIdentifier;
 import org.salespointframework.inventory.InventoryItemIdentifier;
 import org.salespointframework.quantity.Quantity;
@@ -27,14 +28,16 @@ public class CateringProductCatalogController {
 
     private Festival currentFestival;
     private FestivalManagement festivalManagement;
+	private CurrentPageManagement currentPageManagement;
     private CateringProductCatalog catalog;
     private CateringStock stock;
 
     public CateringProductCatalogController(CateringProductCatalog catalog, CateringStock stock,
-            FestivalManagement festivalManagement) {
+            FestivalManagement festivalManagement, CurrentPageManagement currentPageManagement) {
         this.catalog = catalog;
         this.festivalManagement = festivalManagement;
         this.stock = stock;
+        this.currentPageManagement = currentPageManagement;
     }
 
     @GetMapping("/cateringProductCatalog")
@@ -47,12 +50,14 @@ public class CateringProductCatalogController {
         model.addAttribute("stock", stock.findAll());
         model.addAttribute("productcatalog", catalog.findAll());
         model.addAttribute("festival", currentFestival);
+		currentPageManagement.updateCurrentPage(model, "catering");
         return "cateringProductCatalog";
     }
 
     @GetMapping("/cateringAddProduct")
     String addProduct(Model model) {
         model.addAttribute("festival", currentFestival);
+		currentPageManagement.updateCurrentPage(model, "catering");
         return "cateringAddProduct";
     }
 
@@ -82,13 +87,14 @@ public class CateringProductCatalogController {
         else
             model.addAttribute("product", product);
 
-        model.addAttribute("festival", currentFestival);
 
         return (failure) ? "/cateringAddProduct" : "redirect:/cateringProductCatalog";
     }
 
     @GetMapping("/cateringEditProduct")
     String editProduct(Model model) {
+		model.addAttribute("festival", currentFestival);
+		currentPageManagement.updateCurrentPage(model, "catering");
         return "cateringEditProduct";
     }
 
@@ -103,6 +109,7 @@ public class CateringProductCatalogController {
         }
 
         model.addAttribute("festival", currentFestival);
+		currentPageManagement.updateCurrentPage(model, "catering");
         return "cateringEditProduct";
     }
 
@@ -158,8 +165,6 @@ public class CateringProductCatalogController {
 
         }
 
-        model.addAttribute("festival", currentFestival);
-
         return (failure) ? "redirect:/cateringEditProduct/" + productid : "redirect:/cateringProductCatalog";
     }
 
@@ -171,6 +176,7 @@ public class CateringProductCatalogController {
             model.addAttribute("product", product);
         }
 
+		currentPageManagement.updateCurrentPage(model, "catering");
         model.addAttribute("festival", currentFestival);
         return "cateringDeleteProduct";
     }

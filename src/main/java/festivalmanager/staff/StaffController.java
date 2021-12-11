@@ -3,6 +3,7 @@ package festivalmanager.staff;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.staff.forms.*;
+import festivalmanager.utils.CurrentPageManagement;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,12 +18,15 @@ import java.util.Optional;
 public class StaffController {
 	private final StaffManagement staffManagement;
 	private final FestivalManagement festivalManagement;
+	private final CurrentPageManagement currentPageManagement;
 
-	public StaffController(StaffManagement staffManagement, FestivalManagement festivalManagement) {
+	public StaffController(StaffManagement staffManagement, FestivalManagement festivalManagement,
+						   CurrentPageManagement currentPageManagement) {
 		Assert.notNull(staffManagement, "StaffManagement must not be null!");
 		Assert.notNull(festivalManagement, "FestivalManagement must not be null!");
 		this.staffManagement = staffManagement;
 		this.festivalManagement = festivalManagement;
+		this.currentPageManagement = currentPageManagement;
 	}
 
 	@GetMapping("/staff/{festivalId}")
@@ -35,20 +39,25 @@ public class StaffController {
 			model.addAttribute("festival", festival.get());
 		}
 
+		currentPageManagement.updateCurrentPage(model,"staff");
 		return "staff.html";
 	}
 
-	@GetMapping("/staff/{festivalId}/create")
+	@GetMapping(value = {"/staff/{festivalId}/create", "/staff/{festivalId}/create/{error}"})
 	@PreAuthorize("hasRole('ADMIN')")
-	public String getCreateStaffDialog(@PathVariable("festivalId") long festivalId, Model model) {
+	public String getCreateStaffDialog(@PathVariable("festivalId") long festivalId, @PathVariable("error") Optional<String> error, Model model) {
 		model.addAttribute("entries", staffManagement.findByFestivalId(festivalId));
 		model.addAttribute("dialog", "create_staff");
+		if (error.isPresent()) {
+			model.addAttribute("error", error.get());
+		}
 
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
 		if (festival.isPresent()) {
 			model.addAttribute("festival", festival.get());
 		}
 
+		currentPageManagement.updateCurrentPage(model,"staff");
 		return "staff.html";
 	}
 
@@ -67,6 +76,7 @@ public class StaffController {
 			model.addAttribute("festival", festival.get());
 		}
 
+		currentPageManagement.updateCurrentPage(model,"staff");
 		return "person.html";
 	}
 
@@ -89,13 +99,18 @@ public class StaffController {
 			model.addAttribute("festival", festival.get());
 		}
 
+		currentPageManagement.updateCurrentPage(model,"staff");
 		return "staff.html";
 	}
 
 	@PostMapping("/staff/{festivalId}/create")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String createStaff(@PathVariable("festivalId") long festivalId, CreateStaffForm form) {
-		this.staffManagement.createPerson(festivalId, form);
+		try {
+			this.staffManagement.createPerson(festivalId, form);
+		} catch (IllegalArgumentException exception) {
+			return "redirect:/staff/" + festivalId + "/create/" + exception.getLocalizedMessage();
+		}
 
 		return "redirect:/staff/" + festivalId;
 	}
@@ -123,6 +138,7 @@ public class StaffController {
 			model.addAttribute("festival", festival.get());
 		}
 
+		currentPageManagement.updateCurrentPage(model,"staff");
 		return "person.html";
 	}
 
@@ -141,12 +157,13 @@ public class StaffController {
 			model.addAttribute("festival", festival.get());
 		}
 
+		currentPageManagement.updateCurrentPage(model,"staff");
 		return "person.html";
 	}
 
 	@PostMapping("/staff/{festivalId}/change_role/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public String changeName(@PathVariable("festivalId") long festivalId, @PathVariable("id") long id, ChangeRoleForm form) {
+	public String changeRole(@PathVariable("festivalId") long festivalId, @PathVariable("id") long id, ChangeRoleForm form) {
 		this.staffManagement.changeRole(form);
 
 		return "redirect:/staff/" + festivalId + "/detail/" + id;
@@ -154,7 +171,7 @@ public class StaffController {
 
 	@PostMapping("/staff/{festivalId}/change_password/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public String changeName(@PathVariable("festivalId") long festivalId, @PathVariable("id") long id, ChangePasswordForm form) {
+	public String changePassword(@PathVariable("festivalId") long festivalId, @PathVariable("id") long id, ChangePasswordForm form) {
 		this.staffManagement.changePassword(form);
 
 		return "redirect:/staff/" + festivalId + "/detail/" + id;

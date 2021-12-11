@@ -4,6 +4,7 @@ import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.hiring.Artist;
 import festivalmanager.hiring.HiringManagement;
+import festivalmanager.location.Location;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,8 +23,15 @@ public class PlanOffersManagement {
 		artistList = hiringManagement.findAll();
 	}
 
-	public boolean bookArtist(Artist artist, Festival festival){
-
+	public boolean bookArtist(Artist artist, Festival festival) {
+		artist.removeBooking(festival.getStartDate(), festival.getEndDate());
+		boolean succes = artist.addBooking(festival.getStartDate(), festival.getEndDate());
+		hiringManagement.saveArtist(artist);
+		if(succes) {
+			festival.addArtist(artist);
+			festivalManagement.saveFestival(festival);
+			return true;
+		}
 		return false;
 	}
 

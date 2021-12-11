@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,8 +20,18 @@ public class StaffManagement {
 	private final StaffRepository staff;
 	private final UserAccountManagement userAccountManagement;
 
-	StaffManagement(StaffRepository staff, UserAccountManagement userAccountManagement) {
+	private static final String[] roles = {
+		"ADMIN",
+		"MANAGER",
+		"PLANNER",
+		"FESTIVAL_LEADER",
+		"TICKET_SELLER",
+		"ADMISSION",
+		"SECURITY",
+		"CATERING"
+	};
 
+	StaffManagement(StaffRepository staff, UserAccountManagement userAccountManagement) {
 		Assert.notNull(staff, "StaffRepository must not be null!");
 		Assert.notNull(userAccountManagement, "UserAccountManagement must not be null!");
 
@@ -30,10 +42,14 @@ public class StaffManagement {
 	public Person createPerson(long festivalId, CreateStaffForm form) {
 		Assert.notNull(form, "Registration form must not be null!");
 
-		var password = Password.UnencryptedPassword.of(form.getPassword());
-		var userAccount = userAccountManagement.create(form.getName(), password, Role.of(form.getRole()));
+		if (List.of(roles).contains(form.getRole())) {
+			var password = Password.UnencryptedPassword.of(form.getPassword());
+			var userAccount = userAccountManagement.create(form.getName(), password, Role.of(form.getRole()));
 
-		return staff.save(new Person(festivalId, form.getName(), form.getRole(), form.getSalary(), userAccount));
+			return staff.save(new Person(festivalId, form.getName(), form.getRole(), form.getSalary(), userAccount));
+		} else {
+			return null;
+		}
 	}
 
 	public void removePerson(RemoveStaffForm form) {
@@ -51,9 +67,11 @@ public class StaffManagement {
 				return;
 			}
 
-			person.get().getUserAccount().remove(Role.of(person.get().getRole()));
-			person.get().getUserAccount().add(Role.of(form.getRole()));
-			person.get().setRole(form.getRole());
+			if (List.of(roles).contains(form.getRole())) {
+				person.get().getUserAccount().remove(Role.of(person.get().getRole()));
+				person.get().getUserAccount().add(Role.of(form.getRole()));
+				person.get().setRole(form.getRole());
+			}
 		}
 	}
 

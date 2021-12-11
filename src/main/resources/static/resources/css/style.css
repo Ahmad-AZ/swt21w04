@@ -77,6 +77,10 @@ textarea {
 	background-color: #20a0ff;
 }
 
+.item.current {
+    background-color: #20a0ff;
+}
+
 a.item, span.item {
 	height: 2vh;
 	padding: 1.5vh 1vh;
@@ -168,7 +172,24 @@ button:hover {
 }
 
 .image {
-	width: auto;
-	height:auto;
-	display: block;
+	max-height: 400px;
+ 
+
 }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto ;
+
+  padding: 10px;
+}
+
+.grid-item-right{
+	text-align: right;
+}
+
+.item-groundView {
+  grid-column: 1 / 3;
+}
+
+

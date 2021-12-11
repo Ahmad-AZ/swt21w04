@@ -23,14 +23,14 @@
 				 <ul class="list">
 					<li class="list-entry" th:each="location : ${locationList}">
 						<a th:if="${location.id == bookedLocationId}">O</a>
-						<a class="header" th:href="@{/locationOverview/{id}(id=${location.id})}" th:text="${location.name}">Etwas andres</a>
+						<a class="header" th:href="@{/locationOverview/{festivalId}/detail/{locationId}(locationId=${location.id}, festivalId = ${festival.id})}" th:text="${location.name}">Etwas andres</a>
 					</li>
 				 </ul>
 			  </div>
 		</form>	
 		</br></br>
 		<p>O ... gebuchte Location</p>
-		<a class="header" th:href="@{/locationOverview/unbook}" th:if="${bookedLocationId != 0}">Buchung löschen</a>
+		<a class="header" th:href="@{/locationOverview/{festivalId}/unbook (festivalId = ${festival.id})}" th:if="${bookedLocationId != 0}">Buchung löschen</a>
     </section>
 </body>
 </html>
