@@ -9,7 +9,7 @@ import festivalmanager.hiring.Artist;
 import festivalmanager.hiring.HiringManagement;
 import festivalmanager.location.LocationManagement;
 import festivalmanager.location.Location;
-import festivalmanager.utils.CurrentPageManagement;
+import festivalmanager.utils.UtilsManagement;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ExtendedModelMap;
@@ -32,14 +32,15 @@ class FinancesTests {
 	void testFinancesManagement() {
 
 		FestivalRepository festivalRepository = mock(FestivalRepository.class);
-		Festival testFestival = new Festival("TestFestival");
-		testFestival.setStartDate(LocalDate.of(2021, 12, 3));
-		testFestival.setEndDate(LocalDate.of(2021, 12, 6));
+		Festival testFestival = new Festival("TestFestival",
+				LocalDate.of(2021, 12, 3),
+				LocalDate.of(2021, 12, 6));
 		when(festivalRepository.findById(any())).thenReturn(Optional.of(testFestival));
 
-		
-		
-		FestivalManagement festivalManagement = new FestivalManagement(festivalRepository, mock(LocationManagement.class), mock(HiringManagement.class));
+		FestivalManagement festivalManagement = new FestivalManagement(
+				festivalRepository,
+				mock(LocationManagement.class),
+				mock(HiringManagement.class));
 		festivalManagement.saveFestival(testFestival);
 
 		Location testLocation = new Location();
@@ -48,13 +49,17 @@ class FinancesTests {
 		//Artist testArtist = new Artist();
 		//testFestival.addArtist(testArtist);
 
-		CurrentPageManagement currentPageManagement = mock(CurrentPageManagement.class);
+		UtilsManagement utilsManagement = new UtilsManagement(festivalManagement);
+		utilsManagement.setCurrentFestivalId(testFestival.getId());
+
 		FinancesManagement financesManagement = new FinancesManagement(festivalManagement);
 		financesManagement.updateFestival(testFestival.getId());
-		FinancesController financesController = new FinancesController(financesManagement,
-				festivalManagement, currentPageManagement);
+		FinancesController financesController = new FinancesController(
+				financesManagement,
+				festivalManagement,
+				utilsManagement);
 		Model testModel = new ExtendedModelMap();
-		financesController.financesPage(testModel, testFestival.getId());
+		financesController.financesPage(testModel);
 
 		//assertThat(testModel.getAttribute("artistsCost")).isEqualTo("11010.10");
 		assertThat(testModel.getAttribute("locationCost")).isEqualTo("2000.00");

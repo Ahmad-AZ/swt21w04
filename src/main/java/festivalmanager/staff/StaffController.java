@@ -3,7 +3,7 @@ package festivalmanager.staff;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.staff.forms.*;
-import festivalmanager.utils.CurrentPageManagement;
+import festivalmanager.utils.UtilsManagement;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,15 +18,15 @@ import java.util.Optional;
 public class StaffController {
 	private final StaffManagement staffManagement;
 	private final FestivalManagement festivalManagement;
-	private final CurrentPageManagement currentPageManagement;
+	private final UtilsManagement utilsManagement;
 
 	public StaffController(StaffManagement staffManagement, FestivalManagement festivalManagement,
-						   CurrentPageManagement currentPageManagement) {
+						   UtilsManagement utilsManagement) {
 		Assert.notNull(staffManagement, "StaffManagement must not be null!");
 		Assert.notNull(festivalManagement, "FestivalManagement must not be null!");
 		this.staffManagement = staffManagement;
 		this.festivalManagement = festivalManagement;
-		this.currentPageManagement = currentPageManagement;
+		this.utilsManagement = utilsManagement;
 	}
 
 	@GetMapping("/staff/{festivalId}")
@@ -39,7 +39,8 @@ public class StaffController {
 			model.addAttribute("festival", festival.get());
 		}
 
-		currentPageManagement.updateCurrentPage(model,"staff");
+		utilsManagement.setCurrentPageLowerHeader("staff");
+		utilsManagement.prepareModel(model);
 		return "staff.html";
 	}
 
@@ -57,7 +58,7 @@ public class StaffController {
 			model.addAttribute("festival", festival.get());
 		}
 
-		currentPageManagement.updateCurrentPage(model,"staff");
+		utilsManagement.prepareModel(model);
 		return "staff.html";
 	}
 
@@ -76,7 +77,7 @@ public class StaffController {
 			model.addAttribute("festival", festival.get());
 		}
 
-		currentPageManagement.updateCurrentPage(model,"staff");
+		utilsManagement.prepareModel(model);
 		return "person.html";
 	}
 
@@ -99,7 +100,7 @@ public class StaffController {
 			model.addAttribute("festival", festival.get());
 		}
 
-		currentPageManagement.updateCurrentPage(model,"staff");
+		utilsManagement.prepareModel(model);
 		return "staff.html";
 	}
 
@@ -138,7 +139,7 @@ public class StaffController {
 			model.addAttribute("festival", festival.get());
 		}
 
-		currentPageManagement.updateCurrentPage(model,"staff");
+		utilsManagement.prepareModel(model);
 		return "person.html";
 	}
 
@@ -157,7 +158,7 @@ public class StaffController {
 			model.addAttribute("festival", festival.get());
 		}
 
-		currentPageManagement.updateCurrentPage(model,"staff");
+		utilsManagement.prepareModel(model);
 		return "person.html";
 	}
 

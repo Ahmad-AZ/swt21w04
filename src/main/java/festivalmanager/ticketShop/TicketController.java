@@ -3,8 +3,9 @@ package festivalmanager.ticketShop;
 
 import com.sun.istack.NotNull;
 import festivalmanager.festival.Festival;
+import festivalmanager.festival.FestivalManagement;
 import festivalmanager.festival.FestivalRepository;
-import festivalmanager.utils.CurrentPageManagement;
+import festivalmanager.utils.UtilsManagement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -20,20 +21,24 @@ public class TicketController {
 
 	private  TicketManagement ticketManagement;
 	private Festival currentFestival;
-	private CurrentPageManagement currentPageManagement;
+	private UtilsManagement utilsManagement;
+	private FestivalManagement festivalManagement;
 
 
-	public TicketController(TicketManagement ticketManagement, CurrentPageManagement currentPageManagement) {
+	public TicketController(TicketManagement ticketManagement,
+							UtilsManagement utilsManagement,
+							FestivalManagement festivalManagement) {
 		this.ticketManagement = ticketManagement;
-		this.currentPageManagement = currentPageManagement;
+		this.utilsManagement = utilsManagement;
+		this.festivalManagement = festivalManagement;
 		this.currentFestival = null;
 	}
 
 	// TODO: @PreAuthorize("hasRole('PLANNER')")
 	@GetMapping("/tickets")
-	public String showTicketInfo(@ModelAttribute Festival festival, Model model) {
+	public String showTicketInfo(Model model) {
 
-		this.currentFestival = festival;
+		this.currentFestival = festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
 
 		System.out.println("current festival in ticket shop " + currentFestival.getName());
 
@@ -41,7 +46,8 @@ public class TicketController {
 		model.addAttribute("ticket", new Ticket());
 		model.addAttribute("festival", this.currentFestival);
 
-		currentPageManagement.updateCurrentPage(model,"tickets");
+		utilsManagement.setCurrentPageLowerHeader("ticketShop");
+		utilsManagement.prepareModel(model);
 		return "ticketFrom";
 	}
 
@@ -112,7 +118,7 @@ public class TicketController {
 
 		model.addAttribute("tickets", ticket);
 
-		currentPageManagement.updateCurrentPage(model,"ticketShop");
+		utilsManagement.prepareModel(model);
 		return "ticketShop";
 	}
 

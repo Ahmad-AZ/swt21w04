@@ -1,9 +1,6 @@
 package festivalmanager.catering;
 
-import festivalmanager.festival.Festival;
-import festivalmanager.festival.FestivalManagement;
-import festivalmanager.utils.CurrentPageManagement;
-import festivalmanager.utils.LongOrNull;
+import festivalmanager.utils.UtilsManagement;
 import org.salespointframework.catalog.ProductIdentifier;
 import static org.salespointframework.core.Currencies.*;
 import org.springframework.stereotype.Controller;
@@ -21,16 +18,12 @@ import org.javamoney.moneta.*;
 @Controller
 public class CateringProductCatalogController {
 
-    private Festival currentFestival;
-    private FestivalManagement festivalManagement;
-	private CurrentPageManagement currentPageManagement;
+	private UtilsManagement utilsManagement;
     private CateringProductCatalog catalog;
 
-    public CateringProductCatalogController(CateringProductCatalog catalog, FestivalManagement festivalManagement,
-											CurrentPageManagement currentPageManagement) {
+    public CateringProductCatalogController(CateringProductCatalog catalog, UtilsManagement utilsManagement) {
         this.catalog = catalog;
-        this.festivalManagement = festivalManagement;
-		this.currentPageManagement = currentPageManagement;
+		this.utilsManagement = utilsManagement;
     }
 
     public CateringProductCatalog getCatalog() {
@@ -38,22 +31,17 @@ public class CateringProductCatalogController {
     }
 
     @GetMapping("/cateringProductCatalog")
-    String products(Model model, @ModelAttribute("currentFestivalId") LongOrNull currentFestivalId) {
-        if (currentFestivalId.getValue() != null) {
-            long longId = currentFestivalId.getValue();
-            this.currentFestival = festivalManagement.findById(longId).get();
-        }
+    String products(Model model) {
 
         model.addAttribute("productcatalog", catalog.findAll());
-        model.addAttribute("festival", currentFestival);
-		currentPageManagement.updateCurrentPage(model, "catering");
+		utilsManagement.setCurrentPageLowerHeader("catering");
+		utilsManagement.prepareModel(model);
         return "cateringProductCatalog";
     }
 
     @GetMapping("/cateringAddProduct")
     String addProduct(Model model) {
-        model.addAttribute("festival", currentFestival);
-		currentPageManagement.updateCurrentPage(model, "catering");
+		utilsManagement.prepareModel(model);
         return "cateringAddProduct";
     }
 
@@ -89,8 +77,7 @@ public class CateringProductCatalogController {
 
     @GetMapping("/cateringEditProduct")
     String editProduct(Model model) {
-		model.addAttribute("festival", currentFestival);
-		currentPageManagement.updateCurrentPage(model, "catering");
+		utilsManagement.prepareModel(model);
         return "cateringEditProduct";
     }
 
@@ -104,9 +91,8 @@ public class CateringProductCatalogController {
             model.addAttribute("product", product);
         }
 
-        model.addAttribute("festival", currentFestival);
-		currentPageManagement.updateCurrentPage(model, "catering");
-        return "cateringEditProduct";
+		utilsManagement.prepareModel(model);
+		return "cateringEditProduct";
     }
 
     @PostMapping("/cateringEditProduct/editData/{productid}")
@@ -172,9 +158,8 @@ public class CateringProductCatalogController {
             model.addAttribute("product", product);
         }
 
-		currentPageManagement.updateCurrentPage(model, "catering");
-        model.addAttribute("festival", currentFestival);
-        return "cateringDeleteProduct";
+		utilsManagement.prepareModel(model);
+		return "cateringDeleteProduct";
     }
 
     @PostMapping("/cateringDeleteProduct/delete/{productid}")

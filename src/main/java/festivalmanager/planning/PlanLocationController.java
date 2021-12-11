@@ -2,7 +2,7 @@ package festivalmanager.planning;
 
 import java.util.Optional;
 
-import festivalmanager.utils.CurrentPageManagement;
+import festivalmanager.utils.UtilsManagement;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -27,18 +27,18 @@ public class PlanLocationController {
 	private final PlanLocationManagement planLocationManagement;
 	private final LocationManagement locationManagement;
 	private final FestivalManagement festivalManagement;
-	private  final CurrentPageManagement currentPageManagement;
+	private final UtilsManagement utilsManagement;
 	private Festival currentFestival;
 	private long currentFestivalId;
 	
 	public PlanLocationController(PlanLocationManagement planLocationManagement, 
 									LocationManagement locationManagement, 
 									FestivalManagement festivalManagement,
-								    CurrentPageManagement currentPageManagement) {
+								    UtilsManagement utilsManagement) {
 		this.planLocationManagement = planLocationManagement;
 		this.locationManagement = locationManagement;
 		this.festivalManagement = festivalManagement;
-		this.currentPageManagement = currentPageManagement;
+		this.utilsManagement = utilsManagement;
 		this.currentFestival = null;
 		this.currentFestivalId = 0;
 		
@@ -61,9 +61,10 @@ public class PlanLocationController {
 			else {
 				model.addAttribute("bookedLocationId", 0);
 			}
-			
+
 			model.addAttribute("festival", current);
-			currentPageManagement.updateCurrentPage(model,"location");
+			utilsManagement.setCurrentPageLowerHeader("location");
+			utilsManagement.prepareModel(model);
 			return "/locationOverview"; 
 		} else {
 			throw new ResponseStatusException(
@@ -104,7 +105,7 @@ public class PlanLocationController {
 			// required for second nav-bar
 			model.addAttribute("festival", currentFestival);
 
-			currentPageManagement.updateCurrentPage(model,"location");
+			utilsManagement.prepareModel(model);
 			return "locationDetailPlan";
 			
 		} else {
@@ -154,7 +155,7 @@ public class PlanLocationController {
 		}
 	}
 	
-	@GetMapping("/locationOverview/{festivalId}unbook") 
+	@GetMapping("/locationOverview/{festivalId}/unbook")
 	public String unbookLocation(@PathVariable("festivalId") long festivalId) {
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
 		
@@ -165,9 +166,9 @@ public class PlanLocationController {
 				Location currentLocation = location.get();
 				planLocationManagement.unbookLocation(currentLocation, currentFestival);
 			}
-		
+
 			// reload locationOverview page
-			return "redirect:/locationPre1";
+			return "redirect:/locationOverview/" + festivalId;
 		} else {
 			throw new ResponseStatusException(
 					HttpStatus.NOT_FOUND, "entity not found"

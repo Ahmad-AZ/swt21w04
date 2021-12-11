@@ -4,7 +4,7 @@ import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.hiring.Artist;
 import festivalmanager.hiring.HiringManagement;
-import festivalmanager.utils.CurrentPageManagement;
+import festivalmanager.utils.UtilsManagement;
 import org.springframework.data.util.Streamable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,18 +25,18 @@ public class PlanOffersController {
 	private final HiringManagement hiringManagement;
 	private Festival currentFestival;
 	private final FestivalManagement festivalManagement;
-	private final CurrentPageManagement currentPageManagement;
+	private final UtilsManagement utilsManagement;
 
-	public PlanOffersController(PlanOffersManagement planOffersManagement, HiringManagement hiringManagement, FestivalManagement festivalManagement, CurrentPageManagement currentPageManagement) {
+	public PlanOffersController(PlanOffersManagement planOffersManagement, HiringManagement hiringManagement, FestivalManagement festivalManagement, UtilsManagement utilsManagement) {
 		this.planOffersManagement = planOffersManagement;
 		this.hiringManagement = hiringManagement;
 		this.festivalManagement = festivalManagement;
-		this.currentPageManagement = currentPageManagement;
+		this.utilsManagement = utilsManagement;
 		this.currentFestival = null;
 	}
 	@GetMapping("/artistOverview")
-	public String artistOverview(Model model, @ModelAttribute("currentFestival") Festival currentFestival) {
-		Optional<Festival> festival = festivalManagement.findById(currentFestival.getId());
+	public String artistOverview(Model model) {
+		Optional<Festival> festival = festivalManagement.findById(utilsManagement.getCurrentFestivalId());
 		if (festival.isPresent()) {
 			Festival current = festival.get();
 			this.currentFestival = current;
@@ -59,7 +59,8 @@ public class PlanOffersController {
 				model.addAttribute("bookedArtist", 0);
 			}
 
-			currentPageManagement.updateCurrentPage(model,"artists");
+			utilsManagement.setCurrentPageLowerHeader("artists");
+			utilsManagement.prepareModel(model);
 			return "artistOverview";
 		}
 		else{
@@ -88,9 +89,7 @@ public class PlanOffersController {
 				model.addAttribute("ArtistCurrentlyBooked", false);
 			}
 
-			model.addAttribute("festival", currentFestival);
-
-			currentPageManagement.updateCurrentPage(model,"artists");
+			utilsManagement.prepareModel(model);
 			return "artistDetailPlan";
 
 		} else {
@@ -116,7 +115,7 @@ public class PlanOffersController {
 					return "redirect:/artistOverview/"+ current.getId();
 				}
 			}
-			return "redirect:/artistPre1";
+			return "redirect:/artistOverview";
 		}
 		else {
 			throw new ResponseStatusException(
@@ -138,6 +137,6 @@ public class PlanOffersController {
 				);
 			}
 		}
-		return "redirect:/artistPre1";
+		return "redirect:/artistOverview";
 	}
 }
