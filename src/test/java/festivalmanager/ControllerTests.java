@@ -34,6 +34,6 @@ class ControllerTests {
 
 	@Test
 	void showsWelcomeMessage() throws Exception {
-		mvc.perform(get("/")).andExpect(status().isOk());
+		mvc.perform(get("/festivalOverview")).andExpect(status().isOk());
 	}
 }
