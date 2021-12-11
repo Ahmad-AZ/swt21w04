@@ -9,6 +9,7 @@ import festivalmanager.hiring.Artist;
 import festivalmanager.hiring.HiringManagement;
 import festivalmanager.location.LocationManagement;
 import festivalmanager.location.Location;
+import festivalmanager.utils.CurrentPageManagement;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ExtendedModelMap;
@@ -31,7 +32,7 @@ class FinancesTests {
 	void testFinancesManagement() {
 
 		FestivalRepository festivalRepository = mock(FestivalRepository.class);
-		Festival testFestival = new Festival("Testfestival");
+		Festival testFestival = new Festival("TestFestival");
 		testFestival.setStartDate(LocalDate.of(2021, 12, 3));
 		testFestival.setEndDate(LocalDate.of(2021, 12, 6));
 		when(festivalRepository.findById(any())).thenReturn(Optional.of(testFestival));
@@ -47,9 +48,11 @@ class FinancesTests {
 		//Artist testArtist = new Artist();
 		//testFestival.addArtist(testArtist);
 
+		CurrentPageManagement currentPageManagement = mock(CurrentPageManagement.class);
 		FinancesManagement financesManagement = new FinancesManagement(festivalManagement);
 		financesManagement.updateFestival(testFestival.getId());
-		FinancesController financesController = new FinancesController(financesManagement, festivalManagement);
+		FinancesController financesController = new FinancesController(financesManagement,
+				festivalManagement, currentPageManagement);
 		Model testModel = new ExtendedModelMap();
 		financesController.financesPage(testModel, testFestival.getId());
 

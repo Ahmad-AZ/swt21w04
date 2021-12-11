@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
+import festivalmanager.utils.CurrentPageManagement;
 import org.springframework.data.util.Streamable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,16 +28,20 @@ import festivalmanager.hiring.Artist;
 import festivalmanager.hiring.ArtistRepository;
 import festivalmanager.location.Location;
 import festivalmanager.location.LocationManagement;
+import festivalmanager.utils.LongOrNull;
 
 @Controller
 public class FestivalController {
 
 	private final FestivalManagement festivalManagement;
+	private CurrentPageManagement currentPageManagement;
 	private Festival currentFestival;
 	private long currentId;
- 
-	public FestivalController(FestivalManagement festivalManagement) {
+
+	public FestivalController(FestivalManagement festivalManagement,
+							  CurrentPageManagement currentPageManagement) {
 		this.festivalManagement = festivalManagement;
+		this.currentPageManagement = currentPageManagement;
 		this.currentFestival = null;
 		this.currentId = 0;
 		
@@ -61,6 +66,7 @@ public class FestivalController {
 			}
 			currentId = festivalId;
 			currentFestival = current;
+			currentPageManagement.updateCurrentPage(model, "festivalDetail");
 			return "festivalDetail";
 		} else {
 			throw new ResponseStatusException(
@@ -81,6 +87,7 @@ public class FestivalController {
 			model.addAttribute("location", festival.get().getLocation());
 		}
 
+		currentPageManagement.updateCurrentPage(model, "map");
 		return "/mapVisitorView";
 	}
 	

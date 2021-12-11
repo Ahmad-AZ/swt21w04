@@ -11,6 +11,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import festivalmanager.utils.CurrentPageManagement;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -39,13 +40,15 @@ public class PlanEquipmentController {
 	private final PlanEquipmentManagement planEquipmentManagement;
 	private final FestivalManagement festivalManagement;
 	private final EquipmentManagement equipmentManagement;
+	private final CurrentPageManagement currentPageManagement;
 	private Festival currentFestival;
 	private long currentFestivalId;
 	
-	public PlanEquipmentController(PlanEquipmentManagement planEquipmentManagement, FestivalManagement festivalManagement, EquipmentManagement equipmentManagement) {
+	public PlanEquipmentController(PlanEquipmentManagement planEquipmentManagement, FestivalManagement festivalManagement, EquipmentManagement equipmentManagement, CurrentPageManagement currentPageManagement) {
 		this.planEquipmentManagement = planEquipmentManagement;
 		this.festivalManagement = festivalManagement;
 		this.equipmentManagement = equipmentManagement;
+		this.currentPageManagement = currentPageManagement;
 		this.currentFestivalId = 0;
 	}
 	
@@ -88,6 +91,7 @@ public class PlanEquipmentController {
 			
 			//required for groundView
 			model.addAttribute("location", current.getLocation());
+			currentPageManagement.updateCurrentPage(model,"equipment");
 			return "equipments";
 		} else {
 			throw new ResponseStatusException(
@@ -134,10 +138,10 @@ public class PlanEquipmentController {
 					HttpStatus.NOT_FOUND, "entity not found"
 			);
 		}
-		
-		
-		
-		
+
+
+
+
 		return "redirect:/equipmentsPre1";
 	}
 	
