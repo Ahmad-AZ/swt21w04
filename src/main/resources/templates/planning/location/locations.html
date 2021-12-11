@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html(title=Locations)}">
+      
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
+	<title>Location-Auswahl</title>
+</head>
+<body>
+	<header>
+		<nav th:include="header :: header"></nav>
+		<h1>Locations</h1>
+	</header>
+	<section layout:fragment="content">
+		<form method="post" name="location" role="location" id="location" th:object="${location}">
+			<div class="content">
+	             <ul class="list">
+	        		<li class="list-entry" th:each="location : ${locationList}">
+  						<a class="header" th:href="@{/locations/{id}(id=${location.id})}" th:text="${location.name}">Etwas andres</a>
+	                    <a class="header" th:href="@{/locations/{id}/edit(id=${location.id})}">Bearbeiten</a>
+	               		<a class="header" th:href="@{/locations/remove/{id}(id = ${location.id})}">Löschen</a>	       
+	                </li>
+	             </ul>
+	          </div>                	                    
+		</form>
+		<a class="item" th:href="@{/newLocation}" sec:authorize="hasRole('MANAGER') || hasRole('ADMIN') || hasRole('PLANNER')">Neue Location erstellen</a>
+		<div class="overlay" th:if="${dialog} == 'remove_location'">
+            <form class="form" action="/locations/remove" method="post">
+				<h2 class="form-item" th:inline="text">Location [[${currentName}]] löschen</h2>
+				<div class="form-item">
+					<a href="locations.html" th:href="@{/locations}">Abbrechen</a>
+					<input th:if="${locationHasBookings == false}" class="form-input" name="delete" type="submit" value="Löschen">
+					<div class="form-label" th:if="${locationHasBookings != false}">Location hat noch Buchungen!</div>
+				</div>
+                <input type="hidden" name="id" th:value="${currentId}">
+            </form>
+        </div>
+	</section>
+</body>
+</html>

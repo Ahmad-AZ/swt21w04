@@ -1,0 +1,53 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
+		<title>Catering Lagerbestand hinzuf&uuml;gen</title>
+	</head>
+	<body>
+        <header>
+			<nav th:include="header :: header"></nav>
+            <h1>Catering Lagerbestand hinzuf&uuml;gen</h1>
+            <div th:include="festivalHeader :: festivalHeader"></div>
+		</header>
+		<section layout:fragment="content">
+            <form class="ui form" method="post" th:action="@{/cateringAddStockItem/editData}">
+                <table border="1">
+                    <tr>
+                        <td>Produktname</td>
+                        <td>  
+                            <select name="productid">
+                                <option
+                                    th:each="product : ${productcatalog}"
+                                    th:value="${product.getId()}"
+                                    th:utext="${product.getName()}"/>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Anzahl</td>
+                        <td><input type="number" step="1" name="amount" value="500"></td>
+                    </tr>
+                    <tr>
+                        <td>Einkaufspreis</td>
+                        <td><input type="text" name="buyingprice" value="EUR 0.50"></td>
+                    </tr>
+                    <tr>
+                        <td>Einkaufsdatum</td>
+                        <td><input type="date" name="orderdate" th:value="${orderdate}"></td>
+                    </tr>
+                    <tr>
+                        <td>Verfallsdatum</td>
+                        <td><input type="date" name="bestbeforedate" th:value="${bestbeforedate}"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="../cateringProductCatalog">abbrechen</a></td>
+                        <td><button type="submit">hinzuf&uuml;gen</button></td>
+                    </tr>
+                </table>
+            </form>
+            </section>
+        </section>
+    </body>
+</html>

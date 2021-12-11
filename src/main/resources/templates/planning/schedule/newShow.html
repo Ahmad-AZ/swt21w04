@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html(title=Artist)}">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
+    <title>Neue Artist</title>
+</head>
+<body>
+<header>
+    <nav th:include="header :: header"></nav>
+    <h1>Show erstellen</h1>
+</header>
+<section layout:fragment="content">
+
+    <form class="form" method="post" id="form" th:action="@{/newShow/{id}(id=${artistShow.id})}" th:object="${newShowForm}" enctype="multipart/form-data">
+        <h2 class="form-title">Showdaten</h2>
+        <div class="form-item">
+            <label class="form-label" for="name">Name:</label>
+            <input class="form-input" id="name" name="name" type="text" required="required">
+        </div>
+        <div class="form-item">
+<!--            <a th:href="@{/artists/{id}(id=${artist.id})}">Abbrechen</a>-->
+            <input class="form-input" type="submit" value="Erstellen">
+        </div>
+    </form>
+</section>
+</body>
+</html>

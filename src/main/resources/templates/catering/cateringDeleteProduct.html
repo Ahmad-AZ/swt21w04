@@ -1,0 +1,44 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
+		<title>Catering Produkt l&ouml;schen</title>
+	</head>
+	<body>
+        <header>
+			<nav th:include="header :: header"></nav>
+            <h1>Catering Produkt l&ouml;schen</h1>
+            <div th:include="festivalHeader :: festivalHeader"></div>
+		</header>
+		<section layout:fragment="content">
+            <form class="ui form" method="post" th:action="@{/cateringDeleteProduct/delete/{id}(id=${product.getId()})}" th:if="${product}">
+                Wollen Sie dieses Produkt l&ouml;schen.
+                <table border="1">
+                    <tr>
+                        <td>Produktname</td>
+                        <td>
+                            <span th:text="${product.getName()}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Verkaufspreis</td>
+                        <td><span th:text="${product.getPrice()}"></td>
+                    </tr>
+                    <tr>
+                        <td>Pfand</td>
+                        <td><span th:text="${product.getDeposit()}"></td>
+                    </tr>
+                    <tr>
+                        <td>F&uuml;llmenge</td>
+                        <td><span th:text="${product.getFilling()}"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="../cateringProductCatalog">abbrechen</a></td>
+                        <td><button type="submit">l&ouml;schen</button></td>
+                    </tr>
+                </table>
+            </form>
+        </section>
+    </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html(title=artists)}">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
+    <title>artist-Auswahl</title>
+</head>
+<body>
+<header>
+    <nav th:include="header :: header"></nav>
+    <h1>Künstler</h1>
+</header>
+<section layout:fragment="content">
+    <form method="post" name="artist" role="artist" id="artist" th:object="${artist}">
+        <div class="content">
+            <ul class="list">
+                <li class="list-entry" th:each="artist : ${artistList}">
+                    <a class="header" th:href="@{/artists/{id}(id=${artist.id})}" th:text="${artist.name}">Etwas andres</a>
+                    <a class="header" th:href="@{/artists/{id}/edit(id=${artist.id})}">Bearbeiten</a>
+                    <a class="header" th:href="@{/artists/remove/{id}(id = ${artist.id})}">Löschen</a>
+                </li>
+            </ul>
+        </div>
+    </form>
+    <a class="item" th:href="@{/newArtist}" sec:authorize="hasRole('MANAGER') || hasRole('ADMIN') || hasRole('PLANNER')">Neuen Künstler erstellen</a>
+    <div class="overlay" th:if="${dialog} == 'remove_artist'">
+        <form class="form" action="/artists/remove" method="post">
+            <h2 class="form-title" th:inline="text">Künstler [[${currentName}]] löschen:</a></h2>
+            <div class="form-item">
+                <a href="artists.html" th:href="@{/artists}">Abbrechen</a>
+                <input class="form-input" type="submit" value="Löschen">
+            </div>
+            <input type="hidden" name="id" th:value="${currentId}">
+        </form>
+    </div>
+</section>
+</body>
+</html>

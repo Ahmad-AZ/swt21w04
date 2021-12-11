@@ -1,0 +1,55 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
+        <title>Welcome</title>
+    </head>
+    <body>
+        <div th:include="header :: header"></div>
+        <h1>Personal</h1>
+        <div th:include="festivalHeader :: festivalHeader"></div>
+        <div class="main">
+            <div class="list">
+                <div>Benutzername: <a th:text="${person.name}"></a></div>
+                <div>Rolle: <a th:text="${person.role}" th:href="@{/staff/{festivalId}/change_role/{id}(id = ${person.id}, festivalId = ${festival.id})}"></a></div>
+                <div>Stundenlohn: <a th:text="${person.salary}"></a></div>
+                <a th:href="@{/staff/{festivalId}/change_password/{id}(id = ${person.id}, festivalId = ${festival.id})}">Passwort ändern</a>
+            </div>
+        </div>
+        <div class="overlay" th:if="${dialog} == 'change_role'">
+            <form class="form" th:action="@{/staff/{festivalId}/change_role/{id}(festivalId = ${festival.id}, id = ${person.id})}" method="post">
+                <h2 class="form-title" th:inline="text">Rolle von Nutzer [[${person.name}]] ändern</h2>
+                <div class="form-item">
+                    <label class="form-label">Neue Rolle: </label>
+                    <select class="form-input" name="role" id="role">
+                        <option value="ADMIN">Admin</option>
+                        <option value="MANAGER">Manager</option>
+                        <option value="CATERING">Catering</option>
+                    </select>
+                </div>
+                <div class="form-item">
+                    <a th:href="@{/staff/{festivalId}/detail/{id}(festivalId = ${festival.id}, id = ${person.id})}">Abbrechen</a>
+                    <input class="form-input" type="submit" value="Bestätigen">
+                </div>
+                <input type="hidden" name="id" th:value="${person.id}">
+            </form>
+        </div>
+        <div class="overlay" th:if="${dialog} == 'change_password'">
+            <form class="form" th:action="@{/staff/{festivalId}/change_password/{id}(festivalId = ${festival.id}, id = ${person.id})}" method="post">
+                <h2 class="form-title" th:inline="text">Passwort von Nutzer [[${person.name}]] ändern</h2>
+                <div class="form-item">
+                    <label class="form-label">Neues Passwort:</label>
+                    <input type="password" name="password">
+                </div>
+                <div class="form-item">
+                    <a th:href="@{/staff/{festivalId}/detail/{id}(festivalId = ${festival.id}, id = ${person.id})}">Abbrechen</a>
+                    <input class="form-input" type="submit" value="Passwort ändern">
+                </div>
+                <input type="hidden" name="id" th:value="${person.id}">
+            </form>
+        </div>
+    </body>
+</html>
