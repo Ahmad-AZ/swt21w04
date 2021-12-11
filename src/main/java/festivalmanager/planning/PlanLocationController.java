@@ -2,6 +2,7 @@ package festivalmanager.planning;
 
 import java.util.Optional;
 
+import festivalmanager.utils.CurrentPageManagement;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -26,15 +27,18 @@ public class PlanLocationController {
 	private final PlanLocationManagement planLocationManagement;
 	private final LocationManagement locationManagement;
 	private final FestivalManagement festivalManagement;
+	private  final CurrentPageManagement currentPageManagement;
 	private Festival currentFestival;
 	private long currentFestivalId;
 	
 	public PlanLocationController(PlanLocationManagement planLocationManagement, 
 									LocationManagement locationManagement, 
-									FestivalManagement festivalManagement) {
+									FestivalManagement festivalManagement,
+								    CurrentPageManagement currentPageManagement) {
 		this.planLocationManagement = planLocationManagement;
 		this.locationManagement = locationManagement;
 		this.festivalManagement = festivalManagement;
+		this.currentPageManagement = currentPageManagement;
 		this.currentFestival = null;
 		this.currentFestivalId = 0;
 		
@@ -59,6 +63,7 @@ public class PlanLocationController {
 			}
 			
 			model.addAttribute("festival", current);
+			currentPageManagement.updateCurrentPage(model,"location");
 			return "/locationOverview"; 
 		} else {
 			throw new ResponseStatusException(
@@ -98,7 +103,8 @@ public class PlanLocationController {
 
 			// required for second nav-bar
 			model.addAttribute("festival", currentFestival);
-			 
+
+			currentPageManagement.updateCurrentPage(model,"location");
 			return "locationDetailPlan";
 			
 		} else {

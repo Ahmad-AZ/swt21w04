@@ -1,14 +1,14 @@
-package festivalmanager.festival;
+package festivalmanager.utils;
 
 public class LongOrNull {
 
 	private Long value;
 
-	LongOrNull() {
+	public LongOrNull() {
 		this.value = null;
 	}
 
-	LongOrNull(long value) {
+	public LongOrNull(long value) {
 		this.value = value;
 	}
 

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 
+import festivalmanager.utils.CurrentPageManagement;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,12 +29,14 @@ public class PlanScheduleController {
 	
 	private final PlanScheduleManagement planScheduleManagement;
 	private final FestivalManagement festivalManagement;
+	private final CurrentPageManagement currentPageManagement;
 	private long currentFestivalId;
 	private Festival currentFestival;
 	
-	public PlanScheduleController(PlanScheduleManagement planScheduleManagement, FestivalManagement festivalManagement) {
+	public PlanScheduleController(PlanScheduleManagement planScheduleManagement, FestivalManagement festivalManagement, CurrentPageManagement currentPageManagement) {
 		this.planScheduleManagement = planScheduleManagement;
 		this.festivalManagement = festivalManagement;
+		this.currentPageManagement = currentPageManagement;
 	}
 	
 	
@@ -61,6 +64,7 @@ public class PlanScheduleController {
 			// required for secound nav-bar
 			model.addAttribute("festival", current);
 		}
+		currentPageManagement.updateCurrentPage(model,"schedule");
 		return "/scheduleVisitorView";
 
 	}
@@ -91,6 +95,7 @@ public class PlanScheduleController {
 			
 			// required for secound nav-bar
 			model.addAttribute("festival", current);
+			currentPageManagement.updateCurrentPage(model,"program");
 			return "/schedule";
 		} else {
 			throw new ResponseStatusException(
@@ -115,8 +120,8 @@ public class PlanScheduleController {
 		
 		model.addAttribute("showsToAdd", planScheduleManagement.getShows(currentFestivalId));
 
-		
 
+		currentPageManagement.updateCurrentPage(model,"program");
 		return "/schedule";
 	}
 	

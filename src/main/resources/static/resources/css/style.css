@@ -77,6 +77,10 @@ textarea {
 	background-color: #20a0ff;
 }
 
+.item.current {
+    background-color: #20a0ff;
+}
+
 a.item, span.item {
 	height: 2vh;
 	padding: 1.5vh 1vh;
