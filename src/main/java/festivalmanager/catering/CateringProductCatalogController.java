@@ -28,7 +28,7 @@ public class CateringProductCatalogController {
 
     private Festival currentFestival;
     private FestivalManagement festivalManagement;
-	private CurrentPageManagement currentPageManagement;
+    private CurrentPageManagement currentPageManagement;
     private CateringProductCatalog catalog;
     private CateringStock stock;
 
@@ -50,14 +50,14 @@ public class CateringProductCatalogController {
         model.addAttribute("stock", stock.findAll());
         model.addAttribute("productcatalog", catalog.findAll());
         model.addAttribute("festival", currentFestival);
-		currentPageManagement.updateCurrentPage(model, "catering");
+        currentPageManagement.updateCurrentPage(model, "catering");
         return "cateringProductCatalog";
     }
 
     @GetMapping("/cateringAddProduct")
     String addProduct(Model model) {
         model.addAttribute("festival", currentFestival);
-		currentPageManagement.updateCurrentPage(model, "catering");
+        currentPageManagement.updateCurrentPage(model, "catering");
         return "cateringAddProduct";
     }
 
@@ -87,14 +87,14 @@ public class CateringProductCatalogController {
         else
             model.addAttribute("product", product);
 
-
+        currentPageManagement.updateCurrentPage(model, "catering");
         return (failure) ? "/cateringAddProduct" : "redirect:/cateringProductCatalog";
     }
 
     @GetMapping("/cateringEditProduct")
     String editProduct(Model model) {
-		model.addAttribute("festival", currentFestival);
-		currentPageManagement.updateCurrentPage(model, "catering");
+        model.addAttribute("festival", currentFestival);
+        currentPageManagement.updateCurrentPage(model, "catering");
         return "cateringEditProduct";
     }
 
@@ -109,7 +109,7 @@ public class CateringProductCatalogController {
         }
 
         model.addAttribute("festival", currentFestival);
-		currentPageManagement.updateCurrentPage(model, "catering");
+        currentPageManagement.updateCurrentPage(model, "catering");
         return "cateringEditProduct";
     }
 
@@ -165,6 +165,7 @@ public class CateringProductCatalogController {
 
         }
 
+        currentPageManagement.updateCurrentPage(model, "catering");
         return (failure) ? "redirect:/cateringEditProduct/" + productid : "redirect:/cateringProductCatalog";
     }
 
@@ -176,7 +177,7 @@ public class CateringProductCatalogController {
             model.addAttribute("product", product);
         }
 
-		currentPageManagement.updateCurrentPage(model, "catering");
+        currentPageManagement.updateCurrentPage(model, "catering");
         model.addAttribute("festival", currentFestival);
         return "cateringDeleteProduct";
     }
@@ -189,6 +190,7 @@ public class CateringProductCatalogController {
             catalog.delete(product);
 
         }
+
         return "redirect:/cateringProductCatalog";
     }
 
@@ -211,6 +213,7 @@ public class CateringProductCatalogController {
         model.addAttribute("productcatalog", catalog.findAll());
         model.addAttribute("orderdate", LocalDate.now());
         model.addAttribute("bestbeforedate", LocalDate.now().plusYears(2));
+        currentPageManagement.updateCurrentPage(model, "catering");
         return "cateringAddStockItem";
     }
 
@@ -256,6 +259,7 @@ public class CateringProductCatalogController {
             model.addAttribute("bestbeforedate", LocalDate.now().plusYears(2));
         }
         model.addAttribute("festival", currentFestival);
+        currentPageManagement.updateCurrentPage(model, "catering");
 
         return (failure) ? "/cateringAddStockItem" : "redirect:/cateringProductCatalog";
     }
@@ -269,6 +273,7 @@ public class CateringProductCatalogController {
         }
         model.addAttribute("festival", currentFestival);
         model.addAttribute("productcatalog", catalog.findAll());
+        currentPageManagement.updateCurrentPage(model, "catering");
         return "cateringEditStockItem";
     }
 
@@ -321,10 +326,8 @@ public class CateringProductCatalogController {
                     changed = true;
                     BigDecimal bdDifference = stockitem.getQuantity().getAmount().subtract(bdFormAmount);
                     double lDifference = bdDifference.doubleValue();
-                    System.out.println("lDifference" + lDifference);
                     Quantity qDifference = Quantity.of(lDifference);
                     stockitem.decreaseQuantity(qDifference);
-                    System.out.println(stockitem.getQuantity());
                 }
                 if (changed)
                     stock.save(stockitem);
@@ -339,6 +342,7 @@ public class CateringProductCatalogController {
             model.addAttribute("bestbeforedate", LocalDate.now().plusYears(2));
         }
         model.addAttribute("festival", currentFestival);
+        currentPageManagement.updateCurrentPage(model, "catering");
 
         return (failure) ? "/cateringEditStockItem" : "redirect:/cateringProductCatalog";
 
