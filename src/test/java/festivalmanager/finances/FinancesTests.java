@@ -54,9 +54,9 @@ class FinancesTests {
 		financesController.financesPage(testModel, testFestival.getId());
 
 		//assertThat(testModel.getAttribute("artistsCost")).isEqualTo("11010.10");
-		assertThat(testModel.getAttribute("locationCost")).isEqualTo("2000,00");
+		assertThat(testModel.getAttribute("locationCost")).isEqualTo("2000.00");
 		//assertThat(testModel.getAttribute("cost")).isEqualTo("13010.10");
-		assertThat(testModel.getAttribute("revenue")).isEqualTo("0,00");
+		assertThat(testModel.getAttribute("revenue")).isEqualTo("0.00");
 		//assertThat(testModel.getAttribute("profit")).isEqualTo("-13010.10");
 
 	}
