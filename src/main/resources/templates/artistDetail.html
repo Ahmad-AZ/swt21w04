@@ -25,6 +25,9 @@
         <p>Preis pro Tag:</p>
         <p th:text="${artist.price}">Keine gefunden</p>
         <br/>
+        <p>Anzahl der Bühnentechniker für Künstler/in</p>
+        <p th:text="${artist.stageTechnician}">Keine gefunden</p>
+        <br/>
         <p>Buchungen:</p>
         <p th:if="${hasBookings == false}">Keine</p>
         <br/>

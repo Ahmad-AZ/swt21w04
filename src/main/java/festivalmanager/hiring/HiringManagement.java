@@ -26,7 +26,8 @@ public class HiringManagement {
 	public Artist createAritst(NewArtistForm form){
 		Assert.notNull(form, "form must not be null");
 		Money price = Money.of(form.getPrice(), EURO);
-		return artists.save(new Artist(form.getName(), price));
+
+		return artists.save(new Artist(form.getName(), price, form.getStageTechnician()));
 	}
 
 	public Streamable<Artist> findAll(){
@@ -44,6 +45,7 @@ public class HiringManagement {
 	public Artist editArtist(Artist artist, NewArtistForm form) {
 		artist.setName(form.getName());
 		artist.setPrice(Money.of(form.getPrice(), EURO));
+		artist.setStageTechnician(form.getStageTechnician());
 
 		return artists.save(artist);
 	}

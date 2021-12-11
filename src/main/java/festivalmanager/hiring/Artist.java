@@ -19,6 +19,7 @@ public class Artist {
 	private String name;
 	@Lob()
 	private Money price;
+	private int stageTechnician;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<BookingArtist> bookingArtists = new ArrayList<>();
@@ -26,9 +27,11 @@ public class Artist {
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Show> shows;
 
-	public Artist(@NotNull String name, @NotNull Money price) {
+
+	public Artist(@NotNull String name, @NotNull Money price, @NotNull int stageTechnician) {
 		this.name = name;
 		this.price = price;
+		this.stageTechnician = stageTechnician;
 		this.shows = new ArrayList<>();
 	}
 	public Artist() {
@@ -54,6 +57,15 @@ public class Artist {
 	public void setPrice(Money price) {
 		this.price = price;
 	}
+
+	public int getStageTechnician() {
+		return stageTechnician;
+	}
+
+	public void setStageTechnician(int stageTechnician) {
+		this.stageTechnician = stageTechnician;
+	}
+
 
 	public Iterable<Show> getShows() {
 		return this.shows;
