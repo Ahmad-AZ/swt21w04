@@ -14,7 +14,8 @@
     <h1>Show erstellen</h1>
 </header>
 <section layout:fragment="content">
-    <form class="form" method="post" id="form" th:action="@{/newShow}" th:object="${newShowForm}" enctype="multipart/form-data">
+
+    <form class="form" method="post" id="form" th:action="@{/newShow/{id}(id=${artistShow.id})}" th:object="${newShowForm}" enctype="multipart/form-data">
         <h2 class="form-title">Showdaten</h2>
         <div class="form-item">
             <label class="form-label" for="name">Name:</label>

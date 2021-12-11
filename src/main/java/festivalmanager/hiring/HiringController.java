@@ -167,5 +167,21 @@ public class HiringController {
 			);
 		}
 	}
+	@PostMapping("/newShow/{artistId}")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
+	public String createNewShow(@PathVariable Long artistId,@Validated newShowForm form, Model model) {
+		Optional<Artist> artist = hiringManagement.findById(artistId);
 
+		if(artist.isPresent()) {
+			Artist current = artist.get();
+			current.addShow(new Show(form.getName()));
+			hiringManagement.saveArtist(current);
+			return "redirect:/artists/"+ artistId;
+		}
+		else {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
+		}
+	}
 }
