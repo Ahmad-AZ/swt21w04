@@ -75,7 +75,7 @@ public class CateringProductCatalogController {
         else
             model.addAttribute("product", product);
 
-        currentPageManagement.updateCurrentPage(model, "catering");
+		utilsManagement.prepareModel(model);
         return (failure) ? "/cateringAddProduct" : "redirect:/cateringProductCatalog";
     }
 
@@ -151,7 +151,7 @@ public class CateringProductCatalogController {
 
         }
 
-        currentPageManagement.updateCurrentPage(model, "catering");
+		utilsManagement.prepareModel(model);
         return (failure) ? "redirect:/cateringEditProduct/" + productid : "redirect:/cateringProductCatalog";
     }
 
@@ -194,11 +194,10 @@ public class CateringProductCatalogController {
 
     @GetMapping("/cateringAddStockItem")
     String addStockItem(Model model) {
-        model.addAttribute("festival", currentFestival);
         model.addAttribute("productcatalog", catalog.findAll());
         model.addAttribute("orderdate", LocalDate.now());
         model.addAttribute("bestbeforedate", LocalDate.now().plusYears(2));
-        currentPageManagement.updateCurrentPage(model, "catering");
+		utilsManagement.prepareModel(model);
         return "cateringAddStockItem";
     }
 
@@ -243,8 +242,7 @@ public class CateringProductCatalogController {
             model.addAttribute("orderdate", LocalDate.now());
             model.addAttribute("bestbeforedate", LocalDate.now().plusYears(2));
         }
-        model.addAttribute("festival", currentFestival);
-        currentPageManagement.updateCurrentPage(model, "catering");
+		utilsManagement.prepareModel(model);
 
         return (failure) ? "/cateringAddStockItem" : "redirect:/cateringProductCatalog";
     }
@@ -256,9 +254,8 @@ public class CateringProductCatalogController {
             CateringStockItem stockitem = oStockItem.get();
             model.addAttribute("stockitem", stockitem);
         }
-        model.addAttribute("festival", currentFestival);
         model.addAttribute("productcatalog", catalog.findAll());
-        currentPageManagement.updateCurrentPage(model, "catering");
+		utilsManagement.prepareModel(model);
         return "cateringEditStockItem";
     }
 
@@ -326,8 +323,7 @@ public class CateringProductCatalogController {
             model.addAttribute("orderdate", LocalDate.now());
             model.addAttribute("bestbeforedate", LocalDate.now().plusYears(2));
         }
-        model.addAttribute("festival", currentFestival);
-        currentPageManagement.updateCurrentPage(model, "catering");
+		utilsManagement.prepareModel(model);
 
         return (failure) ? "/cateringEditStockItem" : "redirect:/cateringProductCatalog";
 
