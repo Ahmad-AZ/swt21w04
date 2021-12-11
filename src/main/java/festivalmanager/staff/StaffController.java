@@ -49,9 +49,7 @@ public class StaffController {
 	public String getCreateStaffDialog(@PathVariable("festivalId") long festivalId, @PathVariable("error") Optional<String> error, Model model) {
 		model.addAttribute("entries", staffManagement.findByFestivalId(festivalId));
 		model.addAttribute("dialog", "create_staff");
-		if (error.isPresent()) {
-			model.addAttribute("error", error.get());
-		}
+		model.addAttribute("error", error.orElse(""));
 
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
 		if (festival.isPresent()) {
