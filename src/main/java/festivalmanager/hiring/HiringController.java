@@ -146,7 +146,26 @@ public class HiringController {
 	}
 
 	@GetMapping("/newArtist")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String newArtist(Model model, NewArtistForm form) {
 		return "newArtist";
 	}
+
+	@GetMapping("/artists/newShow/{artistId}")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
+	public String newShow(@PathVariable Long artistId, Model model) {
+		Optional<Artist> artist = hiringManagement.findById(artistId);
+
+		if(artist.isPresent()) {
+			Artist current = artist.get();
+			model.addAttribute("artistShow", current);
+			return "newShow";
+		}
+		else {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
+		}
+	}
+
 }

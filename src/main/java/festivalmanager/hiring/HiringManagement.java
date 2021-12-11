@@ -30,6 +30,10 @@ public class HiringManagement {
 		return artists.save(new Artist(form.getName(), price, form.getStageTechnician()));
 	}
 
+	public void createShow(newShowForm form, Artist artist) {
+		artist.addShow(new Show(form.getName()));
+	}
+
 	public Streamable<Artist> findAll(){
 		return artists.findAll();
 	}
@@ -54,13 +58,4 @@ public class HiringManagement {
 		return artists.save(artist);
 	}
 
-//	public Artist findByName(String name){
-//		List<Artist> artistList = (List<Artist>) artists.findAll();
-//		for (Artist artist: artistList) {
-//			if (artist.getName() == name){
-//				return artist;
-//			}
-//		}
-//		return null;
-//	}
 }
