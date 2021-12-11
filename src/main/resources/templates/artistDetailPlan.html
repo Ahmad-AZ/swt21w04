@@ -34,6 +34,9 @@
         <p>Preis</p>
         <p th:text="${artist.getPrice()}">Keine gefunden</p>
         <br/>
+        <p>Anzahl der Bühnentechniker für Künstler/in</p>
+        <p th:text="${artist.stageTechnician}">Keine gefunden</p>
+        <br/>
         <p>Show:</p>
         <div th:each="show : ${artist.getShows()}" class="text" th:text="${show.getName()}"></div>
         <br/>

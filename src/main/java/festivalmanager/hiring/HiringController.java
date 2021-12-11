@@ -1,6 +1,7 @@
 package festivalmanager.hiring;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -28,23 +29,14 @@ public class HiringController {
 	}
 
 	@GetMapping("/artists")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String artists(Model model) {
 		model.addAttribute("artistList", hiringManagement.findAll());
 		return "artists";
 	}
-//	@GetMapping("/artistOverview")
-//	public String artistOverview(Model model, @ModelAttribute("currentFestival") Festival currentFestival,
-//								   @ModelAttribute("fm") FestivalManagement fm) {
-//		this.currentFestival = currentFestival;
-//		this.festivalManagement = fm;
-//		model.addAttribute("artistList", hiringManagement.findAll());
-//
-//		// required for second nav-bar
-//		model.addAttribute("festival", currentFestival);
-//
-//		return "artistOverview";
-//	}
+
 	@GetMapping("/artists/{artistId}")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String artistDetail(@PathVariable Long artistId, Model model){
 		Optional<Artist> artist = hiringManagement.findById(artistId);
 
@@ -64,6 +56,7 @@ public class HiringController {
 	}
 
 	@GetMapping("/artists/{artistId}/edit")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String artistEdit(@PathVariable Long artistId, Model model) {
 		Optional<Artist> artist = hiringManagement.findById(artistId);
 
@@ -82,6 +75,7 @@ public class HiringController {
 	}
 
 	@GetMapping("artists/remove/{id}")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String getRemoveArtistDialog(@PathVariable("id") long id, Model model) {
 		model.addAttribute("locatoins", hiringManagement.findAll());
 		model.addAttribute("currentId", id);
@@ -98,6 +92,7 @@ public class HiringController {
 	}
 
 	@PostMapping("/artists/remove")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String removeArtist(@RequestParam("id") Long artistId) {
 		try {
 			hiringManagement.removeArtist(artistId);
@@ -114,29 +109,8 @@ public class HiringController {
 		return "artistsDeleteFailed";
 	}
 
-//	@GetMapping("/artistOverview/{artistId}")
-//	public String artistDetail(@PathVariable Long artistId, Model model) {
-//		Optional<Artist> artist = hiringManagement.findById(artistId);
-//
-//		if (artist.isPresent()) {
-//			Artist current = artist.get();
-//
-//			System.out.println(artistId);
-//			model.addAttribute("artist", current);
-//
-//			// required for second nav-bar
-//			model.addAttribute("festival", currentFestival);
-//
-//			return "artistDetail";
-//
-//		} else {
-//			throw new ResponseStatusException(
-//					HttpStatus.NOT_FOUND, "entity not found"
-//			);
-//		}
-//	}
-
 	@PostMapping("/saveArtist")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String saveArtist(@Validated NewArtistForm form, Errors result, @RequestParam("artist") Long artistId, Model model) {
 
 		Optional<Artist> artist = hiringManagement.findById(artistId);
@@ -161,6 +135,7 @@ public class HiringController {
 	}
 
 	@PostMapping("/newArtist")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String createNewArtist(@Validated NewArtistForm form, Errors result){
 		if(result.hasErrors()){
 			return "newArtist";
@@ -171,26 +146,42 @@ public class HiringController {
 	}
 
 	@GetMapping("/newArtist")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String newArtist(Model model, NewArtistForm form) {
 		return "newArtist";
 	}
 
-//	@PostMapping("/bookArtist")
-//	public String selectartist(@RequestParam("artist") Long artistId) {
-//		Optional<Artist> artist = hiringManagement.findById(artistId);
-//
-//		if (artist.isPresent()) {
-//			Artist current = artist.get();
-//			artistRepository.save(current);
-//			boolean add = currentFestival.addArtist(current);
-//			festivalManagement.saveFestival(currentFestival);
-//			long id = current.getId();
-//			return "redirect:/artistPre1";
-//
-//		} else {
-//			throw new ResponseStatusException(
-//					HttpStatus.NOT_FOUND, "entity not found"
-//			);
-//		}
-//	}
+	@GetMapping("/artists/newShow/{artistId}")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
+	public String newShow(@PathVariable Long artistId, Model model) {
+		Optional<Artist> artist = hiringManagement.findById(artistId);
+
+		if(artist.isPresent()) {
+			Artist current = artist.get();
+			model.addAttribute("artistShow", current);
+			return "newShow";
+		}
+		else {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
+		}
+	}
+	@PostMapping("/newShow/{artistId}")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
+	public String createNewShow(@PathVariable Long artistId,@Validated newShowForm form, Model model) {
+		Optional<Artist> artist = hiringManagement.findById(artistId);
+
+		if(artist.isPresent()) {
+			Artist current = artist.get();
+			current.addShow(new Show(form.getName()));
+			hiringManagement.saveArtist(current);
+			return "redirect:/artists/"+ artistId;
+		}
+		else {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
+		}
+	}
 }

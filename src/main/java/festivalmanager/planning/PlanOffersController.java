@@ -7,6 +7,7 @@ import festivalmanager.hiring.HiringManagement;
 import festivalmanager.utils.CurrentPageManagement;
 import org.springframework.data.util.Streamable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -68,6 +69,7 @@ public class PlanOffersController {
 		}
 	}
 	@GetMapping("/artistOverview/{artistId}")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String artistDetail(@PathVariable Long artistId, Model model) {
 		Optional<Artist> artist = hiringManagement.findById(artistId);
 
@@ -98,6 +100,7 @@ public class PlanOffersController {
 		}
 	}
 	@PostMapping("/bookArtist")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String bookArtist(@RequestParam("artist") Long artistId, @RequestParam("currentlyBooked") boolean currentlyBooked, RedirectAttributes ra) {
 		Optional<Artist> artist = hiringManagement.findById(artistId);
 		if (artist.isPresent()) {

@@ -30,6 +30,7 @@
                    th:value="${dateNow}"
                    th:min="${dateNow}" max="2023-01-01">
         </div>
+        <p class="form-item" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}">EndDatum vor StartDatum.</p>
         <div class="form-item">
             <label class="form-label" for="endDate"><pre>Enddatum:</pre></label>
             <input class="form-input" type="date" id="endDate" name="endDate"

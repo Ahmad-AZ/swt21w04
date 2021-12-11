@@ -36,7 +36,6 @@ public class FestivalController {
 	private final FestivalManagement festivalManagement;
 	private CurrentPageManagement currentPageManagement;
 	private Festival currentFestival;
-	private ArtistRepository artistRepository;
 	private long currentId;
 
 	public FestivalController(FestivalManagement festivalManagement,
@@ -110,7 +109,15 @@ public class FestivalController {
 //		}
 		
 		if (form.getEndDate().isBefore(form.getStartDate())) {
-		result.rejectValue("endDate", null, "Das Enddatum liegt vor dem StartDatum.");
+		result.rejectValue("endDate", null, "Das Enddatum liegt vor dem Startdatum.");
+
+		}
+		if (form.getEndDate().isBefore(LocalDate.now())) {
+			result.rejectValue("endDate", null, "Das Enddatum darf nicht in der Vergangenheit liegen");
+
+		}
+		if (form.getStartDate().isBefore(LocalDate.now())) {
+			result.rejectValue("startDate", null, "Das Startdatum darf nicht in der Vergangenheit liegen");
 
 		}
 		
@@ -131,8 +138,6 @@ public class FestivalController {
 	@GetMapping("/newFestival") 
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String newFestival(Model model, NewFestivalForm form) {
-		System.out.println(LocalDate.now());
-		System.out.println();
 		model.addAttribute("dateNow", LocalDate.now());
 		return "newFestival";
 	}
@@ -146,10 +151,9 @@ public class FestivalController {
 		return "festivalOverview"; 
 	}
 	
-	@GetMapping("festivalOverview/remove/{id}")
+	@GetMapping("/festivalOverview/remove/{id}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('MANAGER')")
 	public String getRemoveFestivalDialog(@PathVariable("id") long id, Model model) {
-		model.addAttribute("festival", festivalManagement.findAll());
 		model.addAttribute("currentId", id);
 		model.addAttribute("dialog", "remove_festival");
 
@@ -162,12 +166,12 @@ public class FestivalController {
 			model.addAttribute("currentName", "");
 		}
 
-		return "/festivalOverview";
+		return "festivalOverview";
 	}
 	
 	@PostMapping("/festival/remove")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('MANAGER')")
-	public String removeLocation(@Valid @RequestParam("id") @NotEmpty Long festivalId) {
+	public String removeFestival(@Valid @RequestParam("id") @NotEmpty Long festivalId) {
 		Optional<Festival> current = festivalManagement.findById(festivalId);
 		if (current.isPresent()) {
 //			if(current.running()) {

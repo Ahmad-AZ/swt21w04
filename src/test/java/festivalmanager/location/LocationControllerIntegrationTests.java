@@ -55,8 +55,7 @@ public class LocationControllerIntegrationTests extends AbstractIntegrationTests
 
 		Model model = new ExtendedModelMap();
 
-		// id from Kulturpalast empirical founded
-		Long id = (long) 6;
+
 		Money price = Money.of(1111, EURO);
 		Location location = new Location();
 		location.setPricePerDay(price);
