@@ -76,7 +76,7 @@ public class Festival {
 	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
-	
+	// not really required
 	public List<LocalDate> getFestivalInterval() {
 		List<LocalDate> dateList = new ArrayList<>();
 		LocalDate currentDate = startDate;
@@ -107,6 +107,7 @@ public class Festival {
 	public void addArtist(Artist artist){
 		artists.add(artist);
 	}
+	// not really required
 	public boolean artistsIsEmpty(){
 		return this.artists.isEmpty();
 	}
@@ -118,7 +119,8 @@ public class Festival {
 	public Map<Long, Long> getEquipments(){
 		return rentedEquipments;
 	}
-
+	
+	// rename to deleteAllArtists
 	public void deleteAll() {
 		this.artists = new HashSet<>();
 	}
@@ -126,11 +128,12 @@ public class Festival {
 		return schedules;
 	}
 	
-	public boolean addSchedule(TimeSlot timeSlot, Show show, Stage stage, LocalDate date) {
+	public boolean addSchedule(Schedule schedule) {
 
-		return schedules.add(new Schedule(timeSlot, show, stage, date));
+		return schedules.add(schedule);
 	}
 	
+	// not really required
 	public Schedule getSchedule(TimeSlot timeSlot, Stage stage, LocalDate date) {
 		for(Schedule aSchedule : schedules) {
 			if(aSchedule.getDate().equals(date) && aSchedule.getStage().equals(stage) && aSchedule.getTimeSlot().equals(timeSlot)) {
@@ -149,6 +152,7 @@ public class Festival {
 		return "Keine";
 	}
 	
+	// not really required
 	public boolean containsSchedule(TimeSlot timeSlot, Stage stage, LocalDate date) {
 		for(Schedule aSchedule : schedules) {
 			if(aSchedule.getDate().equals(date) && aSchedule.getStage().equals(stage) && aSchedule.getTimeSlot().equals(timeSlot)) {

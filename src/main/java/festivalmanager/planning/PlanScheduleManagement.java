@@ -116,7 +116,7 @@ public class PlanScheduleManagement {
 			
 			Schedule schedule = current.getSchedule(timeSlot, stage, date);
 			if(!current.containsSchedule(timeSlot, stage, date)) {				
-				success = current.addSchedule(timeSlot, show, stage, date);
+				success = current.addSchedule(new Schedule(timeSlot, show, stage, date));
 			} 
 			else {
 				schedule.setShow(show);
