@@ -2,6 +2,8 @@ package festivalmanager.catering;
 
 import festivalmanager.utils.UtilsManagement;
 import org.salespointframework.catalog.ProductIdentifier;
+import org.salespointframework.inventory.InventoryItemIdentifier;
+import org.salespointframework.quantity.Quantity;
 import static org.salespointframework.core.Currencies.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import java.util.Optional;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 import javax.money.format.MonetaryParseException;
 
@@ -20,19 +25,18 @@ public class CateringProductCatalogController {
 
 	private UtilsManagement utilsManagement;
     private CateringProductCatalog catalog;
+    private CateringStock stock;
 
-    public CateringProductCatalogController(CateringProductCatalog catalog, UtilsManagement utilsManagement) {
+    public CateringProductCatalogController(CateringProductCatalog catalog, CateringStock stock, UtilsManagement utilsManagement) {
         this.catalog = catalog;
+        this.stock = stock;
 		this.utilsManagement = utilsManagement;
-    }
-
-    public CateringProductCatalog getCatalog() {
-        return catalog;
     }
 
     @GetMapping("/cateringProductCatalog")
     String products(Model model) {
 
+        model.addAttribute("stock", stock.findAll());
         model.addAttribute("productcatalog", catalog.findAll());
 		utilsManagement.setCurrentPageLowerHeader("catering");
 		utilsManagement.prepareModel(model);
@@ -46,7 +50,7 @@ public class CateringProductCatalogController {
     }
 
     @PostMapping("/cateringAddProduct/editData")
-    String addProduct(Model model, FormularData formularData) {
+    String addProduct(Model model, ProductFormularData formularData) {
         boolean failure = false;
 
         Money formPrice = Money.of(2.50, EURO);
@@ -71,7 +75,7 @@ public class CateringProductCatalogController {
         else
             model.addAttribute("product", product);
 
-
+        currentPageManagement.updateCurrentPage(model, "catering");
         return (failure) ? "/cateringAddProduct" : "redirect:/cateringProductCatalog";
     }
 
@@ -96,7 +100,7 @@ public class CateringProductCatalogController {
     }
 
     @PostMapping("/cateringEditProduct/editData/{productid}")
-    String editProductData(@PathVariable ProductIdentifier productid, Model model, FormularData formularData) {
+    String editProductData(@PathVariable ProductIdentifier productid, Model model, ProductFormularData formularData) {
         boolean changed = false;
         boolean failure = false;
         CateringProduct product;
@@ -147,6 +151,7 @@ public class CateringProductCatalogController {
 
         }
 
+        currentPageManagement.updateCurrentPage(model, "catering");
         return (failure) ? "redirect:/cateringEditProduct/" + productid : "redirect:/cateringProductCatalog";
     }
 
@@ -170,19 +175,178 @@ public class CateringProductCatalogController {
             catalog.delete(product);
 
         }
+
         return "redirect:/cateringProductCatalog";
     }
 
-    class FormularData {
+    class ProductFormularData {
         String name;
         String price, deposit;
         double filling;
 
-        public FormularData(String name, String price, String deposit, double filling) {
+        public ProductFormularData(String name, String price, String deposit, double filling) {
             this.name = name;
             this.price = price;
             this.deposit = deposit;
             this.filling = filling;
         }
+    }
+
+    @GetMapping("/cateringAddStockItem")
+    String addStockItem(Model model) {
+        model.addAttribute("festival", currentFestival);
+        model.addAttribute("productcatalog", catalog.findAll());
+        model.addAttribute("orderdate", LocalDate.now());
+        model.addAttribute("bestbeforedate", LocalDate.now().plusYears(2));
+        currentPageManagement.updateCurrentPage(model, "catering");
+        return "cateringAddStockItem";
+    }
+
+    @PostMapping("/cateringAddStockItem/editData")
+    String addStockItem(Model model, StockFormularData formularData) {
+        boolean failure = false;
+
+        Optional<CateringProduct> oProduct = catalog.findById(formularData.productid);
+        CateringProduct product = null;
+        if (oProduct.isPresent()) {
+            product = oProduct.get();
+        } else
+            failure = true;
+
+        Money formBuyingPrice = Money.of(0.50, EURO);
+        try {
+            formBuyingPrice = Money.parse(formularData.buyingprice);
+        } catch (MonetaryParseException ex) {
+            failure = true;
+        }
+
+        LocalDate formOrderDate = LocalDate.now();
+        try {
+            formOrderDate = LocalDate.parse(formularData.orderdate);
+        } catch (DateTimeParseException ex) {
+            failure = true;
+        }
+
+        LocalDate formBestBeforeDate = LocalDate.now().plusYears(2);
+        try {
+            formBestBeforeDate = LocalDate.parse(formularData.bestbeforedate);
+        } catch (DateTimeParseException ex) {
+            failure = true;
+        }
+
+        if (!failure) {
+            CateringStockItem stockitem = new CateringStockItem(product, Quantity.of(formularData.amount),
+                    formBuyingPrice, formOrderDate, formBestBeforeDate);
+            stock.save(stockitem);
+        } else {
+            model.addAttribute("productcatalog", catalog.findAll());
+            model.addAttribute("orderdate", LocalDate.now());
+            model.addAttribute("bestbeforedate", LocalDate.now().plusYears(2));
+        }
+        model.addAttribute("festival", currentFestival);
+        currentPageManagement.updateCurrentPage(model, "catering");
+
+        return (failure) ? "/cateringAddStockItem" : "redirect:/cateringProductCatalog";
+    }
+
+    @GetMapping("/cateringEditStockItem/{stockitemid}")
+    String editStockItem(@PathVariable InventoryItemIdentifier stockitemid, Model model) {
+        Optional<CateringStockItem> oStockItem = stock.findById(stockitemid);
+        if (oStockItem.isPresent()) {
+            CateringStockItem stockitem = oStockItem.get();
+            model.addAttribute("stockitem", stockitem);
+        }
+        model.addAttribute("festival", currentFestival);
+        model.addAttribute("productcatalog", catalog.findAll());
+        currentPageManagement.updateCurrentPage(model, "catering");
+        return "cateringEditStockItem";
+    }
+
+    @PostMapping("/cateringEditStockItem/editData/{stockitemid}")
+    String editStockItem(@PathVariable InventoryItemIdentifier stockitemid, Model model,
+            StockFormularData formularData) {
+        boolean failure = false;
+
+        Money formBuyingPrice = Money.of(0.50, EURO);
+        try {
+            formBuyingPrice = Money.parse(formularData.buyingprice);
+        } catch (MonetaryParseException ex) {
+            failure = true;
+        }
+
+        LocalDate formOrderDate = LocalDate.now();
+        try {
+            formOrderDate = LocalDate.parse(formularData.orderdate);
+        } catch (DateTimeParseException ex) {
+            failure = true;
+        }
+
+        LocalDate formBestBeforeDate = LocalDate.now().plusYears(2);
+        try {
+            formBestBeforeDate = LocalDate.parse(formularData.bestbeforedate);
+        } catch (DateTimeParseException ex) {
+            failure = true;
+        }
+
+        if (!failure) {
+            Optional<CateringStockItem> oStockItem = stock.findById(stockitemid);
+            CateringStockItem stockitem = null;
+            if (oStockItem.isPresent()) {
+                stockitem = oStockItem.get();
+                boolean changed = false;
+                if (!stockitem.getBuyingPrice().equals(formBuyingPrice)) {
+                    changed = true;
+                    stockitem.setBuyingPrice(formBuyingPrice);
+                }
+                if (!stockitem.getOrderDate().equals(formOrderDate)) {
+                    changed = true;
+                    stockitem.setOrderDate(formOrderDate);
+                }
+                if (!stockitem.getBestBeforeDate().equals(formBestBeforeDate)) {
+                    changed = true;
+                    stockitem.setBestBeforeDate(formBestBeforeDate);
+                }
+                BigDecimal bdFormAmount = new BigDecimal(formularData.amount);
+                if (!stockitem.getQuantity().getAmount().equals(bdFormAmount)) {
+                    changed = true;
+                    BigDecimal bdDifference = stockitem.getQuantity().getAmount().subtract(bdFormAmount);
+                    double lDifference = bdDifference.doubleValue();
+                    Quantity qDifference = Quantity.of(lDifference);
+                    stockitem.decreaseQuantity(qDifference);
+                }
+                if (changed)
+                    stock.save(stockitem);
+
+            } else
+                failure = true;
+
+            stock.save(stockitem);
+        } else {
+            model.addAttribute("productcatalog", catalog.findAll());
+            model.addAttribute("orderdate", LocalDate.now());
+            model.addAttribute("bestbeforedate", LocalDate.now().plusYears(2));
+        }
+        model.addAttribute("festival", currentFestival);
+        currentPageManagement.updateCurrentPage(model, "catering");
+
+        return (failure) ? "/cateringEditStockItem" : "redirect:/cateringProductCatalog";
+
+    }
+
+    class StockFormularData {
+        ProductIdentifier productid;
+        double amount;
+        String buyingprice;
+        String orderdate, bestbeforedate;
+
+        public StockFormularData(ProductIdentifier productid, double amount, String buyingprice, String orderdate,
+                String bestbeforedate) {
+            this.productid = productid;
+            this.amount = amount;
+            this.buyingprice = buyingprice;
+            this.orderdate = orderdate;
+            this.bestbeforedate = bestbeforedate;
+        }
+
     }
 }

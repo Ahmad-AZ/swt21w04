@@ -38,6 +38,35 @@
 				</tr>
 			</table>
 			<a href="cateringAddProduct">Produkt hinzuf&uuml;gen</a>
+			<br>
+			<hr>
+			<br>
+			<table border="1">
+				<tr>
+					<th>Aktionen</th>
+					<th>Produktname</th>
+					<th>Anzahl</th>
+					<th>Einkaufspreis</th>
+					<th>Einkaufsdatum</th>
+					<th>Verfallsdatum</th>
+					<th>Aktionen</th>
+				</tr>
+
+				<tr th:each="stockitem : ${stock}">
+					<td>
+						<a th:href="@{/cateringEditStockItem/{id}(id=${stockitem.getId()})}">bearbeiten</a>
+					</td>
+					<td th:text="${stockitem.getProduct().getName()}">Coca Cola</td>
+					<td th:text="${stockitem.getQuantity()}">500</td>
+					<td th:text="${stockitem.getBuyingPrice()}">EUR 0.50 €</td>
+					<td th:text="${stockitem.getOrderDate()}">10.12.2021</td>
+					<td th:text="${stockitem.getBestBeforeDate()}">01.04.2021</td>
+					<td>
+						l&ouml;schen
+					</td>
+				</tr>
+			</table>
+			<a href="cateringAddStockItem">Lagerbestand hinzuf&uuml;gen</a>
 		</section>
 	</body>
 </html>
