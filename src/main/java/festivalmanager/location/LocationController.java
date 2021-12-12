@@ -32,8 +32,12 @@ public class LocationController {
 	public LocationController(LocationManagement locationManagement) {
 		this.locationManagement = locationManagement;
 	}
-	
-	
+
+	@ModelAttribute("title")
+	public String getTitle() {
+		return "Locations";
+	}
+
 	@GetMapping("/locations")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String locations(Model model) {
@@ -91,7 +95,7 @@ public class LocationController {
 			return "newLocation";
 		}
 
-		// create Festival if no error appears
+		// save Festival if no error appears
 		locationManagement.createLocation(form);
 
 		return "redirect:/locations";

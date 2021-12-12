@@ -11,6 +11,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -27,19 +28,20 @@ public class TicketManagement {
 	private Festival currentFestival;
 	private Ticket currentTicket;
 
-	private TicketStock ticketStock;
-
-
 	public TicketManagement(FestivalManagement festival) {
 		this.festival = festival;
 		this.currentFestival = null;
+		this.currentTicket=null;
 	}
 
-	public Ticket createTickets(@NonNull Ticket ticket) {
+	public Ticket save(@NonNull Ticket ticket) {
 
 		return ticketRepo.save(ticket);
 	}
+	public Ticket update(Ticket ticket){
 
+		return  ticketRepo.save(ticket);
+	}
 
 	public Ticket TicketsByFestival(long festivalId) {
 
@@ -52,6 +54,11 @@ public class TicketManagement {
 		this.currentFestival= festival;
 	}
 
+	public void setCurrentTicket(@NotNull Ticket ticket){
+
+		this.currentTicket= ticket;
+	}
+
 
 	public Festival findFestivalById(long id) {
 
@@ -59,20 +66,8 @@ public class TicketManagement {
 	}
 
 
-	public void addTicketInStock(Ticket ticket) {
 
-		ticketStock.addTickets(ticket);
-
-	}
-
-	public Ticket checkTicketInStock(Ticket ticket) {
-
-		ticketStock.getTicketByFestival(ticket.getFestivalId());
-		return ticketStock.getTicketByFestival(ticket.getFestivalId());
-	}
-
-
-	// TODO: 12/11/2021 create exceptions
+	// TODO: 12/11/2021 save exceptions
 
 	public boolean checkTickets(Ticket ticket) {
 
@@ -119,10 +114,6 @@ public class TicketManagement {
 		}
 	 return false;
 	}
-
-
-
-
 
 	public Ticket buyTickets() {
 

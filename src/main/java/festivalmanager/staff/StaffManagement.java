@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,7 +45,7 @@ public class StaffManagement {
 			var password = Password.UnencryptedPassword.of(form.getPassword());
 			var userAccount = userAccountManagement.create(form.getName(), password, Role.of(form.getRole()));
 
-			return staff.save(new Person(festivalId, form.getName(), form.getRole(), form.getSalary(), userAccount));
+			return staff.save(new Person(festivalId, form, userAccount));
 		} else {
 			return null;
 		}
@@ -78,13 +77,15 @@ public class StaffManagement {
 	public void changePassword(ChangePasswordForm form) {
 		Optional<Person> person = findById(form.getId());
 		if (person.isPresent()) {
-			userAccountManagement.changePassword(person.get().getUserAccount(), Password.UnencryptedPassword.of(form.getPassword()));
+			Password.UnencryptedPassword newPassword = Password.UnencryptedPassword.of(form.getPassword());
+			userAccountManagement.changePassword(person.get().getUserAccount(), newPassword);
 		}
 	}
 
 	public Streamable<Person> findAll() {
 		return staff.findAll();
 	}
+
 	public Streamable<Person> findByFestivalId(long festivalId) {
 		if (festivalId == -1) {
 			// admins can see everyone
@@ -101,5 +102,15 @@ public class StaffManagement {
 
 	public Optional<Person> findByUserAccount(UserAccount account) {
 		return staff.findByUserAccount(account);
+	}
+
+	public long getAvailableSecurityCount(long festivalId) {
+		long availableSecurity = 0;
+		for (Person person : findByFestivalId(festivalId)) {
+			if (person.getRole().equals("SECURITY")) {
+				availableSecurity++;
+			}
+		}
+		return availableSecurity;
 	}
 }

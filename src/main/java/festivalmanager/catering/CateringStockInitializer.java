@@ -8,6 +8,9 @@ import org.javamoney.moneta.Money;
 import static org.salespointframework.core.Currencies.*;
 import festivalmanager.festival.*;
 
+/**
+ * @author Robert Menzel
+ */
 public class CateringStockInitializer implements DataInitializer {
     private final CateringProductCatalog catalog;
     private final CateringStock stock;
@@ -20,9 +23,9 @@ public class CateringStockInitializer implements DataInitializer {
     }
 
     public void initialize() {
-        if (stock.findAll().iterator().hasNext())
+        if (stock.findAll().iterator().hasNext()) {
             return;
-
+        }
         List<CateringProduct> lsProduct;
         lsProduct = catalog.findByName("Coca-Cola").toList();
         if (!lsProduct.isEmpty()) {

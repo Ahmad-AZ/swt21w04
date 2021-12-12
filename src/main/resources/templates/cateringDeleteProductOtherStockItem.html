@@ -13,59 +13,30 @@
 			<div th:include="festivalHeader :: festivalHeader"></div>
 		</header>
 		<section layout:fragment="content">
+			<h3>
+				Folgende Lagerbest&auml;nde verhindern das L&ouml;schen dieses Produkts:
+			</h3>
 			<table border="1">
 				<tr>
-					<th>Aktionen</th>
-					<th>Produktname</th>
-					<th>Verkaufspreis</th>
-					<th>Pfand</th>
-					<th>F&uuml;llmenge</th>
-					<th>Aktionen</th>
-				</tr>
-
-				<tr th:each="product : ${productcatalog}">
-					<td>
-						<a th:href="@{/cateringEditProduct/{id}(id=${product.getId()})}">bearbeiten</a>
-					</td>
-					<td th:text="${product.getName()}">Coca Cola</td>
-					<td th:text="${product.getPrice()}">2,50 €</td>
-					<td th:text="${product.getDeposit()}">0,25 €</td>
-					<td th:text="${product.getFilling()}">0,33</td>
-					<td>
-						<a th:href="@{/cateringDeleteProduct/{id}(id=${product.getId()})}">l&ouml;schen</a>
-					</td>
-				</tr>
-			</table>
-			<a href="cateringAddProduct">Produkt hinzuf&uuml;gen</a>
-			<br>
-			<hr>
-			<br>
-			<table border="1">
-				<tr>
-					<th>Aktionen</th>
+					<th>Festival</th>
 					<th>Produktname</th>
 					<th>Anzahl</th>
 					<th>Einkaufspreis</th>
 					<th>Einkaufsdatum</th>
 					<th>Verfallsdatum</th>
-					<th>Aktionen</th>
 				</tr>
 
-				<tr th:each="stockitem : ${stock}">
-					<td>
-						<a th:href="@{/cateringEditStockItem/{id}(id=${stockitem.getId()})}">bearbeiten</a>
-					</td>
+				<tr th:each="stockitem : ${stockItemsToDelete}">
+					<td th:text="${stockitem.getFestival().getName()}">Summer Jam</td>
 					<td th:text="${stockitem.getProduct().getName()}">Coca Cola</td>
 					<td th:text="${stockitem.getQuantity()}">500</td>
 					<td th:text="${stockitem.getBuyingPrice()}">EUR 0.50 €</td>
 					<td th:text="${stockitem.getOrderDate()}">10.12.2021</td>
 					<td th:text="${stockitem.getBestBeforeDate()}">01.04.2021</td>
-					<td>
-						<a th:href="@{/cateringDeleteStockItem/{id}(id=${stockitem.getId()})}">l&ouml;schen</a>
-					</td>
 				</tr>
 			</table>
-			<a href="cateringAddStockItem">Lagerbestand hinzuf&uuml;gen</a>
+			<h3>Bitte l&ouml;schen Sie zuerst diese.</h3>
+			<a href="/cateringProductCatalog">weiter</a>
 		</section>
 	</body>
 </html>

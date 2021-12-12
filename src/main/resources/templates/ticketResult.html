@@ -11,7 +11,7 @@
 <body>
 <header>
     <nav th:include="header :: header"></nav>
-    <h1>Tickets are created</h1>
+    <nav th:include="festivalHeader :: festivalHeader"></nav>
 </header>
 <section layout:fragment="content">
 </section>
@@ -19,11 +19,37 @@
 
 <p style="color: black" th:text="${tickets.festivalName}"></p>
 <p th:text="'Preis derCamping-Ticket  : ' + ${tickets.campingTicketPrice}"></p>
-<p th:text="'Anzahl der Camping-Ticket : ' + ${tickets.campingTicketsCount}"></p>
+<p th:text="'Anzahl der Camping-Ticket : ' + ${'€'+tickets.campingTicketsCount}"></p>
 
 
 <p th:text="'Anzahl der Tagesticket: ' + ${tickets.dayTicketsCount}"></p>
-<p th:text="'Preis der Tagesticket : ' + ${tickets.dayTicketPrice}"></p>
+<p th:text="'Preis der Tagesticket : ' + ${'€'+tickets.dayTicketPrice}"></p>
+
+
+
+
+<form class="item"  th:action="@{/tickets}" method="post" th:object="${tickets}">
+    <p></p>
+    <h3>Anzahl einstellen </h3><br>
+
+    <label for="count1">Camping-Tickets:</label><br>
+    <input type="number" id="count1" th:field="*{campingTicketsCount}"><br><br>
+
+    <label for="count">Tagestickets:</label><br>
+    <input type="number" id="count" th:field="*{dayTicketsCount}"><br><br>
+
+
+    <h3>Preise einstellen </h3><br>
+    <label for="price1">Camping-Tickets:</label><br>
+    <input type="number" id="price1" th:field="*{campingTicketPrice}"><br><br>
+
+    <label for="price">Tagesticket</label><br>
+    <input type="number" id="price" th:field="*{dayTicketPrice}"><br><br>
+
+    <br><br>
+
+    <input type="submit" value="Auswählen">
+
 
 
 </body>

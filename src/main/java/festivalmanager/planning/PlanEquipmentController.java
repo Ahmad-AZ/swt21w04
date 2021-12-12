@@ -47,7 +47,12 @@ public class PlanEquipmentController {
 		this.utilsManagement = utilsManagement;
 		this.currentFestivalId = 0;
 	}
-	
+
+	@ModelAttribute("title")
+	public String getTitle() {
+		return "Equipment-Auswahl";
+	}
+
 	// shows Equipments Overview
 	@GetMapping("/equipments")  
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")

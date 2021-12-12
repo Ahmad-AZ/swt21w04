@@ -43,6 +43,11 @@ class FinancesController {
 		resetAttributes();
 	}
 
+	@ModelAttribute("title")
+	public String getTitle() {
+		return "Finanzübersicht";
+	}
+
 
 	private void resetAttributes() {
 		nCampingTicketsExpected = 0;
@@ -72,14 +77,22 @@ class FinancesController {
 		addAttribute(model, "totalCost", financesManagement.getTotalCost());
 
 		// Revenue from Catering and Ticket sales
-		Money revenue = Money.of(0, EURO);
-		addAttribute(model, "revenue", revenue);
-		addAttribute(model,"profit", revenue.subtract(financesManagement.getTotalCost()));
+		Money totalRevenue = Money.of(0, EURO);
+		addAttribute(model, "totalRevenue", totalRevenue);
+		addAttribute(model,"profit", totalRevenue.subtract(financesManagement.getTotalCost()));
 
+		Money revenueExpected = financesManagement.getRevenue(
+				priceCampingTicketsExpected,
+				priceOneDayTicketsExpected,
+				nCampingTicketsExpected,
+				nOneDayTicketsExpected);
+		Money profitExpected = revenueExpected.subtract(financesManagement.getTotalCost());
 		addAttribute(model,"priceCampingTicketsExpected", priceCampingTicketsExpected);
 		addAttribute(model, "priceOneDayTicketsExpected", priceOneDayTicketsExpected);
 		addAttribute(model, "nCampingTicketsExpected", nCampingTicketsExpected);
 		addAttribute(model, "nOneDayTicketsExpected", nOneDayTicketsExpected);
+		addAttribute(model, "revenueExpected", revenueExpected);
+		addAttribute(model,"profitExpected", profitExpected);
 
 		utilsManagement.setCurrentPageLowerHeader("finances");
 		utilsManagement.prepareModel(model);
@@ -111,9 +124,9 @@ class FinancesController {
 		if (attributeValue.getClass().getSimpleName().equals("Money")) {
 			String attributeStr = String.format("%.2f", ((Money) attributeValue).getNumber().doubleValue());
 			model.addAttribute(attributeName, attributeStr);
+		} else {
+			model.addAttribute(attributeName, attributeValue);
 		}
-
-		model.addAttribute(attributeName, attributeValue);
 	}
 
 
@@ -146,8 +159,9 @@ class FinancesController {
 								  @RequestParam("priceCampingTicketsExpected") Double priceCampingTicketsExpected,
 								  @RequestParam("priceOneDayTicketsExpected") Double priceOneDayTicketsExpected) {
 
-		if (priceCampingTicketsExpected < 0 || priceOneDayTicketsExpected < 0)
+		if (priceCampingTicketsExpected < 0 || priceOneDayTicketsExpected < 0) {
 			return "redirect:/finances";
+		}
 
 		this.priceCampingTicketsExpected = Money.of(priceCampingTicketsExpected, EURO);
 		this.priceOneDayTicketsExpected = Money.of(priceOneDayTicketsExpected, EURO);

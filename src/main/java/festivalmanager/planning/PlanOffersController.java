@@ -34,6 +34,12 @@ public class PlanOffersController {
 		this.utilsManagement = utilsManagement;
 		this.currentFestival = null;
 	}
+
+	@ModelAttribute("title")
+	public String getTitle() {
+		return "Künstler-Auswahl";
+	}
+
 	@GetMapping("/artistOverview")
 	public String artistOverview(Model model) {
 		Optional<Festival> festival = festivalManagement.findById(utilsManagement.getCurrentFestivalId());

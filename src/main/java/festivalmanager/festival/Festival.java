@@ -163,6 +163,13 @@ public class Festival {
 		return stages.remove(stage);
 	}
 	
+	public long getRequiredSecurityCount() {
+		if (location != null) {
+			long visitorCapacity = location.getVisitorCapacity();
+			return visitorCapacity / 100;
+		}
+		return 0;
+	}
 
 //	public void deleteArtist(Artist artist){
 //		Iterator <Artist> i = artists.iterator();

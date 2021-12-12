@@ -46,6 +46,11 @@ public class FestivalController {
 		this.currentId = 0;
 		
 	}
+
+	@ModelAttribute("title")
+	public String getTitle() {
+		return "Festivalübersicht";
+	}
 	
 	@GetMapping("/festivalOverview/{festivalId}")
 	public String festivalDetail(@PathVariable Long festivalId, Model model) {
@@ -131,7 +136,7 @@ public class FestivalController {
 			return "newFestival";
 		}
 
-		// create Festival if no error appears
+		// save Festival if no error appears
 		festivalManagement.createFestival(form);
 
 		return "redirect:/festivalOverview";
