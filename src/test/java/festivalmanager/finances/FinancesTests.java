@@ -3,28 +3,22 @@ package festivalmanager.finances;
 import festivalmanager.Equipment.EquipmentManagement;
 import festivalmanager.Equipment.EquipmentRepository;
 import festivalmanager.festival.Festival;
-import festivalmanager.festival.FestivalController;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.festival.FestivalRepository;
-import festivalmanager.finances.FinancesManagement;
-import festivalmanager.hiring.Artist;
 import festivalmanager.hiring.HiringManagement;
 import festivalmanager.location.LocationManagement;
 import festivalmanager.location.Location;
 import festivalmanager.staff.Person;
 import festivalmanager.staff.StaffManagement;
-import festivalmanager.staff.StaffRepository;
 import festivalmanager.utils.UtilsManagement;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.Test;
-import org.salespointframework.useraccount.UserAccountManagement;
 import org.springframework.data.util.Streamable;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 
 import java.time.LocalDate;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -65,7 +59,7 @@ class FinancesTests {
 
 		StaffManagement staffManagement = mock(StaffManagement.class);
 		Streamable<Person> staffMembers = Streamable.empty();
-		when(staffManagement.findByFestivalId(any())).thenReturn(staffMembers);
+		when(staffManagement.findByFestivalId(anyLong())).thenReturn(staffMembers);
 
 		FinancesManagement financesManagement = new FinancesManagement(
 				festivalManagement,
