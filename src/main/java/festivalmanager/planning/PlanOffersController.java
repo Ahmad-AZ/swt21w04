@@ -27,7 +27,8 @@ public class PlanOffersController {
 	private final FestivalManagement festivalManagement;
 	private final UtilsManagement utilsManagement;
 
-	public PlanOffersController(PlanOffersManagement planOffersManagement, HiringManagement hiringManagement, FestivalManagement festivalManagement, UtilsManagement utilsManagement) {
+	public PlanOffersController(PlanOffersManagement planOffersManagement, HiringManagement hiringManagement,
+								FestivalManagement festivalManagement, UtilsManagement utilsManagement) {
 		this.planOffersManagement = planOffersManagement;
 		this.hiringManagement = hiringManagement;
 		this.festivalManagement = festivalManagement;
@@ -43,8 +44,7 @@ public class PlanOffersController {
 			model.addAttribute("artistList", hiringManagement.findAll());
 			if (!current.artistsIsEmpty()){
 				model.addAttribute("bookedArtistId", current.getArtist());
-			}
-			else {
+			} else {
 				model.addAttribute("noArtist", true);
 			}
 			model.addAttribute("festival", current);
@@ -54,16 +54,14 @@ public class PlanOffersController {
 				while (iterator.hasNext()) {
 					model.addAttribute("bookedArtist", iterator.next().getId());
 				}
-			}
-			else{
+			} else{
 				model.addAttribute("bookedArtist", 0);
 			}
 
 			utilsManagement.setCurrentPageLowerHeader("artists");
 			utilsManagement.prepareModel(model);
 			return "artistOverview";
-		}
-		else{
+		} else{
 			throw new ResponseStatusException(
 					HttpStatus.NOT_FOUND, "entity not found"
 			);
@@ -84,8 +82,7 @@ public class PlanOffersController {
 				for (Artist artist1 : currentFestival.getArtist()) {
 					model.addAttribute("ArtistCurrentlyBooked", artist1.getId() == current.getId());
 				}
-			}
-			else{
+			} else{
 				model.addAttribute("ArtistCurrentlyBooked", false);
 			}
 
@@ -100,14 +97,15 @@ public class PlanOffersController {
 	}
 	@PostMapping("/bookArtist")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String bookArtist(@RequestParam("artist") Long artistId, @RequestParam("currentlyBooked") boolean currentlyBooked, RedirectAttributes ra) {
+	public String bookArtist(@RequestParam("artist") Long artistId,
+							 @RequestParam("currentlyBooked") boolean currentlyBooked,
+							 RedirectAttributes ra) {
 		Optional<Artist> artist = hiringManagement.findById(artistId);
 		if (artist.isPresent()) {
 			Artist current = artist.get();
 			if (currentlyBooked) {
 				planOffersManagement.unbookArtist(current, currentFestival);
-			}
-			else {
+			} else {
 				boolean success = planOffersManagement.bookArtist(current, currentFestival);
 				System.out.println("book artist success " + success);
 				if(!success) {
@@ -116,8 +114,7 @@ public class PlanOffersController {
 				}
 			}
 			return "redirect:/artistOverview";
-		}
-		else {
+		} else {
 			throw new ResponseStatusException(
 					HttpStatus.NOT_FOUND, "entity not found"
 			);
@@ -130,8 +127,7 @@ public class PlanOffersController {
 			if (artist.isPresent()) {
 				Artist current = artist.get();
 				planOffersManagement.unbookArtist(current, currentFestival);
-			}
-			else{
+			} else{
 				throw new ResponseStatusException(
 						HttpStatus.NOT_FOUND, "entity not found"
 				);
