@@ -19,12 +19,8 @@ public class HiringController {
 	private Festival currentFestival;
 	private FestivalManagement festivalManagement;
 
-	public HiringController(
-//			OffersArtists offersArtists,
-			ArtistRepository artistRepository,
-			HiringManagement hiringManagement) {
+	public HiringController(HiringManagement hiringManagement) {
 		this.hiringManagement = hiringManagement; 
-//		this.offersArtists = offersArtists;
 		this.currentFestival = null;
 	}
 
@@ -52,8 +48,7 @@ public class HiringController {
 			model.addAttribute("show", current.getShows());
 
 			return "artistDetail";
-		}
-		else {
+		} else {
 			throw new ResponseStatusException(
 					HttpStatus.NOT_FOUND, "entity not found"
 			);
@@ -116,7 +111,10 @@ public class HiringController {
 
 	@PostMapping("/saveArtist")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String saveArtist(@Validated NewArtistForm form, Errors result, @RequestParam("artist") Long artistId, Model model) {
+	public String saveArtist(@Validated NewArtistForm form,
+							 Errors result,
+							 @RequestParam("artist") Long artistId,
+							 Model model) {
 
 		Optional<Artist> artist = hiringManagement.findById(artistId);
 
@@ -174,7 +172,7 @@ public class HiringController {
 	}
 	@PostMapping("/newShow/{artistId}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String createNewShow(@PathVariable Long artistId,@Validated newShowForm form, Model model) {
+	public String createNewShow(@PathVariable Long artistId, @Validated NewShowForm form, Model model) {
 		Optional<Artist> artist = hiringManagement.findById(artistId);
 
 		if(artist.isPresent()) {
@@ -182,8 +180,7 @@ public class HiringController {
 			current.addShow(new Show(form.getName()));
 			hiringManagement.saveArtist(current);
 			return "redirect:/artists/"+ artistId;
-		}
-		else {
+		} else {
 			throw new ResponseStatusException(
 					HttpStatus.NOT_FOUND, "entity not found"
 			);
