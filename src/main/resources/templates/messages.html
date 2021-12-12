@@ -5,6 +5,7 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
         <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{/resources/css/message.css}" />
         <title>Wilkommen</title>
     </head>
     <body>
@@ -21,6 +22,7 @@
                 </div>
             </div>
             <textarea class="message-content" th:if="${currentMessage != null}" th:inline="text" readonly>[[${currentMessage.content}]]</textarea>
+            <div class="message-content-placeholder" th:if="${currentMessage == null}"></div>
             <div class="overlay" th:if="${dialog} == 'send_message'">
                 <form class="form" th:action="@{/messages/{userId}/send(userId = ${userId})}" method="post">
                     <h2 class="form-title">Nachricht senden</h2>

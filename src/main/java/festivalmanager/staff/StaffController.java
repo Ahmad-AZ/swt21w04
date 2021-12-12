@@ -84,7 +84,7 @@ public class StaffController {
 		}
 
 		utilsManagement.prepareModel(model);
-		return "person.html";
+		return "staff.html";
 	}
 
 	@GetMapping("/staff/{festivalId}/remove/{userId}")
@@ -96,9 +96,7 @@ public class StaffController {
 
 		Optional<Person> user = staffManagement.findById(userId);
 		if (user.isPresent()) {
-			model.addAttribute("currentName", user.get().getName());
-		} else {
-			model.addAttribute("currentName", "");
+			model.addAttribute("person", user.get());
 		}
 
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
@@ -133,6 +131,8 @@ public class StaffController {
 	@GetMapping("/staff/{festivalId}/change_role/{userId}")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String getChangeRoleDialog(@PathVariable("festivalId") long festivalId, @PathVariable("userId") long userId, Model model) {
+		model.addAttribute("entries", staffManagement.findByFestivalId(festivalId));
+
 		model.addAttribute("dialog", "change_role");
 
 		Optional<Person> user = staffManagement.findById(userId);
@@ -146,12 +146,14 @@ public class StaffController {
 		}
 
 		utilsManagement.prepareModel(model);
-		return "person.html";
+		return "staff.html";
 	}
 
 	@GetMapping("/staff/{festivalId}/change_password/{userId}")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String getChangePasswordDialog(@PathVariable("festivalId") long festivalId, @PathVariable("userId") long userId, Model model) {
+		model.addAttribute("entries", staffManagement.findByFestivalId(festivalId));
+
 		model.addAttribute("dialog", "change_password");
 
 		Optional<Person> user = staffManagement.findById(userId);
@@ -165,7 +167,7 @@ public class StaffController {
 		}
 
 		utilsManagement.prepareModel(model);
-		return "person.html";
+		return "staff.html";
 	}
 
 	@PostMapping("/staff/{festivalId}/change_role/{id}")
