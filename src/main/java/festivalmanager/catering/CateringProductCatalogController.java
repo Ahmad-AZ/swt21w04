@@ -4,13 +4,14 @@ import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.utils.UtilsManagement;
 import org.salespointframework.catalog.ProductIdentifier;
+import org.salespointframework.inventory.InventoryItems;
 import org.salespointframework.inventory.InventoryItemIdentifier;
 import org.salespointframework.quantity.Quantity;
 import static org.salespointframework.core.Currencies.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+//import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import java.util.Optional;
@@ -25,32 +26,34 @@ import org.javamoney.moneta.*;
 @Controller
 public class CateringProductCatalogController {
 
-	private Festival currentFestival;
-	private UtilsManagement utilsManagement;
-	private FestivalManagement festivalManagement;
+    private Festival currentFestival;
+    private UtilsManagement utilsManagement;
+    private FestivalManagement festivalManagement;
     private CateringProductCatalog catalog;
     private CateringStock stock;
 
-    public CateringProductCatalogController(CateringProductCatalog catalog, CateringStock stock, UtilsManagement utilsManagement, FestivalManagement festivalManagement) {
+    public CateringProductCatalogController(CateringProductCatalog catalog, CateringStock stock,
+            UtilsManagement utilsManagement, FestivalManagement festivalManagement) {
         this.catalog = catalog;
         this.stock = stock;
-		this.utilsManagement = utilsManagement;
-		this.festivalManagement = festivalManagement;
+        this.utilsManagement = utilsManagement;
+        this.festivalManagement = festivalManagement;
+        CateringStockItem.festivalManagement = festivalManagement;
     }
 
     @GetMapping("/cateringProductCatalog")
     String products(Model model) {
-		currentFestival = festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
-        model.addAttribute("stock", stock.findByFestivalID(currentFestival.getId()));
+        currentFestival = festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
+        model.addAttribute("stock", stock.findByFestivalId(currentFestival.getId()));
         model.addAttribute("productcatalog", catalog.findAll());
-		utilsManagement.setCurrentPageLowerHeader("catering");
-		utilsManagement.prepareModel(model);
+        utilsManagement.setCurrentPageLowerHeader("catering");
+        utilsManagement.prepareModel(model);
         return "cateringProductCatalog";
     }
 
     @GetMapping("/cateringAddProduct")
     String addProduct(Model model) {
-		utilsManagement.prepareModel(model);
+        utilsManagement.prepareModel(model);
         return "cateringAddProduct";
     }
 
@@ -80,13 +83,13 @@ public class CateringProductCatalogController {
         else
             model.addAttribute("product", product);
 
-		utilsManagement.prepareModel(model);
+        utilsManagement.prepareModel(model);
         return (failure) ? "/cateringAddProduct" : "redirect:/cateringProductCatalog";
     }
 
     @GetMapping("/cateringEditProduct")
     String editProduct(Model model) {
-		utilsManagement.prepareModel(model);
+        utilsManagement.prepareModel(model);
         return "cateringEditProduct";
     }
 
@@ -100,8 +103,8 @@ public class CateringProductCatalogController {
             model.addAttribute("product", product);
         }
 
-		utilsManagement.prepareModel(model);
-		return "cateringEditProduct";
+        utilsManagement.prepareModel(model);
+        return "cateringEditProduct";
     }
 
     @PostMapping("/cateringEditProduct/editData/{productid}")
@@ -156,20 +159,26 @@ public class CateringProductCatalogController {
 
         }
 
-		utilsManagement.prepareModel(model);
+        utilsManagement.prepareModel(model);
         return (failure) ? "redirect:/cateringEditProduct/" + productid : "redirect:/cateringProductCatalog";
     }
 
     @GetMapping("/cateringDeleteProduct/{productid}")
     String deleteProduct(@PathVariable ProductIdentifier productid, Model model) {
         Optional<CateringProduct> oProduct = catalog.findById(productid);
+        boolean empty = true;
         if (oProduct.isPresent()) {
             CateringProduct product = oProduct.get();
             model.addAttribute("product", product);
+
+            InventoryItems<CateringStockItem> iCSI = stock.findByProduct(product);
+            empty = iCSI.isEmpty();
+            if (!empty)
+                model.addAttribute("stockItemsToDelete", iCSI);
         }
 
-		utilsManagement.prepareModel(model);
-		return "cateringDeleteProduct";
+        utilsManagement.prepareModel(model);
+        return (empty) ? "cateringDeleteProduct" : "cateringDeleteProductOtherStockItem";
     }
 
     @PostMapping("/cateringDeleteProduct/delete/{productid}")
@@ -202,7 +211,7 @@ public class CateringProductCatalogController {
         model.addAttribute("productcatalog", catalog.findAll());
         model.addAttribute("orderdate", LocalDate.now());
         model.addAttribute("bestbeforedate", LocalDate.now().plusYears(2));
-		utilsManagement.prepareModel(model);
+        utilsManagement.prepareModel(model);
         return "cateringAddStockItem";
     }
 
@@ -248,7 +257,7 @@ public class CateringProductCatalogController {
             model.addAttribute("orderdate", LocalDate.now());
             model.addAttribute("bestbeforedate", LocalDate.now().plusYears(2));
         }
-		utilsManagement.prepareModel(model);
+        utilsManagement.prepareModel(model);
 
         return (failure) ? "/cateringAddStockItem" : "redirect:/cateringProductCatalog";
     }
@@ -261,7 +270,7 @@ public class CateringProductCatalogController {
             model.addAttribute("stockitem", stockitem);
         }
         model.addAttribute("productcatalog", catalog.findAll());
-		utilsManagement.prepareModel(model);
+        utilsManagement.prepareModel(model);
         return "cateringEditStockItem";
     }
 
@@ -329,7 +338,7 @@ public class CateringProductCatalogController {
             model.addAttribute("orderdate", LocalDate.now());
             model.addAttribute("bestbeforedate", LocalDate.now().plusYears(2));
         }
-		utilsManagement.prepareModel(model);
+        utilsManagement.prepareModel(model);
 
         return (failure) ? "/cateringEditStockItem" : "redirect:/cateringProductCatalog";
     }
