@@ -64,6 +64,10 @@ public class FinancesManagement {
 	public void updateFestival() {
 		currentFestival = festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
 		ticketInformation = ticketManagement.TicketsByFestival(currentFestival.getId());
+		if (ticketInformation == null) {
+			ticketInformation = new Ticket();
+		}
+
 		durationDays = currentFestival.getEndDate().toEpochDay() - currentFestival.getStartDate().toEpochDay() + 1;
 		totalCost = Money.of(0, EURO);
 	}
@@ -153,7 +157,7 @@ public class FinancesManagement {
 
 	public Money getCateringRevenue() {
 
-		Money cateringRevenue = Money.of(1000, EURO);
+		Money cateringRevenue = Money.of(0, EURO);
 
 		totalRevenue = totalRevenue.add(cateringRevenue);
 		return cateringRevenue;

@@ -38,6 +38,9 @@ public class TicketController {
 	@GetMapping("/tickets")
 	public String showTicketInfo(Model model) {
 
+		model.addAttribute("title", "Tickets");
+		utilsManagement.setCurrentPageLowerHeader("tickets");
+		utilsManagement.prepareModel(model);
 
 		if (Objects.isNull(ticketManagement.getCurrentTicket())) {
 
@@ -52,8 +55,6 @@ public class TicketController {
 		}
 
 		model.addAttribute("tickets", ticketManagement.getCurrentTicket());
-		utilsManagement.setCurrentPageLowerHeader("tickets");
-		utilsManagement.prepareModel(model);
 		return "ticketResult";
 	}
 
@@ -61,6 +62,9 @@ public class TicketController {
 	@PreAuthorize("hasRole('PLANNER')||hasRole('ADMIN')")
 	@PostMapping("/tickets")
 	public String create(@ModelAttribute Ticket ticket, Model model, Errors result) {
+
+		model.addAttribute("title", "Tickets");
+		utilsManagement.prepareModel(model);
 
 		if (result.hasErrors()) {
 			return "ticketFrom";
@@ -75,7 +79,6 @@ public class TicketController {
 		ticketManagement.setFestival(currentFestival);
 
 		model.addAttribute("tickets", ticketManagement.save(ticket));
-		utilsManagement.prepareModel(model);
 		return "ticketResult";
 	}
 
@@ -105,6 +108,11 @@ public class TicketController {
 			model.addAttribute("tickets", ticket);
 
 		}
+		else {
+			utilsManagement.prepareModel(model);
+			model.addAttribute("ticketsUnavailable", "true");
+			return "TicketShopUnavailable";
+		}
 
 		utilsManagement.prepareModel(model);
 		return "ticketPrint";
@@ -117,10 +125,15 @@ public class TicketController {
 
 
 		Ticket ticket = ticketManagement.TicketsByFestival(utilsManagement.getCurrentFestivalId());
-
-		model.addAttribute("tickets",ticket);
 		utilsManagement.setCurrentPageLowerHeader("ticketShop");
 		utilsManagement.prepareModel(model);
+
+		if (ticket == null) {
+			model.addAttribute("ticketsNotCreated", "true");
+			return "TicketShopUnavailable";
+		}
+
+		model.addAttribute("tickets",ticket);
 		return "ticketShop";
 	}
 
@@ -129,6 +142,9 @@ public class TicketController {
 	@PreAuthorize("hasRole('PLANNER')||hasRole('ADMIN')")
 	@PostMapping("tickets/edit")
 	public String update(@NotNull @ModelAttribute Ticket ticket , Model model, Errors result){
+
+		model.addAttribute("title", "Tickets");
+		utilsManagement.prepareModel(model);
 
 		if (result.hasErrors()) {
 
@@ -139,7 +155,6 @@ public class TicketController {
 		ticketManagement.save(ticket);
 
 		model.addAttribute("tickets", ticket);
-		utilsManagement.prepareModel(model);
 		return "ticketResult";
 
 	}
