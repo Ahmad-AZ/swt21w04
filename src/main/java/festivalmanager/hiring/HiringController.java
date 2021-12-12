@@ -167,7 +167,7 @@ public class HiringController {
 	}
 	@PostMapping("/newShow/{artistId}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String createNewShow(@PathVariable Long artistId,@Validated newShowForm form, Model model) {
+	public String createNewShow(@PathVariable Long artistId, @Validated NewShowForm form, Model model) {
 		Optional<Artist> artist = hiringManagement.findById(artistId);
 
 		if(artist.isPresent()) {

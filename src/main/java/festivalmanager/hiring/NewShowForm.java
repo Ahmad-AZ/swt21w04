@@ -2,11 +2,11 @@ package festivalmanager.hiring;
 
 import javax.validation.constraints.NotNull;
 
-public class newShowForm {
+public class NewShowForm {
 
 	private final String name;
 
-	public newShowForm(@NotNull String name) {
+	public NewShowForm(@NotNull String name) {
 		this.name = name;
 	}
 

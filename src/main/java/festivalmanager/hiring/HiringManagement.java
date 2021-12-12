@@ -7,7 +7,6 @@ import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Optional;
 
 import static org.salespointframework.core.Currencies.EURO;
@@ -30,7 +29,7 @@ public class HiringManagement {
 		return artists.save(new Artist(form.getName(), price, form.getStageTechnician()));
 	}
 
-	public void createShow(newShowForm form, Artist artist) {
+	public void createShow(NewShowForm form, Artist artist) {
 		artist.addShow(new Show(form.getName()));
 	}
 
