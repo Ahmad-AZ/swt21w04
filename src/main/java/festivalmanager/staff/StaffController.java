@@ -2,6 +2,7 @@ package festivalmanager.staff;
 
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
+import festivalmanager.location.Location;
 import festivalmanager.staff.forms.*;
 import festivalmanager.utils.UtilsManagement;
 import org.salespointframework.useraccount.UserAccount;
@@ -48,9 +49,23 @@ public class StaffController {
 		return festivalManagement.findById(festivalId).orElse(null);
 	}
 
+	@ModelAttribute("infoMessage")
+	public String getInfoMessage(@PathVariable("festivalId") long festivalId) {
+		Optional<Festival> festival = festivalManagement.findById(festivalId);
+		if (festival.isPresent()) {
+			long requiredSecurity = festival.get().getRequiredSecurityCount();
+			long availableSecurity = staffManagement.getAvailableSecurityCount(festivalId);
+
+			if (availableSecurity < requiredSecurity) {
+				return "Es werden mehr Sicherheitskräfte benötigt!";
+			}
+		}
+		return null;
+	}
+
 	@GetMapping("/staff/{festivalId}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public String getStaffInfo(@PathVariable("festivalId") long festivalId, Model model) {
+	public String getStaffInfo(Model model) {
 		utilsManagement.setCurrentPageLowerHeader("staff");
 		utilsManagement.prepareModel(model);
 		return "staff.html";
@@ -58,7 +73,7 @@ public class StaffController {
 
 	@GetMapping("/staff/{festivalId}/detail/{userId}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public String getPersonDetailView(@PathVariable("festivalId") long festivalId, @PathVariable("userId") long userId, Model model) {
+	public String getPersonDetailView(@PathVariable("userId") long userId, Model model) {
 		Optional<Person> user = staffManagement.findById(userId);
 		model.addAttribute("person", user.orElse(null));
 
@@ -68,7 +83,7 @@ public class StaffController {
 
 	@GetMapping(value = {"/staff/{festivalId}/create", "/staff/{festivalId}/create/{error}"})
 	@PreAuthorize("hasRole('ADMIN')")
-	public String getCreateStaffDialog(@PathVariable("festivalId") long festivalId, @PathVariable("error") Optional<String> error, Model model) {
+	public String getCreateStaffDialog(@PathVariable("error") Optional<String> error, Model model) {
 		model.addAttribute("dialog", "create_staff");
 		model.addAttribute("error", error.orElse(""));
 
@@ -78,7 +93,7 @@ public class StaffController {
 
 	@GetMapping("/staff/{festivalId}/remove/{userId}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public String getRemoveStaffDialog(@PathVariable("festivalId") long festivalId, @PathVariable("userId") long userId, Model model) {
+	public String getRemoveStaffDialog(@PathVariable("userId") long userId, Model model) {
 		model.addAttribute("dialog", "remove_staff");
 
 		Optional<Person> user = staffManagement.findById(userId);
@@ -90,7 +105,7 @@ public class StaffController {
 
 	@GetMapping("/staff/{festivalId}/change_role/{userId}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public String getChangeRoleDialog(@PathVariable("festivalId") long festivalId, @PathVariable("userId") long userId, Model model) {
+	public String getChangeRoleDialog(@PathVariable("userId") long userId, Model model) {
 		model.addAttribute("dialog", "change_role");
 
 		Optional<Person> user = staffManagement.findById(userId);
@@ -102,7 +117,7 @@ public class StaffController {
 
 	@GetMapping("/staff/{festivalId}/change_password/{userId}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public String getChangePasswordDialog(@PathVariable("festivalId") long festivalId, @PathVariable("userId") long userId, Model model) {
+	public String getChangePasswordDialog(@PathVariable("userId") long userId, Model model) {
 		model.addAttribute("dialog", "change_password");
 
 		Optional<Person> user = staffManagement.findById(userId);

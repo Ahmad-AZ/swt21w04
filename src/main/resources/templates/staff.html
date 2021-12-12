@@ -14,6 +14,7 @@
         <div th:include="festivalHeader :: festivalHeader"></div>
         <div class="staff-menu">
             <a th:href="@{/staff/{id}/create/(id=${festival.id})}"><h2>Personal hinzufügen</h2></a>
+            <div th:text="${infoMessage}"></div>
         </div>
 
         <div class="staff-main">

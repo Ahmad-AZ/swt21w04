@@ -105,4 +105,14 @@ public class StaffManagement {
 	public Optional<Person> findByUserAccount(UserAccount account) {
 		return staff.findByUserAccount(account);
 	}
+
+	public long getAvailableSecurityCount(long festivalId) {
+		long availableSecurity = 0;
+		for (Person person : findByFestivalId(festivalId)) {
+			if (person.getRole().equals("SECURITY")) {
+				availableSecurity++;
+			}
+		}
+		return availableSecurity;
+	}
 }
