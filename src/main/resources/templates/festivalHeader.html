@@ -39,6 +39,11 @@
                        th:href="@{/cateringProductCatalog}"
                        sec:authorize="hasRole('PLANNER') || hasRole('ADMIN') || hasRole('MANAGER')">Catering</a>
 
+                    <a th:class="${'item ' + 'border-right ' + cateringSalesCurrent}"
+                       th:href="@{/catering}"
+                       sec:authorize="hasRole('CATERING') || hasRole('ADMIN')">Catering Verkäufe</a>
+
+
 
 
                     <a th:class="${'item ' + 'border-right ' + ticketsCurrent}"
