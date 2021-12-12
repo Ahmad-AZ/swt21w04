@@ -34,15 +34,15 @@ class StaffDataInitializer implements DataInitializer {
 		}
 
 		if (userAccountManagement.findByUsername("manager").isEmpty()) {
-			staffManagement.createPerson(-1, new CreateStaffForm("manager", "managerpw", "MANAGER", 0.0));
+			staffManagement.createPerson(-1, new CreateStaffForm("manager", "managerpw", "MANAGER", 25.0));
 		}
 
 		if (userAccountManagement.findByUsername("planner_1").isEmpty()) {
-			staffManagement.createPerson(-1, new CreateStaffForm("planner_1", "plannerpw", "PLANNER", 0.0));
+			staffManagement.createPerson(-1, new CreateStaffForm("planner_1", "plannerpw", "PLANNER", 20.0));
 		}
 
 		if (userAccountManagement.findByUsername("planner_2").isEmpty()) {
-			staffManagement.createPerson(-1, new CreateStaffForm("planner_2", "plannerpw", "PLANNER", 0.0));
+			staffManagement.createPerson(-1, new CreateStaffForm("planner_2", "plannerpw", "PLANNER", 20.0));
 		}
 
 		long festivalId = 0;
@@ -58,35 +58,35 @@ class StaffDataInitializer implements DataInitializer {
 		}
 
 		if (userAccountManagement.findByUsername("ticket_seller_1").isEmpty()) {
-			staffManagement.createPerson(festivalId, new CreateStaffForm("ticket_seller_1", "staffpw", "TICKET_SELLER", 0.0));
+			staffManagement.createPerson(festivalId, new CreateStaffForm("ticket_seller_1", "staffpw", "TICKET_SELLER", 10.0));
 		}
 
 		if (userAccountManagement.findByUsername("admission_1").isEmpty()) {
-			staffManagement.createPerson(festivalId, new CreateStaffForm("admission_1", "staffpw", "ADMISSION", 0.0));
+			staffManagement.createPerson(festivalId, new CreateStaffForm("admission_1", "staffpw", "ADMISSION", 10.0));
 		}
 
 		if (userAccountManagement.findByUsername("admission_2").isEmpty()) {
-			staffManagement.createPerson(festivalId, new CreateStaffForm("admission_2", "staffpw", "ADMISSION", 0.0));
+			staffManagement.createPerson(festivalId, new CreateStaffForm("admission_2", "staffpw", "ADMISSION", 10.0));
 		}
 
 		if (userAccountManagement.findByUsername("security_1").isEmpty()) {
-			staffManagement.createPerson(festivalId, new CreateStaffForm("security_1", "staffpw", "SECURITY", 0.0));
+			staffManagement.createPerson(festivalId, new CreateStaffForm("security_1", "staffpw", "SECURITY", 10.0));
 		}
 
 		if (userAccountManagement.findByUsername("security_2").isEmpty()) {
-			staffManagement.createPerson(festivalId, new CreateStaffForm("security_2", "staffpw", "SECURITY", 0.0));
+			staffManagement.createPerson(festivalId, new CreateStaffForm("security_2", "staffpw", "SECURITY", 10.0));
 		}
 
 		if (userAccountManagement.findByUsername("security_3").isEmpty()) {
-			staffManagement.createPerson(festivalId, new CreateStaffForm("security_3", "staffpw", "SECURITY", 0.0));
+			staffManagement.createPerson(festivalId, new CreateStaffForm("security_3", "staffpw", "SECURITY", 10.0));
 		}
 
 		if (userAccountManagement.findByUsername("catering_1").isEmpty()) {
-			staffManagement.createPerson(festivalId, new CreateStaffForm("catering_1", "staffpw", "CATERING", 0.0));
+			staffManagement.createPerson(festivalId, new CreateStaffForm("catering_1", "staffpw", "CATERING", 10.0));
 		}
 
 		if (userAccountManagement.findByUsername("catering_2").isEmpty()) {
-			staffManagement.createPerson(festivalId, new CreateStaffForm("catering_2", "staffpw", "CATERING", 0.0));
+			staffManagement.createPerson(festivalId, new CreateStaffForm("catering_2", "staffpw", "CATERING", 10.0));
 		}
 	}
 }

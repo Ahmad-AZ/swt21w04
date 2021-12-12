@@ -124,7 +124,7 @@ public class FinancesManagement {
 		for (Person staffMember: staffMembers) {
 
 			if (toBePaid.contains(staffMember.getRole())) {
-				Money salary = Money.of(staffMember.getSalary(), EURO);
+				Money salary = staffMember.getSalary();
 				// Staff members work 8 hours a day
 				staffCost = staffCost.add(salary.multiply(8).multiply(durationDays));
 			}
