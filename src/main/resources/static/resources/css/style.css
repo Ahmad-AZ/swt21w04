@@ -172,9 +172,12 @@ button:hover {
 }
 
 .image {
+	border: 1px solid rgb(0, 0, 0);
 	max-height: 400px;
- 
+}
 
+.groundView {
+	 border: 1px solid rgb(0, 0, 0);
 }
 
 .grid-container {
@@ -231,5 +234,14 @@ button:hover {
 	 border: 1px solid rgb(0, 0, 0);
 	 padding: 8px;
 	 text-align: left;
+}
+
+.entity-attribute {
+	font-weight: bold;
+}
+
+.ui-negative-message {
+	color:rgb(255, 0, 0);
+	font-weight: bold;
 }
 

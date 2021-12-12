@@ -37,6 +37,7 @@ public class FestivalController {
 	private UtilsManagement utilsManagement;
 	private Festival currentFestival;
 	private long currentId;
+	private String title;
 
 	public FestivalController(FestivalManagement festivalManagement,
 							  UtilsManagement utilsManagement) {
@@ -95,6 +96,7 @@ public class FestivalController {
 
 			model.addAttribute("location", festival.get().getLocation());
 		}
+		model.addAttribute("title", "Karte");
 
 		utilsManagement.setCurrentPageLowerHeader("map");
 		utilsManagement.prepareModel(model);

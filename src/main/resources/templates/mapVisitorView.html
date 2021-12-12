@@ -13,15 +13,12 @@
 		<nav th:include="header :: header"></nav>
 		<nav th:include="festivalHeader :: festivalHeader"></nav>
 	</header>
-	<section layout:fragment="content">
-		<div class="content">
-          	</br>
-          	<div class="image">
-          		<img th:src="@{/resources/img/location/{name}.jpg(name=${location.groundView})}"
-                             src="../static/resources/img/location/HSZ_groundView.jpg"/>
-          	</div>
-		</div>
+	
+	  	</br>
+	  	<div class="groundView">
+	  		<img th:src="@{/resources/img/location/{name}.jpg(name=${location.groundView})}"
+	                     src="../static/resources/img/location/HSZ_groundView.jpg"/>
+	  	</div>
 
-    </section>
 </body>
 </html>

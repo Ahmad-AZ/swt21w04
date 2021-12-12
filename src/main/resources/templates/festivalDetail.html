@@ -15,20 +15,20 @@
 	</header>
 	<section layout:fragment="content">
                 <div class="content">
-                	<p>Name:</p>
+                	<p  class="entity-attribute">Name:</p>
 		            <p th:text="${festival.name}">Keine gefunden</p>
 		            <br/>
-					<p>Anfangsdatum:</p>
+					<p class="entity-attribute">Anfangsdatum:</p>
 					<p th:text="${festival.startDate}">Keine gefunden</p>
 					<br/>
-					<p>Enddatum:</p>
+					<p class="entity-attribute">Enddatum:</p>
 					<p th:text="${festival.endDate}">Keine gefunden</p>
 					<br/>
-					<p>Location:</p>
+					<p class="entity-attribute">Location:</p>
 					<p th:if="${festival.location==null}">Keine</p>
 					<p th:if="${festival.location!=null}" th:text="${location.name}">hier sollte ihre Location stehen</p>
 					<br/>
-					<p>Künstler:</p>
+					<p class="entity-attribute">Künstler:</p>
 					<p th:if="${festival.artistsIsEmpty()}">Keine</p>
 					<p th:if="${!festival.artistsIsEmpty()}">
 						<div class th:each="artist : ${artists}" th:object="${artist}" th:text="${artist.name}">
