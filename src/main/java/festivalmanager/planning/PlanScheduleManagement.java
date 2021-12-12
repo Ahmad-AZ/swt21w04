@@ -2,7 +2,6 @@ package festivalmanager.planning;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -10,7 +9,6 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ch.qos.logback.core.rolling.helper.TimeBasedArchiveRemover;
 import festivalmanager.Equipment.Equipment;
 import festivalmanager.Equipment.Equipment.EquipmentType;
 import festivalmanager.Equipment.EquipmentManagement;

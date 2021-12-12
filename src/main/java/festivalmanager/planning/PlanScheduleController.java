@@ -7,13 +7,14 @@ import java.util.Optional;
 
 
 import festivalmanager.utils.UtilsManagement;
+
+import org.salespointframework.time.Interval;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,8 +50,16 @@ public class PlanScheduleController {
 			Festival current = festival.get();
 			currentFestival = current;
 
+			// gives List of all Festival days
+			List<LocalDate> dayList = new ArrayList<>();
+			LocalDate currentDate = current.getStartDate();
+			Interval festivalInterval = Interval.from(current.getStartDate().atStartOfDay()).to(current.getEndDate().atTime(23, 5));
+			while(festivalInterval.contains(currentDate.atTime(12, 00))) {
+				dayList.add(currentDate);
+				currentDate = currentDate.plusDays(1);
+			}
+			model.addAttribute("dayList", dayList);
 			
-			model.addAttribute("dayList", current.getFestivalInterval());
 			model.addAttribute("stageList", current.getStages());
 			
 			List<TimeSlot> tsl =  new ArrayList<>();
@@ -76,10 +85,9 @@ public class PlanScheduleController {
 	
 	@GetMapping("/schedule/{day}/{stageId}/{timeSlot}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String getShowSelectDialog(@PathVariable("day") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date, @PathVariable("stageId") long stageId, @PathVariable("timeSlot") String timeSlot, Model model) {
-		System.out.println(date);
-		System.out.println(stageId);
-		System.out.println(timeSlot);
+	public String getShowSelectDialog(@PathVariable("day") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date, 
+										@PathVariable("stageId") long stageId, 
+										@PathVariable("timeSlot") String timeSlot, Model model) {
 		
 		model.addAttribute("dialog", "choose show");
 		

@@ -17,8 +17,8 @@ public class FestivalManagement {
 	private final LocationManagement LocationManagement;
 	private final HiringManagement hiringManagement;
 	
-	public FestivalManagement(FestivalRepository festival, LocationManagement LocationManagement, HiringManagement hiringManagement) {
-		this.festivals = festival;
+	public FestivalManagement(FestivalRepository festivals, LocationManagement LocationManagement, HiringManagement hiringManagement) {
+		this.festivals = festivals;
 		this.LocationManagement = LocationManagement;
 		this.hiringManagement = hiringManagement;
 	}

@@ -32,7 +32,7 @@ public class Equipment {
 		this.rentalPerDay = rentalPerDay;
 		this.length = length;
 		this.width = width;
-		this.setType(type);
+		this.type = type;
 	}
 
 	public Money getRentalPerDay() {
@@ -47,22 +47,6 @@ public class Equipment {
 		return width;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void setRentalPerDay(Money rentalPerDay) {
-		this.rentalPerDay = rentalPerDay;
-	}
-
-	public void setLength(int length) {
-		this.length = length;
-	}
-
-	public void setWidth(int width) {
-		this.width = width;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -73,10 +57,6 @@ public class Equipment {
 
 	public EquipmentType getType() {
 		return type;
-	}
-
-	public void setType(EquipmentType type) {
-		this.type = type;
 	}
 
 }
