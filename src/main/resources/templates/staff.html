@@ -77,7 +77,7 @@
                     <a th:href="@{/staff/{festivalId}/detail/{userId}(festivalId = ${festival.id}, userId = ${person.id})}">Abbrechen</a>
                     <input type="submit" value="Entfernen">
                 </div>
-                <input type="hidden" name="id" th:value="${currentId}">
+                <input type="hidden" name="id" th:value="${person.id}">
             </form>
         </div>
 
@@ -89,6 +89,11 @@
                     <select class="form-input" name="role" id="role">
                         <option value="ADMIN">Admin</option>
                         <option value="MANAGER">Manager</option>
+                        <option value="PLANNER">Planer</option>
+                        <option value="FESTIVAL_LEADER">Festival-Leiter</option>
+                        <option value="TICKET_SELLER">Ticket Verkäufer</option>
+                        <option value="ADMISSION">Einlass</option>
+                        <option value="SECURITY">Security</option>
                         <option value="CATERING">Catering</option>
                     </select>
                 </div>

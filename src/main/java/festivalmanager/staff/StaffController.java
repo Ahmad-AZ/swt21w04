@@ -6,6 +6,7 @@ import festivalmanager.staff.forms.*;
 import festivalmanager.utils.UtilsManagement;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
+import org.springframework.data.util.Streamable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,33 +38,20 @@ public class StaffController {
 		return "Personal";
 	}
 
+	@ModelAttribute("entries")
+	public Streamable<Person> getStaffList(@PathVariable("festivalId") long festivalId) {
+		return staffManagement.findByFestivalId(festivalId);
+	}
+
+	@ModelAttribute("festival")
+	public Festival getFestival(@PathVariable("festivalId") long festivalId) {
+		return festivalManagement.findById(festivalId).orElse(null);
+	}
+
 	@GetMapping("/staff/{festivalId}")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String getStaffInfo(@PathVariable("festivalId") long festivalId, Model model) {
-		model.addAttribute("entries", staffManagement.findByFestivalId(festivalId));
-
-		Optional<Festival> festival = festivalManagement.findById(festivalId);
-		if (festival.isPresent()) {
-			model.addAttribute("festival", festival.get());
-		}
-
 		utilsManagement.setCurrentPageLowerHeader("staff");
-		utilsManagement.prepareModel(model);
-		return "staff.html";
-	}
-
-	@GetMapping(value = {"/staff/{festivalId}/create", "/staff/{festivalId}/create/{error}"})
-	@PreAuthorize("hasRole('ADMIN')")
-	public String getCreateStaffDialog(@PathVariable("festivalId") long festivalId, @PathVariable("error") Optional<String> error, Model model) {
-		model.addAttribute("entries", staffManagement.findByFestivalId(festivalId));
-		model.addAttribute("dialog", "create_staff");
-		model.addAttribute("error", error.orElse(""));
-
-		Optional<Festival> festival = festivalManagement.findById(festivalId);
-		if (festival.isPresent()) {
-			model.addAttribute("festival", festival.get());
-		}
-
 		utilsManagement.prepareModel(model);
 		return "staff.html";
 	}
@@ -71,17 +59,18 @@ public class StaffController {
 	@GetMapping("/staff/{festivalId}/detail/{userId}")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String getPersonDetailView(@PathVariable("festivalId") long festivalId, @PathVariable("userId") long userId, Model model) {
-		model.addAttribute("entries", staffManagement.findByFestivalId(festivalId));
-
 		Optional<Person> user = staffManagement.findById(userId);
-		if (user.isPresent()) {
-			model.addAttribute("person", user.get());
-		}
+		model.addAttribute("person", user.orElse(null));
 
-		Optional<Festival> festival = festivalManagement.findById(festivalId);
-		if (festival.isPresent()) {
-			model.addAttribute("festival", festival.get());
-		}
+		utilsManagement.prepareModel(model);
+		return "staff.html";
+	}
+
+	@GetMapping(value = {"/staff/{festivalId}/create", "/staff/{festivalId}/create/{error}"})
+	@PreAuthorize("hasRole('ADMIN')")
+	public String getCreateStaffDialog(@PathVariable("festivalId") long festivalId, @PathVariable("error") Optional<String> error, Model model) {
+		model.addAttribute("dialog", "create_staff");
+		model.addAttribute("error", error.orElse(""));
 
 		utilsManagement.prepareModel(model);
 		return "staff.html";
@@ -90,19 +79,34 @@ public class StaffController {
 	@GetMapping("/staff/{festivalId}/remove/{userId}")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String getRemoveStaffDialog(@PathVariable("festivalId") long festivalId, @PathVariable("userId") long userId, Model model) {
-		model.addAttribute("entries", staffManagement.findByFestivalId(festivalId));
-		model.addAttribute("currentId", userId);
 		model.addAttribute("dialog", "remove_staff");
 
 		Optional<Person> user = staffManagement.findById(userId);
-		if (user.isPresent()) {
-			model.addAttribute("person", user.get());
-		}
+		model.addAttribute("person", user.orElse(null));
 
-		Optional<Festival> festival = festivalManagement.findById(festivalId);
-		if (festival.isPresent()) {
-			model.addAttribute("festival", festival.get());
-		}
+		utilsManagement.prepareModel(model);
+		return "staff.html";
+	}
+
+	@GetMapping("/staff/{festivalId}/change_role/{userId}")
+	@PreAuthorize("hasRole('ADMIN')")
+	public String getChangeRoleDialog(@PathVariable("festivalId") long festivalId, @PathVariable("userId") long userId, Model model) {
+		model.addAttribute("dialog", "change_role");
+
+		Optional<Person> user = staffManagement.findById(userId);
+		model.addAttribute("person", user.orElse(null));
+
+		utilsManagement.prepareModel(model);
+		return "staff.html";
+	}
+
+	@GetMapping("/staff/{festivalId}/change_password/{userId}")
+	@PreAuthorize("hasRole('ADMIN')")
+	public String getChangePasswordDialog(@PathVariable("festivalId") long festivalId, @PathVariable("userId") long userId, Model model) {
+		model.addAttribute("dialog", "change_password");
+
+		Optional<Person> user = staffManagement.findById(userId);
+		model.addAttribute("person", user.orElse(null));
 
 		utilsManagement.prepareModel(model);
 		return "staff.html";
@@ -126,48 +130,6 @@ public class StaffController {
 		this.staffManagement.removePerson(form);
 
 		return "redirect:/staff/" + festivalId;
-	}
-
-	@GetMapping("/staff/{festivalId}/change_role/{userId}")
-	@PreAuthorize("hasRole('ADMIN')")
-	public String getChangeRoleDialog(@PathVariable("festivalId") long festivalId, @PathVariable("userId") long userId, Model model) {
-		model.addAttribute("entries", staffManagement.findByFestivalId(festivalId));
-
-		model.addAttribute("dialog", "change_role");
-
-		Optional<Person> user = staffManagement.findById(userId);
-		if (user.isPresent()) {
-			model.addAttribute("person", user.get());
-		}
-
-		Optional<Festival> festival = festivalManagement.findById(festivalId);
-		if (festival.isPresent()) {
-			model.addAttribute("festival", festival.get());
-		}
-
-		utilsManagement.prepareModel(model);
-		return "staff.html";
-	}
-
-	@GetMapping("/staff/{festivalId}/change_password/{userId}")
-	@PreAuthorize("hasRole('ADMIN')")
-	public String getChangePasswordDialog(@PathVariable("festivalId") long festivalId, @PathVariable("userId") long userId, Model model) {
-		model.addAttribute("entries", staffManagement.findByFestivalId(festivalId));
-
-		model.addAttribute("dialog", "change_password");
-
-		Optional<Person> user = staffManagement.findById(userId);
-		if (user.isPresent()) {
-			model.addAttribute("person", user.get());
-		}
-
-		Optional<Festival> festival = festivalManagement.findById(festivalId);
-		if (festival.isPresent()) {
-			model.addAttribute("festival", festival.get());
-		}
-
-		utilsManagement.prepareModel(model);
-		return "staff.html";
 	}
 
 	@PostMapping("/staff/{festivalId}/change_role/{id}")
