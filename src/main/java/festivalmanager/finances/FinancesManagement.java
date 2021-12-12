@@ -64,6 +64,10 @@ public class FinancesManagement {
 	public void updateFestival() {
 		currentFestival = festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
 		ticketInformation = ticketManagement.TicketsByFestival(currentFestival.getId());
+		if (ticketInformation == null) {
+			ticketInformation = new Ticket();
+		}
+
 		durationDays = currentFestival.getEndDate().toEpochDay() - currentFestival.getStartDate().toEpochDay() + 1;
 		totalCost = Money.of(0, EURO);
 	}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html(title=Ticketshop)}">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}"/>
+    <title>Ticketshop</title>
+</head>
+<body>
+<header>
+    <nav th:include="header :: header"></nav>
+    <nav th:include="festivalHeader :: festivalHeader"></nav>
+</header>
+<section layout:fragment="content">
+</section>
+
+
+<div style="text-align: center">
+
+    <a th:if="${ticketsNotCreated=='true'}" >Tickets wurden noch nicht erstellt</a>
+    <a th:if="${ticketsUnavailable=='true'}">Tickets nicht mehr verfügbar</a>
+
+</div>
+</body>
+</html>

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout.html(title=ticketPrint)}">
+      layout:decorate="~{layout.html(title=Ticketshop)}">
 
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/ticket.css}"/>
-
+    <title>Ticketshop</title>
 </head>
 <body>
 <header>
@@ -26,13 +26,13 @@
         <div class='info clearfix'>
 
             <div class="wp">Festivalname:<h3 th:text="${festival}"></h3></div>
-            <div class='wp'>Type<h3 th:text="${tickets.getTicketType().displayValue}" ></h3></div>
+            <div class='wp'>Typ:<h3 th:text="${tickets.getTicketType().displayValue}" ></h3></div>
 
         </div>
         <div class='total clearfix'>
 
-            <h2>Tickets <p th:text="${ticketCount}"> </p></h2>
-            <h2>Total : <p th:text="${'€ '+ticketPrice}"></p></h2>
+            <h2>Tickets: <p th:text="${ticketCount}"> </p></h2>
+            <h2>Preis: <p th:text="${ticketPrice + '€'}"></p></h2>
 
         </div>
 

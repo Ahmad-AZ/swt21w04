@@ -105,6 +105,11 @@ public class TicketController {
 			model.addAttribute("tickets", ticket);
 
 		}
+		else {
+			utilsManagement.prepareModel(model);
+			model.addAttribute("ticketsUnavailable", "true");
+			return "TicketShopUnavailable";
+		}
 
 		utilsManagement.prepareModel(model);
 		return "ticketPrint";
@@ -117,10 +122,15 @@ public class TicketController {
 
 
 		Ticket ticket = ticketManagement.TicketsByFestival(utilsManagement.getCurrentFestivalId());
-
-		model.addAttribute("tickets",ticket);
 		utilsManagement.setCurrentPageLowerHeader("ticketShop");
 		utilsManagement.prepareModel(model);
+
+		if (ticket == null) {
+			model.addAttribute("ticketsNotCreated", "true");
+			return "TicketShopUnavailable";
+		}
+
+		model.addAttribute("tickets",ticket);
 		return "ticketShop";
 	}
 
