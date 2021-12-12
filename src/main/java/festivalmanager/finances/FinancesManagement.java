@@ -70,7 +70,7 @@ public class FinancesManagement {
 			locationCost = locationPricePerDay.multiply(durationDays);
 		}
 
-		totalCost.add(locationCost);
+		totalCost = totalCost.add(locationCost);
 		return locationCost;
 	}
 
@@ -85,7 +85,7 @@ public class FinancesManagement {
 			}
 		}
 
-		totalCost.add(artistsCost);
+		totalCost = totalCost.add(artistsCost);
 		return artistsCost;
 	}
 
@@ -106,7 +106,7 @@ public class FinancesManagement {
 			equipmentCost = equipmentCost.add(stage.getRentalPerDay().multiply(durationDays));
 		}
 
-		totalCost.add(equipmentCost);
+		totalCost = totalCost.add(equipmentCost);
 		return equipmentCost;
 	}
 
@@ -130,7 +130,7 @@ public class FinancesManagement {
 			}
 		}
 
-		totalCost.add(staffCost);
+		totalCost = totalCost.add(staffCost);
 		return staffCost;
 	}
 
