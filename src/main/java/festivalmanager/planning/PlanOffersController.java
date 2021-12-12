@@ -100,7 +100,8 @@ public class PlanOffersController {
 	}
 	@PostMapping("/bookArtist")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String bookArtist(@RequestParam("artist") Long artistId, @RequestParam("currentlyBooked") boolean currentlyBooked, RedirectAttributes ra) {
+	public String bookArtist(@RequestParam("artist") Long artistId, 
+								@RequestParam("currentlyBooked") boolean currentlyBooked, RedirectAttributes ra) {
 		Optional<Artist> artist = hiringManagement.findById(artistId);
 		if (artist.isPresent()) {
 			Artist current = artist.get();

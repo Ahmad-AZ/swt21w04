@@ -11,7 +11,6 @@
 <body>
 <header>
     <nav th:include="header :: header"></nav>
-    <h1>Künstler-Details</h1>
     <nav th:include="festivalHeader :: festivalHeader"></nav>
 </header>
 <section layout:fragment="content">
@@ -23,24 +22,24 @@
             <input type="hidden" name="artist" th:value="${artist.id}"/>
             <input type="hidden" name="currentlyBooked" th:value="${ArtistCurrentlyBooked == true}"/>
             <input type="submit" th:if="${ArtistCurrentlyBooked == false}" value="Buchen">
-            <div th:if="${ArtistCurrentlyBooked == true}" >Künstler schon gebucht</div>
+            <div class="ui-negative-message" th:if="${ArtistCurrentlyBooked == true}" >Künstler schon gebucht</div>
 <!--            <button type="submit" class="ui button" th:if="${ArtistCurrentlyBooked == true}">Buchung zurücknehmen</button>-->
             <div class="ui-negative-message" th:text="${message}" th:if="${message ne null}"></div>
         </form>
         </br>
-        <p>Name:</p>
+        <p class="entity-attribute">Name:</p>
         <p th:text="${artist.name}">Keine gefunden</p>
         <br>
-        <p>Preis</p>
+        <p class="entity-attribute">Preis</p>
         <p th:text="${artist.getPrice()}">Keine gefunden</p>
         <br/>
-        <p>Anzahl der Bühnentechniker für Künstler/in</p>
+        <p class="entity-attribute">Anzahl der Bühnentechniker für Künstler/in</p>
         <p th:text="${artist.stageTechnician}">Keine gefunden</p>
         <br/>
-        <p>Show:</p>
+        <p class="entity-attribute">Show:</p>
         <div th:each="show : ${artist.getShows()}" class="text" th:text="${show.getName()}"></div>
         <br/>
-        <p>Buchungen</p>
+        <p class="entity-attribute">Buchungen</p>
         </br>
         
     </div>

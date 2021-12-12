@@ -1,67 +1,28 @@
-<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;UMLClass&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;400&lt;/x&gt;&lt;y&gt;180&lt;/y&gt;&lt;w&gt;190&lt;/w&gt;&lt;h&gt;30&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;javax.money.MonetaryAmount&lt;/panel_attributes&gt;&lt;additional_attributes&gt;&lt;/additional_attributes&gt;&lt;/element&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;440&lt;/x&gt;&lt;y&gt;200&lt;/y&gt;&lt;w&gt;40&lt;/w&gt;&lt;h&gt;120&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;.&lt;/panel_attributes&gt;&lt;additional_attributes&gt;10;10;20;100&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>820</x><y>574</y><w>210</w><h>120</h></coordinates><panel_attributes>/Planning/
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;UMLClass&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;45&lt;/x&gt;&lt;y&gt;440&lt;/y&gt;&lt;w&gt;110&lt;/w&gt;&lt;h&gt;40&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;
+Model
+&lt;/panel_attributes&gt;&lt;additional_attributes&gt;&lt;/additional_attributes&gt;&lt;/element&gt;&lt;element&gt;&lt;id&gt;UMLClass&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;45&lt;/x&gt;&lt;y&gt;350&lt;/y&gt;&lt;w&gt;110&lt;/w&gt;&lt;h&gt;40&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;
+Errors
+&lt;/panel_attributes&gt;&lt;additional_attributes&gt;&lt;/additional_attributes&gt;&lt;/element&gt;&lt;element&gt;&lt;id&gt;UMLPackage&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;0&lt;/x&gt;&lt;y&gt;250&lt;/y&gt;&lt;w&gt;250&lt;/w&gt;&lt;h&gt;420&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;Spring&lt;/panel_attributes&gt;&lt;additional_attributes&gt;&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;UMLClass&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;645&lt;/x&gt;&lt;y&gt;50&lt;/y&gt;&lt;w&gt;120&lt;/w&gt;&lt;h&gt;30&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;LocalDate&lt;/panel_attributes&gt;&lt;additional_attributes&gt;&lt;/additional_attributes&gt;&lt;/element&gt;&lt;element&gt;&lt;id&gt;UMLPackage&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;560&lt;/x&gt;&lt;y&gt;10&lt;/y&gt;&lt;w&gt;240&lt;/w&gt;&lt;h&gt;110&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;Java.time&lt;/panel_attributes&gt;&lt;additional_attributes&gt;&lt;/additional_attributes&gt;&lt;/element&gt;&lt;element&gt;&lt;id&gt;UMLPackage&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;850&lt;/x&gt;&lt;y&gt;0&lt;/y&gt;&lt;w&gt;180&lt;/w&gt;&lt;h&gt;120&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;Java.util&lt;/panel_attributes&gt;&lt;additional_attributes&gt;&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;UMLClass&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;400&lt;/x&gt;&lt;y&gt;180&lt;/y&gt;&lt;w&gt;190&lt;/w&gt;&lt;h&gt;30&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;javax.money.MonetaryAmount&lt;/panel_attributes&gt;&lt;additional_attributes&gt;&lt;/additional_attributes&gt;&lt;/element&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;440&lt;/x&gt;&lt;y&gt;200&lt;/y&gt;&lt;w&gt;40&lt;/w&gt;&lt;h&gt;120&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;.&lt;/panel_attributes&gt;&lt;additional_attributes&gt;10;10;20;100&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>1200</x><y>660</y><w>620</w><h>100</h></coordinates><panel_attributes>PlanOffersManagement
 --
-
 --
-+ Planning(festival : Festival)
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1150</x><y>214</y><w>250</w><h>170</h></coordinates><panel_attributes>PlanOffers
++ PlannOffersManagement(hiringManagement : HiringManagement, festivalManagement : FestivalManagement)
++ bookArtist(artist : Artist, festival : Festival) : boolean
++ unbookArtist(artist : Artist, festival : Festival) : boolean
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1810</x><y>700</y><w>370</w><h>50</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+r1=- hiringManagement</panel_attributes><additional_attributes>350;20;10;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>170</x><y>300</y><w>650</w><h>100</h></coordinates><panel_attributes>PlanLocationManagement
 --
-- appliedOffers : List&lt;OfferArtist&gt;
---
-- Offers()
-+ addOffer(offer: OfferArtist)
-+ removeOffer(offer : OfferArtist)
-+ getAllOffers()
-+ getSelectedOffers()
-+ selectOffer(selectedOffer : OfferArtist)
-+ unselectOffer(selectedOffer : OfferArtist)
-+ clearSelectedOffers</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>970</x><y>854</y><w>260</w><h>190</h></coordinates><panel_attributes>PlanHires
---
-- numberOfTechnicans : int
-- numberOfSecurity : int
-
---
-+ PlanHires()
-+ setNumberOfTechnicans(number : int)
-+ getNumberOfTechnicans() : int
-+ setNumberOfSecurity(number : int)
-+ getNumberOfSecurity() : int
-+ hire(employee : Employee)
-+ unhire(employee : Employee)
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1460</x><y>674</y><w>210</w><h>170</h></coordinates><panel_attributes>PlanRenting
---
-- numberOfStages : int
-
---
-+ PlanRenting()
-+ getEquipmentsOffers()
-+ getRentedEquipment()
-+ getRentedEquipment(class : Class) 
-+ rent(equipment : Equipment)
-+ unrent(equipment : Equipment)
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1320</x><y>864</y><w>380</w><h>110</h></coordinates><panel_attributes>PlanningController
---
-
---
-+PlanningController()
-+PlanFestival(planning: Planning, model:Model)
-
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1480</x><y>244</y><w>180</w><h>30</h></coordinates><panel_attributes>festivalManager.hiring.Offers
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1390</x><y>234</y><w>110</w><h>50</h></coordinates><panel_attributes>lt=&lt;-
-m1=0..n
-r1=- offers</panel_attributes><additional_attributes>90;20;10;30</additional_attributes></element><element><id>Relation</id><coordinates><x>1020</x><y>314</y><w>150</w><h>310</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;290;130;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1000</x><y>684</y><w>30</w><h>190</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;170</additional_attributes></element><element><id>UMLClass</id><coordinates><x>60</x><y>234</y><w>650</w><h>120</h></coordinates><panel_attributes>PlanLocationManagement
---
-
 --
 + PlanLocationManagement(festivalManagement : FestivalManagement ,  locationManagement : LocationManagement)
 + bookLocation(location : Location, festival : Festival) :  boolean
 + unbookLocation(location : Location, festival : Festival)
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>480</x><y>704</y><w>360</w><h>120</h></coordinates><panel_attributes>PlanAreas
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>110</x><y>970</y><w>290</w><h>120</h></coordinates><panel_attributes>PlanAreas
 --
 
 --
 + PlanAreas()
 + setArea(position : Position, kindOfArea : AreaType)
-+ clearArea(position : Position)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>690</x><y>1044</y><w>180</w><h>130</h></coordinates><panel_attributes>PlanTicketprice
++ clearArea(position : Position)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>230</x><y>1130</y><w>180</w><h>130</h></coordinates><panel_attributes>PlanTicketprice
 --
 - calculatedPrice
 --
@@ -69,41 +30,16 @@ r1=- offers</panel_attributes><additional_attributes>90;20;10;30</additional_att
 + setTicketprice(price : Money)
 + getTicketprice() : Money
 + getVisitorCapacity()
-+ calculatePrice() : Money</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>700</x><y>634</y><w>140</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>120;10;10;70</additional_attributes></element><element><id>Relation</id><coordinates><x>600</x><y>684</y><w>320</w><h>190</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>300;10;300;150;10;150;10;170</additional_attributes></element><element><id>UMLClass</id><coordinates><x>800</x><y>404</y><w>260</w><h>140</h></coordinates><panel_attributes>PlanDate
++ calculatePrice() : Money</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>430</x><y>960</y><w>680</w><h>110</h></coordinates><panel_attributes>PlanScheduleManagement
 --
-- startDate : LocalDate
-- endDate : LocalDate
 --
-+ PlanDate()
-+ setDate(startDate : LocalDate, endDate : LocalDate)
-+ getStartDate()
-+ getEndDate()
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>920</x><y>534</y><w>70</w><h>60</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>50;40;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1180</x><y>404</y><w>450</w><h>260</h></coordinates><panel_attributes>PlanSchedule
---
-- shows : Map&lt;Show,Artist&gt;
-- stages : List&lt;Stage&gt;
-- plannedStageSchedule : Map&lt;Interval,Show&gt;
-- plannedSchedule : Map&lt;Stage,  Map&lt;Interval,Show&gt; &gt;
---
-+ PlanSchedule()
-+ applySchedule() 
-+ addSchow(Show : show)
-+ getShows()
-+ getShowsNotInSchedule()
-+ getStages()
-+ addShowToSchedule(show: Show, stage : Stage, time : Interval) : boolean
-+ removeShowFromSchedule(artist : Artist, stage : Stage, time : Interval)
-+ requestStage(stage : Stage, time : Interval)
-+ getStageSchedule(stage : Stage)
-+ getSchedule()</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1020</x><y>504</y><w>180</w><h>150</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;130;160;10</additional_attributes></element><element><id>Relation</id><coordinates><x>750</x><y>74</y><w>90</w><h>550</h></coordinates><panel_attributes>lt=&lt;-
-m1=1
-r1= - festival</panel_attributes><additional_attributes>10;10;10;460;70;530</additional_attributes></element><element><id>Relation</id><coordinates><x>980</x><y>1034</y><w>80</w><h>280</h></coordinates><panel_attributes>lt=&lt;-
-m1=0..n
-r1=- hires</panel_attributes><additional_attributes>60;250;20;250;20;10</additional_attributes></element><element><id>Relation</id><coordinates><x>180</x><y>64</y><w>240</w><h>190</h></coordinates><panel_attributes>lt=&lt;-
++ PlanScheduleManagement(festivalManagement : FestivalManagement, equipmentManagement : EquipmentManagement)
++ getShows(festivalId : long) : List&lt;Show&gt;
++ getStages(festivalId : long) : List&lt;Stage&gt;
++ setShow(date : LocalDate, stageId : long, timeSlotString : String, showId : long, festivalId : long) : boolean
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>350</x><y>160</y><w>150</w><h>160</h></coordinates><panel_attributes>lt=&lt;-
 m1= 1
-r1= - locationManagement</panel_attributes><additional_attributes>220;20;10;20;10;170</additional_attributes></element><element><id>Relation</id><coordinates><x>1660</x><y>504</y><w>340</w><h>250</h></coordinates><panel_attributes>lt=&lt;-
-m1=0..n
-r1=- rentings</panel_attributes><additional_attributes>320;10;10;230</additional_attributes></element><element><id>UMLClass</id><coordinates><x>960</x><y>135</y><w>150</w><h>30</h></coordinates><panel_attributes>java.time.LocalDate</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>890</x><y>157</y><w>90</w><h>270</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>70;10;10;250</additional_attributes></element><element><id>Relation</id><coordinates><x>1660</x><y>517</y><w>340</w><h>250</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>320;10;10;230</additional_attributes></element><element><id>Relation</id><coordinates><x>1620</x><y>457</y><w>380</w><h>70</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>360;10;10;50</additional_attributes></element><element><id>Relation</id><coordinates><x>1570</x><y>267</y><w>50</w><h>160</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>30;10;10;140</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1970</x><y>297</y><w>220</w><h>30</h></coordinates><panel_attributes>org.salespointframework.time.Interval</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1620</x><y>307</y><w>380</w><h>130</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>360;10;10;110</additional_attributes></element><element><id>Relation</id><coordinates><x>1180</x><y>1037</y><w>30</w><h>290</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;270;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>314</x><y>607</y><w>130</w><h>140</h></coordinates><panel_attributes>&lt;&lt;enumeration&gt;&gt;
+r1= - locationManagement</panel_attributes><additional_attributes>10;10;10;140</additional_attributes></element><element><id>UMLClass</id><coordinates><x>340</x><y>1413</y><w>160</w><h>30</h></coordinates><panel_attributes>Interval</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>124</x><y>663</y><w>130</w><h>140</h></coordinates><panel_attributes>&lt;&lt;enumeration&gt;&gt;
 AreaType
 --
 LOCKED
@@ -113,53 +49,120 @@ PARKING
 STAGE
 TOILET
 
- </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>344</x><y>737</y><w>150</w><h>70</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;130;50</additional_attributes></element><element><id>UMLClass</id><coordinates><x>480</x><y>854</y><w>330</w><h>160</h></coordinates><panel_attributes>PlanEquipmentPositioning
+ </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>154</x><y>793</y><w>30</w><h>190</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;10;170</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1200</x><y>300</y><w>710</w><h>100</h></coordinates><panel_attributes>PlanEquipmentManagement
 --
-
 --
-+ PlanEquipmentPositioning()
-+ setPart(part : Equipment, position : Position) : boolean
-+ getPart(position : Position) : Equipment
-+ removePart(position : Position)
-+ removeAllParts(part : Equipment)
-+ removeAll()
-+ getMap() : Map</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>479</x><y>1254</y><w>100</w><h>30</h></coordinates><panel_attributes>Money
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>750</x><y>684</y><w>200</w><h>380</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>180;10;180;310;10;360</additional_attributes></element><element><id>Relation</id><coordinates><x>569</x><y>1167</y><w>190</w><h>120</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;100;160;100;161;10</additional_attributes></element><element><id>Relation</id><coordinates><x>830</x><y>1164</y><w>30</w><h>120</h></coordinates><panel_attributes>lt=&lt;-
-</panel_attributes><additional_attributes>10;100;10;10</additional_attributes></element><element><id>UMLPackage</id><coordinates><x>730</x><y>24</y><w>250</w><h>100</h></coordinates><panel_attributes>festivalManager.festival
++ PlanEquipmentManagement(festivalManagement : FestivalManagement, equipmentManagement : EquipmentManagement)
++ rentEquipment(id : long, amount : long, festival : Festival) : boolean
++ rentStage(name : String, equipment : Equipment, festivalId : Long) : boolean
++ unrentStage(stage : Stage, festivalId : Long) : boolean</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>19</x><y>1350</y><w>100</w><h>30</h></coordinates><panel_attributes>Money
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>109</x><y>1253</y><w>190</w><h>130</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;110;160;110;161;10</additional_attributes></element><element><id>Relation</id><coordinates><x>200</x><y>1250</y><w>200</w><h>210</h></coordinates><panel_attributes>lt=&lt;-
+</panel_attributes><additional_attributes>10;190;180;10</additional_attributes></element><element><id>UMLPackage</id><coordinates><x>680</x><y>0</y><w>500</w><h>190</h></coordinates><panel_attributes>festivalManager.festival
 --
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>740</x><y>54</y><w>120</w><h>30</h></coordinates><panel_attributes>Festival</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>460</x><y>1224</y><w>140</w><h>70</h></coordinates><panel_attributes>JavaMoney
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>730</x><y>70</y><w>190</w><h>40</h></coordinates><panel_attributes>FestivalManagement</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>0</x><y>1320</y><w>140</w><h>70</h></coordinates><panel_attributes>JavaMoney
 --
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>760</x><y>1234</y><w>140</w><h>70</h></coordinates><panel_attributes>finances
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>130</x><y>1410</y><w>140</w><h>70</h></coordinates><panel_attributes>finances
 --
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>780</x><y>1264</y><w>100</w><h>30</h></coordinates><panel_attributes>Finances</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1020</x><y>664</y><w>460</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;180;50;440;50</additional_attributes></element><element><id>UMLPackage</id><coordinates><x>1960</x><y>224</y><w>260</w><h>190</h></coordinates><panel_attributes>Salespoint
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>150</x><y>1440</y><w>100</w><h>30</h></coordinates><panel_attributes>Finances</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>320</x><y>1360</y><w>200</w><h>120</h></coordinates><panel_attributes>Salespoint
 --
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>1030</x><y>1234</y><w>260</w><h>120</h></coordinates><panel_attributes>hiring
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>270</x><y>70</y><w>340</w><h>150</h></coordinates><panel_attributes>festivalManager.location
 --
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>360</x><y>4</y><w>180</w><h>150</h></coordinates><panel_attributes>festivalManager.location
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>310</x><y>140</y><w>130</w><h>30</h></coordinates><panel_attributes>LocationManagement</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>2120</x><y>390</y><w>200</w><h>180</h></coordinates><panel_attributes>equipment
 --
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>400</x><y>74</y><w>130</w><h>30</h></coordinates><panel_attributes>LocationManagement</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>1970</x><y>424</y><w>170</w><h>130</h></coordinates><panel_attributes>equipment
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>2150</x><y>430</y><w>100</w><h>30</h></coordinates><panel_attributes>Equipment
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>2110</x><y>680</y><w>200</w><h>160</h></coordinates><panel_attributes>Hiring
 --
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1980</x><y>454</y><w>100</w><h>30</h></coordinates><panel_attributes>Equipemnt
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1980</x><y>504</y><w>130</w><h>30</h></coordinates><panel_attributes>EquipmentRepository
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1040</x><y>1264</y><w>100</w><h>30</h></coordinates><panel_attributes>Employee</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1040</x><y>1304</y><w>170</w><h>30</h></coordinates><panel_attributes>EmployeeManagement
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>1950</x><y>614</y><w>200</w><h>200</h></coordinates><panel_attributes>Spring
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>2160</x><y>760</y><w>90</w><h>30</h></coordinates><panel_attributes>Artist</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>30</x><y>240</y><w>1890</w><h>1060</h></coordinates><panel_attributes>festivalManager.planning</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>140</x><y>470</y><w>710</w><h>140</h></coordinates><panel_attributes>PlanLocationController
 --
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>2000</x><y>664</y><w>100</w><h>50</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
-Model</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1690</x><y>694</y><w>330</w><h>240</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>310;10;10;220</additional_attributes></element><element><id>UMLPackage</id><coordinates><x>0</x><y>174</y><w>1890</w><h>1020</h></coordinates><panel_attributes>festivalManager.planning</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1020</x><y>684</y><w>320</w><h>220</h></coordinates><panel_attributes>lt=&lt;..
-
-</panel_attributes><additional_attributes>10;10;300;200</additional_attributes></element><element><id>UMLClass</id><coordinates><x>60</x><y>404</y><w>690</w><h>140</h></coordinates><panel_attributes>PlanLocationController
 --
-
---
-+ PlanLocationController(locationManagement : LocationManagement, planLocationManagement : PlanLocationManagement)
-+ locationOverview(model : Model, currentFestival : Festival) : String
-+ locationDetail(model : Model, locationId : Long) : String
-+ bookLocation(locationId : Long, currnetlyBooked boolean) : String
-+ unbookLocation() : String
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>540</x><y>74</y><w>420</w><h>180</h></coordinates><panel_attributes>lt=&lt;-
++ PlanLocationController(locationManagement : LocationManagement, planLocationManagement : PlanLocationManagement, 
+                                          festivalManagement : FestivalManagement, utilsManagement : UtilsManagement)
++ locationOverview(model : Model, festivalId : long) : String
++ locationDetail(model : Model, locationId : Long, festivalId : long) : String
++ bookLocation(festivalId : long, locationId : Long, currnetlyBooked boolean, ra RedirectAttributes) : String
++ unbookLocation(festivalId : long) : String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>740</x><y>100</y><w>150</w><h>220</h></coordinates><panel_attributes>lt=&lt;-
 m1= 1
-r1= - festivalManagement</panel_attributes><additional_attributes>280;10;280;130;10;130;10;160</additional_attributes></element><element><id>Relation</id><coordinates><x>360</x><y>344</y><w>180</w><h>80</h></coordinates><panel_attributes>lt=&lt;-
+r1= - festivalManagement</panel_attributes><additional_attributes>10;10;10;200</additional_attributes></element><element><id>Relation</id><coordinates><x>470</x><y>390</y><w>180</w><h>100</h></coordinates><panel_attributes>lt=&lt;-
 m1= 1
-r1= - planLocationManagement</panel_attributes><additional_attributes>10;10;10;60</additional_attributes></element><element><id>Relation</id><coordinates><x>20</x><y>94</y><w>600</w><h>330</h></coordinates><panel_attributes>lt=&lt;-
+r1= - planLocationManagement</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>100</x><y>130</y><w>770</w><h>410</h></coordinates><panel_attributes>lt=&lt;-
 m1= 1
-r1= - locationManagement</panel_attributes><additional_attributes>460;10;460;120;10;120;10;280;180;280;180;310</additional_attributes></element></diagram>
+r1= - locationManagement</panel_attributes><additional_attributes>210;20;10;20;10;390;750;390</additional_attributes></element><element><id>UMLClass</id><coordinates><x>950</x><y>50</y><w>170</w><h>50</h></coordinates><panel_attributes>Festival</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1200</x><y>470</y><w>710</w><h>130</h></coordinates><panel_attributes>PlanEquipmentController
+--
+--
++ PlanEquipmentController(festivalManagement : FestivalManagement, equipmentManagement : EquipmentManagement, 
+                                            planEquipmentManagement : PlanEquipmentManagement, utilsManagement : UtilsManagement)
++ equipments(model : Model) : String
++ addStage(equipmentsId : long, name : String, ra : RedirectAttributes) : String
++ removeStage(id : Long) : String
++ rentEquipmentAmount((model : Model, equipmentsId : long, equipmentsAmount : long) : String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>2150</x><y>510</y><w>140</w><h>40</h></coordinates><panel_attributes>EquipmentManagement
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>2150</x><y>470</y><w>100</w><h>30</h></coordinates><panel_attributes>Stage
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1460</x><y>390</y><w>190</w><h>100</h></coordinates><panel_attributes>lt=&lt;-
+m1= 1
+r1= - planEquipmentManagement</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>1900</x><y>370</y><w>270</w><h>180</h></coordinates><panel_attributes>lt=&lt;-
+m1= 1
+r1= - equipmentManagement</panel_attributes><additional_attributes>250;150;100;150;100;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1900</x><y>500</y><w>270</w><h>50</h></coordinates><panel_attributes>lt=&lt;-
+m1= 1
+r1= - equipmentManagement</panel_attributes><additional_attributes>250;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>840</x><y>100</y><w>210</w><h>490</h></coordinates><panel_attributes>lt=&lt;-
+m1= 1
+r1= - festivalManagement</panel_attributes><additional_attributes>70;10;70;470;10;470</additional_attributes></element><element><id>Relation</id><coordinates><x>900</x><y>100</y><w>320</w><h>290</h></coordinates><panel_attributes>lt=&lt;-
+m1= 1
+r1= - festivalManagement</panel_attributes><additional_attributes>10;10;10;270;300;270</additional_attributes></element><element><id>Relation</id><coordinates><x>900</x><y>100</y><w>320</w><h>450</h></coordinates><panel_attributes>lt=&lt;-
+m1= 1
+r1= - festivalManagement</panel_attributes><additional_attributes>10;10;10;430;300;430</additional_attributes></element><element><id>Relation</id><coordinates><x>1900</x><y>340</y><w>410</w><h>90</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes><additional_attributes>340;70;340;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1900</x><y>460</y><w>240</w><h>40</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes><additional_attributes>220;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>840</x><y>90</y><w>370</w><h>480</h></coordinates><panel_attributes>lt=&lt;-
+m1= 1
+r1= - currentFestival</panel_attributes><additional_attributes>260;10;260;460;10;460</additional_attributes></element><element><id>Relation</id><coordinates><x>1090</x><y>90</y><w>130</w><h>420</h></coordinates><panel_attributes>lt=&lt;-
+m1= 1
+r1= - currentFestival</panel_attributes><additional_attributes>10;10;10;400;110;400</additional_attributes></element><element><id>Relation</id><coordinates><x>1100</x><y>540</y><w>1250</w><h>510</h></coordinates><panel_attributes>lt=&lt;-
+m1= 1
+r1= - equipmentManagement</panel_attributes><additional_attributes>1090;10;1090;100;950;100;950;490;10;490</additional_attributes></element><element><id>Relation</id><coordinates><x>1090</x><y>90</y><w>120</w><h>1060</h></coordinates><panel_attributes>lt=&lt;-
+m1= 1
+r1= - currentFestival</panel_attributes><additional_attributes>10;10;10;810;40;810;40;1040</additional_attributes></element><element><id>Relation</id><coordinates><x>1100</x><y>540</y><w>1040</w><h>460</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes><additional_attributes>1020;10;920;10;920;440;10;440</additional_attributes></element><element><id>UMLClass</id><coordinates><x>2160</x><y>800</y><w>90</w><h>30</h></coordinates><panel_attributes>Show</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1100</x><y>790</y><w>1040</w><h>280</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes><additional_attributes>1010;10;970;10;970;260;10;260</additional_attributes></element><element><id>UMLClass</id><coordinates><x>430</x><y>1130</y><w>710</w><h>120</h></coordinates><panel_attributes>PlanScheduleController
+--
+--
++ PlanScheduleController(festivalManagement : FestivalManagement,  planScheduleManagement : planScheduleManagement,  
+                                          utilsManagement : UtilsManagement)
++ schedule(model : Model) : String
++ getShowSelectDialog(date : LocalDate, stageId : long, timeSlot : String, model : Model) : String
++ chooseShow(date : LocalDate, stageId : long, timeSlot : String, showId : long, model : Model) : String</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>700</x><y>1060</y><w>180</w><h>90</h></coordinates><panel_attributes>lt=&lt;-
+m1= 1
+r1= - planScheduleManagement</panel_attributes><additional_attributes>10;10;10;70</additional_attributes></element><element><id>Relation</id><coordinates><x>900</x><y>100</y><w>150</w><h>890</h></coordinates><panel_attributes>lt=&lt;-
+m1= 1
+r1= - festivalManagement</panel_attributes><additional_attributes>10;10;10;870</additional_attributes></element><element><id>UMLClass</id><coordinates><x>647</x><y>1423</y><w>120</w><h>30</h></coordinates><panel_attributes>LocalDate</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>602</x><y>1373</y><w>240</w><h>110</h></coordinates><panel_attributes>Java.time</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>892</x><y>1363</y><w>320</w><h>120</h></coordinates><panel_attributes>Java.util</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>927</x><y>1423</y><w>120</w><h>30</h></coordinates><panel_attributes>List</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>720</x><y>1240</y><w>30</w><h>200</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;180;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>960</x><y>1240</y><w>30</w><h>200</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;180;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>460</x><y>1240</y><w>30</w><h>190</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;170;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>2147</x><y>1113</y><w>110</w><h>70</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
+Model
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>2147</x><y>1023</y><w>110</w><h>40</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
+Errors
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>2092</x><y>903</y><w>250</w><h>400</h></coordinates><panel_attributes>Spring</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1130</x><y>1160</y><w>1040</w><h>40</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>1020;13;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1900</x><y>570</y><w>270</w><h>580</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>250;553;100;550;100;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>820</x><y>600</y><w>1350</w><h>560</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>1330;533;670;530;670;350;10;350;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>2160</x><y>710</y><w>120</w><h>40</h></coordinates><panel_attributes>HiringManagement</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>900</x><y>100</y><w>320</w><h>640</h></coordinates><panel_attributes>lt=&lt;-
+m1= 1
+r1= - festivalManagement</panel_attributes><additional_attributes>10;10;10;620;300;620</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1200</x><y>810</y><w>680</w><h>130</h></coordinates><panel_attributes>PlanOffersController
+--
+--
++ PlannOffersManagement(hiringManagement : HiringManagement, festivalManagement : FestivalManagement, 
+                                             planOffersManagement : PlanOffersManagement,  utilsManagement : UtilsManagement)
++ artistOverview(model : Model) : String
++ artistDetail(artistId : Long, model : Model) : String
++ bookArtist(artistId : Long, currentlyBooked : boolean, ra : redirectAttributes) : String
++ unbookArtist() : String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1460</x><y>750</y><w>190</w><h>80</h></coordinates><panel_attributes>lt=&lt;-
+m1= 1
+r1= - planEquipmentManagement</panel_attributes><additional_attributes>10;10;10;60</additional_attributes></element><element><id>Relation</id><coordinates><x>1870</x><y>720</y><w>310</w><h>160</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+r1=- hiringManagement</panel_attributes><additional_attributes>290;20;160;20;160;140;10;140</additional_attributes></element><element><id>Relation</id><coordinates><x>900</x><y>100</y><w>320</w><h>780</h></coordinates><panel_attributes>lt=&lt;-
+m1= 1
+r1= - festivalManagement</panel_attributes><additional_attributes>10;10;10;760;300;760</additional_attributes></element><element><id>Relation</id><coordinates><x>1090</x><y>90</y><w>130</w><h>750</h></coordinates><panel_attributes>lt=&lt;-
+m1= 1
+r1= - currentFestival</panel_attributes><additional_attributes>10;10;10;730;110;730</additional_attributes></element><element><id>Relation</id><coordinates><x>1870</x><y>900</y><w>300</w><h>250</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>280;223;130;220;130;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1870</x><y>760</y><w>310</w><h>80</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>290;10;70;10;70;60;10;60</additional_attributes></element><element><id>Relation</id><coordinates><x>1810</x><y>720</y><w>370</w><h>70</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>350;50;130;50;130;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1070</x><y>90</y><w>150</w><h>610</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;10;10;140;70;140;70;590;130;590</additional_attributes></element><element><id>Relation</id><coordinates><x>810</x><y>90</y><w>210</w><h>280</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>190;10;190;260;10;260</additional_attributes></element><element><id>Relation</id><coordinates><x>1110</x><y>40</y><w>270</w><h>280</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;20;250;20;250;260</additional_attributes></element><element><id>Relation</id><coordinates><x>450</x><y>180</y><w>620</w><h>800</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>600;10;600;480;10;480;10;780</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1067</x><y>1423</y><w>120</w><h>30</h></coordinates><panel_attributes>Map</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1100</x><y>1050</y><w>90</w><h>390</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>70;370;70;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>990</x><y>1060</y><w>190</w><h>380</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;360;10;210;170;210;170;50;40;50;40;10</additional_attributes></element><element><id>Relation</id><coordinates><x>750</x><y>1060</y><w>420</w><h>380</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;360;10;200;400;200;400;60;190;60;190;10</additional_attributes></element><element><id>Relation</id><coordinates><x>530</x><y>160</y><w>30</w><h>160</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;10;10;140</additional_attributes></element><element><id>UMLClass</id><coordinates><x>460</x><y>140</y><w>130</w><h>30</h></coordinates><panel_attributes>Location</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>410</x><y>180</y><w>630</w><h>970</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>610;10;610;460;10;460;10;930;70;930;70;950</additional_attributes></element><element><id>Relation</id><coordinates><x>550</x><y>160</y><w>310</w><h>330</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;10;10;50;290;50;290;310</additional_attributes></element><element><id>Relation</id><coordinates><x>1160</x><y>380</y><w>60</w><h>1060</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;1040;10;10;40;10</additional_attributes></element></diagram>

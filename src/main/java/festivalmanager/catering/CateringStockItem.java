@@ -1,37 +1,52 @@
 package festivalmanager.catering;
 
+import festivalmanager.festival.*;
 import org.javamoney.moneta.Money;
 import org.salespointframework.inventory.*;
 import org.salespointframework.quantity.*;
+import java.util.Optional;
 import java.time.LocalDate;
 import javax.persistence.Entity;
 //import javax.persistence.ManyToOne;
 //import javax.persistence.GeneratedValue;
 //import javax.persistence.Id;
 
+/**
+ * @author Robert Menzel
+ */
 @Entity
 public class CateringStockItem extends MultiInventoryItem {
     private Money buyingPrice;
     private LocalDate orderDate;
     private LocalDate bestBeforeDate;
-    private long festivalID;
+    private long festivalId;
+    static FestivalManagement festivalManagement;
 
     @SuppressWarnings({ "unused" })
     private CateringStockItem() {
     }
 
-    public CateringStockItem(long festivalID, CateringProduct product, Quantity quantity, Money buyingPrice,
+    public CateringStockItem(long festivalId, CateringProduct product, Quantity quantity, Money buyingPrice,
             LocalDate orderDate,
             LocalDate bestBeforeDate) {
         super(product, quantity);
         this.buyingPrice = buyingPrice;
         this.orderDate = orderDate;
         this.bestBeforeDate = bestBeforeDate;
-        this.festivalID = festivalID;
+        this.festivalId = festivalId;
     }
 
-    public long getFestivalID() {
-        return festivalID;
+    public long getFestivalId() {
+        return festivalId;
+    }
+
+    public Festival getFestival() {
+        if (festivalManagement == null)
+            return null;
+        Optional<Festival> oFm = festivalManagement.findById(festivalId);
+        if (!oFm.isPresent())
+            return null;
+        return oFm.get();
     }
 
     public Money getBuyingPrice() {

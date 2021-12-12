@@ -11,7 +11,6 @@
 <body>
 <header>
     <nav th:include="header :: header"></nav>
-    <h1>Artistdetails</h1>
 </header>
 <section layout:fragment="content">
     <div class="content">
@@ -19,24 +18,18 @@
         <a class="item" href="artists.html" th:href="@{/artists}">Zurück</a>
         </br></br>
         </br>
-        <p>Name:</p>
+        <p class="entity-attribute">Name:</p>
         <p th:text="${artist.name}">Keine gefunden</p>
         <br/>
-        <p>Preis pro Tag:</p>
+        <p class="entity-attribute">Preis pro Tag:</p>
         <p th:text="${artist.price}">Keine gefunden</p>
         <br/>
-        <p>Anzahl der Bühnentechniker für Künstler/in</p>
+        <p class="entity-attribute">Anzahl der Bühnentechniker für Künstler/in</p>
         <p th:text="${artist.stageTechnician}">Keine gefunden</p>
         <br/>
-        <p>Buchungen:</p>
+        <p class="entity-attribute">Buchungen:</p>
         <p th:if="${hasBookings == false}">Keine</p>
-        <br/>
-        <p>Show:</p>
-        <div th:each="show : ${artist.getShows()}" class="text" th:text="${show.getName()}"></div>
-        <br/>
-        <a class="item" th:href="@{/artists/newShow/{id}(id = ${artist.id})}" sec:authorize="hasRole('MANAGER') || hasRole('ADMIN') || hasRole('PLANNER')">Neuen Show erstellen</a>
-
-        <table class="ui celled table" th:if="${hasBookings != false}">
+         <table class="bookings-table" th:if="${hasBookings != false}">
             <thead>
             <th>Startdatum</th>
             <th>Enddatum</th>
@@ -48,6 +41,13 @@
             </tr>
             </tbody>
         </table>
+        <br/>
+        <p class="entity-attribute">Show:</p>
+        <div th:each="show : ${artist.getShows()}" class="text" th:text="${show.getName()}"></div>
+        <br/>
+        <a class="item" th:href="@{/artists/newShow/{id}(id = ${artist.id})}" sec:authorize="hasRole('MANAGER') || hasRole('ADMIN') || hasRole('PLANNER')">Neuen Show erstellen</a>
+
+       
         </br>
     </div>
 

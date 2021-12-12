@@ -4,75 +4,85 @@ package festivalmanager.ticketShop;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.utils.UtilsManagement;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 @Controller
-
 public class TicketController {
 
 
 	private final TicketManagement ticketManagement;
 	private Festival currentFestival;
-
 	private final FestivalManagement festivalManagement;
 	private UtilsManagement utilsManagement;
 
 
-	public TicketController(TicketManagement ticketManagement,
-							UtilsManagement utilsManagement,
-							FestivalManagement festivalManagement) {
+	public TicketController(TicketManagement ticketManagement, UtilsManagement utilsManagement, FestivalManagement festivalManagement) {
 		this.ticketManagement = ticketManagement;
 		this.festivalManagement = festivalManagement;
 		this.utilsManagement= utilsManagement;
 		this.currentFestival = null;
 	}
 
+	@ModelAttribute("title")
+	public String getTitle() {
+		return "Ticketshop";
+	}
 
-	// TODO: @PreAuthorize("hasRole('PLANNER')")
+	@PreAuthorize("hasRole('PLANNER')||hasRole('ADMIN')")
 	@GetMapping("/tickets")
 	public String showTicketInfo(Model model) {
 
-		this.currentFestival =festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
-
-
-		model.addAttribute("ticket", new Ticket());
-		model.addAttribute("festival", this.currentFestival);
-
+		model.addAttribute("title", "Tickets");
 		utilsManagement.setCurrentPageLowerHeader("tickets");
-
 		utilsManagement.prepareModel(model);
-		return "ticketFrom";
+
+		if (Objects.isNull(ticketManagement.getCurrentTicket())) {
+
+			this.currentFestival =festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
+			model.addAttribute("ticket", new Ticket());
+			model.addAttribute("festival", this.currentFestival);
+
+			utilsManagement.setCurrentPageLowerHeader("tickets");
+
+			utilsManagement.prepareModel(model);
+			return "ticketFrom";
+		}
+
+		model.addAttribute("tickets", ticketManagement.getCurrentTicket());
+		return "ticketResult";
 	}
 
 
-	// TODO: @PreAuthorize("hasRole('PLANNER')")
+	@PreAuthorize("hasRole('PLANNER')||hasRole('ADMIN')")
 	@PostMapping("/tickets")
-	public String newTickets(@ModelAttribute Ticket ticket, RedirectAttributes rd) {
+	public String create(@ModelAttribute Ticket ticket, Model model, Errors result) {
 
+		model.addAttribute("title", "Tickets");
+		utilsManagement.prepareModel(model);
 
-		ticketManagement.setFestival(currentFestival);
-
+		if (result.hasErrors()) {
+			return "ticketFrom";
+		}
 
 
 		ticket.setFestivalName(currentFestival.getName());
 		ticket.setFestivalId(currentFestival.getId());
 
 
+		ticketManagement.setCurrentTicket(ticket);
+		ticketManagement.setFestival(currentFestival);
 
-		ticketManagement.createTickets(ticket);
-
-		rd.addFlashAttribute("ticket", ticket);
-		return "redirect:/ticketShop";
+		model.addAttribute("tickets", ticketManagement.save(ticket));
+		return "ticketResult";
 	}
 
-
-
-
-
-	// TODO: @PreAuthorize("hasRole('TicketSeller')")
+	@PreAuthorize("hasRole('TICKET_SELLER')||hasRole('ADMIN')")
 	@PostMapping("/tickets/buy")
 	public String buyTicket( @ModelAttribute Ticket ticket, Model model) {
 
@@ -97,22 +107,56 @@ public class TicketController {
 			model.addAttribute("festival",currentFestival.getName());
 			model.addAttribute("tickets", ticket);
 
+		}
+		else {
+			utilsManagement.prepareModel(model);
+			model.addAttribute("ticketsUnavailable", "true");
+			return "TicketShopUnavailable";
+		}
 
-		};
-
+		utilsManagement.prepareModel(model);
 		return "ticketPrint";
 	}
 
 
-	// TODO: @PreAuthorize("hasRole('TicketSeller')")
+	@PreAuthorize("hasRole('TICKET_SELLER')||hasRole('ADMIN')")
 	@GetMapping("/ticketShop")
-	public String ticketOverview(@ModelAttribute Ticket ticket, Model model) {
+	public String ticketOverview(Model model) {
 
+
+		Ticket ticket = ticketManagement.TicketsByFestival(utilsManagement.getCurrentFestivalId());
+		utilsManagement.setCurrentPageLowerHeader("ticketShop");
+		utilsManagement.prepareModel(model);
+
+		if (ticket == null) {
+			model.addAttribute("ticketsNotCreated", "true");
+			return "TicketShopUnavailable";
+		}
+
+		model.addAttribute("tickets",ticket);
+		return "ticketShop";
+	}
+
+
+
+	@PreAuthorize("hasRole('PLANNER')||hasRole('ADMIN')")
+	@PostMapping("tickets/edit")
+	public String update(@NotNull @ModelAttribute Ticket ticket , Model model, Errors result){
+
+		model.addAttribute("title", "Tickets");
+		utilsManagement.prepareModel(model);
+
+		if (result.hasErrors()) {
+
+			return "ticketResult" ;
+		}
+
+		ticketManagement.setCurrentTicket(ticket);
+		ticketManagement.save(ticket);
 
 		model.addAttribute("tickets", ticket);
+		return "ticketResult";
 
-		utilsManagement.prepareModel(model);
-		return "ticketShop";
 	}
 
 

@@ -10,9 +10,6 @@ import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.utils.UtilsManagement;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static org.salespointframework.core.Currencies.EURO;
 
 
@@ -43,6 +40,11 @@ class FinancesController {
 		resetAttributes();
 	}
 
+	@ModelAttribute("title")
+	public String getTitle() {
+		return "Finanzübersicht";
+	}
+
 
 	private void resetAttributes() {
 		nCampingTicketsExpected = 0;
@@ -69,23 +71,32 @@ class FinancesController {
 		addAttribute(model, "locationCost", financesManagement.getLocationCost());
 		addAttribute(model, "equipmentCost", financesManagement.getEquipmentCost());
 		addAttribute(model, "staffCost", financesManagement.getStaffCost());
-		addAttribute(model, "totalCost", financesManagement.getTotalCost());
 
-		// Revenue from Catering and Ticket sales
-		Money totalRevenue = Money.of(0, EURO);
+		addAttribute(model, "priceCampingTickets", financesManagement.getPriceCampingTickets());
+		addAttribute(model, "priceOneDayTickets", financesManagement.getPriceOneDayTickets());
+		addAttribute(model, "nCampingTickets", financesManagement.getNCampingTickets());
+		addAttribute(model, "nOneDayTickets", financesManagement.getNOneDayTickets());
+
+		addAttribute(model, "ticketsRevenue", financesManagement.getTicketsRevenue());
+		addAttribute(model, "cateringRevenue", financesManagement.getCateringRevenue());
+
+		Money totalCost = financesManagement.getTotalCost();
+		addAttribute(model, "totalCost", totalCost);
+		Money totalRevenue = financesManagement.getTotalRevenue();
 		addAttribute(model, "totalRevenue", totalRevenue);
-		addAttribute(model,"profit", totalRevenue.subtract(financesManagement.getTotalCost()));
+		addAttribute(model,"profit", financesManagement.getProfit(totalRevenue, totalCost));
 
-		Money revenueExpected = financesManagement.getRevenue(
-				priceCampingTicketsExpected,
-				priceOneDayTicketsExpected,
-				nCampingTicketsExpected,
-				nOneDayTicketsExpected);
-		Money profitExpected = revenueExpected.subtract(financesManagement.getTotalCost());
 		addAttribute(model,"priceCampingTicketsExpected", priceCampingTicketsExpected);
 		addAttribute(model, "priceOneDayTicketsExpected", priceOneDayTicketsExpected);
 		addAttribute(model, "nCampingTicketsExpected", nCampingTicketsExpected);
 		addAttribute(model, "nOneDayTicketsExpected", nOneDayTicketsExpected);
+
+		Money revenueExpected = financesManagement.getRevenueExpected(
+				priceCampingTicketsExpected,
+				priceOneDayTicketsExpected,
+				nCampingTicketsExpected,
+				nOneDayTicketsExpected);
+		Money profitExpected = financesManagement.getProfit(revenueExpected, totalCost);
 		addAttribute(model, "revenueExpected", revenueExpected);
 		addAttribute(model,"profitExpected", profitExpected);
 
@@ -94,33 +105,13 @@ class FinancesController {
 		return "finances";
 	}
 
-/*
-	private void addAttributes(Model model, Map<String, Object> attributes) {
-
-		for (Map.Entry<String, Object> attribute : attributes.entrySet()) {
-
-			String attributeName = attribute.getKey();
-			Object attributeValue = attribute.getValue();
-
-			if (attributeValue.getClass().getSimpleName().equals("Money")) {
-				String attributeStr = String.format("%.2f", ((Money) attributeValue).getNumber().doubleValue());
-				model.addAttribute(attributeName, attributeStr);
-			}
-			else {
-				model.addAttribute(attributeName, attributeValue);
-			}
-		}
-	}
- */
-
 
 	private void addAttribute(Model model, String attributeName, Object attributeValue) {
 
 		if (attributeValue.getClass().getSimpleName().equals("Money")) {
 			String attributeStr = String.format("%.2f", ((Money) attributeValue).getNumber().doubleValue());
 			model.addAttribute(attributeName, attributeStr);
-		}
-		else {
+		} else {
 			model.addAttribute(attributeName, attributeValue);
 		}
 	}
@@ -155,8 +146,9 @@ class FinancesController {
 								  @RequestParam("priceCampingTicketsExpected") Double priceCampingTicketsExpected,
 								  @RequestParam("priceOneDayTicketsExpected") Double priceOneDayTicketsExpected) {
 
-		if (priceCampingTicketsExpected < 0 || priceOneDayTicketsExpected < 0)
+		if (priceCampingTicketsExpected < 0 || priceOneDayTicketsExpected < 0) {
 			return "redirect:/finances";
+		}
 
 		this.priceCampingTicketsExpected = Money.of(priceCampingTicketsExpected, EURO);
 		this.priceOneDayTicketsExpected = Money.of(priceOneDayTicketsExpected, EURO);

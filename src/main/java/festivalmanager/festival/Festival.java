@@ -65,31 +65,8 @@ public class Festival {
 		return startDate;
 	} 
 
-	//unused
-	public void setStartDate(LocalDate startDate) {
-		this.startDate = startDate;
-	}
-
 	public LocalDate getEndDate() {
 		return endDate;
-	}
-	
-	//unused
-	public void setEndDate(LocalDate endDate) {
-		this.endDate = endDate;
-	}
-	// not really required
-	public List<LocalDate> getFestivalInterval() {
-		List<LocalDate> dateList = new ArrayList<>();
-		LocalDate currentDate = startDate;
-		Interval festivalInterval = Interval.from(startDate.atStartOfDay()).to(endDate.atTime(23, 5));
-		while(festivalInterval.contains(currentDate.atTime(12, 00))) {
-			dateList.add(currentDate);
-			currentDate = currentDate.plusDays(1);
-			System.out.println( currentDate);
-		}
-		
-		return dateList;
 	}
 
 	public String getName() {
@@ -186,6 +163,13 @@ public class Festival {
 		return stages.remove(stage);
 	}
 	
+	public long getRequiredSecurityCount() {
+		if (location != null) {
+			long visitorCapacity = location.getVisitorCapacity();
+			return visitorCapacity / 100;
+		}
+		return 0;
+	}
 
 //	public void deleteArtist(Artist artist){
 //		Iterator <Artist> i = artists.iterator();

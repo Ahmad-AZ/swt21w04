@@ -1,25 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout.html(title=ticketForm)}">
+      layout:decorate="~{layout.html(title=Tickets)}">
 
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
-
+    <title>Tickets</title>
 </head>
 <body>
 <header>
     <nav th:include="header :: header"></nav>
-    <h1>Tickets</h1>
+    <nav th:include="festivalHeader :: festivalHeader"></nav>
 </header>
 <section layout:fragment="content">
-
-
-
     <div style="text-align: center">
-
-
         <form class="item"  th:action="@{/tickets}" method="post" th:object="${ticket}">
             <h4 style="color: black" th:text="${festival.name}"> Festival</h4><br><br>
             <h5>Anzahl der Tickets</h5><br>
@@ -34,18 +29,14 @@
             <label for="price1">Camping-Tickets:</label><br>
             <input type="number" id="price1" th:field="*{campingTicketPrice}"><br><br>
 
-            <label for="price">Tagesticket</label><br>
+            <label for="price">Tagestickets</label><br>
             <input type="number" id="price" th:field="*{dayTicketPrice}"><br><br>
 
             <br><br>
 
             <input type="submit" value="Auswählen">
         </form>
-
     </div>
-
-
-
 </section>
 </body>
 </html>

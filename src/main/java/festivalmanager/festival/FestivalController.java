@@ -37,6 +37,7 @@ public class FestivalController {
 	private UtilsManagement utilsManagement;
 	private Festival currentFestival;
 	private long currentId;
+	private String title;
 
 	public FestivalController(FestivalManagement festivalManagement,
 							  UtilsManagement utilsManagement) {
@@ -45,6 +46,11 @@ public class FestivalController {
 		this.currentFestival = null;
 		this.currentId = 0;
 		
+	}
+
+	@ModelAttribute("title")
+	public String getTitle() {
+		return "Festivalübersicht";
 	}
 	
 	@GetMapping("/festivalOverview/{festivalId}")
@@ -90,6 +96,7 @@ public class FestivalController {
 
 			model.addAttribute("location", festival.get().getLocation());
 		}
+		model.addAttribute("title", "Karte");
 
 		utilsManagement.setCurrentPageLowerHeader("map");
 		utilsManagement.prepareModel(model);
@@ -131,7 +138,7 @@ public class FestivalController {
 			return "newFestival";
 		}
 
-		// create Festival if no error appears
+		// save Festival if no error appears
 		festivalManagement.createFestival(form);
 
 		return "redirect:/festivalOverview";

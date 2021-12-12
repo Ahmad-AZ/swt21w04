@@ -12,7 +12,6 @@
 <body>
 	<header>
 		<nav th:include="header :: header"></nav>
-		<h1>Mietbare Gegenstände</h1>
 		<div th:include="festivalHeader :: festivalHeader"></div>
 	</header>
 	<section layout:fragment="content">
@@ -24,7 +23,7 @@
 						<div class="equipments" th:each="equipment : ${equipmentsMap.keySet()}">
 							<div class="normal equipments">
 								 <form method="post" id="form" th:action="@{/rentEquipmentAmount}">
-									  	<div class="text" th:text="${equipment.name}">Name</div>
+									  	<div class="entity-attribute"th:text="${equipment.name}">Name</div>
 									 	<label for="amount">Anzahl</label>
 									 	<input type="hidden" name="equipmentsId" th:value="${equipment.id}"/>	
 									 	<input id="amount" type="number" name="equipmentsAmount" min="0" th:value="${equipmentsMap.get(equipment)}"/>					
@@ -35,17 +34,17 @@
 						</div>
 						<h3>Bühnen</h3>	
 						<form role="form" th:action="@{/addStage}" method="post">
-				            <div class="text" th:text="${equipmentStage.name}">Name</div>
+				            <div class="entity-attribute" th:text="${equipmentStage.name}">Name</div>
 				            <div class="field" >
 				                <label for="name">Name</label>
 				                <input id="name" name="name" required="required"></input>
 				            </div>
 				            <input name="equipmentsId" type="hidden" th:value="${equipmentStage.id}" required="required"/>
-							<p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p> 
+							<p th:text="${message}" th:if="${message ne null}" class="ui-negative-message"></p> 
 				            <input type ="submit" th:value="Mieten"><br>
 				        </form>	
 				        </br>
-				        <h4>gemietete Bühnen</h4>
+				        <h3>Gemietete Bühnen:</h3>
 				        <div class="stageList">
 				            <ul class="list">
 				                <li class="list-entry" th:each="stage : ${stageList}">

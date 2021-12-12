@@ -6,13 +6,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Min;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import festivalmanager.utils.UtilsManagement;
-import org.hibernate.validator.constraints.Range;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -32,7 +30,6 @@ import festivalmanager.Equipment.EquipmentManagement;
 import festivalmanager.Equipment.Stage;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
-import festivalmanager.location.Location;
 
 
 @Controller
@@ -51,7 +48,12 @@ public class PlanEquipmentController {
 		this.utilsManagement = utilsManagement;
 		this.currentFestivalId = 0;
 	}
-	
+
+	@ModelAttribute("title")
+	public String getTitle() {
+		return "Equipment-Auswahl";
+	}
+
 	// shows Equipments Overview
 	@GetMapping("/equipments")  
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
@@ -99,7 +101,7 @@ public class PlanEquipmentController {
 	 
 	@PostMapping("/addStage")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String addStages(@RequestParam("equipmentsId") @NotNull long equipmentsId, @RequestParam("name") @NotEmpty String name, RedirectAttributes ra) {
+	public String addStage(@RequestParam("equipmentsId") @NotNull long equipmentsId, @RequestParam("name") @NotEmpty String name, RedirectAttributes ra) {
 				
 		Equipment equipment = equipmentManagement.findById(equipmentsId).get();
 		

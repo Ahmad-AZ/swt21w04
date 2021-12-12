@@ -18,11 +18,9 @@ public class FestivalInitializer implements DataInitializer {
 
 	private static final Logger LOG = LoggerFactory.getLogger(FestivalInitializer.class);
 	
-	private FestivalManagement festivalManagement;
 	private FestivalRepository festivals;
 	
-	public FestivalInitializer(FestivalManagement festivalManagement, FestivalRepository festivals) {
-		this.festivalManagement = festivalManagement;
+	public FestivalInitializer(FestivalRepository festivals) {
 		this.festivals = festivals;
 		Festival f1 = new Festival("Beispielfestival", LocalDate.of(2021, 12, 6), LocalDate.of(2021, 12, 11));
 		Festival f2 = new Festival("adminfestival", LocalDate.of(2022, 2, 6), LocalDate.of(2022, 2, 9));

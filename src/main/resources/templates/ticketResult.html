@@ -1,29 +1,60 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout.html(title=ticketResult)}">
+      layout:decorate="~{layout.html(title=Tickets)}">
 
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}"/>
-
+    <title>Tickets</title>
 </head>
 <body>
 <header>
     <nav th:include="header :: header"></nav>
-    <h1>Tickets are created</h1>
+    <nav th:include="festivalHeader :: festivalHeader"></nav>
 </header>
 <section layout:fragment="content">
 </section>
 
 
 <p style="color: black" th:text="${tickets.festivalName}"></p>
-<p th:text="'Preis derCamping-Ticket  : ' + ${tickets.campingTicketPrice}"></p>
-<p th:text="'Anzahl der Camping-Ticket : ' + ${tickets.campingTicketsCount}"></p>
+<p th:text="'Preis der Camping-Tickets: ' + ${tickets.campingTicketPrice + '€'}"></p>
+<p th:text="'Anzahl der Camping-Tickets: ' + ${tickets.campingTicketsCount}"></p>
 
 
-<p th:text="'Anzahl der Tagesticket: ' + ${tickets.dayTicketsCount}"></p>
-<p th:text="'Preis der Tagesticket : ' + ${tickets.dayTicketPrice}"></p>
+<p th:text="'Preis der Tagestickets: ' + ${tickets.dayTicketPrice + '€'}"></p>
+<p th:text="'Anzahl der Tagestickets: ' + ${tickets.dayTicketsCount}"></p>
+
+
+
+<div>
+
+    <form class="item"  th:action="@{/tickets/edit}" method="post" th:object="${tickets}">
+        <p></p>
+        <h3>Anzahl einstellen </h3><br>
+
+        <label for="count1">Camping-Tickets:</label><br>
+        <input type="number" id="count1" th:field="*{campingTicketsCount}"><br><br>
+
+        <label for="count">Tagestickets:</label><br>
+        <input type="number" id="count" th:field="*{dayTicketsCount}"><br><br>
+
+
+        <h3>Preise einstellen </h3><br>
+        <label for="price1">Camping-Tickets:</label><br>
+        <input type="number" id="price1" th:field="*{campingTicketPrice}"><br><br>
+
+        <label for="price">Tagesticket</label><br>
+        <input type="number" id="price" th:field="*{dayTicketPrice}"><br><br>
+
+        <br><br>
+
+        <input type="submit" value="Auswählen">
+
+
+</div>
+
+
 
 
 </body>

@@ -12,7 +12,6 @@
 <body>
     <header>
         <nav th:include="header :: header"></nav>
-        <h1>Künstler-Auswahl</h1>
         <div th:include="festivalHeader :: festivalHeader"></div>
     </header>
     <section layout:fragment="content">
@@ -27,13 +26,13 @@
             </div>
         </form>
         </br></br>
-        <div>Gebuchte Künstler</div>
+        <div  class="entity-attribute">Gebuchte Künstler:</div>
         <div th:if="${noArtist == true}">Keine</div>
         <div th:each="artist : ${bookedArtistId}" class="text" th:text="${artist.getName()}"></div>
         <br/>
         <br/>
         <a class="header" th:href="@{/artistOverview/unbook}" th:if="${bookedArtistId != 0}">Alle Buchungen löschen</a>
-        <div>einzelne Löschung von Buchungen geht nicht wegen der Organisation von Fest</div>
+        <!--<div>einzelne Löschung von Buchungen geht nicht wegen der Organisation von Fest</div>-->
 
     </section>
 </body>

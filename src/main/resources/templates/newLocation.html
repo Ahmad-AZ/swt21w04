@@ -11,8 +11,6 @@
 <body>
 <header>
 	<nav th:include="header :: header"></nav>
-    <h1>Location erstellen</h1>
-    
 </header>
 <section layout:fragment="content">
     <form class="form" method="post" id="form" th:action="@{/newLocation}" th:object="${newLocationForm}" enctype="multipart/form-data" >

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -26,16 +27,23 @@ public class MessageController {
 		this.staffManagement = staffManagement;
 	}
 
-	@GetMapping("/messages/{userId}")
-	public String getMessageView(@PathVariable("userId") long userId, Model model) {
-		model.addAttribute("messages", messageManagement.findByReceiverId(userId));
+	@ModelAttribute("title")
+	public String getTitle() {
+		return "Nachrichten";
+	}
 
+	@ModelAttribute("messages")
+	public Streamable<Message> getMessages(@PathVariable("userId") long userId) {
+		return messageManagement.findByReceiverId(userId);
+	}
+
+	@GetMapping("/messages/{userId}")
+	public String getMessageView() {
 		return "messages.html";
 	}
 
 	@GetMapping("/messages/{userId}/view/{messageId}")
-	public String getMessageDetailView(@PathVariable("userId") long userId, @PathVariable("messageId") long messageId, Model model) {
-		model.addAttribute("messages", messageManagement.findByReceiverId(userId));
+	public String getMessageDetailView(@PathVariable("messageId") long messageId, Model model) {
 		Optional<Message> message = messageManagement.findById(messageId);
 		if (message.isPresent()) {
 			model.addAttribute("currentMessage", message.get());
@@ -46,7 +54,6 @@ public class MessageController {
 
 	@GetMapping("/messages/{userId}/send")
 	public String getSendMessageDialog(@PathVariable("userId") long userId, Model model) {
-		model.addAttribute("messages", messageManagement.findByReceiverId(userId));
 		model.addAttribute("dialog", "send_message");
 
 		Optional<Person> user = staffManagement.findById(userId);
@@ -61,9 +68,9 @@ public class MessageController {
 		return "messages.html";
 	}
 
-	@PostMapping("/messages/{senderId}/send")
-	public String sendMessage(@PathVariable("senderId") long senderId, SendMessageForm form) {
+	@PostMapping("/messages/{userId}/send")
+	public String sendMessage(@PathVariable("userId") long userId, SendMessageForm form) {
 		messageManagement.sendMessage(form);
-		return "redirect:/messages/" + senderId;
+		return "redirect:/messages/" + userId;
 	}
 }

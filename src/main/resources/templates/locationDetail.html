@@ -11,32 +11,31 @@
 <body>
 	<header>
 		<nav th:include="header :: header"></nav>
-		<h1>Locationdetails</h1>
 	</header>
     </br>
   	<a class="item" href="locations.html" th:href="@{/locations}">Zurück</a>
   	</br></br>
 	<div class="grid-container">
 		<div class="grid-item">
-			<p>Name:</p>
+			<p class="entity-attribute">Name:</p>
 	        <p th:text="${location.name}">Keine gefunden</p>
 	        <br/>
-	        <p>Adresse:</p>
+	        <p class="entity-attribute">Adresse:</p>
 	        <p th:text="${location.adress}">Keine gefunden</p>
 	        <br/>
-			<p>Preis pro Tag:</p>
+			<p class="entity-attribute">Preis pro Tag:</p>
 			<p th:text="${location.pricePerDay}">Keine gefunden</p>
 			<br/>
-			<p>maximale Besucheranzahl:</p>
+			<p class="entity-attribute">maximale Besucheranzahl:</p>
 			<p th:text="${location.visitorCapacity}">Keine gefunden</p>
 			<br/>
-			<p>maximale Bühnenanzahl:</p>
+			<p class="entity-attribute">maximale Bühnenanzahl:</p>
 			<p th:text="${location.stageCapacity}">Keine gefunden</p>
 			<br/>
-			<p>Buchungen:</p>
+			<p class="entity-attribute">Buchungen:</p>
 			<p th:if="${hasBookings == false}">Keine</p>		
 			<div th:if="${hasBookings == true}">
-				<table>
+				<table  class="bookings-table">
 	                <thead>
 	                	<th>Startdatum</th>
 	                	<th>Enddatum</th> 
@@ -60,7 +59,7 @@
 
 		<div class="item-groundView">
 			</br>
-			<p>Grundriss:</p>
+			<p class="entity-attribute">Grundriss:</p>
 			<div >
 				<img class="groundView" th:src="@{/resources/img/location/{name}.jpg(name=${location.groundView})}"
 			                     src="../static/resources/img/location/HSZ_groundview.jpg" />

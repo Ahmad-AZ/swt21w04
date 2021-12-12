@@ -4,8 +4,6 @@ import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.hiring.Artist;
 import festivalmanager.hiring.HiringManagement;
-import festivalmanager.location.Location;
-import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,14 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PlanOffersManagement {
 
-	private Streamable<Artist> artistList;
 	private final HiringManagement hiringManagement;
 	private final FestivalManagement festivalManagement;
 
 	public PlanOffersManagement(HiringManagement hiringManagement, FestivalManagement festivalManagement) {
 		this.hiringManagement = hiringManagement;
 		this.festivalManagement = festivalManagement;
-		artistList = hiringManagement.findAll();
 	}
 
 	public boolean bookArtist(Artist artist, Festival festival) {

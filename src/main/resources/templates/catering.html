@@ -8,10 +8,39 @@
 	<body>
 		<header>
 			<nav th:include="header :: header"></nav>
-			<h1>Catering</h1>
+			<div th:include="festivalHeader :: festivalHeader"></div>
 		</header>
         <section layout:fragment="content">
-            <a href="cateringProductCatalog">Catering Produkt- Catalog</a>
+            <form>
+				<table border="1">
+					<tr>
+						<td>
+							<fieldset>
+								<legend>Catering Produkte</legend>
+								<table>
+									<tr><th>Produkt</th><th>Preis</th></tr>
+									<tr th:each="product : ${productcatalog}">
+										<td>
+											<input type="radio"					
+											th:value="${product.getId()}"
+											th:utext="${product.getName()}"
+											name="productId">
+										</td>
+										<td th:text="${product.getPrice()}"></td>
+									</tr>
+									<tr>
+										<td><input type="number" step="1" value="1" name="productcount"></td>
+										<td><button type="submit">hinzuf&uuml;gen</button></td>
+									</tr>
+								</table>
+							</fieldset>	
+						</td>
+						<td valign="top">
+							<h3>Warenkorb</h3>
+						</td>
+					</tr>
+				</table>
+			</form>
         </section>
     </body>
     

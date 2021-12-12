@@ -11,7 +11,6 @@
 
 <body>
 <div th:include="header :: header"></div>
-<h1>Finanzübersicht</h1>
 <div th:include="festivalHeader :: festivalHeader"></div>
 <section layout:fragment="content">
 
@@ -83,7 +82,7 @@
     <table class="program-table">
         <thead>
         <tr>
-            <th>Finanzdaten (vorraussichtlich)</th>
+            <th>Finanzdaten (erwartet)</th>
             <th>Wert</th>
         </tr>
         </thead>
@@ -105,11 +104,15 @@
             <td th:text="${priceOneDayTicketsExpected + '&euro;'}">0.00&euro;</td>
         </tr>
         <tr>
-            <td>Voraussichtlicher Umsatz</td>
+            <td>Kosten</td>
+            <td th:text="${totalCost + '&euro;'}">0.00&euro;</td>
+        </tr>
+        <tr>
+            <td>Umsatz bei erwarteten Verkäufen</td>
             <td th:text="${revenueExpected + '&euro;'}">0.00&euro;</td>
         </tr>
         <tr>
-            <td>Voraussichtlicher Gewinn</td>
+            <td>Gewinn bei erwarteten Verkäufen</td>
             <td th:text="${profitExpected + '&euro;'}">0.00&euro;</td>
         </tr>
         </tbody>
