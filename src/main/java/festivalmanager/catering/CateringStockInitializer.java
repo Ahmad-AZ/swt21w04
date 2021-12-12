@@ -23,9 +23,9 @@ public class CateringStockInitializer implements DataInitializer {
     }
 
     public void initialize() {
-        if (stock.findAll().iterator().hasNext())
+        if (stock.findAll().iterator().hasNext()) {
             return;
-
+        }
         List<CateringProduct> lsProduct;
         lsProduct = catalog.findByName("Coca-Cola").toList();
         if (!lsProduct.isEmpty()) {

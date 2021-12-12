@@ -45,10 +45,10 @@ public class CateringProductCatalogController {
         CateringStockItem.festivalManagement = festivalManagement;
     }
 
-	@ModelAttribute("title")
-	public String getTitle() {
-		return "Catering Produkte";
-	}
+    @ModelAttribute("title")
+    public String getTitle() {
+        return "Catering Produkte";
+    }
 
     @GetMapping("/cateringProductCatalog")
     String products(Model model) {
@@ -87,10 +87,11 @@ public class CateringProductCatalogController {
         CateringProduct product = new CateringProduct(formularData.name, formPrice, formDeposit,
                 formularData.filling);
 
-        if (!failure)
+        if (!failure) {
             catalog.save(product);
-        else
+        } else {
             model.addAttribute("product", product);
+        }
 
         utilsManagement.prepareModel(model);
         return (failure) ? "/cateringAddProduct" : "redirect:/cateringProductCatalog";
@@ -141,7 +142,6 @@ public class CateringProductCatalogController {
             if (!product.getPrice().equals(formprice)) {
                 changed = true;
                 product.setPrice(formprice);
-                System.out.println("Preis:" + formprice);
             }
 
             Money formdeposit = Money.of(0.25, EURO);
@@ -182,8 +182,9 @@ public class CateringProductCatalogController {
 
             InventoryItems<CateringStockItem> iCSI = stock.findByProduct(product);
             empty = iCSI.isEmpty();
-            if (!empty)
+            if (!empty) {
                 model.addAttribute("stockItemsToDelete", iCSI);
+            }
         }
 
         utilsManagement.prepareModel(model);
@@ -196,9 +197,7 @@ public class CateringProductCatalogController {
         if (oProduct.isPresent()) {
             CateringProduct product = oProduct.get();
             catalog.delete(product);
-
         }
-
         return "redirect:/cateringProductCatalog";
     }
 
@@ -232,8 +231,9 @@ public class CateringProductCatalogController {
         CateringProduct product = null;
         if (oProduct.isPresent()) {
             product = oProduct.get();
-        } else
+        } else {
             failure = true;
+        }
 
         Money formBuyingPrice = Money.of(0.50, EURO);
         try {
@@ -335,11 +335,12 @@ public class CateringProductCatalogController {
                     Quantity qDifference = Quantity.of(lDifference);
                     stockitem.decreaseQuantity(qDifference);
                 }
-                if (changed)
+                if (changed) {
                     stock.save(stockitem);
-
-            } else
+                }
+            } else {
                 failure = true;
+            }
 
             stock.save(stockitem);
         } else {
@@ -390,6 +391,5 @@ public class CateringProductCatalogController {
             this.orderdate = orderdate;
             this.bestbeforedate = bestbeforedate;
         }
-
     }
 }
