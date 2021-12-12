@@ -35,12 +35,21 @@
                        th:href="@{/cateringProductCatalog}"
                        sec:authorize="hasRole('PLANNER') || hasRole('ADMIN') || hasRole('MANAGER')">Catering</a>
 
+
+
                     <a th:class="${'item ' + 'border-right ' + ticketShopCurrent}"
                        th:href="@{/tickets}"
                        sec:authorize="isAuthenticated()">Ticket Shop</a>
 
+
 					<a th:class="${'item ' + 'border-right ' + programCurrent}"
                        th:href="@{/schedule}">Spielplan</a>
+
+
+                    <a th:class="${'item ' + 'border-right ' + programCurrent}"
+                       th:href="@{/schedule}"
+                       sec:authorize="hasRole('PLANNER') || hasRole('ADMIN') || hasRole('MANAGER')">Programm</a>
+
 
 					<a th:class="${'item ' + 'border-right ' + mapCurrent}"
                        th:if="${festivalLocation!=null}"

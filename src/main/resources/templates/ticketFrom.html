@@ -20,7 +20,7 @@
     <div style="text-align: center">
 
 
-        <form class="item"  th:action="@{/tickets/create}" method="post" th:object="${ticket}">
+        <form class="item"  th:action="@{/tickets}" method="post" th:object="${ticket}">
             <h4 style="color: black" th:text="${festival.name}"> Festival</h4><br><br>
             <h5>Anzahl der Tickets</h5><br>
             <label for="count1">Camping-Tickets:</label><br>
