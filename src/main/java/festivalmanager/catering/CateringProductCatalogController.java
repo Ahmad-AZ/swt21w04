@@ -36,8 +36,11 @@ public class CateringProductCatalogController {
     private CateringProductCatalog catalog;
     private CateringStock stock;
 
-    public CateringProductCatalogController(CateringProductCatalog catalog, CateringStock stock,
-            UtilsManagement utilsManagement, FestivalManagement festivalManagement) {
+    public CateringProductCatalogController(
+            CateringProductCatalog catalog,
+            CateringStock stock,
+            UtilsManagement utilsManagement,
+            FestivalManagement festivalManagement) {
         this.catalog = catalog;
         this.stock = stock;
         this.utilsManagement = utilsManagement;

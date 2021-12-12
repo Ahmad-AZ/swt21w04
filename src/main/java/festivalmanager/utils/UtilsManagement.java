@@ -39,7 +39,7 @@ public class UtilsManagement {
 		// Add a name for your page here if it can be accessed through the lower navigation bar
 		pagesLowerHeader = Arrays.asList("festivalDetail", "staff", "location", "equipment",
 				"artists", "finances", "catering", "tickets", "ticketShop",
-				"schedule", "program", "map");
+				"schedule", "program", "map", "cateringSales");
 	}
 
 
