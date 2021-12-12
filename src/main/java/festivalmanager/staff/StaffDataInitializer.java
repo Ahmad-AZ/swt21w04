@@ -30,7 +30,7 @@ class StaffDataInitializer implements DataInitializer {
 	}
 
 	public void createUser(long festivalId, String name, String password, String role, double salary) {
-		if (userAccountManagement.findByUsername("admin").isEmpty()) {
+		if (userAccountManagement.findByUsername(name).isEmpty()) {
 			staffManagement.createPerson(festivalId, new CreateStaffForm(name, password, role, salary));
 		}
 	}
