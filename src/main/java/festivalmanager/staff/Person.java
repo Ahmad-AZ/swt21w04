@@ -1,9 +1,12 @@
 package festivalmanager.staff;
 
+import festivalmanager.staff.forms.CreateStaffForm;
 import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.UserAccount;
 
 import javax.persistence.*;
+
+import static org.salespointframework.core.Currencies.EURO;
 
 @Entity
 public class Person {
@@ -23,11 +26,11 @@ public class Person {
 
 	public Person() {}
 
-	public Person(long festivalId, String name, String role, Money salary, UserAccount userAccount) {
+	public Person(long festivalId, CreateStaffForm form, UserAccount userAccount) {
 		this.festivalId = festivalId;
-		this.name = name;
-		this.role = role;
-		this.salary = salary;
+		this.name = form.getName();
+		this.role = form.getRole();
+		this.salary = Money.of(form.getSalary(), EURO);
 		this.userAccount = userAccount;
 	}
 
@@ -54,6 +57,7 @@ public class Person {
 	public Money getSalary() {
 		return salary;
 	}
+
 	public UserAccount getUserAccount() {
 		return userAccount;
 	}
