@@ -11,7 +11,7 @@
 <body>
 <header>
     <nav th:include="header :: header"></nav>
-    <h1>Tickets are created</h1>
+    <nav th:include="festivalHeader :: festivalHeader"></nav>
 </header>
 <section layout:fragment="content">
 </section>
@@ -19,11 +19,11 @@
 
 <p style="color: black" th:text="${tickets.festivalName}"></p>
 <p th:text="'Preis derCamping-Ticket  : ' + ${tickets.campingTicketPrice}"></p>
-<p th:text="'Anzahl der Camping-Ticket : ' + ${tickets.campingTicketsCount}"></p>
+<p th:text="'Anzahl der Camping-Ticket : ' + ${'€'+tickets.campingTicketsCount}"></p>
 
 
 <p th:text="'Anzahl der Tagesticket: ' + ${tickets.dayTicketsCount}"></p>
-<p th:text="'Preis der Tagesticket : ' + ${tickets.dayTicketPrice}"></p>
+<p th:text="'Preis der Tagesticket : ' + ${'€'+tickets.dayTicketPrice}"></p>
 
 
 </body>

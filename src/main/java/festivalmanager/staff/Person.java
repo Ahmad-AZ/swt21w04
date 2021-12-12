@@ -1,5 +1,6 @@
 package festivalmanager.staff;
 
+import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.UserAccount;
 
 import javax.persistence.*;
@@ -15,14 +16,14 @@ public class Person {
 
 	private String role;
 
-	private double salary;
+	private Money salary;
 
 	@OneToOne
 	private UserAccount userAccount;
 
 	public Person() {}
 
-	public Person(long festivalId, String name, String role, double salary, UserAccount userAccount) {
+	public Person(long festivalId, String name, String role, Money salary, UserAccount userAccount) {
 		this.festivalId = festivalId;
 		this.name = name;
 		this.role = role;
@@ -50,7 +51,7 @@ public class Person {
 		this.role = role;
 	}
 
-	public Double getSalary() {
+	public Money getSalary() {
 		return salary;
 	}
 	public UserAccount getUserAccount() {

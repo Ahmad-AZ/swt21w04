@@ -28,6 +28,11 @@ public class HiringController {
 		this.currentFestival = null;
 	}
 
+	@ModelAttribute("title")
+	public String getTitle() {
+		return "Künstler";
+	}
+
 	@GetMapping("/artists")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String artists(Model model) {

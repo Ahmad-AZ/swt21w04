@@ -1,6 +1,7 @@
 package festivalmanager.staff;
 
 import festivalmanager.staff.forms.*;
+import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
@@ -13,6 +14,8 @@ import org.springframework.util.Assert;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static org.salespointframework.core.Currencies.EURO;
 
 @Service
 @Transactional
@@ -46,7 +49,7 @@ public class StaffManagement {
 			var password = Password.UnencryptedPassword.of(form.getPassword());
 			var userAccount = userAccountManagement.create(form.getName(), password, Role.of(form.getRole()));
 
-			return staff.save(new Person(festivalId, form.getName(), form.getRole(), form.getSalary(), userAccount));
+			return staff.save(new Person(festivalId, form.getName(), form.getRole(), Money.of(form.getSalary(), EURO), userAccount));
 		} else {
 			return null;
 		}
@@ -101,5 +104,15 @@ public class StaffManagement {
 
 	public Optional<Person> findByUserAccount(UserAccount account) {
 		return staff.findByUserAccount(account);
+	}
+
+	public long getAvailableSecurityCount(long festivalId) {
+		long availableSecurity = 0;
+		for (Person person : findByFestivalId(festivalId)) {
+			if (person.getRole().equals("SECURITY")) {
+				availableSecurity++;
+			}
+		}
+		return availableSecurity;
 	}
 }

@@ -2,13 +2,23 @@ package festivalmanager.finances;
 
 import festivalmanager.Equipment.Equipment;
 import festivalmanager.Equipment.EquipmentManagement;
+import festivalmanager.Equipment.Stage;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.hiring.Artist;
+import festivalmanager.staff.Person;
+import festivalmanager.staff.StaffManagement;
 import festivalmanager.utils.UtilsManagement;
 import org.javamoney.moneta.Money;
+import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 import static org.salespointframework.core.Currencies.EURO;
 
@@ -25,15 +35,18 @@ public class FinancesManagement {
 	EquipmentManagement equipmentManagement;
 	FestivalManagement festivalManagement;
 	UtilsManagement utilsManagement;
+	StaffManagement staffManagement;
 
 
 	FinancesManagement(FestivalManagement festivalManagement,
 					   UtilsManagement utilsManagement,
-					   EquipmentManagement equipmentManagement) {
+					   EquipmentManagement equipmentManagement,
+					   StaffManagement staffManagement) {
 
 		this.equipmentManagement = equipmentManagement;
 		this.festivalManagement = festivalManagement;
 		this.utilsManagement = utilsManagement;
+		this.staffManagement = staffManagement;
 
 		currentFestival = null;
 		durationDays = 0;
@@ -57,7 +70,7 @@ public class FinancesManagement {
 			locationCost = locationPricePerDay.multiply(durationDays);
 		}
 
-		totalCost.add(locationCost);
+		totalCost = totalCost.add(locationCost);
 		return locationCost;
 	}
 
@@ -72,7 +85,7 @@ public class FinancesManagement {
 			}
 		}
 
-		totalCost.add(artistsCost);
+		totalCost = totalCost.add(artistsCost);
 		return artistsCost;
 	}
 
@@ -89,7 +102,11 @@ public class FinancesManagement {
 			equipmentCost = equipmentCost.add(equipmentCostSingle.multiply(amount));
 		}
 
-		totalCost.add(equipmentCost);
+		for (Stage stage : currentFestival.getStages()) {
+			equipmentCost = equipmentCost.add(stage.getRentalPerDay().multiply(durationDays));
+		}
+
+		totalCost = totalCost.add(equipmentCost);
 		return equipmentCost;
 	}
 
@@ -97,8 +114,23 @@ public class FinancesManagement {
 	public Money getStaffCost() {
 
 		Money staffCost = Money.of(0, EURO);
+		List<Person> staffList = new ArrayList<>();
+		// Roles for which the salary is paid on a per-festival basis
+		List<String> toBePaid = Arrays.asList("SECURITY", "CATERING", "FESTIVAL_LEADER", "ADMISSION");
 
-		totalCost.add(staffCost);
+		Streamable<Person> staffMembers = staffManagement.findByFestivalId(currentFestival.getId());
+		staffMembers.forEach(staffList::add);
+
+		for (Person staffMember: staffMembers) {
+
+			if (toBePaid.contains(staffMember.getRole())) {
+				Money salary = staffMember.getSalary();
+				// Staff members work 8 hours a day
+				staffCost = staffCost.add(salary.multiply(8).multiply(durationDays));
+			}
+		}
+
+		totalCost = totalCost.add(staffCost);
 		return staffCost;
 	}
 

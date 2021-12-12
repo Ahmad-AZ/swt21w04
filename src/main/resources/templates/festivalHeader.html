@@ -7,7 +7,7 @@
     <body>
         <div th:fragment="festivalHeader">
             <div class="header">
-                <div class="menu">
+                <div class="menu border-top">
                 	<a th:class="${'item ' + 'border-right ' + festivalDetailCurrent}"
                        th:href="@{/festivalOverview/{id}(id=${festivalId})}"
                        th:text="${festivalName}">Festivaldetails</a>
@@ -37,18 +37,37 @@
 
 
 
-                    <a th:class="${'item ' + 'border-right ' + ticketShopCurrent}"
+                    <a th:class="${'item ' + 'border-right ' + ticketsCurrent}"
                        th:href="@{/tickets}"
-                       sec:authorize="isAuthenticated()">Ticket Shop</a>
+                       sec:authorize="hasRole('PLANNER')||hasRole('ADMIN')">Tickets</a>
 
 
-					<a th:class="${'item ' + 'border-right ' + programCurrent}"
-                       th:href="@{/schedule}">Spielplan</a>
+
+
+                    <a th:class="${'item ' + 'border-right ' + ticketShopCurrent}"
+                       th:href="@{/ticketShop}"
+                       sec:authorize="hasRole('TICKET_SELLER')||hasRole('ADMIN')">Ticket Shop</a>
+
+
+
+
+
+
+
+
+
+
 
 
                     <a th:class="${'item ' + 'border-right ' + programCurrent}"
+                       th:href="@{/schedule}">Spielplan</a>
+
+
+                    <!--
+                    <a th:class="${'item ' + 'border-right ' + programCurrent}"
                        th:href="@{/schedule}"
                        sec:authorize="hasRole('PLANNER') || hasRole('ADMIN') || hasRole('MANAGER')">Programm</a>
+                    -->
 
 
 					<a th:class="${'item ' + 'border-right ' + mapCurrent}"
