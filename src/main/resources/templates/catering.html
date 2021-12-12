@@ -11,7 +11,27 @@
 			<div th:include="festivalHeader :: festivalHeader"></div>
 		</header>
         <section layout:fragment="content">
-            
+            <form>
+				<fieldset name="productid">
+					<legend>Catering Produkte</legend>
+					<table>
+						<tr><th>Produkt</th><th>Preis</th></tr>
+						<tr th:each="product : ${productcatalog}">
+							<td>
+								<input type="radio"					
+								th:value="${product.getId()}"
+								th:utext="${product.getName()}">
+							</td>
+							<td th:text="${product.getPrice()}"></td>
+						</tr>
+						<tr>
+							<td><input type="number" step="1" value="1" name="productcount"></td>
+							<td><button type="submit">hinzuf&uuml;gen</button></td>
+						</tr>
+					</table>
+				</fieldset>
+				
+			</form>
         </section>
     </body>
     
