@@ -40,7 +40,7 @@
 				                <input id="name" name="name" required="required"></input>
 				            </div>
 				            <input name="equipmentsId" type="hidden" th:value="${equipmentStage.id}" required="required"/>
-							<p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p> 
+							<p th:text="${message}" th:if="${message ne null}" class="ui-negative-message"></p> 
 				            <input type ="submit" th:value="Mieten"><br>
 				        </form>	
 				        </br>

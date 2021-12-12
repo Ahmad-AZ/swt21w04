@@ -8,17 +8,16 @@ import festivalmanager.festival.FestivalManagement;
 import festivalmanager.hiring.Artist;
 import festivalmanager.staff.Person;
 import festivalmanager.staff.StaffManagement;
+import festivalmanager.ticketShop.Ticket;
+import festivalmanager.ticketShop.TicketManagement;
 import festivalmanager.utils.UtilsManagement;
 import org.javamoney.moneta.Money;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static org.salespointframework.core.Currencies.EURO;
 
@@ -29,6 +28,8 @@ public class FinancesManagement {
 
 
 	Festival currentFestival;
+	Ticket ticketInformation;
+	Money totalRevenue;
 	Money totalCost;
 	long durationDays;
 
@@ -36,26 +37,33 @@ public class FinancesManagement {
 	FestivalManagement festivalManagement;
 	UtilsManagement utilsManagement;
 	StaffManagement staffManagement;
+	TicketManagement ticketManagement;
 
 
 	FinancesManagement(FestivalManagement festivalManagement,
 					   UtilsManagement utilsManagement,
 					   EquipmentManagement equipmentManagement,
-					   StaffManagement staffManagement) {
+					   StaffManagement staffManagement,
+					   TicketManagement ticketManagement) {
 
 		this.equipmentManagement = equipmentManagement;
 		this.festivalManagement = festivalManagement;
 		this.utilsManagement = utilsManagement;
 		this.staffManagement = staffManagement;
+		this.ticketManagement = ticketManagement;
 
 		currentFestival = null;
+		ticketInformation = null;
+
 		durationDays = 0;
+		totalRevenue = Money.of(0, EURO);
 		totalCost = Money.of(0, EURO);
 	}
 
 
 	public void updateFestival() {
 		currentFestival = festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
+		ticketInformation = ticketManagement.TicketsByFestival(currentFestival.getId());
 		durationDays = currentFestival.getEndDate().toEpochDay() - currentFestival.getStartDate().toEpochDay() + 1;
 		totalCost = Money.of(0, EURO);
 	}
@@ -114,12 +122,9 @@ public class FinancesManagement {
 	public Money getStaffCost() {
 
 		Money staffCost = Money.of(0, EURO);
-		List<Person> staffList = new ArrayList<>();
+		Streamable<Person> staffMembers = staffManagement.findByFestivalId(currentFestival.getId());
 		// Roles for which the salary is paid on a per-festival basis
 		List<String> toBePaid = Arrays.asList("SECURITY", "CATERING", "FESTIVAL_LEADER", "ADMISSION");
-
-		Streamable<Person> staffMembers = staffManagement.findByFestivalId(currentFestival.getId());
-		staffMembers.forEach(staffList::add);
 
 		for (Person staffMember: staffMembers) {
 
@@ -135,8 +140,58 @@ public class FinancesManagement {
 	}
 
 
-	public Money getRevenue(Money priceCampingTickets, Money priceOneDayTickets,
-							long nCampingTickets, long nOneDayTickets) {
+	public Money getTicketsRevenue() {
+
+		Money ticketsRevenue = Money.of(0, EURO);
+
+		ticketsRevenue = ticketsRevenue.add(getPriceCampingTickets().multiply(getNCampingTickets()));
+		ticketsRevenue = ticketsRevenue.add(getPriceOneDayTickets().multiply(getNOneDayTickets()));
+		totalRevenue = totalRevenue.add(ticketsRevenue);
+		return ticketsRevenue;
+	}
+
+
+	public Money getCateringRevenue() {
+
+		Money cateringRevenue = Money.of(1000, EURO);
+
+		totalRevenue = totalRevenue.add(cateringRevenue);
+		return cateringRevenue;
+	}
+
+
+	public Money getPriceCampingTickets() {
+
+		Money priceCampingTickets = Money.of(ticketInformation.getCampingTicketPrice(), EURO);
+		return priceCampingTickets;
+	}
+
+
+	public Money getPriceOneDayTickets() {
+
+		Money priceOneDayTickets = Money.of(ticketInformation.getDayTicketPrice(), EURO);
+		return priceOneDayTickets;
+	}
+
+
+	public long getNCampingTickets() {
+
+		long nCampingTickets = 123;
+		return nCampingTickets;
+	}
+
+
+	public long getNOneDayTickets() {
+
+		long nOneDayTickets = 123;
+		return nOneDayTickets;
+	}
+
+
+	public Money getRevenueExpected(Money priceCampingTickets,
+									Money priceOneDayTickets,
+									long nCampingTickets,
+									long nOneDayTickets) {
 
 		Money revenue = Money.of(0, EURO);
 		revenue = revenue.add(priceCampingTickets.multiply(nCampingTickets));
@@ -145,13 +200,18 @@ public class FinancesManagement {
 	}
 
 
-	public Money getProfit(Money revenue) {
-		return revenue.subtract(totalCost);
+	public Money getTotalRevenue() {
+		return totalRevenue;
 	}
 
 
 	public Money getTotalCost() {
 		return totalCost;
+	}
+
+
+	public Money getProfit(Money revenue, Money cost) {
+		return revenue.subtract(cost);
 	}
 
 }

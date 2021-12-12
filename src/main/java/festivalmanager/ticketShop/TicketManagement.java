@@ -3,18 +3,13 @@ package festivalmanager.ticketShop;
 
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
-import festivalmanager.festival.FestivalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.devtools.classpath.ClassPathRestartStrategy;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
 import javax.validation.constraints.NotNull;
-import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 
 @Service
@@ -22,9 +17,7 @@ public class TicketManagement {
 
 	@Autowired
 	private TicketRepository ticketRepo;
-
 	private FestivalManagement festival;
-
 	private Festival currentFestival;
 	private Ticket currentTicket;
 
@@ -35,12 +28,15 @@ public class TicketManagement {
 	}
 
 	public Ticket save(@NonNull Ticket ticket) {
-
 		return ticketRepo.save(ticket);
 	}
-	public Ticket update(Ticket ticket){
 
+	public Ticket update(Ticket ticket){
 		return  ticketRepo.save(ticket);
+	}
+
+	public Ticket getCurrentTicket(){
+		return this.currentTicket;
 	}
 
 	public Ticket TicketsByFestival(long festivalId) {
@@ -60,17 +56,10 @@ public class TicketManagement {
 	}
 
 
-	public Festival findFestivalById(long id) {
-
-		return festival.findById(id).get();
-	}
-
-
-
 	// TODO: 12/11/2021 save exceptions
 
-	public boolean checkTickets(Ticket ticket) {
 
+	public boolean checkTickets(Ticket ticket) {
 
 		Ticket nTicket = ticketRepo.findAllByFestivalId(currentFestival.getId());
 
@@ -114,6 +103,7 @@ public class TicketManagement {
 		}
 	 return false;
 	}
+
 
 	public Ticket buyTickets() {
 
