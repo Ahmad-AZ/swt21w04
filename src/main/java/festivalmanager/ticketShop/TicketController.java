@@ -111,7 +111,7 @@ public class TicketController {
 		else {
 			utilsManagement.prepareModel(model);
 			model.addAttribute("ticketsUnavailable", "true");
-			return "TicketShopUnavailable";
+			return "ticketShopUnavailable";
 		}
 
 		utilsManagement.prepareModel(model);
@@ -130,7 +130,7 @@ public class TicketController {
 
 		if (ticket == null) {
 			model.addAttribute("ticketsNotCreated", "true");
-			return "TicketShopUnavailable";
+			return "ticketShopUnavailable";
 		}
 
 		model.addAttribute("tickets",ticket);
