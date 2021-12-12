@@ -9,24 +9,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 @Controller
-
 public class TicketController {
 
 
 	private final TicketManagement ticketManagement;
 	private Festival currentFestival;
-
 	private final FestivalManagement festivalManagement;
 	private UtilsManagement utilsManagement;
 
 
-	public TicketController(TicketManagement ticketManagement,
-							UtilsManagement utilsManagement,
-							FestivalManagement festivalManagement) {
+	public TicketController(TicketManagement ticketManagement, UtilsManagement utilsManagement, FestivalManagement festivalManagement) {
 		this.ticketManagement = ticketManagement;
 		this.festivalManagement = festivalManagement;
 		this.utilsManagement= utilsManagement;
@@ -42,16 +38,21 @@ public class TicketController {
 	@GetMapping("/tickets")
 	public String showTicketInfo(Model model) {
 
-		this.currentFestival =festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
 
+		if (Objects.isNull(ticketManagement.getCurrentTicket())) {
 
-		model.addAttribute("ticket", new Ticket());
-		model.addAttribute("festival", this.currentFestival);
+			this.currentFestival =festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
+			model.addAttribute("ticket", new Ticket());
+			model.addAttribute("festival", this.currentFestival);
 
-		utilsManagement.setCurrentPageLowerHeader("tickets");
+			utilsManagement.setCurrentPageLowerHeader("tickets");
 
-		utilsManagement.prepareModel(model);
-		return "ticketFrom";
+			utilsManagement.prepareModel(model);
+			return "ticketFrom";
+		}
+
+		model.addAttribute("tickets", ticketManagement.getCurrentTicket());
+		return "ticketResult";
 	}
 
 
@@ -63,9 +64,14 @@ public class TicketController {
 			return "ticketFrom";
 		}
 
-		ticketManagement.setFestival(currentFestival);
+
 		ticket.setFestivalName(currentFestival.getName());
 		ticket.setFestivalId(currentFestival.getId());
+
+
+		ticketManagement.setCurrentTicket(ticket);
+		ticketManagement.setFestival(currentFestival);
+
 		model.addAttribute("tickets", ticketManagement.save(ticket));
 
 		return "ticketResult";
@@ -117,21 +123,20 @@ public class TicketController {
 
 
 
-
+	@PreAuthorize("hasRole('PLANNER')||hasRole('ADMIN')")
 	@PostMapping("tickets/edit")
 	public String update(@NotNull @ModelAttribute Ticket ticket , Model model, Errors result){
+
 		if (result.hasErrors()) {
 
-			return  "ticketShop";
+			return "ticketResult" ;
 		}
 
-
 		ticketManagement.setCurrentTicket(ticket);
-
 		ticketManagement.save(ticket);
 
 		model.addAttribute("tickets", ticket);
-		return "ticketShop";
+		return "ticketResult";
 
 	}
 
