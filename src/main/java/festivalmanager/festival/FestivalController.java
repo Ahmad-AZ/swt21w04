@@ -46,6 +46,11 @@ public class FestivalController {
 		this.currentId = 0;
 		
 	}
+
+	@ModelAttribute("title")
+	public String getTitle() {
+		return "Festivalübersicht";
+	}
 	
 	@GetMapping("/festivalOverview/{festivalId}")
 	public String festivalDetail(@PathVariable Long festivalId, Model model) {

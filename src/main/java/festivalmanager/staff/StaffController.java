@@ -4,11 +4,14 @@ import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.staff.forms.*;
 import festivalmanager.utils.UtilsManagement;
+import org.salespointframework.useraccount.UserAccount;
+import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -27,6 +30,11 @@ public class StaffController {
 		this.staffManagement = staffManagement;
 		this.festivalManagement = festivalManagement;
 		this.utilsManagement = utilsManagement;
+	}
+
+	@ModelAttribute("title")
+	public String getTitle() {
+		return "Personal";
 	}
 
 	@GetMapping("/staff/{festivalId}")

@@ -43,6 +43,11 @@ class FinancesController {
 		resetAttributes();
 	}
 
+	@ModelAttribute("title")
+	public String getTitle() {
+		return "Finanzübersicht";
+	}
+
 
 	private void resetAttributes() {
 		nCampingTicketsExpected = 0;

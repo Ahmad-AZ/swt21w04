@@ -7,7 +7,7 @@
     <body>
         <div th:fragment="festivalHeader">
             <div class="header">
-                <div class="menu">
+                <div class="menu border-top">
                 	<a th:class="${'item ' + 'border-right ' + festivalDetailCurrent}"
                        th:href="@{/festivalOverview/{id}(id=${festivalId})}"
                        th:text="${festivalName}">Festivaldetails</a>

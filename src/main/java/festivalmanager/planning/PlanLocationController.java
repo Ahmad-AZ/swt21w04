@@ -43,7 +43,12 @@ public class PlanLocationController {
 		this.currentFestivalId = 0;
 		
 	}
-	
+
+	@ModelAttribute("title")
+	public String getTitle() {
+		return "Location-Auswahl";
+	}
+
 	// shows Locations Overview
 	@GetMapping("/locationOverview/{festivalId}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")

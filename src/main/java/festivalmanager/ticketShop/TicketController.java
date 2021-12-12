@@ -30,6 +30,10 @@ public class TicketController {
 		this.currentFestival = null;
 	}
 
+	@ModelAttribute("title")
+	public String getTitle() {
+		return "Ticketshop";
+	}
 
 	// TODO: @PreAuthorize("hasRole('PLANNER')")
 	@GetMapping("/tickets")

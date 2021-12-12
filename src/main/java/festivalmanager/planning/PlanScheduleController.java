@@ -38,7 +38,11 @@ public class PlanScheduleController {
 		this.festivalManagement = festivalManagement;
 		this.utilsManagement = utilsManagement;
 	}
-	
+
+	@ModelAttribute("title")
+	public String getTitle() {
+		return "Programm";
+	}
 	
 
 	@GetMapping("/schedule")  
