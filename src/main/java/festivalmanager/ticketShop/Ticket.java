@@ -1,13 +1,5 @@
 package festivalmanager.ticketShop;
-
-
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
-
-import java.time.LocalDate;
-import java.util.Date;
 
 
 @Entity
@@ -25,7 +17,6 @@ public class Ticket {
 	@Column
 	private int DayTicketsCount;
 
-
 	@Column
 	private int CampingTicketsCount;
 	@Column
@@ -36,6 +27,11 @@ public class Ticket {
 	@Column
 	private float CampingTicketPrice;
 
+	@Column
+	private int soldCampingTicket;
+	@Column
+	private int soldDayTicket;
+
 
 	public Ticket() {
 	}
@@ -43,14 +39,32 @@ public class Ticket {
 	public Ticket(long festivalId,String festivalName,  int dayTicketsCount, int campingTicketsCount, TicketType ticketType, float dayTicketPrice, float campingTicketPrice) {
 		this.festivalId= festivalId;
 		this.festivalName=festivalName;
-		DayTicketsCount = dayTicketsCount;
-		CampingTicketsCount = campingTicketsCount;
+		this.DayTicketsCount = dayTicketsCount;
+		this.CampingTicketsCount = campingTicketsCount;
 		this.ticketType = ticketType;
-		DayTicketPrice = dayTicketPrice;
-		CampingTicketPrice = campingTicketPrice;
+		this.DayTicketPrice = dayTicketPrice;
+		this.CampingTicketPrice = campingTicketPrice;
+		this.soldDayTicket=0;
+		this.soldCampingTicket=0;
+
 	}
 
 
+	public long getFestivalId() {
+		return festivalId;
+	}
+
+	public void setFestivalId(long festivalId) {
+		this.festivalId = festivalId;
+	}
+
+	public String getFestivalName() {
+		return festivalName;
+	}
+
+	public void setFestivalName(String festivalName) {
+		this.festivalName = festivalName;
+	}
 
 	public int getDayTicketsCount() {
 		return DayTicketsCount;
@@ -92,21 +106,28 @@ public class Ticket {
 		CampingTicketPrice = campingTicketPrice;
 	}
 
-	public long getFestivalId() {
-		return festivalId;
+	public int getSoldCampingTicket() {
+		return soldCampingTicket;
 	}
 
-	public void setFestivalId(long festivalId) {
-		this.festivalId = festivalId;
+	public void setSoldCampingTicket(int soldCampingTicket) {
+		this.soldCampingTicket += soldCampingTicket ;
 	}
 
-	public String getFestivalName() {
-		return festivalName;
+	public int getSoldDayTicket() {
+		return soldDayTicket;
 	}
 
-	public void setFestivalName(String festivalName) {
-		this.festivalName = festivalName;
+	public void setSoldDayTicket(int soldDayTicket) {
+		this.soldDayTicket += soldDayTicket;
 	}
 
 
+	@Override
+	public String toString() {
+		return "camping ticket count "+getCampingTicketsCount()+
+				" sold camping ticket  "+getSoldCampingTicket()+
+				" day ticket count "+getDayTicketsCount()+
+				" sold day ticket "+getSoldDayTicket();
+	}
 }
