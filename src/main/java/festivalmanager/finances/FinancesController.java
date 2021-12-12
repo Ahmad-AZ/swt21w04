@@ -68,14 +68,14 @@ class FinancesController {
 		}
 
 		this.currentFestivalId = utilsManagement.getCurrentFestivalId();
-		this.financesManagement.updateFestival(currentFestivalId);
+		this.financesManagement.updateFestival();
 		this.currentFestival = festivalManagement.findById(currentFestivalId).get();
 
 		Money artistsCost = financesManagement.getArtistsCost();
 		Money locationCost = financesManagement.getLocationCost();
 		Money cost = financesManagement.getCost();
-		Money revenue = financesManagement.getRevenue(currentFestival,
-				priceCampingTickets, priceOneDayTickets, nCampingTickets, nOneDayTickets);
+		Money revenue = financesManagement.getRevenue(priceCampingTickets, priceOneDayTickets,
+				                                      nCampingTickets, nOneDayTickets);
 		Money profit = financesManagement.getProfit(cost, revenue);
 
 		String artistsCostStr = String.format("%.2f", artistsCost.getNumber().doubleValue());
@@ -113,11 +113,10 @@ class FinancesController {
 		if (nCampingTickets < 0 || nOneDayTickets < 0)
 			return financesPage(model);
 
-		try {
-			if (nCampingTickets + nOneDayTickets > currentFestival.getLocation().getVisitorCapacity())
-				return financesPage(model);
+		if (currentFestival != null && currentFestival.getLocation() != null &&
+				nCampingTickets + nOneDayTickets > currentFestival.getLocation().getVisitorCapacity()) {
+			return financesPage(model);
 		}
-		catch (NullPointerException e) {}
 
 		this.nCampingTickets = nCampingTickets;
 		this.nOneDayTickets = nOneDayTickets;

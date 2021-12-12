@@ -52,8 +52,7 @@ class FinancesTests {
 		UtilsManagement utilsManagement = new UtilsManagement(festivalManagement);
 		utilsManagement.setCurrentFestivalId(testFestival.getId());
 
-		FinancesManagement financesManagement = new FinancesManagement(festivalManagement);
-		financesManagement.updateFestival(testFestival.getId());
+		FinancesManagement financesManagement = new FinancesManagement(festivalManagement, utilsManagement);
 		FinancesController financesController = new FinancesController(
 				financesManagement,
 				festivalManagement,

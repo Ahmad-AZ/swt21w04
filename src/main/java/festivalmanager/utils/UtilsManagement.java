@@ -73,6 +73,9 @@ public class UtilsManagement {
 
 	public void prepareModel(Model model) {
 
+		// Update currentFestival
+		setCurrentFestivalId(getCurrentFestivalId());
+
 		if (currentPageUpperHeader != null) {
 
 			if (pagesUpperHeader.contains(currentPageUpperHeader)) {

@@ -92,6 +92,7 @@ public class FestivalController {
 		}
 
 		utilsManagement.setCurrentPageLowerHeader("map");
+		utilsManagement.prepareModel(model);
 		return "/mapVisitorView";
 	}
 	
