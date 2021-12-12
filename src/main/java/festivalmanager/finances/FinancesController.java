@@ -72,9 +72,9 @@ class FinancesController {
 		addAttribute(model, "totalCost", financesManagement.getTotalCost());
 
 		// Revenue from Catering and Ticket sales
-		Money revenueTotal = Money.of(0, EURO);
-		addAttribute(model, "revenueTotal", revenueTotal);
-		addAttribute(model,"profit", revenueTotal.subtract(financesManagement.getTotalCost()));
+		Money totalRevenue = Money.of(0, EURO);
+		addAttribute(model, "totalRevenue", totalRevenue);
+		addAttribute(model,"profit", totalRevenue.subtract(financesManagement.getTotalCost()));
 
 		Money revenueExpected = financesManagement.getRevenue(
 				priceCampingTicketsExpected,
