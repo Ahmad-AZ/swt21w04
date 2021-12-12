@@ -52,6 +52,7 @@ public class TicketController {
 		}
 
 		model.addAttribute("tickets", ticketManagement.getCurrentTicket());
+		utilsManagement.setCurrentPageLowerHeader("tickets");
 		utilsManagement.prepareModel(model);
 		return "ticketResult";
 	}
@@ -74,7 +75,7 @@ public class TicketController {
 		ticketManagement.setFestival(currentFestival);
 
 		model.addAttribute("tickets", ticketManagement.save(ticket));
-
+		utilsManagement.prepareModel(model);
 		return "ticketResult";
 	}
 
@@ -105,6 +106,7 @@ public class TicketController {
 
 		}
 
+		utilsManagement.prepareModel(model);
 		return "ticketPrint";
 	}
 
@@ -137,6 +139,7 @@ public class TicketController {
 		ticketManagement.save(ticket);
 
 		model.addAttribute("tickets", ticket);
+		utilsManagement.prepareModel(model);
 		return "ticketResult";
 
 	}
