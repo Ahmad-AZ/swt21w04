@@ -1,6 +1,7 @@
 package festivalmanager.catering;
 
 import org.salespointframework.order.Cart;
+import org.salespointframework.order.CartItem;
 import org.salespointframework.quantity.Quantity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -74,6 +75,19 @@ public class CateringController {
 		return "redirect:/catering";
 	}
 
+	@PostMapping("/catering/checkout")
+	String checkout(Model model, @ModelAttribute Cart cart) {
+
+		for (CartItem item: cart) {
+			CateringSalesItem salesItem = new CateringSalesItem(
+					(CateringProduct) item.getProduct(), item.getQuantity(), currentFestival.getId(), 0);
+			sales.save(salesItem);
+		}
+
+		cart.clear();
+		return "redirect:/catering";
+	}
+
 	class AddToCartFormResult {
 		ProductIdentifier productId;
 		long productCount;
@@ -82,6 +96,14 @@ public class CateringController {
 			this.productId = productId;
 			this.productCount = productCount;
 		}
+	}
+
+	public CateringSales getCateringSales() {
+		return sales;
+	}
+
+	public CateringStock getCateringStock() {
+		return stock;
 	}
 
 }

@@ -16,6 +16,12 @@ public class CateringSalesItem extends MultiInventoryItem {
     // private Cart cart = new Cart();
     static FestivalManagement festivalManagement;
 
+	public CateringSalesItem() {
+
+		this.festivalId = 0;
+		this.cateringStandId = 0;
+	}
+
     public CateringSalesItem(CateringProduct product, Quantity quantity, long festivalId, long cateringStandId) {
         super(product, quantity);
         this.festivalId = festivalId;
