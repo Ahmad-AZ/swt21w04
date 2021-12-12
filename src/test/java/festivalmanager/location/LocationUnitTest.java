@@ -32,8 +32,8 @@ public class LocationUnitTest {
 		location.addBooking(LocalDate.of(2021, 12, 24), LocalDate.of(2021, 12, 30));
 		assertThat(location.addBooking(LocalDate.of(2021, 12, 21), LocalDate.of(2021, 12, 24))).isFalse();
 		assertThat(location.addBooking(LocalDate.of(2021, 12, 24), LocalDate.of(2021, 12, 30))).isFalse();
-		assertThat(location.addBooking(LocalDate.of(2021, 12, 30), LocalDate.of(2021, 01, 31))).isFalse();
+		assertThat(location.addBooking(LocalDate.of(2021, 12, 30), LocalDate.of(2022, 01, 31))).isFalse();
 		assertThat(location.addBooking(LocalDate.of(2021, 12, 26), LocalDate.of(2021, 12, 28))).isFalse();
-		assertThat(location.addBooking(LocalDate.of(2021, 12, 21), LocalDate.of(2021, 01, 31))).isFalse();		
+		assertThat(location.addBooking(LocalDate.of(2021, 12, 21), LocalDate.of(2022, 01, 31))).isFalse();		
 	}
 }

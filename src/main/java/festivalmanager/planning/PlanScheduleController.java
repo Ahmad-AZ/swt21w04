@@ -41,34 +41,6 @@ public class PlanScheduleController {
 	
 	
 
-	@GetMapping("/scheduleVisitorView/{festivalId}")
-	public String getScheduleVisitorView(@PathVariable("festivalId") long festivalId, Model model) {
-		
-		Optional<Festival> festival = festivalManagement.findById(festivalId);
-		if (festival.isPresent()) {
-			Festival current = festival.get();
-			currentFestival = current;
-
-			
-			model.addAttribute("dayList", current.getFestivalInterval());
-			model.addAttribute("stageList", current.getStages());
-			
-			List<TimeSlot> tsl =  new ArrayList<>();
-			tsl.add(TimeSlot.TS1);
-			tsl.add(TimeSlot.TS2);
-			tsl.add(TimeSlot.TS3);
-			tsl.add(TimeSlot.TS4);
-			tsl.add(TimeSlot.TS5);
-			
-			model.addAttribute("timeSlotList",tsl);
-			utilsManagement.setCurrentPageLowerHeader("schedule");
-			utilsManagement.prepareModel(model);
-		}
-		return "/scheduleVisitorView";
-
-	}
-	
-		
 	@GetMapping("/schedule")  
 	public String schedule(Model model) {
 			this.currentFestivalId = utilsManagement.getCurrentFestivalId();
@@ -89,7 +61,9 @@ public class PlanScheduleController {
 			tsl.add(TimeSlot.TS5);
 			
 			model.addAttribute("timeSlotList",tsl);
-
+			model.addAttribute("festival", current);
+			utilsManagement.setCurrentFestivalId(currentFestival.getId());
+			utilsManagement.setCurrentFestivalId(currentFestival.getId());
 			utilsManagement.setCurrentPageLowerHeader("program");
 			utilsManagement.prepareModel(model);
 			return "/schedule";

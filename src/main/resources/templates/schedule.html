@@ -2,47 +2,45 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout.html(title=Programm)}">
+      layout:decorate="~{layout.html(title=Spielplan)}">
       
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
-	<title>Programm</title>
+	<title>Spielplan</title>
 </head>
 <body>
 	<header>
 		<nav th:include="header :: header"></nav>
-		<h1>Programm</h1>
+		<h1>Spielplan</h1>
 		<div th:include="festivalHeader :: festivalHeader"></div>
 	</header>
-	<section layout:fragment="content">
-	 <div class="schedule-list" >
-            <div class="schedules-day" th:each="day : ${dayList}">
-           		<div class="text" th:text="${day}">Tag 1</div>
-		        <table class="ui celled table" >
-		            <thead >
-		            	<th> Bühnenname</th>
-		            	<th> 10:00 - 12:00</th> 
-		            	<th> 13:00 - 15:00</th>
-		            	<th> 16:00 - 18:00</th>
-		            	<th> 19:00 - 21:00</th>
-		            	<th> 22:00 - 24:00</th>
-		            </thead>
-		            <tbody th:remove="all-but-first" th:each="stage : ${stageList}">   
-		            	<tr>
-		            		<td> <div class="text" th:text="${stage.name}"/></td> 
-		                    <td th:each="timeSlot : ${timeSlotList}">
-		                    	<div th:text="${festival.getScheduleShowName(timeSlot, stage, day)}">Keine</div>
-		                    	<a sec:authorize="hasRole('USER_MANAGEMENT') || hasRole('ADMIN')" th:href="@{/schedule/{day}/{stageId}/{timeSlot} (day = ${day}, stageId = ${stage.id}, timeSlot = ${timeSlot})}">Setzen</a>
-		                    </td>
-		            	</tr>
-		           </tbody>
-		            
-				</table>
-				</br>
-	        </div>
-
+	</br>
+    <div th:each="day : ${dayList}">
+   		<div class="day" th:text="${#temporals.format(day, 'dd.MM.yyyy')}">Tag 1</div>
+        <table class="program-table" >
+            <thead >
+            	<th> Bühnenname</th>
+            	<th> 10:00 - 12:00</th> 
+            	<th> 13:00 - 15:00</th>
+            	<th> 16:00 - 18:00</th>
+            	<th> 19:00 - 21:00</th>
+            	<th> 22:00 - 24:00</th>
+            </thead>
+            <tbody th:remove="all-but-first" th:each="stage : ${stageList}">   
+            	<tr>
+            		<td > <div class="text" th:text="${stage.name}"/></td> 
+                    <td th:each="timeSlot : ${timeSlotList}">
+                    	<div th:text="${festival.getScheduleShowName(timeSlot, stage, day)}">Keine</div>
+                    	<a sec:authorize="hasRole('MANAGER') || hasRole('ADMIN') || hasRole('PLANNER')" th:href="@{/schedule/{day}/{stageId}/{timeSlot} (day = ${day}, stageId = ${stage.id}, timeSlot = ${timeSlot})}">Setzen</a>
+                    </td>
+            	</tr>
+           </tbody>
+            
+		</table>
+		</br>
     </div>
+
   	<div class="overlay" th:if="${dialog} == 'choose show'">
         <form class="form" th:action="@{/schedule/{day}/{stageId}/{timeSlot}/chooseShow (day = ${day}, stageId = ${stageId}, timeSlot = ${timeSlot})}" method="post">
             <h2 class="form-title">Show wählen:</h2>
@@ -59,9 +57,5 @@
             </div>
         </form>
     </div>
-        
-		
-		
-    </section>
 </body>
 </html>
