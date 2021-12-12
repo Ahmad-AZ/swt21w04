@@ -40,7 +40,9 @@
 								<table>
 									<tr th:each="item : ${cart} ">
 										<td th:text="${item.productName}">Cola</td>
+										<td></td>
 										<td th:text="${item.quantity}">1</td>
+										<td></td>
 										<td th:text="${{item.price}}">1 &euro;</td>
 									</tr>
 								</table>

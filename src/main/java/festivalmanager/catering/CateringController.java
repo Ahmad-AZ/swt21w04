@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import java.util.Optional;
+
 /**
  * @author Robert Menzel
  */
@@ -60,10 +62,16 @@ public class CateringController {
 	}
 
 	@PostMapping("/catering/addToCart")
-	String addToCart(Model model, AddToCartFormResult formResult) {
+	String addToCart(Model model, AddToCartFormResult formResult, @ModelAttribute Cart cart) {
 		System.out.println(formResult.productId);
 		System.out.println(formResult.productCount);
-		return "/catering";
+
+		Optional<CateringProduct> oProduct = catalog.findById(formResult.productId);
+		if (oProduct.isPresent()) {
+			CateringProduct product = oProduct.get();
+			cart.addOrUpdateItem(product, Quantity.of(formResult.productCount));
+		}
+		return "redirect:/catering";
 	}
 
 	class AddToCartFormResult {
@@ -76,11 +84,4 @@ public class CateringController {
 		}
 	}
 
-	//Daraus PostMapping methode bauen
-	/*
-	String addItem (Model mode, Hier ReqeustParam für item übergeben, Hier ReqeustParam für amount übergeben, @ModelAttribute Cart cart) {
-
-		cart.addOrUpdateItem(item, Quantity.of(amount));
-	}
-	*/
 }
