@@ -14,7 +14,7 @@
     <nav th:include="header :: header"></nav>
     <nav th:include="festivalHeader :: festivalHeader"></nav>
 </header>
-<section layout:fragment="content">
+
 </section>
 
 
@@ -25,7 +25,7 @@
 
         <div class='info clearfix'>
 
-            <div class="wp">Festivalname:<h2 th:text="${festival}"></h2></div>
+            <div class="wp">Festivalname:<h3 th:text="${festival}"></h3></div>
             <div class='wp'>Type<h2 th:text="${tickets.getTicketType().displayValue}" ></h2></div>
 
         </div>
