@@ -9,18 +9,18 @@
     </head>
     <body>
         <div th:include="header :: header"></div>
-        <div class="main">
-            <div>
-                <ul class="list">
-                    <li class="list-entry" style="border: 1px solid black; margin: 5px">
-                        <h2><a th:href="@{/messages/{userId}/send(userId = ${userId})}">Nachricht senden</a></h2>
-                    </li>
-                    <li class="list-entry" style="border: 1px solid black; margin: 5px" th:each="message : ${messages}">
-                        <h3 th:text="${message.title}"></h3>
-                        <p th:text="${message.content}"></p>
-                    </li>
-                </ul>
+        <div class="message-menu">
+            <a th:href="@{/messages/{userId}/send(userId = ${userId})}">Nachricht senden</a>
+        </div>
+        <div class="message-main">
+            <div class="message-list">
+                <div class="message-list-entry" th:each="message : ${messages}">
+                    <a th:href="@{/messages/{userId}/view/{messageId}(userId = ${userId}, messageId = ${message.id})}" style="text-decoration: none">
+                        <h3 th:inline="text">[[${message.senderName}]] - [[${message.title}]]</h3>
+                    </a>
+                </div>
             </div>
+            <textarea class="message-content" th:if="${currentMessage != null}" th:inline="text" readonly>[[${currentMessage.content}]]</textarea>
             <div class="overlay" th:if="${dialog} == 'send_message'">
                 <form class="form" th:action="@{/messages/{userId}/send(userId = ${userId})}" method="post">
                     <h2 class="form-title">Nachricht senden</h2>

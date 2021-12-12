@@ -1,13 +1,17 @@
 package festivalmanager.finances;
 
-import festivalmanager.utils.CurrentPageManagement;
+
 import org.javamoney.moneta.Money;
-import org.springframework.context.annotation.Scope;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
+import festivalmanager.utils.UtilsManagement;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.salespointframework.core.Currencies.EURO;
 
@@ -16,132 +20,147 @@ import static org.salespointframework.core.Currencies.EURO;
 class FinancesController {
 
 
-	private Finances finances;
-	private long currentFestivalId;
 	private Festival currentFestival;
 	private FinancesManagement financesManagement;
 	private FestivalManagement festivalManagement;
-	private CurrentPageManagement currentPageManagement;
+	private UtilsManagement utilsManagement;
 
-	private long nCampingTickets;
-	private long nOneDayTickets;
-	private long soldCampingTickets;
-	private long soldOneDayTickets;
+	private long nCampingTicketsExpected;
+	private long nOneDayTicketsExpected;
 
-	// Ticket prices will be stored permanently in the Ticket Class in the real application,
-	// but the Ticket class is not a part of this prototype
-	private Money priceCampingTickets;
-	private Money priceOneDayTickets;
+	private Money priceCampingTicketsExpected;
+	private Money priceOneDayTicketsExpected;
+
 
 	FinancesController(FinancesManagement financesManagement,
 					   FestivalManagement festivalManagement,
-					   CurrentPageManagement currentPageManagement) {
+					   UtilsManagement utilsManagement) {
 		this.financesManagement = financesManagement;
 		this.festivalManagement = festivalManagement;
-		this.currentPageManagement = currentPageManagement;
-		this.finances = new Finances();
-		this.currentFestival = null;
+		this.utilsManagement = utilsManagement;
+
+		currentFestival = null;
 		resetAttributes();
 	}
 
 
 	private void resetAttributes() {
-		nCampingTickets = 0;
-		nOneDayTickets = 0;
-		soldCampingTickets = 0;
-		soldOneDayTickets = 0;
-		priceCampingTickets = Money.of(0, EURO);
-		priceOneDayTickets = Money.of(0, EURO);
+		nCampingTicketsExpected = 0;
+		nOneDayTicketsExpected = 0;
+		priceCampingTicketsExpected = Money.of(0, EURO);
+		priceOneDayTicketsExpected = Money.of(0, EURO);
 	}
 
 
 	@GetMapping("/finances")
-	//@Scope("session")
-	String financesPage(Model model,
-					@ModelAttribute("currentFestivalId") long currentFestivalId) {
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER')")
+	String financesPage(Model model) {
 
 		if(this.currentFestival != null &&
-				this.currentFestival.getId() != currentFestival.getId()) {
+				this.currentFestival.getId() != utilsManagement.getCurrentFestivalId()) {
 
 			resetAttributes();
 		}
-		this.currentFestivalId = currentFestivalId;
-		this.financesManagement.updateFestival(currentFestivalId);
-		this.currentFestival = festivalManagement.findById(currentFestivalId).get();
 
-		Money artistsCost = financesManagement.getArtistsCost();
-		Money locationCost = financesManagement.getLocationCost();
-		Money cost = financesManagement.getCost();
-		Money revenue = financesManagement.getRevenue(currentFestival,
-				priceCampingTickets, priceOneDayTickets, nCampingTickets, nOneDayTickets);
-		Money profit = financesManagement.getProfit(cost, revenue);
+		this.financesManagement.updateFestival();
+		this.currentFestival = festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
 
-		String artistsCostStr = String.format("%.2f", artistsCost.getNumber().doubleValue());
-		String locationCostStr = String.format("%.2f", locationCost.getNumber().doubleValue());
-		String costStr = String.format("%.2f", cost.getNumber().doubleValue());
-		String revenueStr = String.format("%.2f", revenue.getNumber().doubleValue());
-		String profitStr = String.format("%.2f", profit.getNumber().doubleValue());
-		String priceCampingTicketsStr = String.format("%.2f", priceCampingTickets.getNumber().doubleValue());
-		String priceOneDayTicketsStr = String.format("%.2f", priceOneDayTickets.getNumber().doubleValue());
+		addAttribute(model, "artistsCost", financesManagement.getArtistsCost());
+		addAttribute(model, "locationCost", financesManagement.getLocationCost());
+		addAttribute(model, "equipmentCost", financesManagement.getEquipmentCost());
+		addAttribute(model, "staffCost", financesManagement.getStaffCost());
+		addAttribute(model, "totalCost", financesManagement.getTotalCost());
 
-		model.addAttribute("artistsCost", artistsCostStr);
-		model.addAttribute("locationCost", locationCostStr);
-		model.addAttribute("cost", costStr);
-		model.addAttribute("revenue", revenueStr);
-		model.addAttribute("profit", profitStr);
+		// Revenue from Catering and Ticket sales
+		Money totalRevenue = Money.of(0, EURO);
+		addAttribute(model, "totalRevenue", totalRevenue);
+		addAttribute(model,"profit", totalRevenue.subtract(financesManagement.getTotalCost()));
 
-		model.addAttribute("priceCampingTickets", priceCampingTicketsStr);
-		model.addAttribute("priceOneDayTickets", priceOneDayTicketsStr);
-		model.addAttribute("nCampingTickets", this.nCampingTickets);
-		model.addAttribute("nOneDayTickets", this.nOneDayTickets);
-		model.addAttribute("soldCampingTickets", this.soldCampingTickets);
-		model.addAttribute("soldOneDayTickets", this.soldCampingTickets);
-		
-		// required for second nav-bar
-		model.addAttribute("festival", currentFestival);
+		Money revenueExpected = financesManagement.getRevenue(
+				priceCampingTicketsExpected,
+				priceOneDayTicketsExpected,
+				nCampingTicketsExpected,
+				nOneDayTicketsExpected);
+		Money profitExpected = revenueExpected.subtract(financesManagement.getTotalCost());
+		addAttribute(model,"priceCampingTicketsExpected", priceCampingTicketsExpected);
+		addAttribute(model, "priceOneDayTicketsExpected", priceOneDayTicketsExpected);
+		addAttribute(model, "nCampingTicketsExpected", nCampingTicketsExpected);
+		addAttribute(model, "nOneDayTicketsExpected", nOneDayTicketsExpected);
+		addAttribute(model, "revenueExpected", revenueExpected);
+		addAttribute(model,"profitExpected", profitExpected);
 
-		currentPageManagement.updateCurrentPage(model,"finances");
+		utilsManagement.setCurrentPageLowerHeader("finances");
+		utilsManagement.prepareModel(model);
 		return "finances";
+	}
+
+/*
+	private void addAttributes(Model model, Map<String, Object> attributes) {
+
+		for (Map.Entry<String, Object> attribute : attributes.entrySet()) {
+
+			String attributeName = attribute.getKey();
+			Object attributeValue = attribute.getValue();
+
+			if (attributeValue.getClass().getSimpleName().equals("Money")) {
+				String attributeStr = String.format("%.2f", ((Money) attributeValue).getNumber().doubleValue());
+				model.addAttribute(attributeName, attributeStr);
+			}
+			else {
+				model.addAttribute(attributeName, attributeValue);
+			}
+		}
+	}
+ */
+
+
+	private void addAttribute(Model model, String attributeName, Object attributeValue) {
+
+		if (attributeValue.getClass().getSimpleName().equals("Money")) {
+			String attributeStr = String.format("%.2f", ((Money) attributeValue).getNumber().doubleValue());
+			model.addAttribute(attributeName, attributeStr);
+		}
+		else {
+			model.addAttribute(attributeName, attributeValue);
+		}
 	}
 
 
 	@GetMapping("/setTicketNumber")
 	public String ticketNumberForm(Model model,
-								  @RequestParam("nCampingTickets") long nCampingTickets,
-								  @RequestParam("nOneDayTickets") long nOneDayTickets) {
+								  @RequestParam("nCampingTicketsExpected") long nCampingTicketsExpected,
+								  @RequestParam("nOneDayTicketsExpected") long nOneDayTicketsExpected) {
 
-		if (nCampingTickets < 0 || nOneDayTickets < 0)
-			return financesPage(model, this.currentFestivalId);
-
-		try {
-			if (nCampingTickets + nOneDayTickets > currentFestival.getLocation().getVisitorCapacity())
-				return financesPage(model, this.currentFestivalId);
+		if (nCampingTicketsExpected < 0 || nOneDayTicketsExpected < 0) {
+			//return financesPage(model);
+			return "redirect:/finances";
 		}
-		catch (NullPointerException e) {}
 
-		this.nCampingTickets = nCampingTickets;
-		this.nOneDayTickets = nOneDayTickets;
+		if (currentFestival != null && currentFestival.getLocation() != null &&
+				nCampingTicketsExpected + nOneDayTicketsExpected
+						> currentFestival.getLocation().getVisitorCapacity()) {
+			//return financesPage(model);
+			return "redirect:/finances";
+		}
 
-		model.addAttribute("nCampingTickets", nCampingTickets);
-		model.addAttribute("nOneDayTickets", nOneDayTickets);
-		return financesPage(model, this.currentFestivalId);
+		this.nCampingTicketsExpected = nCampingTicketsExpected;
+		this.nOneDayTicketsExpected = nOneDayTicketsExpected;
+		//return financesPage(model);
+		return "redirect:/finances";
 	}
 
 
 	@GetMapping("/setTicketPrice")
 	public String ticketPriceForm(Model model,
-								  @RequestParam("priceCampingTickets") Double priceCampingTickets,
-								  @RequestParam("priceOneDayTickets") Double priceOneDayTickets) {
+								  @RequestParam("priceCampingTicketsExpected") Double priceCampingTicketsExpected,
+								  @RequestParam("priceOneDayTicketsExpected") Double priceOneDayTicketsExpected) {
 
-		if (priceCampingTickets < 0 || priceOneDayTickets < 0)
-			return financesPage(model, this.currentFestivalId);
+		if (priceCampingTicketsExpected < 0 || priceOneDayTicketsExpected < 0)
+			return "redirect:/finances";
 
-		this.priceCampingTickets = Money.of(priceCampingTickets, EURO);
-		this.priceOneDayTickets = Money.of(priceOneDayTickets, EURO);
-
-		model.addAttribute("priceCampingTickets", String.format("%.2f", priceCampingTickets));
-		model.addAttribute("priceOneDayTickets", String.format("%.2f", priceOneDayTickets));
-		return financesPage(model, this.currentFestivalId);
+		this.priceCampingTicketsExpected = Money.of(priceCampingTicketsExpected, EURO);
+		this.priceOneDayTicketsExpected = Money.of(priceOneDayTicketsExpected, EURO);
+		return "redirect:/finances";
 	}
 
 }

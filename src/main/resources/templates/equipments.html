@@ -27,7 +27,7 @@
 									  	<div class="text" th:text="${equipment.name}">Name</div>
 									 	<label for="amount">Anzahl</label>
 									 	<input type="hidden" name="equipmentsId" th:value="${equipment.id}"/>	
-									 	<input id="amount" type="number" name="equipmentsAmount" th:value="${equipmentsMap.get(equipment)}"/>					
+									 	<input id="amount" type="number" name="equipmentsAmount" min="0" th:value="${equipmentsMap.get(equipment)}"/>					
 								        <input type ="submit" th:value="Anwenden"><br>
 							    </form>
 							    </br>

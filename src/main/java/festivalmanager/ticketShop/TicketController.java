@@ -1,16 +1,12 @@
 package festivalmanager.ticketShop;
 
 
-import com.sun.istack.NotNull;
 import festivalmanager.festival.Festival;
-import festivalmanager.festival.FestivalRepository;
-import festivalmanager.utils.CurrentPageManagement;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import festivalmanager.festival.FestivalManagement;
+import festivalmanager.utils.UtilsManagement;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -18,92 +14,95 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class TicketController {
 
 
-	private  TicketManagement ticketManagement;
+	private final TicketManagement ticketManagement;
 	private Festival currentFestival;
-	private CurrentPageManagement currentPageManagement;
+
+	private final FestivalManagement festivalManagement;
+	private UtilsManagement utilsManagement;
 
 
-	public TicketController(TicketManagement ticketManagement, CurrentPageManagement currentPageManagement) {
+	public TicketController(TicketManagement ticketManagement,
+							UtilsManagement utilsManagement,
+							FestivalManagement festivalManagement) {
 		this.ticketManagement = ticketManagement;
-		this.currentPageManagement = currentPageManagement;
+		this.festivalManagement = festivalManagement;
+		this.utilsManagement= utilsManagement;
 		this.currentFestival = null;
 	}
 
+
 	// TODO: @PreAuthorize("hasRole('PLANNER')")
 	@GetMapping("/tickets")
-	public String showTicketInfo(@ModelAttribute Festival festival, Model model) {
+	public String showTicketInfo(Model model) {
 
-		this.currentFestival = festival;
-
-		System.out.println("current festival in ticket shop " + currentFestival.getName());
+		this.currentFestival =festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
 
 
 		model.addAttribute("ticket", new Ticket());
 		model.addAttribute("festival", this.currentFestival);
 
-		currentPageManagement.updateCurrentPage(model,"tickets");
+		utilsManagement.setCurrentPageLowerHeader("tickets");
+
+		utilsManagement.prepareModel(model);
 		return "ticketFrom";
 	}
 
 
 	// TODO: @PreAuthorize("hasRole('PLANNER')")
-	@PostMapping("/tickets/create")
+	@PostMapping("/tickets")
 	public String newTickets(@ModelAttribute Ticket ticket, RedirectAttributes rd) {
+
+
+		ticketManagement.setFestival(currentFestival);
+
+
 
 		ticket.setFestivalName(currentFestival.getName());
 		ticket.setFestivalId(currentFestival.getId());
+
+
+
 		ticketManagement.createTickets(ticket);
 
-
 		rd.addFlashAttribute("ticket", ticket);
-
 		return "redirect:/ticketShop";
 	}
 
 
-	// TODO: 11/26/2021 check  ticketStock for ticket
+
+
 
 	// TODO: @PreAuthorize("hasRole('TicketSeller')")
 	@PostMapping("/tickets/buy")
 	public String buyTicket( @ModelAttribute Ticket ticket, Model model) {
 
+		Ticket nTicket;
+		if (ticketManagement.checkTickets(ticket)){
 
-		int soldTicket;
-		double ticketPrice;
-		Ticket currentTickets = ticketManagement.allTicketsByFestival(currentFestival.getId());
-		if (currentTickets == null) {
-			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
-		}
+			nTicket = ticketManagement.buyTickets();
 
 
-		int currCampingTickets = currentTickets.getDayTicketsCount();
-		int currDayTickets = currentTickets.getDayTicketsCount();
+			int soldTicket;
+			double ticketPrice;
+			if (ticket.getDayTicketsCount() == 0) {
+				soldTicket = ticket.getCampingTicketsCount();
+				ticketPrice = nTicket.getCampingTicketPrice();
+			} else {
+				soldTicket = ticket.getDayTicketsCount();
+				ticketPrice = nTicket.getDayTicketPrice();
+			}
 
-		// TODO: 12/7/2021 check for count of tickets
-
-		if (ticket.getDayTicketsCount() == 0) {
-
-			soldTicket = ticket.getCampingTicketsCount();
-			currentTickets.setCampingTicketsCount(currCampingTickets - soldTicket);
-			ticketPrice = currentTickets.getCampingTicketPrice();
+			model.addAttribute("ticketCount", soldTicket);
+			model.addAttribute("ticketPrice", ticketPrice*soldTicket);
+			model.addAttribute("festival",currentFestival.getName());
+			model.addAttribute("tickets", ticket);
 
 
-		} else {
-			soldTicket = ticket.getDayTicketsCount();
-			currentTickets.setCampingTicketsCount(currDayTickets - soldTicket);
-
-			ticketPrice = currentTickets.getDayTicketPrice();
-		}
-
-		model.addAttribute("ticketCount", soldTicket);
-		model.addAttribute("ticketPrice", ticketPrice*soldTicket);
-		model.addAttribute("festival",currentFestival.getName());
-		model.addAttribute("tickets", ticket);
+		};
 
 		return "ticketPrint";
 	}
+
 
 	// TODO: @PreAuthorize("hasRole('TicketSeller')")
 	@GetMapping("/ticketShop")
@@ -112,7 +111,7 @@ public class TicketController {
 
 		model.addAttribute("tickets", ticket);
 
-		currentPageManagement.updateCurrentPage(model,"ticketShop");
+		utilsManagement.prepareModel(model);
 		return "ticketShop";
 	}
 

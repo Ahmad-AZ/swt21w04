@@ -33,6 +33,17 @@ public class MessageController {
 		return "messages.html";
 	}
 
+	@GetMapping("/messages/{userId}/view/{messageId}")
+	public String getMessageDetailView(@PathVariable("userId") long userId, @PathVariable("messageId") long messageId, Model model) {
+		model.addAttribute("messages", messageManagement.findByReceiverId(userId));
+		Optional<Message> message = messageManagement.findById(messageId);
+		if (message.isPresent()) {
+			model.addAttribute("currentMessage", message.get());
+		}
+
+		return "messages.html";
+	}
+
 	@GetMapping("/messages/{userId}/send")
 	public String getSendMessageDialog(@PathVariable("userId") long userId, Model model) {
 		model.addAttribute("messages", messageManagement.findByReceiverId(userId));

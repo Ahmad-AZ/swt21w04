@@ -12,36 +12,53 @@ import javax.persistence.Entity;
 @Entity
 public class CateringStockItem extends MultiInventoryItem {
     private Money buyingPrice;
-    private int amount;
     private LocalDate orderDate;
     private LocalDate bestBeforeDate;
+    private long festivalID;
 
     @SuppressWarnings({ "unused" })
     private CateringStockItem() {
     }
 
-    public CateringStockItem(CateringProduct product, Quantity quantity, Money buyingPrice, LocalDate orderDate,
+    public CateringStockItem(long festivalID, CateringProduct product, Quantity quantity, Money buyingPrice,
+            LocalDate orderDate,
             LocalDate bestBeforeDate) {
         super(product, quantity);
         this.buyingPrice = buyingPrice;
         this.orderDate = orderDate;
         this.bestBeforeDate = bestBeforeDate;
+        this.festivalID = festivalID;
+    }
+
+    public long getFestivalID() {
+        return festivalID;
     }
 
     public Money getBuyingPrice() {
         return buyingPrice;
     }
 
-    public int getAmount() {
-        return amount;
+    public void setBuyingPrice(Money buyingPrice) {
+        this.buyingPrice = buyingPrice;
     }
 
     public LocalDate getOrderDate() {
         return orderDate;
     }
 
+    public void setOrderDate(LocalDate orderDate) {
+        this.orderDate = orderDate;
+    }
+
     public LocalDate getBestBeforeDate() {
         return bestBeforeDate;
     }
 
+    public void setBestBeforeDate(LocalDate bestBeforeDate) {
+        this.bestBeforeDate = bestBeforeDate;
+    }
+
+    public CateringProduct getProduct() {
+        return (CateringProduct) super.getProduct();
+    }
 }

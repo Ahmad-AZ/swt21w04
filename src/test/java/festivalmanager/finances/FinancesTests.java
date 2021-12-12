@@ -1,5 +1,7 @@
 package festivalmanager.finances;
 
+import festivalmanager.Equipment.EquipmentManagement;
+import festivalmanager.Equipment.EquipmentRepository;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalController;
 import festivalmanager.festival.FestivalManagement;
@@ -9,7 +11,7 @@ import festivalmanager.hiring.Artist;
 import festivalmanager.hiring.HiringManagement;
 import festivalmanager.location.LocationManagement;
 import festivalmanager.location.Location;
-import festivalmanager.utils.CurrentPageManagement;
+import festivalmanager.utils.UtilsManagement;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ExtendedModelMap;
@@ -32,14 +34,15 @@ class FinancesTests {
 	void testFinancesManagement() {
 
 		FestivalRepository festivalRepository = mock(FestivalRepository.class);
-		Festival testFestival = new Festival("TestFestival");
-		testFestival.setStartDate(LocalDate.of(2021, 12, 3));
-		testFestival.setEndDate(LocalDate.of(2021, 12, 6));
+		Festival testFestival = new Festival("TestFestival",
+				LocalDate.of(2021, 12, 3),
+				LocalDate.of(2021, 12, 6));
 		when(festivalRepository.findById(any())).thenReturn(Optional.of(testFestival));
 
-		
-		
-		FestivalManagement festivalManagement = new FestivalManagement(festivalRepository, mock(LocationManagement.class), mock(HiringManagement.class));
+		FestivalManagement festivalManagement = new FestivalManagement(
+				festivalRepository,
+				mock(LocationManagement.class),
+				mock(HiringManagement.class));
 		festivalManagement.saveFestival(testFestival);
 
 		Location testLocation = new Location();
@@ -48,18 +51,28 @@ class FinancesTests {
 		//Artist testArtist = new Artist();
 		//testFestival.addArtist(testArtist);
 
-		CurrentPageManagement currentPageManagement = mock(CurrentPageManagement.class);
-		FinancesManagement financesManagement = new FinancesManagement(festivalManagement);
-		financesManagement.updateFestival(testFestival.getId());
-		FinancesController financesController = new FinancesController(financesManagement,
-				festivalManagement, currentPageManagement);
+		UtilsManagement utilsManagement = new UtilsManagement(festivalManagement);
+		utilsManagement.setCurrentFestivalId(testFestival.getId());
+		EquipmentRepository equipmentRepository = mock(EquipmentRepository.class);
+		when(equipmentRepository.findById(any())).thenReturn(Optional.empty());
+		EquipmentManagement equipmentManagement = new EquipmentManagement(equipmentRepository);
+
+
+		FinancesManagement financesManagement = new FinancesManagement(
+				festivalManagement,
+				utilsManagement,
+				equipmentManagement);
+		FinancesController financesController = new FinancesController(
+				financesManagement,
+				festivalManagement,
+				utilsManagement);
 		Model testModel = new ExtendedModelMap();
-		financesController.financesPage(testModel, testFestival.getId());
+		financesController.financesPage(testModel);
 
 		//assertThat(testModel.getAttribute("artistsCost")).isEqualTo("11010.10");
 		assertThat(testModel.getAttribute("locationCost")).isEqualTo("2000.00");
 		//assertThat(testModel.getAttribute("cost")).isEqualTo("13010.10");
-		assertThat(testModel.getAttribute("revenue")).isEqualTo("0.00");
+		assertThat(testModel.getAttribute("totalRevenue")).isEqualTo("0.00");
 		//assertThat(testModel.getAttribute("profit")).isEqualTo("-13010.10");
 
 	}

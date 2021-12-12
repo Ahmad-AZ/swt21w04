@@ -15,17 +15,19 @@ public class Message {
 	private long senderId;
 	private long receiverId;
 
+	private String senderName;
 	private String title;
 	private String content;
 
 	private LocalDateTime sentTimestamp;
 
-	public Message(SendMessageForm form) {
+	public Message(SendMessageForm form, String senderName) {
 		this.senderId = form.getSenderId();
 		this.receiverId = form.getReceiverId();
 		this.title = form.getTitle();
 		this.content = form.getContent();
 		this.sentTimestamp = LocalDateTime.now();
+		this.senderName = senderName;
 	}
 
 	public Message() {}
@@ -40,6 +42,10 @@ public class Message {
 
 	public long getReceiverId() {
 		return receiverId;
+	}
+
+	public String getSenderName() {
+		return senderName;
 	}
 
 	public String getTitle() {
