@@ -95,7 +95,7 @@ public class LocationController {
 			return "newLocation";
 		}
 
-		// create Festival if no error appears
+		// save Festival if no error appears
 		locationManagement.createLocation(form);
 
 		return "redirect:/locations";

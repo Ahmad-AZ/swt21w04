@@ -136,7 +136,7 @@ public class FestivalController {
 			return "newFestival";
 		}
 
-		// create Festival if no error appears
+		// save Festival if no error appears
 		festivalManagement.createFestival(form);
 
 		return "redirect:/festivalOverview";
