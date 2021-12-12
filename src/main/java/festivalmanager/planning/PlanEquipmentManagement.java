@@ -1,14 +1,11 @@
 package festivalmanager.planning;
+
 import festivalmanager.Equipment.Equipment;
-import festivalmanager.Equipment.Equipment.EquipmentType;
 import festivalmanager.Equipment.EquipmentManagement;
 import festivalmanager.Equipment.Stage;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PlanEquipmentManagement {
 	
-	private long currentMaxNumberOfStage;
 	private final FestivalManagement festivalManagement;
 	private final EquipmentManagement equipmentManagement;
 

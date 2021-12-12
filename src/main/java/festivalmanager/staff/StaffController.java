@@ -134,7 +134,7 @@ public class StaffController {
 		try {
 			this.staffManagement.createPerson(festivalId, form);
 		} catch (IllegalArgumentException exception) {
-			return "redirect:/staff/" + festivalId + "/create/" + exception.getLocalizedMessage();
+			return "redirect:/staff/" + festivalId + "/save/" + exception.getLocalizedMessage();
 		}
 
 		return "redirect:/staff/" + festivalId;
