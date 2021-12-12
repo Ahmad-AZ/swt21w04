@@ -11,7 +11,7 @@
 			<div th:include="festivalHeader :: festivalHeader"></div>
 		</header>
         <section layout:fragment="content">
-            <form>
+            <form class="ui form" method="post" th:action="@{/catering/addToCart}">
 				<table border="1">
 					<tr>
 						<td>
@@ -29,7 +29,7 @@
 										<td th:text="${product.getPrice()}"></td>
 									</tr>
 									<tr>
-										<td><input type="number" step="1" value="1" name="productcount"></td>
+										<td><input type="number" step="1" value="1" name="productCount"></td>
 										<td><button type="submit">hinzuf&uuml;gen</button></td>
 									</tr>
 								</table>

@@ -5,7 +5,7 @@ import java.util.Optional;
 import javax.persistence.Entity;
 import org.salespointframework.inventory.*;
 import org.salespointframework.quantity.*;
-import org.salespointframework.order.*;
+//import org.salespointframework.order.*;
 
 /**
  * @author Robert Menzel
