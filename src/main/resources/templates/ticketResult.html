@@ -18,12 +18,12 @@
 
 
 <p style="color: black" th:text="${tickets.festivalName}"></p>
-<p th:text="'Preis derCamping-Ticket  : ' + ${tickets.campingTicketPrice}"></p>
-<p th:text="'Anzahl der Camping-Ticket : ' + ${'€'+tickets.campingTicketsCount}"></p>
+<p th:text="'Preis der Camping-Tickets: ' + ${tickets.campingTicketPrice}"></p>
+<p th:text="'Anzahl der Camping-Tickets: ' + ${tickets.campingTicketsCount + '€'}"></p>
 
 
-<p th:text="'Anzahl der Tagesticket: ' + ${tickets.dayTicketsCount}"></p>
-<p th:text="'Preis der Tagesticket : ' + ${'€'+tickets.dayTicketPrice}"></p>
+<p th:text="'Preis der Tagestickets: ' + ${tickets.dayTicketPrice + '€'}"></p>
+<p th:text="'Anzahl der Tagestickets: ' + ${tickets.dayTicketsCount}"></p>
 
 
 
