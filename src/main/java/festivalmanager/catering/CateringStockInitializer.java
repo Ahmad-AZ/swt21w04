@@ -6,14 +6,17 @@ import org.salespointframework.core.DataInitializer;
 import org.salespointframework.quantity.Quantity;
 import org.javamoney.moneta.Money;
 import static org.salespointframework.core.Currencies.*;
+import festivalmanager.festival.*;
 
 public class CateringStockInitializer implements DataInitializer {
     private final CateringProductCatalog catalog;
     private final CateringStock stock;
+    private final Festival festival;
 
-    public CateringStockInitializer(CateringProductCatalog catalog, CateringStock stock) {
+    public CateringStockInitializer(Festival festival, CateringProductCatalog catalog, CateringStock stock) {
         this.catalog = catalog;
         this.stock = stock;
+        this.festival = festival;
     }
 
     public void initialize() {
@@ -23,7 +26,8 @@ public class CateringStockInitializer implements DataInitializer {
         List<CateringProduct> lsProduct;
         lsProduct = catalog.findByName("Coca-Cola").toList();
         if (!lsProduct.isEmpty()) {
-            CateringStockItem item = new CateringStockItem(lsProduct.get(0), Quantity.of(500), Money.of(0.50, EURO),
+            CateringStockItem item = new CateringStockItem(festival.getId(), lsProduct.get(0), Quantity.of(500),
+                    Money.of(0.50, EURO),
                     LocalDate.now(), LocalDate.of(2023, 04, 01));
             stock.save(item);
         }

@@ -47,7 +47,7 @@ public class CateringProductCatalogController {
             this.currentFestival = festivalManagement.findById(longId).get();
         }
 
-        model.addAttribute("stock", stock.findAll());
+        model.addAttribute("stock", stock.findByFestivalID(currentFestival.getId()));
         model.addAttribute("productcatalog", catalog.findAll());
         model.addAttribute("festival", currentFestival);
         currentPageManagement.updateCurrentPage(model, "catering");
@@ -250,7 +250,8 @@ public class CateringProductCatalogController {
         }
 
         if (!failure) {
-            CateringStockItem stockitem = new CateringStockItem(product, Quantity.of(formularData.amount),
+            CateringStockItem stockitem = new CateringStockItem(currentFestival.getId(), product,
+                    Quantity.of(formularData.amount),
                     formBuyingPrice, formOrderDate, formBestBeforeDate);
             stock.save(stockitem);
         } else {
@@ -345,7 +346,30 @@ public class CateringProductCatalogController {
         currentPageManagement.updateCurrentPage(model, "catering");
 
         return (failure) ? "/cateringEditStockItem" : "redirect:/cateringProductCatalog";
+    }
 
+    @GetMapping("/cateringDeleteStockItem/{stockitemid}")
+    String deleteStockItem(@PathVariable InventoryItemIdentifier stockitemid, Model model) {
+        Optional<CateringStockItem> oStockItem = stock.findById(stockitemid);
+        if (oStockItem.isPresent()) {
+            CateringStockItem stockitem = oStockItem.get();
+            model.addAttribute("stockitem", stockitem);
+        }
+
+        currentPageManagement.updateCurrentPage(model, "catering");
+        model.addAttribute("festival", currentFestival);
+        return "cateringDeleteStockItem";
+    }
+
+    @PostMapping("/cateringDeleteStockItem/delete/{stockitemid}")
+    String deleteStockItem(@PathVariable InventoryItemIdentifier stockitemid) {
+        Optional<CateringStockItem> oStockItem = stock.findById(stockitemid);
+        if (oStockItem.isPresent()) {
+            CateringStockItem stockitem = oStockItem.get();
+            stock.delete(stockitem);
+        }
+
+        return "redirect:/cateringProductCatalog";
     }
 
     class StockFormularData {
