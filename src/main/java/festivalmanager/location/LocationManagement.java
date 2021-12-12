@@ -33,22 +33,18 @@ public class LocationManagement {
 		// for unit tests
 		if (form.getImageFile() == null) {
 			image = "Blank_image";
-		}
-		else if (form.getImageFile().isEmpty()) {
+		} else if (form.getImageFile().isEmpty()) {
 			image = "Blank_image";
-		}
-		else {
+		} else {
 			System.out.println("image setted");
 			image = form.getImage();
 		}
 		// for unit tests
 		if (form.getGroundViewFile() == null) {
 			groundView = "Blank_groundview";
-		}
-		else if (form.getGroundViewFile().isEmpty()) {
+		} else if (form.getGroundViewFile().isEmpty()) {
 			groundView = "Blank_groundview";
-		}
-		else {
+		} else {
 			System.out.println("groundview setted");
 			groundView = form.getGroundView();
 		}		
@@ -63,15 +59,13 @@ public class LocationManagement {
 		location.setName(form.getName());
 		location.setStageCapacity(form.getStageCapacity());
 		location.setVisitorCapacity(form.getVisitorCapacity());
-		if (form.getImageFile() != null) {
-			if (!(form.getImageFile().isEmpty())) {
-				location.setImage(form.getImage());
-			}	
+		if (form.getImageFile() != null && !(form.getImageFile().isEmpty())) {
+			location.setImage(form.getImage());
+
 		}
-		if (form.getGroundViewFile() != null) {
-			if (!(form.getGroundViewFile().isEmpty())) {
-				location.setGroundView(form.getGroundView());
-			}
+		if (form.getGroundViewFile() != null && !(form.getGroundViewFile().isEmpty())) {
+			location.setGroundView(form.getGroundView());
+
 		}
 	
 		return locations.save(location);
