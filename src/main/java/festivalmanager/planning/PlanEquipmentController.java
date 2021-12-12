@@ -11,7 +11,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import festivalmanager.utils.CurrentPageManagement;
+import festivalmanager.utils.UtilsManagement;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -40,25 +40,23 @@ public class PlanEquipmentController {
 	private final PlanEquipmentManagement planEquipmentManagement;
 	private final FestivalManagement festivalManagement;
 	private final EquipmentManagement equipmentManagement;
-	private final CurrentPageManagement currentPageManagement;
+	private final UtilsManagement utilsManagement;
 	private Festival currentFestival;
 	private long currentFestivalId;
 	
-	public PlanEquipmentController(PlanEquipmentManagement planEquipmentManagement, FestivalManagement festivalManagement, EquipmentManagement equipmentManagement, CurrentPageManagement currentPageManagement) {
+	public PlanEquipmentController(PlanEquipmentManagement planEquipmentManagement, FestivalManagement festivalManagement, EquipmentManagement equipmentManagement, UtilsManagement utilsManagement) {
 		this.planEquipmentManagement = planEquipmentManagement;
 		this.festivalManagement = festivalManagement;
 		this.equipmentManagement = equipmentManagement;
-		this.currentPageManagement = currentPageManagement;
+		this.utilsManagement = utilsManagement;
 		this.currentFestivalId = 0;
 	}
 	
 	// shows Equipments Overview
 	@GetMapping("/equipments")  
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String equipments(Model model, @ModelAttribute("currentFestivalId") long currentFestivalId) {
-		if(currentFestivalId != 0) {
-			this.currentFestivalId = currentFestivalId;
-		}
+	public String equipments(Model model) {
+		this.currentFestivalId = utilsManagement.getCurrentFestivalId();
 		
 		Optional<Festival> festival = festivalManagement.findById(currentFestivalId);
 		if (festival.isPresent()) {
@@ -86,12 +84,10 @@ public class PlanEquipmentController {
 			
 			model.addAttribute("equipmentsMap", equipmentsMap);
 			
-			// required for secound nav-bar
-			model.addAttribute("festival", current);
-			
 			//required for groundView
 			model.addAttribute("location", current.getLocation());
-			currentPageManagement.updateCurrentPage(model,"equipment");
+			utilsManagement.setCurrentPageLowerHeader("equipment");
+			utilsManagement.prepareModel(model);
 			return "equipments";
 		} else {
 			throw new ResponseStatusException(
@@ -113,7 +109,7 @@ public class PlanEquipmentController {
 			ra.addFlashAttribute("currentFestivalId", currentFestival.getId());
 			return "redirect:/equipments";
 		}
-		return "redirect:/equipmentsPre1";
+		return "redirect:/equipments";
 		
 	}
 	
@@ -142,7 +138,7 @@ public class PlanEquipmentController {
 
 
 
-		return "redirect:/equipmentsPre1";
+		return "redirect:/equipments";
 	}
 	
 	
@@ -168,7 +164,7 @@ public class PlanEquipmentController {
 		}else {
 			planEquipmentManagement.rentEquipment(equipmentsId, equipmentsAmount, currentFestival);
 		}
-		return "redirect:/equipmentsPre1";
+		return "redirect:/equipments";
 	}
 	
 	

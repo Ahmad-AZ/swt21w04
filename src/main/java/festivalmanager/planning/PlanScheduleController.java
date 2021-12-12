@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-import festivalmanager.utils.CurrentPageManagement;
+import festivalmanager.utils.UtilsManagement;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,52 +29,21 @@ public class PlanScheduleController {
 	
 	private final PlanScheduleManagement planScheduleManagement;
 	private final FestivalManagement festivalManagement;
-	private final CurrentPageManagement currentPageManagement;
+	private final UtilsManagement utilsManagement;
 	private long currentFestivalId;
 	private Festival currentFestival;
 	
-	public PlanScheduleController(PlanScheduleManagement planScheduleManagement, FestivalManagement festivalManagement, CurrentPageManagement currentPageManagement) {
+	public PlanScheduleController(PlanScheduleManagement planScheduleManagement, FestivalManagement festivalManagement, UtilsManagement utilsManagement) {
 		this.planScheduleManagement = planScheduleManagement;
 		this.festivalManagement = festivalManagement;
-		this.currentPageManagement = currentPageManagement;
+		this.utilsManagement = utilsManagement;
 	}
 	
 	
 
-	@GetMapping("/scheduleVisitorView/{festivalId}")
-	public String getScheduleVisitorView(@PathVariable("festivalId") long festivalId, Model model) {
-		
-		Optional<Festival> festival = festivalManagement.findById(festivalId);
-		if (festival.isPresent()) {
-			Festival current = festival.get();
-			currentFestival = current;
-
-			
-			model.addAttribute("dayList", current.getFestivalInterval());
-			model.addAttribute("stageList", current.getStages());
-			
-			List<TimeSlot> tsl =  new ArrayList<>();
-			tsl.add(TimeSlot.TS1);
-			tsl.add(TimeSlot.TS2);
-			tsl.add(TimeSlot.TS3);
-			tsl.add(TimeSlot.TS4);
-			tsl.add(TimeSlot.TS5);
-			
-			model.addAttribute("timeSlotList",tsl);
-			// required for secound nav-bar
-			model.addAttribute("festival", current);
-		}
-		currentPageManagement.updateCurrentPage(model,"schedule");
-		return "/scheduleVisitorView";
-
-	}
-	
-		
 	@GetMapping("/schedule")  
-	public String schedule(Model model, @ModelAttribute("currentFestivalId") long currentFestivalId) {
-		if(currentFestivalId != 0) {
-			this.currentFestivalId = currentFestivalId;
-		}
+	public String schedule(Model model) {
+			this.currentFestivalId = utilsManagement.getCurrentFestivalId();
 		Optional<Festival> festival = festivalManagement.findById(currentFestivalId);
 		if (festival.isPresent()) {
 			Festival current = festival.get();
@@ -92,10 +61,11 @@ public class PlanScheduleController {
 			tsl.add(TimeSlot.TS5);
 			
 			model.addAttribute("timeSlotList",tsl);
-			
-			// required for secound nav-bar
 			model.addAttribute("festival", current);
-			currentPageManagement.updateCurrentPage(model,"program");
+			utilsManagement.setCurrentFestivalId(currentFestival.getId());
+			utilsManagement.setCurrentFestivalId(currentFestival.getId());
+			utilsManagement.setCurrentPageLowerHeader("program");
+			utilsManagement.prepareModel(model);
 			return "/schedule";
 		} else {
 			throw new ResponseStatusException(
@@ -121,7 +91,7 @@ public class PlanScheduleController {
 		model.addAttribute("showsToAdd", planScheduleManagement.getShows(currentFestivalId));
 
 
-		currentPageManagement.updateCurrentPage(model,"program");
+		utilsManagement.prepareModel(model);
 		return "/schedule";
 	}
 	
@@ -135,7 +105,7 @@ public class PlanScheduleController {
 		System.out.println(showId);
 		planScheduleManagement.setShow(date, stageId, timeSlot, showId, currentFestivalId);
 		System.out.println("afterall");
-		return "redirect:/schedulePre1";
+		return "redirect:/schedule";
 	}
 	
 	

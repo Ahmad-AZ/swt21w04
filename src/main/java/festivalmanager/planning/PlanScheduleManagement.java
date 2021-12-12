@@ -38,11 +38,6 @@ public class PlanScheduleManagement {
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
 		if (festival.isPresent()) {
 			Festival current = festival.get();
-			
-			// TODO: return only Shows not present on this day
-//			List<Show> unusedShows = new ArrayList<>();
-//			for()
-			
 			List<Show> shows = new ArrayList<>();
 			for(Artist anArtist : current.getArtist()) {
 				for(Show aShow : anArtist.getShows()) {

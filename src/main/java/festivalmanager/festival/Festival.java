@@ -65,6 +65,7 @@ public class Festival {
 		return startDate;
 	} 
 
+	//unused
 	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
@@ -73,6 +74,7 @@ public class Festival {
 		return endDate;
 	}
 	
+	//unused
 	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}

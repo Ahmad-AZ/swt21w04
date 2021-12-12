@@ -1,18 +1,22 @@
 package festivalmanager.ticketShop;
 
 
+import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
 public class TicketStock {
 
 
-	private List<Ticket> ticketStock;
+
+
+
+	private List<Ticket> ticketList;
 
 
 	public String getCountOfTickets( ){
-
 
 		return "";
 	}
@@ -20,26 +24,34 @@ public class TicketStock {
 
 	public void  addTickets(@NonNull Ticket ticket ){
 
-
-		ticketStock.add(ticket);
-
+		ticketList.add(ticket);
 	}
 
 
 	// TODO: 11/13/2021 update ticket quantity for the festival argument
 	public void updateQuantity(){
 
-
 	}
 
 
-	// TODO: 11/13/2021 add festvial argument
+	public Ticket getTicketByFestival(long id ){
+
+		for (Ticket ticket : ticketList) {
+			if (ticket.getFestivalId()== id ) {
+				return ticket;
+			}
+		}
+		return null;
+	}
+
+
+
 	public float getSales(){
 
 		return 0;
 	}
 
-	// TODO: 11/13/2021 add festvial argument
+
 	public void setMaxNumberOfTickets(){
 
 
@@ -51,6 +63,14 @@ public class TicketStock {
 	}
 
 
+	public Ticket buy(Ticket ticket) {
 
+		Ticket nTicket = getTicketByFestival(ticket.getFestivalId());
 
+		if (nTicket != null) {
+			return null;
+		}
+		return null;
+
+	}
 }

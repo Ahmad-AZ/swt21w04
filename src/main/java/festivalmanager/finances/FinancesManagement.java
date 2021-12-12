@@ -3,6 +3,7 @@ package festivalmanager.finances;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.hiring.Artist;
+import festivalmanager.utils.UtilsManagement;
 import org.javamoney.moneta.Money;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,16 +17,18 @@ public class FinancesManagement {
 
 	Festival currentFestival;
 	FestivalManagement festivalManagement;
+	UtilsManagement utilsManagement;
 
 
-	FinancesManagement(FestivalManagement festivalManagement) {
+	FinancesManagement(FestivalManagement festivalManagement, UtilsManagement utilsManagement) {
 		this.festivalManagement = festivalManagement;
+		this.utilsManagement = utilsManagement;
 		this.currentFestival = null;
 	}
 
 
-	public void updateFestival(long currentFestivalId) {
-		this.currentFestival = festivalManagement.findById(currentFestivalId).get();
+	public void updateFestival() {
+		this.currentFestival = festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
 	}
 
 
@@ -70,8 +73,7 @@ public class FinancesManagement {
 	}
 
 
-	public Money getRevenue(Festival currentFestival,
-							Money priceCampingTickets, Money priceOneDayTickets,
+	public Money getRevenue(Money priceCampingTickets, Money priceOneDayTickets,
 							long nCampingTickets, long nOneDayTickets) {
 
 		Money revenue = Money.of(0, EURO);
