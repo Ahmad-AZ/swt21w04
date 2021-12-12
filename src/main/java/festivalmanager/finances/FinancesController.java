@@ -72,14 +72,22 @@ class FinancesController {
 		addAttribute(model, "totalCost", financesManagement.getTotalCost());
 
 		// Revenue from Catering and Ticket sales
-		Money revenue = Money.of(0, EURO);
-		addAttribute(model, "revenue", revenue);
-		addAttribute(model,"profit", revenue.subtract(financesManagement.getTotalCost()));
+		Money revenueTotal = Money.of(0, EURO);
+		addAttribute(model, "revenueTotal", revenueTotal);
+		addAttribute(model,"profit", revenueTotal.subtract(financesManagement.getTotalCost()));
 
+		Money revenueExpected = financesManagement.getRevenue(
+				priceCampingTicketsExpected,
+				priceOneDayTicketsExpected,
+				nCampingTicketsExpected,
+				nOneDayTicketsExpected);
+		Money profitExpected = revenueExpected.subtract(financesManagement.getTotalCost());
 		addAttribute(model,"priceCampingTicketsExpected", priceCampingTicketsExpected);
 		addAttribute(model, "priceOneDayTicketsExpected", priceOneDayTicketsExpected);
 		addAttribute(model, "nCampingTicketsExpected", nCampingTicketsExpected);
 		addAttribute(model, "nOneDayTicketsExpected", nOneDayTicketsExpected);
+		addAttribute(model, "revenueExpected", revenueExpected);
+		addAttribute(model,"profitExpected", profitExpected);
 
 		utilsManagement.setCurrentPageLowerHeader("finances");
 		utilsManagement.prepareModel(model);
@@ -112,8 +120,9 @@ class FinancesController {
 			String attributeStr = String.format("%.2f", ((Money) attributeValue).getNumber().doubleValue());
 			model.addAttribute(attributeName, attributeStr);
 		}
-
-		model.addAttribute(attributeName, attributeValue);
+		else {
+			model.addAttribute(attributeName, attributeValue);
+		}
 	}
 
 
