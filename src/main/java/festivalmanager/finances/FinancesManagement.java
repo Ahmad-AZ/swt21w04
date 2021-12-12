@@ -176,14 +176,14 @@ public class FinancesManagement {
 
 	public long getNCampingTickets() {
 
-		long nCampingTickets = 123;
+		long nCampingTickets = ticketInformation.getSoldCampingTicket();
 		return nCampingTickets;
 	}
 
 
 	public long getNOneDayTickets() {
 
-		long nOneDayTickets = 123;
+		long nOneDayTickets = ticketInformation.getSoldDayTicket();
 		return nOneDayTickets;
 	}
 
