@@ -235,3 +235,26 @@ button:hover {
 	border: 1px solid #333333;
 	border-radius: 2px;
 }
+
+.program-table {
+	width: 70%;
+	border-collapse: collapse;
+}
+
+.program-table th {
+  border: 2px solid rgb(0, 0, 0);
+  padding: 8px;
+  text-align: left;
+  background-color: rgb(0, 128, 192);
+}
+
+.program-table td {
+  border: 2px solid rgb(0, 0, 0);
+  padding: 8px;
+  text-align: left;
+}
+
+.day {
+	font-size: 2vh;
+}
+

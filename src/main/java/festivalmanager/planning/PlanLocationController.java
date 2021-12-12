@@ -61,8 +61,10 @@ public class PlanLocationController {
 			else {
 				model.addAttribute("bookedLocationId", 0);
 			}
-
+			
 			model.addAttribute("festival", current);
+			
+			utilsManagement.setCurrentFestivalId(currentFestival.getId());
 			utilsManagement.setCurrentPageLowerHeader("location");
 			utilsManagement.prepareModel(model);
 			return "/locationOverview"; 
