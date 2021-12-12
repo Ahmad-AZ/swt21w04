@@ -23,6 +23,9 @@ import javax.money.format.MonetaryParseException;
 
 import org.javamoney.moneta.*;
 
+/**
+ * @author Robert Menzel
+ */
 @Controller
 public class CateringProductCatalogController {
 

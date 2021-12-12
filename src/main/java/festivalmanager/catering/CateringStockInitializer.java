@@ -8,6 +8,9 @@ import org.javamoney.moneta.Money;
 import static org.salespointframework.core.Currencies.*;
 import festivalmanager.festival.*;
 
+/**
+ * @author Robert Menzel
+ */
 public class CateringStockInitializer implements DataInitializer {
     private final CateringProductCatalog catalog;
     private final CateringStock stock;

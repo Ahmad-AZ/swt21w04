@@ -5,6 +5,9 @@ import org.salespointframework.core.DataInitializer;
 import org.springframework.stereotype.Component;
 import org.javamoney.moneta.Money;
 
+/**
+ * @author Robert Menzel
+ */
 @Component
 public class CateringProductInitializer implements DataInitializer {
 
