@@ -1,5 +1,7 @@
 package festivalmanager.finances;
 
+import festivalmanager.Equipment.EquipmentManagement;
+import festivalmanager.Equipment.EquipmentRepository;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalController;
 import festivalmanager.festival.FestivalManagement;
@@ -51,8 +53,15 @@ class FinancesTests {
 
 		UtilsManagement utilsManagement = new UtilsManagement(festivalManagement);
 		utilsManagement.setCurrentFestivalId(testFestival.getId());
+		EquipmentRepository equipmentRepository = mock(EquipmentRepository.class);
+		when(equipmentRepository.findById(any())).thenReturn(Optional.empty());
+		EquipmentManagement equipmentManagement = new EquipmentManagement(equipmentRepository);
 
-		FinancesManagement financesManagement = new FinancesManagement(festivalManagement, utilsManagement);
+
+		FinancesManagement financesManagement = new FinancesManagement(
+				festivalManagement,
+				utilsManagement,
+				equipmentManagement);
 		FinancesController financesController = new FinancesController(
 				financesManagement,
 				festivalManagement,
