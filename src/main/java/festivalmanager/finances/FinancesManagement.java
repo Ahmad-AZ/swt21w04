@@ -157,7 +157,7 @@ public class FinancesManagement {
 
 	public Money getCateringRevenue() {
 
-		Money cateringRevenue = Money.of(1000, EURO);
+		Money cateringRevenue = Money.of(0, EURO);
 
 		totalRevenue = totalRevenue.add(cateringRevenue);
 		return cateringRevenue;
