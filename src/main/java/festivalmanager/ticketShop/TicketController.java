@@ -72,7 +72,7 @@ public class TicketController {
 		return "ticketResult";
 	}
 
-	@PreAuthorize("hasRole('TCIKET_SELLER')||hasRole('ADMIN')")
+	@PreAuthorize("hasRole('TICKET_SELLER')||hasRole('ADMIN')")
 	@PostMapping("/tickets/buy")
 	public String buyTicket( @ModelAttribute Ticket ticket, Model model) {
 
@@ -103,7 +103,7 @@ public class TicketController {
 	}
 
 
-	@PreAuthorize("hasRole('TCIKET_SELLER')||hasRole('ADMIN')")
+	@PreAuthorize("hasRole('TICKET_SELLER')||hasRole('ADMIN')")
 	@GetMapping("/ticketShop")
 	public String ticketOverview(Model model) {
 
