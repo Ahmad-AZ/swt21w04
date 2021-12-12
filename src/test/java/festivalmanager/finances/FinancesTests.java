@@ -10,6 +10,8 @@ import festivalmanager.location.LocationManagement;
 import festivalmanager.location.Location;
 import festivalmanager.staff.Person;
 import festivalmanager.staff.StaffManagement;
+import festivalmanager.ticketShop.Ticket;
+import festivalmanager.ticketShop.TicketManagement;
 import festivalmanager.utils.UtilsManagement;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.Test;
@@ -61,11 +63,19 @@ class FinancesTests {
 		Streamable<Person> staffMembers = Streamable.empty();
 		when(staffManagement.findByFestivalId(anyLong())).thenReturn(staffMembers);
 
+		Ticket ticketInformation = new Ticket();
+		ticketInformation.setCampingTicketPrice(300);
+		ticketInformation.setDayTicketPrice(100);
+		TicketManagement ticketManagement = mock(TicketManagement.class);
+		when(ticketManagement.TicketsByFestival(anyLong())).thenReturn(ticketInformation);
+
+
 		FinancesManagement financesManagement = new FinancesManagement(
 				festivalManagement,
 				utilsManagement,
 				equipmentManagement,
-				staffManagement);
+				staffManagement,
+				ticketManagement);
 		FinancesController financesController = new FinancesController(
 				financesManagement,
 				festivalManagement,

@@ -52,6 +52,7 @@ public class TicketController {
 		}
 
 		model.addAttribute("tickets", ticketManagement.getCurrentTicket());
+		utilsManagement.prepareModel(model);
 		return "ticketResult";
 	}
 

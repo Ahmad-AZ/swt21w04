@@ -8,6 +8,8 @@ import festivalmanager.festival.FestivalManagement;
 import festivalmanager.hiring.Artist;
 import festivalmanager.staff.Person;
 import festivalmanager.staff.StaffManagement;
+import festivalmanager.ticketShop.Ticket;
+import festivalmanager.ticketShop.TicketManagement;
 import festivalmanager.utils.UtilsManagement;
 import org.javamoney.moneta.Money;
 import org.springframework.data.util.Streamable;
@@ -26,6 +28,7 @@ public class FinancesManagement {
 
 
 	Festival currentFestival;
+	Ticket ticketInformation;
 	Money totalRevenue;
 	Money totalCost;
 	long durationDays;
@@ -34,19 +37,24 @@ public class FinancesManagement {
 	FestivalManagement festivalManagement;
 	UtilsManagement utilsManagement;
 	StaffManagement staffManagement;
+	TicketManagement ticketManagement;
 
 
 	FinancesManagement(FestivalManagement festivalManagement,
 					   UtilsManagement utilsManagement,
 					   EquipmentManagement equipmentManagement,
-					   StaffManagement staffManagement) {
+					   StaffManagement staffManagement,
+					   TicketManagement ticketManagement) {
 
 		this.equipmentManagement = equipmentManagement;
 		this.festivalManagement = festivalManagement;
 		this.utilsManagement = utilsManagement;
 		this.staffManagement = staffManagement;
+		this.ticketManagement = ticketManagement;
 
 		currentFestival = null;
+		ticketInformation = null;
+
 		durationDays = 0;
 		totalRevenue = Money.of(0, EURO);
 		totalCost = Money.of(0, EURO);
@@ -55,6 +63,7 @@ public class FinancesManagement {
 
 	public void updateFestival() {
 		currentFestival = festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
+		ticketInformation = ticketManagement.TicketsByFestival(currentFestival.getId());
 		durationDays = currentFestival.getEndDate().toEpochDay() - currentFestival.getStartDate().toEpochDay() + 1;
 		totalCost = Money.of(0, EURO);
 	}
@@ -153,14 +162,14 @@ public class FinancesManagement {
 
 	public Money getPriceCampingTickets() {
 
-		Money priceCampingTickets = Money.of(100, EURO);
+		Money priceCampingTickets = Money.of(ticketInformation.getCampingTicketPrice(), EURO);
 		return priceCampingTickets;
 	}
 
 
 	public Money getPriceOneDayTickets() {
 
-		Money priceOneDayTickets = Money.of(50, EURO);
+		Money priceOneDayTickets = Money.of(ticketInformation.getDayTicketPrice(), EURO);
 		return priceOneDayTickets;
 	}
 
