@@ -1,5 +1,7 @@
 package festivalmanager.catering;
 
+import festivalmanager.festival.Festival;
+import festivalmanager.festival.FestivalManagement;
 import festivalmanager.utils.UtilsManagement;
 import org.salespointframework.catalog.ProductIdentifier;
 import org.salespointframework.inventory.InventoryItemIdentifier;
@@ -23,19 +25,22 @@ import org.javamoney.moneta.*;
 @Controller
 public class CateringProductCatalogController {
 
+	private Festival currentFestival;
 	private UtilsManagement utilsManagement;
+	private FestivalManagement festivalManagement;
     private CateringProductCatalog catalog;
     private CateringStock stock;
 
-    public CateringProductCatalogController(CateringProductCatalog catalog, CateringStock stock, UtilsManagement utilsManagement) {
+    public CateringProductCatalogController(CateringProductCatalog catalog, CateringStock stock, UtilsManagement utilsManagement, FestivalManagement festivalManagement) {
         this.catalog = catalog;
         this.stock = stock;
 		this.utilsManagement = utilsManagement;
+		this.festivalManagement = festivalManagement;
     }
 
     @GetMapping("/cateringProductCatalog")
     String products(Model model) {
-
+		currentFestival = festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
         model.addAttribute("stock", stock.findByFestivalID(currentFestival.getId()));
         model.addAttribute("productcatalog", catalog.findAll());
 		utilsManagement.setCurrentPageLowerHeader("catering");
@@ -337,7 +342,7 @@ public class CateringProductCatalogController {
             model.addAttribute("stockitem", stockitem);
         }
 
-        currentPageManagement.updateCurrentPage(model, "catering");
+        utilsManagement.prepareModel(model);
         model.addAttribute("festival", currentFestival);
         return "cateringDeleteStockItem";
     }
