@@ -42,15 +42,7 @@
         </tr>
         <tr>
             <td>Gesamtkosten</td>
-            <td th:text="${cost + '&euro;'}">0.00&euro;</td>
-        </tr>
-        <tr>
-            <td>Umsatz</td>
-            <td th:text="${revenue + '&euro;'}">0.00&euro;</td>
-        </tr>
-        <tr>
-            <td>Gewinn</td>
-            <td th:text="${profit + '&euro;'}">0.00&euro;</td>
+            <td th:text="${totalCost + '&euro;'}">0.00&euro;</td>
         </tr>
         <tr>
             <td>Preis Camping-Tickets</td>
@@ -67,6 +59,22 @@
         <tr>
             <td>Verkaufte Tagestickets</td>
             <td th:text="${nOneDayTickets}">0</td>
+        </tr>
+        <tr>
+            <td>Umsatz durch Tickets</td>
+            <td th:text="${ticketsRevenue + '&euro;'}">0.00&euro;</td>
+        </tr>
+        <tr>
+            <td>Umsatz durch Catering</td>
+            <td th:text="${cateringRevenue + '&euro;'}">0.00&euro;</td>
+        </tr>
+        <tr>
+            <td>Gesamtumsatz</td>
+            <td th:text="${totalRevenue + '&euro;'}">0.00&euro;</td>
+        </tr>
+        <tr>
+            <td>Gewinn</td>
+            <td th:text="${profit + '&euro;'}">0.00&euro;</td>
         </tr>
         </tbody>
     </table>
