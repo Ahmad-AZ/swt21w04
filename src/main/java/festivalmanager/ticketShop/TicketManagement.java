@@ -11,6 +11,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -30,6 +31,7 @@ public class TicketManagement {
 	public TicketManagement(FestivalManagement festival) {
 		this.festival = festival;
 		this.currentFestival = null;
+		this.currentTicket=null;
 	}
 
 	public Ticket createTickets(@NonNull Ticket ticket) {
@@ -47,6 +49,11 @@ public class TicketManagement {
 	public  void setFestival(Festival festival ){
 
 		this.currentFestival= festival;
+	}
+
+	public void setCurrentTicket(@NotNull Ticket ticket){
+
+		this.currentTicket= ticket;
 	}
 
 
@@ -104,10 +111,6 @@ public class TicketManagement {
 		}
 	 return false;
 	}
-
-
-
-
 
 	public Ticket buyTickets() {
 

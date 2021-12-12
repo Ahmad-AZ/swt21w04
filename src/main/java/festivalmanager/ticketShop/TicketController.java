@@ -72,7 +72,7 @@ public class TicketController {
 		return "ticketResult";
 	}
 
-	@PreAuthorize("hasRole('TCIKET_SELLER')")
+	@PreAuthorize("hasRole('TCIKET_SELLER')||hasRole('ADMIN')")
 	@PostMapping("/tickets/buy")
 	public String buyTicket( @ModelAttribute Ticket ticket, Model model) {
 
@@ -103,12 +103,18 @@ public class TicketController {
 	}
 
 
-	@PreAuthorize("hasRole('TCIKET_SELLER')")
+	@PreAuthorize("hasRole('TCIKET_SELLER')||hasRole('ADMIN')")
 	@GetMapping("/ticketShop")
-	public String ticketOverview(@ModelAttribute Ticket ticket, Model model) {
+	public String ticketOverview(Model model) {
 
 
-		model.addAttribute("tickets", ticket);
+		Ticket ticket = ticketManagement.TicketsByFestival(utilsManagement.getCurrentFestivalId());
+
+		System.out.println("current festival======== "+ currentFestival.getName());
+
+		System.out.println("current ticket by festival id "+ ticket.getFestivalName());
+
+		model.addAttribute("tickets",ticket);
 		utilsManagement.setCurrentPageLowerHeader("ticketShop");
 		utilsManagement.prepareModel(model);
 		return "ticketShop";
