@@ -34,11 +34,14 @@ public class TicketManagement {
 		this.currentTicket=null;
 	}
 
-	public Ticket createTickets(@NonNull Ticket ticket) {
+	public Ticket save(@NonNull Ticket ticket) {
 
 		return ticketRepo.save(ticket);
 	}
+	public Ticket update(Ticket ticket){
 
+		return  ticketRepo.save(ticket);
+	}
 
 	public Ticket TicketsByFestival(long festivalId) {
 
@@ -64,7 +67,7 @@ public class TicketManagement {
 
 
 
-	// TODO: 12/11/2021 create exceptions
+	// TODO: 12/11/2021 save exceptions
 
 	public boolean checkTickets(Ticket ticket) {
 
