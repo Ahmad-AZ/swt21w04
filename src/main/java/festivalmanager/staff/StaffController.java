@@ -29,6 +29,7 @@ public class StaffController {
 						   UtilsManagement utilsManagement) {
 		Assert.notNull(staffManagement, "StaffManagement must not be null!");
 		Assert.notNull(festivalManagement, "FestivalManagement must not be null!");
+
 		this.staffManagement = staffManagement;
 		this.festivalManagement = festivalManagement;
 		this.utilsManagement = utilsManagement;
