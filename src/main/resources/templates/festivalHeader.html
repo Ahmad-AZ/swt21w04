@@ -39,10 +39,27 @@
 
                     <a th:class="${'item ' + 'border-right ' + ticketsCurrent}"
                        th:href="@{/tickets}"
-                       sec:authorize="isAuthenticated()">Ticket Shop</a>
+                       sec:authorize="hasRole('PLANNER')||hasRole('ADMIN')">Tickets</a>
 
 
-					<a th:class="${'item ' + 'border-right ' + programCurrent}"
+
+
+                    <a th:class="${'item ' + 'border-right ' + ticketShopCurrent}"
+                       th:href="@{/ticketShop}"
+                       sec:authorize="hasRole('TICKET_SELLER')||hasRole('ADMIN')">Ticket Shop</a>
+
+
+
+
+
+
+
+
+
+
+
+
+                    <a th:class="${'item ' + 'border-right ' + programCurrent}"
                        th:href="@{/schedule}">Spielplan</a>
 
 

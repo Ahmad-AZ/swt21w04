@@ -27,9 +27,6 @@ public class TicketManagement {
 	private Festival currentFestival;
 	private Ticket currentTicket;
 
-	private TicketStock ticketStock;
-
-
 	public TicketManagement(FestivalManagement festival) {
 		this.festival = festival;
 		this.currentFestival = null;
@@ -58,18 +55,6 @@ public class TicketManagement {
 		return festival.findById(id).get();
 	}
 
-
-	public void addTicketInStock(Ticket ticket) {
-
-		ticketStock.addTickets(ticket);
-
-	}
-
-	public Ticket checkTicketInStock(Ticket ticket) {
-
-		ticketStock.getTicketByFestival(ticket.getFestivalId());
-		return ticketStock.getTicketByFestival(ticket.getFestivalId());
-	}
 
 
 	// TODO: 12/11/2021 create exceptions
