@@ -62,7 +62,7 @@
 					<td th:text="${stockitem.getOrderDate()}">10.12.2021</td>
 					<td th:text="${stockitem.getBestBeforeDate()}">01.04.2021</td>
 					<td>
-						l&ouml;schen
+						<a th:href="@{/cateringDeleteStockItem/{id}(id=${stockitem.getId()})}">l&ouml;schen</a>
 					</td>
 				</tr>
 			</table>
