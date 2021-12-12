@@ -1,7 +1,6 @@
 package festivalmanager.staff;
 
 import festivalmanager.staff.forms.*;
-import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
@@ -11,11 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import static org.salespointframework.core.Currencies.EURO;
 
 @Service
 @Transactional
@@ -49,7 +45,7 @@ public class StaffManagement {
 			var password = Password.UnencryptedPassword.of(form.getPassword());
 			var userAccount = userAccountManagement.create(form.getName(), password, Role.of(form.getRole()));
 
-			return staff.save(new Person(festivalId, form.getName(), form.getRole(), Money.of(form.getSalary(), EURO), userAccount));
+			return staff.save(new Person(festivalId, form, userAccount));
 		} else {
 			return null;
 		}
@@ -81,13 +77,15 @@ public class StaffManagement {
 	public void changePassword(ChangePasswordForm form) {
 		Optional<Person> person = findById(form.getId());
 		if (person.isPresent()) {
-			userAccountManagement.changePassword(person.get().getUserAccount(), Password.UnencryptedPassword.of(form.getPassword()));
+			Password.UnencryptedPassword newPassword = Password.UnencryptedPassword.of(form.getPassword());
+			userAccountManagement.changePassword(person.get().getUserAccount(), newPassword);
 		}
 	}
 
 	public Streamable<Person> findAll() {
 		return staff.findAll();
 	}
+
 	public Streamable<Person> findByFestivalId(long festivalId) {
 		if (festivalId == -1) {
 			// admins can see everyone

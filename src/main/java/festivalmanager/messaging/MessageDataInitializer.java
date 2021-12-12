@@ -21,6 +21,10 @@ public class MessageDataInitializer implements DataInitializer {
 		this.staffManagement = staffManagement;
 	}
 
+	public void newMessage(long senderId, long receiverId, String title, String content) {
+		messageManagement.sendMessage(new SendMessageForm(senderId, receiverId, title, content));
+	}
+
 	@Override
 	public void initialize() {
 		long adminId = 0, managerId = 0;
@@ -32,9 +36,9 @@ public class MessageDataInitializer implements DataInitializer {
 			}
 		}
 
-		messageManagement.sendMessage(new SendMessageForm(managerId, adminId, "test manager -> admin", "Hello World!"));
-		messageManagement.sendMessage(new SendMessageForm(managerId, adminId, "test manager -> admin - 2", "Hello World! - 2"));
-		messageManagement.sendMessage(new SendMessageForm(adminId, managerId, "test admin -> manager", "Hello World!"));
-		messageManagement.sendMessage(new SendMessageForm(adminId, managerId, "test admin -> manager - 2", "Hello World! - 2"));
+		newMessage(managerId, adminId, "test manager -> admin", "Hello World!");
+		newMessage(managerId, adminId, "test manager -> admin - 2", "Hello World! - 2");
+		newMessage(adminId, managerId, "test admin -> manager", "Hello World!");
+		newMessage(adminId, managerId, "test admin -> manager - 2", "Hello World! - 2");
 	}
 }
