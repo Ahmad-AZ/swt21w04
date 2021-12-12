@@ -78,7 +78,8 @@ public class Artist {
 	public boolean addBooking(LocalDate startDate, LocalDate endDate) {
 		Interval festivalDateInterval = Interval.from(startDate.atStartOfDay()).to(endDate.atTime(23,59));
 		for (BookingArtist aBooking : bookingArtists) {
-			Interval aBookingDateInterval = Interval.from(aBooking.getStartDate().atStartOfDay()).to(aBooking.getEndDate().atTime(23, 59));
+			Interval aBookingDateInterval = Interval.from(aBooking.getStartDate().atStartOfDay())
+					.to(aBooking.getEndDate().atTime(23, 59));
 			if (aBookingDateInterval.overlaps(festivalDateInterval)) {
 				System.out.println("Künstlerbelegt");
 				return false;
