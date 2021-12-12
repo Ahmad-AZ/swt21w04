@@ -119,8 +119,7 @@ class FinancesController {
 		if (attributeValue.getClass().getSimpleName().equals("Money")) {
 			String attributeStr = String.format("%.2f", ((Money) attributeValue).getNumber().doubleValue());
 			model.addAttribute(attributeName, attributeStr);
-		}
-		else {
+		} else {
 			model.addAttribute(attributeName, attributeValue);
 		}
 	}
@@ -155,8 +154,9 @@ class FinancesController {
 								  @RequestParam("priceCampingTicketsExpected") Double priceCampingTicketsExpected,
 								  @RequestParam("priceOneDayTicketsExpected") Double priceOneDayTicketsExpected) {
 
-		if (priceCampingTicketsExpected < 0 || priceOneDayTicketsExpected < 0)
+		if (priceCampingTicketsExpected < 0 || priceOneDayTicketsExpected < 0) {
 			return "redirect:/finances";
+		}
 
 		this.priceCampingTicketsExpected = Money.of(priceCampingTicketsExpected, EURO);
 		this.priceOneDayTicketsExpected = Money.of(priceOneDayTicketsExpected, EURO);
