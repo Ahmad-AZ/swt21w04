@@ -5,6 +5,7 @@ import java.util.Optional;
 import javax.persistence.Entity;
 import org.salespointframework.inventory.*;
 import org.salespointframework.quantity.*;
+//import org.salespointframework.order.*;
 
 /**
  * @author Robert Menzel
@@ -12,7 +13,14 @@ import org.salespointframework.quantity.*;
 @Entity
 public class CateringSalesItem extends MultiInventoryItem {
     private long festivalId, cateringStandId;
+    // private Cart cart = new Cart();
     static FestivalManagement festivalManagement;
+
+	public CateringSalesItem() {
+
+		this.festivalId = 0;
+		this.cateringStandId = 0;
+	}
 
     public CateringSalesItem(CateringProduct product, Quantity quantity, long festivalId, long cateringStandId) {
         super(product, quantity);
@@ -37,4 +45,7 @@ public class CateringSalesItem extends MultiInventoryItem {
         return oFm.get();
     }
 
+    // public Cart getCart() {
+    // return cart;
+    // }
 }
