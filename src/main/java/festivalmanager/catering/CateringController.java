@@ -50,9 +50,8 @@ public class CateringController {
 	@GetMapping("/catering")
 	String sales(Model model, @ModelAttribute Cart cart) {
 		currentFestival = festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
-		model.addAttribute("stock", stock.findByFestivalId(currentFestival.getId()));
+
 		model.addAttribute("productcatalog", catalog.findAll());
-		model.addAttribute("sales", sales);
 		model.addAttribute("productid", null);
 
 		utilsManagement.setCurrentPageLowerHeader("cateringSales");
@@ -63,7 +62,6 @@ public class CateringController {
 
 	@PostMapping("/catering/addToCart")
 	String addToCart(Model model, AddToCartFormResult formResult, @ModelAttribute Cart cart) {
-
 		if (formResult.productId != null) {
 			Optional<CateringProduct> oProduct = catalog.findById(formResult.productId);
 
@@ -80,7 +78,10 @@ public class CateringController {
 
 		for (CartItem item : cart) {
 			CateringSalesItem salesItem = new CateringSalesItem(
-					(CateringProduct) item.getProduct(), item.getQuantity(), currentFestival.getId());
+					(CateringProduct) item.getProduct(),
+					item.getQuantity(),
+					currentFestival.getId(),
+					item.getPrice());
 			sales.save(salesItem);
 		}
 
@@ -106,4 +107,7 @@ public class CateringController {
 		return catalog;
 	}
 
+	public CateringStock getStock() {
+		return stock;
+	}
 }
