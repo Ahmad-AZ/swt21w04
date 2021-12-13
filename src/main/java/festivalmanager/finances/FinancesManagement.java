@@ -13,14 +13,12 @@ import festivalmanager.ticketShop.Ticket;
 import festivalmanager.ticketShop.TicketManagement;
 import festivalmanager.utils.UtilsManagement;
 import org.javamoney.moneta.Money;
-import org.salespointframework.quantity.Quantity;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static org.salespointframework.core.Currencies.EURO;
 
@@ -41,9 +39,6 @@ public class FinancesManagement {
 	UtilsManagement utilsManagement;
 	StaffManagement staffManagement;
 	TicketManagement ticketManagement;
-	CateringSales cateringSales;
-	CateringProductCatalog cateringProductCatalog;
-	CateringStock cateringStock;
 	CateringController cateringController;
 
 
@@ -52,9 +47,6 @@ public class FinancesManagement {
 					   EquipmentManagement equipmentManagement,
 					   StaffManagement staffManagement,
 					   TicketManagement ticketManagement,
-					   CateringSales cateringSales,
-					   CateringProductCatalog cateringProductCatalog,
-					   CateringStock cateringStock,
 					   CateringController cateringController) {
 
 		this.equipmentManagement = equipmentManagement;
@@ -62,9 +54,6 @@ public class FinancesManagement {
 		this.utilsManagement = utilsManagement;
 		this.staffManagement = staffManagement;
 		this.ticketManagement = ticketManagement;
-		this.cateringSales = cateringSales;
-		this.cateringProductCatalog = cateringProductCatalog;
-		this.cateringStock = cateringStock;
 		this.cateringController = cateringController;
 
 		currentFestival = null;
@@ -84,6 +73,7 @@ public class FinancesManagement {
 		}
 
 		durationDays = currentFestival.getEndDate().toEpochDay() - currentFestival.getStartDate().toEpochDay() + 1;
+		totalRevenue = Money.of(0, EURO);
 		totalCost = Money.of(0, EURO);
 	}
 
@@ -175,27 +165,19 @@ public class FinancesManagement {
 		Money cateringRevenue = Money.of(0, EURO);
 
 		CateringSales cateringSales = cateringController.getCateringSales();
-		CateringStock cateringStock = cateringController.getCateringStock();
-
-		System.out.println(cateringSales);
-		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAA");
-		System.out.println(cateringSales.findAll());
+		CateringProductCatalog cateringProductCatalog = cateringController.getCateringProductCatalog();
 
 		for (CateringSalesItem salesItem : cateringSales.findAll()) {
 
-			System.out.println("BINNNDAAAAA");
-
 			if (salesItem.getFestivalId() == currentFestival.getId()) {
 
-				/*
-				System.out.println(salesItem.getId());
-				CateringStockItem stockItem = cateringStock.findById(salesItem.getId()).get();
-				Money productPrice = Money.of(stockItem.getProduct().getPrice().getNumber().doubleValue(), EURO);
+				CateringProduct cateringProduct = salesItem.getCateringProduct();
+				Money productPrice = Money.of(cateringProduct.getPrice().getNumber().doubleValue(), EURO);
 				long productAmount = salesItem.getQuantity().getAmount().longValue();
 				cateringRevenue = cateringRevenue.add(productPrice.multiply(productAmount));
-				 */
 			}
 		}
+
 		totalRevenue = totalRevenue.add(cateringRevenue);
 		return cateringRevenue;
 	}

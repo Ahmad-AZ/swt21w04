@@ -11,7 +11,8 @@
 			<div th:include="festivalHeader :: festivalHeader"></div>
 		</header>
         <section layout:fragment="content">
-            <form class="ui form" method="post" th:action="@{/catering/addToCart}">
+			<div class="ui form">
+            <form method="post" th:action="@{/catering/addToCart}">
 				<table border="1">
 					<tr>
 						<td>
@@ -38,11 +39,10 @@
 						<td valign="top">
 							<h3>Warenkorb</h3>
 								<table>
+									<tr><th>Produkt</th><th>Anzahl</th><th>Preis</th></tr>
 									<tr th:each="item : ${cart} ">
 										<td th:text="${item.productName}">Cola</td>
-										<td></td>
 										<td th:text="${item.quantity}">1</td>
-										<td></td>
 										<td th:text="${{item.price}}">1 &euro;</td>
 									</tr>
 								</table>
@@ -51,8 +51,10 @@
 				</table>
 			</form>
 			<form method="post" th:action="@{/catering/checkout}">
+
 				<input type ="submit" value="Kaufen">
 			</form>
+			</div>
         </section>
     </body>
     

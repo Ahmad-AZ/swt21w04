@@ -1,9 +1,6 @@
 package festivalmanager.catering;
 
-import festivalmanager.festival.*;
-import java.util.Optional;
-import javax.persistence.Entity;
-import org.salespointframework.inventory.*;
+import javax.persistence.*;
 import org.salespointframework.quantity.*;
 //import org.salespointframework.order.*;
 
@@ -11,41 +8,46 @@ import org.salespointframework.quantity.*;
  * @author Robert Menzel
  */
 @Entity
-public class CateringSalesItem extends MultiInventoryItem {
-    private long festivalId, cateringStandId;
-    // private Cart cart = new Cart();
-    static FestivalManagement festivalManagement;
+public class CateringSalesItem {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+
+    private long festivalId;
+
+	@Embedded
+	private Quantity quantity;
+
+	@ManyToOne
+	CateringProduct cateringProduct;
+
+	// A default constructor is necessary for CateringSales.findAll() to work
 	public CateringSalesItem() {
-
+		this.quantity = Quantity.of(0);
 		this.festivalId = 0;
-		this.cateringStandId = 0;
+		this.cateringProduct =null;
 	}
 
-    public CateringSalesItem(CateringProduct product, Quantity quantity, long festivalId, long cateringStandId) {
-        super(product, quantity);
+    public CateringSalesItem(CateringProduct product, Quantity quantity, long festivalId) {
+        this.quantity = quantity;
         this.festivalId = festivalId;
-        this.cateringStandId = cateringStandId;
+		this.cateringProduct= product;
     }
+
+	public CateringProduct getCateringProduct() {
+		return cateringProduct;
+	}
 
     public long getFestivalId() {
         return festivalId;
     }
 
-    public long getCateringStandId() {
-        return cateringStandId;
-    }
+	public Quantity getQuantity() {
+		return quantity;
+	}
 
-    public Festival getFestival() {
-        if (festivalManagement == null)
-            return null;
-        Optional<Festival> oFm = festivalManagement.findById(festivalId);
-        if (!oFm.isPresent())
-            return null;
-        return oFm.get();
-    }
-
-    // public Cart getCart() {
-    // return cart;
-    // }
+	public long getId(){
+		return id;
+	}
 }

@@ -12,7 +12,6 @@ import org.salespointframework.catalog.ProductIdentifier;
 import festivalmanager.festival.*;
 import festivalmanager.utils.*;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.Optional;
@@ -40,7 +39,6 @@ public class CateringController {
 		this.stock = stock;
 		this.utilsManagement = utilsManagement;
 		this.festivalManagement = festivalManagement;
-		CateringSalesItem.festivalManagement = festivalManagement;
 		this.sales = sales;
 	}
 
@@ -56,6 +54,7 @@ public class CateringController {
 		model.addAttribute("productcatalog", catalog.findAll());
 		model.addAttribute("sales", sales);
 		model.addAttribute("productid", null);
+
 		utilsManagement.setCurrentPageLowerHeader("cateringSales");
 		utilsManagement.prepareModel(model);
 		model.addAttribute("cart", cart);
@@ -64,14 +63,13 @@ public class CateringController {
 
 	@PostMapping("/catering/addToCart")
 	String addToCart(Model model, AddToCartFormResult formResult, @ModelAttribute Cart cart) {
-		System.out.println(formResult.productId);
-		System.out.println(formResult.productCount);
 
 		Optional<CateringProduct> oProduct = catalog.findById(formResult.productId);
 		if (oProduct.isPresent()) {
 			CateringProduct product = oProduct.get();
 			cart.addOrUpdateItem(product, Quantity.of(formResult.productCount));
 		}
+
 		return "redirect:/catering";
 	}
 
@@ -80,7 +78,7 @@ public class CateringController {
 
 		for (CartItem item: cart) {
 			CateringSalesItem salesItem = new CateringSalesItem(
-					(CateringProduct) item.getProduct(), item.getQuantity(), currentFestival.getId(), 0);
+					(CateringProduct) item.getProduct(), item.getQuantity(), currentFestival.getId());
 			sales.save(salesItem);
 		}
 
@@ -102,8 +100,8 @@ public class CateringController {
 		return sales;
 	}
 
-	public CateringStock getCateringStock() {
-		return stock;
+	public CateringProductCatalog getCateringProductCatalog() {
+		return catalog;
 	}
 
 }
