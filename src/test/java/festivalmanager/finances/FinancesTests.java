@@ -2,9 +2,7 @@ package festivalmanager.finances;
 
 import festivalmanager.Equipment.EquipmentManagement;
 import festivalmanager.Equipment.EquipmentRepository;
-import festivalmanager.catering.CateringProductCatalog;
-import festivalmanager.catering.CateringSales;
-import festivalmanager.catering.CateringStock;
+import festivalmanager.catering.*;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.festival.FestivalRepository;
@@ -37,7 +35,7 @@ class FinancesTests {
 
 	@Test
 	void testFinancesManagement() {
-/*
+
 		FestivalRepository festivalRepository = mock(FestivalRepository.class);
 		Festival testFestival = new Festival("TestFestival",
 				LocalDate.of(2021, 12, 3),
@@ -72,9 +70,18 @@ class FinancesTests {
 		TicketManagement ticketManagement = mock(TicketManagement.class);
 		when(ticketManagement.TicketsByFestival(anyLong())).thenReturn(ticketInformation);
 
-		CateringSales cateringSales = mock(CateringSales.class);
 		CateringStock cateringStock = mock(CateringStock.class);
+		CateringSales cateringSales = mock(CateringSales.class);
+		Streamable<CateringSalesItem> cateringSalesStream = Streamable.empty();
+		when(cateringSales.findAll()).thenReturn(cateringSalesStream);
 		CateringProductCatalog cateringProductCatalog = mock(CateringProductCatalog.class);
+		CateringController cateringController = new CateringController(
+				cateringProductCatalog,
+				cateringStock,
+				cateringSales,
+				utilsManagement,
+				festivalManagement);
+
 
 		FinancesManagement financesManagement = new FinancesManagement(
 				festivalManagement,
@@ -82,9 +89,7 @@ class FinancesTests {
 				equipmentManagement,
 				staffManagement,
 				ticketManagement,
-				cateringSales,
-				cateringProductCatalog,
-				cateringStock);
+				cateringController);
 		FinancesController financesController = new FinancesController(
 				financesManagement,
 				festivalManagement,
@@ -92,12 +97,14 @@ class FinancesTests {
 		Model testModel = new ExtendedModelMap();
 		financesController.financesPage(testModel);
 
-		//assertThat(testModel.getAttribute("artistsCost")).isEqualTo("11010.10");
+		assertThat(testModel.getAttribute("artistsCost")).isEqualTo("0.00");
 		assertThat(testModel.getAttribute("locationCost")).isEqualTo("2000.00");
-		//assertThat(testModel.getAttribute("cost")).isEqualTo("13010.10");
-		//assertThat(testModel.getAttribute("totalRevenue")).isEqualTo("0.00");
-		//assertThat(testModel.getAttribute("profit")).isEqualTo("-13010.10");
-*/
+		assertThat(testModel.getAttribute("staffCost")).isEqualTo("0.00");
+		assertThat(testModel.getAttribute("equipmentCost")).isEqualTo("0.00");
+		assertThat(testModel.getAttribute("totalCost")).isEqualTo("2000.00");
+		assertThat(testModel.getAttribute("totalRevenue")).isEqualTo("0.00");
+		assertThat(testModel.getAttribute("profit")).isEqualTo("-2000.00");
+
 	}
 
 
