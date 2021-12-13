@@ -12,12 +12,13 @@
 		</header>
         <section layout:fragment="content">
 			<div class="ui form">
-            <form method="post" th:action="@{/catering/addToCart}">
+            
 				<table border="1">
 					<tr>
 						<td>
 							<fieldset>
 								<legend>Catering Produkte</legend>
+								<form method="post" th:action="@{/catering/addToCart}">
 								<table>
 									<tr><th>Produkt</th><th>Preis</th></tr>
 									<tr th:each="product : ${productcatalog}">
@@ -34,26 +35,32 @@
 										<td><button type="submit">hinzuf&uuml;gen</button></td>
 									</tr>
 								</table>
+							</form>
 							</fieldset>	
 						</td>
 						<td valign="top">
-							<h3>Warenkorb</h3>
-								<table>
-									<tr><th>Produkt</th><th>Anzahl</th><th>Preis</th></tr>
-									<tr th:each="item : ${cart} ">
-										<td th:text="${item.productName}">Cola</td>
-										<td th:text="${item.quantity}">1</td>
-										<td th:text="${{item.price}}">1 &euro;</td>
-									</tr>
-								</table>
+							<form method="post" th:action="@{/catering/checkout}">
+							<center><h3>Warenkorb</h3></center>
+							<table border="1" width="400">
+								<tr><th width="200">Produkt</th><th width="100">Anzahl</th><th width="100">Preis</th></tr>
+								<tr th:each="item : ${cart} ">
+									<td th:text="${item.productName}">Cola</td>
+									<td align="right" th:text="${item.quantity}">1</td>
+									<td align="right" th:text="${{item.getPrice()}}">1 &euro;</td>
+								</tr>
+								<tr>
+									<td align="center">
+										<input type ="submit" value="Kaufen">
+									</td>
+									<td><b><center>Summe</center></b></td>
+									<td align="right" th:text="${cart.getPrice()}"></td>
+								</tr>
+							</table>
+						</form>							
 						</td>
 					</tr>
 				</table>
-			</form>
-			<form method="post" th:action="@{/catering/checkout}">
 
-				<input type ="submit" value="Kaufen">
-			</form>
 			</div>
         </section>
     </body>

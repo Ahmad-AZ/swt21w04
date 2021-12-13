@@ -64,19 +64,21 @@ public class CateringController {
 	@PostMapping("/catering/addToCart")
 	String addToCart(Model model, AddToCartFormResult formResult, @ModelAttribute Cart cart) {
 
-		Optional<CateringProduct> oProduct = catalog.findById(formResult.productId);
-		if (oProduct.isPresent()) {
-			CateringProduct product = oProduct.get();
-			cart.addOrUpdateItem(product, Quantity.of(formResult.productCount));
-		}
+		if (formResult.productId != null) {
+			Optional<CateringProduct> oProduct = catalog.findById(formResult.productId);
 
+			if (oProduct.isPresent()) {
+				CateringProduct product = oProduct.get();
+				cart.addOrUpdateItem(product, Quantity.of(formResult.productCount));
+			}
+		}
 		return "redirect:/catering";
 	}
 
 	@PostMapping("/catering/checkout")
 	String checkout(Model model, @ModelAttribute Cart cart) {
 
-		for (CartItem item: cart) {
+		for (CartItem item : cart) {
 			CateringSalesItem salesItem = new CateringSalesItem(
 					(CateringProduct) item.getProduct(), item.getQuantity(), currentFestival.getId());
 			sales.save(salesItem);
