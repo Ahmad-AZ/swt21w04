@@ -71,6 +71,7 @@ class FinancesController {
 		addAttribute(model, "locationCost", financesManagement.getLocationCost());
 		addAttribute(model, "equipmentCost", financesManagement.getEquipmentCost());
 		addAttribute(model, "staffCost", financesManagement.getStaffCost());
+		addAttribute(model, "cateringCost", financesManagement.getCateringCost());
 
 		addAttribute(model, "priceCampingTickets", financesManagement.getPriceCampingTickets());
 		addAttribute(model, "priceOneDayTickets", financesManagement.getPriceOneDayTickets());

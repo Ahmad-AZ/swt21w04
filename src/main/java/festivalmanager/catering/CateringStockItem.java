@@ -41,11 +41,13 @@ public class CateringStockItem extends MultiInventoryItem {
     }
 
     public Festival getFestival() {
-        if (festivalManagement == null)
+        if (festivalManagement == null) {
             return null;
+        }
         Optional<Festival> oFm = festivalManagement.findById(festivalId);
-        if (!oFm.isPresent())
+        if (!oFm.isPresent()) {
             return null;
+        }
         return oFm.get();
     }
 
