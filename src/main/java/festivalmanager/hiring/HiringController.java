@@ -70,6 +70,10 @@ public class HiringController {
 
 			System.out.println(artistId);
 			model.addAttribute("artist", current);
+			Double price = current.getPrice().getNumber().doubleValue();
+			model.addAttribute("price", price);
+			Integer stageTechnician = current.getStageTechnician();
+			model.addAttribute("stageTechnician", stageTechnician);
 			return "artistEdit";
 
 		} else {
@@ -174,7 +178,7 @@ public class HiringController {
 	}
 	@PostMapping("/newShow/{artistId}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String createNewShow(@PathVariable Long artistId,@Validated newShowForm form, Model model) {
+	public String createNewShow(@PathVariable Long artistId, @Validated NewShowForm form, Model model) {
 		Optional<Artist> artist = hiringManagement.findById(artistId);
 
 		if(artist.isPresent()) {
