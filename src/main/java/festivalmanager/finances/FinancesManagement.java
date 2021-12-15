@@ -13,6 +13,7 @@ import festivalmanager.ticketShop.Ticket;
 import festivalmanager.ticketShop.TicketManagement;
 import festivalmanager.utils.UtilsManagement;
 import org.javamoney.moneta.Money;
+import org.salespointframework.quantity.Quantity;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -146,6 +147,25 @@ public class FinancesManagement {
 
 		totalCost = totalCost.add(staffCost);
 		return staffCost;
+	}
+
+
+	public Money getCateringCost() {
+
+		Money cateringCost = Money.of(0, EURO);
+		CateringStock cateringStock = cateringController.getStock();
+
+		for (CateringStockItem cateringStockItem :
+				cateringStock.findByFestivalId(currentFestival.getId())) {
+			System.out.println(cateringStockItem.getProduct().getName());
+			System.out.println(cateringStockItem.getBuyingPrice());
+			Long amount = cateringStockItem.getQuantity().getAmount().longValue();
+			Money price = cateringStockItem.getBuyingPrice();
+			cateringCost = cateringCost.add(price.multiply(amount));
+		}
+
+		totalCost = totalCost.add(cateringCost);
+		return cateringCost;
 	}
 
 
