@@ -1,7 +1,7 @@
 = Cross-Testing Feedback
 
-__Durchführende Gruppe:__
-__Anwendung von Gruppe:__
+__Durchführende Gruppe:05
+__Anwendung von Gruppe:04
 
 == Getestetes System
 Welche Aufgabe/Problemstellung löst die Anwendung.
@@ -10,8 +10,15 @@ Welche Aufgabe/Problemstellung löst die Anwendung.
 // See http://asciidoctor.org/docs/user-manual/#tables
 [options="header"]
 |===
-|Pfad |Parameter |Beschreibung |Rückgabe
-| … | … | … | … |
+|Pfad                                 |Parameter |Beschreibung                                                        |Rückgabe
+| http://localhost:8080/ticket/6/sale |        3 | Ticketpreis ist nicht angezeigt, wenn man nicht auf ADD TO CARD drückt und sofort auf Kaufen drückt| pdf
+| http://localhost:8080/ticket/6/sale | 1000000| Ticket wurden für große Nummer verkauft | ticket pdf
+| http://localhost:8080/ticket/6/sale |    3    | kann nicht rückwerts gehen, wenn man die Tickets zum Warenkorb hinzufügt und die Tickets stornieren |
+| http://localhost:8080/ticket/6/sale | 3|  ein Error ist aufgetreten bein Kaufen, als ich Tickets zum Warenkorb hinzufügt habe  und nochmal die gleiche Type von Tickets zum Warenkorb hinzufüge |An internal server error occurred.
+|http://localhost:8080/festival/7     | 3 | gleiche Tickets wurden für verschiedene Festivals verkauft|
+| http://localhost:8080/ticket/6/sale |10 | Name, Qty , Price, Total  wurden auf dem PDF nicht gezeigt, wenn ich die Tickets kaufe, ohne die Tickets bevor zum Warenkorb hinzufüge| ein Ticket ohne (Name,Qty , Price, Total
+|http://localhost:8080/ticket/6/sale |0 | Ticket für 0 anzahl wurde gekauft| 0 Ticket
+|http://localhost:8080/ticket/6/sale | 15| Ticketpreis und das Total  sind gleich auf dem PDF|
 |===
 
 == Sonstiges
