@@ -19,6 +19,12 @@ Welche Aufgabe/Problemstellung löst die Anwendung.
 | http://localhost:8080/ticket/6/sale |10 | Name, Qty , Price, Total  wurden auf dem PDF nicht gezeigt, wenn ich die Tickets kaufe, ohne die Tickets bevor zum Warenkorb hinzufüge| ein Ticket ohne (Name,Qty , Price, Total
 |http://localhost:8080/ticket/6/sale |0 | Ticket für 0 anzahl wurde gekauft| 0 Ticket
 |http://localhost:8080/ticket/6/sale | 15| Ticketpreis und das Total  sind gleich auf dem PDF|
+|http://localhost:8080/location/2 | | Bild von Location kann nicht angezeigt werden|
+|http://localhost:8080/location/2/edit| null      |Name von Location kann auf null setzen|
+|http://localhost:8080/location/2/edit|-2|max visitor, max stages, rent können auf negativen Werten setzen|
+|http://localhost:8080/location/2/edit| null|Fehler tritt auf wenn man keine Eingabe in max visitors oder max stages oder rent einfügt| ??org.springframework.validation.BeanPropertyBindingResult: 1 errors Field error in object 'locationForm' on field 'maxStages': rejected value []; codes
+|http://localhost:8080/location/2/edit| |text in button ist nicht so klar(Fehler beim Frontend)|??location.edit_en_US??
+
 |===
 
 == Sonstiges
