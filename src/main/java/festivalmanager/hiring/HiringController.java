@@ -180,6 +180,7 @@ public class HiringController {
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String createNewShow(@PathVariable Long artistId, @Validated NewShowForm form, Model model) {
 		Optional<Artist> artist = hiringManagement.findById(artistId);
+		model.addAttribute("artistId", artistId);
 
 		if(artist.isPresent()) {
 			Artist current = artist.get();
