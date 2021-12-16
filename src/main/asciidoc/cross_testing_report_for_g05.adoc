@@ -33,6 +33,8 @@ Welche Aufgabe/Problemstellung löst die Anwendung.
 |http://localhost:8080/festival/6/edit| |man kann die Location von Festival nicht ändern|
 |http://localhost:8080/festival/new| |wenn man einen invaliden Festival erstellt, zeigt die Meldung nachdem man den Button klickt(sehr unbequem weil man kann manchmal falsch einfügt)|
 |http://localhost:8080/lineup/new|Weihnachtsfestival|Wenn man den 'Add' Button klickt, nichts passiert (geht einfach zurück zu Seite http://localhost:8080/lineup/edit)|
+|http://localhost:8080/festival||nachdem man Festival aktualisiert(Edit), wird hier ein Pfeil angezeigt. Wenn man da klickt, tritt Fehler auf|??Festival has no lineups_en_US??
+
 |http://localhost:8080/||nachdem man Festival aktualisiert(edit) wird Festival nicht mehr auf Hauptseite angezeigt|
 
 |===
