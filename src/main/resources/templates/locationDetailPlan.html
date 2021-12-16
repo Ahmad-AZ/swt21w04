@@ -60,20 +60,20 @@
 		</div>
 		<div class="grid-item-right">
 			<div>
-	      		<img class="image" th:src="@{/resources/img/location/{name}.jpg(name=${location.image})}"
+	      		<img class="image" th:src="@{/locationImages/{name} (name=${location.image})}"
 	                         src="../static/resources/img/location/HSZ_image.jpg" />
 	      	</div>   
 		</div>
 
 
 		<div class="item-groundView">
-		</br>
-		<p class="entity-attribute">Grundriss:</p>
-		<div >
-			<img class="groundView" th:src="@{/resources/img/location/{name}.jpg(name=${location.groundView})}"
-		                     src="../static/resources/img/location/HSZ_groundview.jpg" />
-		</div>
-	    </br>  
+			</br>
+			<p class="entity-attribute">Grundriss:</p>
+			<div >
+				<img class="groundView" th:src="@{/resources/img/location/{name} (name=${location.groundView})}"
+			                     src="../static/resources/img/location/HSZ_groundview.jpg" />
+			</div>
+		    </br>  
 		</div>         
 	</div>		
 </body>

@@ -56,7 +56,6 @@ public class FestivalController {
 	@GetMapping("/festivalOverview/{festivalId}")
 	public String festivalDetail(@PathVariable Long festivalId, Model model, StringInputForm stringInputForm) {
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
-
 		if (festival.isPresent()) {
 			Festival current = festival.get();
 
@@ -123,6 +122,40 @@ public class FestivalController {
 		return "redirect:/festivalOverview";
 	}
 	
+	// gives NewFestivalForm to fill out
+	@GetMapping("/newFestival") 
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
+	public String newFestival(Model model, NewFestivalForm form) {
+		model.addAttribute("dateNow", LocalDate.now());
+		return "newFestival";
+	}
+	
+	
+	
+	@GetMapping("/festivalOverview/{festivalId}/editName")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
+	public String getEditFestivalName(@PathVariable("festivalId") Long festivalId, StringInputForm stringInputForm, Model model) {
+		model.addAttribute("dialog", "edit name");
+		
+		Optional<Festival> festival = festivalManagement.findById(festivalId);
+		if (festival.isPresent()) {
+			Festival current = festival.get();
+			model.addAttribute("festival", current);
+			
+			utilsManagement.setCurrentFestivalId(currentFestival.getId());
+			utilsManagement.setCurrentPageUpperHeader("festivals");
+			utilsManagement.setCurrentPageLowerHeader("festivalDetail");
+			utilsManagement.prepareModel(model);
+			
+			return "festivalDetail";
+		} else {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
+		}
+	}
+	
+	
 	@PostMapping("/editFestivalName/{festivalId}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String editFestivalName(@PathVariable("festivalId") Long festivalId, @Validated StringInputForm stringInputForm, Errors result, Model model) {
@@ -153,6 +186,7 @@ public class FestivalController {
 			
 			// not perfect
 			if (result.hasErrors()) {
+				model.addAttribute("dialog", "edit name");
 				return "festivalDetail";
 			}
 			
@@ -166,17 +200,6 @@ public class FestivalController {
 			);
 		}
 	}
-	
-	
-	
-	// gives NewFestivalForm to fill out
-	@GetMapping("/newFestival") 
-	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String newFestival(Model model, NewFestivalForm form) {
-		model.addAttribute("dateNow", LocalDate.now());
-		return "newFestival";
-	}
-	
 	
 	
 	// shows Festival Overview
