@@ -17,7 +17,6 @@ public class NewStageForm {
 	public NewStageForm(String name, Long equipmentsId) {
 		this.name = name;
 		this.equipmentsId = equipmentsId;	
-		
 	}
 
 	public String getName() {

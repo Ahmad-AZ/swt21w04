@@ -155,7 +155,7 @@ public class Festival {
 	}
 	
 
-	public Iterable<Stage> getStages(){
+	public List<Stage> getStages(){
 		return stages;
 	}
 	

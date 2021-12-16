@@ -101,21 +101,110 @@ public class PlanEquipmentController {
 	 
 	@PostMapping("/addStage")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String addStage(@RequestParam("equipmentsId") @NotNull long equipmentsId, @RequestParam("name") @NotEmpty String name, RedirectAttributes ra) {
-				
-		Equipment equipment = equipmentManagement.findById(equipmentsId).get();
+	public String addStage(@Valid NewStageForm newStageForm, Errors result, Model model, 
+								EquipmentRentingForm equipmentRentingForm) {
 		
-		boolean success = planEquipmentManagement.rentStage(name, equipment, currentFestivalId);
-		if(success == false) {
-			ra.addFlashAttribute("message", "Bühne mit diesem Namen existiert bereits");
-			ra.addFlashAttribute("currentFestivalId", currentFestival.getId());
-			return "redirect:/equipments";
+		
+		Optional<Festival> festivalOP = festivalManagement.findById(currentFestivalId);
+		if(!festivalOP.isPresent()) {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
 		}
+		Festival festival = festivalOP.get();
+		
+		if(!result.hasErrors()) {
+			Long equipmentsId = newStageForm.getEquipmentsId();
+			String name = newStageForm.getName();
+			
+			Optional<Equipment> equipmentOP = equipmentManagement.findById(equipmentsId);
+						
+			if(!equipmentOP.isPresent()) {
+				throw new ResponseStatusException(
+						HttpStatus.NOT_FOUND, "entity not found"
+				);
+			}
+			
+			Equipment equipment = equipmentOP.get();
+			
+			// Stage with same name already exists
+			for(Equipment aEquipment : festival.getStages()) {
+				if(aEquipment.getName().equals(name)){
+					result.rejectValue("name", null, "Bühne mit diesem Namen existiert bereits.");
+					
+				}
+			}
+			
+			if(!result.hasErrors()) {
+				// maximum stage capacity reached
+				if(festival.getStages().size() < festival.getLocation().getStageCapacity()) {
+					planEquipmentManagement.rentStage(name, equipment, festival);
+					
+				} else {
+					result.rejectValue("name", null, "Die maximale Bühnenkapazität wurde erreicht.");
+				}
+			}
+		}
+		
+		if(result.hasErrors()) {
+			Map<Equipment, Long> equipmentsMap = new HashMap<>();
+			
+			for (Equipment anEquipment : equipmentManagement.findAll()) {
+				long amount = festival.getEquipments().getOrDefault(anEquipment.getId(), (long) 0);
+				// Stages would be handled extra
+				if(anEquipment.getType().equals(EquipmentType.STAGE)) {
+					// Stage children Objects should not been visible here
+					if(!(anEquipment.getClass().getName().equals(Stage.class.getName()))) {
+						model.addAttribute("equipmentStage", anEquipment);
+					}
+
+				}else {
+					equipmentsMap.put(anEquipment, amount);
+				}
+			}
+			
+			// show current Stage List form Festival
+			model.addAttribute("stageList", festival.getStages());
+			
+			model.addAttribute("equipmentsMap", equipmentsMap);
+			
+			//required for groundView
+			model.addAttribute("location", festival.getLocation());
+			utilsManagement.setCurrentPageLowerHeader("equipment");
+			utilsManagement.prepareModel(model);
+			return "equipments";
+		}
+		
 		return "redirect:/equipments";
+		
 		
 	}
 	
+	
 	@GetMapping("equipments/remove/{id}")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
+	public String getRemoveStageDialog(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("dialog", "remove stage");
+		
+		Optional<Equipment> equipment = equipmentManagement.findById(id);
+		if(equipment.isPresent()) {
+			Equipment current = equipment.get();
+			model.addAttribute("stage", current);
+			model.addAttribute("equipmentsMap", null);
+		}
+		else {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
+		}
+		
+		utilsManagement.setCurrentPageLowerHeader("equipment");
+		utilsManagement.prepareModel(model);
+		return "equipments";
+	}
+	
+	
+	@PostMapping("equipments/remove/{id}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String removeStage(@PathVariable("id") Long id) {
 		
@@ -136,10 +225,6 @@ public class PlanEquipmentController {
 					HttpStatus.NOT_FOUND, "entity not found"
 			);
 		}
-
-
-
-
 		return "redirect:/equipments";
 	}
 	

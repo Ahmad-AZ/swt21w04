@@ -134,7 +134,7 @@ public class FestivalController {
 	
 	@GetMapping("/festivalOverview/{festivalId}/editName")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String getEditFestivalName(@PathVariable("festivalId") Long festivalId, StringInputForm stringInputForm, Model model) {
+	public String getEditFestivalNameDialog(@PathVariable("festivalId") Long festivalId, StringInputForm stringInputForm, Model model) {
 		model.addAttribute("dialog", "edit name");
 		
 		Optional<Festival> festival = festivalManagement.findById(festivalId);

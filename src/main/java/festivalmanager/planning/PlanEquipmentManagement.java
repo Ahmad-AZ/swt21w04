@@ -34,20 +34,13 @@ public class PlanEquipmentManagement {
 		return true;
 	}
 	
-	public boolean rentStage(String name, Equipment equipment, long festivalId) {
-		Festival festival = festivalManagement.findById(festivalId).get();
-		// if Stage with same name already exists
-		for(Equipment aEquipment : festival.getStages()) {
-			if(aEquipment.getName().equals(name)){
-				return false;
-			}
-		}
-//		if(festival.getStages().)
+	public boolean rentStage(String name, Equipment equipment, Festival festival) {
+
 		Stage stage = new Stage(name, equipment.getRentalPerDay(), equipment.getLength(), equipment.getWidth());
 		equipmentManagement.saveEquipment(stage);
 		festival.addStage(stage);
 		festivalManagement.saveFestival(festival);
-		
+
 		return true;
 	}
 	
