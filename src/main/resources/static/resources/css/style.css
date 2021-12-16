@@ -139,6 +139,15 @@ button:hover {
 	justify-content: space-between;
 }
 
+.form-item-error-message {
+	margin: 5% 0;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	color:rgb(255, 0, 0);
+	font-weight: bold;
+}
+
 .form-item-vertical {
 	margin: 5% 0;
 	display: flex;

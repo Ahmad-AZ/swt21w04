@@ -3,6 +3,9 @@
 *.jar
 target/
 
+# Location Images
+locationImages/
+
 # Eclipse
 bin/
 .settings/

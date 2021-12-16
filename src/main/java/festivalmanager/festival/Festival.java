@@ -59,6 +59,10 @@ public class Festival {
 	public long getId() {
 		return id;
 	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
 
 
 	public LocalDate getStartDate() {
