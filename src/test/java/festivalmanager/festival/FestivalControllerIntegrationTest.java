@@ -74,7 +74,7 @@ public class FestivalControllerIntegrationTest extends AbstractIntegrationTests{
 		Festival festival = new Festival();
 		festivalManagement.saveFestival(festival);
 
-		String returnedView = controller.festivalDetail(festival.getId(), model);
+		String returnedView = controller.festivalDetail(festival.getId(), model, new StringInputForm(""));
 		assertThat(returnedView).isEqualTo("festivalDetail");
 		
 		assertThat(model.getAttribute("location")).isNull();

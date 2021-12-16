@@ -15,8 +15,12 @@
 	</header>
 	<section layout:fragment="content">
                 <div class="content">
-                	<p  class="entity-attribute">Name:</p>
-		            <p th:text="${festival.name}">Keine gefunden</p>
+                	<form method="post" id="form" th:action="@{/editFestivalName/{id} (id=${festival.id})}" th:object="${stringInputForm}">
+				        <label class="entity-attribute" for="name">Name:</label></br>
+				        <input id="name" name="name" type="text" required="required" th:value="${festival.name}"/>
+				        <p class="ui-negative-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name festlegen</p>
+				        <input sec:authorize="hasRole('PLANNER') || hasRole('ADMIN') || hasRole('MANAGER')" type="submit" value="Ändern"/>
+                	</form>
 		            <br/>
 					<p class="entity-attribute">Anfangsdatum:</p>
 					<p th:text="${festival.startDate}">Keine gefunden</p>

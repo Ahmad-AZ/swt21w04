@@ -22,11 +22,12 @@
 						<h3>Gegenstände</h3>
 						<div class="equipments" th:each="equipment : ${equipmentsMap.keySet()}">
 							<div class="normal equipments">
-								 <form method="post" id="form" th:action="@{/rentEquipmentAmount}">
+								 <form method="post" id="form" th:action="@{/rentEquipmentAmount}" th:object="${equipmentRentingForm}">
 									  	<div class="entity-attribute"th:text="${equipment.name}">Name</div>
 									 	<label for="amount">Anzahl</label>
 									 	<input type="hidden" name="equipmentsId" th:value="${equipment.id}"/>	
-									 	<input id="amount" type="number" name="equipmentsAmount" min="0" th:value="${equipmentsMap.get(equipment)}"/>					
+									 	<input id="amount" type="number" name="amount" th:value="${equipmentsMap.get(equipment)}"/>	
+									 	<p  th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}">Wert darf nicht negativ sein</p>
 								        <input type ="submit" th:value="Anwenden"><br>
 							    </form>
 							    </br>
@@ -56,8 +57,8 @@
 					</td>
 					<td>
 						<h3>Karte</h3>
-						<div class="image">
-          					<img th:src="@{/resources/img/location/{name}.jpg(name=${location.groundView})}"
+						<div>
+          					<img  class="groundView" th:src="@{/resources/img/location/{name}.jpg(name=${location.groundView})}"
                              		src="../static/resources/img/location/HSZ_image.jpg"/>
 					</td>
 				</tr>

@@ -1,0 +1,37 @@
+.areas {
+	position: relative;
+	width: 1000px;
+	height: fit-content;
+    
+}
+
+.underlay-groundview {
+	position: absolute;	
+	z-index: -1;
+}
+
+.underlay-groundview-image{
+	width: 1000px;
+}
+
+.overlay-table {
+	opacity: 70%;
+	background: red;
+}
+
+.area-table {
+	border-collapse: collapse;
+	
+}
+
+.area-button {
+	background-color: transparent;
+	border-color:transparent;
+}
+
+.area-table td {
+	 border: 1px solid rgb(0, 0, 0);
+	 width: 60px;
+	 height: 60px;
+	 text-align: center;
+}

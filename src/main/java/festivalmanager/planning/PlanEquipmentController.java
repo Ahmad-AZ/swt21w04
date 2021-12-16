@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -57,7 +57,7 @@ public class PlanEquipmentController {
 	// shows Equipments Overview
 	@GetMapping("/equipments")  
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String equipments(Model model) {
+	public String equipments(Model model, EquipmentRentingForm equipmentRentingForm, NewStageForm newStageForm) {
 		this.currentFestivalId = utilsManagement.getCurrentFestivalId();
 		
 		Optional<Festival> festival = festivalManagement.findById(currentFestivalId);
@@ -146,12 +146,17 @@ public class PlanEquipmentController {
 	
 	@PostMapping("/rentEquipmentAmount")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String rentEquipmentAmount(Model model, 
-					  @RequestParam("equipmentsId") long equipmentsId,
-					  @RequestParam("equipmentsAmount") long equipmentsAmount) {
+	public String rentEquipmentAmount(Model model, @Valid EquipmentRentingForm equipementRentingForm, Errors result) {
 	
+		if(result.hasErrors()) {
+			System.out.println(result);
+			return "equipments";
+		}
+		Long equipmentsId = equipementRentingForm.getEquipmentsId();
+		Long equipmentsAmount = equipementRentingForm.getAmount();
+		System.out.println(equipmentsId + "     "+ equipmentsAmount);
 		
-
+		
 		Equipment equipment = equipmentManagement.findById(equipmentsId).get();
 		if(equipment.getType().equals(EquipmentType.STAGE)) {
 			// TODO:  for more Stage types: get number of already rented stages 

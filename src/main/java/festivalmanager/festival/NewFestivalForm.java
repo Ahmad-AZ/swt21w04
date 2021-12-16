@@ -19,12 +19,12 @@ class NewFestivalForm {
 	
 	@NotNull
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@FutureOrPresent
+	@FutureOrPresent(message="Das Startdatum darf nicht in der Vergangenheit liegen.")
 	private final LocalDate startDate;
 	
 	@NotNull
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@FutureOrPresent
+	@FutureOrPresent(message="Das Enddatum darf nicht in der Vergangenheit liegen.")
 	private final LocalDate endDate;
 	
 	

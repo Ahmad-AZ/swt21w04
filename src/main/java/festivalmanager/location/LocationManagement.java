@@ -2,14 +2,21 @@ package festivalmanager.location;
 
 
 
+import java.io.InputStream;
 import java.util.Optional;
 
 import org.javamoney.moneta.Money;
 import static org.salespointframework.core.Currencies.EURO;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+
 
 
 @Service
@@ -17,13 +24,13 @@ import org.springframework.util.Assert;
 public class LocationManagement { 
 	
 	private final LocationRepository locations;
-
 	/**
 	 * @param locations
 	 */
 	public LocationManagement(LocationRepository locations) {
+		
 		Assert.notNull(locations, "LoationRepository must not be null");
-		this.locations = locations;
+		this.locations = locations;		
 	}
 	
 	public Location createLocation(NewLocationForm form) {
@@ -51,7 +58,8 @@ public class LocationManagement {
 		else {
 			System.out.println("groundview setted");
 			groundView = form.getGroundView();
-		}		
+		}
+				
 		return locations.save(new Location(form.getName(), form.getAdress(), pricePerDay, form.getVisitorCapacity(), 
 				form.getStageCapacity(), image, groundView));
 	}

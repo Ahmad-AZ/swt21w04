@@ -54,7 +54,7 @@ public class FestivalController {
 	}
 	
 	@GetMapping("/festivalOverview/{festivalId}")
-	public String festivalDetail(@PathVariable Long festivalId, Model model) {
+	public String festivalDetail(@PathVariable Long festivalId, Model model, StringInputForm stringInputForm) {
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
 
 		if (festival.isPresent()) {
@@ -107,30 +107,9 @@ public class FestivalController {
 	@PostMapping("/newFestival")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String createNewFestival(@Validated NewFestivalForm form, Errors result, Model model) {
-		
-//		Streamable<F> customers = customerManagement.findAll();
-//		for (Customer customer : customers) {
-//			if (form.getName().equals(customer.getUserAccount().getUsername())) {
-//				result.rejectValue("name", null, "Benutzername bereits vergeben");
-//			}
-//		}
-
-//		if (!form.getPassword().equals(form.getPasswordReputation())) {
-//			result.rejectValue("passwordReputation", null, "Passwörter stimmen nicht überein.");
-//
-//		}
-		
+				
 		if (form.getEndDate().isBefore(form.getStartDate())) {
-		result.rejectValue("endDate", null, "Das Enddatum liegt vor dem Startdatum.");
-
-		}
-		if (form.getEndDate().isBefore(LocalDate.now())) {
-			result.rejectValue("endDate", null, "Das Enddatum darf nicht in der Vergangenheit liegen");
-
-		}
-		if (form.getStartDate().isBefore(LocalDate.now())) {
-			result.rejectValue("startDate", null, "Das Startdatum darf nicht in der Vergangenheit liegen");
-
+			result.rejectValue("endDate", null, "Das Enddatum liegt vor dem Startdatum.");
 		}
 		
 		if (result.hasErrors()) {
@@ -144,6 +123,50 @@ public class FestivalController {
 		return "redirect:/festivalOverview";
 	}
 	
+	@PostMapping("/editFestivalName/{festivalId}")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
+	public String editFestivalName(@PathVariable("festivalId") Long festivalId, @Validated StringInputForm stringInputForm, Errors result, Model model) {
+		Optional<Festival> festival = festivalManagement.findById(festivalId);
+		if (festival.isPresent()) {
+			Festival current = festival.get();
+
+			if (current.getStartDate().isBefore(LocalDate.now().plusDays(14))) {
+				result.rejectValue("name", null, "Das Festival beginnt in weniger als 14 Tage");
+			}
+						
+			model.addAttribute("festival", current);
+			model.addAttribute("artists", current.getArtist());
+			if (current.getLocation() != null) {
+				System.out.println(current.getLocation().getName());
+				model.addAttribute("location", current.getLocation());
+			}
+
+			currentId = festivalId;
+			currentFestival = current;
+
+			utilsManagement.setCurrentFestivalId(currentFestival.getId());
+			utilsManagement.setCurrentPageUpperHeader("festivals");
+			utilsManagement.setCurrentPageLowerHeader("festivalDetail");
+			utilsManagement.prepareModel(model);
+			
+			
+			
+			// not perfect
+			if (result.hasErrors()) {
+				return "festivalDetail";
+			}
+			
+			current.setName(stringInputForm.getName());
+			festivalManagement.saveFestival(current);
+			return "redirect:/festivalOverview/"+ current.getId();
+			
+		} else {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
+		}
+	}
+	
 	
 	
 	// gives NewFestivalForm to fill out
@@ -153,6 +176,8 @@ public class FestivalController {
 		model.addAttribute("dateNow", LocalDate.now());
 		return "newFestival";
 	}
+	
+	
 	
 	// shows Festival Overview
 	@GetMapping("/festivalOverview")
