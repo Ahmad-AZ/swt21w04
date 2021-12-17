@@ -27,7 +27,7 @@
 									 	<label for="amount">Anzahl</label>
 									 	<input type="hidden" name="equipmentsId" th:value="${equipment.id}"/>	
 									 	<input id="amount" type="number" name="amount" th:value="${equipmentsMap.get(equipment)}"/>	
-									 	<p  th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}">Wert darf nicht negativ sein</p>
+									 	<p  class="form-item-error-message" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}">Wert darf nicht negativ sein</p>
 								        <input type ="submit" th:value="Anwenden"><br>
 							    </form>
 							    </br>
@@ -68,6 +68,7 @@
 		<div class="overlay" th:if="${dialog} == 'remove stage'">
             <form class="form" th:action="@{/equipments/remove/{id} (id = ${stage.id})}" method="post">
 				<h2 class="form-item" th:inline="text">Bühne [[${stage.name}]] löschen</h2>
+				<p class="form-item-error-message" >Hinweis: das Programm für diese Bühne wird gelöscht</p>
 				<div class="form-item">
 					<a href="equipments.html" th:href="@{/equipments}">Abbrechen</a>
 					<input class="form-input" name="delete" type="submit" value="Löschen">

@@ -82,17 +82,15 @@ public class PlanScheduleManagement {
 			TimeSlot timeSlot = TimeSlot.valueOf(timeSlotString);
 			System.out.println(timeSlot);
 			
-			Stage stage = null;
-			for(Stage aStage : current.getStages()) {
-				if(aStage.getId() == stageId) {
-					stage = aStage;
-				}		
-			}
+			
+			// proof stage exists for current festival
+			Stage stage = this.getStages(current,stageId);			
 			if(stage == null) {
 				return false;
 			}
 			
 			
+			// show attribute ne null
 			Show show = null;
 			for(Artist anArtist : current.getArtist()) {
 				for(Show aShow : anArtist.getShows()) {
@@ -101,26 +99,28 @@ public class PlanScheduleManagement {
 					}
 				}
 			}
+			// else clear schedule from festival
 			if(show == null) {
 				return current.removeSchedule(timeSlot, stage, date);
 			}
 			
-			boolean success = true;
 			
-			Schedule schedule = current.getSchedule(timeSlot, stage, date);
-			if(!current.containsSchedule(timeSlot, stage, date)) {				
-				success = current.addSchedule(new Schedule(timeSlot, show, stage, date));
-			} 
-			else {
-				schedule.setShow(show);
-//				success = current.replaceSchedule(schedule);
-			}
-
+			boolean success = true;
+			success = current.addSchedule(timeSlot, show, stage, date);
 			festivalManagement.saveFestival(current);
 			return success;
 		} else {
 			return false;
 		}
 
+	}
+	
+	public Stage getStages(Festival festival, long stageId) {
+		for(Stage aStage : festival.getStages()) {
+			if(aStage.getId() == stageId) {
+				return aStage;
+			}		
+		}
+		return null;
 	}
 }

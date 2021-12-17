@@ -5,7 +5,10 @@ import festivalmanager.Equipment.EquipmentManagement;
 import festivalmanager.Equipment.Stage;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
+import festivalmanager.festival.Schedule;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,9 +49,27 @@ public class PlanEquipmentManagement {
 	
 	public boolean unrentStage(Stage stage, Long festivalId) {
 		Festival festival = festivalManagement.findById(festivalId).get();
-	
+		
+		// get all Schedules to remove at this stage
+		List<Schedule> deleteList = new ArrayList<>();
+		for(Schedule aSchedule : festival.getSchedules()) {
+			if(aSchedule.getStage().equals(stage)) {
+				deleteList.add(aSchedule);
+			}
+		}
+		
+		//required to avoid delete error
+		for(Schedule aSchedule : deleteList) {
+			festival.removeSchedule(aSchedule.getTimeSlot(), stage, aSchedule.getDate());	
+		}
+		
+		
+		System.out.println("before");
 		boolean success = festival.removeStage(stage);
-		equipmentManagement.removeById(stage.getId());
+		System.out.println("middle "+ festival.getStages() + " "+ festival.getSchedules());
+		festivalManagement.saveFestival(festival);
+		
+		System.out.println("after "+ success);
 		return success;
 	
 	}

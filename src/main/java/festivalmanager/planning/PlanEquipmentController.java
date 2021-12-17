@@ -214,7 +214,12 @@ public class PlanEquipmentController {
 	
 			if(current.getType().equals(EquipmentType.STAGE)) {
 				Stage stage = (Stage) current;
+				System.out.println(stage);
 				planEquipmentManagement.unrentStage(stage,currentFestivalId);
+				System.out.println("after call");
+				
+				// throws errors
+				//equipmentManagement.removeById(stage.getId());
 			}
 			else {
 				System.out.println("Equipment is not Stage");
@@ -246,12 +251,8 @@ public class PlanEquipmentController {
 		if(equipment.getType().equals(EquipmentType.STAGE)) {
 			// TODO:  for more Stage types: get number of already rented stages 
 			if(equipmentsAmount > currentFestival.getLocation().getStageCapacity()) {
-//				reuslt.rejectValue("equipmentError", null, "Die maximale Bühnenanzahl darf nicht überschritten werden");
-//				return "equipments";
-				// set Amount to max if higher than max
 				equipmentsAmount = currentFestival.getLocation().getStageCapacity();
-			}
-			// TODO: new input to give names for stages			
+			}		
 			
 		}else {
 			planEquipmentManagement.rentEquipment(equipmentsId, equipmentsAmount, currentFestival);

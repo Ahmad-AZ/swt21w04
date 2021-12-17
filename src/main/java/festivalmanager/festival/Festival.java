@@ -129,24 +129,41 @@ public class Festival {
 	public void deleteAll() {
 		this.artists = new HashSet<>();
 	}
-	public Set<Schedule> getSchedules(){
+	public Iterable<Schedule> getSchedules(){
 		return schedules;
 	}
 	
-	public boolean addSchedule(Schedule schedule) {
-
-		return schedules.add(schedule);
-	}
-	
-	// not really required
-	public Schedule getSchedule(TimeSlot timeSlot, Stage stage, LocalDate date) {
+	/**
+	 * Creates a new {@link Schedule} if none exists at the given parameters
+	 *
+	 * @param form must not be {@literal null}.
+	 * @return the new {@link Customer} instance.
+	 */
+	public boolean addSchedule(TimeSlot timeSlot, Show show, Stage stage, LocalDate date) {
+		// schedules contains schedule already
+		Schedule containedSchedule = null;
 		for(Schedule aSchedule : schedules) {
 			if(aSchedule.getDate().equals(date) && aSchedule.getStage().equals(stage) && aSchedule.getTimeSlot().equals(timeSlot)) {
-				return aSchedule;
+				// find schedule --> change show
+				aSchedule.setShow(show);
+				return true;	
 			}
 		}
-		return null;
+		
+		// add new Schedule
+		return schedules.add(new Schedule(timeSlot, show, stage, date));
+
 	}
+	
+//	// not really required
+//	public Schedule getSchedule(TimeSlot timeSlot, Stage stage, LocalDate date) {
+//		for(Schedule aSchedule : schedules) {
+//			if(aSchedule.getDate().equals(date) && aSchedule.getStage().equals(stage) && aSchedule.getTimeSlot().equals(timeSlot)) {
+//				return aSchedule;
+//			}
+//		}
+//		return null;
+//	}
 	
 	public String getScheduleShowName(TimeSlot timeSlot, Stage stage, LocalDate date) {
 		for(Schedule aSchedule : schedules) {
@@ -157,19 +174,20 @@ public class Festival {
 		return "Keine";
 	}
 	
-	// not really required
-	public boolean containsSchedule(TimeSlot timeSlot, Stage stage, LocalDate date) {
-		for(Schedule aSchedule : schedules) {
-			if(aSchedule.getDate().equals(date) && aSchedule.getStage().equals(stage) && aSchedule.getTimeSlot().equals(timeSlot)) {
-				return true;
-			}
-		}
-		return false;
-	}
+//	// not really required
+//	public boolean containsSchedule(TimeSlot timeSlot, Stage stage, LocalDate date) {
+//		for(Schedule aSchedule : schedules) {
+//			if(aSchedule.getDate().equals(date) && aSchedule.getStage().equals(stage) && aSchedule.getTimeSlot().equals(timeSlot)) {
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
 	
 	public boolean removeSchedule(TimeSlot timeSlot, Stage stage, LocalDate date) {
 		for(Schedule aSchedule : schedules) {
 			if(aSchedule.getDate().equals(date) && aSchedule.getStage().equals(stage) && aSchedule.getTimeSlot().equals(timeSlot)) {
+				System.out.println("before remove schedule");
 				return schedules.remove(aSchedule);
 			}
 		}
