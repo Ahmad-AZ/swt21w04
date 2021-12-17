@@ -1,0 +1,48 @@
+= Cross-Testing Feedback
+
+__Durchführende Gruppe:04
+__Anwendung von Gruppe:05
+
+== Getestetes System
+Welche Aufgabe/Problemstellung löst die Anwendung.
+
+== Fehler-Report
+// See http://asciidoctor.org/docs/user-manual/#tables
+[options="header"]
+|===
+|Pfad                                 |Parameter |Beschreibung                                                        |Rückgabe
+| http://localhost:8080/ticket/6/sale |        3 | Ticketpreis ist nicht angezeigt, wenn man nicht auf ADD TO CARD drückt und sofort auf Kaufen drückt| pdf
+| http://localhost:8080/ticket/6/sale | 1000000| Ticket wurden für große Nummer verkauft | ticket pdf
+| http://localhost:8080/ticket/6/sale |    3    | kann nicht rückwerts gehen, wenn man die Tickets zum Warenkorb hinzufügt und die Tickets stornieren |
+| http://localhost:8080/ticket/6/sale | 3|  ein Error ist aufgetreten bein Kaufen, als ich Tickets zum Warenkorb hinzufügt habe  und nochmal die gleiche Type von Tickets zum Warenkorb hinzufüge |An internal server error occurred.
+|http://localhost:8080/festival/7     | 3 | gleiche Tickets wurden für verschiedene Festivals verkauft|
+| http://localhost:8080/ticket/6/sale |10 | Name, Qty , Price, Total  wurden auf dem PDF nicht gezeigt, wenn ich die Tickets kaufe, ohne die Tickets bevor zum Warenkorb hinzufüge| ein Ticket ohne (Name,Qty , Price, Total
+|http://localhost:8080/ticket/6/sale |0 | Ticket für 0 anzahl wurde gekauft| 0 Ticket
+|http://localhost:8080/ticket/6/sale | 15| Ticketpreis und das Total  sind gleich auf dem PDF|
+|http://localhost:8080/location/2 | | Bild von Location kann nicht angezeigt werden|
+|http://localhost:8080/location/2/edit| null      |Name von Location kann auf null setzen|
+|http://localhost:8080/location/2/edit|-2|max visitor, max stages, rent können auf negativen Werten setzen|
+|http://localhost:8080/location/2/edit| null|Fehler tritt auf wenn man keine Eingabe in max visitors oder max stages oder rent einfügt| ??org.springframework.validation.BeanPropertyBindingResult: 1 errors Field error in object 'locationForm' on field 'maxStages': rejected value []; codes
+|http://localhost:8080/location/2/edit| |text in button ist nicht so klar(Fehler beim Frontend)|??location.edit_en_US??
+|http://localhost:8080/festival/6/edit|20.12.2021|Fehler tritt auf wenn EndDate früher als BeginDate ist|??org.springframework.validation.BeanPropertyBindingResult: 2 errors Error in object 'festival': codes [FestivalConstraint.festival,FestivalConstraint]; arguments
+|http://localhost:8080/festival/6/edit|null|Fehler wird angezeigt wenn man nichts in Festival Name einfügt|??org.springframework.validation.BeanPropertyBindingResult: 2 errors Error in object 'festival': codes [FestivalConstraint.festival,FestivalConstraint]; arguments
+|http://localhost:8080/festival/6/delete||Festival kann nicht gelöscht werden|
+|http://localhost:8080/lineup/6/deleteband||Wenn man alle Bänder löscht, tritt der Fehler auf| ??400_name_en_US??
+|http://localhost:8080/lineup/6/add|null|man kann Band ohne Name,band stage oder bandperformance hour hinzufügen|
+|http://localhost:8080/lineup/6/add|-5|der Bandprice kann negatives Wert nehmen|
+|http://localhost:8080/festival/6/edit| |man kann die Location von Festival nicht ändern|
+|http://localhost:8080/festival/new| |wenn man einen invaliden Festival erstellt, zeigt die Meldung nachdem man den Button klickt(sehr unbequem weil man kann manchmal falsch einfügt)|
+|http://localhost:8080/lineup/new|Weihnachtsfestival|Wenn man den 'Add' Button klickt, nichts passiert (geht einfach zurück zu Seite http://localhost:8080/lineup/edit)|
+|http://localhost:8080/festival||nachdem man Festival aktualisiert(Edit), wird hier ein Pfeil angezeigt. Wenn man da klickt, tritt Fehler auf|??Festival has no lineups_en_US??
+
+|http://localhost:8080/||nachdem man Festival aktualisiert(edit) wird Festival nicht mehr auf Hauptseite angezeigt|
+
+|===
+
+== Sonstiges
+* Optik der Anwendung
+* Fehlende Features
+* Interaktion mit der Anwendung (Usability)
+
+== Verbesserungsvorschläge
+* Was kann noch weiter verbessert werden?
