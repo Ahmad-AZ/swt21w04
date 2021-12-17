@@ -68,6 +68,7 @@ public class LocationDataInitializer implements DataInitializer{
 		locations.save(l5);
 		Location l6 = new Location("OpenAir 3", "Dresden", Money.of(1670, EURO), 8600, 2,
 									"OpenAir_image.jpg", "OpenAir3_groundView.jpg");
+
 		locations.save(l6);
 		
 		
