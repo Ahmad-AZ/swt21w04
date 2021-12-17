@@ -18,24 +18,29 @@
 				<h2 class="form-title">Location bearbeiten</h2>
 				<div class="form-item">
 					<label class="form-label" for="name">Name:</label>
-					<input class="form-input" id="name" name="name" th:field="*{name}" type="text" th:required="required">
+					<input class="form-input" id="name" name="name" th:field="*{name}" type="text">
 				</div>
+				<p class="form-item-error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name festlegen</p>
 				<div class="form-item">
 					<label class="form-label" for="adress">Adresse:</label>
 					<input class="form-input" id="adress" name="adress" th:field="*{adress}" type="text" th:required="required">
 				</div>
-				<div class="form-item">
+				<p class="form-item-error-message" th:if="${#fields.hasErrors('adress')}" th:errors="*{adress}">Adresse festlegen</p>				
+				<div class="form-item" >
 					<label class="form-label" for="pricePerDay">Preis pro Tag (€):</label>
-					<input class="form-input"  id="pricePerDay" type="number" step="0.01" name="pricePerDay" th:value="${pricePerDay}" th:required="required" min="0.00"/>
+					<input class="form-input" id="pricePerDay" type="number" step="0.01" name="pricePerDay" th:value="${pricePerDay}"    />
 				</div>
+				<p class="form-item-error-message" th:if="${#fields.hasErrors('pricePerDay')}" th:errors="*{pricePerDay}">Preis festlegen</p>
 				<div class="form-item">
 					<label class="form-label" for="visitorCapacity">maximale Besucheranzahl:</label>
 					<input class="form-input"  id="visitorCapacity" type="number" step="1" name="visitorCapacity" th:field="*{visitorCapacity}" th:required="required" min="0"/>
 				</div>
+				<p class="form-item-error-message" th:if="${#fields.hasErrors('visitorCapacity')}" th:errors="*{visitorCapacity}">Besucherkapazität festlegen</p>
 				<div class="form-item">
 					<label class="form-label" for="stageCapacity">maximale Bühnenanzahl:</label>
 					<input class="form-input"  id="stageCapacity" type="number" step="1" name="stageCapacity" th:field="*{stageCapacity}" th:required="required" min="0"/>
 				</div>
+				<p class="form-item-error-message" th:if="${#fields.hasErrors('stageCapacity')}" th:errors="*{stageCapacity}">Bühnenkapazität festlegen</p>
 				<div class="form-item">
 					<label class="form-label" for="image">Neues Bild:</label>
 					<input class="form-input custom-file-input"  id="image" type="file" name="image" accept=".jpg"/>

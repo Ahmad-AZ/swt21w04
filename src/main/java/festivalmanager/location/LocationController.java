@@ -2,9 +2,11 @@ package festivalmanager.location;
 
 import java.util.Optional;
 
+import javax.money.format.MonetaryParseException;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
+import org.javamoney.moneta.Money;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import festivalmanager.staff.Person;
 import festivalmanager.staff.forms.RemoveStaffForm;
+
+import static org.salespointframework.core.Currencies.EURO;
+
 
 @Controller
 public class LocationController {
@@ -55,6 +60,7 @@ public class LocationController {
 			
 			System.out.println(locationId);
 			model.addAttribute("location", current);
+			model.addAttribute("newLocationForm", current);
 			Double pricePerDay = current.getPricePerDay().getNumber().doubleValue();
 			System.out.println(pricePerDay);
 			model.addAttribute("pricePerDay", pricePerDay);
@@ -90,9 +96,22 @@ public class LocationController {
 	@PostMapping("/newLocation")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String createNewLocation(@Validated NewLocationForm newLocationForm, Errors result) {
-		
 		if (result.hasErrors()) {
-			System.out.println("form has errors " + result);
+			return "newLocation";
+		}
+		
+		Money price;
+		try {
+			
+            price = Money.parse("EUR " + newLocationForm.getPricePerDay());
+        } catch (MonetaryParseException ex) {
+        	result.rejectValue("pricePerDay", null, "geben Sie einen gültigen Preis ein");
+        	return "newLocation";
+        }
+
+		
+		if(price.isLessThan(Money.of(0, EURO))) {
+			result.rejectValue("pricePerDay", null, "muss größer-gleich 0 sein");
 			return "newLocation";
 		}
 
@@ -119,13 +138,31 @@ public class LocationController {
 		if (location.isPresent()) {
 			Location current = location.get();
 			if (result.hasErrors()) {
-				System.out.println("form has errors");
 				model.addAttribute("location", current);
-				Double pricePerDay = current.getPricePerDay().getNumber().doubleValue();
-				System.out.println(pricePerDay);
-				model.addAttribute("pricePerDay", pricePerDay);
+				model.addAttribute("pricePerDay", current.getPricePerDay().getNumber().toString());
+				return "locationEdit";
+	        
+			}
+			
+			Money price;
+			try {
+				
+	            price = Money.parse("EUR " + form.getPricePerDay());
+	        } catch (MonetaryParseException ex) {
+	        	result.rejectValue("pricePerDay", null, "geben Sie einen gültigen Preis ein");
+				model.addAttribute("location", current);
+				model.addAttribute("pricePerDay", current.getPricePerDay().getNumber().toString());
+				return "locationEdit";
+	        }
+
+			
+			if(price.isLessThan(Money.of(0, EURO))) {
+				result.rejectValue("pricePerDay", null, "muss größer-gleich 0 sein");
+				model.addAttribute("location", current);
+				model.addAttribute("pricePerDay", current.getPricePerDay().getNumber().toString());
 				return "locationEdit";
 			}
+
 			
 			locationManagement.editLocation(current, form);
 			return "redirect:/locations";

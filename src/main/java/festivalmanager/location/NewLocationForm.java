@@ -12,8 +12,11 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.javamoney.moneta.Money;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+
+import static org.salespointframework.core.Currencies.EURO;
 
 class NewLocationForm {
 	
@@ -27,14 +30,14 @@ class NewLocationForm {
 	@NotNull
 	private final String adress;
 	
+	@NotNull
+	@NotEmpty
+	private final String pricePerDay;
+	
 	private final MultipartFile image;
 	
 	private final MultipartFile groundView;
 	
-	@Min(value = 0) 
-	@NotNull
-	private final Double pricePerDay;
-
 	@NotNull
 	@Min(value = 0)  
 	private final Long visitorCapacity;
@@ -43,7 +46,7 @@ class NewLocationForm {
 	@Min(value = 0) 
 	private final Long stageCapacity;
 		
-	public NewLocationForm(String name, String adress, Double pricePerDay, Long visitorCapacity, Long stageCapacity, MultipartFile image, MultipartFile groundView) {
+	public NewLocationForm(String name, String adress, String pricePerDay, Long visitorCapacity, Long stageCapacity, MultipartFile image, MultipartFile groundView) {
 		this.name = name;
 		this.adress = adress;
 		this.pricePerDay = pricePerDay;
@@ -54,6 +57,7 @@ class NewLocationForm {
 	}     
 	
 	public String getName() {
+		System.out.println(name);
 		return name;
 	}
 
@@ -61,7 +65,7 @@ class NewLocationForm {
 		return adress;
 	}
 
-	public double getPricePerDay() {
+	public String getPricePerDay() {
 		return pricePerDay;
 	}
 

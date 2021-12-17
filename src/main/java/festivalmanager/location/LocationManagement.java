@@ -35,7 +35,7 @@ public class LocationManagement {
 	
 	public Location createLocation(NewLocationForm form) {
 		// save Festival in Repository
-		Money pricePerDay = Money.of(form.getPricePerDay(), EURO);
+		 Money pricePerDay = Money.parse("EUR " + form.getPricePerDay());
 		String image, groundView;
 		// for unit tests
 		if (form.getImageFile() == null) {
@@ -61,7 +61,7 @@ public class LocationManagement {
 	}
 	
 	public Location editLocation(Location location, NewLocationForm form) {
-		Money pricePerDay = Money.of(form.getPricePerDay(), EURO);
+		Money pricePerDay = Money.parse("EUR " + form.getPricePerDay());
 		location.setPricePerDay(pricePerDay);
 		location.setAdress(form.getAdress());
 		location.setName(form.getName());
