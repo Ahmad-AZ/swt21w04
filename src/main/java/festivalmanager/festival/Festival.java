@@ -125,8 +125,8 @@ public class Festival {
 		return rentedEquipments;
 	}
 	
-	// rename to deleteAllArtists
-	public void deleteAll() {
+
+	public void deleteAllArtists() {
 		this.artists = new HashSet<>();
 	}
 	public Iterable<Schedule> getSchedules(){

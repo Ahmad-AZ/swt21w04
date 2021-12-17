@@ -141,6 +141,9 @@ public class FestivalController {
 		if (festival.isPresent()) {
 			Festival current = festival.get();
 			model.addAttribute("festival", current);
+			model.addAttribute("artists", current.getArtist());
+			model.addAttribute("location", current.getLocation());
+			
 			
 			utilsManagement.setCurrentFestivalId(currentFestival.getId());
 			utilsManagement.setCurrentPageUpperHeader("festivals");

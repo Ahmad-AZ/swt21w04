@@ -27,9 +27,9 @@
         <p class="form-item-error-message" th:if="${#fields.hasErrors('adress')}" th:errors="*{adress}">Adresse festlegen</p>
         <div class="form-item">
             <label for="pricePerDay">Preis pro Tag (€):</label>
-            <input id="pricePerDay" name="pricePerDay" type="number" step="0.01" required="required" min="0.00"/>
+            <input id="pricePerDay" name="pricePerDay" type="number" th:object="${pricePerDay}" step="0.01" required="required" min="0.00"/>
         </div>
-        
+       
         <div class="form-item">
             <label for="visitorCapacity">maximale Besucheranzahl:</label>
             <input id="visitorCapacity" type="number" name="visitorCapacity" step="1" th:field="*{visitorCapacity}" required="required" min="0"/>

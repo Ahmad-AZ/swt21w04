@@ -41,8 +41,8 @@ public class PlanOffersManagement {
 	public void unbookArtist(Artist artist, Festival festival) {
 //		festival.deleteAll();
 
-		festival.deleteAll();
-		festivalManagement.saveFestival(festival);
+		festival.deleteAllArtists();
+		festivalManagement.saveFestival(festival); 
 		artist.removeBooking(festival.getStartDate(), festival.getEndDate());
 		hiringManagement.saveArtist(artist);
 	}

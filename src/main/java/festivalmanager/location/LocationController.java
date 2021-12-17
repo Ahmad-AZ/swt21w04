@@ -92,6 +92,7 @@ public class LocationController {
 	public String createNewLocation(@Validated NewLocationForm newLocationForm, Errors result) {
 		
 		if (result.hasErrors()) {
+			System.out.println("form has errors " + result);
 			return "newLocation";
 		}
 

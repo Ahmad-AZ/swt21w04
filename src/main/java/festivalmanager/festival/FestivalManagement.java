@@ -38,11 +38,14 @@ public class FestivalManagement {
 			festival.getLocation().removeBooking(festival.getStartDate(), festival.getEndDate());
 			LocationManagement.saveLocation(festival.getLocation());
 		}
+
 		if(!festival.artistsIsEmpty()) {
 			for(Artist anArtist : festival.getArtist()) {
 				anArtist.removeBooking(festival.getStartDate(), festival.getEndDate());
 				hiringManagement.saveArtist(anArtist);
 			}
+			// required, else all artists where deleted from repo
+			festival.deleteAllArtists();
 		}
 		festivals.delete(festival);
 	}
