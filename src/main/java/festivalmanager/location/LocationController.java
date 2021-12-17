@@ -89,14 +89,14 @@ public class LocationController {
 	
 	@PostMapping("/newLocation")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String createNewLocation(@Validated NewLocationForm form, Errors result) {
+	public String createNewLocation(@Validated NewLocationForm newLocationForm, Errors result) {
 		
 		if (result.hasErrors()) {
 			return "newLocation";
 		}
 
 		// save Festival if no error appears
-		locationManagement.createLocation(form);
+		locationManagement.createLocation(newLocationForm);
 
 		return "redirect:/locations";
 	}
@@ -105,7 +105,7 @@ public class LocationController {
 	// gives NewLocationForm to fill out
 	@GetMapping("/newLocation")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String newLocation(Model model, NewLocationForm form) {
+	public String newLocation(Model model, NewLocationForm newLocationForm) {
 		return "newLocation";
 	}
 	

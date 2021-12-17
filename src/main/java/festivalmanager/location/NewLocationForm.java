@@ -35,9 +35,11 @@ class NewLocationForm {
 	@NotNull
 	private final Double pricePerDay;
 
+	@NotNull
 	@Min(value = 0)  
 	private final Long visitorCapacity;
 	
+	@NotNull
 	@Min(value = 0) 
 	private final Long stageCapacity;
 		

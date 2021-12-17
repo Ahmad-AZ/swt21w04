@@ -14,7 +14,7 @@
 	</header>
 	<section layout:fragment="content">
 		<div class="content">
-			<form class="form" method="post" id="form" th:action="@{/saveLocation}" th:object="${location}" enctype="multipart/form-data">
+			<form class="form" method="post" id="form" th:action="@{/saveLocation}" th:object="${newLocationForm}" enctype="multipart/form-data">
 				<h2 class="form-title">Location bearbeiten</h2>
 				<div class="form-item">
 					<label class="form-label" for="name">Name:</label>

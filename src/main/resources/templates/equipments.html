@@ -34,14 +34,14 @@
 							</div>
 						</div>
 						<h3>Bühnen</h3>	
-						<form role="form" th:action="@{/addStage}" method="post">
+						<form role="form" th:action="@{/addStage}" method="post" th:object="${newStageForm}">
 				            <div class="entity-attribute" th:text="${equipmentStage.name}">Name</div>
 				            <div class="field" >
 				                <label for="name">Name</label>
-				                <input id="name" name="name" required="required"></input>
+				                <input id="name" name="name" type="text" required="required"></input>
 				            </div>
+				             <p class="form-item-error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name festlegen</p>
 				            <input name="equipmentsId" type="hidden" th:value="${equipmentStage.id}" required="required"/>
-							<p th:text="${message}" th:if="${message ne null}" class="ui-negative-message"></p> 
 				            <input type ="submit" th:value="Mieten"><br>
 				        </form>	
 				        </br>

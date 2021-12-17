@@ -17,6 +17,11 @@ import java.util.*;
 
 @Entity
 public class Festival {
+	
+	public static enum FestivalState {
+		LAUNCHABLE, UNLAUNCHABLE, LAUNCHED 
+	}
+	
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
@@ -37,6 +42,8 @@ public class Festival {
 	
 	@OneToMany()
 	private List<Stage> stages = new ArrayList<>();
+	
+	private FestivalState state = FestivalState.UNLAUNCHABLE;
 
 	public Festival(String name, LocalDate startDate, LocalDate endDate) {
 		this.name = name;
@@ -55,6 +62,21 @@ public class Festival {
 	public Festival() {
 		
 	}
+	
+	public void setState(FestivalState state) {
+		this.state = state;
+	}
+	
+	public FestivalState getState() {
+		if(location.getStageCapacity() < stages.size()) {
+			state = FestivalState.UNLAUNCHABLE;
+		}
+		else {
+			state = FestivalState.LAUNCHABLE;
+		}
+		return state;
+	}
+	
 	
 	public long getId() {
 		return id;
