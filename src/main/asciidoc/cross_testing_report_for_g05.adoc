@@ -27,15 +27,17 @@ Welche Aufgabe/Problemstellung löst die Anwendung.
 |http://localhost:8080/festival/6/edit|20.12.2021|Fehler tritt auf wenn EndDate früher als BeginDate ist|??org.springframework.validation.BeanPropertyBindingResult: 2 errors Error in object 'festival': codes [FestivalConstraint.festival,FestivalConstraint]; arguments
 |http://localhost:8080/festival/6/edit|null|Fehler wird angezeigt wenn man nichts in Festival Name einfügt|??org.springframework.validation.BeanPropertyBindingResult: 2 errors Error in object 'festival': codes [FestivalConstraint.festival,FestivalConstraint]; arguments
 |http://localhost:8080/festival/6/delete||Festival kann nicht gelöscht werden|
-|http://localhost:8080/lineup/6/deleteband||Wenn man alle Bänder löscht, tritt der Fehler auf| ??400_name_en_US??
+|http://localhost:8080/lineup/6/deleteband||Wenn man alle Bands löscht, tritt der Fehler auf| ??400_name_en_US??
 |http://localhost:8080/lineup/6/add|null|man kann Band ohne Name,band stage oder bandperformance hour hinzufügen|
 |http://localhost:8080/lineup/6/add|-5|der Bandprice kann negatives Wert nehmen|
+|http://localhost:8080/lineup/6/add|5,77777|der Bandprice kann einen Wert mit mehr als 2 Nachkommastellen annehmen|
 |http://localhost:8080/festival/6/edit| |man kann die Location von Festival nicht ändern|
 |http://localhost:8080/festival/new| |wenn man einen invaliden Festival erstellt, zeigt die Meldung nachdem man den Button klickt(sehr unbequem weil man kann manchmal falsch einfügt)|
 |http://localhost:8080/lineup/new|Weihnachtsfestival|Wenn man den 'Add' Button klickt, nichts passiert (geht einfach zurück zu Seite http://localhost:8080/lineup/edit)|
-|http://localhost:8080/festival||nachdem man Festival aktualisiert(Edit), wird hier ein Pfeil angezeigt. Wenn man da klickt, tritt Fehler auf|??Festival has no lineups_en_US??
-
+|http://localhost:8080/festival||nachdem man Festival aktualisiert(Edit), wird hier ein Pfeil angezeigt. Wenn man da klickt, tritt Fehler auf obwohl Line-up vorhanden ist|??Festival has no lineups_en_US??
 |http://localhost:8080/||nachdem man Festival aktualisiert(edit) wird Festival nicht mehr auf Hauptseite angezeigt|
+|http://localhost:8080/festival/45/edit|neues Festival, ohne Lineup| Bearbeiten Button führt zu Fehler| Seite wurde nicht gefunden (http://localhost:8080/lineup)
+
 
 |===
 
