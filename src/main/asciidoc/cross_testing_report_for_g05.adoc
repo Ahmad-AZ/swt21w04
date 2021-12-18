@@ -29,22 +29,33 @@ Welche Aufgabe/Problemstellung löst die Anwendung.
 |http://localhost:8080/festival/6/delete||Festival kann nicht gelöscht werden|
 |http://localhost:8080/lineup/6/deleteband||Wenn man alle Bands löscht, tritt der Fehler auf| ??400_name_en_US??
 |http://localhost:8080/lineup/6/add|null|man kann Band ohne Name,band stage oder bandperformance hour hinzufügen|
+|http://localhost:8080/lineup/6/add|Band, 5, 34.45, 21:21-23:34|| Bei vorheriger ungleichmäßiger Befüllung der Parameter werden neue Attribute scheinbar Spaltenweise angefügt --> Zeit steht bei anderem Bandname, usw.
 |http://localhost:8080/lineup/6/add|-5|der Bandprice kann negatives Wert nehmen|
 |http://localhost:8080/lineup/6/add|5,77777|der Bandprice kann einen Wert mit mehr als 2 Nachkommastellen annehmen|
-|http://localhost:8080/festival/6/edit| |man kann die Location von Festival nicht ändern|
+
 |http://localhost:8080/festival/new| |wenn man einen invaliden Festival erstellt, zeigt die Meldung nachdem man den Button klickt(sehr unbequem weil man kann manchmal falsch einfügt)|
 |http://localhost:8080/lineup/new|Weihnachtsfestival|Wenn man den 'Add' Button klickt, nichts passiert (geht einfach zurück zu Seite http://localhost:8080/lineup/edit)|
 |http://localhost:8080/festival||nachdem man Festival aktualisiert(Edit), wird hier ein Pfeil angezeigt. Wenn man da klickt, tritt Fehler auf obwohl Line-up vorhanden ist|??Festival has no lineups_en_US??
 |http://localhost:8080/||nachdem man Festival aktualisiert(edit) wird Festival nicht mehr auf Hauptseite angezeigt|
 |http://localhost:8080/festival/45/edit|neues Festival, ohne Lineup| Bearbeiten Button führt zu Fehler| Seite wurde nicht gefunden (http://localhost:8080/lineup)
-
-
+|http://localhost:8080/festival/6/edit|null|Fehler, wenn man Name auf Null setzt, Fehlerbeschreibung unklar|??org.springframework.validation.BeanPropertyBindingResult: 2 errors Error in object 'festival': codes [FestivalConstraint.festival,FestivalConstraint]; arguments ...
+|http://localhost:8080/festival/6/edit|25.12.2022| Fehler, wenn man Startdatum um einen Tag in die Zukunft schieben will|message []]; default message [Location is already used in another festival (Weihnachtsfestival) during the time period of Sat Dec 24 00:00:00 CET 2022 and Sat Dec 31 00:00:00 CET 2022]_de??
+|http://localhost:8080/location/new|null|Location ohne Name kann erstellt werden|
+|http://localhost:8080/location/new|-2|max visitor, max stages, rent können negative Werte annehmen|
+|http://localhost:8080/lineup/6/edit|null|Wenn man ohne Band auszuwählen auf Edit Band Button klickt wird ein Fehler geworfen|??400_name_de??
+|http://localhost:8080/lineup/6/edit|null|man kann Band zu Band ohne Name, Band stage oder Bandperformance hour ändern |
+|http://localhost:8080/lineup/6/edit|-5|der Bandprice kann zu einem negativen Wert geändert werden|
+|http://localhost:8080/lineup/6/edit|5,77777|der Bandprice kann einen Wert mit mehr als 2 Nachkommastellen annehmen|
+|http://localhost:8080/festival/6| | Bild von Location kann nicht angezeigt werden obwohl Lageplan für diese Location erstellt wurde|
 |===
 
 == Sonstiges
 * Optik der Anwendung
+- Zeilen bei Lineup Bearbeitung/Hinzufügen/Löschen nicht deutlich voneinander getrennt
 * Fehlende Features
+- man kann die Location von Festival nicht ändern
 * Interaktion mit der Anwendung (Usability)
+- beim ändern der Bands werden die Attribute nicht vorgetragen
 
 == Verbesserungsvorschläge
 * Was kann noch weiter verbessert werden?
