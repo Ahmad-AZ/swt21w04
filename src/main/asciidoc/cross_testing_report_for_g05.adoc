@@ -1,10 +1,11 @@
 = Cross-Testing Feedback
 
-__Durchführende Gruppe:04
-__Anwendung von Gruppe:05
+__Durchführende Gruppe: 04__
+
+__Anwendung von Gruppe: 05__
 
 == Getestetes System
-Welche Aufgabe/Problemstellung löst die Anwendung.
+Es handelt sich um eine Browseranwendung zur Planung und Durchführung von Festivals
 
 == Fehler-Report
 // See http://asciidoctor.org/docs/user-manual/#tables
@@ -55,7 +56,7 @@ Welche Aufgabe/Problemstellung löst die Anwendung.
 == Sonstiges
 * Optik der Anwendung
 - Zeilen bei Lineup Bearbeitung/Hinzufügen/Löschen nicht deutlich voneinander getrennt
-- Das Akkordion-menü im Dashboard ist zugeklappt horizontal, aber aufgeklappt vertikal
+- Das Akkordeon-Menü im Dashboard ist zugeklappt horizontal, aber aufgeklappt vertikal
 * Fehlende Features
 - man kann die Location von Festival nicht ändern
 - Die Finanzübersicht ist nur ein UI Placeholder und nicht funktionstüchtig
@@ -66,3 +67,4 @@ Welche Aufgabe/Problemstellung löst die Anwendung.
 == Verbesserungsvorschläge
 * beim Erstellen einer Person sollte die "Position" ein Dropdown-Menü sein, um Fehleingaben zu verhindern
 * Die Fehlermeldungen sollten den Nutzer über falsche Eingaben informieren (z.b. Nutzername schon vergeben)
+* Es wäre schön, wenn der aktuell offene Tab in der Navigationsleiste markiert wird
