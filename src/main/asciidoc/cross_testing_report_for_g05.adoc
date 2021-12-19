@@ -47,6 +47,7 @@ Welche Aufgabe/Problemstellung löst die Anwendung.
 |http://localhost:8080/lineup/6/edit|-5|der Bandprice kann zu einem negativen Wert geändert werden|
 |http://localhost:8080/lineup/6/edit|5,77777|der Bandprice kann einen Wert mit mehr als 2 Nachkommastellen annehmen|
 |http://localhost:8080/festival/6| | Bild von Location kann nicht angezeigt werden obwohl Lageplan für diese Location erstellt wurde|
+|http://localhost:8080/catering/sale|21|Es tritt ein Serverfehler auf, wenn mwhr Prodkute im Warenkorb sind als im Lager und verkaufen gedrückt wird.|Number of items requested by the OrderLine is greater than the number available in the Inventory. Please re-stock.
 |===
 
 == Sonstiges
