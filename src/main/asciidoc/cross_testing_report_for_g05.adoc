@@ -32,7 +32,6 @@ Welche Aufgabe/Problemstellung löst die Anwendung.
 |http://localhost:8080/lineup/6/add|Band, 5, 34.45, 21:21-23:34|| Bei vorheriger ungleichmäßiger Befüllung der Parameter werden neue Attribute scheinbar Spaltenweise angefügt --> Zeit steht bei anderem Bandname, usw.
 |http://localhost:8080/lineup/6/add|-5|der Bandprice kann negatives Wert nehmen|
 |http://localhost:8080/lineup/6/add|5,77777|der Bandprice kann einen Wert mit mehr als 2 Nachkommastellen annehmen|
-
 |http://localhost:8080/festival/new| |wenn man einen invaliden Festival erstellt, zeigt die Meldung nachdem man den Button klickt(sehr unbequem weil man kann manchmal falsch einfügt)|
 |http://localhost:8080/lineup/new|Weihnachtsfestival|Wenn man den 'Add' Button klickt, nichts passiert (geht einfach zurück zu Seite http://localhost:8080/lineup/edit)|
 |http://localhost:8080/festival||nachdem man Festival aktualisiert(Edit), wird hier ein Pfeil angezeigt. Wenn man da klickt, tritt Fehler auf obwohl Line-up vorhanden ist|??Festival has no lineups_en_US??
@@ -48,15 +47,22 @@ Welche Aufgabe/Problemstellung löst die Anwendung.
 |http://localhost:8080/lineup/6/edit|5,77777|der Bandprice kann einen Wert mit mehr als 2 Nachkommastellen annehmen|
 |http://localhost:8080/festival/6| | Bild von Location kann nicht angezeigt werden obwohl Lageplan für diese Location erstellt wurde|
 |http://localhost:8080/catering/sale|21|Es tritt ein Serverfehler auf, wenn mehr Produkte im Warenkorb sind als im Lager und Verkaufen gedrückt wird.|Number of items requested by the OrderLine is greater than the number available in the Inventory. Please re-stock.
+|http://localhost:8080/dashboard| |Das Menü ist nicht ohne Javascript nutzbar, wodurch das Personal nicht eingesehen / erstellt / bearbeitet werden kann |
+|http://localhost:8080/chat/room|19|Es ist nicht eindeutig erkennbar wer eine Nachricht gesendet hat, Anstatt des Namens des Senders steht nur "Sender" da |
+|http://localhost:8080/chat| |Ein neu erstellter Nutzer (Position: "Catering") kann nicht auf die Chaträume zugreifen und  dadurch keine Nachrichten lesen und schreiben |
 |===
 
 == Sonstiges
 * Optik der Anwendung
 - Zeilen bei Lineup Bearbeitung/Hinzufügen/Löschen nicht deutlich voneinander getrennt
+- Das Akkordion-menü im Dashboard ist zugeklappt horizontal, aber aufgeklappt vertikal
 * Fehlende Features
 - man kann die Location von Festival nicht ändern
+- Die Finanzübersicht ist nur ein UI Placeholder und nicht funktionstüchtig
 * Interaktion mit der Anwendung (Usability)
 - beim ändern der Bands werden die Attribute nicht vorgetragen
+- Die Menüs im Kontrollzentrum sind in Englisch obwohl die restliche Anwendung in Deutsch ist
 
 == Verbesserungsvorschläge
-* Was kann noch weiter verbessert werden?
+* beim Erstellen einer Person sollte die "Position" ein Dropdown-Menü sein, um Fehleingaben zu verhindern
+* Die Fehlermeldungen sollten den Nutzer über falsche Eingaben informieren (z.b. Nutzername schon vergeben)
