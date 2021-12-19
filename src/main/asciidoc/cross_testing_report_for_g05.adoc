@@ -51,6 +51,12 @@ Es handelt sich um eine Browseranwendung zur Planung und Durchführung von Festi
 |http://localhost:8080/dashboard| |Das Menü ist nicht ohne Javascript nutzbar, wodurch das Personal nicht eingesehen / erstellt / bearbeitet werden kann |
 |http://localhost:8080/chat/room|19|Es ist nicht eindeutig erkennbar wer eine Nachricht gesendet hat, Anstatt des Namens des Senders steht nur "Sender" da |
 |http://localhost:8080/chat| |Ein neu erstellter Nutzer (Position: "Catering") kann nicht auf die Chaträume zugreifen und  dadurch keine Nachrichten lesen und schreiben |
+|http://localhost:8080/catering/management|Name: Test, Price: -2 |Das Item mit negativem Preis wird in den Katalog aufgenommen |Add Item to catalog
+|http://localhost:8080/stock|Name: Bratwurst, Anzahl: -2 |Nachbestellen einer negativen Anzahl von Items ist nicht verboten| Stock
+|http://localhost:8080/catering/management
+|
+|Ein leerer String als Name oder Price bzw. eine Zahl als Name führt zu einem Error (und nicht zu einer Warnung für den Nutzer)
+|org.springframework.validation.BeanPropertyBindingResult Error
 |===
 
 == Sonstiges
@@ -63,6 +69,7 @@ Es handelt sich um eine Browseranwendung zur Planung und Durchführung von Festi
 * Interaktion mit der Anwendung (Usability)
 - beim ändern der Bands werden die Attribute nicht vorgetragen
 - Die Menüs im Kontrollzentrum sind in Englisch obwohl die restliche Anwendung in Deutsch ist
+- Es ist schön, dass nie die Whitelabel Error Page angezeigt wird und stattdessen immer die Fehlermeldung auf der Seite selbst ausgegeben wird
 
 == Verbesserungsvorschläge
 * beim Erstellen einer Person sollte die "Position" ein Dropdown-Menü sein, um Fehleingaben zu verhindern
