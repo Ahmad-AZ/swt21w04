@@ -158,7 +158,7 @@ public class PlanEquipmentController {
 						model.addAttribute("equipmentStage", anEquipment);
 					}
 
-				}else {
+				} else {
 					equipmentsMap.put(anEquipment, amount);
 				}
 			}
@@ -191,8 +191,7 @@ public class PlanEquipmentController {
 			Equipment current = equipment.get();
 			model.addAttribute("stage", current);
 			model.addAttribute("equipmentsMap", null);
-		}
-		else {
+		} else {
 			throw new ResponseStatusException(
 					HttpStatus.NOT_FOUND, "entity not found"
 			);
@@ -220,12 +219,10 @@ public class PlanEquipmentController {
 				
 				// throws errors
 				//equipmentManagement.removeById(stage.getId());
-			}
-			else {
+			} else {
 				System.out.println("Equipment is not Stage");
 			}
-		}
-		else {
+		} else {
 			throw new ResponseStatusException(
 					HttpStatus.NOT_FOUND, "entity not found"
 			);
@@ -254,7 +251,7 @@ public class PlanEquipmentController {
 				equipmentsAmount = currentFestival.getLocation().getStageCapacity();
 			}		
 			
-		}else {
+		} else {
 			planEquipmentManagement.rentEquipment(equipmentsId, equipmentsAmount, currentFestival);
 		}
 		return "redirect:/equipments";

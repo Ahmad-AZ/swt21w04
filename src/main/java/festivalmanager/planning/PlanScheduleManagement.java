@@ -43,37 +43,11 @@ public class PlanScheduleManagement {
 				}
 			}
 			return shows;
-		}else {
+		} else {
 			return null;
 		}
 	}
 	
-	public List<String> getStages(long festivalId){
-		Optional<Festival> festival = festivalManagement.findById(festivalId);
-		if (festival.isPresent()) {
-			Festival current = festival.get();
-			Map<Long,Long> equipmentIds = current.getEquipments();
-			
-			Long stageAmount = (long) 0;
-			//List<Long> stageIds = new ArrayList<>();
-			for(Long anId : equipmentIds.keySet()) {
-				Optional<Equipment> equipment = equipmentManagement.findById(anId);
-				if(equipment.isPresent()) {
-					if(equipment.get().getType().equals(EquipmentType.STAGE)) {
-//						stageIds.add(anId);
-						stageAmount = equipmentIds.get(anId);
-					}
-				}
-			}
-			List<String> result = new ArrayList<>();
-			for(int i = 1; i<=stageAmount; i++) {
-				result.add("Bühne " + i);
-			}
-			return result;
-		}else {
-			return null;
-		}
-	}
 	
 	public boolean setShow(LocalDate date, long stageId, String timeSlotString, long showId, long festivalId) {
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
@@ -82,6 +56,14 @@ public class PlanScheduleManagement {
 			TimeSlot timeSlot = TimeSlot.valueOf(timeSlotString);
 			System.out.println(timeSlot);
 			
+			// show attribute ne null
+			Show show = null;
+			for(Artist anArtist : current.getArtist()) {
+				if(anArtist.getShow(showId) != null) {
+					show = anArtist.getShow(showId);
+					break;
+				}
+			}
 			
 			// proof stage exists for current festival
 			Stage stage = this.getStages(current,stageId);			
@@ -89,25 +71,16 @@ public class PlanScheduleManagement {
 				return false;
 			}
 			
-			
-			// show attribute ne null
-			Show show = null;
-			for(Artist anArtist : current.getArtist()) {
-				for(Show aShow : anArtist.getShows()) {
-					if(aShow.getId() == showId) {
-						show = aShow;
-					}
-				}
-			}
-			// else clear schedule from festival
-			if(show == null) {
-				return current.removeSchedule(timeSlot, stage, date);
-			}
-			
-			
 			boolean success = true;
-			success = current.addSchedule(timeSlot, show, stage, date);
-			festivalManagement.saveFestival(current);
+			
+			// if show attribute is null clear schedule from festival
+			if(show == null) {
+				success = current.removeSchedule(timeSlot, stage, date);
+			}
+			else {
+				success = current.addSchedule(timeSlot, show, stage, date);
+				festivalManagement.saveFestival(current);
+			}
 			return success;
 		} else {
 			return false;

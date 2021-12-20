@@ -70,6 +70,15 @@ public class Artist {
 	public Iterable<Show> getShows() {
 		return this.shows;
 	}
+	
+	public Show getShow(long showId) {
+		for(Show aShow : shows) {
+			if(aShow.getId() == showId) {
+				return aShow;
+			}
+		}
+		return null;
+	}
 
 	public void addShow(Show show){
 		shows.add(show);

@@ -70,8 +70,7 @@ public class Festival {
 	public FestivalState getState() {
 		if(location.getStageCapacity() < stages.size()) {
 			state = FestivalState.UNLAUNCHABLE;
-		}
-		else {
+		} else {
 			state = FestivalState.LAUNCHABLE;
 		}
 		return state;
@@ -136,8 +135,6 @@ public class Festival {
 	/**
 	 * Creates a new {@link Schedule} if none exists at the given parameters
 	 *
-	 * @param form must not be {@literal null}.
-	 * @return the new {@link Customer} instance.
 	 */
 	public boolean addSchedule(TimeSlot timeSlot, Show show, Stage stage, LocalDate date) {
 		// schedules contains schedule already
@@ -155,16 +152,6 @@ public class Festival {
 
 	}
 	
-//	// not really required
-//	public Schedule getSchedule(TimeSlot timeSlot, Stage stage, LocalDate date) {
-//		for(Schedule aSchedule : schedules) {
-//			if(aSchedule.getDate().equals(date) && aSchedule.getStage().equals(stage) && aSchedule.getTimeSlot().equals(timeSlot)) {
-//				return aSchedule;
-//			}
-//		}
-//		return null;
-//	}
-	
 	public String getScheduleShowName(TimeSlot timeSlot, Stage stage, LocalDate date) {
 		for(Schedule aSchedule : schedules) {
 			if(aSchedule.getDate().equals(date) && aSchedule.getStage().equals(stage) && aSchedule.getTimeSlot().equals(timeSlot)) {
@@ -173,16 +160,6 @@ public class Festival {
 		}
 		return "Keine";
 	}
-	
-//	// not really required
-//	public boolean containsSchedule(TimeSlot timeSlot, Stage stage, LocalDate date) {
-//		for(Schedule aSchedule : schedules) {
-//			if(aSchedule.getDate().equals(date) && aSchedule.getStage().equals(stage) && aSchedule.getTimeSlot().equals(timeSlot)) {
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
 	
 	public boolean removeSchedule(TimeSlot timeSlot, Stage stage, LocalDate date) {
 		for(Schedule aSchedule : schedules) {

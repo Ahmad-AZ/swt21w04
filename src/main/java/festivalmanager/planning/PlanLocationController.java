@@ -62,8 +62,7 @@ public class PlanLocationController {
 			model.addAttribute("locationList", locationManagement.findAll());
 			if(bookedLocation != null) {
 				model.addAttribute("bookedLocationId", bookedLocation.getId());
-			}
-			else {
+			} else {
 				model.addAttribute("bookedLocationId", 0);
 			}
 			
@@ -104,8 +103,7 @@ public class PlanLocationController {
 			// to hide book Button if Location is booked
 			if (currentFestival.getLocation() != null) {
 				model.addAttribute("currentlyBooked", currentFestival.getLocation().getId() == currentLocation.getId());
-			}
-			else {
+			} else {
 				model.addAttribute("currentlyBooked", false);
 			}
 
@@ -138,9 +136,8 @@ public class PlanLocationController {
 			System.out.println("currentlyBooked boolean:"+currentlyBooked);
 			if(currentlyBooked) {
 				planLocationManagement.unbookLocation(currentLocation, currentFestival);
-			}
-			// book Location
-			else {
+			} else {
+				// book Location
 				boolean success = planLocationManagement.bookLocation(currentLocation, currentFestival);
 				System.out.println("success:"+success);
 
