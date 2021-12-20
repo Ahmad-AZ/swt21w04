@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -24,14 +25,17 @@ class NewLocationForm {
 	
 	@NotEmpty   
 	@NotNull
+	@NotBlank
 	private final String name; 
 	
 	@NotEmpty
 	@NotNull
+	@NotBlank
 	private final String adress;
 	
 	@NotNull
 	@NotEmpty
+	@NotBlank
 	private final String pricePerDay;
 	
 	private final MultipartFile image;

@@ -108,7 +108,13 @@ public class LocationController {
         	result.rejectValue("pricePerDay", null, "geben Sie einen gültigen Preis ein");
         	return "newLocation";
         }
-
+		
+		// Location with same name already exists
+		for(Location aLocation : locationManagement.findAll()) {
+			if(aLocation.getName().equals(newLocationForm.getName())){
+				result.rejectValue("name", null, "Location mit diesem Namen existiert bereits.");	
+			}
+		}
 		
 		if(price.isLessThan(Money.of(0, EURO))) {
 			result.rejectValue("pricePerDay", null, "muss größer-gleich 0 sein");
@@ -137,6 +143,13 @@ public class LocationController {
 		
 		if (location.isPresent()) {
 			Location current = location.get();
+			
+			// Location with same name already exists
+			for(Location aLocation : locationManagement.findAll()) {
+				if(aLocation.getName().equals(form.getName())){
+					result.rejectValue("name", null, "Location mit diesem Namen existiert bereits.");	
+				}
+			}
 			if (result.hasErrors()) {
 				model.addAttribute("location", current);
 				model.addAttribute("pricePerDay", current.getPricePerDay().getNumber().toString());

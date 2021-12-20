@@ -110,6 +110,12 @@ public class FestivalController {
 		if (form.getEndDate().isBefore(form.getStartDate())) {
 			result.rejectValue("endDate", null, "Das Enddatum liegt vor dem Startdatum.");
 		}
+		// Festival with same name already exists
+		for(Festival aFestival : festivalManagement.findAll()) {
+			if(aFestival.getName().equals(form.getName())){
+				result.rejectValue("name", null, "Festival mit diesem Namen existiert bereits.");	
+			}
+		}
 		
 		if (result.hasErrors()) {
 			model.addAttribute("dateNow", LocalDate.now());
@@ -168,6 +174,13 @@ public class FestivalController {
 
 			if (current.getStartDate().isBefore(LocalDate.now().plusDays(14))) {
 				result.rejectValue("name", null, "Das Festival beginnt in weniger als 14 Tage");
+			}
+			
+			// Festival with same name already exists
+			for(Festival aFestival : festivalManagement.findAll()) {
+				if(aFestival.getName().equals(stringInputForm.getName())){
+					result.rejectValue("name", null, "Festival mit diesem Namen existiert bereits.");	
+				}
 			}
 						
 			model.addAttribute("festival", current);
