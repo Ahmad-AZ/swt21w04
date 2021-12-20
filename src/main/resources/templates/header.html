@@ -8,6 +8,7 @@
         <div th:fragment="header">
             <div class="header">
                 <div class="menu">
+                    <img class="item border-right logoImageNavBar" src="/resources/img/LogoSmall.png" alt="Logo small">
                     <a class="item border-right" href="festivalOverview.html" th:href="@{/festivalOverview}" sec:authorize="hasRole('PLANNER') || hasRole('ADMIN') || hasRole('MANAGER')">Festivals</a>
                     <a class="item border-right" href="locations.html" th:href="@{/locations}" sec:authorize="hasRole('PLANNER') || hasRole('ADMIN') || hasRole('MANAGER')">Locations</a>
                     <a class="item border-right" href="artists.html" th:href="@{/artists}" sec:authorize="hasRole('PLANNER') || hasRole('ADMIN') || hasRole('MANAGER')">Künstler</a>
