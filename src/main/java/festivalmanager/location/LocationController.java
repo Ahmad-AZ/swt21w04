@@ -112,7 +112,8 @@ public class LocationController {
 		// Location with same name already exists
 		for(Location aLocation : locationManagement.findAll()) {
 			if(aLocation.getName().equals(newLocationForm.getName())){
-				result.rejectValue("name", null, "Location mit diesem Namen existiert bereits.");	
+				System.out.println("same name as an already given location");
+				result.rejectValue("name", null, "Location mit diesem Namen existiert bereits.");
 			}
 		}
 		
@@ -145,10 +146,15 @@ public class LocationController {
 			Location current = location.get();
 			
 			// Location with same name already exists
-			for(Location aLocation : locationManagement.findAll()) {
-				if(aLocation.getName().equals(form.getName())){
-					result.rejectValue("name", null, "Location mit diesem Namen existiert bereits.");	
+			if (!current.getName().equals(form.getName())) {
+				for (Location aLocation : locationManagement.findAll()) {
+					if (aLocation.getName().equals(form.getName())) {
+						result.rejectValue("name", null, "Location mit diesem Namen existiert bereits.");
+					}
+
 				}
+			} else {
+				System.out.println("name does not change");
 			}
 			if (result.hasErrors()) {
 				model.addAttribute("location", current);
