@@ -11,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 
+import java.time.Duration;
 import java.util.Optional;
 
 @Controller
@@ -191,13 +192,13 @@ public class HiringController {
 	}
 	@PostMapping("/newShow/{artistId}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String createNewShow(@PathVariable Long artistId, @Validated NewShowForm form, Model model) {
+	public String createNewShow(@PathVariable Long artistId, @Validated NewShowForm newShowForm, Model model) {
 		Optional<Artist> artist = hiringManagement.findById(artistId);
 		model.addAttribute("artistId", artistId);
 
 		if(artist.isPresent()) {
 			Artist current = artist.get();
-			current.addShow(new Show(form.getName()));
+			current.addShow(new Show(newShowForm.getName(), Duration.ofMinutes(newShowForm.getPerformance())));
 			hiringManagement.saveArtist(current);
 			return "redirect:/artists/"+ artistId;
 		} else {

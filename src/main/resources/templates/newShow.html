@@ -21,6 +21,10 @@
             <input class="form-input" id="name" name="name" type="text" required="required">
         </div>
         <div class="form-item">
+            <label class="form-label" for="performance"> Aufführungszeit in Minuten</label>
+            <input class="form-input" id="performance" type="number" step="1" name="performance" th:required="required" min="0" max="600"/>
+        </div>
+        <div class="form-item">
             <a th:href="@{/artists/{id}(id=${artistId})}">Abbrechen</a>
             <input class="form-input" type="submit" value="Erstellen">
         </div>
