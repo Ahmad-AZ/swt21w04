@@ -28,7 +28,6 @@ import festivalmanager.hiring.Artist;
 import festivalmanager.hiring.ArtistRepository;
 import festivalmanager.location.Location;
 import festivalmanager.location.LocationManagement;
-import festivalmanager.utils.LongOrNull;
 
 @Controller
 public class FestivalController {
