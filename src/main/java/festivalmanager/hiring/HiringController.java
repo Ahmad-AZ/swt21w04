@@ -124,6 +124,14 @@ public class HiringController {
 
 		if (artist.isPresent()) {
 			Artist current = artist.get();
+
+			//Artist with same name already exists
+			for (Artist anArtist : hiringManagement.findAll()) {
+				if(anArtist.getName().equals(form.getName()) && !anArtist.getName().equals(current.getName())) {
+					result.rejectValue("name", null, "Künstler mit diesem Namen existiert bereits");
+				}
+			}
+
 			if (result.hasErrors()) {
 				System.out.println("form has errors");
 				model.addAttribute("artist", current);
@@ -144,6 +152,13 @@ public class HiringController {
 	@PostMapping("/newArtist")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String createNewArtist(@Validated NewArtistForm form, Errors result){
+		for(Artist anArtist : hiringManagement.findAll()) {
+			if(anArtist.getName().equals(form.getName())) {
+				result.rejectValue("name", null, "Künstler mit diesem Namen existiert bereits");
+				return "newArtist";
+			}
+		}
+
 		if(result.hasErrors()){
 			return "newArtist";
 		}
