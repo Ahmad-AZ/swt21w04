@@ -140,7 +140,8 @@ public class FestivalController {
 	
 	@GetMapping("/festivalOverview/{festivalId}/editName")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String getEditFestivalNameDialog(@PathVariable("festivalId") Long festivalId, StringInputForm stringInputForm, Model model) {
+	public String getEditFestivalNameDialog(@PathVariable("festivalId") Long festivalId,
+											StringInputForm stringInputForm, Model model) {
 		model.addAttribute("dialog", "edit name");
 		
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
@@ -168,7 +169,9 @@ public class FestivalController {
 	
 	@PostMapping("/editFestivalName/{festivalId}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String editFestivalName(@PathVariable("festivalId") Long festivalId, @Validated StringInputForm stringInputForm, Errors result, Model model) {
+	public String editFestivalName(@PathVariable("festivalId") Long festivalId,
+								   @Validated StringInputForm stringInputForm,
+								   Errors result, Model model) {
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
 		if (festival.isPresent()) {
 			Festival current = festival.get();
