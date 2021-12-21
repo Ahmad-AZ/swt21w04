@@ -28,7 +28,7 @@
                        href="messages.html" th:href="@{/messages/{userId}(userId = ${userId})}"
                        sec:authorize="isAuthenticated()">Nachrichten</a>
 
-                    <a th:class="${'item ' + 'border-right ' + financesCurrent}"
+                    <a th:class="${'item ' + 'border-right ' + financesCompanyCurrent}"
                        href="financesCompany.html" th:href="@{/financesCompany}"
                        sec:authorize="hasRole('ADMIN') || hasRole('MANAGER')">Finanzen FVIV GmbH</a>
                 </div>

@@ -35,10 +35,10 @@ public class UtilsManagement {
 		this.currentPageLowerHeader = null;
 
 		// Add a name for your page here if it can be accessed through the upper navigation bar
-		pagesUpperHeader = Arrays.asList("festivals", "locations", "artists", "messages", "finances");
+		pagesUpperHeader = Arrays.asList("festivals", "locations", "artists", "messages", "financesCompany");
 		// Add a name for your page here if it can be accessed through the lower navigation bar
 		pagesLowerHeader = Arrays.asList("festivalDetail", "staff", "location", "equipment",
-				"artists", "finances", "catering", "tickets", "ticketShop",
+				"artistOverview", "finances", "catering", "tickets", "ticketShop",
 				"schedule", "program", "map", "cateringSales");
 	}
 

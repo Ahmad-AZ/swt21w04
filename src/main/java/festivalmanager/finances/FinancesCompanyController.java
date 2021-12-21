@@ -52,7 +52,7 @@ public class FinancesCompanyController {
 		FinancesController.addAttribute(model, "averageCostOneDayTickets",
 				financesCompanyManagement.getAverageCostOneDayTickets());
 
-		utilsManagement.setCurrentPageUpperHeader("finances");
+		utilsManagement.setCurrentPageUpperHeader("financesCompany");
 		utilsManagement.prepareModel(model);
 		return "financesCompany";
 	}
