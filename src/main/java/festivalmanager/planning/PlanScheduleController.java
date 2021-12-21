@@ -77,8 +77,6 @@ public class PlanScheduleController {
 			
 			model.addAttribute("timeSlotList",tsl);
 			model.addAttribute("festival", current);
-			utilsManagement.setCurrentFestivalId(currentFestival.getId());
-			utilsManagement.setCurrentFestivalId(currentFestival.getId());
 			utilsManagement.setCurrentPageLowerHeader("program");
 			utilsManagement.prepareModel(model);
 			return "/schedule";

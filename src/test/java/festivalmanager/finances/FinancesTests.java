@@ -55,7 +55,7 @@ class FinancesTests {
 		//testFestival.addArtist(testArtist);
 
 		UtilsManagement utilsManagement = new UtilsManagement(festivalManagement);
-		utilsManagement.setCurrentFestivalId(testFestival.getId());
+		utilsManagement.setCurrentFestival(testFestival.getId());
 		EquipmentRepository equipmentRepository = mock(EquipmentRepository.class);
 		when(equipmentRepository.findById(any())).thenReturn(Optional.empty());
 		EquipmentManagement equipmentManagement = new EquipmentManagement(equipmentRepository);

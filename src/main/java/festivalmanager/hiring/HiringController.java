@@ -1,5 +1,6 @@
 package festivalmanager.hiring;
 
+import festivalmanager.utils.UtilsManagement;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -16,11 +17,13 @@ import java.util.Optional;
 @Controller
 public class HiringController {
 	private final HiringManagement hiringManagement;
+	private final UtilsManagement utilsManagement;
 	private Festival currentFestival;
 	private FestivalManagement festivalManagement;
 
-	public HiringController(HiringManagement hiringManagement) {
-		this.hiringManagement = hiringManagement; 
+	public HiringController(HiringManagement hiringManagement, UtilsManagement utilsManagement) {
+		this.hiringManagement = hiringManagement;
+		this.utilsManagement = utilsManagement;
 		this.currentFestival = null;
 	}
 
@@ -33,6 +36,8 @@ public class HiringController {
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String artists(Model model) {
 		model.addAttribute("artistList", hiringManagement.findAll());
+		utilsManagement.setCurrentPageUpperHeader("artists");
+		utilsManagement.prepareModel(model);
 		return "artists";
 	}
 
@@ -47,6 +52,7 @@ public class HiringController {
 			model.addAttribute("hasBookings", current.hasBookingArtist());
 			model.addAttribute("show", current.getShows());
 
+			utilsManagement.prepareModel(model);
 			return "artistDetail";
 		} else {
 			throw new ResponseStatusException(
@@ -69,6 +75,7 @@ public class HiringController {
 			model.addAttribute("price", price);
 			Integer stageTechnician = current.getStageTechnician();
 			model.addAttribute("stageTechnician", stageTechnician);
+			utilsManagement.prepareModel(model);
 			return "artistEdit";
 
 		} else {
@@ -92,6 +99,7 @@ public class HiringController {
 			model.addAttribute("currentName", "");
 		}
 
+		utilsManagement.prepareModel(model);
 		return "/artists";
 	}
 
@@ -128,6 +136,7 @@ public class HiringController {
 				System.out.println("form has errors");
 				model.addAttribute("artist", current);
 
+				utilsManagement.prepareModel(model);
 				return "artistEdit";
 			}
 
@@ -155,6 +164,7 @@ public class HiringController {
 	@GetMapping("/newArtist")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String newArtist(Model model, NewArtistForm form) {
+		utilsManagement.prepareModel(model);
 		return "newArtist";
 	}
 
@@ -166,6 +176,7 @@ public class HiringController {
 		if(artist.isPresent()) {
 			Artist current = artist.get();
 			model.addAttribute("artistShow", current);
+			utilsManagement.prepareModel(model);
 			return "newShow";
 		}
 		else {

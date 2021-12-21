@@ -57,7 +57,7 @@ public class UtilsManagement {
 	}
 
 
-	public void setCurrentFestivalId(long currentFestivalId) {
+	public void setCurrentFestival(long currentFestivalId) {
 		this.currentFestival = festivalManagement.findById(currentFestivalId).get();
 	}
 
@@ -74,7 +74,9 @@ public class UtilsManagement {
 	public void prepareModel(Model model) {
 
 		// Update currentFestival
-		setCurrentFestivalId(getCurrentFestivalId());
+		if (currentFestival != null) {
+			setCurrentFestival(getCurrentFestivalId());
+		}
 
 		if (currentPageUpperHeader != null) {
 
