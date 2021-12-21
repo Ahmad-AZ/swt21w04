@@ -41,7 +41,8 @@ public class PlanEquipmentController {
 	private Festival currentFestival;
 	private long currentFestivalId;
 	
-	public PlanEquipmentController(PlanEquipmentManagement planEquipmentManagement, FestivalManagement festivalManagement, EquipmentManagement equipmentManagement, UtilsManagement utilsManagement) {
+	public PlanEquipmentController(PlanEquipmentManagement planEquipmentManagement, FestivalManagement festivalManagement,
+								   EquipmentManagement equipmentManagement, UtilsManagement utilsManagement) {
 		this.planEquipmentManagement = planEquipmentManagement;
 		this.festivalManagement = festivalManagement;
 		this.equipmentManagement = equipmentManagement;
@@ -152,11 +153,10 @@ public class PlanEquipmentController {
 			for (Equipment anEquipment : equipmentManagement.findAll()) {
 				long amount = festival.getEquipments().getOrDefault(anEquipment.getId(), (long) 0);
 				// Stages would be handled extra
-				if(anEquipment.getType().equals(EquipmentType.STAGE)) {
+				if(anEquipment.getType().equals(EquipmentType.STAGE) &&
+					!(anEquipment.getClass().getName().equals(Stage.class.getName()))) {
 					// Stage children Objects should not been visible here
-					if(!(anEquipment.getClass().getName().equals(Stage.class.getName()))) {
-						model.addAttribute("equipmentStage", anEquipment);
-					}
+					model.addAttribute("equipmentStage", anEquipment);
 
 				} else {
 					equipmentsMap.put(anEquipment, amount);
