@@ -3,7 +3,9 @@ package festivalmanager.hiring;
 import org.salespointframework.time.Interval;
 
 import java.io.Serializable;
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.Period;
 
 
 import javax.persistence.*;
@@ -21,8 +23,10 @@ public class Show implements Serializable{
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String name;
-	public Show(@NotNull String name) {
+	private Duration performance;
+	public Show(@NotNull String name, Duration performance) {
 		this.name = name;
+		this.performance = performance;
 	} 
  
 	public Show() {
@@ -36,4 +40,7 @@ public class Show implements Serializable{
 		return name;
 	}
 
+	public long getPerformance() {
+		return performance.toMinutes();
+	}
 }

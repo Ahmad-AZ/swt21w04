@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
+import festivalmanager.Equipment.Stage;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.festival.Schedule.TimeSlot;
@@ -76,8 +77,6 @@ public class PlanScheduleController {
 			
 			model.addAttribute("timeSlotList",tsl);
 			model.addAttribute("festival", current);
-			utilsManagement.setCurrentFestivalId(currentFestival.getId());
-			utilsManagement.setCurrentFestivalId(currentFestival.getId());
 			utilsManagement.setCurrentPageLowerHeader("program");
 			utilsManagement.prepareModel(model);
 			return "/schedule";
@@ -120,6 +119,40 @@ public class PlanScheduleController {
 		System.out.println("afterall");
 		return "redirect:/schedule";
 	}
+	
+	
+	
+//	@GetMapping("/schedule/{day}/{stageId}/{timeSlot}")
+//	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
+//	public String getSecuritySelectDialog(@PathVariable("day") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date, 
+//										@PathVariable("stageId") long stageId, 
+//										@PathVariable("timeSlot") String timeSlot, Model model) {
+//			
+//			model.addAttribute("festival", currentFestival);
+//			model.addAttribute("date", date);
+//			model.addAttribute("stageId", stageId);
+//			model.addAttribute("timeSlot", timeSlot);
+//				
+//			model.addAttribute("securitysToAdd", planScheduleManagement.getAvailableSecurity(currentFestival, date, timeSlot));
+//
+//		
+//		
+//		utilsManagement.prepareModel(model);
+//		return "/schedule";
+//	}
+	
+//	@PostMapping("/schedule/{day}/{stageId}/{timeSlot}/chooseShow")
+//	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
+//	public String chooseSecurity(@PathVariable("day") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date, 
+//									@PathVariable("stageId") long stageId, 
+//									@PathVariable("timeSlot") String timeSlot, 
+//									@RequestParam("security") long personId, Model model) {
+//		
+//		System.out.println(personId);
+//		planScheduleManagement.setSecurity(date, stageId, timeSlot, personId, currentFestivalId);
+//		System.out.println("afterall");
+//		return "redirect:/schedule";
+//	}
 	
 	
 	

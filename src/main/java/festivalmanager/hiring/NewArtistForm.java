@@ -1,10 +1,15 @@
 package festivalmanager.hiring;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class NewArtistForm {
 
+	@NotEmpty   
+	@NotNull
+	@NotBlank
 	private final String name;
 
 	@Min(value = 0)

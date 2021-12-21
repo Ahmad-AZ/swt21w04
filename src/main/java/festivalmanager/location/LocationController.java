@@ -2,9 +2,12 @@ package festivalmanager.location;
 
 import java.util.Optional;
 
+import javax.money.format.MonetaryParseException;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
+import festivalmanager.utils.UtilsManagement;
+import org.javamoney.moneta.Money;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -24,13 +27,18 @@ import org.springframework.web.server.ResponseStatusException;
 import festivalmanager.staff.Person;
 import festivalmanager.staff.forms.RemoveStaffForm;
 
+import static org.salespointframework.core.Currencies.EURO;
+
+
 @Controller
 public class LocationController {
 	
 	private final LocationManagement locationManagement;
+	private final UtilsManagement utilsManagement;
 	
-	public LocationController(LocationManagement locationManagement) {
+	public LocationController(LocationManagement locationManagement, UtilsManagement utilsManagement) {
 		this.locationManagement = locationManagement;
+		this.utilsManagement = utilsManagement;
 	}
 
 	@ModelAttribute("title")
@@ -42,6 +50,8 @@ public class LocationController {
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String locations(Model model) {
 		model.addAttribute("locationList", locationManagement.findAll());
+		utilsManagement.setCurrentPageUpperHeader("locations");
+		utilsManagement.prepareModel(model);
 		return "locations";
 	}
 	
@@ -55,9 +65,11 @@ public class LocationController {
 			
 			System.out.println(locationId);
 			model.addAttribute("location", current);
+			model.addAttribute("newLocationForm", current);
 			Double pricePerDay = current.getPricePerDay().getNumber().doubleValue();
 			System.out.println(pricePerDay);
 			model.addAttribute("pricePerDay", pricePerDay);
+			utilsManagement.prepareModel(model);
 			return "locationEdit";
 			
 		} else {
@@ -76,8 +88,8 @@ public class LocationController {
 			Location current = location.get();
 
 			model.addAttribute("location", current);
-			model.addAttribute("hasBookings", current.hasBookings());			
-			 
+			model.addAttribute("hasBookings", current.hasBookings());
+			utilsManagement.prepareModel(model);
 			return "locationDetail";
 			
 		} else {
@@ -90,9 +102,29 @@ public class LocationController {
 	@PostMapping("/newLocation")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String createNewLocation(@Validated NewLocationForm newLocationForm, Errors result) {
-		
 		if (result.hasErrors()) {
-			System.out.println("form has errors " + result);
+			return "newLocation";
+		}
+		
+		Money price;
+		try {
+			
+            price = Money.parse("EUR " + newLocationForm.getPricePerDay());
+        } catch (MonetaryParseException ex) {
+        	result.rejectValue("pricePerDay", null, "geben Sie einen gültigen Preis ein");
+        	return "newLocation";
+        }
+		
+		// Location with same name already exists
+		for(Location aLocation : locationManagement.findAll()) {
+			if(aLocation.getName().equals(newLocationForm.getName())){
+				result.rejectValue("name", null, "Location mit diesem Namen existiert bereits.");	
+				return "newLocation";
+			}
+		}
+		
+		if(price.isLessThan(Money.of(0, EURO))) {
+			result.rejectValue("pricePerDay", null, "muss größer-gleich 0 sein");
 			return "newLocation";
 		}
 
@@ -107,25 +139,53 @@ public class LocationController {
 	@GetMapping("/newLocation")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String newLocation(Model model, NewLocationForm newLocationForm) {
+		utilsManagement.prepareModel(model);
 		return "newLocation";
 	}
 	
 	@PostMapping("/saveLocation")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String saveLocation(@Validated NewLocationForm form, Errors result, @RequestParam("location") Long locationId, Model model) {
+	public String saveLocation(@Validated NewLocationForm form,
+							   Errors result, @RequestParam("location") Long locationId, Model model) {
 		
 		Optional<Location> location = locationManagement.findById(locationId);
 		
 		if (location.isPresent()) {
 			Location current = location.get();
+			
+			// Location with same name already exists
+			for(Location aLocation : locationManagement.findAll()) {
+				if(aLocation.getName().equals(form.getName()) && !aLocation.getName().equals(current.getName())){
+					result.rejectValue("name", null, "Location mit diesem Namen existiert bereits.");	
+				}
+			}
+			
 			if (result.hasErrors()) {
-				System.out.println("form has errors");
 				model.addAttribute("location", current);
-				Double pricePerDay = current.getPricePerDay().getNumber().doubleValue();
-				System.out.println(pricePerDay);
-				model.addAttribute("pricePerDay", pricePerDay);
+				model.addAttribute("pricePerDay", current.getPricePerDay().getNumber().toString());
+				return "locationEdit";
+	        
+			}
+			
+			Money price;
+			try {
+				
+	            price = Money.parse("EUR " + form.getPricePerDay());
+	        } catch (MonetaryParseException ex) {
+	        	result.rejectValue("pricePerDay", null, "geben Sie einen gültigen Preis ein");
+				model.addAttribute("location", current);
+				model.addAttribute("pricePerDay", current.getPricePerDay().getNumber().toString());
+				return "locationEdit";
+	        }
+
+			
+			if(price.isLessThan(Money.of(0, EURO))) {
+				result.rejectValue("pricePerDay", null, "muss größer-gleich 0 sein");
+				model.addAttribute("location", current);
+				model.addAttribute("pricePerDay", current.getPricePerDay().getNumber().toString());
 				return "locationEdit";
 			}
+
 			
 			locationManagement.editLocation(current, form);
 			return "redirect:/locations";
@@ -153,12 +213,14 @@ public class LocationController {
 			model.addAttribute("currentName", "");
 		}
 
+		utilsManagement.prepareModel(model);
 		return "/locations";
 	}
 	
 	@PostMapping("/locations/remove")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String removeLocation(@Valid @RequestParam("id") @NotEmpty Long locationId, @ModelAttribute("delete") String dummy, Errors result) {
+	public String removeLocation(@Valid @RequestParam("id") @NotEmpty Long locationId,
+								 @ModelAttribute("delete") String dummy, Errors result) {
 		Optional<Location> current = locationManagement.findById(locationId);
 		if (current.isPresent()) {
 			if(current.get().hasBookings()) {

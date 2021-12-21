@@ -72,8 +72,7 @@ public class FestivalController {
 			currentId = festivalId;
 			currentFestival = current;
 
-			utilsManagement.setCurrentFestivalId(currentFestival.getId());
-			utilsManagement.setCurrentPageUpperHeader("festivals");
+			utilsManagement.setCurrentFestival(currentFestival.getId());
 			utilsManagement.setCurrentPageLowerHeader("festivalDetail");
 			utilsManagement.prepareModel(model);
 			return "festivalDetail";
@@ -110,6 +109,12 @@ public class FestivalController {
 		if (form.getEndDate().isBefore(form.getStartDate())) {
 			result.rejectValue("endDate", null, "Das Enddatum liegt vor dem Startdatum.");
 		}
+		// Festival with same name already exists
+		for(Festival aFestival : festivalManagement.findAll()) {
+			if(aFestival.getName().equals(form.getName())){
+				result.rejectValue("name", null, "Festival mit diesem Namen existiert bereits.");	
+			}
+		}
 		
 		if (result.hasErrors()) {
 			model.addAttribute("dateNow", LocalDate.now());
@@ -127,6 +132,7 @@ public class FestivalController {
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String newFestival(Model model, NewFestivalForm form) {
 		model.addAttribute("dateNow", LocalDate.now());
+		utilsManagement.prepareModel(model);
 		return "newFestival";
 	}
 	
@@ -134,7 +140,8 @@ public class FestivalController {
 	
 	@GetMapping("/festivalOverview/{festivalId}/editName")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String getEditFestivalNameDialog(@PathVariable("festivalId") Long festivalId, StringInputForm stringInputForm, Model model) {
+	public String getEditFestivalNameDialog(@PathVariable("festivalId") Long festivalId,
+											StringInputForm stringInputForm, Model model) {
 		model.addAttribute("dialog", "edit name");
 		
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
@@ -145,11 +152,12 @@ public class FestivalController {
 			model.addAttribute("location", current.getLocation());
 			
 			
-			utilsManagement.setCurrentFestivalId(currentFestival.getId());
+			utilsManagement.setCurrentFestival(currentFestival.getId());
 			utilsManagement.setCurrentPageUpperHeader("festivals");
 			utilsManagement.setCurrentPageLowerHeader("festivalDetail");
 			utilsManagement.prepareModel(model);
-			
+
+			utilsManagement.prepareModel(model);
 			return "festivalDetail";
 		} else {
 			throw new ResponseStatusException(
@@ -161,13 +169,22 @@ public class FestivalController {
 	
 	@PostMapping("/editFestivalName/{festivalId}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String editFestivalName(@PathVariable("festivalId") Long festivalId, @Validated StringInputForm stringInputForm, Errors result, Model model) {
+	public String editFestivalName(@PathVariable("festivalId") Long festivalId,
+								   @Validated StringInputForm stringInputForm,
+								   Errors result, Model model) {
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
 		if (festival.isPresent()) {
 			Festival current = festival.get();
 
 			if (current.getStartDate().isBefore(LocalDate.now().plusDays(14))) {
 				result.rejectValue("name", null, "Das Festival beginnt in weniger als 14 Tage");
+			}
+			
+			// Festival with same name already exists
+			for(Festival aFestival : festivalManagement.findAll()) {
+				if(aFestival.getName().equals(stringInputForm.getName())){
+					result.rejectValue("name", null, "Festival mit diesem Namen existiert bereits.");	
+				}
 			}
 						
 			model.addAttribute("festival", current);
@@ -180,8 +197,7 @@ public class FestivalController {
 			currentId = festivalId;
 			currentFestival = current;
 
-			utilsManagement.setCurrentFestivalId(currentFestival.getId());
-			utilsManagement.setCurrentPageUpperHeader("festivals");
+			utilsManagement.setCurrentFestival(currentFestival.getId());
 			utilsManagement.setCurrentPageLowerHeader("festivalDetail");
 			utilsManagement.prepareModel(model);
 			
@@ -211,6 +227,8 @@ public class FestivalController {
 		
 		model.addAttribute("festivalList", festivalManagement.findAll());
 
+		utilsManagement.setCurrentPageUpperHeader("festivals");
+		utilsManagement.prepareModel(model);
 		return "festivalOverview"; 
 	}
 	
@@ -229,6 +247,7 @@ public class FestivalController {
 			model.addAttribute("currentName", "");
 		}
 
+		utilsManagement.prepareModel(model);
 		return "festivalOverview";
 	}
 	

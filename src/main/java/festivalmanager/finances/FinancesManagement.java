@@ -66,8 +66,8 @@ public class FinancesManagement {
 	}
 
 
-	public void updateFestival() {
-		currentFestival = festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
+	public void setFestival(long festivalId) {
+		currentFestival = festivalManagement.findById(festivalId).get();
 		ticketInformation = ticketManagement.TicketsByFestival(currentFestival.getId());
 		if (ticketInformation == null) {
 			ticketInformation = new Ticket();
@@ -134,15 +134,15 @@ public class FinancesManagement {
 		Money staffCost = Money.of(0, EURO);
 		Streamable<Person> staffMembers = staffManagement.findByFestivalId(currentFestival.getId());
 		// Roles for which the salary is paid on a per-festival basis
-		List<String> toBePaid = Arrays.asList("SECURITY", "CATERING", "FESTIVAL_LEADER", "ADMISSION");
+		// List<String> toBePaid = Arrays.asList("SECURITY", "CATERING", "FESTIVAL_LEADER", "ADMISSION");
 
 		for (Person staffMember: staffMembers) {
 
-			if (toBePaid.contains(staffMember.getRole())) {
-				Money salary = staffMember.getSalary();
-				// Staff members work 8 hours a day
-				staffCost = staffCost.add(salary.multiply(8).multiply(durationDays));
-			}
+			// if (toBePaid.contains(staffMember.getRole())) {}
+
+			Money salary = staffMember.getSalary();
+			// Staff members work 8 hours a day
+			staffCost = staffCost.add(salary.multiply(8).multiply(durationDays));
 		}
 
 		totalCost = totalCost.add(staffCost);

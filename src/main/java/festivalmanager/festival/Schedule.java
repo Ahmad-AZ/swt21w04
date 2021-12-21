@@ -12,6 +12,7 @@ import javax.persistence.OneToOne;
 
 import festivalmanager.Equipment.Stage;
 import festivalmanager.hiring.Show;
+import festivalmanager.staff.Person;
 
 @Entity
 public class Schedule implements Serializable{
@@ -33,6 +34,9 @@ public class Schedule implements Serializable{
 	private Show show;
 	@OneToOne
 	private Stage stage;
+	
+	@OneToOne
+	private Person security;
 	
 	private LocalDate date;
 	
@@ -75,5 +79,13 @@ public class Schedule implements Serializable{
 
 	public void setDate(LocalDate date) {
 		this.date = date;
+	}
+
+	public Person getSecurity() {
+		return security;
+	}
+
+	public void setSecurity(Person security) {
+		this.security = security;
 	}
 }

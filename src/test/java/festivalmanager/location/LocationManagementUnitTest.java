@@ -28,7 +28,7 @@ public class LocationManagementUnitTest {
 		
 		Long vc = (long) 1500;
 		Long sc = (long) 6;
-		Double ppD = (double) 1550.90;
+		String ppD =  "1550.90";
 		NewLocationForm form = new NewLocationForm("name", "adress",  ppD, vc, sc, null, null);
 		Location savedLocation = lm.createLocation(form);
 		

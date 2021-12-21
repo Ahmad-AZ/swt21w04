@@ -5,6 +5,7 @@ import org.salespointframework.core.DataInitializer;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
 import java.time.LocalDate;
 
 import static org.salespointframework.core.Currencies.EURO;
@@ -22,12 +23,12 @@ public class ArtistDataInitializer implements DataInitializer {
 		Artist camila = new Artist("Camila Cabello", Money.of(83, EURO), 5);
 		jackson.addBooking(LocalDate.of(2021, 12, 23), LocalDate.of(2022, 1,1));
 
-		Show criminal = new Show("Smooth criminal");
-		Show bad = new Show("bad");
-		Show senorita = new Show("senorita");
-		Show treat = new Show("treat you better");
-		Show havana = new Show("havana");
-		Show never = new Show("never be the same");
+		Show criminal = new Show("Smooth criminal", Duration.ofMinutes(49));
+		Show bad = new Show("bad", Duration.ofMinutes(80));
+		Show senorita = new Show("senorita", Duration.ofMinutes(145));
+		Show treat = new Show("treat you better", Duration.ofMinutes(60));
+		Show havana = new Show("havana", Duration.ofMinutes(75));
+		Show never = new Show("never be the same", Duration.ofMinutes(90));
 		jackson.addShow(criminal);
 		jackson.addShow(bad);
 		shawn.addShow(senorita);

@@ -95,6 +95,10 @@ public class StaffManagement {
 			return staff.findByFestivalId(festivalId).and(staff.findByFestivalId(-1));
 		}
 	}
+	
+	public Streamable<Person> findByFestivalIdAndRole(long festivalId, String role) {
+		return staff.findByFestivalIdAndRole(festivalId, role);
+	}
 
 	public Optional<Person> findById(long id) {
 		return staff.findById(id);

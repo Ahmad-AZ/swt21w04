@@ -24,7 +24,7 @@
                        th:if="${festivalLocation!=null}" th:href="@{/equipments}"
                        sec:authorize="hasRole('PLANNER') || hasRole('ADMIN') || hasRole('MANAGER')">Gegenstände</a>
 
-                    <a th:class="${'item ' + 'border-right ' + artistsCurrent}"
+                    <a th:class="${'item ' + 'border-right ' + artistOverviewCurrent}"
                        th:href="@{/artistOverview}"
                        sec:authorize="hasRole('PLANNER') || hasRole('ADMIN') || hasRole('MANAGER')">Künstler</a>
                        
