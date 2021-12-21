@@ -33,4 +33,23 @@ public class HiringManagementUnitTest {
 			assertThat(current.getStageTechnician()).isEqualTo(5);
 		}
 	}
+
+	@Test
+	void editArtist(){
+		Double price = (double) 100.00;
+		Integer stageTechnician = (int)5;
+		NewArtistForm form1 = new NewArtistForm("name", price, stageTechnician);
+		Artist savedArtist = lm.createAritst(form1);
+
+		NewArtistForm form2 = new NewArtistForm("newName", 200.00, 6);
+		Artist artist = mock(Artist.class);
+		when(lm.editArtist(savedArtist, form2)).thenReturn(artist);
+		Optional<Artist> artistOptional = lm.findById(artist.getId());
+		if (artistOptional.isPresent()) {
+			Artist current = artistOptional.get();
+			assertThat(current.getName()).isEqualTo("newName");
+			assertThat(current.getPrice()).isEqualTo(Money.of(200.00, EURO));
+			assertThat(current.getStageTechnician()).isEqualTo(6);
+		}
+	}
 }
