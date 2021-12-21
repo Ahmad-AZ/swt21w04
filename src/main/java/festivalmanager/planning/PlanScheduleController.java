@@ -36,7 +36,8 @@ public class PlanScheduleController {
 	private long currentFestivalId;
 	private Festival currentFestival;
 	
-	public PlanScheduleController(PlanScheduleManagement planScheduleManagement, FestivalManagement festivalManagement, UtilsManagement utilsManagement) {
+	public PlanScheduleController(PlanScheduleManagement planScheduleManagement,
+								  FestivalManagement festivalManagement, UtilsManagement utilsManagement) {
 		this.planScheduleManagement = planScheduleManagement;
 		this.festivalManagement = festivalManagement;
 		this.utilsManagement = utilsManagement;
@@ -59,7 +60,8 @@ public class PlanScheduleController {
 			// gives List of all Festival days
 			List<LocalDate> dayList = new ArrayList<>();
 			LocalDate currentDate = current.getStartDate();
-			Interval festivalInterval = Interval.from(current.getStartDate().atStartOfDay()).to(current.getEndDate().atTime(23, 5));
+			Interval festivalInterval = Interval.from(current.getStartDate().atStartOfDay())
+										.to(current.getEndDate().atTime(23, 5));
 			while(festivalInterval.contains(currentDate.atTime(12, 00))) {
 				dayList.add(currentDate);
 				currentDate = currentDate.plusDays(1);
