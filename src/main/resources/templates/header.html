@@ -13,6 +13,7 @@
                     <a class="item border-right" href="locations.html" th:href="@{/locations}" sec:authorize="hasRole('PLANNER') || hasRole('ADMIN') || hasRole('MANAGER')">Locations</a>
                     <a class="item border-right" href="artists.html" th:href="@{/artists}" sec:authorize="hasRole('PLANNER') || hasRole('ADMIN') || hasRole('MANAGER')">Künstler</a>
                     <a class="item border-right" href="messages.html" th:href="@{/messages/{userId}(userId = ${userId})}" sec:authorize="isAuthenticated()">Nachrichten</a>
+                    <a class="item border-right" href="financesCompany.html" th:href="@{/financesCompany}" sec:authorize="hasRole('ADMIN') || hasRole('MANAGER')">Finanzen FVIV GmbH</a>
                 </div>
 
                 <h1 th:text="${title}"></h1>

@@ -1,0 +1,82 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html(title=Finanzen der FVIV GmbH)}">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
+    <title>Finanzen der FVIV GmbH</title>
+</head>
+
+<body>
+<div th:include="header :: header"></div>
+<section layout:fragment="content">
+
+    <br>
+    <table class="program-table">
+        <thead>
+        <tr>
+            <th>Finanzdaten</th>
+            <th>Wert</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Anzahl Festivals</td>
+            <td th:text="${nFestivals}">0</td>
+        </tr>
+        <tr>
+            <td>Durchschittliche Kosten pro Festival</td>
+            <td th:text="${averageCost + '&euro;'}">0.00&euro;</td>
+        </tr>
+        <tr>
+            <td>Gesamtkosten</td>
+            <td th:text="${totalCost + '&euro;'}">0.00&euro;</td>
+        </tr>
+        <tr>
+            <td>Durchschittlicher Umsatz pro Festival</td>
+            <td th:text="${averageRevenue + '&euro;'}">0.00&euro;</td>
+        </tr>
+        <tr>
+            <td>Gesamtumsatz</td>
+            <td th:text="${totalRevenue + '&euro;'}">0.00&euro;</td>
+        </tr>
+        <tr>
+            <td>Durchschittlicher Gewinn pro Festival</td>
+            <td th:text="${averageProfit + '&euro;'}">0.00&euro;</td>
+        </tr>
+        <tr>
+            <td>Gesamtgewinn</td>
+            <td th:text="${totalProfit + '&euro;'}">0.00&euro;</td>
+        </tr>
+        <tr>
+            <td>Durschnittlicher Preis Camping-Tickets</td>
+            <td th:text="${averageCostCampingTickets + '&euro;'}">0.00&euro;</td>
+        </tr>
+        <tr>
+            <td>Durschnittlich verkaufte Camping-Tickets</td>
+            <td th:text="${averageCampingTickets}">0</td>
+        </tr>
+        <tr>
+            <td>Insgesamt verkaufte Camping-Tickets</td>
+            <td th:text="${totalCampingTickets}">0</td>
+        </tr>
+        <tr>
+            <td>Durschnittlicher Preis Tagestickets</td>
+            <td th:text="${averageCostOneDayTickets + '&euro;'}">0.00&euro;</td>
+        </tr>
+        <tr>
+            <td>Durschnittlich verkaufte Tagestickets</td>
+            <td th:text="${averageOneDayTickets}">0</td>
+        </tr>
+        <tr>
+            <td>Insgesamt verkaufte Tagestickets</td>
+            <td th:text="${totalOneDayTickets}">0</td>
+        </tr>
+        </tbody>
+    </table>
+
+</section>
+</body>
+</html>
