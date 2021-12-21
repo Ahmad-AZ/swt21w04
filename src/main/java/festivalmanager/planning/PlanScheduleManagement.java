@@ -19,6 +19,8 @@ import festivalmanager.festival.Schedule;
 import festivalmanager.festival.Schedule.TimeSlot;
 import festivalmanager.hiring.Artist;
 import festivalmanager.hiring.Show;
+import festivalmanager.staff.Person;
+import festivalmanager.staff.StaffManagement;
 
 @Service
 @Transactional
@@ -26,10 +28,12 @@ public class PlanScheduleManagement {
 
 	private final FestivalManagement festivalManagement;
 	private final EquipmentManagement equipmentManagement;
+	private final StaffManagement staffManagement;
 	
-	public PlanScheduleManagement(FestivalManagement festivalManagement, EquipmentManagement equipmentManagement) {
+	public PlanScheduleManagement(FestivalManagement festivalManagement, EquipmentManagement equipmentManagement, StaffManagement staffManagement) {
 		this.equipmentManagement = equipmentManagement;
 		this.festivalManagement = festivalManagement;
+		this.staffManagement = staffManagement;
 	}
 	
 	public List<Show> getShows(long festivalId){
@@ -87,6 +91,21 @@ public class PlanScheduleManagement {
 		}
 
 	}
+	
+	public List<Person> getAvailableSecurity(Festival festival, LocalDate date, String timeSlotString){
+		TimeSlot timeSlot = TimeSlot.valueOf(timeSlotString);
+		List<Person> securitys = new ArrayList<>();
+		for(Person aPerson : staffManagement.findByFestivalIdAndRole(festival.getId(), "SECURITY")){
+			for(Schedule aSchedule : festival.getSchedules()) {
+				if(!(aSchedule.getDate().equals(date) || aSchedule.getTimeSlot().equals(timeSlot) || aSchedule.getSecurity().equals(aPerson))) {
+					securitys.add(aPerson);
+				}
+			}
+		}		
+		return securitys;
+	
+	}
+			
 	
 	public Stage getStages(Festival festival, long stageId) {
 		for(Stage aStage : festival.getStages()) {

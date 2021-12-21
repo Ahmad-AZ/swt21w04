@@ -113,6 +113,7 @@ public class LocationController {
 		for(Location aLocation : locationManagement.findAll()) {
 			if(aLocation.getName().equals(newLocationForm.getName())){
 				result.rejectValue("name", null, "Location mit diesem Namen existiert bereits.");	
+				return "newLocation";
 			}
 		}
 		
@@ -146,10 +147,11 @@ public class LocationController {
 			
 			// Location with same name already exists
 			for(Location aLocation : locationManagement.findAll()) {
-				if(aLocation.getName().equals(form.getName())){
+				if(aLocation.getName().equals(form.getName()) && !aLocation.getName().equals(current.getName())){
 					result.rejectValue("name", null, "Location mit diesem Namen existiert bereits.");	
 				}
 			}
+			
 			if (result.hasErrors()) {
 				model.addAttribute("location", current);
 				model.addAttribute("pricePerDay", current.getPricePerDay().getNumber().toString());
