@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 
 import java.util.List;
 import java.util.Arrays;
+import java.util.Optional;
 
 
 // Class used to highlight the navigation bar button for the currently used page
@@ -58,11 +59,14 @@ public class UtilsManagement {
 
 
 	public void setCurrentFestival(long currentFestivalId) {
-		this.currentFestival = festivalManagement.findById(currentFestivalId).get();
+
+		Optional<Festival> festivalOptional = festivalManagement.findById(currentFestivalId);
+		if (festivalOptional.isPresent()) {
+			this.currentFestival = festivalOptional.get();
+		}
 	}
 
 	public Long getCurrentFestivalId() {
-
 		if (currentFestival != null) {
 			return currentFestival.getId();
 		}
