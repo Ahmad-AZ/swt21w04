@@ -145,7 +145,8 @@ public class LocationController {
 	
 	@PostMapping("/saveLocation")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String saveLocation(@Validated NewLocationForm form, Errors result, @RequestParam("location") Long locationId, Model model) {
+	public String saveLocation(@Validated NewLocationForm form,
+							   Errors result, @RequestParam("location") Long locationId, Model model) {
 		
 		Optional<Location> location = locationManagement.findById(locationId);
 		
@@ -218,7 +219,8 @@ public class LocationController {
 	
 	@PostMapping("/locations/remove")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String removeLocation(@Valid @RequestParam("id") @NotEmpty Long locationId, @ModelAttribute("delete") String dummy, Errors result) {
+	public String removeLocation(@Valid @RequestParam("id") @NotEmpty Long locationId,
+								 @ModelAttribute("delete") String dummy, Errors result) {
 		Optional<Location> current = locationManagement.findById(locationId);
 		if (current.isPresent()) {
 			if(current.get().hasBookings()) {
