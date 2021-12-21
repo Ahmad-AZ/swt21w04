@@ -2,6 +2,7 @@ package festivalmanager.messaging;
 
 import festivalmanager.staff.Person;
 import festivalmanager.staff.StaffManagement;
+import festivalmanager.utils.UtilsManagement;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,13 +19,15 @@ import java.util.function.Predicate;
 public class MessageController {
 	private final MessageManagement messageManagement;
 	private final StaffManagement staffManagement;
+	private final UtilsManagement utilsManagement;
 
-	public MessageController(MessageManagement messageManagement, StaffManagement staffManagement) {
+	public MessageController(MessageManagement messageManagement, StaffManagement staffManagement, UtilsManagement utilsManagement) {
 		Assert.notNull(messageManagement, "MessageManagement must not be null!");
 		Assert.notNull(staffManagement, "StaffManagement must not be null!");
 
 		this.messageManagement = messageManagement;
 		this.staffManagement = staffManagement;
+		this.utilsManagement = utilsManagement;
 	}
 
 	@ModelAttribute("title")
@@ -38,7 +41,9 @@ public class MessageController {
 	}
 
 	@GetMapping("/messages/{userId}")
-	public String getMessageView() {
+	public String getMessageView(Model model) {
+		utilsManagement.setCurrentPageUpperHeader("messages");
+		utilsManagement.prepareModel(model);
 		return "messages.html";
 	}
 
@@ -49,6 +54,7 @@ public class MessageController {
 			model.addAttribute("currentMessage", message.get());
 		}
 
+		utilsManagement.prepareModel(model);
 		return "messages.html";
 	}
 
@@ -65,6 +71,7 @@ public class MessageController {
 			model.addAttribute("possible_receivers", possibleReceivers);
 		}
 
+		utilsManagement.prepareModel(model);
 		return "messages.html";
 	}
 

@@ -72,8 +72,7 @@ public class FestivalController {
 			currentId = festivalId;
 			currentFestival = current;
 
-			utilsManagement.setCurrentFestivalId(currentFestival.getId());
-			utilsManagement.setCurrentPageUpperHeader("festivals");
+			utilsManagement.setCurrentFestival(currentFestival.getId());
 			utilsManagement.setCurrentPageLowerHeader("festivalDetail");
 			utilsManagement.prepareModel(model);
 			return "festivalDetail";
@@ -133,6 +132,7 @@ public class FestivalController {
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String newFestival(Model model, NewFestivalForm form) {
 		model.addAttribute("dateNow", LocalDate.now());
+		utilsManagement.prepareModel(model);
 		return "newFestival";
 	}
 	
@@ -151,11 +151,12 @@ public class FestivalController {
 			model.addAttribute("location", current.getLocation());
 			
 			
-			utilsManagement.setCurrentFestivalId(currentFestival.getId());
+			utilsManagement.setCurrentFestival(currentFestival.getId());
 			utilsManagement.setCurrentPageUpperHeader("festivals");
 			utilsManagement.setCurrentPageLowerHeader("festivalDetail");
 			utilsManagement.prepareModel(model);
-			
+
+			utilsManagement.prepareModel(model);
 			return "festivalDetail";
 		} else {
 			throw new ResponseStatusException(
@@ -193,8 +194,7 @@ public class FestivalController {
 			currentId = festivalId;
 			currentFestival = current;
 
-			utilsManagement.setCurrentFestivalId(currentFestival.getId());
-			utilsManagement.setCurrentPageUpperHeader("festivals");
+			utilsManagement.setCurrentFestival(currentFestival.getId());
 			utilsManagement.setCurrentPageLowerHeader("festivalDetail");
 			utilsManagement.prepareModel(model);
 			
@@ -224,6 +224,8 @@ public class FestivalController {
 		
 		model.addAttribute("festivalList", festivalManagement.findAll());
 
+		utilsManagement.setCurrentPageUpperHeader("festivals");
+		utilsManagement.prepareModel(model);
 		return "festivalOverview"; 
 	}
 	
@@ -242,6 +244,7 @@ public class FestivalController {
 			model.addAttribute("currentName", "");
 		}
 
+		utilsManagement.prepareModel(model);
 		return "festivalOverview";
 	}
 	

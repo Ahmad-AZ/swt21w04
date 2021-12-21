@@ -15,8 +15,10 @@ public class FinancesCompanyController {
 	FinancesCompanyManagement financesCompanyManagement;
 
 
-	FinancesCompanyController(FinancesCompanyManagement financesCompanyManagement) {
+	FinancesCompanyController(FinancesCompanyManagement financesCompanyManagement,
+							  UtilsManagement utilsManagement) {
 		this.financesCompanyManagement = financesCompanyManagement;
+		this.utilsManagement = utilsManagement;
 	}
 
 
@@ -50,6 +52,8 @@ public class FinancesCompanyController {
 		FinancesController.addAttribute(model, "averageCostOneDayTickets",
 				financesCompanyManagement.getAverageCostOneDayTickets());
 
+		utilsManagement.setCurrentPageUpperHeader("financesCompany");
+		utilsManagement.prepareModel(model);
 		return "financesCompany";
 	}
 

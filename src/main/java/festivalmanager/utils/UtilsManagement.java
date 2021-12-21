@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 
 import java.util.List;
 import java.util.Arrays;
+import java.util.Optional;
 
 
 // Class used to highlight the navigation bar button for the currently used page
@@ -35,10 +36,10 @@ public class UtilsManagement {
 		this.currentPageLowerHeader = null;
 
 		// Add a name for your page here if it can be accessed through the upper navigation bar
-		pagesUpperHeader = Arrays.asList("festivals", "locations", "artists", "messages", "finances");
+		pagesUpperHeader = Arrays.asList("festivals", "locations", "artists", "messages", "financesCompany");
 		// Add a name for your page here if it can be accessed through the lower navigation bar
 		pagesLowerHeader = Arrays.asList("festivalDetail", "staff", "location", "equipment",
-				"artists", "finances", "catering", "tickets", "ticketShop",
+				"artistOverview", "finances", "catering", "tickets", "ticketShop",
 				"schedule", "program", "map", "cateringSales");
 	}
 
@@ -57,12 +58,15 @@ public class UtilsManagement {
 	}
 
 
-	public void setCurrentFestivalId(long currentFestivalId) {
-		this.currentFestival = festivalManagement.findById(currentFestivalId).get();
+	public void setCurrentFestival(long currentFestivalId) {
+
+		Optional<Festival> festivalOptional = festivalManagement.findById(currentFestivalId);
+		if (festivalOptional.isPresent()) {
+			this.currentFestival = festivalOptional.get();
+		}
 	}
 
 	public Long getCurrentFestivalId() {
-
 		if (currentFestival != null) {
 			return currentFestival.getId();
 		}
@@ -74,7 +78,9 @@ public class UtilsManagement {
 	public void prepareModel(Model model) {
 
 		// Update currentFestival
-		setCurrentFestivalId(getCurrentFestivalId());
+		if (currentFestival != null) {
+			setCurrentFestival(getCurrentFestivalId());
+		}
 
 		if (currentPageUpperHeader != null) {
 

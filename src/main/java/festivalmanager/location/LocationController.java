@@ -6,6 +6,7 @@ import javax.money.format.MonetaryParseException;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
+import festivalmanager.utils.UtilsManagement;
 import org.javamoney.moneta.Money;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,9 +34,11 @@ import static org.salespointframework.core.Currencies.EURO;
 public class LocationController {
 	
 	private final LocationManagement locationManagement;
+	private final UtilsManagement utilsManagement;
 	
-	public LocationController(LocationManagement locationManagement) {
+	public LocationController(LocationManagement locationManagement, UtilsManagement utilsManagement) {
 		this.locationManagement = locationManagement;
+		this.utilsManagement = utilsManagement;
 	}
 
 	@ModelAttribute("title")
@@ -47,6 +50,8 @@ public class LocationController {
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String locations(Model model) {
 		model.addAttribute("locationList", locationManagement.findAll());
+		utilsManagement.setCurrentPageUpperHeader("locations");
+		utilsManagement.prepareModel(model);
 		return "locations";
 	}
 	
@@ -64,6 +69,7 @@ public class LocationController {
 			Double pricePerDay = current.getPricePerDay().getNumber().doubleValue();
 			System.out.println(pricePerDay);
 			model.addAttribute("pricePerDay", pricePerDay);
+			utilsManagement.prepareModel(model);
 			return "locationEdit";
 			
 		} else {
@@ -82,8 +88,8 @@ public class LocationController {
 			Location current = location.get();
 
 			model.addAttribute("location", current);
-			model.addAttribute("hasBookings", current.hasBookings());			
-			 
+			model.addAttribute("hasBookings", current.hasBookings());
+			utilsManagement.prepareModel(model);
 			return "locationDetail";
 			
 		} else {
@@ -133,6 +139,7 @@ public class LocationController {
 	@GetMapping("/newLocation")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String newLocation(Model model, NewLocationForm newLocationForm) {
+		utilsManagement.prepareModel(model);
 		return "newLocation";
 	}
 	
@@ -205,6 +212,7 @@ public class LocationController {
 			model.addAttribute("currentName", "");
 		}
 
+		utilsManagement.prepareModel(model);
 		return "/locations";
 	}
 	
