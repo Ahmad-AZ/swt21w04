@@ -111,8 +111,7 @@ public class HiringController {
 			hiringManagement.removeArtist(artistId);
 			return "redirect:/artists";
 
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			return "/artistsDeleteFailed";
 
 		}
@@ -194,8 +193,7 @@ public class HiringController {
 			model.addAttribute("artistShow", current);
 			utilsManagement.prepareModel(model);
 			return "newShow";
-		}
-		else {
+		} else {
 			throw new ResponseStatusException(
 					HttpStatus.NOT_FOUND, "entity not found"
 			);
