@@ -30,7 +30,8 @@ public class PlanScheduleManagement {
 	private final EquipmentManagement equipmentManagement;
 	private final StaffManagement staffManagement;
 	
-	public PlanScheduleManagement(FestivalManagement festivalManagement, EquipmentManagement equipmentManagement, StaffManagement staffManagement) {
+	public PlanScheduleManagement(FestivalManagement festivalManagement,
+								  EquipmentManagement equipmentManagement, StaffManagement staffManagement) {
 		this.equipmentManagement = equipmentManagement;
 		this.festivalManagement = festivalManagement;
 		this.staffManagement = staffManagement;
@@ -80,8 +81,7 @@ public class PlanScheduleManagement {
 			// if show attribute is null clear schedule from festival
 			if(show == null) {
 				success = current.removeSchedule(timeSlot, stage, date);
-			}
-			else {
+			} else {
 				success = current.addSchedule(timeSlot, show, stage, date);
 				festivalManagement.saveFestival(current);
 			}
@@ -97,7 +97,9 @@ public class PlanScheduleManagement {
 		List<Person> securitys = new ArrayList<>();
 		for(Person aPerson : staffManagement.findByFestivalIdAndRole(festival.getId(), "SECURITY")){
 			for(Schedule aSchedule : festival.getSchedules()) {
-				if(!(aSchedule.getDate().equals(date) || aSchedule.getTimeSlot().equals(timeSlot) || aSchedule.getSecurity().equals(aPerson))) {
+				if(!(aSchedule.getDate().equals(date)
+					|| aSchedule.getTimeSlot().equals(timeSlot)
+					|| aSchedule.getSecurity().equals(aPerson))) {
 					securitys.add(aPerson);
 				}
 			}
