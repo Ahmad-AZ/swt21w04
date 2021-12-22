@@ -2,6 +2,7 @@ package festivalmanager.Equipment;
 
 import java.util.Optional;
 
+import org.salespointframework.core.SalespointIdentifier;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,12 +29,12 @@ public class EquipmentManagement {
 		return equipments.save(equipment);
 	}
 	
-	public Optional<Equipment> findById(Long id) {
+	public Optional<Equipment> findById(SalespointIdentifier id) {
 		System.out.println("find id " + id);
 		return equipments.findById(id);
 	}
 	
-	public void removeById(Long id) {
+	public void removeById(SalespointIdentifier id) {
 		equipments.deleteById(id);
 	}
 }

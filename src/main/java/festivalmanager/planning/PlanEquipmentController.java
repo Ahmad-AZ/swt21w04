@@ -11,6 +11,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import festivalmanager.utils.UtilsManagement;
+
+import org.salespointframework.core.SalespointIdentifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -114,7 +116,7 @@ public class PlanEquipmentController {
 		Festival festival = festivalOP.get();
 		
 		if(!result.hasErrors()) {
-			Long equipmentsId = newStageForm.getEquipmentsId();
+			SalespointIdentifier equipmentsId = newStageForm.getEquipmentsId();
 			String name = newStageForm.getName();
 			
 			Optional<Equipment> equipmentOP = equipmentManagement.findById(equipmentsId);
@@ -183,7 +185,7 @@ public class PlanEquipmentController {
 	
 	@GetMapping("equipments/remove/{id}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String getRemoveStageDialog(@PathVariable("id") Long id, Model model) {
+	public String getRemoveStageDialog(@PathVariable("id") SalespointIdentifier id, Model model) {
 		model.addAttribute("dialog", "remove stage");
 		
 		Optional<Equipment> equipment = equipmentManagement.findById(id);
@@ -205,7 +207,7 @@ public class PlanEquipmentController {
 	
 	@PostMapping("equipments/remove/{id}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String removeStage(@PathVariable("id") Long id) {
+	public String removeStage(@PathVariable("id") SalespointIdentifier id) {
 		
 		Optional<Equipment> equipment = equipmentManagement.findById(id);
 		if(equipment.isPresent()) {
@@ -218,7 +220,7 @@ public class PlanEquipmentController {
 				System.out.println("after call");
 				
 				// throws errors
-				//equipmentManagement.removeById(stage.getId());
+				equipmentManagement.removeById(stage.getId());
 			} else {
 				System.out.println("Equipment is not Stage");
 			}
@@ -239,7 +241,7 @@ public class PlanEquipmentController {
 			System.out.println(result);
 			return "equipments";
 		}
-		Long equipmentsId = equipementRentingForm.getEquipmentsId();
+		SalespointIdentifier equipmentsId = equipementRentingForm.getEquipmentsId();
 		Long equipmentsAmount = equipementRentingForm.getAmount();
 		System.out.println(equipmentsId + "     "+ equipmentsAmount);
 		

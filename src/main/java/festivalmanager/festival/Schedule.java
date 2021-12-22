@@ -2,7 +2,9 @@ package festivalmanager.festival;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -42,20 +44,21 @@ public class Schedule implements Serializable{
 	
 	public Schedule() {}
 	
-	public Schedule(TimeSlot timeSlot, Show show, Stage stage, LocalDate date) {
-		this.setTimeSlot(timeSlot);
-		this.setShow(show);
-		this.setDate(date);
-		this.setStage(stage);
+	public Schedule(TimeSlot timeSlot, Show show, Stage stage, LocalDate date, Person security) {
+		this.date = date;
+		this.timeSlot = timeSlot;
+		this.stage = stage;
+		this.show = show;
+		this.security = security;
 	}
 
 	public TimeSlot getTimeSlot() {
 		return timeSlot;
 	}
 
-	public void setTimeSlot(TimeSlot timeSlot) {
-		this.timeSlot = timeSlot;
-	}
+//	public void setTimeSlot(TimeSlot timeSlot) {
+//		this.timeSlot = timeSlot;
+//	}
 
 	public Show getShow() {
 		return show;	
@@ -69,17 +72,17 @@ public class Schedule implements Serializable{
 		return stage;
 	}
 
-	public void setStage(Stage stage) {
-		this.stage = stage;
-	}
+//	public void setStage(Stage stage) {
+//		this.stage = stage;
+//	}
 
 	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
+//	public void setDate(LocalDate date) {
+//		this.date = date;
+//	}
 
 	public Person getSecurity() {
 		return security;
@@ -88,4 +91,23 @@ public class Schedule implements Serializable{
 	public void setSecurity(Person security) {
 		this.security = security;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Schedule other = (Schedule) obj;
+		return id == other.id;
+	}
+	
+	
 }

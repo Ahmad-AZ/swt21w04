@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import festivalmanager.utils.UtilsManagement;
 
+import org.salespointframework.core.SalespointIdentifier;
 import org.salespointframework.time.Interval;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -78,7 +79,6 @@ public class PlanScheduleController {
 			model.addAttribute("timeSlotList",tsl);
 			model.addAttribute("festival", current);
 			utilsManagement.setCurrentFestivalId(currentFestival.getId());
-			utilsManagement.setCurrentFestivalId(currentFestival.getId());
 			utilsManagement.setCurrentPageLowerHeader("program");
 			utilsManagement.prepareModel(model);
 			return "/schedule";
@@ -92,10 +92,10 @@ public class PlanScheduleController {
 	@GetMapping("/schedule/{day}/{stageId}/{timeSlot}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String getShowSelectDialog(@PathVariable("day") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date, 
-										@PathVariable("stageId") long stageId, 
+										@PathVariable("stageId") SalespointIdentifier stageId, 
 										@PathVariable("timeSlot") String timeSlot, Model model) {
 		
-		model.addAttribute("dialog", "choose show");
+		model.addAttribute("dialog", "edit schedule");
 		
 		model.addAttribute("festival", currentFestival);
 		model.addAttribute("date", date);
@@ -103,28 +103,39 @@ public class PlanScheduleController {
 		model.addAttribute("timeSlot", timeSlot);
 		
 		model.addAttribute("showsToAdd", planScheduleManagement.getShows(currentFestivalId));
-
+		System.out.println(planScheduleManagement.getAvailableSecurity(currentFestival, date, timeSlot));
+		model.addAttribute("securitysToAdd", planScheduleManagement.getAvailableSecurity(currentFestival, date, timeSlot));
 
 		utilsManagement.prepareModel(model);
 		return "/schedule";
 	}
 	
-	@PostMapping("/schedule/{day}/{stageId}/{timeSlot}/chooseShow")
+	@PostMapping("/schedule/{day}/{stageId}/{timeSlot}/editSchedule")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String chooseShow(@PathVariable("day") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date, 
-									@PathVariable("stageId") long stageId, 
+									@PathVariable("stageId") SalespointIdentifier stageId, 
 									@PathVariable("timeSlot") String timeSlot, 
-									@RequestParam("show") long showId, Model model) {
-		
+									@RequestParam("show") long showId, 
+									@RequestParam("person") long personId, Model model) {
+
 		System.out.println(showId);
-		planScheduleManagement.setShow(date, stageId, timeSlot, showId, currentFestivalId);
-		System.out.println("afterall");
+		
+		Stage stage = planScheduleManagement.getStages(currentFestival, stageId);
+		if(stage != null) {
+			planScheduleManagement.setShow(date, stage, timeSlot, showId, currentFestivalId, personId);
+			
+			
+			System.out.println("afterall");
+		}
+		
+		
+
 		return "redirect:/schedule";
 	}
 	
 	
 	
-//	@GetMapping("/schedule/{day}/{stageId}/{timeSlot}")
+//	@GetMapping("/schedule/{day}/{stageId}/{timeSlot}/security")
 //	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 //	public String getSecuritySelectDialog(@PathVariable("day") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date, 
 //										@PathVariable("stageId") long stageId, 

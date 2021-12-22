@@ -1,22 +1,24 @@
 package festivalmanager.Equipment;
 
-import org.javamoney.moneta.Money;
+import java.util.UUID;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 
+import org.javamoney.moneta.Money;
+import org.salespointframework.core.AbstractEntity;
+import org.salespointframework.core.SalespointIdentifier;
+
 @Entity
-public class Equipment {
+public class Equipment extends AbstractEntity<SalespointIdentifier>{
 	
 	public static enum EquipmentType {
 		STAGE, CATERING_STALL, TOILET
 	}
 	
-	@Id @GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	@Id 
+	private SalespointIdentifier id = new SalespointIdentifier(UUID.randomUUID().toString());
 	
 	private String name;
 	@Lob
@@ -51,7 +53,7 @@ public class Equipment {
 		return name;
 	}
 
-	public long getId(){
+	public SalespointIdentifier getId(){
 		return id;
 	}
 

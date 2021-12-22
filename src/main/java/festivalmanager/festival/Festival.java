@@ -1,19 +1,32 @@
 package festivalmanager.festival;
 
 
-import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import org.salespointframework.time.Interval;
+import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
-import festivalmanager.Equipment.Equipment;
+import org.salespointframework.core.SalespointIdentifier;
+
 import festivalmanager.Equipment.Stage;
 import festivalmanager.festival.Schedule.TimeSlot;
 import festivalmanager.hiring.Artist;
 import festivalmanager.hiring.Show;
 import festivalmanager.location.Location;
-
-import java.time.LocalDate;
-import java.util.*;
+import festivalmanager.staff.Person;
 
 @Entity
 public class Festival {
@@ -28,17 +41,17 @@ public class Festival {
 	private String name;
 	private LocalDate startDate;
 	private LocalDate endDate;
-	@ManyToMany(cascade =  CascadeType.ALL)
+	@ManyToMany()
 	private Set<Artist> artists;
 	
 	@OneToOne()
 	private Location location;
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Schedule> schedules = new HashSet<>();
 	
 	@ElementCollection
-	private Map<Long, Long> rentedEquipments = new HashMap<>();
+	private Map<SalespointIdentifier, Long> rentedEquipments = new HashMap<>();
 	
 	@OneToMany()
 	private List<Stage> stages = new ArrayList<>();
@@ -101,6 +114,7 @@ public class Festival {
 	public Location getLocation() {
 		return location; 
 	}
+	
 	public Iterable<Artist> getArtist(){
 		return this.artists;
 	}
@@ -108,6 +122,7 @@ public class Festival {
 	public void setLocation(Location location) {
 		this.location=location;
 	}
+	
 	public void addArtist(Artist artist){
 		artists.add(artist);
 	}
@@ -116,11 +131,11 @@ public class Festival {
 		return this.artists.isEmpty();
 	}
 
-	public void setEquipments(long id, long amount) {
+	public void setEquipments(SalespointIdentifier id, long amount) {
 		rentedEquipments.put(id, amount);
 	}
 	
-	public Map<Long, Long> getEquipments(){
+	public Map<SalespointIdentifier, Long> getEquipments(){
 		return rentedEquipments;
 	}
 	
@@ -128,6 +143,7 @@ public class Festival {
 	public void deleteAllArtists() {
 		this.artists = new HashSet<>();
 	}
+	
 	public Iterable<Schedule> getSchedules(){
 		return schedules;
 	}
@@ -136,26 +152,45 @@ public class Festival {
 	 * Creates a new {@link Schedule} if none exists at the given parameters
 	 *
 	 */
-	public boolean addSchedule(TimeSlot timeSlot, Show show, Stage stage, LocalDate date) {
+	public boolean addSchedule(TimeSlot timeSlot, Show show, Stage stage, LocalDate date, Person security) {
 		// schedules contains schedule already
-		Schedule containedSchedule = null;
 		for(Schedule aSchedule : schedules) {
 			if(aSchedule.getDate().equals(date) && aSchedule.getStage().equals(stage) && aSchedule.getTimeSlot().equals(timeSlot)) {
 				// find schedule --> change show
 				aSchedule.setShow(show);
+				aSchedule.setSecurity(security);
 				return true;	
 			}
 		}
 		
 		// add new Schedule
-		return schedules.add(new Schedule(timeSlot, show, stage, date));
+		return schedules.add(new Schedule(timeSlot, show, stage, date, security));
 
 	}
 	
 	public String getScheduleShowName(TimeSlot timeSlot, Stage stage, LocalDate date) {
 		for(Schedule aSchedule : schedules) {
 			if(aSchedule.getDate().equals(date) && aSchedule.getStage().equals(stage) && aSchedule.getTimeSlot().equals(timeSlot)) {
-				return aSchedule.getShow().getName();
+				if(aSchedule.getShow() != null) {
+					return aSchedule.getShow().getName();
+				}
+				else {
+					break;
+				}
+			}
+		}
+		return "Keine";
+	}
+	
+	public String getScheduleSecurityName(TimeSlot timeSlot, Stage stage, LocalDate date) {
+		for(Schedule aSchedule : schedules) {
+			if(aSchedule.getDate().equals(date) && aSchedule.getStage().equals(stage) && aSchedule.getTimeSlot().equals(timeSlot)) {
+				if(aSchedule.getSecurity() != null) {
+					return aSchedule.getSecurity().getName();
+				}
+				else {
+					break;
+				}
 			}
 		}
 		return "Keine";
@@ -181,6 +216,19 @@ public class Festival {
 	}
 	
 	public boolean removeStage(Stage stage) {
+		// get all Schedules to remove at this stage
+		List<Schedule> deleteList = new ArrayList<>();
+		for(Schedule aSchedule : schedules) {
+			if(aSchedule.getStage().equals(stage)) {
+				deleteList.add(aSchedule);
+			}
+		}
+		schedules.removeAll(deleteList);
+		
+//		//required to avoid delete error
+//		for(Schedule aSchedule : deleteList) {
+//			festival.removeSchedule(aSchedule.getTimeSlot(,), stage, aSchedule.getDate());	
+//		}
 		return stages.remove(stage);
 	}
 	

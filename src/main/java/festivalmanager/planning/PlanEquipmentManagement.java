@@ -10,6 +10,7 @@ import festivalmanager.festival.Schedule;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.salespointframework.core.SalespointIdentifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +28,7 @@ public class PlanEquipmentManagement {
 		this.equipmentManagement = equipmentManagement;
 	}
 
-	public boolean rentEquipment(long id, long amount, Festival festival){
+	public boolean rentEquipment(SalespointIdentifier id, long amount, Festival festival){
 		
 		Equipment equipment = equipmentManagement.findById(id).get();
 		
@@ -50,18 +51,18 @@ public class PlanEquipmentManagement {
 	public boolean unrentStage(Stage stage, Long festivalId) {
 		Festival festival = festivalManagement.findById(festivalId).get();
 		
-		// get all Schedules to remove at this stage
-		List<Schedule> deleteList = new ArrayList<>();
-		for(Schedule aSchedule : festival.getSchedules()) {
-			if(aSchedule.getStage().equals(stage)) {
-				deleteList.add(aSchedule);
-			}
-		}
-		
-		//required to avoid delete error
-		for(Schedule aSchedule : deleteList) {
-			festival.removeSchedule(aSchedule.getTimeSlot(), stage, aSchedule.getDate());	
-		}
+//		// get all Schedules to remove at this stage
+//		List<Schedule> deleteList = new ArrayList<>();
+//		for(Schedule aSchedule : festival.getSchedules()) {
+//			if(aSchedule.getStage().equals(stage)) {
+//				deleteList.add(aSchedule);
+//			}
+//		}
+//		
+//		//required to avoid delete error
+//		for(Schedule aSchedule : deleteList) {
+//			festival.removeSchedule(aSchedule.getTimeSlot(), stage, aSchedule.getDate());	
+//		}
 		
 		
 		System.out.println("before");

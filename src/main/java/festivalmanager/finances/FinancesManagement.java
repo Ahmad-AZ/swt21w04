@@ -1,9 +1,26 @@
 package festivalmanager.finances;
 
+import static org.salespointframework.core.Currencies.EURO;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.javamoney.moneta.Money;
+import org.salespointframework.core.SalespointIdentifier;
+import org.springframework.data.util.Streamable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import festivalmanager.Equipment.Equipment;
 import festivalmanager.Equipment.EquipmentManagement;
 import festivalmanager.Equipment.Stage;
-import festivalmanager.catering.*;
+import festivalmanager.catering.CateringController;
+import festivalmanager.catering.CateringProduct;
+import festivalmanager.catering.CateringProductCatalog;
+import festivalmanager.catering.CateringSales;
+import festivalmanager.catering.CateringSalesItem;
+import festivalmanager.catering.CateringStock;
+import festivalmanager.catering.CateringStockItem;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.hiring.Artist;
@@ -12,16 +29,6 @@ import festivalmanager.staff.StaffManagement;
 import festivalmanager.ticketShop.Ticket;
 import festivalmanager.ticketShop.TicketManagement;
 import festivalmanager.utils.UtilsManagement;
-import org.javamoney.moneta.Money;
-import org.salespointframework.quantity.Quantity;
-import org.springframework.data.util.Streamable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static org.salespointframework.core.Currencies.EURO;
 
 
 @Service
@@ -112,7 +119,7 @@ public class FinancesManagement {
 
 		Money equipmentCost = Money.of(0, EURO);
 
-		for (long equipmentId: currentFestival.getEquipments().keySet()) {
+		for (SalespointIdentifier equipmentId: currentFestival.getEquipments().keySet()) {
 
 			Equipment equipment = equipmentManagement.findById(equipmentId).get();
 			long amount = currentFestival.getEquipments().get(equipmentId);
