@@ -67,8 +67,6 @@ public class PlanLocationController {
 			}
 			
 			model.addAttribute("festival", current);
-			
-			utilsManagement.setCurrentFestivalId(currentFestival.getId());
 			utilsManagement.setCurrentPageLowerHeader("location");
 			utilsManagement.prepareModel(model);
 			return "/locationOverview"; 

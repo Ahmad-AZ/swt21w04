@@ -31,7 +31,8 @@ public class PlanScheduleManagement {
 	private final EquipmentManagement equipmentManagement;
 	private final StaffManagement staffManagement;
 	
-	public PlanScheduleManagement(FestivalManagement festivalManagement, EquipmentManagement equipmentManagement, StaffManagement staffManagement) {
+	public PlanScheduleManagement(FestivalManagement festivalManagement,
+								  EquipmentManagement equipmentManagement, StaffManagement staffManagement) {
 		this.equipmentManagement = equipmentManagement;
 		this.festivalManagement = festivalManagement;
 		this.staffManagement = staffManagement;
@@ -86,7 +87,7 @@ public class PlanScheduleManagement {
 			}
 			
 			boolean success = true;
-			
+
 			// TODO improve if,else
 			// if show attribute is null set show null
 //			if(show == null) {

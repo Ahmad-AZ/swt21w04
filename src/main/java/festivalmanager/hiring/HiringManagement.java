@@ -7,6 +7,7 @@ import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.Duration;
 import java.util.Optional;
 
 import static org.salespointframework.core.Currencies.EURO;
@@ -30,7 +31,7 @@ public class HiringManagement {
 	}
 
 	public void createShow(NewShowForm form, Artist artist) {
-		artist.addShow(new Show(form.getName()));
+		artist.addShow(new Show(form.getName(), Duration.ofMinutes(form.getPerformance())));
 	}
 
 	public Streamable<Artist> findAll(){

@@ -45,7 +45,8 @@ public class Location{
 	private List<Booking> bookings = new ArrayList<>();
 
 	
-	public Location(String name, String adress, Money pricePerDay, long visitorCapacity, long stageCapacity, String image, String groundView) {
+	public Location(String name, String adress, Money pricePerDay, long visitorCapacity,
+					long stageCapacity, String image, String groundView) {
 		this.setName(name);
 		this.setPricePerDay(pricePerDay);
 		this.setAdress(adress);
@@ -72,7 +73,9 @@ public class Location{
 		
 		Interval festivalDateInterval = Interval.from(startDate.atStartOfDay()).to(endDate.atTime(23,59));
 		for (Booking aBooking : bookings) { 
-			Interval aBookingDateInterval = Interval.from(aBooking.getStartDate().atStartOfDay()).to(aBooking.getEndDate().atTime(23,59));
+			Interval aBookingDateInterval = Interval
+											.from(aBooking.getStartDate().atStartOfDay())
+											.to(aBooking.getEndDate().atTime(23,59));
 			// startDate or endDate in an existing BookingInterval
 			if(aBookingDateInterval.overlaps(festivalDateInterval)) {
 				System.out.println("Location belegt");

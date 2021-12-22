@@ -28,7 +28,6 @@ import festivalmanager.hiring.Artist;
 import festivalmanager.hiring.ArtistRepository;
 import festivalmanager.location.Location;
 import festivalmanager.location.LocationManagement;
-import festivalmanager.utils.LongOrNull;
 
 @Controller
 public class FestivalController {
@@ -72,8 +71,7 @@ public class FestivalController {
 			currentId = festivalId;
 			currentFestival = current;
 
-			utilsManagement.setCurrentFestivalId(currentFestival.getId());
-			utilsManagement.setCurrentPageUpperHeader("festivals");
+			utilsManagement.setCurrentFestival(currentFestival.getId());
 			utilsManagement.setCurrentPageLowerHeader("festivalDetail");
 			utilsManagement.prepareModel(model);
 			return "festivalDetail";
@@ -133,6 +131,7 @@ public class FestivalController {
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String newFestival(Model model, NewFestivalForm form) {
 		model.addAttribute("dateNow", LocalDate.now());
+		utilsManagement.prepareModel(model);
 		return "newFestival";
 	}
 	
@@ -140,7 +139,8 @@ public class FestivalController {
 	
 	@GetMapping("/festivalOverview/{festivalId}/editName")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String getEditFestivalNameDialog(@PathVariable("festivalId") Long festivalId, StringInputForm stringInputForm, Model model) {
+	public String getEditFestivalNameDialog(@PathVariable("festivalId") Long festivalId,
+											StringInputForm stringInputForm, Model model) {
 		model.addAttribute("dialog", "edit name");
 		
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
@@ -151,11 +151,12 @@ public class FestivalController {
 			model.addAttribute("location", current.getLocation());
 			
 			
-			utilsManagement.setCurrentFestivalId(currentFestival.getId());
+			utilsManagement.setCurrentFestival(currentFestival.getId());
 			utilsManagement.setCurrentPageUpperHeader("festivals");
 			utilsManagement.setCurrentPageLowerHeader("festivalDetail");
 			utilsManagement.prepareModel(model);
-			
+
+			utilsManagement.prepareModel(model);
 			return "festivalDetail";
 		} else {
 			throw new ResponseStatusException(
@@ -167,7 +168,9 @@ public class FestivalController {
 	
 	@PostMapping("/editFestivalName/{festivalId}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String editFestivalName(@PathVariable("festivalId") Long festivalId, @Validated StringInputForm stringInputForm, Errors result, Model model) {
+	public String editFestivalName(@PathVariable("festivalId") Long festivalId,
+								   @Validated StringInputForm stringInputForm,
+								   Errors result, Model model) {
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
 		if (festival.isPresent()) {
 			Festival current = festival.get();
@@ -193,8 +196,7 @@ public class FestivalController {
 			currentId = festivalId;
 			currentFestival = current;
 
-			utilsManagement.setCurrentFestivalId(currentFestival.getId());
-			utilsManagement.setCurrentPageUpperHeader("festivals");
+			utilsManagement.setCurrentFestival(currentFestival.getId());
 			utilsManagement.setCurrentPageLowerHeader("festivalDetail");
 			utilsManagement.prepareModel(model);
 			
@@ -224,6 +226,8 @@ public class FestivalController {
 		
 		model.addAttribute("festivalList", festivalManagement.findAll());
 
+		utilsManagement.setCurrentPageUpperHeader("festivals");
+		utilsManagement.prepareModel(model);
 		return "festivalOverview"; 
 	}
 	
@@ -242,6 +246,7 @@ public class FestivalController {
 			model.addAttribute("currentName", "");
 		}
 
+		utilsManagement.prepareModel(model);
 		return "festivalOverview";
 	}
 	

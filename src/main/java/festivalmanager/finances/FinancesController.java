@@ -64,8 +64,8 @@ class FinancesController {
 			resetAttributes();
 		}
 
-		this.financesManagement.updateFestival();
 		this.currentFestival = festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
+		this.financesManagement.setFestival(currentFestival.getId());
 
 		addAttribute(model, "artistsCost", financesManagement.getArtistsCost());
 		addAttribute(model, "locationCost", financesManagement.getLocationCost());
@@ -107,7 +107,7 @@ class FinancesController {
 	}
 
 
-	private void addAttribute(Model model, String attributeName, Object attributeValue) {
+	public static void addAttribute(Model model, String attributeName, Object attributeValue) {
 
 		if (attributeValue.getClass().getSimpleName().equals("Money")) {
 			String attributeStr = String.format("%.2f", ((Money) attributeValue).getNumber().doubleValue());
