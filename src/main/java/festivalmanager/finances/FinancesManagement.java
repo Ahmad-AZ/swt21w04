@@ -5,6 +5,7 @@ import static org.salespointframework.core.Currencies.EURO;
 import java.util.Arrays;
 import java.util.List;
 
+import festivalmanager.hiring.Show;
 import org.javamoney.moneta.Money;
 import org.salespointframework.core.SalespointIdentifier;
 import org.springframework.data.util.Streamable;
@@ -106,7 +107,7 @@ public class FinancesManagement {
 
 		if (!currentFestival.artistsIsEmpty()) {
 			for (Artist artist: currentFestival.getArtist()) {
-				artistsCost = artistsCost.add(artist.getPrice());
+				artistsCost = artistsCost.add(artist.getPrice().multiply(durationDays));
 			}
 		}
 
@@ -143,13 +144,21 @@ public class FinancesManagement {
 		// Roles for which the salary is paid on a per-festival basis
 		// List<String> toBePaid = Arrays.asList("SECURITY", "CATERING", "FESTIVAL_LEADER", "ADMISSION");
 
-		for (Person staffMember: staffMembers) {
+		for (Person staffMember : staffMembers) {
 
 			// if (toBePaid.contains(staffMember.getRole())) {}
 
 			Money salary = staffMember.getSalary();
 			// Staff members work 8 hours a day
 			staffCost = staffCost.add(salary.multiply(8).multiply(durationDays));
+		}
+
+		if (!currentFestival.artistsIsEmpty()) {
+			for (Artist artist: currentFestival.getArtist()) {
+				// Stage technicians are paid 100 EURO each day
+				Money stageTechnicianCost = Money.of(100, EURO).multiply(durationDays);
+				staffCost = staffCost.add(stageTechnicianCost.multiply(artist.getStageTechnician()));
+			}
 		}
 
 		totalCost = totalCost.add(staffCost);
