@@ -117,13 +117,13 @@ class FinancesTests {
 		Model testModel = new ExtendedModelMap();
 		financesController.financesPage(testModel, testFestival.getId());
 
-		assertThat(testModel.getAttribute("artistsCost")).isEqualTo("500.00");
+		assertThat(testModel.getAttribute("artistsCost")).isEqualTo("2000.00");
 		assertThat(testModel.getAttribute("locationCost")).isEqualTo("2000.00");
 		assertThat(testModel.getAttribute("staffCost")).isEqualTo("0.00");
 		assertThat(testModel.getAttribute("equipmentCost")).isEqualTo("0.00");
-		assertThat(testModel.getAttribute("totalCost")).isEqualTo("2500.00");
+		assertThat(testModel.getAttribute("totalCost")).isEqualTo("4000.00");
 		assertThat(testModel.getAttribute("totalRevenue")).isEqualTo("0.00");
-		assertThat(testModel.getAttribute("profit")).isEqualTo("-2500.00");
+		assertThat(testModel.getAttribute("profit")).isEqualTo("-4000.00");
 	}
 
 
