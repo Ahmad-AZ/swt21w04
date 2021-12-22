@@ -33,7 +33,7 @@
                        th:href="@{/schedule}">Spielplan</a>
 
 					<a th:class="${'item ' + 'border-right ' + financesCurrent}"
-                       th:href="@{/finances}" sec:authorize="hasRole('PLANNER') || hasRole('ADMIN')">Finanzen</a>
+                       th:href="@{/finances/{id}(id=${festivalId})}" sec:authorize="hasRole('PLANNER') || hasRole('ADMIN')">Finanzen</a>
 
                     <a th:class="${'item ' + 'border-right ' + cateringCurrent}"
                        th:href="@{/cateringProductCatalog}"

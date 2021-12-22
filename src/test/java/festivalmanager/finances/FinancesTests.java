@@ -115,7 +115,7 @@ class FinancesTests {
 				utilsManagement);
 
 		Model testModel = new ExtendedModelMap();
-		financesController.financesPage(testModel);
+		financesController.financesPage(testModel, testFestival.getId());
 
 		assertThat(testModel.getAttribute("artistsCost")).isEqualTo("500.00");
 		assertThat(testModel.getAttribute("locationCost")).isEqualTo("2000.00");

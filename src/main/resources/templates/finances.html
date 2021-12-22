@@ -124,7 +124,7 @@
     <br>
 
     <b>Erwartete Verkaufszahlen</b>
-    <form action="/setTicketNumber">
+    <form th:action="@{/finances/setTicketNumber}">
         <label for="campingTickets">Camping-Tickets:</label><br>
         <input type="number" step="1"
                id="nCampingTicketsExpected"
@@ -136,11 +136,12 @@
                name="nOneDayTicketsExpected" th:required="required">
         <br>
         <input type ="submit" value="Auswählen"><br>
+        <input type="hidden" name="festivalId" th:value="${festivalId}"/>
     </form>
     <br>
 
     <b>Erwartete Ticketpreise</b>
-    <form action="/setTicketPrice">
+    <form th:action="@{/finances/setTicketPrice}">
         <label for="campingTickets">Camping-Tickets:</label><br>
         <input type="number" step="0.01"
                id="priceCampingTicketsExpected"
@@ -152,6 +153,7 @@
                name="priceOneDayTicketsExpected" th:required="required">
         <br>
         <input type ="submit" value="Auswählen"><br>
+        <input type="hidden" name="festivalId" th:value="${festivalId}"/>
     </form>
     <br>
 
