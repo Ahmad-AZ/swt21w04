@@ -142,6 +142,9 @@ public class Festival {
 	
 
 	public void deleteAllArtists() {
+		for(Schedule aSchedule : schedules) {
+			aSchedule.setShow(null);
+		}
 		this.artists = new HashSet<>();
 	}
 	
@@ -205,6 +208,14 @@ public class Festival {
 			}
 		}
 		return false;
+	}
+	
+	public void removeSecurity(long securityId) {
+		for(Schedule aSchedule : schedules) {
+			if(aSchedule.getSecurity().getId() == securityId) {
+				aSchedule.setSecurity(null);
+			}
+		}
 	}
 	
 
