@@ -25,28 +25,18 @@ public class Equipment extends AbstractEntity<SalespointIdentifier>{
 	private Money rentalPerDay;
 	
 	private EquipmentType type;
-	private int length, width;
 
 	public Equipment(){}
 
-	public Equipment(String name, Money rentalPerDay, int length, int width, EquipmentType type){
+	public Equipment(String name, Money rentalPerDay, EquipmentType type){
 		this.name = name;
 		this.rentalPerDay = rentalPerDay;
-		this.length = length;
-		this.width = width;
+
 		this.type = type;
 	}
 
 	public Money getRentalPerDay() {
 		return rentalPerDay;
-	}
-
-	public int getLength() {
-		return length;
-	}
-
-	public int getWidth() {
-		return width;
 	}
 
 	public String getName() {

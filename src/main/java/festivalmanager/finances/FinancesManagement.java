@@ -121,7 +121,7 @@ public class FinancesManagement {
 
 		for (SalespointIdentifier equipmentId: currentFestival.getEquipments().keySet()) {
 
-			Equipment equipment = equipmentManagement.findById(equipmentId).get();
+			Equipment equipment = equipmentManagement.findEquipmentById(equipmentId).get();
 			long amount = currentFestival.getEquipments().get(equipmentId);
 			Money equipmentCostSingle = equipment.getRentalPerDay().multiply(durationDays);
 			equipmentCost = equipmentCost.add(equipmentCostSingle.multiply(amount));

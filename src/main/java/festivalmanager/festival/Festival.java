@@ -53,7 +53,8 @@ public class Festival {
 	@ElementCollection
 	private Map<SalespointIdentifier, Long> rentedEquipments = new HashMap<>();
 	
-	@OneToMany()
+	// to delete Stages, when festival would been removed
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Stage> stages = new ArrayList<>();
 	
 	private FestivalState state = FestivalState.UNLAUNCHABLE;
@@ -224,11 +225,6 @@ public class Festival {
 			}
 		}
 		schedules.removeAll(deleteList);
-		
-//		//required to avoid delete error
-//		for(Schedule aSchedule : deleteList) {
-//			festival.removeSchedule(aSchedule.getTimeSlot(,), stage, aSchedule.getDate());	
-//		}
 		return stages.remove(stage);
 	}
 	

@@ -27,6 +27,7 @@
 									 	<label for="amount">Anzahl</label>
 									 	<input type="hidden" name="equipmentsId" th:value="${equipment.id}"/>	
 									 	<input id="amount" type="number" name="amount" th:value="${equipmentsMap.get(equipment)}"/>	
+									 	<p class="form-item-error-message" th:text="${message}" th:if="${message ne null}" ></p>
 									 	<p  class="form-item-error-message" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}">Wert darf nicht negativ sein</p>
 								        <input type ="submit" th:value="Anwenden"><br>
 							    </form>

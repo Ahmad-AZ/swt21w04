@@ -2,6 +2,7 @@ package festivalmanager.finances;
 
 import festivalmanager.Equipment.EquipmentManagement;
 import festivalmanager.Equipment.EquipmentRepository;
+import festivalmanager.Equipment.StageRepository;
 import festivalmanager.catering.*;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
@@ -76,7 +77,7 @@ class FinancesTests {
 
 		EquipmentRepository equipmentRepository = mock(EquipmentRepository.class);
 		when(equipmentRepository.findById(any())).thenReturn(Optional.empty());
-		EquipmentManagement equipmentManagement = new EquipmentManagement(equipmentRepository);
+		EquipmentManagement equipmentManagement = new EquipmentManagement(equipmentRepository, mock(StageRepository.class));
 
 		StaffManagement staffManagement = mock(StaffManagement.class);
 		Streamable<Person> staffMembers = Streamable.empty();
