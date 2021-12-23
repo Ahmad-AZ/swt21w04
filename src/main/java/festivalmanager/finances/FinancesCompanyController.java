@@ -2,9 +2,11 @@ package festivalmanager.finances;
 
 import festivalmanager.utils.UtilsManagement;
 import org.javamoney.moneta.Money;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 
 @Controller
@@ -22,7 +24,14 @@ public class FinancesCompanyController {
 	}
 
 
+	@ModelAttribute("title")
+	public String getTitle() {
+		return "Finanzen FVIV GmbH";
+	}
+
+
 	@GetMapping("/financesCompany")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('MANAGER')")
 	public String financesPage(Model model) {
 
 		financesCompanyManagement.updateAttributes();
@@ -53,7 +62,7 @@ public class FinancesCompanyController {
 				financesCompanyManagement.getAverageCostOneDayTickets());
 
 		utilsManagement.setCurrentPageUpperHeader("financesCompany");
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, null);
 		return "financesCompany";
 	}
 

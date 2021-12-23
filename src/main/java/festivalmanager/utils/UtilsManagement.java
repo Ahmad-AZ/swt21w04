@@ -1,6 +1,5 @@
 package festivalmanager.utils;
 
-
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import org.springframework.stereotype.Service;
@@ -25,15 +24,18 @@ public class UtilsManagement {
 
 	String currentPageUpperHeader;
 	String currentPageLowerHeader;
-	Festival currentFestival;
 	FestivalManagement festivalManagement;
+	// TODO: Remove this
+	Festival currentFestival;
 
 
 	public UtilsManagement(FestivalManagement festivalManagement) {
 		this.festivalManagement = festivalManagement;
-		this.currentFestival = null;
 		this.currentPageUpperHeader = null;
 		this.currentPageLowerHeader = null;
+		// TODO: Remove this
+		this.currentFestival = null;
+
 
 		// Add a name for your page here if it can be accessed through the upper navigation bar
 		pagesUpperHeader = Arrays.asList("festivals", "locations", "artists", "messages", "financesCompany");
@@ -58,6 +60,7 @@ public class UtilsManagement {
 	}
 
 
+	// TODO: Remove this
 	public void setCurrentFestival(long currentFestivalId) {
 
 		Optional<Festival> festivalOptional = festivalManagement.findById(currentFestivalId);
@@ -66,6 +69,8 @@ public class UtilsManagement {
 		}
 	}
 
+
+	// TODO: Remove this
 	public Long getCurrentFestivalId() {
 		if (currentFestival != null) {
 			return currentFestival.getId();
@@ -75,11 +80,52 @@ public class UtilsManagement {
 	}
 
 
+	// TODO: Remove this
 	public void prepareModel(Model model) {
 
 		// Update currentFestival
 		if (currentFestival != null) {
 			setCurrentFestival(getCurrentFestivalId());
+		}
+
+		if (currentPageUpperHeader != null) {
+
+			if (pagesUpperHeader.contains(currentPageUpperHeader)) {
+				model.addAttribute(currentPageUpperHeader + "Current", "current");
+			} else {
+				System.out.println("DEBUG Warning: CurrentPageManagement does not " +
+						"know the name of your page; Name was: " + currentPageUpperHeader);
+			}
+		}
+
+		if (currentPageLowerHeader != null) {
+
+			if (pagesLowerHeader.contains(currentPageLowerHeader)) {
+				model.addAttribute(currentPageLowerHeader + "Current", "current");
+			} else {
+				System.out.println("DEBUG Warning: CurrentPageManagement does not " +
+						"know the name of your page; Name was: " + currentPageUpperHeader);
+			}
+		}
+
+		if (currentFestival != null) {
+			model.addAttribute("festivalLocation", currentFestival.getLocation());
+			model.addAttribute("festivalId", currentFestival.getId());
+			model.addAttribute("festivalName", currentFestival.getName());
+		}
+	}
+
+
+	public void prepareModel(Model model, Long festivalId) {
+
+		Festival currentFestival = null;
+
+		if (festivalId != null) {
+
+			Optional<Festival> festivalOptional = festivalManagement.findById(festivalId);
+			if (festivalOptional.isPresent()) {
+				currentFestival = festivalOptional.get();
+			}
 		}
 
 		if (currentPageUpperHeader != null) {
