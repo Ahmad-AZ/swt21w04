@@ -119,6 +119,10 @@ public class TicketController {
 			return "ticketShopUnavailable";
 		}
 
+
+
+		String base64= "";
+		model.addAttribute("base64", base64);
 		utilsManagement.prepareModel(model);
 		return "ticketPrint";
 	}
