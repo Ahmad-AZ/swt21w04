@@ -7,6 +7,16 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/ticket.css}"/>
+
+
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"
+            integrity="sha512-cLuyDTDg9CSseBSFWNd4wkEaZ0TBEpclX0zD3D6HjI19pO39M58AgJ1SjHp6c7ZOp0/OCRcC2BCvvySU9KJaGw=="
+            crossorigin="anonymous"></script>
+    <script src="http://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+
+
     <title>Ticketshop</title>
 </head>
 <body>
@@ -14,38 +24,52 @@
     <nav th:include="header :: header"></nav>
     <nav th:include="festivalHeader :: festivalHeader"></nav>
 </header>
-
+<section layout:fragment="content">
 </section>
 
 
-
-
-<div class="box">
+<div class="box" id="ticket">
     <div class='inner'>
 
         <div class='info clearfix'>
 
-            <div class="wp">Festivalname:<h3 th:text="${festival}"></h3></div>
-            <div class='wp'>Typ:<h3 th:text="${tickets.getTicketType().displayValue}" ></h3></div>
-
+            <div class="wp">Festivalname:<h4 th:text="${festival}"></h4></div>
+            <div class='wp'>Typ:<h4 th:text="${tickets.getTicketType().displayValue}"></h4></div>
         </div>
         <div class='total clearfix'>
-
-            <h2>Tickets: <p th:text="${ticketCount}"> </p></h2>
+            <h2>Tickets: <p th:text="${ticketCount}"></p></h2>
             <h2>Preis: <p th:text="${ticketPrice + '€'}"></p></h2>
-
         </div>
-
-    </div>
-
-    <div>
-        <button type="button" > ausdrucken</button>
-
     </div>
 
 
 </div>
 
+<div class="center" >
+
+    <button  type="button" class="btn btn-default btn-sm" id="printPDF" onclick="printPDF()">
+        <span class="glyphicon glyphicon-print"></span> ausdrucken
+    </button>
+</div>
+
+
+
+<script>
+
+    function printPDF() {
+        // HTML +CSS -> PNG
+        html2canvas(document.getElementById('ticket'), { width: 420}).then(function (canvas) {
+
+
+            var doc = new jsPDF('p', 'pt', 'a4');
+            var img = canvas.toDataURL("image/png");
+            // PNG -> PDF
+            doc.addImage(img, 'PNG', 50, 70, 390, 140);  //
+            doc.save('ticket.pdf');
+        });
+
+    }
+</script>
 
 
 
