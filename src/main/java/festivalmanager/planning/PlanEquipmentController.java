@@ -11,6 +11,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import festivalmanager.utils.UtilsManagement;
+
+import org.salespointframework.core.SalespointIdentifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -28,6 +30,7 @@ import festivalmanager.Equipment.Equipment;
 import festivalmanager.Equipment.Equipment.EquipmentType;
 import festivalmanager.Equipment.EquipmentManagement;
 import festivalmanager.Equipment.Stage;
+import festivalmanager.Equipment.Equipment;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 
@@ -41,7 +44,8 @@ public class PlanEquipmentController {
 	private Festival currentFestival;
 	private long currentFestivalId;
 	
-	public PlanEquipmentController(PlanEquipmentManagement planEquipmentManagement, FestivalManagement festivalManagement, EquipmentManagement equipmentManagement, UtilsManagement utilsManagement) {
+	public PlanEquipmentController(PlanEquipmentManagement planEquipmentManagement, FestivalManagement festivalManagement,
+								   EquipmentManagement equipmentManagement, UtilsManagement utilsManagement) {
 		this.planEquipmentManagement = planEquipmentManagement;
 		this.festivalManagement = festivalManagement;
 		this.equipmentManagement = equipmentManagement;
@@ -67,20 +71,16 @@ public class PlanEquipmentController {
 					
 			Map<Equipment, Long> equipmentsMap = new HashMap<>();
 						
-			for (Equipment anEquipment : equipmentManagement.findAll()) {
-				long amount = current.getEquipments().getOrDefault(anEquipment.getId(), (long) 0);
-				// Stages would be handled extra
+			for (Equipment anEquipment : equipmentManagement.findlAllEquipments()) {				
 				if(anEquipment.getType().equals(EquipmentType.STAGE)) {
-					// Stage children Objects should not been visible here
-					if(!(anEquipment.getClass().getName().equals(Stage.class.getName()))) {
-						model.addAttribute("equipmentStage", anEquipment);
-					}
-
-				}else {
+					model.addAttribute("equipmentStage", anEquipment);
+					System.out.println(anEquipment.getName());
+				} else {
+					long amount = current.getEquipments().getOrDefault(anEquipment.getId(), (long) 0);
 					equipmentsMap.put(anEquipment, amount);
 				}
 			}
-			
+						
 			// show current Stage List form Festival
 			model.addAttribute("stageList", current.getStages());
 			
@@ -114,10 +114,10 @@ public class PlanEquipmentController {
 		Festival festival = festivalOP.get();
 		
 		if(!result.hasErrors()) {
-			Long equipmentsId = newStageForm.getEquipmentsId();
+			SalespointIdentifier equipmentsId = newStageForm.getEquipmentsId();
 			String name = newStageForm.getName();
 			
-			Optional<Equipment> equipmentOP = equipmentManagement.findById(equipmentsId);
+			Optional<Equipment> equipmentOP = equipmentManagement.findEquipmentById(equipmentsId);
 						
 			if(!equipmentOP.isPresent()) {
 				throw new ResponseStatusException(
@@ -128,8 +128,8 @@ public class PlanEquipmentController {
 			Equipment equipment = equipmentOP.get();
 			
 			// Stage with same name already exists
-			for(Equipment aEquipment : festival.getStages()) {
-				if(aEquipment.getName().equals(name)){
+			for(Stage aStage : festival.getStages()) {
+				if(aStage.getName().equals(name)){
 					result.rejectValue("name", null, "Bühne mit diesem Namen existiert bereits.");
 					
 				}
@@ -149,16 +149,12 @@ public class PlanEquipmentController {
 		if(result.hasErrors()) {
 			Map<Equipment, Long> equipmentsMap = new HashMap<>();
 			
-			for (Equipment anEquipment : equipmentManagement.findAll()) {
-				long amount = festival.getEquipments().getOrDefault(anEquipment.getId(), (long) 0);
-				// Stages would be handled extra
+			for (Equipment anEquipment : equipmentManagement.findlAllEquipments()) {				
 				if(anEquipment.getType().equals(EquipmentType.STAGE)) {
-					// Stage children Objects should not been visible here
-					if(!(anEquipment.getClass().getName().equals(Stage.class.getName()))) {
-						model.addAttribute("equipmentStage", anEquipment);
-					}
+					model.addAttribute("equipmentStage", anEquipment);
 
 				} else {
+					long amount = festival.getEquipments().getOrDefault(anEquipment.getId(), (long) 0);
 					equipmentsMap.put(anEquipment, amount);
 				}
 			}
@@ -183,12 +179,12 @@ public class PlanEquipmentController {
 	
 	@GetMapping("equipments/remove/{id}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String getRemoveStageDialog(@PathVariable("id") Long id, Model model) {
+	public String getRemoveStageDialog(@PathVariable("id") SalespointIdentifier id, Model model) {
 		model.addAttribute("dialog", "remove stage");
 		
-		Optional<Equipment> equipment = equipmentManagement.findById(id);
-		if(equipment.isPresent()) {
-			Equipment current = equipment.get();
+		Optional<Stage> stage = equipmentManagement.findStageById(id);
+		if(stage.isPresent()) {
+			Stage current = stage.get();
 			model.addAttribute("stage", current);
 			model.addAttribute("equipmentsMap", null);
 		} else {
@@ -205,23 +201,15 @@ public class PlanEquipmentController {
 	
 	@PostMapping("equipments/remove/{id}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String removeStage(@PathVariable("id") Long id) {
+	public String removeStage(@PathVariable("id") SalespointIdentifier id) {
 		
-		Optional<Equipment> equipment = equipmentManagement.findById(id);
-		if(equipment.isPresent()) {
-			Equipment current = equipment.get();
+		Optional<Stage> opStage = equipmentManagement.findStageById(id);
+		if(opStage.isPresent()) {
+			Stage stage = opStage.get(); 
+			System.out.println(stage);
+			planEquipmentManagement.unrentStage(stage,currentFestivalId);
+			System.out.println("after call");
 	
-			if(current.getType().equals(EquipmentType.STAGE)) {
-				Stage stage = (Stage) current;
-				System.out.println(stage);
-				planEquipmentManagement.unrentStage(stage,currentFestivalId);
-				System.out.println("after call");
-				
-				// throws errors
-				//equipmentManagement.removeById(stage.getId());
-			} else {
-				System.out.println("Equipment is not Stage");
-			}
 		} else {
 			throw new ResponseStatusException(
 					HttpStatus.NOT_FOUND, "entity not found"
@@ -233,27 +221,29 @@ public class PlanEquipmentController {
 	
 	@PostMapping("/rentEquipmentAmount")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String rentEquipmentAmount(Model model, @Valid EquipmentRentingForm equipementRentingForm, Errors result) {
+	public String rentEquipmentAmount(Model model, @Valid EquipmentRentingForm equipementRentingForm, Errors result, RedirectAttributes attributes) {
 	
 		if(result.hasErrors()) {
 			System.out.println(result);
-			return "equipments";
+			attributes.addFlashAttribute("message", "ungültige Eingabe");
+			return "redirect:/equipments";
 		}
-		Long equipmentsId = equipementRentingForm.getEquipmentsId();
+		SalespointIdentifier equipmentsId = equipementRentingForm.getEquipmentsId();
 		Long equipmentsAmount = equipementRentingForm.getAmount();
 		System.out.println(equipmentsId + "     "+ equipmentsAmount);
 		
 		
-		Equipment equipment = equipmentManagement.findById(equipmentsId).get();
-		if(equipment.getType().equals(EquipmentType.STAGE)) {
-			// TODO:  for more Stage types: get number of already rented stages 
-			if(equipmentsAmount > currentFestival.getLocation().getStageCapacity()) {
-				equipmentsAmount = currentFestival.getLocation().getStageCapacity();
-			}		
-			
-		} else {
-			planEquipmentManagement.rentEquipment(equipmentsId, equipmentsAmount, currentFestival);
-		}
+		Equipment equipment = equipmentManagement.findEquipmentById(equipmentsId).get();
+//		if(equipment.getType().equals(EquipmentType.STAGE)) {
+//			// TODO:  for more Stage types: get number of already rented stages 
+//			if(equipmentsAmount > currentFestival.getLocation().getStageCapacity()) {
+//				equipmentsAmount = currentFestival.getLocation().getStageCapacity();
+//			}		
+//			
+//		} else {
+		
+		planEquipmentManagement.rentEquipment(equipmentsId, equipmentsAmount, currentFestival);
+//		}
 		return "redirect:/equipments";
 	}
 	

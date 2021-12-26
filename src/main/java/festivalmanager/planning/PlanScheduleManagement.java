@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.salespointframework.core.SalespointIdentifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +31,8 @@ public class PlanScheduleManagement {
 	private final EquipmentManagement equipmentManagement;
 	private final StaffManagement staffManagement;
 	
-	public PlanScheduleManagement(FestivalManagement festivalManagement, EquipmentManagement equipmentManagement, StaffManagement staffManagement) {
+	public PlanScheduleManagement(FestivalManagement festivalManagement,
+								  EquipmentManagement equipmentManagement, StaffManagement staffManagement) {
 		this.equipmentManagement = equipmentManagement;
 		this.festivalManagement = festivalManagement;
 		this.staffManagement = staffManagement;
@@ -53,7 +55,7 @@ public class PlanScheduleManagement {
 	}
 	
 	
-	public boolean setShow(LocalDate date, long stageId, String timeSlotString, long showId, long festivalId) {
+	public boolean setShow(LocalDate date, Stage stage, String timeSlotString, long showId, long festivalId, long personId) {
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
 		if (festival.isPresent()) {
 			Festival current = festival.get();
@@ -69,22 +71,32 @@ public class PlanScheduleManagement {
 				}
 			}
 			
-			// proof stage exists for current festival
-			Stage stage = this.getStages(current,stageId);			
-			if(stage == null) {
-				return false;
+//			// proof stage exists for current festival
+//			Stage stage = this.getStages(current,stageId);			
+//			if(stage == null) {
+//				return false;
+//			}
+			
+			
+			Person person = null;
+			for(Person aPerson : staffManagement.findByFestivalIdAndRole(festivalId, "SECURITY")) {
+				if(aPerson.getId() == personId) {
+					person = aPerson;
+					break;
+				}
 			}
 			
 			boolean success = true;
-			
-			// if show attribute is null clear schedule from festival
-			if(show == null) {
-				success = current.removeSchedule(timeSlot, stage, date);
-			}
-			else {
-				success = current.addSchedule(timeSlot, show, stage, date);
+
+			// TODO improve if,else
+			// if show attribute is null set show null
+//			if(show == null) {
+//				success =  current.removeSchedule(timeSlot, stage, date);
+//			}
+//			else {
+				success = current.addSchedule(timeSlot, show, stage, date, person);
 				festivalManagement.saveFestival(current);
-			}
+//			}
 			return success;
 		} else {
 			return false;
@@ -95,21 +107,58 @@ public class PlanScheduleManagement {
 	public List<Person> getAvailableSecurity(Festival festival, LocalDate date, String timeSlotString){
 		TimeSlot timeSlot = TimeSlot.valueOf(timeSlotString);
 		List<Person> securitys = new ArrayList<>();
-		for(Person aPerson : staffManagement.findByFestivalIdAndRole(festival.getId(), "SECURITY")){
-			for(Schedule aSchedule : festival.getSchedules()) {
-				if(!(aSchedule.getDate().equals(date) || aSchedule.getTimeSlot().equals(timeSlot) || aSchedule.getSecurity().equals(aPerson))) {
-					securitys.add(aPerson);
-				}
+		List<Person> unavailableSecuritys = new ArrayList<>();
+		for(Schedule aSchedule : festival.getSchedules()) {
+			if(aSchedule.getDate().equals(date) && aSchedule.getTimeSlot().equals(timeSlot)) {
+				unavailableSecuritys.add(aSchedule.getSecurity());
 			}
-		}		
+		}
+		System.out.println("uaS" + unavailableSecuritys);
+		for(Person aPerson : staffManagement.findByFestivalIdAndRole(festival.getId(), "SECURITY")){
+			if(!unavailableSecuritys.contains(aPerson)) {
+				securitys.add(aPerson);
+			}
+		}
+		System.out.println("avS" + securitys);
 		return securitys;
 	
 	}
+	
+	public boolean setSecurity(LocalDate date, Stage stage, String timeSlotString, long personId, long festivalId){
+		Optional<Festival> festival = festivalManagement.findById(festivalId);
+		if (festival.isPresent()) {
+			Festival current = festival.get();
+			TimeSlot timeSlot = TimeSlot.valueOf(timeSlotString);
+			System.out.println(timeSlot);
+			
+			
+			Person person = null;
+			for(Person aPerson : staffManagement.findByFestivalIdAndRole(festivalId, "SECURITY")) {
+				if(aPerson.getId() == personId) {
+					person = aPerson;
+					break;
+				}
+			}
+//			if(person == null) {
+//				success = current.removeSecurity()
+//			}
+			
+			boolean success = true;
+			//success = current.addSchedule(timeSlot, show, stage, date);
+			festivalManagement.saveFestival(current);
+			
+			
+
+			return success;
+		} else {
+			return false;
+		}
+	}
 			
 	
-	public Stage getStages(Festival festival, long stageId) {
+	public Stage getStages(Festival festival, SalespointIdentifier stageId) {
 		for(Stage aStage : festival.getStages()) {
-			if(aStage.getId() == stageId) {
+			if(aStage.getId().equals(stageId)) {
 				return aStage;
 			}		
 		}

@@ -131,16 +131,25 @@ public class PlanOffersController {
 	}
 	@GetMapping("/artistOverview/unbook")
 	public String unbookArtist(){
-		for (Artist artist1 : currentFestival.getArtist()){
-			Optional<Artist> artist = hiringManagement.findById(artist1.getId());
-			if (artist.isPresent()) {
-				Artist current = artist.get();
-				planOffersManagement.unbookArtist(current, currentFestival);
-			} else{
-				throw new ResponseStatusException(
-						HttpStatus.NOT_FOUND, "entity not found"
-				);
+		Optional<Festival> opFestival = festivalManagement.findById(utilsManagement.getCurrentFestivalId());
+		if (opFestival.isPresent()) {
+			Festival festival = opFestival.get();
+			for (Artist artist1 : currentFestival.getArtist()){
+				Optional<Artist> artist = hiringManagement.findById(artist1.getId());
+				if (artist.isPresent()) {
+					Artist current = artist.get();
+					planOffersManagement.unbookArtist(current, festival);
+				} else {
+					throw new ResponseStatusException(
+							HttpStatus.NOT_FOUND, "entity not found"
+					);
+				}
+			
 			}
+		} else {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
 		}
 		return "redirect:/artistOverview";
 	}

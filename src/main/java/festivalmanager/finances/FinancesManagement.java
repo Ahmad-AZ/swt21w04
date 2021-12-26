@@ -1,9 +1,24 @@
 package festivalmanager.finances;
 
+
+import static org.salespointframework.core.Currencies.EURO;
+
+import org.javamoney.moneta.Money;
+import org.salespointframework.core.SalespointIdentifier;
+import org.springframework.data.util.Streamable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import festivalmanager.Equipment.Equipment;
 import festivalmanager.Equipment.EquipmentManagement;
 import festivalmanager.Equipment.Stage;
-import festivalmanager.catering.*;
+import festivalmanager.catering.CateringController;
+import festivalmanager.catering.CateringProduct;
+import festivalmanager.catering.CateringProductCatalog;
+import festivalmanager.catering.CateringSales;
+import festivalmanager.catering.CateringSalesItem;
+import festivalmanager.catering.CateringStock;
+import festivalmanager.catering.CateringStockItem;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.hiring.Artist;
@@ -12,16 +27,6 @@ import festivalmanager.staff.StaffManagement;
 import festivalmanager.ticketShop.Ticket;
 import festivalmanager.ticketShop.TicketManagement;
 import festivalmanager.utils.UtilsManagement;
-import org.javamoney.moneta.Money;
-import org.salespointframework.quantity.Quantity;
-import org.springframework.data.util.Streamable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static org.salespointframework.core.Currencies.EURO;
 
 
 @Service
@@ -99,7 +104,7 @@ public class FinancesManagement {
 
 		if (!currentFestival.artistsIsEmpty()) {
 			for (Artist artist: currentFestival.getArtist()) {
-				artistsCost = artistsCost.add(artist.getPrice());
+				artistsCost = artistsCost.add(artist.getPrice().multiply(durationDays));
 			}
 		}
 
@@ -112,9 +117,9 @@ public class FinancesManagement {
 
 		Money equipmentCost = Money.of(0, EURO);
 
-		for (long equipmentId: currentFestival.getEquipments().keySet()) {
+		for (SalespointIdentifier equipmentId: currentFestival.getEquipments().keySet()) {
 
-			Equipment equipment = equipmentManagement.findById(equipmentId).get();
+			Equipment equipment = equipmentManagement.findEquipmentById(equipmentId).get();
 			long amount = currentFestival.getEquipments().get(equipmentId);
 			Money equipmentCostSingle = equipment.getRentalPerDay().multiply(durationDays);
 			equipmentCost = equipmentCost.add(equipmentCostSingle.multiply(amount));
@@ -136,13 +141,21 @@ public class FinancesManagement {
 		// Roles for which the salary is paid on a per-festival basis
 		// List<String> toBePaid = Arrays.asList("SECURITY", "CATERING", "FESTIVAL_LEADER", "ADMISSION");
 
-		for (Person staffMember: staffMembers) {
+		for (Person staffMember : staffMembers) {
 
 			// if (toBePaid.contains(staffMember.getRole())) {}
 
 			Money salary = staffMember.getSalary();
 			// Staff members work 8 hours a day
 			staffCost = staffCost.add(salary.multiply(8).multiply(durationDays));
+		}
+
+		if (!currentFestival.artistsIsEmpty()) {
+			for (Artist artist: currentFestival.getArtist()) {
+				// Stage technicians are paid 100 EURO each day
+				Money stageTechnicianCost = Money.of(100, EURO).multiply(durationDays);
+				staffCost = staffCost.add(stageTechnicianCost.multiply(artist.getStageTechnician()));
+			}
 		}
 
 		totalCost = totalCost.add(staffCost);

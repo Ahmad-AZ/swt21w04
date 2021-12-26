@@ -1,7 +1,9 @@
 package festivalmanager.finances;
 
+
 import festivalmanager.Equipment.EquipmentManagement;
 import festivalmanager.Equipment.EquipmentRepository;
+import festivalmanager.Equipment.StageRepository;
 import festivalmanager.catering.*;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
@@ -25,9 +27,7 @@ import org.springframework.ui.Model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -76,7 +76,7 @@ class FinancesTests {
 
 		EquipmentRepository equipmentRepository = mock(EquipmentRepository.class);
 		when(equipmentRepository.findById(any())).thenReturn(Optional.empty());
-		EquipmentManagement equipmentManagement = new EquipmentManagement(equipmentRepository);
+		EquipmentManagement equipmentManagement = new EquipmentManagement(equipmentRepository, mock(StageRepository.class));
 
 		StaffManagement staffManagement = mock(StaffManagement.class);
 		Streamable<Person> staffMembers = Streamable.empty();
@@ -115,15 +115,15 @@ class FinancesTests {
 				utilsManagement);
 
 		Model testModel = new ExtendedModelMap();
-		financesController.financesPage(testModel);
+		financesController.financesPage(testModel, testFestival.getId());
 
-		assertThat(testModel.getAttribute("artistsCost")).isEqualTo("500.00");
+		assertThat(testModel.getAttribute("artistsCost")).isEqualTo("2000.00");
 		assertThat(testModel.getAttribute("locationCost")).isEqualTo("2000.00");
 		assertThat(testModel.getAttribute("staffCost")).isEqualTo("0.00");
 		assertThat(testModel.getAttribute("equipmentCost")).isEqualTo("0.00");
-		assertThat(testModel.getAttribute("totalCost")).isEqualTo("2500.00");
+		assertThat(testModel.getAttribute("totalCost")).isEqualTo("4000.00");
 		assertThat(testModel.getAttribute("totalRevenue")).isEqualTo("0.00");
-		assertThat(testModel.getAttribute("profit")).isEqualTo("-2500.00");
+		assertThat(testModel.getAttribute("profit")).isEqualTo("-4000.00");
 	}
 
 

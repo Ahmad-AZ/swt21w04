@@ -21,9 +21,9 @@ public class EquipmentDataInitializer implements DataInitializer {
 
 	EquipmentDataInitializer(EquipmentRepository equipmentRepository){
 		this.equipmentRepository = equipmentRepository;
-		Equipment equipment1 = new Equipment("Bühne", Money.of(300.00, EURO), 10, 12, EquipmentType.STAGE);
-		Equipment equipment2 = new Equipment("Toilette", Money.of(75.00, EURO), 4, 5, EquipmentType.TOILET);
-		Equipment equipment3 = new Equipment("Imbissstand", Money.of(150.00, EURO), 5, 5, EquipmentType.CATERING_STALL);
+		Equipment equipment1 = new Equipment("Bühne", Money.of(300.00, EURO), EquipmentType.STAGE);
+		Equipment equipment2 = new Equipment("Toilette", Money.of(75.00, EURO), EquipmentType.TOILET);
+		Equipment equipment3 = new Equipment("Imbissstand", Money.of(150.00, EURO), EquipmentType.CATERING_STALL);
 		equipmentRepository.save(equipment1);
 		equipmentRepository.save(equipment2);
 		equipmentRepository.save(equipment3);
@@ -32,7 +32,7 @@ public class EquipmentDataInitializer implements DataInitializer {
 
 	@Override
 	public void initialize() {
-		// empty Initialiation in Constructor
+		// empty, Initialiation in Constructor
 
 	}
 }
