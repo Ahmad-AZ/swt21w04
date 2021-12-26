@@ -1,5 +1,6 @@
 package festivalmanager.finances;
 
+
 import festivalmanager.Equipment.EquipmentManagement;
 import festivalmanager.Equipment.EquipmentRepository;
 import festivalmanager.Equipment.StageRepository;
@@ -26,9 +27,7 @@ import org.springframework.ui.Model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;

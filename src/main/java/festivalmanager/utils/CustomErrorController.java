@@ -1,8 +1,8 @@
 package festivalmanager.utils;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
+import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
@@ -21,10 +21,14 @@ import java.util.Map;
 public class CustomErrorController implements ErrorController {
 
 
-	@Autowired
 	private ErrorAttributes errorAttributes;
 	private Map<String, Object> errorAttributesMap;
 	private final boolean DEBUG_PRINTS = true;
+
+
+	CustomErrorController() {
+		errorAttributes = new DefaultErrorAttributes();
+	}
 
 
 	@ModelAttribute("title")

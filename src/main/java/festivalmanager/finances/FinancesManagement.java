@@ -1,11 +1,8 @@
 package festivalmanager.finances;
 
+
 import static org.salespointframework.core.Currencies.EURO;
 
-import java.util.Arrays;
-import java.util.List;
-
-import festivalmanager.hiring.Show;
 import org.javamoney.moneta.Money;
 import org.salespointframework.core.SalespointIdentifier;
 import org.springframework.data.util.Streamable;
