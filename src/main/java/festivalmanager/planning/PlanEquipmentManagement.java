@@ -45,29 +45,13 @@ public class PlanEquipmentManagement {
 		Festival festival = festivalManagement.findById(festivalId).get();	
 
 		boolean success = festival.removeStage(stage);
-//		System.out.println("middle "+ festival.getStages() + " "+ festival.getSchedules());
 		festivalManagement.saveFestival(festival);
 		equipmentManagement.removeStageById(stage.getId());
-//		System.out.println("after "+ success);
+
 		return success;
 	
 	}
 	
-//	public boolean rentStage(Stage stage, Festival festival) {
-//		
-//		festival.addStage(stage);
-//		festivalManagement.saveFestival(festival);
-//		
-//		return true;
-//	}
-//	
-//	public boolean unrent(Equipment equipment){
-//		if (!equipments.contains(equipment)){
-//			System.out.println("there is no such equipment to remove");
-//			return false;
-//		}
-//		equipments.remove(equipment);
-//		return true;
-//	}
+
 	
 }

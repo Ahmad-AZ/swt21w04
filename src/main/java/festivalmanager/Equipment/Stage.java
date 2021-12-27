@@ -4,16 +4,12 @@ import java.io.Serializable;
 import java.util.UUID;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 
 import org.javamoney.moneta.Money;
 import org.salespointframework.core.AbstractEntity;
 import org.salespointframework.core.SalespointIdentifier;
-
-import festivalmanager.Equipment.Equipment.EquipmentType;
 
 @Entity
 public class Stage extends AbstractEntity<SalespointIdentifier> implements Serializable{

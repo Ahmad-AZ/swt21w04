@@ -20,7 +20,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.salespointframework.core.SalespointIdentifier;
-import org.springframework.data.util.Streamable;
 
 import festivalmanager.Equipment.Stage;
 import festivalmanager.festival.Schedule.TimeSlot;
