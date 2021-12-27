@@ -119,17 +119,11 @@ public class PlanEquipmentController {
 	@PostMapping("equipments/{festivalId}/addStage")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String addStage(@Valid NewStageForm newStageForm, Errors result, Model model, 
-								EquipmentRentingForm equipmentRentingForm) {
+								EquipmentRentingForm equipmentRentingForm, @PathVariable("festivalId") long festivalId) {
 				
 		Optional<Festival> festivalOP = festivalManagement.findById(utilsManagement.getCurrentFestivalId());
-		if(!festivalOP.isPresent()) {
-			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
-		}
-		Festival festival = festivalOP.get();
 		
-		if(!result.hasErrors()) {
+		if(!result.hasErrors() && !festivalOP.isPresent()) {
 			SalespointIdentifier equipmentsId = newStageForm.getEquipmentsId();
 			String name = newStageForm.getName();
 			
@@ -141,35 +135,32 @@ public class PlanEquipmentController {
 				);
 			}
 			
+			Festival festival = festivalOP.get();
 			Equipment equipment = equipmentOP.get();
 			
 			// Stage with same name already exists
 			for(Stage aStage : festival.getStages()) {
 				if(aStage.getName().equals(name)){
 					result.rejectValue("name", null, "Bühne mit diesem Namen existiert bereits.");	
+					
+					utilsManagement.prepareModel(model);
+					return "equipments.html";
 				}
 			}
 			
-			if(!result.hasErrors()) {
-				// maximum stage capacity reached
-				if(festival.getStages().size() < festival.getLocation().getStageCapacity()) {
-					planEquipmentManagement.rentStage(name, equipment, festival);
-					
-				} else {
-					result.rejectValue("name", null, "Die maximale Bühnenkapazität wurde erreicht.");
-				}
-			}
-		}
-		
-		if(result.hasErrors()) {
-//			utilsManagement.setCurrentPageLowerHeader("equipment");
-			utilsManagement.prepareModel(model);
-			return "equipments.html";
-		}
-		
-		return "redirect:/equipments/" + festival.getId();
-		
-		
+			
+			// maximum stage capacity reached
+			if(festival.getStages().size() < festival.getLocation().getStageCapacity()) {
+				planEquipmentManagement.rentStage(name, equipment, festival);
+				return "redirect:/equipments/" + festivalId;
+			} else {
+				result.rejectValue("name", null, "Die maximale Bühnenkapazität wurde erreicht.");
+				utilsManagement.prepareModel(model);
+				return "equipments.html";
+			}	
+		}	
+		utilsManagement.prepareModel(model);
+		return "equipments.html";
 	}
 	
 	

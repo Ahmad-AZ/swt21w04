@@ -8,13 +8,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import org.javamoney.moneta.Money;
 import org.salespointframework.core.DataInitializer;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 
 
@@ -23,12 +21,12 @@ import org.springframework.util.StringUtils;
 public class LocationDataInitializer implements DataInitializer{
 	
 	private LocationRepository locations;
-	private final String UPLOAD_DIR = Paths.get("locationImages").toAbsolutePath().toString()+ "\\";
+	private final String uploadDir = Paths.get("locationImages").toAbsolutePath().toString()+ "\\";
 	
 	public LocationDataInitializer(LocationRepository locations) {
 		
 		// create Folder for locationImages
-		new File(UPLOAD_DIR).mkdir();
+		new File(uploadDir).mkdir();
 		String srcString = "src\\main\\resources\\static\\resources\\img\\location\\";
 		
 		String[] filenames = {"Kulturpalast_image.jpg", "Kulturpalast_groundview.jpg", 
@@ -40,7 +38,7 @@ public class LocationDataInitializer implements DataInitializer{
 		for(int i = 0; i<filenames.length; i++) {
 			Path srcPath = Paths.get(srcString + filenames[i]).toAbsolutePath();		
 			try {
-			       Path path = Paths.get(UPLOAD_DIR + filenames[i]);
+			       Path path = Paths.get(uploadDir + filenames[i]);
 			       System.out.println(path);       
 			       Files.copy(srcPath, path, StandardCopyOption.REPLACE_EXISTING);
 			} catch (IOException e) {

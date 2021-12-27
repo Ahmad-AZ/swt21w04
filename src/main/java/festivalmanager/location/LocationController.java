@@ -102,36 +102,35 @@ public class LocationController {
 	@PostMapping("/newLocation")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String createNewLocation(@Validated NewLocationForm newLocationForm, Errors result) {
-		if (result.hasErrors()) {
-			return "newLocation";
-		}
-		
-		Money price;
-		try {
+		if (!result.hasErrors()) {		
+			Money price;
+			try {
+				
+	            price = Money.parse("EUR " + newLocationForm.getPricePerDay());
+	        } catch (MonetaryParseException ex) {
+	        	result.rejectValue("pricePerDay", null, "geben Sie einen gültigen Preis ein");
+	        	return "newLocation";
+	        }
 			
-            price = Money.parse("EUR " + newLocationForm.getPricePerDay());
-        } catch (MonetaryParseException ex) {
-        	result.rejectValue("pricePerDay", null, "geben Sie einen gültigen Preis ein");
-        	return "newLocation";
-        }
-		
-		// Location with same name already exists
-		for(Location aLocation : locationManagement.findAll()) {
-			if(aLocation.getName().equals(newLocationForm.getName())){
-				result.rejectValue("name", null, "Location mit diesem Namen existiert bereits.");	
-				return "newLocation";
+			// Location with same name already exists
+			for(Location aLocation : locationManagement.findAll()) {
+				if(aLocation.getName().equals(newLocationForm.getName())){
+					result.rejectValue("name", null, "Location mit diesem Namen existiert bereits.");	
+				}
+			}
+			
+			if(price.isLessThan(Money.of(0, EURO))) {
+				result.rejectValue("pricePerDay", null, "muss größer-gleich 0 sein");	
 			}
 		}
 		
-		if(price.isLessThan(Money.of(0, EURO))) {
-			result.rejectValue("pricePerDay", null, "muss größer-gleich 0 sein");
+		if (result.hasErrors()) {
 			return "newLocation";
+		} else {
+			// save Festival if no error appears
+			locationManagement.createLocation(newLocationForm);
+			return "redirect:/locations";
 		}
-
-		// save Festival if no error appears
-		locationManagement.createLocation(newLocationForm);
-
-		return "redirect:/locations";
 	}
 	
 	
@@ -153,42 +152,39 @@ public class LocationController {
 		if (location.isPresent()) {
 			Location current = location.get();
 			
-			// Location with same name already exists
-			for(Location aLocation : locationManagement.findAll()) {
-				if(aLocation.getName().equals(form.getName()) && !aLocation.getName().equals(current.getName())){
-					result.rejectValue("name", null, "Location mit diesem Namen existiert bereits.");	
+			if (!result.hasErrors()) {
+	        			
+				Money price;
+				try {
+					
+		            price = Money.parse("EUR " + form.getPricePerDay());
+		        } catch (MonetaryParseException ex) {
+		        	result.rejectValue("pricePerDay", null, "geben Sie einen gültigen Preis ein");
+					model.addAttribute("location", current);
+					model.addAttribute("pricePerDay", current.getPricePerDay().getNumber().toString());
+					return "locationEdit";
+		        }
+	
+				
+				if(price.isLessThan(Money.of(0, EURO))) {
+					result.rejectValue("pricePerDay", null, "muss größer-gleich 0 sein");
+
+				}
+				// Location with same name already exists
+				for(Location aLocation : locationManagement.findAll()) {
+					if(aLocation.getName().equals(form.getName()) && !aLocation.getName().equals(current.getName())){
+						result.rejectValue("name", null, "Location mit diesem Namen existiert bereits.");	
+					}
 				}
 			}
-			
-			if (result.hasErrors()) {
+			if(result.hasErrors()) {
 				model.addAttribute("location", current);
 				model.addAttribute("pricePerDay", current.getPricePerDay().getNumber().toString());
 				return "locationEdit";
-	        
+			} else {
+				locationManagement.editLocation(current, form);
+				return "redirect:/locations";
 			}
-			
-			Money price;
-			try {
-				
-	            price = Money.parse("EUR " + form.getPricePerDay());
-	        } catch (MonetaryParseException ex) {
-	        	result.rejectValue("pricePerDay", null, "geben Sie einen gültigen Preis ein");
-				model.addAttribute("location", current);
-				model.addAttribute("pricePerDay", current.getPricePerDay().getNumber().toString());
-				return "locationEdit";
-	        }
-
-			
-			if(price.isLessThan(Money.of(0, EURO))) {
-				result.rejectValue("pricePerDay", null, "muss größer-gleich 0 sein");
-				model.addAttribute("location", current);
-				model.addAttribute("pricePerDay", current.getPricePerDay().getNumber().toString());
-				return "locationEdit";
-			}
-
-			
-			locationManagement.editLocation(current, form);
-			return "redirect:/locations";
 			
 		} else {
 			throw new ResponseStatusException(

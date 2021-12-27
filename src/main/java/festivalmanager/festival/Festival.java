@@ -157,11 +157,7 @@ public class Festival {
 		}
 		this.artists = new HashSet<>();
 	}
-	
-//	public Iterable<Schedule> getSchedules(){
-//		return schedules;
-//	}
-	
+		
 	public List<Person> getUnavailableSecuritys(LocalDate date, TimeSlot timeSlot, SalespointIdentifier stageId){
 		List<Person> unavailableSecuritys = new ArrayList<>();
 		for(Schedule aSchedule : schedules) {
@@ -197,8 +193,7 @@ public class Festival {
 			if(aSchedule.getDate().equals(date) && aSchedule.getStage().equals(stage) && aSchedule.getTimeSlot().equals(timeSlot)) {
 				if(aSchedule.getShow() != null) {
 					return aSchedule.getShow().getName();
-				}
-				else {
+				} else {
 					break;
 				}
 			}
@@ -211,8 +206,7 @@ public class Festival {
 			if(aSchedule.getDate().equals(date) && aSchedule.getStage().equals(stage) && aSchedule.getTimeSlot().equals(timeSlot)) {
 				if(aSchedule.getSecurity() != null) {
 					return aSchedule.getSecurity().getName();
-				}
-				else {
+				} else {
 					break;
 				}
 			}

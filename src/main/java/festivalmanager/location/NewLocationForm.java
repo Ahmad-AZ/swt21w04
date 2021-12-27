@@ -21,7 +21,7 @@ import static org.salespointframework.core.Currencies.EURO;
 
 class NewLocationForm {
 	
-	private final String upload_dir = Paths.get("locationImages").toAbsolutePath().toString()+ "\\";
+	private final String uploadDir = Paths.get("locationImages").toAbsolutePath().toString()+ "\\";
 	
 	@NotEmpty   
 	@NotNull
@@ -97,7 +97,7 @@ class NewLocationForm {
 
         // save the file on the local file system
         try {
-            Path path = Paths.get(upload_dir + fileName);
+            Path path = Paths.get(uploadDir + fileName);
             System.out.println(path);
             Files.copy(image.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
@@ -113,7 +113,7 @@ class NewLocationForm {
         String fileName = StringUtils.cleanPath(groundView.getOriginalFilename());
         // save the file on the local file system
         try {
-        	Path path = Paths.get(upload_dir + fileName);
+        	Path path = Paths.get(uploadDir + fileName);
             Files.copy(groundView.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             e.printStackTrace();
