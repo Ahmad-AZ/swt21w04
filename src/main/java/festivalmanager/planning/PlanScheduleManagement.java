@@ -104,15 +104,12 @@ public class PlanScheduleManagement {
 
 	}
 	
-	public List<Person> getAvailableSecurity(Festival festival, LocalDate date, String timeSlotString){
+	public List<Person> getAvailableSecurity(Festival festival, LocalDate date, String timeSlotString, SalespointIdentifier stageId){
 		TimeSlot timeSlot = TimeSlot.valueOf(timeSlotString);
+		
 		List<Person> securitys = new ArrayList<>();
-		List<Person> unavailableSecuritys = new ArrayList<>();
-		for(Schedule aSchedule : festival.getSchedules()) {
-			if(aSchedule.getDate().equals(date) && aSchedule.getTimeSlot().equals(timeSlot)) {
-				unavailableSecuritys.add(aSchedule.getSecurity());
-			}
-		}
+		List<Person> unavailableSecuritys = festival.getUnavailableSecuritys(date, timeSlot, stageId);
+		
 		System.out.println("uaS" + unavailableSecuritys);
 		for(Person aPerson : staffManagement.findByFestivalIdAndRole(festival.getId(), "SECURITY")){
 			if(!unavailableSecuritys.contains(aPerson)) {

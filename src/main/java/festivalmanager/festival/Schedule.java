@@ -56,10 +56,6 @@ public class Schedule implements Serializable{
 		return timeSlot;
 	}
 
-//	public void setTimeSlot(TimeSlot timeSlot) {
-//		this.timeSlot = timeSlot;
-//	}
-
 	public Show getShow() {
 		return show;	
 	}
@@ -72,17 +68,9 @@ public class Schedule implements Serializable{
 		return stage;
 	}
 
-//	public void setStage(Stage stage) {
-//		this.stage = stage;
-//	}
-
 	public LocalDate getDate() {
 		return date;
 	}
-
-//	public void setDate(LocalDate date) {
-//		this.date = date;
-//	}
 
 	public Person getSecurity() {
 		return security;

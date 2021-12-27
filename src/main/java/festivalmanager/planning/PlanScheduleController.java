@@ -105,8 +105,8 @@ public class PlanScheduleController {
 		model.addAttribute("timeSlot", timeSlot);
 		
 		model.addAttribute("showsToAdd", planScheduleManagement.getShows(currentFestivalId));
-		System.out.println(planScheduleManagement.getAvailableSecurity(currentFestival, date, timeSlot));
-		model.addAttribute("securitysToAdd", planScheduleManagement.getAvailableSecurity(currentFestival, date, timeSlot));
+		System.out.println(planScheduleManagement.getAvailableSecurity(currentFestival, date, timeSlot, stageId));
+		model.addAttribute("securitysToAdd", planScheduleManagement.getAvailableSecurity(currentFestival, date, timeSlot, stageId));
 
 		utilsManagement.prepareModel(model);
 		return "/schedule";

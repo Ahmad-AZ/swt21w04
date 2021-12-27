@@ -152,6 +152,16 @@ public class Festival {
 		return schedules;
 	}
 	
+	public List<Person> getUnavailableSecuritys(LocalDate date, TimeSlot timeSlot, SalespointIdentifier stageId){
+		List<Person> unavailableSecuritys = new ArrayList<>();
+		for(Schedule aSchedule : schedules) {
+			if(aSchedule.getDate().equals(date) && aSchedule.getTimeSlot().equals(timeSlot) && !aSchedule.getStage().getId().equals(stageId)) {
+				unavailableSecuritys.add(aSchedule.getSecurity());
+			}
+		}		
+		return unavailableSecuritys;
+	}
+	
 	/**
 	 * Creates a new {@link Schedule} if none exists at the given parameters
 	 *

@@ -1,15 +1,11 @@
 package festivalmanager.festival;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
-import festivalmanager.utils.UtilsManagement;
-import org.springframework.data.util.Streamable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -22,29 +18,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import festivalmanager.hiring.Artist;
-import festivalmanager.hiring.ArtistRepository;
-import festivalmanager.location.Location;
-import festivalmanager.location.LocationManagement;
+import festivalmanager.utils.UtilsManagement;
 
 @Controller
 public class FestivalController {
 
 	private final FestivalManagement festivalManagement;
 	private UtilsManagement utilsManagement;
-	private Festival currentFestival;
-	private long currentId;
-	private String title;
 
+	
 	public FestivalController(FestivalManagement festivalManagement,
 							  UtilsManagement utilsManagement) {
 		this.festivalManagement = festivalManagement;
 		this.utilsManagement = utilsManagement;
-		this.currentFestival = null;
-		this.currentId = 0;
-		
 	}
 
 	@ModelAttribute("title")
@@ -68,10 +55,8 @@ public class FestivalController {
 				System.out.println(current.getLocation().getName());
 				model.addAttribute("location", current.getLocation());
 			}
-			currentId = festivalId;
-			currentFestival = current;
 
-			utilsManagement.setCurrentFestival(currentFestival.getId());
+			utilsManagement.setCurrentFestival(current.getId());
 			utilsManagement.setCurrentPageLowerHeader("festivalDetail");
 			utilsManagement.prepareModel(model);
 			return "festivalDetail";
@@ -151,7 +136,7 @@ public class FestivalController {
 			model.addAttribute("location", current.getLocation());
 			
 			
-			utilsManagement.setCurrentFestival(currentFestival.getId());
+			utilsManagement.setCurrentFestival(current.getId());
 			utilsManagement.setCurrentPageUpperHeader("festivals");
 			utilsManagement.setCurrentPageLowerHeader("festivalDetail");
 			utilsManagement.prepareModel(model);
@@ -193,10 +178,7 @@ public class FestivalController {
 				model.addAttribute("location", current.getLocation());
 			}
 
-			currentId = festivalId;
-			currentFestival = current;
-
-			utilsManagement.setCurrentFestival(currentFestival.getId());
+			utilsManagement.setCurrentFestival(current.getId());
 			utilsManagement.setCurrentPageLowerHeader("festivalDetail");
 			utilsManagement.prepareModel(model);
 			
