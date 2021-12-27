@@ -14,12 +14,14 @@ import java.util.Optional;
 @Transactional
 public class FestivalManagement {
 	private final FestivalRepository festivals;
-	private final LocationManagement LocationManagement;
+	private final LocationManagement locationManagement;
 	private final HiringManagement hiringManagement;
 	
-	public FestivalManagement(FestivalRepository festivals, LocationManagement LocationManagement, HiringManagement hiringManagement) {
+	public FestivalManagement(FestivalRepository festivals,
+							  LocationManagement locationManagement,
+							  HiringManagement hiringManagement) {
 		this.festivals = festivals;
-		this.LocationManagement = LocationManagement;
+		this.locationManagement = locationManagement;
 		this.hiringManagement = hiringManagement;
 	}
 	
@@ -36,7 +38,7 @@ public class FestivalManagement {
 		// delete Location booking
 		if(festival.getLocation() != null) {
 			festival.getLocation().removeBooking(festival.getStartDate(), festival.getEndDate());
-			LocationManagement.saveLocation(festival.getLocation());
+			locationManagement.saveLocation(festival.getLocation());
 		}
 
 		if(!festival.artistsIsEmpty()) {

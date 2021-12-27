@@ -10,6 +10,7 @@ import festivalmanager.festival.Schedule;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.salespointframework.core.SalespointIdentifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,68 +28,30 @@ public class PlanEquipmentManagement {
 		this.equipmentManagement = equipmentManagement;
 	}
 
-	public boolean rentEquipment(long id, long amount, Festival festival){
-		
-		Equipment equipment = equipmentManagement.findById(id).get();
-		
-	
+	public void rentEquipment(SalespointIdentifier id, long amount, Festival festival){
 		festival.setEquipments(id, amount);
 		festivalManagement.saveFestival(festival);
-		return true;
 	}
 	
-	public boolean rentStage(String name, Equipment equipment, Festival festival) {
+	public void rentStage(String name, Equipment equipment, Festival festival) {
 
-		Stage stage = new Stage(name, equipment.getRentalPerDay(), equipment.getLength(), equipment.getWidth());
-		equipmentManagement.saveEquipment(stage);
+		Stage stage = new Stage(name, equipment.getRentalPerDay());
+		equipmentManagement.saveStage(stage);
 		festival.addStage(stage);
 		festivalManagement.saveFestival(festival);
-
-		return true;
 	}
 	
 	public boolean unrentStage(Stage stage, Long festivalId) {
-		Festival festival = festivalManagement.findById(festivalId).get();
-		
-		// get all Schedules to remove at this stage
-		List<Schedule> deleteList = new ArrayList<>();
-		for(Schedule aSchedule : festival.getSchedules()) {
-			if(aSchedule.getStage().equals(stage)) {
-				deleteList.add(aSchedule);
-			}
-		}
-		
-		//required to avoid delete error
-		for(Schedule aSchedule : deleteList) {
-			festival.removeSchedule(aSchedule.getTimeSlot(), stage, aSchedule.getDate());	
-		}
-		
-		
-		System.out.println("before");
+		Festival festival = festivalManagement.findById(festivalId).get();	
+
 		boolean success = festival.removeStage(stage);
-		System.out.println("middle "+ festival.getStages() + " "+ festival.getSchedules());
 		festivalManagement.saveFestival(festival);
-		
-		System.out.println("after "+ success);
+		equipmentManagement.removeStageById(stage.getId());
+
 		return success;
 	
 	}
 	
-//	public boolean rentStage(Stage stage, Festival festival) {
-//		
-//		festival.addStage(stage);
-//		festivalManagement.saveFestival(festival);
-//		
-//		return true;
-//	}
-//	
-//	public boolean unrent(Equipment equipment){
-//		if (!equipments.contains(equipment)){
-//			System.out.println("there is no such equipment to remove");
-//			return false;
-//		}
-//		equipments.remove(equipment);
-//		return true;
-//	}
+
 	
 }

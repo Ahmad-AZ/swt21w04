@@ -1,34 +1,49 @@
 package festivalmanager.Equipment;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 import org.javamoney.moneta.Money;
-
-import festivalmanager.Equipment.Equipment.EquipmentType;
+import org.salespointframework.core.AbstractEntity;
+import org.salespointframework.core.SalespointIdentifier;
 
 @Entity
-public class Stage extends Equipment implements Serializable{
+public class Stage extends AbstractEntity<SalespointIdentifier> implements Serializable{
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1863825782551414591L;
 	
-	@Id @GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	@Id 
+	private SalespointIdentifier id = new SalespointIdentifier(UUID.randomUUID().toString());
+	
+	private String name;
+	@Lob
+	private Money rentalPerDay;
+	
 
 	public Stage() {}
 	
-	public Stage(String name, Money rentalPerDay, int length, int width) {
-		super(name, rentalPerDay, length, width, EquipmentType.STAGE);
+	public Stage(String name, Money rentalPerDay) {
+		this.name=name;
+		this.rentalPerDay = rentalPerDay;
+	}
+
+	@Override
+	public SalespointIdentifier getId() {
+		return id;
 	}
 	
-	public long getId() {
-		return id;
+	public Money getRentalPerDay() {
+		return rentalPerDay;
+	}
+
+	public String getName() {
+		return name;
 	}
 }

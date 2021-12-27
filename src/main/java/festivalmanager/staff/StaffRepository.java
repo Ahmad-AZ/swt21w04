@@ -12,6 +12,8 @@ public interface StaffRepository extends CrudRepository<Person, Long> {
 	Streamable<Person> findAll();
 
 	Streamable<Person> findByFestivalId(long festivalId);
+	
+	Streamable<Person> findByFestivalIdAndRole(long festivalId, String role);
 
 	Optional<Person> findByUserAccount(UserAccount account);
 }

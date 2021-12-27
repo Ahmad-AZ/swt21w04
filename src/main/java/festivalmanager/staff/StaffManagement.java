@@ -1,5 +1,7 @@
 package festivalmanager.staff;
 
+import festivalmanager.festival.Festival;
+import festivalmanager.festival.FestivalManagement;
 import festivalmanager.staff.forms.*;
 import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.Role;
@@ -18,7 +20,8 @@ import java.util.Optional;
 public class StaffManagement {
 	private final StaffRepository staff;
 	private final UserAccountManagement userAccountManagement;
-
+	private final FestivalManagement festivalManagement;
+	
 	private static final String[] roles = {
 		"ADMIN",
 		"MANAGER",
@@ -30,12 +33,14 @@ public class StaffManagement {
 		"CATERING"
 	};
 
-	StaffManagement(StaffRepository staff, UserAccountManagement userAccountManagement) {
+	StaffManagement(StaffRepository staff, UserAccountManagement userAccountManagement, FestivalManagement festivalManagement) {
 		Assert.notNull(staff, "StaffRepository must not be null!");
 		Assert.notNull(userAccountManagement, "UserAccountManagement must not be null!");
-
+		Assert.notNull(festivalManagement, "FestivalManagement must not be null!");
+		
 		this.staff = staff;
 		this.userAccountManagement = userAccountManagement;
+		this.festivalManagement = festivalManagement;
 	}
 
 	public Person createPerson(long festivalId, CreateStaffForm form) {
@@ -51,10 +56,17 @@ public class StaffManagement {
 		}
 	}
 
-	public void removePerson(RemoveStaffForm form) {
+	public void removePerson(RemoveStaffForm form, Festival festival) {
 		Optional<Person> person = staff.findById(form.getId());
 		if (person.isPresent()) {
 			userAccountManagement.delete(person.get().getUserAccount());
+			
+			// requiered to avoid schedule errors
+			if(person.get().getRole().equals("SECURITY") && festival != null) {
+				festival.removeSecurity(form.getId());
+				festivalManagement.saveFestival(festival);
+			}
+			
 			staff.deleteById(person.get().getId());
 		}
 	}
@@ -94,6 +106,10 @@ public class StaffManagement {
 			// everyone can see people from festival and admins
 			return staff.findByFestivalId(festivalId).and(staff.findByFestivalId(-1));
 		}
+	}
+	
+	public Streamable<Person> findByFestivalIdAndRole(long festivalId, String role) {
+		return staff.findByFestivalIdAndRole(festivalId, role);
 	}
 
 	public Optional<Person> findById(long id) {

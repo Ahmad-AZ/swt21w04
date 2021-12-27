@@ -2,8 +2,6 @@ package festivalmanager.festival;
 
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 import org.salespointframework.core.DataInitializer;
 import org.slf4j.Logger;

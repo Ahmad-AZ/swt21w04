@@ -21,10 +21,10 @@
                        sec:authorize="hasRole('PLANNER') || hasRole('ADMIN') || hasRole('MANAGER')">Location</a>
 
                    	<a th:class="${'item ' + 'border-right ' + equipmentCurrent}"
-                       th:if="${festivalLocation!=null}" th:href="@{/equipments}"
+                       th:if="${festivalLocation!=null}" th:href="@{/equipments/{id} (id=${festivalId})}"
                        sec:authorize="hasRole('PLANNER') || hasRole('ADMIN') || hasRole('MANAGER')">Gegenstände</a>
 
-                    <a th:class="${'item ' + 'border-right ' + artistsCurrent}"
+                    <a th:class="${'item ' + 'border-right ' + artistOverviewCurrent}"
                        th:href="@{/artistOverview}"
                        sec:authorize="hasRole('PLANNER') || hasRole('ADMIN') || hasRole('MANAGER')">Künstler</a>
                        
@@ -33,7 +33,7 @@
                        th:href="@{/schedule}">Spielplan</a>
 
 					<a th:class="${'item ' + 'border-right ' + financesCurrent}"
-                       th:href="@{/finances}" sec:authorize="hasRole('PLANNER') || hasRole('ADMIN')">Finanzen</a>
+                       th:href="@{/finances/{id}(id=${festivalId})}" sec:authorize="hasRole('PLANNER') || hasRole('ADMIN')">Finanzen</a>
 
                     <a th:class="${'item ' + 'border-right ' + cateringCurrent}"
                        th:href="@{/cateringProductCatalog}"

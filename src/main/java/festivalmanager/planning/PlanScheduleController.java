@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import festivalmanager.utils.UtilsManagement;
 
+import org.salespointframework.core.SalespointIdentifier;
 import org.salespointframework.time.Interval;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
+import festivalmanager.Equipment.Stage;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.festival.Schedule.TimeSlot;
@@ -32,10 +34,9 @@ public class PlanScheduleController {
 	private final PlanScheduleManagement planScheduleManagement;
 	private final FestivalManagement festivalManagement;
 	private final UtilsManagement utilsManagement;
-	private long currentFestivalId;
-	private Festival currentFestival;
 	
-	public PlanScheduleController(PlanScheduleManagement planScheduleManagement, FestivalManagement festivalManagement, UtilsManagement utilsManagement) {
+	public PlanScheduleController(PlanScheduleManagement planScheduleManagement,
+								  FestivalManagement festivalManagement, UtilsManagement utilsManagement) {
 		this.planScheduleManagement = planScheduleManagement;
 		this.festivalManagement = festivalManagement;
 		this.utilsManagement = utilsManagement;
@@ -46,26 +47,22 @@ public class PlanScheduleController {
 		return "Programm";
 	}
 	
-
 	@GetMapping("/schedule")  
 	public String schedule(Model model) {
-			this.currentFestivalId = utilsManagement.getCurrentFestivalId();
-		Optional<Festival> festival = festivalManagement.findById(currentFestivalId);
+		Optional<Festival> festival = festivalManagement.findById(utilsManagement.getCurrentFestivalId());
 		if (festival.isPresent()) {
 			Festival current = festival.get();
-			currentFestival = current;
 
 			// gives List of all Festival days
 			List<LocalDate> dayList = new ArrayList<>();
 			LocalDate currentDate = current.getStartDate();
-			Interval festivalInterval = Interval.from(current.getStartDate().atStartOfDay()).to(current.getEndDate().atTime(23, 5));
+			Interval festivalInterval = Interval.from(current.getStartDate().atStartOfDay())
+										.to(current.getEndDate().atTime(23, 5));
 			while(festivalInterval.contains(currentDate.atTime(12, 00))) {
 				dayList.add(currentDate);
 				currentDate = currentDate.plusDays(1);
 			}
 			model.addAttribute("dayList", dayList);
-			
-			model.addAttribute("stageList", current.getStages());
 			
 			List<TimeSlot> tsl =  new ArrayList<>();
 			tsl.add(TimeSlot.TS1);
@@ -76,8 +73,7 @@ public class PlanScheduleController {
 			
 			model.addAttribute("timeSlotList",tsl);
 			model.addAttribute("festival", current);
-			utilsManagement.setCurrentFestivalId(currentFestival.getId());
-			utilsManagement.setCurrentFestivalId(currentFestival.getId());
+
 			utilsManagement.setCurrentPageLowerHeader("program");
 			utilsManagement.prepareModel(model);
 			return "/schedule";
@@ -91,37 +87,54 @@ public class PlanScheduleController {
 	@GetMapping("/schedule/{day}/{stageId}/{timeSlot}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String getShowSelectDialog(@PathVariable("day") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date, 
-										@PathVariable("stageId") long stageId, 
+										@PathVariable("stageId") SalespointIdentifier stageId, 
 										@PathVariable("timeSlot") String timeSlot, Model model) {
 		
-		model.addAttribute("dialog", "choose show");
-		
-		model.addAttribute("festival", currentFestival);
-		model.addAttribute("date", date);
-		model.addAttribute("stageId", stageId);
-		model.addAttribute("timeSlot", timeSlot);
-		
-		model.addAttribute("showsToAdd", planScheduleManagement.getShows(currentFestivalId));
-
-
-		utilsManagement.prepareModel(model);
-		return "/schedule";
+		Optional<Festival> festival = festivalManagement.findById(utilsManagement.getCurrentFestivalId());
+		if (festival.isPresent()) {
+			Festival current = festival.get();
+			model.addAttribute("dialog", "edit schedule");
+			
+			model.addAttribute("festival", current);
+			model.addAttribute("date", date);
+			model.addAttribute("stageId", stageId);
+			model.addAttribute("timeSlot", timeSlot);
+			
+			model.addAttribute("showsToAdd", current.getShows());
+			//System.out.println(planScheduleManagement.getAvailableSecurity(currentFestival, date, timeSlot, stageId));
+			model.addAttribute("securitysToAdd", planScheduleManagement.getAvailableSecurity(current, date, timeSlot, stageId));
+	
+			utilsManagement.prepareModel(model);
+			return "/schedule";
+		} else {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
+		}
 	}
 	
-	@PostMapping("/schedule/{day}/{stageId}/{timeSlot}/chooseShow")
+	@PostMapping("/schedule/{day}/{stageId}/{timeSlot}/editSchedule")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String chooseShow(@PathVariable("day") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date, 
-									@PathVariable("stageId") long stageId, 
+									@PathVariable("stageId") SalespointIdentifier stageId, 
 									@PathVariable("timeSlot") String timeSlot, 
-									@RequestParam("show") long showId, Model model) {
+									@RequestParam("show") long showId, 
+									@RequestParam("person") long personId, Model model) {
 		
-		System.out.println(showId);
-		planScheduleManagement.setShow(date, stageId, timeSlot, showId, currentFestivalId);
-		System.out.println("afterall");
-		return "redirect:/schedule";
+		Optional<Festival> festival = festivalManagement.findById(utilsManagement.getCurrentFestivalId());
+		if (festival.isPresent()) {
+			//System.out.println(showId);
+			Stage stage = festival.get().getStage(stageId);
+			if(stage != null) {
+				planScheduleManagement.setShow(date, stage, timeSlot, showId, festival.get().getId(), personId);
+			}
+			
+			return "redirect:/schedule";
+		} else {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found"
+			);
+		}
 	}
-	
-	
-	
 	
 }

@@ -134,7 +134,7 @@ public class StaffController {
 		try {
 			this.staffManagement.createPerson(festivalId, form);
 		} catch (IllegalArgumentException exception) {
-			return "redirect:/staff/" + festivalId + "/save/" + exception.getLocalizedMessage();
+			return "redirect:/staff/" + festivalId + "/create/" + exception.getLocalizedMessage();
 		}
 
 		return "redirect:/staff/" + festivalId;
@@ -143,7 +143,7 @@ public class StaffController {
 	@PostMapping("/staff/{festivalId}/remove")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String removeStaff(@PathVariable("festivalId") long festivalId, RemoveStaffForm form) {
-		this.staffManagement.removePerson(form);
+		this.staffManagement.removePerson(form, festivalManagement.findById(festivalId).orElse(null));
 
 		return "redirect:/staff/" + festivalId;
 	}

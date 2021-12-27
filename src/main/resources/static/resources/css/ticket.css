@@ -73,3 +73,14 @@ a.buy{
     padding:5px;
     background:rgba(0,0,0,0.5);
 }
+
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+    padding-right: 340px;
+
+
+}

@@ -44,6 +44,18 @@
         <br/>
         <p class="entity-attribute">Show:</p>
         <div th:each="show : ${artist.getShows()}" class="text" th:text="${show.getName()}"></div>
+        <table class="bookings-table">
+            <thead>
+            <th>Name</th>
+            <th>Aufführungszeit in Minuten</th>
+            </thead>
+            <tbody th:remove="all-but-first">
+            <tr th:each="show : ${artist.getShows()}">
+                <td class="text" th:text="${show.getName()}">Startdatum</td>
+                <td class="text" th:text="${show.getPerformance()}">Enddatum</td>
+            </tr>
+            </tbody>
+        </table>
         <br/>
         <a class="item" th:href="@{/artists/newShow/{id}(id = ${artist.id})}" sec:authorize="hasRole('MANAGER') || hasRole('ADMIN') || hasRole('PLANNER')">Neuen Show erstellen</a>
 

@@ -9,17 +9,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.constraints.NotNull;
+
 import java.util.Objects;
 
 @Controller
 public class TicketController {
 
 
+
 	private final TicketManagement ticketManagement;
 	private Festival currentFestival;
 	private final FestivalManagement festivalManagement;
 	private UtilsManagement utilsManagement;
+
+
 
 
 	public TicketController(TicketManagement ticketManagement, UtilsManagement utilsManagement, FestivalManagement festivalManagement) {
@@ -114,6 +119,10 @@ public class TicketController {
 			return "ticketShopUnavailable";
 		}
 
+
+
+		String base64= "";
+		model.addAttribute("base64", base64);
 		utilsManagement.prepareModel(model);
 		return "ticketPrint";
 	}
@@ -158,6 +167,8 @@ public class TicketController {
 		return "ticketResult";
 
 	}
+
+
 
 
 }

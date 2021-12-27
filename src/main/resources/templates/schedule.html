@@ -26,11 +26,12 @@
             	<th> 19:00 - 21:00</th>
             	<th> 22:00 - 24:00</th>
             </thead>
-            <tbody th:remove="all-but-first" th:each="stage : ${stageList}">   
+            <tbody th:remove="all-but-first" th:each="stage : ${festival.stages}">   
             	<tr>
             		<td > <div class="text" th:text="${stage.name}"/></td> 
                     <td th:each="timeSlot : ${timeSlotList}">
                     	<div th:text="${festival.getScheduleShowName(timeSlot, stage, day)}">Keine</div>
+                    	<div>Sicherheitspersonal: [[${festival.getScheduleSecurityName(timeSlot, stage, day)}]]</div>
                     	<a sec:authorize="hasRole('MANAGER') || hasRole('ADMIN') || hasRole('PLANNER')" th:href="@{/schedule/{day}/{stageId}/{timeSlot} (day = ${day}, stageId = ${stage.id}, timeSlot = ${timeSlot})}">Setzen</a>
                     </td>
             	</tr>
@@ -40,13 +41,20 @@
 		</br>
     </div>
 
-  	<div class="overlay" th:if="${dialog} == 'choose show'">
-        <form class="form" th:action="@{/schedule/{day}/{stageId}/{timeSlot}/chooseShow (day = ${day}, stageId = ${stageId}, timeSlot = ${timeSlot})}" method="post">
-            <h2 class="form-title">Show wählen:</h2>
+  	<div class="overlay" th:if="${dialog} == 'edit schedule'">
+        <form class="form" th:action="@{/schedule/{day}/{stageId}/{timeSlot}/editSchedule (day = ${day}, stageId = ${stageId}, timeSlot = ${timeSlot})}" method="post">
+            <h2 class="form-title">Belegung bearbeiten:</h2>
             <div class="form-item">
             	 <label class="form-label">Show: </label>
 	            <select class="form-input" name="show" id="show" >
-	                <option th:each="show : ${showsToAdd}" th:value="${show.id}" th:text="${show.name}">Admin</option>
+	                <option th:each="show : ${showsToAdd}" th:value="${show.id}" th:text="${show.name}">Show</option>
+	                <option th:value="0">Keine</option>
+	            </select>
+            </div>
+            <div class="form-item">
+            	 <label class="form-label">Security: </label>
+	            <select class="form-input" name="person" id="person" >
+	                <option th:each="security : ${securitysToAdd}" th:value="${security.id}" th:text="${security.name}">Person</option>
 	                <option th:value="0">Keine</option>
 	            </select>
             </div>

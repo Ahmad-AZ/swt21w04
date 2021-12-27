@@ -1,20 +1,23 @@
 package festivalmanager.planning;
 
-import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import org.salespointframework.core.SalespointIdentifier;
 
 public class NewStageForm {
 
 	@NotEmpty   
 	@NotNull
+	@NotBlank
 	private final String name;
 	
-	@Min(value = 0)
+
 	@NotNull
-	private final Long equipmentsId;
+	private final SalespointIdentifier equipmentsId;
 	
-	public NewStageForm(String name, Long equipmentsId) {
+	public NewStageForm(String name, SalespointIdentifier equipmentsId) {
 		this.name = name;
 		this.equipmentsId = equipmentsId;	
 	}
@@ -23,7 +26,7 @@ public class NewStageForm {
 		return name;
 	}
 
-	public Long getEquipmentsId() {
+	public SalespointIdentifier getEquipmentsId() {
 		return equipmentsId;
 	}
 	

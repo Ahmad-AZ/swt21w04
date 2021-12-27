@@ -2,6 +2,7 @@ package festivalmanager.finances;
 
 
 import org.javamoney.moneta.Money;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.utils.UtilsManagement;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 import static org.salespointframework.core.Currencies.EURO;
 
@@ -17,16 +23,15 @@ import static org.salespointframework.core.Currencies.EURO;
 class FinancesController {
 
 
-	private Festival currentFestival;
 	private FinancesManagement financesManagement;
 	private FestivalManagement festivalManagement;
 	private UtilsManagement utilsManagement;
 
-	private long nCampingTicketsExpected;
-	private long nOneDayTicketsExpected;
-
-	private Money priceCampingTicketsExpected;
-	private Money priceOneDayTicketsExpected;
+	// Maps festival ID to expected sales numbers
+	private Map<Long, Long> nCampingTicketsMap;
+	private Map<Long, Long> nOneDayTicketsMap;
+	private Map<Long, Money> priceCampingTicketsMap;
+	private Map<Long, Money> priceOneDayTicketsMap;
 
 
 	FinancesController(FinancesManagement financesManagement,
@@ -36,9 +41,12 @@ class FinancesController {
 		this.festivalManagement = festivalManagement;
 		this.utilsManagement = utilsManagement;
 
-		currentFestival = null;
-		resetAttributes();
+		nCampingTicketsMap = new HashMap<>();
+		nOneDayTicketsMap = new HashMap<>();
+		priceCampingTicketsMap = new HashMap<>();
+		priceOneDayTicketsMap = new HashMap<>();
 	}
+
 
 	@ModelAttribute("title")
 	public String getTitle() {
@@ -46,26 +54,18 @@ class FinancesController {
 	}
 
 
-	private void resetAttributes() {
-		nCampingTicketsExpected = 0;
-		nOneDayTicketsExpected = 0;
-		priceCampingTicketsExpected = Money.of(0, EURO);
-		priceOneDayTicketsExpected = Money.of(0, EURO);
-	}
-
-
-	@GetMapping("/finances")
+	@GetMapping("/finances/{festivalId}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER')")
-	String financesPage(Model model) {
+	String financesPage(Model model, @PathVariable Long festivalId) {
 
-		if(this.currentFestival != null &&
-				this.currentFestival.getId() != utilsManagement.getCurrentFestivalId()) {
-
-			resetAttributes();
+		Optional<Festival> festivalOptional = festivalManagement.findById(festivalId);
+		if (festivalOptional.isEmpty()) {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found");
 		}
 
-		this.financesManagement.updateFestival();
-		this.currentFestival = festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
+		Festival currentFestival = festivalOptional.get();
+		financesManagement.setFestival(currentFestival.getId());
 
 		addAttribute(model, "artistsCost", financesManagement.getArtistsCost());
 		addAttribute(model, "locationCost", financesManagement.getLocationCost());
@@ -87,6 +87,15 @@ class FinancesController {
 		addAttribute(model, "totalRevenue", totalRevenue);
 		addAttribute(model,"profit", financesManagement.getProfit(totalRevenue, totalCost));
 
+		Money priceCampingTicketsExpected =
+				priceCampingTicketsMap.getOrDefault(festivalId, Money.of(0, EURO));
+		Money priceOneDayTicketsExpected =
+				priceOneDayTicketsMap.getOrDefault(festivalId, Money.of(0, EURO));
+		long nCampingTicketsExpected =
+				nCampingTicketsMap.getOrDefault(festivalId, 0L);
+		long nOneDayTicketsExpected =
+				nOneDayTicketsMap.getOrDefault(festivalId, 0L);
+
 		addAttribute(model,"priceCampingTicketsExpected", priceCampingTicketsExpected);
 		addAttribute(model, "priceOneDayTicketsExpected", priceOneDayTicketsExpected);
 		addAttribute(model, "nCampingTicketsExpected", nCampingTicketsExpected);
@@ -102,12 +111,12 @@ class FinancesController {
 		addAttribute(model,"profitExpected", profitExpected);
 
 		utilsManagement.setCurrentPageLowerHeader("finances");
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, festivalId);
 		return "finances";
 	}
 
 
-	private void addAttribute(Model model, String attributeName, Object attributeValue) {
+	public static void addAttribute(Model model, String attributeName, Object attributeValue) {
 
 		if (attributeValue.getClass().getSimpleName().equals("Money")) {
 			String attributeStr = String.format("%.2f", ((Money) attributeValue).getNumber().doubleValue());
@@ -118,42 +127,47 @@ class FinancesController {
 	}
 
 
-	@GetMapping("/setTicketNumber")
-	public String ticketNumberForm(Model model,
+	@GetMapping("/finances/setTicketNumber")
+	public String ticketNumberForm(Model model, @RequestParam("festivalId") Long festivalId,
 								  @RequestParam("nCampingTicketsExpected") long nCampingTicketsExpected,
 								  @RequestParam("nOneDayTicketsExpected") long nOneDayTicketsExpected) {
 
-		if (nCampingTicketsExpected < 0 || nOneDayTicketsExpected < 0) {
-			//return financesPage(model);
-			return "redirect:/finances";
+		Optional<Festival> festivalOptional = festivalManagement.findById(festivalId);
+		if (festivalOptional.isEmpty()) {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found");
 		}
 
-		if (currentFestival != null && currentFestival.getLocation() != null &&
+		Festival currentFestival = festivalOptional.get();
+
+		if (nCampingTicketsExpected < 0 || nOneDayTicketsExpected < 0) {
+			return "redirect:/finances/" + festivalId;
+		}
+
+		if (currentFestival.getLocation() != null &&
 				nCampingTicketsExpected + nOneDayTicketsExpected
 						> currentFestival.getLocation().getVisitorCapacity()) {
-			//return financesPage(model);
-			return "redirect:/finances";
+			return "redirect:/finances/" + festivalId;
 		}
 
-		this.nCampingTicketsExpected = nCampingTicketsExpected;
-		this.nOneDayTicketsExpected = nOneDayTicketsExpected;
-		//return financesPage(model);
-		return "redirect:/finances";
+		nCampingTicketsMap.put(festivalId, nCampingTicketsExpected);
+		nOneDayTicketsMap.put(festivalId, nOneDayTicketsExpected);
+		return "redirect:/finances/" + festivalId;
 	}
 
 
-	@GetMapping("/setTicketPrice")
-	public String ticketPriceForm(Model model,
+	@GetMapping("/finances/setTicketPrice")
+	public String ticketPriceForm(Model model, @RequestParam("festivalId") Long festivalId,
 								  @RequestParam("priceCampingTicketsExpected") Double priceCampingTicketsExpected,
 								  @RequestParam("priceOneDayTicketsExpected") Double priceOneDayTicketsExpected) {
 
 		if (priceCampingTicketsExpected < 0 || priceOneDayTicketsExpected < 0) {
-			return "redirect:/finances";
+			return "redirect:/finances/" + festivalId;
 		}
 
-		this.priceCampingTicketsExpected = Money.of(priceCampingTicketsExpected, EURO);
-		this.priceOneDayTicketsExpected = Money.of(priceOneDayTicketsExpected, EURO);
-		return "redirect:/finances";
+		priceCampingTicketsMap.put(festivalId, Money.of(priceCampingTicketsExpected, EURO));
+		priceOneDayTicketsMap.put(festivalId, Money.of(priceOneDayTicketsExpected, EURO));
+		return "redirect:/finances/" + festivalId;
 	}
 
 }
