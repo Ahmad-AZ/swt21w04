@@ -22,20 +22,19 @@
 						<h3>Gegenstände</h3>
 						<div class="equipments" th:each="equipment : ${equipmentsMap.keySet()}">
 							<div class="normal equipments">
-								 <form method="post" id="form" th:action="@{/rentEquipmentAmount}" th:object="${equipmentRentingForm}">
+								 <form method="post" id="form" th:action="@{/equipments/{festivalId}/rentEquipmentAmount (festivalId = ${festival.id})}" th:object="${equipmentRentingForm}">
 									  	<div class="entity-attribute"th:text="${equipment.name}">Name</div>
 									 	<label for="amount">Anzahl</label>
 									 	<input type="hidden" name="equipmentsId" th:value="${equipment.id}"/>	
 									 	<input id="amount" type="number" name="amount" th:value="${equipmentsMap.get(equipment)}"/>	
-									 	<p class="form-item-error-message" th:text="${message}" th:if="${message ne null}" ></p>
-									 	<p  class="form-item-error-message" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}">Wert darf nicht negativ sein</p>
 								        <input type ="submit" th:value="Anwenden"><br>
+								        <p  class="form-item-error-message" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}">Wert darf nicht negativ sein</p>
 							    </form>
 							    </br>
 							</div>
 						</div>
 						<h3>Bühnen</h3>	
-						<form role="form" th:action="@{/addStage}" method="post" th:object="${newStageForm}">
+						<form role="form" th:action="@{/equipments/{festivalId}/addStage (festivalId = ${festival.id})}" method="post" th:object="${newStageForm}">
 				            <div class="entity-attribute" th:text="${equipmentStage.name}">Name</div>
 				            <div class="field" >
 				                <label for="name">Name</label>
@@ -49,9 +48,9 @@
 				        <h3>Gemietete Bühnen:</h3>
 				        <div class="stageList">
 				            <ul class="list">
-				                <li class="list-entry" th:each="stage : ${stageList}">
+				                <li class="list-entry" th:each="stage : ${festival.stages}">
 				                    <p th:text="${stage.name}">Bühnen Name</p>
-				                    <a th:href="@{equipments/remove/{id} (id = ${stage.id})}">X</a>
+				                    <a th:href="@{/equipments/{festivalId}/remove/{id} (id = ${stage.id}, festivalId = ${festival.id})}">X</a>
 				                </li>
 				            </ul>
 				        </div>
@@ -67,11 +66,11 @@
 		</table>
 		
 		<div class="overlay" th:if="${dialog} == 'remove stage'">
-            <form class="form" th:action="@{/equipments/remove/{id} (id = ${stage.id})}" method="post">
+            <form class="form" th:action="@{/equipments/{festivalId}/remove/{id} (id = ${stage.id}, festivalId = ${festival.id})}" method="post">
 				<h2 class="form-item" th:inline="text">Bühne [[${stage.name}]] löschen</h2>
 				<p class="form-item-error-message" >Hinweis: das Programm für diese Bühne wird gelöscht</p>
 				<div class="form-item">
-					<a href="equipments.html" th:href="@{/equipments}">Abbrechen</a>
+					<a href="equipments.html" th:href="@{/equipments/{festivalId} (festivalId = ${festival.id})}">Abbrechen</a>
 					<input class="form-input" name="delete" type="submit" value="Löschen">
 					
 				</div>

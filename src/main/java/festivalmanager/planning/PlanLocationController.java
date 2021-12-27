@@ -28,8 +28,6 @@ public class PlanLocationController {
 	private final LocationManagement locationManagement;
 	private final FestivalManagement festivalManagement;
 	private final UtilsManagement utilsManagement;
-	private Festival currentFestival;
-	private long currentFestivalId;
 	
 	public PlanLocationController(PlanLocationManagement planLocationManagement, 
 									LocationManagement locationManagement, 
@@ -39,8 +37,7 @@ public class PlanLocationController {
 		this.locationManagement = locationManagement;
 		this.festivalManagement = festivalManagement;
 		this.utilsManagement = utilsManagement;
-		this.currentFestival = null;
-		this.currentFestivalId = 0;
+
 		
 	}
 
@@ -56,8 +53,6 @@ public class PlanLocationController {
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
 		if (festival.isPresent()) {
 			Festival current = festival.get();
-			this.currentFestival = current;
-			this.currentFestivalId = festivalId;
 			Location bookedLocation = current.getLocation();
 			model.addAttribute("locationList", locationManagement.findAll());
 			if(bookedLocation != null) {

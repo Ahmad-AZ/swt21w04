@@ -26,7 +26,7 @@
             	<th> 19:00 - 21:00</th>
             	<th> 22:00 - 24:00</th>
             </thead>
-            <tbody th:remove="all-but-first" th:each="stage : ${stageList}">   
+            <tbody th:remove="all-but-first" th:each="stage : ${festival.stages}">   
             	<tr>
             		<td > <div class="text" th:text="${stage.name}"/></td> 
                     <td th:each="timeSlot : ${timeSlotList}">

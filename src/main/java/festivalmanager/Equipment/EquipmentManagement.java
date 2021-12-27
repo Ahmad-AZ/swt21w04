@@ -48,11 +48,11 @@ public class EquipmentManagement {
 	 *
 	 * @return all equipment entities
 	 */ 
-	public Streamable<Equipment> findlAllEquipments(){
+	public Streamable<Equipment> findAllEquipments(){
 		return equipments.findAll();
 	}
 	
-	public Streamable<Stage> findlAllStages(){
+	public Streamable<Stage> findAllStages(){
 		return stages.findAll();
 	}
 }

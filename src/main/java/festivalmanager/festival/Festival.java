@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.salespointframework.core.SalespointIdentifier;
+import org.springframework.data.util.Streamable;
 
 import festivalmanager.Equipment.Stage;
 import festivalmanager.festival.Schedule.TimeSlot;
@@ -131,6 +132,16 @@ public class Festival {
 	public boolean artistsIsEmpty(){
 		return this.artists.isEmpty();
 	}
+	
+	public List<Show> getShows(){
+		List<Show> shows = new ArrayList<>();
+		for(Artist anArtist : artists) {
+			for(Show aShow : anArtist.getShows()) {
+				shows.add(aShow);
+			}
+		}
+		return shows;
+	}
 
 	public void setEquipments(SalespointIdentifier id, long amount) {
 		rentedEquipments.put(id, amount);
@@ -148,9 +159,9 @@ public class Festival {
 		this.artists = new HashSet<>();
 	}
 	
-	public Iterable<Schedule> getSchedules(){
-		return schedules;
-	}
+//	public Iterable<Schedule> getSchedules(){
+//		return schedules;
+//	}
 	
 	public List<Person> getUnavailableSecuritys(LocalDate date, TimeSlot timeSlot, SalespointIdentifier stageId){
 		List<Person> unavailableSecuritys = new ArrayList<>();
@@ -231,6 +242,15 @@ public class Festival {
 
 	public List<Stage> getStages(){
 		return stages;
+	}
+	
+	public Stage getStage(SalespointIdentifier stageId) {
+		for(Stage aStage : stages) {
+			if(aStage.getId().equals(stageId)) {
+				return aStage;
+			}		
+		}
+		return null;
 	}
 	
 	public boolean addStage(Stage stage) {

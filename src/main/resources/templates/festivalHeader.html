@@ -21,7 +21,7 @@
                        sec:authorize="hasRole('PLANNER') || hasRole('ADMIN') || hasRole('MANAGER')">Location</a>
 
                    	<a th:class="${'item ' + 'border-right ' + equipmentCurrent}"
-                       th:if="${festivalLocation!=null}" th:href="@{/equipments}"
+                       th:if="${festivalLocation!=null}" th:href="@{/equipments/{id} (id=${festivalId})}"
                        sec:authorize="hasRole('PLANNER') || hasRole('ADMIN') || hasRole('MANAGER')">Gegenstände</a>
 
                     <a th:class="${'item ' + 'border-right ' + artistOverviewCurrent}"
