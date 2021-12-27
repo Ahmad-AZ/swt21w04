@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +22,7 @@ public class CustomErrorController implements ErrorController {
 
 	private ErrorAttributes errorAttributes;
 	private Map<String, Object> errorAttributesMap;
-	private final boolean DEBUG_PRINTS = true;
+	private final boolean debugPrints = true;
 
 
 	CustomErrorController() {
@@ -37,7 +36,7 @@ public class CustomErrorController implements ErrorController {
 	}
 
 
-	@RequestMapping("/error")
+	@GetMapping("/error")
 	public String catchError(HttpServletRequest httpRequest)  {
 
 		ErrorAttributeOptions options = ErrorAttributeOptions.defaults();
@@ -75,14 +74,12 @@ public class CustomErrorController implements ErrorController {
 				return;
 			}
 
-			if (DEBUG_PRINTS) {
+			if (debugPrints) {
 				System.out.println(name + ": " + errorAttributesMap.get(name));
 			}
 
 			model.addAttribute(name, errorAttributesMap.get(name));
-		}
-
-		else {
+		} else {
 			model.addAttribute(name, defaultValue);
 		}
 	}
