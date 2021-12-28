@@ -66,16 +66,8 @@ public class Festival {
 		this.location = null;
 		this.artists = new HashSet<Artist>();
 	}
-
-	public Festival(String name) {
-		this.name = name;
-		this.location = null;
-		this.artists = new HashSet<Artist>();
-	}
 	
-	public Festival() {
-		
-	}
+	public Festival() {}
 	
 	public void setState(FestivalState state) {
 		this.state = state;

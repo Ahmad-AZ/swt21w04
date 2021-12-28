@@ -123,7 +123,7 @@ public class PlanEquipmentController {
 				
 		Optional<Festival> festivalOP = festivalManagement.findById(utilsManagement.getCurrentFestivalId());
 		
-		if(!result.hasErrors() && !festivalOP.isPresent()) {
+		if(!result.hasErrors() && festivalOP.isPresent()) {
 			SalespointIdentifier equipmentsId = newStageForm.getEquipmentsId();
 			String name = newStageForm.getName();
 			
@@ -144,7 +144,7 @@ public class PlanEquipmentController {
 					result.rejectValue("name", null, "Bühne mit diesem Namen existiert bereits.");	
 					
 					utilsManagement.prepareModel(model);
-					return "equipments.html";
+					return "equipments.html"; 
 				}
 			}
 			
@@ -155,8 +155,6 @@ public class PlanEquipmentController {
 				return "redirect:/equipments/" + festivalId;
 			} else {
 				result.rejectValue("name", null, "Die maximale Bühnenkapazität wurde erreicht.");
-				utilsManagement.prepareModel(model);
-				return "equipments.html";
 			}	
 		}	
 		utilsManagement.prepareModel(model);
