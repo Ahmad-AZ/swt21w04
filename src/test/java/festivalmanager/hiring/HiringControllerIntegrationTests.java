@@ -46,4 +46,54 @@ public class HiringControllerIntegrationTests extends AbstractIntegrationTests {
 		assertThat(returnedView).isEqualTo("artistEdit");
 		assertThat(model.getAttribute("artist")).isNotNull();
 	}
+
+	@Test
+	@WithMockUser(roles = "ADMIN")
+	public void artistDetailTest() {
+		Model model = new ExtendedModelMap();
+
+		Artist artist = new Artist();
+		lm.saveArtist(artist);
+
+		String returnedView = controller.artistDetail(artist.getId(), model);
+		assertThat(returnedView).isEqualTo("artistDetail");
+	}
+
+	@Test
+	@WithMockUser(roles = "ADMIN")
+	void allowsAuthenticatedAccessToAddLocation() {
+		ExtendedModelMap model = new ExtendedModelMap();
+		String returnedView = controller.newArtist(model, new NewArtistForm("artist", 50.00, 10));
+		assertThat(returnedView).isEqualTo("newArtist");
+	}
+
+	@Test
+	@WithMockUser(roles = "ADMIN")
+	void getRemoveArtistDialogSuccessTest() {
+
+		ExtendedModelMap model = new ExtendedModelMap();
+		Artist artist = new Artist("artist", Money.of(50, EURO), 50);
+		lm.saveArtist(artist);
+
+		String returnedView = controller.getRemoveArtistDialog(artist.getId(), model);
+		assertThat(returnedView).isEqualTo("/artists");
+
+		assertThat(model.getAttribute("dialog")).isEqualTo("remove_artist");
+		assertThat(model.getAttribute("currentName")).isEqualTo(artist.getName());
+		assertThat(model.getAttribute("currentId")).isEqualTo(artist.getId());
+
+	}
+
+	@Test
+	@WithMockUser(roles = "ADMIN")
+	void getRemoveArtistDialogFailureTest() {
+		ExtendedModelMap model = new ExtendedModelMap();
+		Artist artist = new Artist("Artist", Money.of(50, EURO), 50);
+		String returnedView = controller.getRemoveArtistDialog(artist.getId(), model);
+
+		assertThat(returnedView).isEqualTo("/artists");
+		assertThat(model.getAttribute("dialog")).isEqualTo("remove_artist");
+		assertThat(model.getAttribute("currentName")).isEqualTo("");
+		assertThat(model.getAttribute("currentId")).isEqualTo(artist.getId());
+	}
 }
