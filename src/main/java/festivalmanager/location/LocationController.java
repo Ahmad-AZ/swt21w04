@@ -1,12 +1,13 @@
 package festivalmanager.location;
 
+import static org.salespointframework.core.Currencies.EURO;
+
 import java.util.Optional;
 
 import javax.money.format.MonetaryParseException;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
-import festivalmanager.utils.UtilsManagement;
 import org.javamoney.moneta.Money;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,16 +19,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import festivalmanager.staff.Person;
-import festivalmanager.staff.forms.RemoveStaffForm;
-
-import static org.salespointframework.core.Currencies.EURO;
+import festivalmanager.utils.UtilsManagement;
 
 
 @Controller

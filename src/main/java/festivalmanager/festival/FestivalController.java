@@ -45,9 +45,9 @@ public class FestivalController {
 		if (festival.isPresent()) {
 			Festival current = festival.get();
 
-			if (current.getLocation() != null) {
-				System.out.println(current.getLocation().getName());
-			}
+//			if (current.getLocation() != null) {
+//				System.out.println(current.getLocation().getName());
+//			}
 			System.out.println(festivalId);
 			model.addAttribute("festival", current);
 			model.addAttribute("artists", current.getArtist());
@@ -61,9 +61,7 @@ public class FestivalController {
 			utilsManagement.prepareModel(model);
 			return "festivalDetail";
 		} else {
-			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
+			return "redirect:/festivalOverview";
 		}
 	}
 	
@@ -135,12 +133,6 @@ public class FestivalController {
 			model.addAttribute("artists", current.getArtist());
 			model.addAttribute("location", current.getLocation());
 			
-			
-			utilsManagement.setCurrentFestival(current.getId());
-			utilsManagement.setCurrentPageUpperHeader("festivals");
-			utilsManagement.setCurrentPageLowerHeader("festivalDetail");
-			utilsManagement.prepareModel(model);
-
 			utilsManagement.prepareModel(model);
 			return "festivalDetail";
 		} else {
@@ -173,17 +165,10 @@ public class FestivalController {
 						
 			model.addAttribute("festival", current);
 			model.addAttribute("artists", current.getArtist());
-			if (current.getLocation() != null) {
-				System.out.println(current.getLocation().getName());
-				model.addAttribute("location", current.getLocation());
-			}
+			model.addAttribute("location", current.getLocation());
 
-			utilsManagement.setCurrentFestival(current.getId());
-			utilsManagement.setCurrentPageLowerHeader("festivalDetail");
 			utilsManagement.prepareModel(model);
-			
-			
-			
+					
 			// not perfect
 			if (result.hasErrors()) {
 				model.addAttribute("dialog", "edit name");

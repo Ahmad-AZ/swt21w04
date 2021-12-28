@@ -38,10 +38,6 @@ class NewLocationForm {
 	@NotBlank
 	private final String pricePerDay;
 	
-	private final MultipartFile image;
-	
-	private final MultipartFile groundView;
-	
 	@NotNull
 	@Min(value = 0)  
 	private final Long visitorCapacity;
@@ -49,6 +45,10 @@ class NewLocationForm {
 	@NotNull
 	@Min(value = 0) 
 	private final Long stageCapacity;
+	
+	private final MultipartFile image;
+	
+	private final MultipartFile groundView;
 		
 	public NewLocationForm(String name, String adress, String pricePerDay,
 						   Long visitorCapacity, Long stageCapacity, MultipartFile image,
