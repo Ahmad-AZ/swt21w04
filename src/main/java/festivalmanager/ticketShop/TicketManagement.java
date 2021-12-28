@@ -109,4 +109,9 @@ public class TicketManagement {
 
 		 return this.currentTicket;
 	}
+	public Festival setFestivalById(long id ){
+
+		setFestival(festival.findById(id).get());
+		return this.currentFestival;
+	}
 }

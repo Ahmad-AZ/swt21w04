@@ -11,10 +11,12 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Base64;
@@ -66,8 +68,15 @@ public class TicketSender {
 
 	}
 
-	@PostMapping(value = "/export", params={"format=PDF"}, produces= MediaType.APPLICATION_PDF_VALUE)
-	public String generatePdf(){
+	@PostMapping(value = "/export")
+	public String generatePdf(@RequestParam("base64") String base64){
+
+
+		System.out.println("baseeeeeeeeeeeeeeeeeee" + base64);
+
+
+
+
 
 		File file = new File("./ticket.pdf");
 
