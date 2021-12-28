@@ -85,7 +85,8 @@ public class LocationControllerIntegrationTests extends AbstractIntegrationTests
 
 		ExtendedModelMap model = new ExtendedModelMap();
 		
-		String returnedView = controller.newLocation(model, new NewLocationForm("Location", "Adresse", "2112.50", Long.valueOf(1234), Long.valueOf(1234), null, null));
+		String returnedView = controller.newLocation(model, new NewLocationForm("Location", "Adresse", "2112.50",
+															Long.valueOf(1234), Long.valueOf(1234), null, null));
 		assertThat(returnedView).isEqualTo("newLocation");
 	}
 	
@@ -95,7 +96,8 @@ public class LocationControllerIntegrationTests extends AbstractIntegrationTests
 
 		ExtendedModelMap model = new ExtendedModelMap();
 		
-		Location location = new Location("Location", "Adresse", Money.of(123.30, EURO), (long) 234, (long) 234, "loc_image", "gv_image");
+		Location location = new Location("Location", "Adresse", Money.of(123.30, EURO),
+				(long) 234, (long) 234, "loc_image", "gv_image");
 		lm.saveLocation(location);
 
 		String returnedView = controller.getRemoveLocationDialog(location.getId(), model);
@@ -113,7 +115,8 @@ public class LocationControllerIntegrationTests extends AbstractIntegrationTests
 
 		ExtendedModelMap model = new ExtendedModelMap();
 		
-		Location location = new Location("Location", "Adresse", Money.of(123.30, EURO), (long) 234, (long) 234, "loc_image", "gv_image");
+		Location location = new Location("Location", "Adresse", Money.of(123.30, EURO),
+										(long) 234, (long) 234, "loc_image", "gv_image");
 		location.addBooking(LocalDate.now(), LocalDate.now().plusDays(7));
 		lm.saveLocation(location);
 
@@ -132,7 +135,8 @@ public class LocationControllerIntegrationTests extends AbstractIntegrationTests
 
 		ExtendedModelMap model = new ExtendedModelMap();
 		
-		Location location = new Location("Location", "Adresse", Money.of(123.30, EURO), (long) 234, (long) 234, "loc_image", "gv_image");
+		Location location = new Location("Location", "Adresse",
+										Money.of(123.30, EURO), (long) 234, (long) 234, "loc_image", "gv_image");
 		
 		String returnedView = controller.getRemoveLocationDialog(location.getId(), model);
 		assertThat(returnedView).isEqualTo("/locations");
