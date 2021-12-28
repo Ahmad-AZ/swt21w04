@@ -148,49 +148,46 @@ public class LocationController {
 							   Errors result, @RequestParam("location") Long locationId, Model model) {
 		
 		Optional<Location> location = locationManagement.findById(locationId);
-		
-		if (location.isPresent()) {
-			Location current = location.get();
-			
-			if (!result.hasErrors()) {
-	        			
-				Money price;
-				try {
-					
-		            price = Money.parse("EUR " + form.getPricePerDay());
-		        } catch (MonetaryParseException ex) {
-		        	result.rejectValue("pricePerDay", null, "geben Sie einen gültigen Preis ein");
-					model.addAttribute("location", current);
-					model.addAttribute("pricePerDay", current.getPricePerDay().getNumber().toString());
-					return "locationEdit";
-		        }
-	
-				
-				if(price.isLessThan(Money.of(0, EURO))) {
-					result.rejectValue("pricePerDay", null, "muss größer-gleich 0 sein");
-
-				}
-				// Location with same name already exists
-				for(Location aLocation : locationManagement.findAll()) {
-					if(aLocation.getName().equals(form.getName()) && !aLocation.getName().equals(current.getName())){
-						result.rejectValue("name", null, "Location mit diesem Namen existiert bereits.");	
-					}
-				}
-			}
-			if(result.hasErrors()) {
-				model.addAttribute("location", current);
-				model.addAttribute("pricePerDay", current.getPricePerDay().getNumber().toString());
-				return "locationEdit";
-			} else {
-				locationManagement.editLocation(current, form);
-				return "redirect:/locations";
-			}
-			
-		} else {
+		if (!location.isPresent()) {
 			throw new ResponseStatusException(
 					HttpStatus.NOT_FOUND, "entity not found"
 			);
 		}
+		
+		Location current = location.get();	
+		if (!result.hasErrors()) {
+        			
+			Money price;
+			try {
+				
+	            price = Money.parse("EUR " + form.getPricePerDay());
+	        } catch (MonetaryParseException ex) {
+	        	result.rejectValue("pricePerDay", null, "geben Sie einen gültigen Preis ein");
+				model.addAttribute("location", current);
+				model.addAttribute("pricePerDay", current.getPricePerDay().getNumber().toString());
+				return "locationEdit";
+	        }
+			
+			if(price.isLessThan(Money.of(0, EURO))) {
+				result.rejectValue("pricePerDay", null, "muss größer-gleich 0 sein");
+			}
+			// Location with same name already exists
+			for(Location aLocation : locationManagement.findAll()) {
+				if(aLocation.getName().equals(form.getName()) && !aLocation.getName().equals(current.getName())){
+					result.rejectValue("name", null, "Location mit diesem Namen existiert bereits.");	
+				}
+			}
+		}
+		if(!result.hasErrors()) {
+			locationManagement.editLocation(current, form);
+			return "redirect:/locations";
+		}
+		
+		// result has errors
+		model.addAttribute("location", current);
+		model.addAttribute("pricePerDay", current.getPricePerDay().getNumber().toString());
+		return "locationEdit";
+			
 	}
 	
 	@GetMapping("locations/remove/{id}")
