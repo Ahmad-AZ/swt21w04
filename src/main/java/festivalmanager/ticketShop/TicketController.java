@@ -119,9 +119,7 @@ public class TicketController {
 			return "ticketShopUnavailable";
 		}
 
-
-
-		String base64= "";
+		String base64="";
 		model.addAttribute("base64", base64);
 		utilsManagement.prepareModel(model);
 		return "ticketPrint";
@@ -150,15 +148,10 @@ public class TicketController {
 
 	@PreAuthorize("hasRole('PLANNER')||hasRole('ADMIN')")
 	@PostMapping("tickets/edit")
-	public String update(@NotNull @ModelAttribute Ticket ticket , Model model, Errors result){
+	public String update(@NotNull @ModelAttribute Ticket ticket , Model model){
 
 		model.addAttribute("title", "Tickets");
 		utilsManagement.prepareModel(model);
-
-		if (result.hasErrors()) {
-
-			return "ticketResult" ;
-		}
 
 		ticketManagement.setCurrentTicket(ticket);
 		ticketManagement.save(ticket);
@@ -167,6 +160,9 @@ public class TicketController {
 		return "ticketResult";
 
 	}
+
+
+
 
 
 
