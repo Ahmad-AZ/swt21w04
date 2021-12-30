@@ -8,4 +8,6 @@ public interface MessageRepository extends CrudRepository<Message, Long> {
 	Streamable<Message> findAll();
 
 	Streamable<Message> findByReceiverId(long receiverId);
+	Streamable<Message> findByReceiverGroupAndReceiverFestivalId(String receiverGroup, long receiverFestivalId);
+	Streamable<Message> findByType(MessageType type);
 }

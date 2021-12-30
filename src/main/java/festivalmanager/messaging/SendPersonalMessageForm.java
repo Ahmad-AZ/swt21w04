@@ -2,20 +2,20 @@ package festivalmanager.messaging;
 
 import javax.validation.constraints.NotEmpty;
 
-public class SendMessageForm {
-	@NotEmpty(message = "{SendMessageForm.senderId.NotEmpty}")
+public class SendPersonalMessageForm {
+	@NotEmpty(message = "{SendPersonalMessageForm.senderId.NotEmpty}")
 	private final long senderId;
 
-	@NotEmpty(message = "{SendMessageForm.receiverId.NotEmpty}")
+	@NotEmpty(message = "{SendPersonalMessageForm.receiverId.NotEmpty}")
 	private final long receiverId;
 
-	@NotEmpty(message = "{SendMessageForm.title.NotEmpty}")
+	@NotEmpty(message = "{SendPersonalMessageForm.title.NotEmpty}")
 	private final String title;
 
-	@NotEmpty(message = "{SendMessageForm.content.NotEmpty}")
+	@NotEmpty(message = "{SendPersonalMessageForm.content.NotEmpty}")
 	private final String content;
 
-	public SendMessageForm(long senderId, long receiverId, String title, String content) {
+	public SendPersonalMessageForm(long senderId, long receiverId, String title, String content) {
 		this.senderId = senderId;
 		this.receiverId = receiverId;
 		this.title = title;

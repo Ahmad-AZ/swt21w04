@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 @Transactional
@@ -23,7 +24,7 @@ public class MessageManagement {
 		this.staffManagement = staffManagement;
 	}
 
-	public void sendMessage(SendMessageForm form) {
+	public void sendMessage(SendPersonalMessageForm form) {
 		Optional<Person> sender = staffManagement.findById(form.getSenderId());
 		String senderName = "[unknown]";
 		if (sender.isPresent()) {
@@ -41,7 +42,21 @@ public class MessageManagement {
 		return repository.findById(id);
 	}
 
-	Streamable<Message> findByReceiverId(long receiverId) {
+	Streamable<Message> findPersonalMessages(long receiverId) {
 		return repository.findByReceiverId(receiverId);
+	}
+
+	Streamable<Message> findGroupMessages(String group, long festivalId) {
+		return repository.findByReceiverGroupAndReceiverFestivalId(group, festivalId);
+	}
+
+	Streamable<Message> findGlobalMessages() {
+		return repository.findByType(MessageType.GlobalMessage);
+	}
+
+	Streamable<Message> findMessagesForUser(Person receiver) {
+		Streamable<Message> personalMessages = findPersonalMessages(receiver.getId());
+		Streamable<Message> groupMessages = findGroupMessages(receiver.getRole(), receiver.getFestivalId());
+		return personalMessages.and(groupMessages);
 	}
 }

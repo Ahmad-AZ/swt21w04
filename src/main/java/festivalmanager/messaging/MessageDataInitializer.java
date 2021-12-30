@@ -22,7 +22,7 @@ public class MessageDataInitializer implements DataInitializer {
 	}
 
 	public void newMessage(long senderId, long receiverId, String title, String content) {
-		messageManagement.sendMessage(new SendMessageForm(senderId, receiverId, title, content));
+		messageManagement.sendMessage(new SendPersonalMessageForm(senderId, receiverId, title, content));
 	}
 
 	@Override
