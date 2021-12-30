@@ -43,7 +43,7 @@
                 <div class="form-item">
                     <label class="form-label">Rolle: </label>
                     <select class="form-input" name="role">
-                        <option value="ADMIN">Admin</option>
+                        <option value="ADMIN" sec:authorize="hasRole('ADMIN')">Admin</option>
                         <option value="MANAGER">Manager</option>
                         <option value="PLANNER">Planer</option>
                         <option value="FESTIVAL_LEADER">Festival-Leiter</option>
@@ -88,7 +88,7 @@
                 <div class="form-item">
                     <label class="form-label">Neue Rolle: </label>
                     <select class="form-input" name="role" id="role">
-                        <option value="ADMIN">Admin</option>
+                        <option value="ADMIN" sec:authorize="hasRole('ADMIN')">Admin</option>
                         <option value="MANAGER">Manager</option>
                         <option value="PLANNER">Planer</option>
                         <option value="FESTIVAL_LEADER">Festival-Leiter</option>
