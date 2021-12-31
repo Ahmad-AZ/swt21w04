@@ -1,4 +1,6 @@
 package festivalmanager.ticketShop;
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
 
 
@@ -36,7 +38,7 @@ public class Ticket {
 	public Ticket() {
 	}
 
-	public Ticket(long festivalId,String festivalName,  int dayTicketsCount, int campingTicketsCount, TicketType ticketType, float dayTicketPrice, float campingTicketPrice) {
+	public Ticket(@Nullable long festivalId, String festivalName, int dayTicketsCount, int campingTicketsCount, TicketType ticketType, float dayTicketPrice, float campingTicketPrice) {
 		this.festivalId= festivalId;
 		this.festivalName=festivalName;
 		this.DayTicketsCount = dayTicketsCount;

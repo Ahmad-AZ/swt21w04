@@ -39,14 +39,6 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 		this.model = new ExtendedModelMap();
 	}
 
-//	@Test
-//	@WithMockUser(roles = {"PLANNER", "ADMIN"})
-//	void allowsAuthenticatedAccessToController(){
-//		ticketManagement.setFestivalById(0);
-//
-//		assertThat(ticketManagement.getCurrentTicket()).isNull();
-//
-//	}
 
 	@Test
 	void attributesTesting(){
@@ -131,17 +123,17 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 
 
 
-	@Test
-	@WithMockUser(roles = {"TICKET_SELLER", "ADMIN"})
-	void buyingCampingTicketWithZeroValue(){
-		Ticket ticket =
-				new Ticket(1, "Festival", 10,10,TicketType.CAMPING, 10,10);
-		Model model = new ExtendedModelMap();
-
-		testController.buyTicket(ticket,model);
-
-
-	}
+//	@Test
+//	@WithMockUser(roles = {"TICKET_SELLER", "ADMIN"})
+//	void buyingCampingTicketWithZeroValue(){
+//		Ticket ticket =
+//				new Ticket(1, "Festival", 10,10,TicketType.CAMPING, 10,10);
+//		Model model = new ExtendedModelMap();
+//
+//		testController.buyTicket(ticket,model);
+//
+//
+//	}
 
 
 	@Test
@@ -167,6 +159,21 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 	}
 
 
+
+	@Test
+	@WithMockUser(roles = {"PLANNER", "ADMIN"})
+	void testCreatingTicket(){
+		Ticket ticket = new Ticket(0, null, 10,10,TicketType.CAMPING, 10,10);
+
+		utilsManagement.setCurrentFestival(1);
+		testController.showTicketInfo(model);
+
+		assertThat(testController.create(ticket,model)).isEqualTo("ticketResult");
+		assertThat(ticket.getFestivalName()).isEqualTo("Beispielfestival");
+		assertThat(ticket.getFestivalId()).isEqualTo(1);
+		assertThat(ticketManagement.getCurrentTicket()).isEqualTo(ticket);
+
+	}
 
 
 
