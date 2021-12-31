@@ -20,7 +20,7 @@ public class TicketController {
 
 
 	private final TicketManagement ticketManagement;
-	private Festival currentFestival;
+	private Festival  currentFestival;
 	private final FestivalManagement festivalManagement;
 	private UtilsManagement utilsManagement;
 
@@ -56,7 +56,7 @@ public class TicketController {
 			utilsManagement.setCurrentPageLowerHeader("tickets");
 
 			utilsManagement.prepareModel(model);
-			return "ticketFrom";
+			return "ticketForm";
 		}
 
 		model.addAttribute("tickets", ticketManagement.getCurrentTicket());
@@ -66,14 +66,10 @@ public class TicketController {
 
 	@PreAuthorize("hasRole('PLANNER')||hasRole('ADMIN')")
 	@PostMapping("/tickets")
-	public String create(@ModelAttribute Ticket ticket, Model model, Errors result) {
+	public String create(@ModelAttribute Ticket ticket, Model model) {
 
 		model.addAttribute("title", "Tickets");
 		utilsManagement.prepareModel(model);
-
-		if (result.hasErrors()) {
-			return "ticketFrom";
-		}
 
 
 		ticket.setFestivalName(currentFestival.getName());
@@ -118,9 +114,9 @@ public class TicketController {
 			model.addAttribute("ticketsUnavailable", "true");
 			return "ticketShopUnavailable";
 		}
-
-		String base64="";
-		model.addAttribute("base64", base64);
+//
+//		String base64="";
+//		model.addAttribute("base64", base64);
 		utilsManagement.prepareModel(model);
 		return "ticketPrint";
 	}
