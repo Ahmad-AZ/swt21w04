@@ -51,7 +51,12 @@ public class TicketManagement {
 	}
 
 	public void setCurrentTicket(@NotNull Ticket ticket){
+		if (Objects.isNull(ticketRepo.findAllByFestivalId(ticket.getFestivalId())))
+		{
+			ticketRepo.save(ticket);
 
+		}
+		ticketRepo.findAllByFestivalId(ticket.getFestivalId());
 		this.currentTicket= ticket;
 	}
 
