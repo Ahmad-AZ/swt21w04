@@ -24,7 +24,7 @@ public class TicketManagement {
 	public TicketManagement(FestivalManagement festival) {
 		this.festival = festival;
 		this.currentFestival = null;
-		this.currentTicket=null;
+
 	}
 
 	public Ticket save(@NonNull Ticket ticket) {
@@ -35,9 +35,7 @@ public class TicketManagement {
 		return  ticketRepo.save(ticket);
 	}
 
-	public Ticket getCurrentTicket(){
-		return this.currentTicket;
-	}
+
 
 	public Ticket TicketsByFestival(long festivalId) {
 
@@ -50,19 +48,19 @@ public class TicketManagement {
 		this.currentFestival= festival;
 	}
 
-	public void setCurrentTicket(@NotNull Ticket ticket){
-		if (Objects.isNull(ticketRepo.findAllByFestivalId(ticket.getFestivalId())))
-		{
-			ticketRepo.save(ticket);
 
-		}
-		ticketRepo.findAllByFestivalId(ticket.getFestivalId());
-		this.currentTicket= ticket;
+	public Ticket getCurrentTicket(){
+		return this.currentTicket;
 	}
 
+	public void setCurrentTicket(@NotNull Ticket ticket){
+		if (Objects.nonNull(ticketRepo.findAllByFestivalId(ticket.getFestivalId())))
+		{
+			this.currentTicket= ticket;
+		}
+		this.currentTicket = ticketRepo.save(ticket);
 
-	// TODO: 12/11/2021 save exceptions
-
+	}
 
 	public boolean checkTickets(Ticket ticket) {
 

@@ -2,12 +2,12 @@ package festivalmanager.ticketShop;
 
 import festivalmanager.AbstractIntegrationTests;
 import festivalmanager.utils.UtilsManagement;
+import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import static org.assertj.core.api.Assertions.*;
@@ -22,8 +22,13 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 	@Autowired TicketController testController;
 	@Autowired TicketManagement ticketManagement;
 	@Autowired UtilsManagement utilsManagement;
-	Model model;
+	private Model model;
 
+
+	@Before
+	void set(){
+		this.model = new ExtendedModelMap();
+	}
 
 
 
@@ -32,21 +37,6 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 
 		assertThat(testController).isNotNull();
 	}
-
-	@BeforeEach
-	void set(){
-
-		this.model = new ExtendedModelMap();
-	}
-
-
-	@Test
-	void attributesTesting(){
-
-		assertThat(testController.getTitle()).isEqualTo("Ticketshop");
-
-	}
-
 
 	@Test
 	void rejectsUnauthenticatedAccessToController() {
@@ -129,8 +119,8 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 
 
 
-
 /*
+
 	@Test
 	@WithMockUser(roles = {"PLANNER", "ADMIN"})
 	void testTicketInfoForNonCreatedTickets(){
@@ -151,9 +141,7 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 
 		utilsManagement.setCurrentFestival(1);
 		ticketManagement.setCurrentTicket(ticket);
-
 		String result = testController.showTicketInfo(model);
-
 		assertThat(result).isEqualTo("ticketResult");
 	}
 
@@ -165,8 +153,6 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 		Ticket ticket = new Ticket( 10,10,TicketType.CAMPING, 10,10);
 
 		utilsManagement.setCurrentFestival(1);
-
-
 		assertThat(testController.create(ticket,model)).isEqualTo("ticketResult");
 		assertThat(ticket.getFestivalName()).isEqualTo("Beispielfestival");
 		assertThat(ticket.getFestivalId()).isEqualTo(1);
