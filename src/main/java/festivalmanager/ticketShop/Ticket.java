@@ -36,9 +36,8 @@ public class Ticket {
 	public Ticket() {
 	}
 
-	public Ticket(@Nullable long festivalId, String festivalName, int dayTicketsCount, int campingTicketsCount, TicketType ticketType, float dayTicketPrice, float campingTicketPrice) {
-		this.festivalId= festivalId;
-		this.festivalName=festivalName;
+	public Ticket( int dayTicketsCount, int campingTicketsCount, TicketType ticketType, float dayTicketPrice, float campingTicketPrice) {
+
 		this.dayTicketsCount = dayTicketsCount;
 		this.campingTicketsCount = campingTicketsCount;
 		this.ticketType = ticketType;

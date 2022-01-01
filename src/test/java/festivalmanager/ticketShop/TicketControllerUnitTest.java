@@ -76,7 +76,9 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 	void testUpdateTicket(){
 
 
-		Ticket ticket = new Ticket(0, "Festival", 10,10,TicketType.CAMPING, 10,10);
+		Ticket ticket = new Ticket( 10,10,TicketType.CAMPING, 10,10);
+		ticket.setFestivalId(0);
+		ticket.setFestivalName("Festival");
 
 		Model model = new ExtendedModelMap();
 
@@ -113,7 +115,10 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 	void testReturnedViewInTicketOverviewWithCreatedTickets(){
 
 		utilsManagement.setCurrentFestival(1);
-		Ticket ticket = new Ticket(1, "Festival", 10,10,TicketType.CAMPING, 10,10);
+		Ticket ticket = new Ticket( 10,10,TicketType.CAMPING, 10,10);
+		ticket.setFestivalId(1);
+		ticket.setFestivalName("Festival");
+
 		ticketManagement.setCurrentTicket(ticket);
 		Model model = new ExtendedModelMap();
 
@@ -123,32 +128,26 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 
 
 
-//	@Test
-//	@WithMockUser(roles = {"TICKET_SELLER", "ADMIN"})
-//	void buyingCampingTicketWithZeroValue(){
-//		Ticket ticket =
-//				new Ticket(1, "Festival", 10,10,TicketType.CAMPING, 10,10);
-//		Model model = new ExtendedModelMap();
-//
-//		testController.buyTicket(ticket,model);
-//
-//
-//	}
 
 
+/*
 	@Test
 	@WithMockUser(roles = {"PLANNER", "ADMIN"})
 	void testTicketInfoForNonCreatedTickets(){
 		utilsManagement.setCurrentFestival(1);
 		String result = testController.showTicketInfo(model);
-		//assertThat(result).isEqualTo("ticketForm");
+		assertThat(result).isEqualTo("ticketForm");
 	}
+*/
 
 
 	@Test
 	@WithMockUser(roles = {"PLANNER", "ADMIN"})
 	void testTicketInfoForCreatedTickets(){
-		Ticket ticket = new Ticket(1, "Beispielfestival", 10,10,TicketType.CAMPING, 10,10);
+		Ticket ticket = new Ticket(10,10,TicketType.CAMPING, 10,10);
+
+		ticket.setFestivalId(1);
+		ticket.setFestivalName("Beispielfestival");
 
 		utilsManagement.setCurrentFestival(1);
 		ticketManagement.setCurrentTicket(ticket);
@@ -163,10 +162,10 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 	@Test
 	@WithMockUser(roles = {"PLANNER", "ADMIN"})
 	void testCreatingTicket(){
-		Ticket ticket = new Ticket(0, null, 10,10,TicketType.CAMPING, 10,10);
+		Ticket ticket = new Ticket( 10,10,TicketType.CAMPING, 10,10);
 
 		utilsManagement.setCurrentFestival(1);
-		testController.showTicketInfo(model);
+
 
 		assertThat(testController.create(ticket,model)).isEqualTo("ticketResult");
 		assertThat(ticket.getFestivalName()).isEqualTo("Beispielfestival");

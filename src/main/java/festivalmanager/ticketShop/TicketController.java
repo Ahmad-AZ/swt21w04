@@ -68,6 +68,7 @@ public class TicketController {
 		model.addAttribute("title", "Tickets");
 		utilsManagement.prepareModel(model);
 
+		currentFestival= festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
 
 		ticket.setFestivalName(currentFestival.getName());
 		ticket.setFestivalId(currentFestival.getId());
@@ -150,6 +151,11 @@ public class TicketController {
 		model.addAttribute("tickets", ticket);
 		return "ticketResult";
 
+	}
+
+	Festival getCurrentFestival(){
+
+		return this.currentFestival;
 	}
 
 
