@@ -17,11 +17,12 @@ public class TicketManagement {
 
 	@Autowired
 	private TicketRepository ticketRepo;
+	private FestivalManagement festival;
 	private Festival currentFestival;
 	private Ticket currentTicket;
 
-	public TicketManagement() {
-
+	public TicketManagement(FestivalManagement festival) {
+		this.festival = festival;
 		this.currentFestival = null;
 		this.currentTicket=null;
 	}
@@ -38,6 +39,17 @@ public class TicketManagement {
 		return this.currentTicket;
 	}
 
+	public Ticket TicketsByFestival(long festivalId) {
+
+		return ticketRepo.findAllByFestivalId(festivalId);
+	}
+
+
+	public  void setFestival(Festival festival ){
+
+		this.currentFestival= festival;
+	}
+
 	public void setCurrentTicket(@NotNull Ticket ticket){
 		if (Objects.isNull(ticketRepo.findAllByFestivalId(ticket.getFestivalId())))
 		{
@@ -49,21 +61,9 @@ public class TicketManagement {
 
 	}
 
-
-	public Ticket TicketsByFestival(long festivalId) {
-
-		return ticketRepo.findAllByFestivalId(festivalId);
-	}
-
-
-	public  void setFestival(Festival festival ){
-		this.currentFestival= festival;
-	}
-
-
 	public boolean checkTickets(Ticket ticket) {
 
-		Ticket nTicket = ticketRepo.findAllByFestivalId(ticket.getFestivalId());
+		Ticket nTicket = ticketRepo.findAllByFestivalId(currentFestival.getId());
 
 		if (Objects.isNull(nTicket)) {
 			 throw new ResponseStatusException(
@@ -111,5 +111,9 @@ public class TicketManagement {
 
 		 return this.currentTicket;
 	}
+	public Festival setFestivalById(long id ){
 
+		setFestival(festival.findById(id).get());
+		return this.currentFestival;
+	}
 }
