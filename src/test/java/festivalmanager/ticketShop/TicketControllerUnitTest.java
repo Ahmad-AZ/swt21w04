@@ -5,13 +5,13 @@ import festivalmanager.utils.UtilsManagement;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import static org.assertj.core.api.Assertions.*;
-
+import static org.mockito.Mockito.*;
 
 
 public class TicketControllerUnitTest extends AbstractIntegrationTests {
@@ -22,16 +22,9 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 	@Autowired TicketController testController;
 	@Autowired TicketManagement ticketManagement;
 	@Autowired UtilsManagement utilsManagement;
+	@MockBean TicketRepository repository;
 	Model model;
 
-
-
-
-	@Test
-	void contextLoads() throws Exception {
-
-		assertThat(testController).isNotNull();
-	}
 
 	@BeforeEach
 	void set(){
@@ -41,12 +34,10 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 
 
 	@Test
-	void attributesTesting(){
+	void contextLoads() throws Exception {
 
-		assertThat(testController.getTitle()).isEqualTo("Ticketshop");
-
+		assertThat(testController).isNotNull();
 	}
-
 
 	@Test
 	void rejectsUnauthenticatedAccessToController() {
@@ -80,6 +71,8 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 		ticket.setFestivalId(0);
 		ticket.setFestivalName("Festival");
 
+		ticket.setFestivalId(0);
+		ticket.setFestivalName("Festival");
 		Model model = new ExtendedModelMap();
 
 		testController.update(ticket, model);
@@ -115,13 +108,10 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 	void testReturnedViewInTicketOverviewWithCreatedTickets(){
 
 		utilsManagement.setCurrentFestival(1);
-		Ticket ticket = new Ticket( 10,10,TicketType.CAMPING, 10,10);
-		ticket.setFestivalId(1);
-		ticket.setFestivalName("Festival");
+		Ticket ticket = new Ticket( 1, "Festival",10,10,TicketType.CAMPING, 10,10);
 
 		ticketManagement.setCurrentTicket(ticket);
 		Model model = new ExtendedModelMap();
-
 		String result =  testController.ticketOverview(model);
 		assertThat(result).isEqualTo("ticketShop");
 	}
@@ -153,7 +143,6 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 		ticketManagement.setCurrentTicket(ticket);
 
 		String result = testController.showTicketInfo(model);
-
 		assertThat(result).isEqualTo("ticketResult");
 	}
 
@@ -174,6 +163,35 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 
 	}
 
+
+	@Test
+	@WithMockUser(roles = {"TICKET_SELLER", "ADMIN"})
+	void sellingTicketWithDifferentValues(){
+
+		Ticket currentTicket = new Ticket(1,"Beispielfestival",2,
+				2,TicketType.DAY_TICKET,10,10);
+
+		//-----------------------------------------------------
+		when(repository.save(currentTicket)).thenReturn(currentTicket);
+		when(repository.findAllByFestivalId(currentTicket.getFestivalId())).thenReturn(currentTicket);
+		//--------------------------------------------------------
+
+		ticketManagement.setCurrentTicket(currentTicket);
+		Ticket twoTicketsSold = new Ticket(1,"Beispielfestival",0,
+				2,TicketType.CAMPING,0,0);
+
+		testController.buyTicket(twoTicketsSold, model);
+
+		assertThat(twoTicketsSold.getCampingTicketsCount()).isEqualTo(currentTicket.getSoldCampingTicket());
+
+		Ticket fiveTicketsSold = new Ticket(1,"Beispielfestival",0,
+				5,TicketType.CAMPING,0,0);
+
+		assertThat(testController.buyTicket(fiveTicketsSold, model)).isEqualTo("ticketShopUnavailable");
+
+
+
+	}
 
 
 
