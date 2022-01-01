@@ -153,6 +153,10 @@ public class TicketController {
 
 	}
 
+	Festival getCurrentFestival(){
+
+		return this.currentFestival;
+	}
 
 
 }
