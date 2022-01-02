@@ -51,13 +51,15 @@ public class TicketManagement {
 	}
 
 	public void setCurrentTicket(@NotNull Ticket ticket){
+		if (Objects.isNull(ticketRepo.findAllByFestivalId(ticket.getFestivalId())))
+		{
+			ticketRepo.save(ticket);
+			this.currentTicket = ticketRepo.findAllByFestivalId(ticket.getFestivalId());
+		}
+		else this.currentTicket=ticket;
 
-		this.currentTicket= ticket;
+
 	}
-
-
-	// TODO: 12/11/2021 save exceptions
-
 
 	public boolean checkTickets(Ticket ticket) {
 

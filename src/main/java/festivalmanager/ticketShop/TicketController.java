@@ -18,19 +18,16 @@ import java.util.Objects;
 public class TicketController {
 
 
-
 	private final TicketManagement ticketManagement;
 	private Festival currentFestival;
 	private final FestivalManagement festivalManagement;
 	private UtilsManagement utilsManagement;
 
 
-
-
 	public TicketController(TicketManagement ticketManagement, UtilsManagement utilsManagement, FestivalManagement festivalManagement) {
 		this.ticketManagement = ticketManagement;
 		this.festivalManagement = festivalManagement;
-		this.utilsManagement= utilsManagement;
+		this.utilsManagement = utilsManagement;
 		this.currentFestival = null;
 	}
 
@@ -49,14 +46,14 @@ public class TicketController {
 
 		if (Objects.isNull(ticketManagement.getCurrentTicket())) {
 
-			this.currentFestival =festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
+			this.currentFestival = festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
 			model.addAttribute("ticket", new Ticket());
 			model.addAttribute("festival", this.currentFestival);
 
 			utilsManagement.setCurrentPageLowerHeader("tickets");
 
 			utilsManagement.prepareModel(model);
-			return "ticketFrom";
+			return "ticketForm";
 		}
 
 		model.addAttribute("tickets", ticketManagement.getCurrentTicket());
@@ -66,15 +63,12 @@ public class TicketController {
 
 	@PreAuthorize("hasRole('PLANNER')||hasRole('ADMIN')")
 	@PostMapping("/tickets")
-	public String create(@ModelAttribute Ticket ticket, Model model, Errors result) {
+	public String create(@ModelAttribute Ticket ticket, Model model) {
 
 		model.addAttribute("title", "Tickets");
 		utilsManagement.prepareModel(model);
 
-		if (result.hasErrors()) {
-			return "ticketFrom";
-		}
-
+		currentFestival= festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
 
 		ticket.setFestivalName(currentFestival.getName());
 		ticket.setFestivalId(currentFestival.getId());
@@ -89,10 +83,10 @@ public class TicketController {
 
 	@PreAuthorize("hasRole('TICKET_SELLER')||hasRole('ADMIN')")
 	@PostMapping("/tickets/buy")
-	public String buyTicket( @ModelAttribute Ticket ticket, Model model) {
+	public String buyTicket(@ModelAttribute Ticket ticket, Model model) {
 
 		Ticket nTicket;
-		if (ticketManagement.checkTickets(ticket)){
+		if (ticketManagement.checkTickets(ticket)) {
 
 			nTicket = ticketManagement.buyTickets();
 
@@ -108,19 +102,18 @@ public class TicketController {
 			}
 
 			model.addAttribute("ticketCount", soldTicket);
-			model.addAttribute("ticketPrice", ticketPrice*soldTicket);
-			model.addAttribute("festival",currentFestival.getName());
+			model.addAttribute("ticketPrice", ticketPrice * soldTicket);
+			model.addAttribute("festival", currentFestival.getName());
 			model.addAttribute("tickets", ticket);
 
-		}
-		else {
+		} else {
 			utilsManagement.prepareModel(model);
 			model.addAttribute("ticketsUnavailable", "true");
 			return "ticketShopUnavailable";
 		}
-
-		String base64="";
-		model.addAttribute("base64", base64);
+//
+//		String base64="";
+//		model.addAttribute("base64", base64);
 		utilsManagement.prepareModel(model);
 		return "ticketPrint";
 	}
@@ -140,15 +133,14 @@ public class TicketController {
 			return "ticketShopUnavailable";
 		}
 
-		model.addAttribute("tickets",ticket);
+		model.addAttribute("tickets", ticket);
 		return "ticketShop";
 	}
 
 
-
 	@PreAuthorize("hasRole('PLANNER')||hasRole('ADMIN')")
 	@PostMapping("tickets/edit")
-	public String update(@NotNull @ModelAttribute Ticket ticket , Model model){
+	public String update(@NotNull @ModelAttribute Ticket ticket, Model model) {
 
 		model.addAttribute("title", "Tickets");
 		utilsManagement.prepareModel(model);
@@ -161,10 +153,10 @@ public class TicketController {
 
 	}
 
+	Festival getCurrentFestival(){
 
-
-
-
+		return this.currentFestival;
+	}
 
 
 }
