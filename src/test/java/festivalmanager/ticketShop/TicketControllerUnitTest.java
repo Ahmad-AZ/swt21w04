@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import static org.assertj.core.api.Assertions.*;
@@ -22,6 +21,7 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 	@Autowired TicketController testController;
 	@Autowired TicketManagement ticketManagement;
 	@Autowired UtilsManagement utilsManagement;
+
 	Model model;
 
 
@@ -175,6 +175,33 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 	}
 
 
+
+
+	@Test
+	@WithMockUser(roles = {"TICKET_SELLER", "ADMIN"})
+	void sellingTicketWithDifferentValues(){
+
+		Ticket currentTicket = new Ticket(1,"Beispielfestival",2,
+				2,TicketType.DAY_TICKET,10,10);
+
+		ticketManagement.setCurrentTicket(currentTicket);
+		utilsManagement.setCurrentFestival(1);
+		testController.setCurrentFestival();
+
+		Ticket twoTicketsSold = new Ticket(1,"Beispielfestival",0,
+				2,TicketType.CAMPING,0,0);
+
+		testController.buyTicket(twoTicketsSold, model);
+		assertThat(twoTicketsSold.getCampingTicketsCount()).isEqualTo(currentTicket.getSoldCampingTicket());
+
+
+		Ticket fiveTicketsSold = new Ticket(1,"Beispielfestival",0,
+				5,TicketType.CAMPING,0,0);
+		assertThat(testController.buyTicket(fiveTicketsSold, model)).isEqualTo("ticketShopUnavailable");
+
+
+
+	}
 
 
 

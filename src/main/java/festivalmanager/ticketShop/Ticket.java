@@ -49,6 +49,16 @@ public class Ticket {
 	}
 
 
+	public Ticket(long festivalId, String festivalName, int dayTicketsCount, int campingTicketsCount, TicketType ticketType, float dayTicketPrice, float campingTicketPrice) {
+		this.festivalId = festivalId;
+		this.festivalName = festivalName;
+		this.dayTicketsCount = dayTicketsCount;
+		this.campingTicketsCount = campingTicketsCount;
+		this.ticketType = ticketType;
+		this.dayTicketPrice = dayTicketPrice;
+		this.campingTicketPrice = campingTicketPrice;
+	}
+
 	public long getFestivalId() {
 		return festivalId;
 	}

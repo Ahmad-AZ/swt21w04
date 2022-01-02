@@ -63,7 +63,7 @@ public class TicketManagement {
 
 	public boolean checkTickets(Ticket ticket) {
 
-		Ticket nTicket = ticketRepo.findAllByFestivalId(currentFestival.getId());
+		Ticket nTicket = ticketRepo.findAllByFestivalId(ticket.getFestivalId());
 
 		if (Objects.isNull(nTicket)) {
 			 throw new ResponseStatusException(

@@ -86,6 +86,8 @@ public class TicketController {
 	public String buyTicket(@ModelAttribute Ticket ticket, Model model) {
 
 		Ticket nTicket;
+		ticket.setFestivalName(currentFestival.getName());
+		ticket.setFestivalId(currentFestival.getId());
 		if (ticketManagement.checkTickets(ticket)) {
 
 			nTicket = ticketManagement.buyTickets();
@@ -155,8 +157,14 @@ public class TicketController {
 
 	Festival getCurrentFestival(){
 
-		return this.currentFestival;
+		return  currentFestival;
 	}
+
+	void setCurrentFestival(){
+
+		this.currentFestival = festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
+	}
+
 
 
 }
