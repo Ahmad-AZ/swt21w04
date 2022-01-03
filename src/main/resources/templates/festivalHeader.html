@@ -14,62 +14,42 @@
 
                     <a th:class="${'item ' + 'border-right ' + staffCurrent}"
                        th:href="@{/staff/{id}(id=${festivalId})}"
-                       sec:authorize="hasRole('USER_MANAGEMENT') || hasRole('ADMIN')">Personal</a>
+                       sec:authorize="hasAnyRole('ADMIN', 'MANAGER')">Personal</a>
 
                    	<a th:class="${'item ' + 'border-right ' + locationCurrent}"
                        th:href="@{/locationOverview/{id}(id=${festivalId})}"
-                       sec:authorize="hasRole('PLANNER') || hasRole('ADMIN') || hasRole('MANAGER')">Location</a>
+                       sec:authorize="hasAnyRole('PLANNER', 'ADMIN', 'MANAGER')">Location</a>
 
                    	<a th:class="${'item ' + 'border-right ' + equipmentCurrent}"
                        th:if="${festivalLocation!=null}" th:href="@{/equipments/{id} (id=${festivalId})}"
-                       sec:authorize="hasRole('PLANNER') || hasRole('ADMIN') || hasRole('MANAGER')">Gegenstände</a>
+                       sec:authorize="hasAnyRole('PLANNER', 'ADMIN', 'MANAGER')">Gegenstände</a>
 
                     <a th:class="${'item ' + 'border-right ' + artistOverviewCurrent}"
-                       th:href="@{/artistOverview}"
-                       sec:authorize="hasRole('PLANNER') || hasRole('ADMIN') || hasRole('MANAGER')">Künstler</a>
+                       th:href="@{/artistOverview/{id} (id=${festivalId})}"
+                       sec:authorize="hasAnyRole('PLANNER', 'ADMIN', 'MANAGER')">Künstler</a>
                        
                        
-                   <a th:class="${'item ' + 'border-right ' + programCurrent}"
-                       th:href="@{/schedule}">Spielplan</a>
+                    <a th:class="${'item ' + 'border-right ' + programCurrent}"
+                       th:href="@{/schedule/{id} (id = ${festivalId})}">Spielplan</a>
 
 					<a th:class="${'item ' + 'border-right ' + financesCurrent}"
                        th:href="@{/finances/{id}(id=${festivalId})}" sec:authorize="hasRole('PLANNER') || hasRole('ADMIN')">Finanzen</a>
 
                     <a th:class="${'item ' + 'border-right ' + cateringCurrent}"
                        th:href="@{/cateringProductCatalog}"
-                       sec:authorize="hasRole('PLANNER') || hasRole('ADMIN') || hasRole('MANAGER')">Catering</a>
+                       sec:authorize="hasAnyRole('PLANNER', 'ADMIN', 'MANAGER')">Catering</a>
 
                     <a th:class="${'item ' + 'border-right ' + cateringSalesCurrent}"
                        th:href="@{/catering}"
-                       sec:authorize="hasRole('CATERING') || hasRole('ADMIN')">Catering Verkäufe</a>
-
-
-
+                       sec:authorize="hasAnyRole('CATERING', 'ADMIN')">Catering Verkäufe</a>
 
                     <a th:class="${'item ' + 'border-right ' + ticketsCurrent}"
                        th:href="@{/tickets}"
-                       sec:authorize="hasRole('PLANNER')||hasRole('ADMIN')">Tickets</a>
-
-
-
+                       sec:authorize="hasAnyRole('PLANNER', 'ADMIN')">Tickets</a>
 
                     <a th:class="${'item ' + 'border-right ' + ticketShopCurrent}"
                        th:href="@{/ticketShop}"
-                       sec:authorize="hasRole('TICKET_SELLER')||hasRole('ADMIN')">Ticket Shop</a>
-
-
-
-
-
-
-
-
-
-
-
-
-       
-
+                       sec:authorize="hasAnyRole('TICKET_SELLER', 'ADMIN')">Ticket Shop</a>
 
                     <!--
                     <a th:class="${'item ' + 'border-right ' + programCurrent}"
@@ -77,11 +57,9 @@
                        sec:authorize="hasRole('PLANNER') || hasRole('ADMIN') || hasRole('MANAGER')">Programm</a>
                     -->
 
-
-					<a th:class="${'item ' + 'border-right ' + mapCurrent}"
+                    <a th:class="${'item ' + 'border-right ' + mapCurrent}"
                        th:if="${festivalLocation!=null}"
                        th:href="@{/mapVisitorView/{id}(id=${festivalId})}">Karte</a>
-
                 </div>
             </div>
         </div>

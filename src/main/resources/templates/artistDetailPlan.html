@@ -16,9 +16,9 @@
 <section layout:fragment="content">
     <div class="content">
         </br>
-        <a class="item" href="artistOverview.html" th:href="@{/artistOverview}">Zurück</a>
+        <a class="item" href="artistOverview.html" th:href="@{/artistOverview/{festivalId} (festivalId = ${festival.id})}">Zurück</a>
         </br></br>
-		<form method="post" th:action="@{/bookArtist}" th:object="${booking}">
+		<form method="post" th:action="@{/bookArtist/{festivalId} (festivalId = ${festival.id})}" th:object="${booking}">
             <input type="hidden" name="artist" th:value="${artist.id}"/>
             <input type="hidden" name="currentlyBooked" th:value="${ArtistCurrentlyBooked == true}"/>
             <input type="submit" th:if="${ArtistCurrentlyBooked == false}" value="Buchen">

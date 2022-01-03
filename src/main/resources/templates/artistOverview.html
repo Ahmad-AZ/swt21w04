@@ -20,7 +20,7 @@
             <div class="content">
                 <ul class="list">
                     <li class="list-entry" th:each="artist : ${artistList}">
-                        <a class="header" th:href="@{/artistOverview/{id}(id=${artist.id})}" th:text="${artist.name}">Etwas andres</a>
+                        <a class="header" th:href="@{/artistOverview/{festivalId}/{id}(festivalId = ${festival.id}, id=${artist.id})}" th:text="${artist.name}">Etwas andres</a>
                     </li>
                 </ul>
             </div>
@@ -31,7 +31,7 @@
         <div th:each="artist : ${bookedArtistId}" class="text" th:text="${artist.getName()}"></div>
         <br/>
         <br/>
-        <a class="header" th:href="@{/artistOverview/unbook}" th:if="${bookedArtistId != 0}">Alle Buchungen löschen</a>
+        <a class="header" th:href="@{/artistOverview/{festivalId}/unbook (festivalId = ${festival.id})}" th:if="${bookedArtistId != 0}">Alle Buchungen löschen</a>
         <!--<div>einzelne Löschung von Buchungen geht nicht wegen der Organisation von Fest</div>-->
 
     </section>

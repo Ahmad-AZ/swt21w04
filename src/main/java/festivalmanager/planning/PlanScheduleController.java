@@ -47,9 +47,9 @@ public class PlanScheduleController {
 		return "Programm";
 	}
 	
-	@GetMapping("/schedule")  
-	public String schedule(Model model) {
-		Optional<Festival> festival = festivalManagement.findById(utilsManagement.getCurrentFestivalId());
+	@GetMapping("/schedule/{festivalId}")  
+	public String schedule(Model model, @PathVariable("festivalId") long festivalId) {
+		Optional<Festival> festival = festivalManagement.findById(festivalId);
 		if (festival.isPresent()) {
 			Festival current = festival.get();
 
@@ -73,24 +73,21 @@ public class PlanScheduleController {
 			
 			model.addAttribute("timeSlotList",tsl);
 			model.addAttribute("festival", current);
-
-			utilsManagement.setCurrentPageLowerHeader("program");
-			utilsManagement.prepareModel(model);
-			return "/schedule";
-		} else {
-			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
 		}
+		utilsManagement.setCurrentPageLowerHeader("program");
+		utilsManagement.prepareModel(model);
+		return "schedule.html";
+		
 	}
 	
-	@GetMapping("/schedule/{day}/{stageId}/{timeSlot}")
+	@GetMapping("/schedule/{festivalId}/{day}/{stageId}/{timeSlot}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String getShowSelectDialog(@PathVariable("day") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date, 
 										@PathVariable("stageId") SalespointIdentifier stageId, 
-										@PathVariable("timeSlot") String timeSlot, Model model) {
+										@PathVariable("timeSlot") String timeSlot, 
+										@PathVariable("festivalId") long festivalId, Model model) {
 		
-		Optional<Festival> festival = festivalManagement.findById(utilsManagement.getCurrentFestivalId());
+		Optional<Festival> festival = festivalManagement.findById(festivalId);
 		if (festival.isPresent()) {
 			Festival current = festival.get();
 			model.addAttribute("dialog", "edit schedule");
@@ -105,36 +102,31 @@ public class PlanScheduleController {
 			model.addAttribute("securitysToAdd", planScheduleManagement.getAvailableSecurity(current, date, timeSlot, stageId));
 	
 			utilsManagement.prepareModel(model);
-			return "/schedule";
+			return "schedule.html";
 		} else {
-			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
+			return "redirect:/schedule/"+ festivalId;
 		}
 	}
 	
-	@PostMapping("/schedule/{day}/{stageId}/{timeSlot}/editSchedule")
+	@PostMapping("/schedule/{festivalId}/{day}/{stageId}/{timeSlot}/editSchedule")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String chooseShow(@PathVariable("day") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date, 
 									@PathVariable("stageId") SalespointIdentifier stageId, 
 									@PathVariable("timeSlot") String timeSlot, 
 									@RequestParam("show") long showId, 
-									@RequestParam("person") long personId, Model model) {
+									@RequestParam("person") long personId, 
+									@PathVariable("festivalId") long festivalId, Model model) {
 		
-		Optional<Festival> festival = festivalManagement.findById(utilsManagement.getCurrentFestivalId());
+		Optional<Festival> festival = festivalManagement.findById(festivalId);
 		if (festival.isPresent()) {
 			//System.out.println(showId);
 			Stage stage = festival.get().getStage(stageId);
 			if(stage != null) {
 				planScheduleManagement.setShow(date, stage, timeSlot, showId, festival.get().getId(), personId);
 			}
-			
-			return "redirect:/schedule";
-		} else {
-			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
-		}
+		}	
+		return "redirect:/schedule/"+ festivalId;
+
 	}
 	
 }

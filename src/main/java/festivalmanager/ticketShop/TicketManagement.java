@@ -45,23 +45,24 @@ public class TicketManagement {
 	}
 
 
-	public  void setFestival(Festival festival ){
+	public  void setFestival(Festival festival){
 
 		this.currentFestival= festival;
 	}
 
 	public void setCurrentTicket(@NotNull Ticket ticket){
+		if (Objects.isNull(ticketRepo.findAllByFestivalId(ticket.getFestivalId())))
+		{
+			ticketRepo.save(ticket);
+			this.currentTicket = ticketRepo.findAllByFestivalId(ticket.getFestivalId());
+		}
+		else this.currentTicket=ticket;
 
-		this.currentTicket= ticket;
 	}
-
-
-	// TODO: 12/11/2021 save exceptions
-
 
 	public boolean checkTickets(Ticket ticket) {
 
-		Ticket nTicket = ticketRepo.findAllByFestivalId(currentFestival.getId());
+		Ticket nTicket = ticketRepo.findAllByFestivalId(ticket.getFestivalId());
 
 		if (Objects.isNull(nTicket)) {
 			 throw new ResponseStatusException(
@@ -108,5 +109,10 @@ public class TicketManagement {
 	public Ticket buyTickets() {
 
 		 return this.currentTicket;
+	}
+	public void setFestivalById(long id ){
+
+		setFestival(festival.findById(id).get());
+
 	}
 }

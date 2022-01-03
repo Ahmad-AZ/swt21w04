@@ -55,30 +55,13 @@
 
     </div>
 
-    <div class="center">
-        <button type="submit" class="btn btn-default btn-sm" id="printPDF" onclick="printPDF()">
-            <span class="glyphicon glyphicon-print"></span> ausdrucken
-        </button>
-
-
-
-    </div>
-
-<form id="from" th:action="@{/export}" method="post" hidden th:object="${base64}">
-
-    <input type="text" >
-    <button type="submit" class="btn btn-default btn-sm"  onclick="printPDF()">
-        <span class="glyphicon glyphicon-print"></span> ausdrucken
-    </button>
-
-</form>
 
 
 
 
 
 
-<script>
+<script th:inline="javascript">
 
 
     function printPDF() {
@@ -92,16 +75,36 @@
             doc.addImage(img, 'PNG', 50, 70, 390, 140);
 
             //convert pdf to string
-            var out = doc.output()
+            var out = doc.output();
 
             //convert the string to base64
-            doc.save('ticket.pdf');
+           // doc.save('ticket.pdf');
+
+            const base = btoa(out);
+
+
+
+
 
 
         });
-        return  btoa(out);
+        return  base;
     }
+
 </script>
+
+
+<script th:inline="javascript">
+
+    /*<![CDATA[*/
+
+    var x = /*[[${base64}]]*/ "Testing";
+
+    alert(x)
+    /*]]>*/
+
+</script>
+
 
 
 </body>

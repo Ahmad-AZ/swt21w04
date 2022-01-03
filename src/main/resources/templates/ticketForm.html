@@ -19,18 +19,18 @@
             <h4 style="color: black" th:text="${festival.name}"> Festival</h4><br><br>
             <h5>Anzahl der Tickets</h5><br>
             <label for="count1">Camping-Tickets:</label><br>
-            <input type="number" id="count1" th:field="*{campingTicketsCount}"><br><br>
+            <input type="number" id="count1" min="0" th:field="*{campingTicketsCount}"><br><br>
 
             <label for="count">Tagestickets:</label><br>
-            <input type="number" id="count" th:field="*{dayTicketsCount}"><br><br>
+            <input type="number" id="count" min="0" th:field="*{dayTicketsCount}"><br><br>
 
 
             <h5>Ticketpreise</h5><br>
             <label for="price1">Camping-Tickets:</label><br>
-            <input type="number" id="price1" th:field="*{campingTicketPrice}"><br><br>
+            <input type="number" id="price1" min="0" th:field="*{campingTicketPrice}"><br><br>
 
             <label for="price">Tagestickets</label><br>
-            <input type="number" id="price" th:field="*{dayTicketPrice}"><br><br>
+            <input type="number" id="price" min="0" th:field="*{dayTicketPrice}"><br><br>
 
             <br><br>
 

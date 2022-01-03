@@ -5,6 +5,7 @@ import festivalmanager.festival.FestivalManagement;
 import festivalmanager.location.Location;
 import festivalmanager.staff.forms.*;
 import festivalmanager.utils.UtilsManagement;
+import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.data.util.Streamable;
@@ -65,7 +66,7 @@ public class StaffController {
 	}
 
 	@GetMapping("/staff/{festivalId}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
 	public String getStaffInfo(Model model) {
 		utilsManagement.setCurrentPageLowerHeader("staff");
 		utilsManagement.prepareModel(model);
@@ -73,7 +74,7 @@ public class StaffController {
 	}
 
 	@GetMapping("/staff/{festivalId}/detail/{userId}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
 	public String getPersonDetailView(@PathVariable("userId") long userId, Model model) {
 		Optional<Person> user = staffManagement.findById(userId);
 		model.addAttribute("person", user.orElse(null));
@@ -83,7 +84,7 @@ public class StaffController {
 	}
 
 	@GetMapping(value = {"/staff/{festivalId}/create", "/staff/{festivalId}/create/{error}"})
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
 	public String getCreateStaffDialog(@PathVariable("error") Optional<String> error, Model model) {
 		model.addAttribute("dialog", "create_staff");
 		model.addAttribute("error", error.orElse(""));
@@ -93,7 +94,7 @@ public class StaffController {
 	}
 
 	@GetMapping("/staff/{festivalId}/remove/{userId}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
 	public String getRemoveStaffDialog(@PathVariable("userId") long userId, Model model) {
 		model.addAttribute("dialog", "remove_staff");
 
@@ -104,10 +105,11 @@ public class StaffController {
 		return "staff.html";
 	}
 
-	@GetMapping("/staff/{festivalId}/change_role/{userId}")
-	@PreAuthorize("hasRole('ADMIN')")
-	public String getChangeRoleDialog(@PathVariable("userId") long userId, Model model) {
+	@GetMapping(value = {"/staff/{festivalId}/change_role/{userId}", "/staff/{festivalId}/change_role/{userId}/{error}"})
+	@PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
+	public String getChangeRoleDialog(@PathVariable("userId") long userId, @PathVariable("error") Optional<String> error, Model model) {
 		model.addAttribute("dialog", "change_role");
+		model.addAttribute("error", error.orElse(""));
 
 		Optional<Person> user = staffManagement.findById(userId);
 		model.addAttribute("person", user.orElse(null));
@@ -117,7 +119,7 @@ public class StaffController {
 	}
 
 	@GetMapping("/staff/{festivalId}/change_password/{userId}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
 	public String getChangePasswordDialog(@PathVariable("userId") long userId, Model model) {
 		model.addAttribute("dialog", "change_password");
 
@@ -129,8 +131,12 @@ public class StaffController {
 	}
 
 	@PostMapping("/staff/{festivalId}/create")
-	@PreAuthorize("hasRole('ADMIN')")
-	public String createStaff(@PathVariable("festivalId") long festivalId, CreateStaffForm form) {
+	@PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
+	public String createStaff(@PathVariable("festivalId") long festivalId, CreateStaffForm form, UserAccount userAccount) {
+		if (form.getRole().equals("ADMIN") && !userAccount.hasRole(Role.of("ADMIN"))) {
+			return "redirect:/staff/" + festivalId + "/create/Only other Admins can create a user with the role to ADMIN";
+		}
+
 		try {
 			this.staffManagement.createPerson(festivalId, form);
 		} catch (IllegalArgumentException exception) {
@@ -141,7 +147,7 @@ public class StaffController {
 	}
 
 	@PostMapping("/staff/{festivalId}/remove")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
 	public String removeStaff(@PathVariable("festivalId") long festivalId, RemoveStaffForm form) {
 		this.staffManagement.removePerson(form, festivalManagement.findById(festivalId).orElse(null));
 
@@ -149,15 +155,18 @@ public class StaffController {
 	}
 
 	@PostMapping("/staff/{festivalId}/change_role/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
-	public String changeRole(@PathVariable("festivalId") long festivalId, @PathVariable("id") long id, ChangeRoleForm form) {
-		this.staffManagement.changeRole(form);
-
-		return "redirect:/staff/" + festivalId + "/detail/" + id;
+	@PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
+	public String changeRole(@PathVariable("festivalId") long festivalId, @PathVariable("id") long id, ChangeRoleForm form, UserAccount userAccount) {
+		if (form.getRole().equals("ADMIN") && !userAccount.hasRole(Role.of("ADMIN"))) {
+			return "redirect:/staff/" + festivalId + "/detail/" + id + "/Only other Admins can change the role to ADMIN";
+		} else {
+			this.staffManagement.changeRole(form);
+			return "redirect:/staff/" + festivalId + "/detail/" + id;
+		}
 	}
 
 	@PostMapping("/staff/{festivalId}/change_password/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
 	public String changePassword(@PathVariable("festivalId") long festivalId, @PathVariable("id") long id, ChangePasswordForm form) {
 		this.staffManagement.changePassword(form);
 

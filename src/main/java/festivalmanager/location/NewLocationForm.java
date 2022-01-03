@@ -13,11 +13,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import org.javamoney.moneta.Money;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-
-import static org.salespointframework.core.Currencies.EURO;
 
 class NewLocationForm {
 	

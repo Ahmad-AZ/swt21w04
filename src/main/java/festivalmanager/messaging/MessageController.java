@@ -37,7 +37,9 @@ public class MessageController {
 
 	@ModelAttribute("messages")
 	public Streamable<Message> getMessages(@PathVariable("userId") long userId) {
-		return messageManagement.findByReceiverId(userId);
+		Optional<Person> user = staffManagement.findById(userId);
+
+		return user.map(messageManagement::findMessagesForUser).orElse(null);
 	}
 
 	@GetMapping("/messages/{userId}")
@@ -50,9 +52,7 @@ public class MessageController {
 	@GetMapping("/messages/{userId}/view/{messageId}")
 	public String getMessageDetailView(@PathVariable("messageId") long messageId, Model model) {
 		Optional<Message> message = messageManagement.findById(messageId);
-		if (message.isPresent()) {
-			model.addAttribute("currentMessage", message.get());
-		}
+		model.addAttribute("currentMessage", message.orElse(null));
 
 		utilsManagement.prepareModel(model);
 		return "messages.html";
@@ -76,7 +76,7 @@ public class MessageController {
 	}
 
 	@PostMapping("/messages/{userId}/send")
-	public String sendMessage(@PathVariable("userId") long userId, SendMessageForm form) {
+	public String sendMessage(@PathVariable("userId") long userId, SendPersonalMessageForm form) {
 		messageManagement.sendMessage(form);
 		return "redirect:/messages/" + userId;
 	}

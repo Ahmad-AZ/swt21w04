@@ -1,31 +1,37 @@
 package festivalmanager.ticketShop;
+import org.hibernate.annotations.GeneratorType;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
+import java.util.UUID;
 
 
 @Entity
 public class Ticket {
 
 
-
-
-	private @Id @GeneratedValue long id;
+	private @Id @GeneratedValue(generator = "UUID")  @GenericGenerator(
+			name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+	@Column( updatable = false, nullable = false)
+	UUID id;
 
 	@Column
 	private long festivalId;
 	private String festivalName;
 
 	@Column
-	private int DayTicketsCount;
+	private int dayTicketsCount;
 
 	@Column
-	private int CampingTicketsCount;
+	private int campingTicketsCount;
 	@Column
 	private TicketType ticketType;
 	@Column
-	private float DayTicketPrice;
+	private float dayTicketPrice;
 
 	@Column
-	private float CampingTicketPrice;
+	private float campingTicketPrice;
 
 	@Column
 	private int soldCampingTicket;
@@ -36,19 +42,28 @@ public class Ticket {
 	public Ticket() {
 	}
 
-	public Ticket(long festivalId,String festivalName,  int dayTicketsCount, int campingTicketsCount, TicketType ticketType, float dayTicketPrice, float campingTicketPrice) {
-		this.festivalId= festivalId;
-		this.festivalName=festivalName;
-		this.DayTicketsCount = dayTicketsCount;
-		this.CampingTicketsCount = campingTicketsCount;
+	public Ticket( int dayTicketsCount, int campingTicketsCount, TicketType ticketType, float dayTicketPrice, float campingTicketPrice) {
+
+		this.dayTicketsCount = dayTicketsCount;
+		this.campingTicketsCount = campingTicketsCount;
 		this.ticketType = ticketType;
-		this.DayTicketPrice = dayTicketPrice;
-		this.CampingTicketPrice = campingTicketPrice;
+		this.dayTicketPrice = dayTicketPrice;
+		this.campingTicketPrice = campingTicketPrice;
 		this.soldDayTicket=0;
 		this.soldCampingTicket=0;
 
 	}
 
+
+	public Ticket(long festivalId, String festivalName, int dayTicketsCount, int campingTicketsCount, TicketType ticketType, float dayTicketPrice, float campingTicketPrice) {
+		this.festivalId = festivalId;
+		this.festivalName = festivalName;
+		this.dayTicketsCount = dayTicketsCount;
+		this.campingTicketsCount = campingTicketsCount;
+		this.ticketType = ticketType;
+		this.dayTicketPrice = dayTicketPrice;
+		this.campingTicketPrice = campingTicketPrice;
+	}
 
 	public long getFestivalId() {
 		return festivalId;
@@ -67,19 +82,19 @@ public class Ticket {
 	}
 
 	public int getDayTicketsCount() {
-		return DayTicketsCount;
+		return dayTicketsCount;
 	}
 
 	public void setDayTicketsCount(int dayTicketsCount) {
-		DayTicketsCount = dayTicketsCount;
+		this.dayTicketsCount = dayTicketsCount;
 	}
 
 	public int getCampingTicketsCount() {
-		return CampingTicketsCount;
+		return campingTicketsCount;
 	}
 
 	public void setCampingTicketsCount(int campingTicketsCount) {
-		CampingTicketsCount = campingTicketsCount;
+		this.campingTicketsCount = campingTicketsCount;
 	}
 
 	public TicketType getTicketType() {
@@ -91,19 +106,19 @@ public class Ticket {
 	}
 
 	public float getDayTicketPrice() {
-		return DayTicketPrice;
+		return dayTicketPrice;
 	}
 
 	public void setDayTicketPrice(float dayTicketPrice) {
-		DayTicketPrice = dayTicketPrice;
+		this.dayTicketPrice = dayTicketPrice;
 	}
 
 	public float getCampingTicketPrice() {
-		return CampingTicketPrice;
+		return campingTicketPrice;
 	}
 
 	public void setCampingTicketPrice(float campingTicketPrice) {
-		CampingTicketPrice = campingTicketPrice;
+		this.campingTicketPrice = campingTicketPrice;
 	}
 
 	public int getSoldCampingTicket() {
@@ -122,6 +137,9 @@ public class Ticket {
 		this.soldDayTicket += soldDayTicket;
 	}
 
+	public UUID getId() {
+		return id;
+	}
 
 	@Override
 	public String toString() {

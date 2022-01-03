@@ -3,26 +3,17 @@ package festivalmanager.ticketShop.sender;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.util.Base64;
 import java.util.Objects;
-
-import com.itextpdf.text.pdf.PdfReader;
-import com.itextpdf.text.pdf.parser.PdfTextExtractor;
-
 
 @RestController()
 public class TicketSender {
@@ -66,22 +57,18 @@ public class TicketSender {
 
 	}
 
-	@PostMapping(value = "/export", params={"format=PDF"}, produces= MediaType.APPLICATION_PDF_VALUE)
-	public String generatePdf(){
+	@PostMapping(value = "/export")
+	public String generatePdf(@RequestParam("base64") String base64){
 
-		File file = new File("./ticket.pdf");
 
-		try (FileOutputStream fileOutput= new FileOutputStream(file)){
+		System.out.println("base" + base64);
 
-		String b64 = "";
-		byte[] decoder= Base64.getDecoder().decode(b64);
-		fileOutput.write(decoder);
-		}
-		catch (Exception e){
-			e.printStackTrace();
-		}
-
-		return ""; //return the file
+		return "";
 	}
+
+
+
+
+
 
 }
