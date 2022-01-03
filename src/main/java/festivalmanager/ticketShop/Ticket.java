@@ -2,13 +2,16 @@ package festivalmanager.ticketShop;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 
 @Entity
 public class Ticket {
 
 
-	private @Id @GeneratedValue long id;
+	private @Id @Column(name = "id", length = 16, unique = true, nullable = false)
+	final
+	String id= UUID.randomUUID().toString();
 
 	@Column
 	private long festivalId;
@@ -131,6 +134,9 @@ public class Ticket {
 		this.soldDayTicket += soldDayTicket;
 	}
 
+	public String getId() {
+		return id;
+	}
 
 	@Override
 	public String toString() {
