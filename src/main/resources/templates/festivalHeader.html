@@ -25,12 +25,12 @@
                        sec:authorize="hasAnyRole('PLANNER', 'ADMIN', 'MANAGER')">Gegenstände</a>
 
                     <a th:class="${'item ' + 'border-right ' + artistOverviewCurrent}"
-                       th:href="@{/artistOverview}"
+                       th:href="@{/artistOverview/{id} (id=${festivalId})}"
                        sec:authorize="hasAnyRole('PLANNER', 'ADMIN', 'MANAGER')">Künstler</a>
                        
                        
                     <a th:class="${'item ' + 'border-right ' + programCurrent}"
-                       th:href="@{/schedule}">Spielplan</a>
+                       th:href="@{/schedule/{id} (id = ${festivalId})}">Spielplan</a>
 
 					<a th:class="${'item ' + 'border-right ' + financesCurrent}"
                        th:href="@{/finances/{id}(id=${festivalId})}" sec:authorize="hasRole('PLANNER') || hasRole('ADMIN')">Finanzen</a>

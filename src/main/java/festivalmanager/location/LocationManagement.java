@@ -2,16 +2,9 @@ package festivalmanager.location;
 
 
 
-import java.io.InputStream;
 import java.util.Optional;
 
 import org.javamoney.moneta.Money;
-import static org.salespointframework.core.Currencies.EURO;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

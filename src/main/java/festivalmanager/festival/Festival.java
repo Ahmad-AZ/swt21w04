@@ -124,6 +124,15 @@ public class Festival {
 		return this.artists.isEmpty();
 	}
 	
+	public boolean getArtistBookedState(Artist artist) {
+		for(Artist anArtist : artists) {
+			if(anArtist.getId() == artist.getId()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public List<Show> getShows(){
 		List<Show> shows = new ArrayList<>();
 		for(Artist anArtist : artists) {
