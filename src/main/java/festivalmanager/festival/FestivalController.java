@@ -45,9 +45,6 @@ public class FestivalController {
 		if (festival.isPresent()) {
 			Festival current = festival.get();
 
-//			if (current.getLocation() != null) {
-//				System.out.println(current.getLocation().getName());
-//			}
 			System.out.println(festivalId);
 			model.addAttribute("festival", current);
 			model.addAttribute("artists", current.getArtist());
@@ -55,7 +52,6 @@ public class FestivalController {
 				System.out.println(current.getLocation().getName());
 				model.addAttribute("location", current.getLocation());
 			}
-
 			utilsManagement.setCurrentFestival(current.getId());
 			utilsManagement.setCurrentPageLowerHeader("festivalDetail");
 			utilsManagement.prepareModel(model);
@@ -63,6 +59,7 @@ public class FestivalController {
 		} else {
 			return "redirect:/festivalOverview";
 		}
+
 	}
 	
 	
@@ -132,14 +129,10 @@ public class FestivalController {
 			model.addAttribute("festival", current);
 			model.addAttribute("artists", current.getArtist());
 			model.addAttribute("location", current.getLocation());
-			
-			utilsManagement.prepareModel(model);
-			return "festivalDetail";
-		} else {
-			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
-		}
+		}	
+		utilsManagement.prepareModel(model);
+		return "festivalDetail";
+
 	}
 	
 	
@@ -177,13 +170,8 @@ public class FestivalController {
 			
 			current.setName(stringInputForm.getName());
 			festivalManagement.saveFestival(current);
-			return "redirect:/festivalOverview/"+ current.getId();
-			
-		} else {
-			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
 		}
+		return "redirect:/festivalOverview/"+ festivalId;
 	}
 	
 	

@@ -2,12 +2,10 @@ package festivalmanager.planning;
 
 import java.util.Optional;
 
-import festivalmanager.utils.UtilsManagement;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +18,7 @@ import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.location.Location;
 import festivalmanager.location.LocationManagement;
+import festivalmanager.utils.UtilsManagement;
 
 @Controller
 public class PlanLocationController {
@@ -62,15 +61,10 @@ public class PlanLocationController {
 			}
 			
 			model.addAttribute("festival", current);
-			utilsManagement.setCurrentPageLowerHeader("location");
-			utilsManagement.prepareModel(model);
-			return "/locationOverview"; 
-		} else {
-			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
 		}
-				
+		utilsManagement.setCurrentPageLowerHeader("location");
+		utilsManagement.prepareModel(model);
+		return "/locationOverview"; 			
 
 	} 
 		
@@ -85,13 +79,13 @@ public class PlanLocationController {
 			Location currentLocation = location.get();
 			Festival currentFestival = festival.get();
 			
-			System.out.println(locationId);
-			System.out.println(currentLocation.getImage());
-			System.out.println(currentLocation.getGroundView());
+//			System.out.println(locationId);
+//			System.out.println(currentLocation.getImage());
+//			System.out.println(currentLocation.getGroundView());
 			model.addAttribute("location", currentLocation);
 			model.addAttribute("hasBookings", currentLocation.hasBookings());
-			System.out.println(currentLocation.hasBookings());
-			System.out.println(currentLocation.getBookings());				
+//			System.out.println(currentLocation.hasBookings());
+//			System.out.println(currentLocation.getBookings());				
 			
 			// to hide book Button if Location is booked
 			if (currentFestival.getLocation() != null) {
@@ -102,15 +96,9 @@ public class PlanLocationController {
 
 			// required for second nav-bar
 			model.addAttribute("festival", currentFestival);
-
-			utilsManagement.prepareModel(model);
-			return "locationDetailPlan";
-			
-		} else {
-			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
 		}
+		utilsManagement.prepareModel(model);
+		return "locationDetailPlan";
 	}
 		 		
 	@PostMapping("/locationOverview/{festivalId}/detail/{locationId}/bookLocation")
@@ -125,7 +113,7 @@ public class PlanLocationController {
 			Location currentLocation = location.get();
 			Festival currentFestival = festival.get();
 			
-			// unbook curetnly booked location
+			// unbook currently booked location
 			System.out.println("currentlyBooked boolean:"+currentlyBooked);
 			if(currentlyBooked) {
 				planLocationManagement.unbookLocation(currentLocation, currentFestival);
@@ -141,15 +129,9 @@ public class PlanLocationController {
 				System.out.println("actually booked location:" + currentFestival.getLocation().getName());
 			}
 	
-
-			// reload locationOverview page
-			return "redirect:/locationOverview/" + festivalId;
-			
-		} else {
-			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
 		}
+		// reload locationOverview page
+		return "redirect:/locationOverview/" + festivalId;
 	}
 	
 	@GetMapping("/locationOverview/{festivalId}/unbook")
@@ -163,13 +145,10 @@ public class PlanLocationController {
 				Location currentLocation = location.get();
 				planLocationManagement.unbookLocation(currentLocation, currentFestival);
 			}
-
-			// reload locationOverview page
-			return "redirect:/locationOverview/" + festivalId;
-		} else {
-			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
 		}
+		// reload locationOverview page
+		return "redirect:/locationOverview/" + festivalId;
 	}
+	
+	
 }

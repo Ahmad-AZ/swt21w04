@@ -1,18 +1,14 @@
 package festivalmanager.planning;
 
+import org.salespointframework.core.SalespointIdentifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import festivalmanager.Equipment.Equipment;
 import festivalmanager.Equipment.EquipmentManagement;
 import festivalmanager.Equipment.Stage;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
-import festivalmanager.festival.Schedule;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.salespointframework.core.SalespointIdentifier;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 
 
