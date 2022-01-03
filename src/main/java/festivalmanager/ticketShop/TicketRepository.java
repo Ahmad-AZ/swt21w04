@@ -9,7 +9,7 @@ import java.util.UUID;
 
 
 @Repository
-public interface TicketRepository extends JpaRepository<Ticket, String> {
+public interface TicketRepository extends JpaRepository<Ticket, UUID> {
 
 	@Override
 	List<Ticket> findAll();

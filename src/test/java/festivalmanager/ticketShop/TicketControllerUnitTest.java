@@ -166,6 +166,7 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 
 		utilsManagement.setCurrentFestival(1);
 
+		System.out.println("ticket uuid 1111111 =="+ ticket.getId());
 
 		assertThat(testController.create(ticket,model)).isEqualTo("ticketResult");
 		assertThat(ticket.getFestivalName()).isEqualTo("Beispielfestival");

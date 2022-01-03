@@ -58,7 +58,6 @@ public class TicketManagement {
 		}
 		else this.currentTicket=ticket;
 
-
 	}
 
 	public boolean checkTickets(Ticket ticket) {

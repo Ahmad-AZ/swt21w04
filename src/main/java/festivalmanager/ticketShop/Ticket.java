@@ -1,4 +1,6 @@
 package festivalmanager.ticketShop;
+import org.hibernate.annotations.GeneratorType;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -9,9 +11,10 @@ import java.util.UUID;
 public class Ticket {
 
 
-	private @Id @Column(name = "id", length = 16, unique = true, nullable = false)
-	final
-	UUID id= UUID.randomUUID();
+	private @Id @GeneratedValue(generator = "UUID")  @GenericGenerator(
+			name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+	@Column( updatable = false, nullable = false)
+	UUID id;
 
 	@Column
 	private long festivalId;
