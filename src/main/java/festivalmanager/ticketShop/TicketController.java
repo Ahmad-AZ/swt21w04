@@ -61,6 +61,10 @@ public class TicketController {
 	}
 
 
+
+
+
+
 	@PreAuthorize("hasRole('PLANNER')||hasRole('ADMIN')")
 	@PostMapping("/tickets")
 	public String create(@ModelAttribute Ticket ticket, Model model) {
@@ -73,13 +77,14 @@ public class TicketController {
 		ticket.setFestivalName(currentFestival.getName());
 		ticket.setFestivalId(currentFestival.getId());
 
-
 		ticketManagement.setCurrentTicket(ticket);
 		ticketManagement.setFestival(currentFestival);
+
 
 		model.addAttribute("tickets", ticketManagement.save(ticket));
 		return "ticketResult";
 	}
+
 
 	@PreAuthorize("hasRole('TICKET_SELLER')||hasRole('ADMIN')")
 	@PostMapping("/tickets/buy")
@@ -113,12 +118,14 @@ public class TicketController {
 			model.addAttribute("ticketsUnavailable", "true");
 			return "ticketShopUnavailable";
 		}
-//
-//		String base64="";
-//		model.addAttribute("base64", base64);
+
 		utilsManagement.prepareModel(model);
+
 		return "ticketPrint";
 	}
+
+
+
 
 
 	@PreAuthorize("hasRole('TICKET_SELLER')||hasRole('ADMIN')")

@@ -45,7 +45,7 @@ public class TicketManagement {
 	}
 
 
-	public  void setFestival(Festival festival ){
+	public  void setFestival(Festival festival){
 
 		this.currentFestival= festival;
 	}
@@ -111,9 +111,9 @@ public class TicketManagement {
 
 		 return this.currentTicket;
 	}
-	public Festival setFestivalById(long id ){
+	public void setFestivalById(long id ){
 
 		setFestival(festival.findById(id).get());
-		return this.currentFestival;
+
 	}
 }

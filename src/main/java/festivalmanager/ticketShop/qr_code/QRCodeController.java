@@ -2,12 +2,13 @@ package festivalmanager.ticketShop.qr_code;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
 
 
-@RestController
+
+@Controller
 public class QRCodeController {
 
 	private static final String QR_CODE_IMAGE_PATH = "./src/main/resources/qrCodeImg/QRCode.png";
