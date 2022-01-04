@@ -37,9 +37,8 @@ public class Location{
 	private long visitorCapacity;
 	private long stageCapacity; 
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<Area> areas = new ArrayList<>();
-
+//	@OneToMany(cascade = CascadeType.ALL)
+//	private List<Area> areas = new ArrayList<>();
  
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Booking> bookings = new ArrayList<>();
