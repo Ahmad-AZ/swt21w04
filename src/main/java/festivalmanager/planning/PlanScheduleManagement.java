@@ -31,7 +31,8 @@ public class PlanScheduleManagement {
 		this.staffManagement = staffManagement;
 	}
 		
-	public boolean setShow(LocalDate date, Stage stage, String timeSlotString, long showId, long festivalId, long personId) {
+	public boolean setShow(LocalDate date, Stage stage,
+						   String timeSlotString, long showId, long festivalId, long personId) {
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
 		if (festival.isPresent()) {
 			Festival current = festival.get();
@@ -66,7 +67,8 @@ public class PlanScheduleManagement {
 
 	}
 	
-	public List<Person> getAvailableSecurity(Festival festival, LocalDate date, String timeSlotString, SalespointIdentifier stageId){
+	public List<Person> getAvailableSecurity(Festival festival, LocalDate date,
+											 String timeSlotString, SalespointIdentifier stageId){
 		TimeSlot timeSlot = TimeSlot.valueOf(timeSlotString);
 		
 		List<Person> securitys = new ArrayList<>();
