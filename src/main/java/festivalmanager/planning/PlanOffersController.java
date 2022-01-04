@@ -79,7 +79,8 @@ public class PlanOffersController {
 	}
 	@GetMapping("/artistOverview/{festivalId}/{artistId}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String artistDetail(@PathVariable("artistId") Long artistId, @PathVariable("festivalId") long festivalId, Model model) {
+	public String artistDetail(@PathVariable("artistId") Long artistId,
+							   @PathVariable("festivalId") long festivalId, Model model) {
 		Optional<Artist> artist = hiringManagement.findById(artistId);
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
 		

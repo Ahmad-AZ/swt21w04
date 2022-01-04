@@ -12,27 +12,28 @@ import org.junit.jupiter.api.Test;
 import org.salespointframework.useraccount.Password.UnencryptedPassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManagement;
 
 public class LocationManagementUnitTest {
 	
-	LocationManagement lm = mock(LocationManagement.class);
+
 	
 	@Test 
 	void createNewLocation() {
-		
-		Location location = mock(Location.class);
-		when(lm.createLocation(any())).thenReturn(location);
+		LocationRepository repository = mock(LocationRepository.class);
+		when(repository.save(any())).then(i -> i.getArgument(0));
+
+		LocationManagement lm = new LocationManagement(repository);
 		
 		Long vc = (long) 1500;
 		Long sc = (long) 6;
 		String ppD =  "1550.90";
 		NewLocationForm form = new NewLocationForm("name", "adress",  ppD, vc, sc, null, null);
 		Location savedLocation = lm.createLocation(form);
-		
-		verify(lm, times(1)).createLocation(eq(form));
 		
 		Optional<Location> locationOP = lm.findById(savedLocation.getId());
 		if (locationOP.isPresent()) {
@@ -46,6 +47,7 @@ public class LocationManagementUnitTest {
 			assertThat(current.getImage()).isEqualTo("Blank_image");
 			assertThat(current.getGroundView()).isEqualTo("Blank_groundview");
 		}
+		
 	}
 	
 }
