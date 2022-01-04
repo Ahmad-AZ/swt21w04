@@ -1,14 +1,19 @@
 package festivalmanager.ticketShop;
 
+import com.google.zxing.WriterException;
 import festivalmanager.AbstractIntegrationTests;
 import festivalmanager.utils.UtilsManagement;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import java.io.IOException;
+
 import static org.assertj.core.api.Assertions.*;
 
 
@@ -22,8 +27,6 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 	@Autowired TicketManagement ticketManagement;
 	@Autowired UtilsManagement utilsManagement;
 
-	Model model;
-
 
 
 
@@ -31,20 +34,6 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 	void contextLoads() throws Exception {
 
 		assertThat(testController).isNotNull();
-	}
-
-	@BeforeEach
-	void set(){
-
-		this.model = new ExtendedModelMap();
-	}
-
-
-	@Test
-	void attributesTesting(){
-
-		assertThat(testController.getTitle()).isEqualTo("Ticketshop");
-
 	}
 
 
@@ -62,12 +51,8 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 				-> testController.showTicketInfo(new ExtendedModelMap()));
 
 
-
 		assertThatExceptionOfType(AuthenticationException.class).isThrownBy(()
 				-> testController.buyTicket(new Ticket(),new ExtendedModelMap()));
-
-
-
 
 	}
 
@@ -127,25 +112,12 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 	}
 
 
-
-
-
-/*
-	@Test
-	@WithMockUser(roles = {"PLANNER", "ADMIN"})
-	void testTicketInfoForNonCreatedTickets(){
-		utilsManagement.setCurrentFestival(1);
-		String result = testController.showTicketInfo(model);
-		assertThat(result).isEqualTo("ticketForm");
-	}
-*/
-
-
 	@Test
 	@WithMockUser(roles = {"PLANNER", "ADMIN"})
 	void testTicketInfoForCreatedTickets(){
 		Ticket ticket = new Ticket(10,10,TicketType.CAMPING, 10,10);
 
+		Model model = new ExtendedModelMap();
 		ticket.setFestivalId(1);
 		ticket.setFestivalName("Beispielfestival");
 
@@ -165,8 +137,8 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 		Ticket ticket = new Ticket( 10,10,TicketType.CAMPING, 10,10);
 
 		utilsManagement.setCurrentFestival(1);
+		Model model = new ExtendedModelMap();
 
-		System.out.println("ticket uuid 1111111 =="+ ticket.getId());
 
 		assertThat(testController.create(ticket,model)).isEqualTo("ticketResult");
 		assertThat(ticket.getFestivalName()).isEqualTo("Beispielfestival");
@@ -180,8 +152,11 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 
 	@Test
 	@WithMockUser(roles = {"TICKET_SELLER", "ADMIN"})
-	void sellingTicketWithDifferentValues(){
 
+		// TODO: 1/4/2022  the ticket id is null check why is that and convert it to byte array and then to qr code in frontend
+	void sellingTicketWithDifferentValues() {
+
+		Model model = new ExtendedModelMap();
 		Ticket currentTicket = new Ticket(1,"Beispielfestival",2,
 				2,TicketType.DAY_TICKET,10,10);
 
@@ -198,8 +173,8 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 
 		Ticket fiveTicketsSold = new Ticket(1,"Beispielfestival",0,
 				5,TicketType.CAMPING,0,0);
-		assertThat(testController.buyTicket(fiveTicketsSold, model)).isEqualTo("ticketShopUnavailable");
 
+		assertThat(testController.buyTicket(fiveTicketsSold, model)).isEqualTo("ticketShopUnavailable");
 
 
 	}
