@@ -250,20 +250,10 @@ public class Festival {
 		}
 	}
 	
-
 	public List<Stage> getStages(){
 		return stages;
 	}
-	
-	public Stage getStage(SalespointIdentifier stageId) {
-		for(Stage aStage : stages) {
-			if(aStage.getId().equals(stageId)) {
-				return aStage;
-			}		
-		}
-		return null;
-	}
-	
+		
 	public boolean addStage(Stage stage) {
 		return stages.add(stage);
 	}
