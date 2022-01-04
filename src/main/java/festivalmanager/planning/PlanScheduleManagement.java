@@ -3,7 +3,6 @@ package festivalmanager.planning;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.salespointframework.core.SalespointIdentifier;
 import org.springframework.stereotype.Service;
@@ -13,7 +12,6 @@ import festivalmanager.Equipment.Stage;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.festival.Schedule.TimeSlot;
-import festivalmanager.hiring.Artist;
 import festivalmanager.hiring.Show;
 import festivalmanager.staff.Person;
 import festivalmanager.staff.StaffManagement;
@@ -31,38 +29,18 @@ public class PlanScheduleManagement {
 		this.staffManagement = staffManagement;
 	}
 		
-	public boolean setShow(LocalDate date, Stage stage, String timeSlotString, long showId, long festivalId, long personId) {
-		Optional<Festival> festival = festivalManagement.findById(festivalId);
-		if (festival.isPresent()) {
-			Festival current = festival.get();
-			TimeSlot timeSlot = TimeSlot.valueOf(timeSlotString);
-			//System.out.println(timeSlot);
-			
-			// find show
-			Show show = null;
-			for(Artist anArtist : current.getArtist()) {
-				if(anArtist.getShow(showId) != null) {
-					show = anArtist.getShow(showId);
-					break;
-				}
-			}
-						
-			Person person = null;
-			for(Person aPerson : staffManagement.findByFestivalIdAndRole(festivalId, "SECURITY")) {
-				if(aPerson.getId() == personId) {
-					person = aPerson;
-					break;
-				}
-			}
-			
-			boolean success = true;
-			success = current.addSchedule(timeSlot, show, stage, date, person);
-			festivalManagement.saveFestival(current);
+	public boolean setShow(LocalDate date, Stage stage, String timeSlotString, long showId, Festival festival, long personId) {
 
-			return success;
-		} else {
-			return false;
-		}
+		TimeSlot timeSlot = TimeSlot.valueOf(timeSlotString);
+		//System.out.println(timeSlot);
+		
+		Show show = festival.getShow(showId);		
+		Person person = staffManagement.findById(personId).orElse(null);
+
+		boolean success = festival.addSchedule(timeSlot, show, stage, date, person);
+		festivalManagement.saveFestival(festival);
+
+		return success;
 
 	}
 	

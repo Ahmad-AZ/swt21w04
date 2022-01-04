@@ -5,13 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
-import festivalmanager.utils.UtilsManagement;
-
 import org.salespointframework.core.SalespointIdentifier;
 import org.salespointframework.time.Interval;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,12 +16,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.server.ResponseStatusException;
 
 import festivalmanager.Equipment.Stage;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.festival.Schedule.TimeSlot;
+import festivalmanager.utils.UtilsManagement;
 
 
 @Controller
@@ -122,7 +118,7 @@ public class PlanScheduleController {
 			//System.out.println(showId);
 			Stage stage = festival.get().getStage(stageId);
 			if(stage != null) {
-				planScheduleManagement.setShow(date, stage, timeSlot, showId, festival.get().getId(), personId);
+				planScheduleManagement.setShow(date, stage, timeSlot, showId, festival.get(), personId);
 			}
 		}	
 		return "redirect:/schedule/"+ festivalId;

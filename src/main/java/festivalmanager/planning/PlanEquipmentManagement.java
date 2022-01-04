@@ -30,16 +30,13 @@ public class PlanEquipmentManagement {
 	}
 	
 	public void rentStage(String name, Equipment equipment, Festival festival) {
-
 		Stage stage = new Stage(name, equipment.getRentalPerDay());
 		equipmentManagement.saveStage(stage);
 		festival.addStage(stage);
 		festivalManagement.saveFestival(festival);
 	}
 	
-	public boolean unrentStage(Stage stage, Long festivalId) {
-		Festival festival = festivalManagement.findById(festivalId).get();	
-
+	public boolean unrentStage(Stage stage, Festival festival) {
 		boolean success = festival.removeStage(stage);
 		festivalManagement.saveFestival(festival);
 		equipmentManagement.removeStageById(stage.getId());

@@ -142,7 +142,19 @@ public class Festival {
 		}
 		return shows;
 	}
-
+	
+	public Show getShow(long showId){
+		for(Artist anArtist : artists) {
+			for(Show aShow : anArtist.getShows()) {
+				if(aShow.getId() == showId) {
+					return aShow;
+				}
+			}
+		}
+		return null;
+	}
+	
+	
 	public void setEquipments(SalespointIdentifier id, long amount) {
 		rentedEquipments.put(id, amount);
 	}
