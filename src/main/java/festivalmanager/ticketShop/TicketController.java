@@ -1,8 +1,10 @@
 package festivalmanager.ticketShop;
 
 
+import com.google.zxing.WriterException;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
+import festivalmanager.ticketShop.qr_code.QRCodeGenerator;
 import festivalmanager.utils.UtilsManagement;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.Objects;
 
 @Controller
@@ -38,6 +42,7 @@ public class TicketController {
 
 	@PreAuthorize("hasRole('PLANNER')||hasRole('ADMIN')")
 	@GetMapping("/tickets")
+
 	public String showTicketInfo(Model model) {
 
 		model.addAttribute("title", "Tickets");
@@ -88,6 +93,7 @@ public class TicketController {
 
 	@PreAuthorize("hasRole('TICKET_SELLER')||hasRole('ADMIN')")
 	@PostMapping("/tickets/buy")
+	@ExceptionHandler({IOException.class, WriterException.class})
 	public String buyTicket(@ModelAttribute Ticket ticket, Model model) {
 
 		Ticket nTicket;
@@ -108,10 +114,23 @@ public class TicketController {
 				ticketPrice = nTicket.getDayTicketPrice();
 			}
 
+			try {
+				if (nTicket.getId() != null) {
+
+					String uuid = nTicket.getId().toString();
+					QRCodeGenerator.generateQRCodeImage(uuid);
+				}
+
+			} catch (WriterException |IOException e) {
+				e.printStackTrace();
+			}
+
 			model.addAttribute("ticketCount", soldTicket);
 			model.addAttribute("ticketPrice", ticketPrice * soldTicket);
-			model.addAttribute("festival", currentFestival.getName());
+			model.addAttribute("festival", currentFestival);
 			model.addAttribute("tickets", ticket);
+
+
 
 		} else {
 			utilsManagement.prepareModel(model);
@@ -123,6 +142,7 @@ public class TicketController {
 
 		return "ticketPrint";
 	}
+
 
 
 
