@@ -127,7 +127,7 @@ public class TicketController {
 
 			model.addAttribute("ticketCount", soldTicket);
 			model.addAttribute("ticketPrice", ticketPrice * soldTicket);
-			model.addAttribute("festival", currentFestival.getName());
+			model.addAttribute("festival", currentFestival);
 			model.addAttribute("tickets", ticket);
 
 
