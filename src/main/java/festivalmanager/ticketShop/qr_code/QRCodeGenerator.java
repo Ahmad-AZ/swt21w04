@@ -14,8 +14,8 @@ import com.google.zxing.qrcode.QRCodeWriter;
 
 
 
-	private  static int width= 100;
-	private static int height =100;
+	private  static final int width= 100;
+	private static final int height =100;
 	private static final String QR_CODE_IMAGE_PATH = "./src/main/resources/static/resources/img/qr_code/QRCode.png";
 
 
