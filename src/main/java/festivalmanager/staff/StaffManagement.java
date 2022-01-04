@@ -33,7 +33,9 @@ public class StaffManagement {
 		"CATERING"
 	};
 
-	StaffManagement(StaffRepository staff, UserAccountManagement userAccountManagement, FestivalManagement festivalManagement) {
+	StaffManagement(StaffRepository staff,
+					UserAccountManagement userAccountManagement,
+					FestivalManagement festivalManagement) {
 		Assert.notNull(staff, "StaffRepository must not be null!");
 		Assert.notNull(userAccountManagement, "UserAccountManagement must not be null!");
 		Assert.notNull(festivalManagement, "FestivalManagement must not be null!");
