@@ -202,7 +202,8 @@ public class PlanEquipmentController {
 			return "equipments.html";
 		}
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
-		if (festival.isPresent() && equipmentManagement.findEquipmentById(equipementRentingForm.getEquipmentsId()).isPresent()) {
+		if (festival.isPresent()
+				&& equipmentManagement.findEquipmentById(equipementRentingForm.getEquipmentsId()).isPresent()) {
 
 			//System.out.println(equipmentsId + "     "+ equipmentsAmount);			
 			planEquipmentManagement.rentEquipment(equipementRentingForm.getEquipmentsId(), equipementRentingForm.getAmount(), festival.get());

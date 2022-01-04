@@ -21,7 +21,8 @@ public class MessageController {
 	private final StaffManagement staffManagement;
 	private final UtilsManagement utilsManagement;
 
-	public MessageController(MessageManagement messageManagement, StaffManagement staffManagement, UtilsManagement utilsManagement) {
+	public MessageController(MessageManagement messageManagement,
+							 StaffManagement staffManagement, UtilsManagement utilsManagement) {
 		Assert.notNull(messageManagement, "MessageManagement must not be null!");
 		Assert.notNull(staffManagement, "StaffManagement must not be null!");
 
