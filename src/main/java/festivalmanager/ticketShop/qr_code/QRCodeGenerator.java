@@ -16,15 +16,17 @@ import com.google.zxing.qrcode.QRCodeWriter;
 
 	private  static int width= 100;
 	private static int height =100;
+	private static final String QR_CODE_IMAGE_PATH = "./src/main/resources/static/resources/img/qr_code/QRCode.png";
 
 
-	public static void generateQRCodeImage(String text, String filePath)
+
+	public static void generateQRCodeImage(String text)
 
 			throws WriterException, IOException {
 
 		QRCodeWriter qrCodeWriter = new QRCodeWriter();
 		BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height);
-		Path path = FileSystems.getDefault().getPath(filePath);
+		Path path = FileSystems.getDefault().getPath(QR_CODE_IMAGE_PATH);
 		MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
 
 	}

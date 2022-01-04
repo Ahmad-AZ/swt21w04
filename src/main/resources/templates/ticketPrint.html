@@ -35,30 +35,33 @@
 </section>
 
 
+<div class="box" id="ticket">
+    <div class='inner'>
 
-
-
-
-
-    <div class="box" id="ticket">
-        <div class='inner'>
-
-            <div class='info clearfix'>
-                <div class="wp">Festivalname:<h4 th:text="${festival}"></h4></div>
-                <div class='wp'>Typ:<h4 th:text="${tickets.getTicketType().displayValue}"></h4></div>
-            </div>
-            <div class='total clearfix'>
-                <h2>Tickets: <p th:text="${ticketCount}"></p></h2>
-                <h2>Preis: <p th:text="${ticketPrice + '€'}"></p></h2>
-            </div>
+        <div class='info clearfix'>
+            <div class="wp">Festivalname:<h4 th:text="${festival}"></h4></div>
+            <div class='wp'>Typ:<h4 th:text="${tickets.getTicketType().displayValue}"></h4></div>
+        </div>
+        <div class='total clearfix'>
+            <h2>Tickets: <p th:text="${ticketCount}"></p></h2>
+            <h2>Preis: <p th:text="${ticketPrice + '€'}"></p></h2>
         </div>
 
+        <div>
+            <img class="image" th:src="@{/resources/img/qr_code/QRCode.png}"
+                 src="../static/resources/img/qr_code/QRCode.png"/>
+        </div>
     </div>
 
+</div>
+
+<div class="center">
+    <button type="submit" class="btn btn-default btn-sm" onclick="printPDF()">
+        <span class="glyphicon glyphicon-print"></span> ausdrucken
+    </button>
 
 
-
-
+</div>
 
 
 <script th:inline="javascript">
@@ -78,17 +81,11 @@
             var out = doc.output();
 
             //convert the string to base64
-           // doc.save('ticket.pdf');
-
-            const base = btoa(out);
-
-
-
-
+            doc.save('ticket.pdf');
 
 
         });
-        return  base;
+        return btoa(out);
     }
 
 </script>
@@ -100,11 +97,10 @@
 
     var x = /*[[${base64}]]*/ "Testing";
 
-    alert(x)
+
     /*]]>*/
 
 </script>
-
 
 
 </body>
