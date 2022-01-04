@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import festivalmanager.Equipment.EquipmentManagement;
 import festivalmanager.Equipment.Stage;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
@@ -29,13 +30,16 @@ public class PlanScheduleController {
 	
 	private final PlanScheduleManagement planScheduleManagement;
 	private final FestivalManagement festivalManagement;
+	private final EquipmentManagement equipmentManagement;
 	private final UtilsManagement utilsManagement;
 	
 	public PlanScheduleController(PlanScheduleManagement planScheduleManagement,
-								  FestivalManagement festivalManagement, UtilsManagement utilsManagement) {
+								  FestivalManagement festivalManagement, UtilsManagement utilsManagement,
+								  EquipmentManagement equipmentManagement) {
 		this.planScheduleManagement = planScheduleManagement;
 		this.festivalManagement = festivalManagement;
 		this.utilsManagement = utilsManagement;
+		this.equipmentManagement = equipmentManagement;
 	}
 
 	@ModelAttribute("title")
@@ -111,12 +115,12 @@ public class PlanScheduleController {
 									@PathVariable("timeSlot") String timeSlot, 
 									@RequestParam("show") long showId, 
 									@RequestParam("person") long personId, 
-									@PathVariable("festivalId") long festivalId, Model model) {
+									@PathVariable("festivalId") long festivalId) {
 		
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
 		if (festival.isPresent()) {
 			//System.out.println(showId);
-			Stage stage = festival.get().getStage(stageId);
+			Stage stage = equipmentManagement.findStageById(stageId).orElse(null);
 			if(stage != null) {
 				planScheduleManagement.setShow(date, stage, timeSlot, showId, festival.get(), personId);
 			}
