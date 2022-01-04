@@ -1,0 +1,77 @@
+= Cross-Testing Feedback
+
+__Durchführende Gruppe: 04__
+
+__Anwendung von Gruppe: 05__
+
+== Getestetes System
+Es handelt sich um eine Browseranwendung zur Planung und Durchführung von Festivals
+
+== Fehler-Report
+// See http://asciidoctor.org/docs/user-manual/#tables
+[options="header"]
+|===
+|Pfad                                 |Parameter |Beschreibung                                                        |Rückgabe
+| http://localhost:8080/ticket/6/sale |        3 | Ticketpreis ist nicht angezeigt, wenn man nicht auf ADD TO CARD drückt und sofort auf Kaufen drückt| pdf
+| http://localhost:8080/ticket/6/sale | 1000000| Ticket wurden für große Nummer verkauft | ticket pdf
+| http://localhost:8080/ticket/6/sale |    3    | kann nicht rückwerts gehen, wenn man die Tickets zum Warenkorb hinzufügt und die Tickets stornieren |
+| http://localhost:8080/ticket/6/sale | 3|  ein Error ist aufgetreten bein Kaufen, als ich Tickets zum Warenkorb hinzufügt habe  und nochmal die gleiche Type von Tickets zum Warenkorb hinzufüge |An internal server error occurred.
+|http://localhost:8080/festival/7     | 3 | gleiche Tickets wurden für verschiedene Festivals verkauft|
+| http://localhost:8080/ticket/6/sale |10 | Name, Qty , Price, Total  wurden auf dem PDF nicht gezeigt, wenn ich die Tickets kaufe, ohne die Tickets bevor zum Warenkorb hinzufüge| ein Ticket ohne (Name,Qty , Price, Total
+|http://localhost:8080/ticket/6/sale |0 | Ticket für 0 anzahl wurde gekauft| 0 Ticket
+|http://localhost:8080/ticket/6/sale | 15| Ticketpreis und das Total  sind gleich auf dem PDF|
+|http://localhost:8080/location/2 | | Bild von Location kann nicht angezeigt werden|
+|http://localhost:8080/location/2/edit| null      |Name von Location kann auf null setzen|
+|http://localhost:8080/location/2/edit|-2|max visitor, max stages, rent können auf negativen Werten setzen|
+|http://localhost:8080/location/2/edit| null|Fehler tritt auf wenn man keine Eingabe in max visitors oder max stages oder rent einfügt| ??org.springframework.validation.BeanPropertyBindingResult: 1 errors Field error in object 'locationForm' on field 'maxStages': rejected value []; codes
+|http://localhost:8080/location/2/edit| |text in button ist nicht so klar(Fehler beim Frontend)|??location.edit_en_US??
+|http://localhost:8080/festival/6/edit|20.12.2021|Fehler tritt auf wenn EndDate früher als BeginDate ist|??org.springframework.validation.BeanPropertyBindingResult: 2 errors Error in object 'festival': codes [FestivalConstraint.festival,FestivalConstraint]; arguments
+|http://localhost:8080/festival/6/edit|null|Fehler wird angezeigt wenn man nichts in Festival Name einfügt|??org.springframework.validation.BeanPropertyBindingResult: 2 errors Error in object 'festival': codes [FestivalConstraint.festival,FestivalConstraint]; arguments
+|http://localhost:8080/festival/6/delete||Festival kann nicht gelöscht werden|
+|http://localhost:8080/lineup/6/deleteband||Wenn man alle Bands löscht, tritt der Fehler auf| ??400_name_en_US??
+|http://localhost:8080/lineup/6/add|null|man kann Band ohne Name,band stage oder bandperformance hour hinzufügen|
+|http://localhost:8080/lineup/6/add|Band, 5, 34.45, 21:21-23:34|| Bei vorheriger ungleichmäßiger Befüllung der Parameter werden neue Attribute scheinbar Spaltenweise angefügt --> Zeit steht bei anderem Bandname, usw.
+|http://localhost:8080/lineup/6/add|-5|der Bandprice kann negatives Wert nehmen|
+|http://localhost:8080/lineup/6/add|5,77777|der Bandprice kann einen Wert mit mehr als 2 Nachkommastellen annehmen|
+|http://localhost:8080/festival/new| |wenn man einen invaliden Festival erstellt, zeigt die Meldung nachdem man den Button klickt(sehr unbequem weil man kann manchmal falsch einfügt)|
+|http://localhost:8080/lineup/new|Weihnachtsfestival|Wenn man den 'Add' Button klickt, nichts passiert (geht einfach zurück zu Seite http://localhost:8080/lineup/edit)|
+|http://localhost:8080/festival||nachdem man Festival aktualisiert(Edit), wird hier ein Pfeil angezeigt. Wenn man da klickt, tritt Fehler auf obwohl Line-up vorhanden ist|??Festival has no lineups_en_US??
+|http://localhost:8080/||nachdem man Festival aktualisiert(edit) wird Festival nicht mehr auf Hauptseite angezeigt|
+|http://localhost:8080/festival/45/edit|neues Festival, ohne Lineup| Bearbeiten Button führt zu Fehler| Seite wurde nicht gefunden (http://localhost:8080/lineup)
+|http://localhost:8080/festival/6/edit|null|Fehler, wenn man Name auf Null setzt, Fehlerbeschreibung unklar|??org.springframework.validation.BeanPropertyBindingResult: 2 errors Error in object 'festival': codes [FestivalConstraint.festival,FestivalConstraint]; arguments ...
+|http://localhost:8080/festival/6/edit|25.12.2022| Fehler, wenn man Startdatum um einen Tag in die Zukunft schieben will|message []]; default message [Location is already used in another festival (Weihnachtsfestival) during the time period of Sat Dec 24 00:00:00 CET 2022 and Sat Dec 31 00:00:00 CET 2022]_de??
+|http://localhost:8080/location/new|null|Location ohne Name kann erstellt werden|
+|http://localhost:8080/location/new|-2|max visitor, max stages, rent können negative Werte annehmen|
+|http://localhost:8080/lineup/6/edit|null|Wenn man ohne Band auszuwählen auf Edit Band Button klickt wird ein Fehler geworfen|??400_name_de??
+|http://localhost:8080/lineup/6/edit|null|man kann Band zu Band ohne Name, Band stage oder Bandperformance hour ändern |
+|http://localhost:8080/lineup/6/edit|-5|der Bandprice kann zu einem negativen Wert geändert werden|
+|http://localhost:8080/lineup/6/edit|5,77777|der Bandprice kann einen Wert mit mehr als 2 Nachkommastellen annehmen|
+|http://localhost:8080/festival/6| | Bild von Location kann nicht angezeigt werden obwohl Lageplan für diese Location erstellt wurde|
+|http://localhost:8080/catering/sale|21|Es tritt ein Serverfehler auf, wenn mehr Produkte im Warenkorb sind als im Lager und Verkaufen gedrückt wird.|Number of items requested by the OrderLine is greater than the number available in the Inventory. Please re-stock.
+|http://localhost:8080/dashboard| |Das Menü ist nicht ohne Javascript nutzbar, wodurch das Personal nicht eingesehen / erstellt / bearbeitet werden kann |
+|http://localhost:8080/chat/room|19|Es ist nicht eindeutig erkennbar wer eine Nachricht gesendet hat, Anstatt des Namens des Senders steht nur "Sender" da |
+|http://localhost:8080/chat| |Ein neu erstellter Nutzer (Position: "Catering") kann nicht auf die Chaträume zugreifen und  dadurch keine Nachrichten lesen und schreiben |
+|http://localhost:8080/catering/management|Name: Test, Price: -2 |Das Item mit negativem Preis wird in den Katalog aufgenommen |Add Item to catalog
+|http://localhost:8080/stock|Name: Bratwurst, Anzahl: -2 |Nachbestellen einer negativen Anzahl von Items ist nicht verboten| Stock
+|http://localhost:8080/catering/management
+|
+|Ein leerer String als Name oder Price bzw. eine Zahl als Name führt zu einem Error (und nicht zu einer Warnung für den Nutzer)
+|org.springframework.validation.BeanPropertyBindingResult Error
+|===
+
+== Sonstiges
+* Optik der Anwendung
+- Zeilen bei Lineup Bearbeitung/Hinzufügen/Löschen nicht deutlich voneinander getrennt
+- Das Akkordeon-Menü im Dashboard ist zugeklappt horizontal, aber aufgeklappt vertikal
+* Fehlende Features
+- man kann die Location von Festival nicht ändern
+- Die Finanzübersicht ist nur ein UI Placeholder und nicht funktionstüchtig
+* Interaktion mit der Anwendung (Usability)
+- beim ändern der Bands werden die Attribute nicht vorgetragen
+- Die Menüs im Kontrollzentrum sind in Englisch obwohl die restliche Anwendung in Deutsch ist
+- Es ist schön, dass nie die Whitelabel Error Page angezeigt wird und stattdessen immer die Fehlermeldung auf der Seite selbst ausgegeben wird
+
+== Verbesserungsvorschläge
+* beim Erstellen einer Person sollte die "Position" ein Dropdown-Menü sein, um Fehleingaben zu verhindern
+* Die Fehlermeldungen sollten den Nutzer über falsche Eingaben informieren (z.b. Nutzername schon vergeben)
+* Es wäre schön, wenn der aktuell offene Tab in der Navigationsleiste markiert wird

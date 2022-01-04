@@ -1,4 +1,4 @@
-= Zeiterfassung für Gruppe XX
+= Zeiterfassung für Gruppe 04
 
 Notieren Sie die Zeit in Minuten für jeden Entwickler und – getrennt davon – für Team-Treffen pro Woche (Wochengranularität).
 Die individuell erfasste Zeit beinhaltet auch das Lesen von Dokumentationen, Besprechungen mit Teamkollegen und sonstige auf das Praktikum bezogene Aufgaben, jedoch *nicht* das Team-Treffen (= letzte Spalte).
@@ -15,8 +15,8 @@ Die individuell erfasste Zeit beinhaltet auch das Lesen von Dokumentationen, Bes
 |6  |350   |240    |700   |1000    |450    |420    |50
 |7  | 735   |600    |1100   |1000    |900    |1000  |70
 |8  |563   |600    |900   |450    |720    |1000    |90    
-|9  |…   |1000    |1700   |…    |…    |…    |180    
-|10  |…   |…    |…    |…    |…    |…    |…    
+|9  |890   |1000    |1700    |660    |960    |…    |180    
+|10  |150   |240    |1260    |500    |360    |…    |105
 |11  |…   |…    |…    |…    |…    |…    |…    
 |12  |…   |…    |…    |…    |…    |…    |…    
 |===
