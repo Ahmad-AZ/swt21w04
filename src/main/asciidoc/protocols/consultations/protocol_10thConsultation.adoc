@@ -1,0 +1,78 @@
+= Protokoll Gruppe 04
+
+Treffen am 14.12.2021
+
+Ort:      BigBlueButton +
+Beginn:   18:00 Uhr +
+Ende:     19:25 Uhr
+
+__Schriftführer:__ Jan Biedermann
+
+*Nächstes Treffen:* +
+nächste Konsultation
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Tom Morgenstern (Auftraggeber)
+- Adrian Scholze
+- Jan Biedermann
+- Ahmad Abu Zahra
+- Georg Kunze
+- Tuấn Giang Trịnh
+- Robert Menzel
+
+== Bemerkungen
+- Protokolle zur Vorbereitung der Zwischenpräsentation müssen noch nachgereicht werden
+- Klassendiagramme sollten aktualisiert werden!
+- Demnächst sollte auch der Test-Coverage auf über 40% gebracht werden 
+- Wenn bestimmte Code Smells nicht behoben werden, dann sollten bei "Technische Schulden" erwähnt werden, warum das so ist
+- Auch für Duplicate Code gibt es einen Schwellwert, der am Ende nicht überschritten werden darf
+
+- Feedback zu den Muss-Kriterien:
+* Die Muss-Kriterien wurden mit einer 2 bewertet
+* Catering Kosten müssen noch in den Finanzen eingebaut werden
+* Tickets können noch nicht gedruckt werden
+* Automatische Nachrichten und Nachrichten für Besucher fehlen
+* Bestätigungsfenster für Löschen von Dingen ist sehr sinnvoll
+* Es ist schön, dass man bei der Finanzübersicht auch erwartete Finanzdaten berechnen kann
+* Der Spielplan funktioniert gut
+
+- Feedback Zwsichenpräsentation:
+* Freier sprechen
+* In den Folien muss nicht erwähnt werden, wer welchen Abschnitt präsentiert
+* Einer Person (z.B. Georg oder Jan) sollte bei der Abschlusspräsentation durch die Präsentation leiten
+* Die Präsentaion der Anwendung sollte nicht nur 6 Minuten lang sein!
+
+- Kundenwünsche zusätzlich zu den Muss-Kriterien:
+* Logo der FVIV GmbH
+* Zuordnung des Security-Personals zu den Bühnen und Zeiten im Spielplan
+* Automatische Nachrichten: Festival hat begonnen (an Festivalbesucher),
+Lagerbestand von Artikeln ist unter Schwellwert gefallen,
+Tickets sind ausverkauft
+
+- Sonstiges:
+* Bis 10.01 sollen folgende Kundenwünsche fertig sein: Festival begonnen Nachricht, Zuordnung der Security im Spielplan
+* Finanzübersicht für den Manager darf als Kann-Kriterium genommen werden
+* Für nächsten Dienstag ist keine Konsultation geplant
+
+== Retrospektive des letzten Sprints
+*Issue referenziert die Issue ID von GitHub*
+// Wie ist der Status der im letzten Sprint erstellten Issues/veteilten Aufgaben?
+
+// See http://asciidoctor.org/docs/user-manual/=tables
+[option="headers"]
+|===
+|Issue |Aufgabe |Status |Bemerkung
+|   |Folien für die Zwischenpräsentation |Fertig |Nicht viele Veränderungen für Folien bei Abschlusspräsentation nötig
+|   |Präsentation der Anwendung |Fertig |6 Minuten Dauer ist zu wenig 
+|   |Muss-Kriterien Finanzen |Catering-Kosten müssen noch eingebaut werden |
+|   |Muss-Kriterien Lager |Fertig |
+|   |Muss-Kriterien Personal |Fertig |
+|   |Muss-Kriterien Kommunikation |Fertig |
+|   |Muss-Kriterien Tickets |Fertig |
+|   |Muss-Kriterien Planung |Fertig |
+|===
+
+== Aktueller Stand
+Die Muss-Kriterien sind fertig und es wurde eine akzeptable Zwischenpräsentation gehalten.
