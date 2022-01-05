@@ -42,6 +42,11 @@ public class CateringController {
 		this.sales = sales;
 	}
 
+	@ModelAttribute("title")
+	public String getTitle() {
+		return "Catering Verkäufe";
+	}
+
 	@ModelAttribute("cart")
 	Cart initializeCart() {
 		return new Cart();
