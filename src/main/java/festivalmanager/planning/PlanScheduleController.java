@@ -74,7 +74,7 @@ public class PlanScheduleController {
 			model.addAttribute("timeSlotList",tsl);
 			model.addAttribute("festival", current);
 		}
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, festivalId);
 		return "schedule.html";
 		
 	}
@@ -100,7 +100,7 @@ public class PlanScheduleController {
 			//System.out.println(planScheduleManagement.getAvailableSecurity(currentFestival, date, timeSlot, stageId));
 			model.addAttribute("securitysToAdd", planScheduleManagement.getAvailableSecurity(current, date, timeSlot, stageId));
 	
-			utilsManagement.prepareModel(model);
+			utilsManagement.prepareModel(model, festivalId);
 			return "schedule.html";
 		} else {
 			return "redirect:/schedule/"+ festivalId;

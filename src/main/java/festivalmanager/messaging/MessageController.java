@@ -44,8 +44,7 @@ public class MessageController {
 	}
 
 	@GetMapping("/messages/{userId}")
-	public String getMessageView(Model model) {
-		utilsManagement.prepareModel(model);
+	public String getMessageView() {
 		return "messages.html";
 	}
 
@@ -54,7 +53,6 @@ public class MessageController {
 		Optional<Message> message = messageManagement.findById(messageId);
 		model.addAttribute("currentMessage", message.orElse(null));
 
-		utilsManagement.prepareModel(model);
 		return "messages.html";
 	}
 
@@ -71,7 +69,6 @@ public class MessageController {
 			model.addAttribute("possible_receivers", possibleReceivers);
 		}
 
-		utilsManagement.prepareModel(model);
 		return "messages.html";
 	}
 

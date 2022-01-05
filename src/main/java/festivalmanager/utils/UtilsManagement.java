@@ -50,7 +50,6 @@ public class UtilsManagement {
 
 
 	// TODO: Remove this
-	@Deprecated
 	public void prepareModel(Model model) {
 
 		Long currentFestivalId;

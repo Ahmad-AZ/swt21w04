@@ -67,65 +67,70 @@ public class StaffController {
 
 	@GetMapping("/staff/{festivalId}")
 	@PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
-	public String getStaffInfo(Model model) {
-		utilsManagement.prepareModel(model);
+	public String getStaffInfo(Model model, @PathVariable("festivalId") Long festivalId) {
+		utilsManagement.prepareModel(model, festivalId);
 		return "staff.html";
 	}
 
 	@GetMapping("/staff/{festivalId}/detail/{userId}")
 	@PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
-	public String getPersonDetailView(@PathVariable("userId") long userId, Model model) {
+	public String getPersonDetailView(@PathVariable("userId") long userId, Model model,
+									  @PathVariable("festivalId") Long festivalId) {
 		Optional<Person> user = staffManagement.findById(userId);
 		model.addAttribute("person", user.orElse(null));
 
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, festivalId);
 		return "staff.html";
 	}
 
 	@GetMapping(value = {"/staff/{festivalId}/create", "/staff/{festivalId}/create/{error}"})
 	@PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
-	public String getCreateStaffDialog(@PathVariable("error") Optional<String> error, Model model) {
+	public String getCreateStaffDialog(@PathVariable("error") Optional<String> error, Model model,
+									   @PathVariable("festivalId") Long festivalId) {
 		model.addAttribute("dialog", "create_staff");
 		model.addAttribute("error", error.orElse(""));
 
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, festivalId);
 		return "staff.html";
 	}
 
 	@GetMapping("/staff/{festivalId}/remove/{userId}")
 	@PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
-	public String getRemoveStaffDialog(@PathVariable("userId") long userId, Model model) {
+	public String getRemoveStaffDialog(@PathVariable("userId") long userId, Model model,
+									   @PathVariable("festivalId") Long festivalId) {
 		model.addAttribute("dialog", "remove_staff");
 
 		Optional<Person> user = staffManagement.findById(userId);
 		model.addAttribute("person", user.orElse(null));
 
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, festivalId);
 		return "staff.html";
 	}
 
 	@GetMapping(value = {"/staff/{festivalId}/change_role/{userId}", "/staff/{festivalId}/change_role/{userId}/{error}"})
 	@PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
-	public String getChangeRoleDialog(@PathVariable("userId") long userId, @PathVariable("error") Optional<String> error, Model model) {
+	public String getChangeRoleDialog(@PathVariable("userId") long userId, @PathVariable("error") Optional<String> error, Model model,
+									  @PathVariable("festivalId") Long festivalId) {
 		model.addAttribute("dialog", "change_role");
 		model.addAttribute("error", error.orElse(""));
 
 		Optional<Person> user = staffManagement.findById(userId);
 		model.addAttribute("person", user.orElse(null));
 
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, festivalId);
 		return "staff.html";
 	}
 
 	@GetMapping("/staff/{festivalId}/change_password/{userId}")
 	@PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
-	public String getChangePasswordDialog(@PathVariable("userId") long userId, Model model) {
+	public String getChangePasswordDialog(@PathVariable("userId") long userId, Model model,
+										  @PathVariable("festivalId") Long festivalId) {
 		model.addAttribute("dialog", "change_password");
 
 		Optional<Person> user = staffManagement.findById(userId);
 		model.addAttribute("person", user.orElse(null));
 
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, festivalId);
 		return "staff.html";
 	}
 

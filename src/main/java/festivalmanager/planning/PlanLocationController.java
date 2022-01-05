@@ -60,7 +60,7 @@ public class PlanLocationController {
 			
 			model.addAttribute("festival", current);
 		}
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, festivalId);
 		return "/locationOverview"; 			
 
 	} 
@@ -94,7 +94,7 @@ public class PlanLocationController {
 			// required for second nav-bar
 			model.addAttribute("festival", currentFestival);
 		}
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, festivalId);
 		return "locationDetailPlan";
 	}
 		 		

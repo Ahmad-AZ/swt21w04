@@ -68,7 +68,7 @@ public class PlanOffersController {
 				model.addAttribute("bookedArtist", 0);
 			}
 
-			utilsManagement.prepareModel(model);
+			utilsManagement.prepareModel(model, festivalId);
 			return "artistOverview";
 		} else{
 			throw new ResponseStatusException(
@@ -101,7 +101,7 @@ public class PlanOffersController {
 			
 			model.addAttribute("ArtistCurrentlyBooked", currentFestival.getArtistBookedState(current));
 
-			utilsManagement.prepareModel(model);
+			utilsManagement.prepareModel(model, festivalId);
 			return "artistDetailPlan";
 
 		} else {

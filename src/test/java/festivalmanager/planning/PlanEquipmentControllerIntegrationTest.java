@@ -43,10 +43,10 @@ public class PlanEquipmentControllerIntegrationTest extends AbstractIntegrationT
 
 		ExtendedModelMap model = new ExtendedModelMap();
 
-		controller.equipments(model, mock(EquipmentRentingForm.class), mock(NewStageForm.class));
 		//assertThat(model.getAttribute("equipmentStage")).isNotNull();
 		
 		Festival festival = new Festival("name", LocalDate.now(), LocalDate.now().plusDays(4));
+		controller.equipments(model, mock(EquipmentRentingForm.class), mock(NewStageForm.class), festival.getId());
 		Location location = new Location();
 		locationManagement.saveLocation(location);
 		festival.setLocation(location);

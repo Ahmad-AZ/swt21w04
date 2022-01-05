@@ -101,9 +101,10 @@ public class PlanEquipmentController {
 	// shows Equipments Overview
 	@GetMapping("/equipments/{festivalId}")  
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String equipments(Model model, EquipmentRentingForm equipmentRentingForm, NewStageForm newStageForm) {
+	public String equipments(Model model, EquipmentRentingForm equipmentRentingForm, NewStageForm newStageForm,
+							 @PathVariable("festivalId") long festivalId) {
 
-			utilsManagement.prepareModel(model);
+			utilsManagement.prepareModel(model, festivalId);
 			return "equipments.html";
 	}
 	
@@ -135,7 +136,7 @@ public class PlanEquipmentController {
 				if(aStage.getName().equals(name)){
 					result.rejectValue("name", null, "Bühne mit diesem Namen existiert bereits.");	
 					
-					utilsManagement.prepareModel(model);
+					utilsManagement.prepareModel(model, festivalId);
 					return "equipments.html"; 
 				}
 			}
@@ -148,7 +149,7 @@ public class PlanEquipmentController {
 				result.rejectValue("name", null, "Die maximale Bühnenkapazität wurde erreicht.");
 			}	
 		}	
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, festivalId);
 		return "equipments.html";
 	}
 	
@@ -156,7 +157,8 @@ public class PlanEquipmentController {
 	@GetMapping("equipments/{festivalId}/remove/{id}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String getRemoveStageDialog(@PathVariable("id") SalespointIdentifier id, Model model, 
-										EquipmentRentingForm equipmentRentingForm, NewStageForm newStageForm ) {
+										EquipmentRentingForm equipmentRentingForm, NewStageForm newStageForm,
+									   @PathVariable("festivalId") long festivalId) {
 		model.addAttribute("dialog", "remove stage");
 		
 		Optional<Stage> stage = equipmentManagement.findStageById(id);
@@ -168,7 +170,7 @@ public class PlanEquipmentController {
 					HttpStatus.NOT_FOUND, "entity not found"
 			);
 		}
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, festivalId);
 		return "equipments.html";
 	}
 	
@@ -197,7 +199,7 @@ public class PlanEquipmentController {
 	public String rentEquipmentAmount(Model model, @Valid EquipmentRentingForm equipementRentingForm, Errors result, 
 										@PathVariable("festivalId") long festivalId, NewStageForm newStageForm) {
 		if(result.hasErrors()) {
-			utilsManagement.prepareModel(model);
+			utilsManagement.prepareModel(model, festivalId);
 			return "equipments.html";
 		}
 		Optional<Festival> festival = festivalManagement.findById(festivalId);

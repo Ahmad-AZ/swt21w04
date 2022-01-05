@@ -53,7 +53,7 @@ public class FestivalController {
 				model.addAttribute("location", current.getLocation());
 			}
 			utilsManagement.setCurrentFestival(current.getId());
-			utilsManagement.prepareModel(model);
+			utilsManagement.prepareModel(model, festivalId);
 			return "festivalDetail";
 		} else {
 			return "redirect:/festivalOverview";
@@ -74,7 +74,7 @@ public class FestivalController {
 		}
 		model.addAttribute("title", "Karte");
 
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, festivalId);
 		return "/mapVisitorView";
 	}
 	
@@ -109,7 +109,6 @@ public class FestivalController {
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String newFestival(Model model, NewFestivalForm form) {
 		model.addAttribute("dateNow", LocalDate.now());
-		utilsManagement.prepareModel(model);
 		return "newFestival";
 	}
 	
@@ -128,7 +127,7 @@ public class FestivalController {
 			model.addAttribute("artists", current.getArtist());
 			model.addAttribute("location", current.getLocation());
 		}	
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, festivalId);
 		return "festivalDetail";
 
 	}
@@ -158,7 +157,7 @@ public class FestivalController {
 			model.addAttribute("artists", current.getArtist());
 			model.addAttribute("location", current.getLocation());
 
-			utilsManagement.prepareModel(model);
+			utilsManagement.prepareModel(model, festivalId);
 					
 			// not perfect
 			if (result.hasErrors()) {
@@ -179,7 +178,6 @@ public class FestivalController {
 		
 		model.addAttribute("festivalList", festivalManagement.findAll());
 
-		utilsManagement.prepareModel(model);
 		return "festivalOverview"; 
 	}
 	
@@ -198,7 +196,7 @@ public class FestivalController {
 			model.addAttribute("currentName", "");
 		}
 
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, id);
 		return "festivalOverview";
 	}
 	

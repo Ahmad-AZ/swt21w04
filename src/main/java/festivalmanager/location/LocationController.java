@@ -46,7 +46,6 @@ public class LocationController {
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String locations(Model model) {
 		model.addAttribute("locationList", locationManagement.findAll());
-		utilsManagement.prepareModel(model);
 		return "locations";
 	}
 	
@@ -65,7 +64,6 @@ public class LocationController {
 			System.out.println(pricePerDay);
 			model.addAttribute("pricePerDay", pricePerDay);
 		}
-		utilsManagement.prepareModel(model);
 		return "locationEdit";
 			
 	}
@@ -81,7 +79,6 @@ public class LocationController {
 			model.addAttribute("location", current);
 			model.addAttribute("hasBookings", current.hasBookings());
 		}
-		utilsManagement.prepareModel(model);
 		return "locationDetail";
 		
 	}
@@ -125,7 +122,6 @@ public class LocationController {
 	@GetMapping("/newLocation")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String newLocation(Model model, NewLocationForm newLocationForm) {
-		utilsManagement.prepareModel(model);
 		return "newLocation";
 	}
 	
@@ -193,7 +189,6 @@ public class LocationController {
 			model.addAttribute("currentName", "");
 		}
 
-		utilsManagement.prepareModel(model);
 		return "/locations";
 	}
 	

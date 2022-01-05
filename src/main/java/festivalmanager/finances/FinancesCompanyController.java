@@ -61,7 +61,6 @@ public class FinancesCompanyController {
 		FinancesController.addAttribute(model, "averageCostOneDayTickets",
 				financesCompanyManagement.getAverageCostOneDayTickets());
 
-		utilsManagement.prepareModel(model, null);
 		return "financesCompany";
 	}
 
