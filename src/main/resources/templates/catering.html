@@ -35,6 +35,7 @@
 										<td><button type="submit">hinzuf&uuml;gen</button></td>
 									</tr>
 								</table>
+								<input type="hidden" name="festivalId" th:value="${festivalId}"/>
 							</form>
 							</fieldset>	
 						</td>
@@ -56,6 +57,7 @@
 									<td align="right" th:text="${cart.getPrice()}"></td>
 								</tr>
 							</table>
+							<input type="hidden" name="festivalId" th:value="${festivalId}"/>
 						</form>							
 						</td>
 					</tr>

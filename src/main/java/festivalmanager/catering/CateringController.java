@@ -3,16 +3,15 @@ package festivalmanager.catering;
 import org.salespointframework.order.Cart;
 import org.salespointframework.order.CartItem;
 import org.salespointframework.quantity.Quantity;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 //import org.springframework.web.bind.annotation.ModelAttribute;
 import org.salespointframework.catalog.ProductIdentifier;
 import festivalmanager.festival.*;
 import festivalmanager.utils.*;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
@@ -22,7 +21,7 @@ import java.util.Optional;
 @Controller
 @SessionAttributes("cart")
 public class CateringController {
-	private Festival currentFestival;
+	//private Festival currentFestival;
 	private UtilsManagement utilsManagement;
 	private FestivalManagement festivalManagement;
 	private CateringProductCatalog catalog;
@@ -52,21 +51,29 @@ public class CateringController {
 		return new Cart();
 	}
 
-	@GetMapping("/catering")
-	String sales(Model model, @ModelAttribute Cart cart) {
-		currentFestival = festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
+	@GetMapping("/catering/{festivalId}")
+	String sales(Model model, @ModelAttribute Cart cart, @PathVariable Long festivalId) {
+
+		Optional<Festival> festivalOptional = festivalManagement.findById(festivalId);
+		if (festivalOptional.isEmpty()) {
+			throw new ResponseStatusException(
+					HttpStatus.NOT_FOUND, "entity not found");
+		}
+
+		Festival currentFestival = festivalOptional.get();
 
 		model.addAttribute("productcatalog", catalog.findAll());
 		model.addAttribute("productid", null);
 
 		utilsManagement.setCurrentPageLowerHeader("cateringSales");
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, festivalId);
 		model.addAttribute("cart", cart);
 		return "catering";
 	}
 
 	@PostMapping("/catering/addToCart")
-	String addToCart(Model model, AddToCartFormResult formResult, @ModelAttribute Cart cart) {
+	String addToCart(Model model, AddToCartFormResult formResult, @ModelAttribute Cart cart,
+					 @RequestParam("festivalId") Long festivalId) {
 		if (formResult.productId != null) {
 			Optional<CateringProduct> oProduct = catalog.findById(formResult.productId);
 
@@ -75,23 +82,23 @@ public class CateringController {
 				cart.addOrUpdateItem(product, Quantity.of(formResult.productCount));
 			}
 		}
-		return "redirect:/catering";
+		return "redirect:/catering/" + festivalId;
 	}
 
 	@PostMapping("/catering/checkout")
-	String checkout(Model model, @ModelAttribute Cart cart) {
+	String checkout(Model model, @ModelAttribute Cart cart, @RequestParam("festivalId") Long festivalId) {
 
 		for (CartItem item : cart) {
 			CateringSalesItem salesItem = new CateringSalesItem(
 					(CateringProduct) item.getProduct(),
 					item.getQuantity(),
-					currentFestival.getId(),
+					festivalId,
 					item.getPrice());
 			sales.save(salesItem);
 		}
 
 		cart.clear();
-		return "redirect:/catering";
+		return "redirect:/catering/" + festivalId;
 	}
 
 	class AddToCartFormResult {
