@@ -64,7 +64,6 @@ public class CateringController {
 		model.addAttribute("productcatalog", catalog.findAll());
 		model.addAttribute("productid", null);
 
-		utilsManagement.setCurrentPageLowerHeader("cateringSales");
 		utilsManagement.prepareModel(model, festivalId);
 		model.addAttribute("cart", cart);
 		return "catering";

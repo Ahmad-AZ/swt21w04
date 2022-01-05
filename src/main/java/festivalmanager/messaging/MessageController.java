@@ -45,7 +45,6 @@ public class MessageController {
 
 	@GetMapping("/messages/{userId}")
 	public String getMessageView(Model model) {
-		utilsManagement.setCurrentPageUpperHeader("messages");
 		utilsManagement.prepareModel(model);
 		return "messages.html";
 	}

@@ -46,7 +46,6 @@ public class LocationController {
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String locations(Model model) {
 		model.addAttribute("locationList", locationManagement.findAll());
-		utilsManagement.setCurrentPageUpperHeader("locations");
 		utilsManagement.prepareModel(model);
 		return "locations";
 	}

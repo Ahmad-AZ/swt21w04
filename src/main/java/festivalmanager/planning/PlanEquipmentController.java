@@ -103,7 +103,6 @@ public class PlanEquipmentController {
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String equipments(Model model, EquipmentRentingForm equipmentRentingForm, NewStageForm newStageForm) {
 
-			utilsManagement.setCurrentPageLowerHeader("equipment");
 			utilsManagement.prepareModel(model);
 			return "equipments.html";
 	}

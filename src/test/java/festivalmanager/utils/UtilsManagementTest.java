@@ -38,18 +38,12 @@ public class UtilsManagementTest {
 		when(festivalRepository.findById(any())).thenReturn(Optional.of(testFestival));
 		festivalManagement.saveFestival(testFestival);
 
-		UtilsManagement utilsManagement = new UtilsManagement(festivalManagement);
-		utilsManagement.setCurrentPageUpperHeader("festivals");
-		utilsManagement.setCurrentPageLowerHeader("finances");
-		utilsManagement.setCurrentFestival(testFestival.getId());
-
 		Model testModel = new ExtendedModelMap();
-		utilsManagement.prepareModel(testModel);
+
+		UtilsManagement utilsManagement = new UtilsManagement(festivalManagement);
+		utilsManagement.prepareModel(testModel, testFestival.getId());
 		assertThat(testModel.getAttribute("festivalName")).isEqualTo("Test Festival");
 		assertThat(testModel.getAttribute("festivalId")).isEqualTo(testFestival.getId());
-		assertThat(testModel.getAttribute("festivalsCurrent")).isEqualTo("current");
-		assertThat(testModel.getAttribute("financesCurrent")).isEqualTo("current");
-
 	}
 
 }

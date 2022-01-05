@@ -53,7 +53,6 @@ public class CateringProductCatalogController {
     String products(Model model, @PathVariable Long festivalId) {
         model.addAttribute("stock", stock.findByFestivalId(festivalId));
         model.addAttribute("productcatalog", catalog.findAll());
-        utilsManagement.setCurrentPageLowerHeader("catering");
         utilsManagement.prepareModel(model, festivalId);
         return "cateringProductCatalog";
     }

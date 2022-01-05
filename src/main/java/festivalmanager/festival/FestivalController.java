@@ -53,7 +53,6 @@ public class FestivalController {
 				model.addAttribute("location", current.getLocation());
 			}
 			utilsManagement.setCurrentFestival(current.getId());
-			utilsManagement.setCurrentPageLowerHeader("festivalDetail");
 			utilsManagement.prepareModel(model);
 			return "festivalDetail";
 		} else {
@@ -75,7 +74,6 @@ public class FestivalController {
 		}
 		model.addAttribute("title", "Karte");
 
-		utilsManagement.setCurrentPageLowerHeader("map");
 		utilsManagement.prepareModel(model);
 		return "/mapVisitorView";
 	}
@@ -181,7 +179,6 @@ public class FestivalController {
 		
 		model.addAttribute("festivalList", festivalManagement.findAll());
 
-		utilsManagement.setCurrentPageUpperHeader("festivals");
 		utilsManagement.prepareModel(model);
 		return "festivalOverview"; 
 	}

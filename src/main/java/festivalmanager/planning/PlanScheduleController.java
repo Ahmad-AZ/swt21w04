@@ -74,7 +74,6 @@ public class PlanScheduleController {
 			model.addAttribute("timeSlotList",tsl);
 			model.addAttribute("festival", current);
 		}
-		utilsManagement.setCurrentPageLowerHeader("program");
 		utilsManagement.prepareModel(model);
 		return "schedule.html";
 		

@@ -110,7 +110,6 @@ class FinancesController {
 		addAttribute(model, "revenueExpected", revenueExpected);
 		addAttribute(model,"profitExpected", profitExpected);
 
-		utilsManagement.setCurrentPageLowerHeader("finances");
 		utilsManagement.prepareModel(model, festivalId);
 		return "finances";
 	}

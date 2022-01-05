@@ -12,23 +12,24 @@
                     <img class="item border-right logoImageNavBar" src="/resources/img/LogoSmall.png" alt="Logo small">
                     </a>
 
-                    <a th:class="${'item ' + 'border-right ' + festivalsCurrent}"
+                    <a th:class="${title!=null && title!='Locations' && title!='Künstler' && title!='Nachrichten' && title!='Finanzen FVIV GmbH'}
+                       ? 'item border-right current' : 'item border-right'"
                        href="festivalOverview.html" th:href="@{/festivalOverview}"
                        sec:authorize="hasRole('PLANNER') || hasRole('ADMIN') || hasRole('MANAGER')">Festivals</a>
 
-                    <a th:class="${'item ' + 'border-right ' + locationsCurrent}"
+                    <a th:class="${title!='Locations'} ? 'item border-right' : 'item border-right current'"
                        href="locations.html" th:href="@{/locations}"
                        sec:authorize="hasRole('PLANNER') || hasRole('ADMIN') || hasRole('MANAGER')">Locations</a>
 
-                    <a th:class="${'item ' + 'border-right ' + artistsCurrent}"
+                    <a th:class="${title!='Künstler'} ? 'item border-right' : 'item border-right current'"
                        href="artists.html" th:href="@{/artists}"
                        sec:authorize="hasRole('PLANNER') || hasRole('ADMIN') || hasRole('MANAGER')">Künstler</a>
 
-                    <a th:class="${'item ' + 'border-right ' + messagesCurrent}"
+                    <a th:class="${title!='Nachrichten'} ? 'item border-right' : 'item border-right current'"
                        href="messages.html" th:href="@{/messages/{userId}(userId = ${userId})}"
                        sec:authorize="isAuthenticated()">Nachrichten</a>
 
-                    <a th:class="${'item ' + 'border-right ' + financesCompanyCurrent}"
+                    <a th:class="${title!='Finanzen FVIV GmbH'} ? 'item border-right' : 'item border-right current'"
                        href="financesCompany.html" th:href="@{/financesCompany}"
                        sec:authorize="hasRole('ADMIN') || hasRole('MANAGER')">Finanzen FVIV GmbH</a>
                 </div>

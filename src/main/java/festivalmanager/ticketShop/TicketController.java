@@ -46,7 +46,6 @@ public class TicketController {
 	public String showTicketInfo(Model model) {
 
 		model.addAttribute("title", "Tickets");
-		utilsManagement.setCurrentPageLowerHeader("tickets");
 		utilsManagement.prepareModel(model);
 
 		if (Objects.isNull(ticketManagement.getCurrentTicket())) {
@@ -55,7 +54,6 @@ public class TicketController {
 			model.addAttribute("ticket", new Ticket());
 			model.addAttribute("festival", this.currentFestival);
 
-			utilsManagement.setCurrentPageLowerHeader("tickets");
 
 			utilsManagement.prepareModel(model);
 			return "ticketForm";
@@ -154,7 +152,6 @@ public class TicketController {
 
 
 		Ticket ticket = ticketManagement.TicketsByFestival(utilsManagement.getCurrentFestivalId());
-		utilsManagement.setCurrentPageLowerHeader("ticketShop");
 		utilsManagement.prepareModel(model);
 
 		if (ticket == null) {

@@ -68,7 +68,6 @@ public class StaffController {
 	@GetMapping("/staff/{festivalId}")
 	@PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
 	public String getStaffInfo(Model model) {
-		utilsManagement.setCurrentPageLowerHeader("staff");
 		utilsManagement.prepareModel(model);
 		return "staff.html";
 	}

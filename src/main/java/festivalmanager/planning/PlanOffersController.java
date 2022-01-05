@@ -68,7 +68,6 @@ public class PlanOffersController {
 				model.addAttribute("bookedArtist", 0);
 			}
 
-			utilsManagement.setCurrentPageLowerHeader("artistOverview");
 			utilsManagement.prepareModel(model);
 			return "artistOverview";
 		} else{

@@ -37,7 +37,6 @@ public class HiringController {
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String artists(Model model) {
 		model.addAttribute("artistList", hiringManagement.findAll());
-		utilsManagement.setCurrentPageUpperHeader("artists");
 		utilsManagement.prepareModel(model);
 		return "artists";
 	}
