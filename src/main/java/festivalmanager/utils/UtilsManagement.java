@@ -83,36 +83,15 @@ public class UtilsManagement {
 	// TODO: Remove this
 	public void prepareModel(Model model) {
 
-		// Update currentFestival
-		if (currentFestival != null) {
-			setCurrentFestival(getCurrentFestivalId());
-		}
-
-		if (currentPageUpperHeader != null) {
-
-			if (pagesUpperHeader.contains(currentPageUpperHeader)) {
-				model.addAttribute(currentPageUpperHeader + "Current", "current");
-			} else {
-				System.out.println("DEBUG Warning: CurrentPageManagement does not " +
-						"know the name of your page; Name was: " + currentPageUpperHeader);
-			}
-		}
-
-		if (currentPageLowerHeader != null) {
-
-			if (pagesLowerHeader.contains(currentPageLowerHeader)) {
-				model.addAttribute(currentPageLowerHeader + "Current", "current");
-			} else {
-				System.out.println("DEBUG Warning: CurrentPageManagement does not " +
-						"know the name of your page; Name was: " + currentPageUpperHeader);
-			}
-		}
+		Long currentFestivalId;
 
 		if (currentFestival != null) {
-			model.addAttribute("festivalLocation", currentFestival.getLocation());
-			model.addAttribute("festivalId", currentFestival.getId());
-			model.addAttribute("festivalName", currentFestival.getName());
+			currentFestivalId = getCurrentFestivalId();
+		} else {
+			currentFestivalId = null;
 		}
+
+		prepareModel(model, currentFestivalId);
 	}
 
 
@@ -133,7 +112,7 @@ public class UtilsManagement {
 			if (pagesUpperHeader.contains(currentPageUpperHeader)) {
 				model.addAttribute(currentPageUpperHeader + "Current", "current");
 			} else {
-				System.out.println("DEBUG Warning: CurrentPageManagement does not " +
+				System.out.println("DEBUG Warning: UtilsManagement does not " +
 						"know the name of your page; Name was: " + currentPageUpperHeader);
 			}
 		}
@@ -143,8 +122,8 @@ public class UtilsManagement {
 			if (pagesLowerHeader.contains(currentPageLowerHeader)) {
 				model.addAttribute(currentPageLowerHeader + "Current", "current");
 			} else {
-				System.out.println("DEBUG Warning: CurrentPageManagement does not " +
-						"know the name of your page; Name was: " + currentPageUpperHeader);
+				System.out.println("DEBUG Warning: UtilsManagement does not " +
+						"know the name of your page; Name was: " + currentPageLowerHeader);
 			}
 		}
 
