@@ -30,10 +30,11 @@
                         <td><input type="number" step="0.01" name="filling" value="0.00"></td>
                     </tr>
                     <tr>
-                        <td><a href="../cateringProductCatalog">abbrechen</a></td>
+                        <td><a th:href="@{/cateringProductCatalog/{id}(id=${festivalId})}">abbrechen</a></td>
                         <td><button type="submit">hinzuf&uuml;gen</button></td>
                     </tr>
                 </table>
+                <input type="hidden" name="festivalId" th:value="${festivalId}"/>
             </form>
             </section>
         </section>

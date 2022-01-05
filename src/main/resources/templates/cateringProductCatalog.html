@@ -25,18 +25,18 @@
 
 				<tr th:each="product : ${productcatalog}">
 					<td>
-						<a th:href="@{/cateringEditProduct/{id}(id=${product.getId()})}">bearbeiten</a>
+						<a th:href="@{/cateringEditProduct/{festivalId}/{id}(festivalId=${festivalId}, id=${product.getId()})}">bearbeiten</a>
 					</td>
 					<td th:text="${product.getName()}">Coca Cola</td>
 					<td th:text="${product.getPrice()}">2,50 €</td>
 					<td th:text="${product.getDeposit()}">0,25 €</td>
 					<td th:text="${product.getFilling()}">0,33</td>
 					<td>
-						<a th:href="@{/cateringDeleteProduct/{id}(id=${product.getId()})}">l&ouml;schen</a>
+						<a th:href="@{/cateringDeleteProduct/{festivalId}/{id}(festivalId=${festivalId}, id=${product.getId()})}">l&ouml;schen</a>
 					</td>
 				</tr>
 			</table>
-			<a href="cateringAddProduct">Produkt hinzuf&uuml;gen</a>
+			<a th:href="@{/cateringAddProduct/{id}(id=${festivalId})}">Produkt hinzuf&uuml;gen</a>
 			<br>
 			<hr>
 			<br>
@@ -53,7 +53,7 @@
 
 				<tr th:each="stockitem : ${stock}">
 					<td>
-						<a th:href="@{/cateringEditStockItem/{id}(id=${stockitem.getId()})}">bearbeiten</a>
+						<a th:href="@{/cateringEditStockItem/{festivalId}/{id}(festivalId=${festivalId}, id=${stockitem.getId()})}">bearbeiten</a>
 					</td>
 					<td th:text="${stockitem.getProduct().getName()}">Coca Cola</td>
 					<td th:text="${stockitem.getQuantity()}">500</td>
@@ -61,11 +61,11 @@
 					<td th:text="${stockitem.getOrderDate()}">10.12.2021</td>
 					<td th:text="${stockitem.getBestBeforeDate()}">01.04.2021</td>
 					<td>
-						<a th:href="@{/cateringDeleteStockItem/{id}(id=${stockitem.getId()})}">l&ouml;schen</a>
+						<a th:href="@{/cateringDeleteStockItem/{festivalId}/{id}(festivalId=${festivalId}, id=${stockitem.getId()})}">l&ouml;schen</a>
 					</td>
 				</tr>
 			</table>
-			<a href="cateringAddStockItem">Lagerbestand hinzuf&uuml;gen</a>
+			<a th:href="@{/cateringAddStockItem/{id}(id=${festivalId})}">Lagerbestand hinzuf&uuml;gen</a>
 		</section>
 	</body>
 </html>

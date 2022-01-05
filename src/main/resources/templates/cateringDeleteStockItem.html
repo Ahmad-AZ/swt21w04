@@ -37,10 +37,11 @@
                         <td><span th:text="${stockitem.getBestBeforeDate()}"></td>
                     </tr>
                     <tr>
-                        <td><a href="../cateringProductCatalog">abbrechen</a></td>
+                        <td><a th:href="@{/cateringProductCatalog/{id}(id=${festivalId})}">abbrechen</a></td>
                         <td><button type="submit">l&ouml;schen</button></td>
                     </tr>
                 </table>
+                <input type="hidden" name="festivalId" th:value="${festivalId}"/>
             </form>
             </section>
         </section>

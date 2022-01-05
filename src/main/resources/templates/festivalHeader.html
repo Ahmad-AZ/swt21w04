@@ -37,7 +37,7 @@
                        sec:authorize="hasRole('PLANNER') || hasRole('ADMIN')">Finanzen</a>
 
                     <a th:class="${'item ' + 'border-right ' + cateringCurrent}"
-                       th:href="@{/cateringProductCatalog}"
+                       th:href="@{/cateringProductCatalog/{id}(id=${festivalId})}"
                        sec:authorize="hasAnyRole('PLANNER', 'ADMIN', 'MANAGER')">Catering</a>
 
                     <a th:class="${'item ' + 'border-right ' + cateringSalesCurrent}"

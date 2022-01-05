@@ -21,7 +21,6 @@ import java.util.Optional;
 @Controller
 @SessionAttributes("cart")
 public class CateringController {
-	//private Festival currentFestival;
 	private UtilsManagement utilsManagement;
 	private FestivalManagement festivalManagement;
 	private CateringProductCatalog catalog;
