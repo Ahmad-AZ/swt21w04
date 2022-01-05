@@ -1,0 +1,40 @@
+= Protokoll Gruppe 04
+
+Treffen am 04.12.2021
+
+Ort:      Discord +
+Beginn:   09:00 Uhr +
+Ende:     09:35 Uhr
+
+__Schriftführer:__ Jan Biedermann
+
+*Nächstes Treffen:* +
+Montag, 06.12.2021
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Adrian Scholze
+- Jan Biedermann
+- Ahmad Abu Zahra
+- Georg Kunze
+- Tuấn Giang Trịnh
+- Robert Menzel
+
+== Bemerkungen
+- Es wurde die Zwischenpräsentation geplant
+
+- Für die Präsentation der Analyse- und Entwurfsphase gibt es folgende Aufgabenverteilung:
+* Ahmad, Adrian: Packagediagramm (etwa 4 Minuten)
+* Jan: Funktionale Anforderungen (etwa 2 Minuten)
+* Robert: Qualitätsziele und Randbedingungen (1 bis 2 Minuten)
+* Tuan: Zielstellung (etwa 1 Minute)
+* Georg: Struktur der Software und Produktnutzung (etwa 2 Minuten)
+
+- Scrum Master Georg wird die Präsentation der Anwendung übernehmen
+- Jan erstellt eine PowerPoint Präsentation,
+dafür schickt bis Sonntag Abend jeder Stichkpunkte zu seinem Thema an Jan
+- Am Montag wird die Präsentation zum ersten Mal durchgesprochen
+
+== Aktueller Stand
+Die Planung der Zwischenpräsentation ist fertig.

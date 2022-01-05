@@ -1,0 +1,33 @@
+= Protokoll Gruppe 04
+
+Treffen am 06.12.2021
+
+Ort:      Discord +
+Beginn:   20:20 Uhr +
+Ende:     20:45 Uhr
+
+__Schriftführer:__ Jan Biedermann
+
+*Nächstes Treffen:* +
+Freitag, 10.12.2021
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Adrian Scholze
+- Jan Biedermann
+- Ahmad Abu Zahra
+- Georg Kunze
+- Tuấn Giang Trịnh
+- Robert Menzel
+
+== Bemerkungen
+- Es wurde eine erste Version der Zwischenprsäsentation durchgesprochen
+- Bei der Präsentation von Entwurf- und Analyse wurde die Zeit gut ausgenutzt
+- Die Präsentation der Anwendung war noch zu kurz
+- Adrian und Ahmad werden ihren Teil der Präsentation noch zu zweit planen,
+es fehlt vor allem noch eine Einleitung für die Präsentation
+
+== Aktueller Stand
+Der Großteil der Präsentation ist fertig, es fehlen noch Überleitungssätze und
+Adrian und Ahmad bauen noch eine Einleitung.
