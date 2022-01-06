@@ -93,14 +93,10 @@ image::models/analysis/TLA.png[]
 - NewFestivalForm
 - PlanDate
 
-|org.salespointframework.accountancy a|
-- FinancesController
-
 |org.salespointframework.catalog a|
 - EquipmentCatalog
 
 |org.salespointframework.core a|
-- Finances
 - FinancesController
 - LocationDataInitializer
 - EquipmentDataInitializer
@@ -130,8 +126,10 @@ image::models/analysis/TLA.png[]
 |org.springframework.ui |Alle Controller
 
 |org.javamoney.moneta.Money a|
-- Finances
 - FinancesController
+- FinancesManagement
+- FinancesCompanyController
+- FinancesCompanyManagement
 - LocationDataInitializer
 - Location
 - Catering
