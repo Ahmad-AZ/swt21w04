@@ -296,11 +296,20 @@ image::models/design/developer_documentation/class_diagrams/finances.png[]
 |===
 |Klasse/Enumeration |Beschreibung
 |FinancesController | Bildet die Schnittstelle zwischen der finances.html Datei, ihren HTML-Forms und dem finances package
-|FinancesManagement | Ist für den Austausch von Daten zwischen dem Controller und den Models zuständig
-|Finances | Ist für die Berechnung der Finanzdaten aus allen erhaltenen Daten zuständig
-|Payment | Ist für die Berechnung von Daten zur Bezahlung von Mitarbeitern und Equipment zuständig 
-|Income | Ist für die Berechnung von Daten zum Umsatz zuständig
-|PurchasesRepository | Speichert Verkäufe vom Catering package um Berechnung von Finanzdaten zu ermöglichen
+|FinancesManagement | Berechnet die Finanzdaten für ein konkretes Festival
+|FinancesCompanyController | Bildet die Schnittstelle zwischen der financesCompany.html Datei und dem finances package
+|FinancesCompanyManagement | Berechnet die Finanzdaten für die gesamte FVIV GmbH
+|===
+
+=== Utils
+
+image::models/design/developer_documentation/class_diagrams/utils.png[]
+
+|===
+|Klasse/Enumeration |Beschreibung
+|UtilsManagement| Um das Menü Korrekt darzustellen werden Informationen über das Festival im Model benötigt (z.B. Name, Location gebucht).
+Diese werden per UtilsManagement zum Model hinzugefügt
+|CustomErrorController| Der Controller für eine CustomErrorPage, die die Whitelabel Error Page ersetzt
 |===
 
 === Rückverfolgbarkeit zwischen Analyse- und Entwurfsmodell
@@ -358,4 +367,3 @@ image::models/design/developer_documentation/sequence_diagrams/seq_festival.png[
 
 == Technische Schulden
 * Auflistung der nicht erreichten Quality Gates und der zugehörigen SonarQube Issues zum Zeitpunkt der Abgabe
-
