@@ -41,14 +41,14 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 	void rejectsUnauthenticatedAccessToController() {
 
 		assertThatExceptionOfType(AuthenticationException.class).isThrownBy(()
-				-> testController.ticketOverview(new ExtendedModelMap()));
+				-> testController.ticketOverview(0, new ExtendedModelMap()));
 
 		assertThatExceptionOfType(AuthenticationException.class).isThrownBy(()
 				-> testController.update(new Ticket(),new ExtendedModelMap()));
 
 
 		assertThatExceptionOfType(AuthenticationException.class).isThrownBy(()
-				-> testController.showTicketInfo(new ExtendedModelMap()));
+				-> testController.showTicketInfo(0, new ExtendedModelMap()));
 
 
 		assertThatExceptionOfType(AuthenticationException.class).isThrownBy(()
@@ -88,9 +88,9 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 	@WithMockUser(roles = {"TICKET_SELLER", "ADMIN"})
 	void testReturnedViewInTicketOverviewWithNoTickets(){
 
-		utilsManagement.setCurrentFestival(1);
+
 		Model model = new ExtendedModelMap();
-		String result =  testController.ticketOverview(model);
+		String result =  testController.ticketOverview(0, model);
 		assertThat(result).isEqualTo("ticketShopUnavailable");
 	}
 
@@ -107,7 +107,7 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 		ticketManagement.setCurrentTicket(ticket);
 		Model model = new ExtendedModelMap();
 
-		String result =  testController.ticketOverview(model);
+		String result =  testController.ticketOverview(ticket.getFestivalId(), model);
 		assertThat(result).isEqualTo("ticketShop");
 	}
 
@@ -124,7 +124,7 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 		utilsManagement.setCurrentFestival(1);
 		ticketManagement.setCurrentTicket(ticket);
 
-		String result = testController.showTicketInfo(model);
+		String result = testController.showTicketInfo(ticket.getFestivalId(), model);
 
 		assertThat(result).isEqualTo("ticketResult");
 	}
@@ -140,7 +140,7 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 		Model model = new ExtendedModelMap();
 
 
-		assertThat(testController.create(ticket,model)).isEqualTo("ticketResult");
+		assertThat(testController.create(ticket,ticket.getFestivalId(), model)).isEqualTo("ticketResult");
 		assertThat(ticket.getFestivalName()).isEqualTo("Beispielfestival");
 		assertThat(ticket.getFestivalId()).isEqualTo(1);
 		assertThat(ticketManagement.getCurrentTicket()).isEqualTo(ticket);

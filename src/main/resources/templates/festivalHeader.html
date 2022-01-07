@@ -45,11 +45,11 @@
                        sec:authorize="hasAnyRole('CATERING', 'ADMIN')">Catering Verkäufe</a>
 
                     <a th:class="${title!='Tickets'} ? 'item border-right' : 'item border-right current'"
-                       th:href="@{/tickets}"
+                       th:href="@{/tickets/{id}(id=${festivalId})}"
                        sec:authorize="hasAnyRole('PLANNER', 'ADMIN')">Tickets</a>
 
                     <a th:class="${title!='Ticketshop'} ? 'item border-right' : 'item border-right current'"
-                       th:href="@{/ticketShop}"
+                       th:href="@{/ticketShop/{id}(id=${festivalId})}"
                        sec:authorize="hasAnyRole('TICKET_SELLER', 'ADMIN')">Ticket Shop</a>
 
                     <!--
