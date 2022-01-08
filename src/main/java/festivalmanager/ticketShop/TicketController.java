@@ -182,9 +182,9 @@ public class TicketController {
 		return  currentFestival;
 	}
 
-	void setCurrentFestival(){
+	void setCurrentFestival(long id ){
 
-		this.currentFestival = festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
+		this.currentFestival = festivalManagement.findById(id).get();
 	}
 
 
