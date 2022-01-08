@@ -180,11 +180,38 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 
 		Ticket fiveTicketsSold = new Ticket(festival.getId(),festival.getName(),0,
 				5,TicketType.CAMPING,0,0);
-
 		assertThat(testController.buyTicket(fiveTicketsSold, model)).isEqualTo("ticketShopUnavailable");
 
 
+
+		currentTicket.setDayTicketsCount(300);
+		currentTicket.setCampingTicketsCount(300);
+		currentTicket.setSoldDayTicket(-currentTicket.getSoldDayTicket());
+		currentTicket.setSoldCampingTicket(-currentTicket.getSoldCampingTicket());
+
+		Ticket twoHundredTickets= new Ticket(festival.getId(),festival.getName(),0,
+				200
+				,TicketType.CAMPING,0,0);
+		Ticket oneHundredTickets= new Ticket(festival.getId(),festival.getName(),100,
+				0
+				,TicketType.DAY_TICKET,0,0);
+
+		testController.buyTicket(twoHundredTickets, model);
+		testController.buyTicket(oneHundredTickets, model);
+		assertThat(twoHundredTickets.getCampingTicketsCount()).isEqualTo(currentTicket.getSoldCampingTicket());
+		assertThat(oneHundredTickets.getDayTicketsCount()).isEqualTo(currentTicket.getSoldDayTicket());
+
+
+
+
 	}
+
+
+
+
+
+
+
 
 
 
