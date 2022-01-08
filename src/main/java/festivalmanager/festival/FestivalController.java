@@ -52,7 +52,6 @@ public class FestivalController {
 				System.out.println(current.getLocation().getName());
 				model.addAttribute("location", current.getLocation());
 			}
-			utilsManagement.setCurrentFestival(current.getId());
 			utilsManagement.prepareModel(model, festivalId);
 			return "festivalDetail";
 		} else {

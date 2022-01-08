@@ -44,7 +44,7 @@ public class TicketController {
 	public String showTicketInfo(@PathVariable("festivalId") long festivalId,Model model) {
 
 		model.addAttribute("title", "Tickets");
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, festivalId);
 
 		if (Objects.isNull(ticketManagement.getCurrentTicket())) {
 
@@ -53,7 +53,7 @@ public class TicketController {
 			model.addAttribute("festival", this.currentFestival);
 
 
-			utilsManagement.prepareModel(model);
+			utilsManagement.prepareModel(model, festivalId);
 			return "ticketForm";
 		}
 
@@ -71,7 +71,7 @@ public class TicketController {
 	public String create(@ModelAttribute Ticket ticket,@PathVariable("festivalId") long festivalId, Model model) {
 
 		model.addAttribute("title", "Tickets");
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, festivalId);
 
 		currentFestival= festivalManagement.findById(festivalId).get();
 
@@ -129,12 +129,12 @@ public class TicketController {
 
 
 		} else {
-			utilsManagement.prepareModel(model);
+			utilsManagement.prepareModel(model, currentFestival.getId());
 			model.addAttribute("ticketsUnavailable", "true");
 			return "ticketShopUnavailable";
 		}
 
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, currentFestival.getId());
 
 		return "ticketPrint";
 	}
@@ -150,7 +150,7 @@ public class TicketController {
 
 
 		Ticket ticket = ticketManagement.TicketsByFestival(festivalId);
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, festivalId);
 
 		if (ticket == null) {
 			model.addAttribute("ticketsNotCreated", "true");
@@ -167,7 +167,7 @@ public class TicketController {
 	public String update(@NotNull @ModelAttribute Ticket ticket, Model model) {
 
 		model.addAttribute("title", "Tickets");
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, currentFestival.getId());
 
 		ticketManagement.setCurrentTicket(ticket);
 		ticketManagement.save(ticket);
