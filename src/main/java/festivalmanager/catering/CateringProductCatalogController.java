@@ -87,8 +87,11 @@ public class CateringProductCatalogController {
             failure = true;
         }
 
-        CateringProduct product = new CateringProduct(formularData.name, formPrice, formDeposit,
-                formularData.filling);
+        Quantity formMinimumStock = Quantity.of(formularData.minimumStock);
+
+        CateringProduct product = new CateringProduct(
+                formularData.name, formPrice, formDeposit,
+                formularData.filling, formMinimumStock, false);
 
         if (!failure) {
             catalog.save(product);
@@ -165,6 +168,12 @@ public class CateringProductCatalogController {
                 System.out.println("Füllmenge:" + formularData.filling);
             }
 
+            BigDecimal bdMinimumStock = new BigDecimal(formularData.minimumStock);
+            if (!product.getMinimumStock().getAmount().equals(bdMinimumStock)) {
+                changed = true;
+                product.setMinimumStock(Quantity.of(formularData.minimumStock));
+            }
+
             if (changed) {
                 catalog.save(product);
             }
@@ -208,12 +217,14 @@ public class CateringProductCatalogController {
         String name;
         String price, deposit;
         double filling;
+        double minimumStock;
 
-        public ProductFormularData(String name, String price, String deposit, double filling) {
+        public ProductFormularData(String name, String price, String deposit, double filling, double minimumStock) {
             this.name = name;
             this.price = price;
             this.deposit = deposit;
             this.filling = filling;
+            this.minimumStock = minimumStock;
         }
     }
 
@@ -261,7 +272,7 @@ public class CateringProductCatalogController {
 
         if (!failure) {
             CateringStockItem stockitem = new CateringStockItem(currentFestival.getId(), product,
-                    Quantity.of(formularData.amount),
+                    Quantity.of(formularData.amount), formularData.amount,
                     formBuyingPrice, formOrderDate, formBestBeforeDate);
             stock.save(stockitem);
         } else {
@@ -382,17 +393,18 @@ public class CateringProductCatalogController {
 
     class StockFormularData {
         ProductIdentifier productid;
-        double amount;
+        long amount;
         String buyingprice;
         String orderdate, bestbeforedate;
 
-        public StockFormularData(ProductIdentifier productid, double amount, String buyingprice, String orderdate,
+        public StockFormularData(ProductIdentifier productid, long amount, String buyingprice, String orderdate,
                 String bestbeforedate) {
             this.productid = productid;
             this.amount = amount;
             this.buyingprice = buyingprice;
             this.orderdate = orderdate;
             this.bestbeforedate = bestbeforedate;
+            // this.orderQuantity = orderQuantity;
         }
     }
 }
