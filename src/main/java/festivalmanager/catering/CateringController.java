@@ -59,7 +59,7 @@ public class CateringController {
 					HttpStatus.NOT_FOUND, "entity not found");
 		}
 
-		Festival currentFestival = festivalOptional.get();
+		// Festival currentFestival = festivalOptional.get();
 
 		model.addAttribute("productcatalog", catalog.findAll());
 		model.addAttribute("productid", null);
@@ -71,7 +71,7 @@ public class CateringController {
 
 	@PostMapping("/catering/addToCart")
 	String addToCart(Model model, AddToCartFormResult formResult, @ModelAttribute Cart cart,
-					 @RequestParam("festivalId") Long festivalId) {
+			@RequestParam("festivalId") Long festivalId) {
 		if (formResult.productId != null) {
 			Optional<CateringProduct> oProduct = catalog.findById(formResult.productId);
 
