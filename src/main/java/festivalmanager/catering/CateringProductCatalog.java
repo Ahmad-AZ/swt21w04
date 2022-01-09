@@ -12,5 +12,5 @@ import org.salespointframework.catalog.Catalog;
  */
 public interface CateringProductCatalog extends Catalog<CateringProduct> {
 
-    // public CateringProduct getById(String Id);
+    public Iterable<CateringProduct> findByHidden(boolean hidden);
 }

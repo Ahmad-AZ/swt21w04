@@ -11,6 +11,8 @@ import static org.salespointframework.core.Currencies.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Iterator;
 //import org.springframework.web.bind.annotation.ModelAttribute;
 import java.util.Optional;
 import java.math.BigDecimal;
@@ -31,16 +33,19 @@ public class CateringProductCatalogController {
     private FestivalManagement festivalManagement;
     private CateringProductCatalog catalog;
     private CateringStock stock;
+    private CateringSales sales;
 
     public CateringProductCatalogController(
             CateringProductCatalog catalog,
             CateringStock stock,
+            CateringSales sales,
             UtilsManagement utilsManagement,
             FestivalManagement festivalManagement) {
         this.catalog = catalog;
         this.stock = stock;
         this.utilsManagement = utilsManagement;
         this.festivalManagement = festivalManagement;
+        this.sales = sales;
         CateringStockItem.festivalManagement = festivalManagement;
     }
 
@@ -52,7 +57,7 @@ public class CateringProductCatalogController {
     @GetMapping("/cateringProductCatalog/{festivalId}")
     String products(Model model, @PathVariable Long festivalId) {
         model.addAttribute("stock", stock.findByFestivalId(festivalId));
-        model.addAttribute("productcatalog", catalog.findAll());
+        model.addAttribute("productcatalog", catalog.findByHidden(false));
         utilsManagement.prepareModel(model, festivalId);
         return "cateringProductCatalog";
     }
@@ -183,28 +188,34 @@ public class CateringProductCatalogController {
     @GetMapping("/cateringDeleteProduct/{festivalId}/{productid}")
     String deleteProduct(@PathVariable Long festivalId, @PathVariable ProductIdentifier productid, Model model) {
         Optional<CateringProduct> oProduct = catalog.findById(productid);
-        boolean empty = true;
         if (oProduct.isPresent()) {
             CateringProduct product = oProduct.get();
             model.addAttribute("product", product);
-
-            InventoryItems<CateringStockItem> iCSI = stock.findByProduct(product);
-            empty = iCSI.isEmpty();
-            if (!empty) {
-                model.addAttribute("stockItemsToDelete", iCSI);
-            }
         }
-
         utilsManagement.prepareModel(model, festivalId);
-        return (empty) ? "cateringDeleteProduct" : "cateringDeleteProductOtherStockItem";
+        return "cateringDeleteProduct";
     }
 
     @PostMapping("/cateringDeleteProduct/delete/{productid}")
     String deleteProduct(@PathVariable ProductIdentifier productid, @RequestParam("festivalId") Long festivalId) {
         Optional<CateringProduct> oProduct = catalog.findById(productid);
+        boolean empty = true, empty2 = true;
         if (oProduct.isPresent()) {
             CateringProduct product = oProduct.get();
-            catalog.delete(product);
+
+            InventoryItems<CateringStockItem> iCSI = stock.findByProduct(product);
+            empty = iCSI.isEmpty();
+
+            // long lProductId = Long.parseLong(productid.toString());
+            Iterator<CateringSalesItem> iSalesItem = sales.findByCateringProduct(product).iterator();
+            empty2 = !iSalesItem.hasNext();
+
+            if (empty && empty2) {
+                catalog.delete(product);
+            } else {
+                product.setHidden(true);
+                catalog.save(product);
+            }
         }
         return "redirect:/cateringProductCatalog/" + festivalId;
     }
