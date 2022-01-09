@@ -45,9 +45,6 @@ public class FestivalController {
 		if (festival.isPresent()) {
 			Festival current = festival.get();
 
-//			if (current.getLocation() != null) {
-//				System.out.println(current.getLocation().getName());
-//			}
 			System.out.println(festivalId);
 			model.addAttribute("festival", current);
 			model.addAttribute("artists", current.getArtist());
@@ -55,14 +52,12 @@ public class FestivalController {
 				System.out.println(current.getLocation().getName());
 				model.addAttribute("location", current.getLocation());
 			}
-
-			utilsManagement.setCurrentFestival(current.getId());
-			utilsManagement.setCurrentPageLowerHeader("festivalDetail");
-			utilsManagement.prepareModel(model);
+			utilsManagement.prepareModel(model, festivalId);
 			return "festivalDetail";
 		} else {
 			return "redirect:/festivalOverview";
 		}
+
 	}
 	
 	
@@ -78,8 +73,7 @@ public class FestivalController {
 		}
 		model.addAttribute("title", "Karte");
 
-		utilsManagement.setCurrentPageLowerHeader("map");
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, festivalId);
 		return "/mapVisitorView";
 	}
 	
@@ -114,7 +108,6 @@ public class FestivalController {
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String newFestival(Model model, NewFestivalForm form) {
 		model.addAttribute("dateNow", LocalDate.now());
-		utilsManagement.prepareModel(model);
 		return "newFestival";
 	}
 	
@@ -132,14 +125,10 @@ public class FestivalController {
 			model.addAttribute("festival", current);
 			model.addAttribute("artists", current.getArtist());
 			model.addAttribute("location", current.getLocation());
-			
-			utilsManagement.prepareModel(model);
-			return "festivalDetail";
-		} else {
-			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
-		}
+		}	
+		utilsManagement.prepareModel(model, festivalId);
+		return "festivalDetail";
+
 	}
 	
 	
@@ -167,7 +156,7 @@ public class FestivalController {
 			model.addAttribute("artists", current.getArtist());
 			model.addAttribute("location", current.getLocation());
 
-			utilsManagement.prepareModel(model);
+			utilsManagement.prepareModel(model, festivalId);
 					
 			// not perfect
 			if (result.hasErrors()) {
@@ -177,13 +166,8 @@ public class FestivalController {
 			
 			current.setName(stringInputForm.getName());
 			festivalManagement.saveFestival(current);
-			return "redirect:/festivalOverview/"+ current.getId();
-			
-		} else {
-			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
 		}
+		return "redirect:/festivalOverview/"+ festivalId;
 	}
 	
 	
@@ -193,8 +177,6 @@ public class FestivalController {
 		
 		model.addAttribute("festivalList", festivalManagement.findAll());
 
-		utilsManagement.setCurrentPageUpperHeader("festivals");
-		utilsManagement.prepareModel(model);
 		return "festivalOverview"; 
 	}
 	
@@ -213,7 +195,7 @@ public class FestivalController {
 			model.addAttribute("currentName", "");
 		}
 
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, id);
 		return "festivalOverview";
 	}
 	

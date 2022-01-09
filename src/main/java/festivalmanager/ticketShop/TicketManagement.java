@@ -1,14 +1,17 @@
 package festivalmanager.ticketShop;
 
 
+import com.google.zxing.WriterException;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
+import festivalmanager.ticketShop.qr_code.QRCodeGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import javax.validation.constraints.NotNull;
+import java.io.IOException;
 import java.util.Objects;
 
 
@@ -45,7 +48,7 @@ public class TicketManagement {
 	}
 
 
-	public  void setFestival(Festival festival ){
+	public  void setFestival(Festival festival){
 
 		this.currentFestival= festival;
 	}
@@ -57,7 +60,6 @@ public class TicketManagement {
 			this.currentTicket = ticketRepo.findAllByFestivalId(ticket.getFestivalId());
 		}
 		else this.currentTicket=ticket;
-
 
 	}
 
@@ -107,13 +109,9 @@ public class TicketManagement {
 	}
 
 
-	public Ticket buyTickets() {
+	public Ticket buyTickets()  {
 
-		 return this.currentTicket;
+		return this.currentTicket;
 	}
-	public Festival setFestivalById(long id ){
 
-		setFestival(festival.findById(id).get());
-		return this.currentFestival;
-	}
 }

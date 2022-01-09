@@ -1,6 +1,10 @@
 package festivalmanager.festival;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
@@ -8,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 
 import festivalmanager.AbstractIntegrationTests;
 import festivalmanager.location.Location;
@@ -40,31 +45,45 @@ public class FestivalControllerIntegrationTest extends AbstractIntegrationTests{
 		assertThat(returnedView).isEqualTo("newFestival");
 		assertThat(model.getAttribute("dateNow")).isEqualTo(LocalDate.now());
 		
-//		returnedView = controller.createNewFestival(new NewFestivalForm("name", LocalDate.of(2021, 12, 22), LocalDate.of(2021, 12, 26)), null, model);
-//		assertThat(returnedView).isEqualTo("festivalOverview");
-//		
 	}
 	
-//	@Test
-//	@WithMockUser(roles = "ADMIN")
-//	void allowsAuthenticatedAccessToCreateFestival() {
-//		
-//		ExtendedModelMap model = new ExtendedModelMap();
-//		
-//		String returnedView = controller.createNewFestival(new NewFestivalForm("name", LocalDate.of(2021, 12, 22), LocalDate.of(2021, 12, 22)), null, model);
-//		assertThat(returnedView).isEqualTo("festivalOverview");
-//		
-//		// reject same name
-//		returnedView = controller.createNewFestival(new NewFestivalForm("name", LocalDate.now(), LocalDate.now().plusDays(5)), null, model);
-//		assertThat(returnedView).isEqualTo("newFestival");
-//		assertThat(model.getAttribute("result")).isNotNull();
-//		
-//		// reject wrong dates
-//		returnedView = controller.createNewFestival(new NewFestivalForm("name2", LocalDate.now().plusDays(4), LocalDate.now()), null, model);
-//		assertThat(returnedView).isEqualTo("newFestival");
-//		assertThat(model.getAttribute("result")).isNotNull();
-//		
-//	}
+	@Test
+	@WithMockUser(roles = "ADMIN")
+	void allowsAuthenticatedAccessToCreateFestival() {
+		
+		ExtendedModelMap model = new ExtendedModelMap();
+		
+		Errors errors = (Errors) mock(Errors.class);
+		when(errors.hasErrors()).thenReturn(false);
+		
+		String returnedView = controller.createNewFestival(new NewFestivalForm("name", LocalDate.now(), LocalDate.now().plusDays(5)), errors, model);
+		assertThat(returnedView).isEqualTo("redirect:/festivalOverview");
+		
+	}
+	
+	@Test
+	@WithMockUser(roles = "ADMIN")
+	void CreateFestivalRejectWrongValuesTest() {
+		
+		ExtendedModelMap model = new ExtendedModelMap();
+		
+		Festival festival = new Festival("name", LocalDate.now(), LocalDate.now().plusDays(4));
+		festivalManagement.saveFestival(festival);
+		
+		Errors errors = (Errors) mock(Errors.class);
+		when(errors.hasErrors()).thenReturn(true);
+		
+		// reject same name
+		String returnedView = controller.createNewFestival(new NewFestivalForm("name", LocalDate.now(), LocalDate.now().plusDays(5)), errors, model);
+		assertThat(returnedView).isEqualTo("newFestival");
+		//assertThat(model.getAttribute("result")).isNotNull();
+		
+		// reject wrong dates
+		returnedView = controller.createNewFestival(new NewFestivalForm("name2", LocalDate.now().plusDays(4), LocalDate.now()), errors, model);
+		assertThat(returnedView).isEqualTo("newFestival");
+		//assertThat(model.getAttribute("result")).isNotNull();
+		
+	}
 	
 	@Test
 	@WithMockUser(roles = "ADMIN")
@@ -168,18 +187,41 @@ public class FestivalControllerIntegrationTest extends AbstractIntegrationTests{
 
 	}
 
-//	@Test
-//	@WithMockUser(roles = "ADMIN")
-//	void festivalEditFestivalNameTest() {
-//		Model model = new ExtendedModelMap();
-//
-//		Festival festival = new Festival();	
-//
-//		festivalManagement.saveFestival(festival);
-//		
-//		String returnedView = controller.editFestivalName(festival.getId(), new StringInputForm(""), null, model);
-//
-//	}
+	@Test
+	@WithMockUser(roles = "ADMIN")
+	void festivalEditFestivalNameTest() {
+		Model model = new ExtendedModelMap();
+
+		Festival festival = new Festival("name", LocalDate.now().plusDays(15), LocalDate.now().plusDays(20));
+		festivalManagement.saveFestival(festival);
+		
+		String returnedView = controller.editFestivalName(festival.getId(), new StringInputForm("newName"), (Errors) mock(Errors.class), model);
+		assertThat(returnedView).isEqualTo("redirect:/festivalOverview/"+ festival.getId());
+	}
+	
+	@Test
+	@WithMockUser(roles = "ADMIN")
+	void festivalEditFestivalNameFailureTest() {
+		
+		ExtendedModelMap model = new ExtendedModelMap();
+		
+		Festival festival = new Festival("name", LocalDate.now(), LocalDate.now().plusDays(4));
+		festivalManagement.saveFestival(festival);
+		
+		Errors errors = (Errors) mock(Errors.class);
+		when(errors.hasErrors()).thenReturn(true);
+		
+		// reject same name
+		String returnedView = controller.editFestivalName(festival.getId(), new StringInputForm("name"), errors, model);
+		assertThat(returnedView).isEqualTo("festivalDetail");
+		//assertThat(model.getAttribute("result")).isNotNull();
+		
+		// reject startDate in less than 14 days
+		returnedView = controller.editFestivalName(festival.getId(), new StringInputForm("newName"), errors, model);
+		assertThat(returnedView).isEqualTo("festivalDetail");
+		//assertThat(model.getAttribute("result")).isNotNull();
+		
+	}
 	
 	@Test
 	@WithMockUser(roles = "ADMIN")

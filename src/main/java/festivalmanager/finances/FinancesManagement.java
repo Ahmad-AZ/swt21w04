@@ -26,7 +26,6 @@ import festivalmanager.staff.Person;
 import festivalmanager.staff.StaffManagement;
 import festivalmanager.ticketShop.Ticket;
 import festivalmanager.ticketShop.TicketManagement;
-import festivalmanager.utils.UtilsManagement;
 
 
 @Service
@@ -42,14 +41,12 @@ public class FinancesManagement {
 
 	EquipmentManagement equipmentManagement;
 	FestivalManagement festivalManagement;
-	UtilsManagement utilsManagement;
 	StaffManagement staffManagement;
 	TicketManagement ticketManagement;
 	CateringController cateringController;
 
 
 	FinancesManagement(FestivalManagement festivalManagement,
-					   UtilsManagement utilsManagement,
 					   EquipmentManagement equipmentManagement,
 					   StaffManagement staffManagement,
 					   TicketManagement ticketManagement,
@@ -57,7 +54,6 @@ public class FinancesManagement {
 
 		this.equipmentManagement = equipmentManagement;
 		this.festivalManagement = festivalManagement;
-		this.utilsManagement = utilsManagement;
 		this.staffManagement = staffManagement;
 		this.ticketManagement = ticketManagement;
 		this.cateringController = cateringController;

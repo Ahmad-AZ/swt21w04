@@ -37,9 +37,8 @@ public class Location{
 	private long visitorCapacity;
 	private long stageCapacity; 
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<Area> areas = new ArrayList<>();
-
+//	@OneToMany(cascade = CascadeType.ALL)
+//	private List<Area> areas = new ArrayList<>();
  
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Booking> bookings = new ArrayList<>();
@@ -56,9 +55,7 @@ public class Location{
 		this.setGroundView(groundView);
 	}
 	
-	public Location() {
-		
-	}
+	public Location() {}
 	
 	public long getId() {
 		return id;
@@ -94,10 +91,6 @@ public class Location{
 			}
 		}
 		return false;
-	}
-	
-	public void clearAllBookings() {
-		bookings.clear();
 	}
  
 	public Iterable<Booking> getBookings() {

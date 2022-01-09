@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import festivalmanager.utils.UtilsManagement;
 
@@ -45,8 +46,6 @@ public class LocationController {
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String locations(Model model) {
 		model.addAttribute("locationList", locationManagement.findAll());
-		utilsManagement.setCurrentPageUpperHeader("locations");
-		utilsManagement.prepareModel(model);
 		return "locations";
 	}
 	
@@ -64,14 +63,9 @@ public class LocationController {
 			Double pricePerDay = current.getPricePerDay().getNumber().doubleValue();
 			System.out.println(pricePerDay);
 			model.addAttribute("pricePerDay", pricePerDay);
-			utilsManagement.prepareModel(model);
-			return "locationEdit";
-			
-		} else {
-			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
 		}
+		return "locationEdit";
+			
 	}
 	
 	@GetMapping("/locations/{locationId}")
@@ -84,14 +78,9 @@ public class LocationController {
 
 			model.addAttribute("location", current);
 			model.addAttribute("hasBookings", current.hasBookings());
-			utilsManagement.prepareModel(model);
-			return "locationDetail";
-			
-		} else {
-			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
 		}
+		return "locationDetail";
+		
 	}
 	
 	@PostMapping("/newLocation")
@@ -133,7 +122,6 @@ public class LocationController {
 	@GetMapping("/newLocation")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String newLocation(Model model, NewLocationForm newLocationForm) {
-		utilsManagement.prepareModel(model);
 		return "newLocation";
 	}
 	
@@ -201,19 +189,19 @@ public class LocationController {
 			model.addAttribute("currentName", "");
 		}
 
-		utilsManagement.prepareModel(model);
 		return "/locations";
 	}
 	
 	@PostMapping("/locations/remove")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String removeLocation(@Valid @RequestParam("id") @NotEmpty Long locationId,
-								 @ModelAttribute("delete") String dummy, Errors result) {
+								 RedirectAttributes ra) {
 		Optional<Location> current = locationManagement.findById(locationId);
 		if (current.isPresent()) {
 			if(current.get().hasBookings()) {
-				result.rejectValue("delete", null, "Die Location ist noch gebucht.");
-				return "/locations/remove/"+ locationId;
+				//result.rejectValue("delete", null, "Die Location ist noch gebucht.");
+				ra.addFlashAttribute("message", "Die Location ist noch gebucht.");
+				return "redirect:/locations/remove/"+ locationId;
 			} else {
 				locationManagement.removeLocation(locationId);
 			}

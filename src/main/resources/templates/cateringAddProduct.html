@@ -34,10 +34,11 @@
                         <td><input type="number" min="0" step="1" name="minimumStock" value="50"></td>                        
                     </tr>
                     <tr>
-                        <td><a href="../cateringProductCatalog">abbrechen</a></td>
+                        <td><a th:href="@{/cateringProductCatalog/{id}(id=${festivalId})}">abbrechen</a></td>
                         <td><button type="submit">hinzuf&uuml;gen</button></td>
                     </tr>
                 </table>
+                <input type="hidden" name="festivalId" th:value="${festivalId}"/>
             </form>
             </section>
         </section>

@@ -31,8 +31,9 @@
 				<h2 class="form-item" th:inline="text">Location [[${currentName}]] löschen</h2>
 				<div class="form-item">
 					<a href="locations.html" th:href="@{/locations}">Abbrechen</a>
-					<input th:if="${locationHasBookings == false}" class="form-input" name="delete" type="submit" value="Löschen">
-					<div class="form-label" th:if="${locationHasBookings != false}">Location hat noch Buchungen!</div>
+					<input th:if="${locationHasBookings == false}" class="form-input" type="submit" value="Löschen">
+					<div class="ui-negative-message" th:text="${message}" th:if="${message ne null}"></div> 
+					<div class="ui-negative-message" th:if="${locationHasBookings != false}">Location hat noch Buchungen!</div>
 				</div>
                 <input type="hidden" name="id" th:value="${currentId}">
             </form>

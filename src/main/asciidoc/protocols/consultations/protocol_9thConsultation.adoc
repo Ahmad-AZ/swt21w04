@@ -1,0 +1,53 @@
+= Protokoll Gruppe 04
+
+Treffen am 07.12.2021
+
+Ort:      BigBlueButton +
+Beginn:   18:00 Uhr +
+Ende:     18:50 Uhr
+
+__Schriftführer:__ Jan Biedermann
+
+*Nächstes Treffen:* +
+47. KW, Discord
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Tom Morgenstern (Auftraggeber)
+- Adrian Scholze
+- Jan Biedermann
+- Ahmad Abu Zahra
+- Georg Kunze
+- Tuấn Giang Trịnh
+- Robert Menzel
+
+== Bemerkungen
+- Major Code Smells beheben
+- Testplan wird beim Cross-Testing auch ausgetauscht -> sollte aktualisieret werden
+- Für die Anwendung werden noch Kundenwünsche ausgesucht, die zusätzlich zur Aufgabenstellung
+implementiert werden müssen, Frist dafür ist die Endabgabe
+- 1. Kundenwunsch: Logo der FVIV GmbH
+- 2. Kundenwunsch: Nächste Woche
+- Frist für das Ausfüllen der Cross-Testing Template ist der 19.12
+
+== Aktueller Stand
+Die Basisfunktionalitäten sind vollständig implementiert
+
+== Planung des nächsten Sprints
+*Issue referenziert die Issue ID von GitHub*
+
+// See http://asciidoctor.org/docs/user-manual/=tables
+[option="headers"]
+|===
+|Issue |Titel |Beschreibung |Verantwortlicher |Status
+| |Folien für die Zwischenpräsentation |Folien für  die Zwischenpräsentation erstellen|Jan |Großteils fertig
+| |Präsentation der Anwendung|Präsentation der Anwendung für die Zwischenpräsentation vorbereiten |Georg |Mit der Arbeit angefangen
+| |Muss-Kriterien Finanzen |Personal-, Ticket- und Catering-Abrechnung implementieren |Jan |Noch nicht angefangen
+| |Muss-Kriterien Lager |Items nachbestellen, verkaufen und auf Festivals verteilen| Robert |Noch nicht angefangen
+| |Muss-Kriterien Personal |Personal auf Festivals verteilen |Georg |Noch nicht angefangen
+| |Muss-Kriterien Kommunikation| Das Nachrichtensystem für die Festivalmitarbeite implementieren |Georg |Mit der Arbeit angefangen
+| |Muss-Kriterien Tickets |Ticketverkauf und Ticketdruck implementieren |Ahmad |Mit der Arbeit angefangen
+| |Muss-Kriterien Planung |Lageplan und Zeitplan für Festivals implementieren| Großteils fertig
+
+|===

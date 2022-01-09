@@ -1,6 +1,6 @@
 package festivalmanager.ticketShop;
-import org.springframework.lang.Nullable;
 
+import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -9,9 +9,10 @@ import java.util.UUID;
 public class Ticket {
 
 
-	private @Id @Column(name = "id", length = 16, unique = true, nullable = false)
-	final
-	String id= UUID.randomUUID().toString();
+	private @Id @GeneratedValue(generator = "UUID")  @GenericGenerator(
+			name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+	@Column( updatable = false, nullable = false)
+	UUID id;
 
 	@Column
 	private long festivalId;
@@ -34,6 +35,10 @@ public class Ticket {
 	private int soldCampingTicket;
 	@Column
 	private int soldDayTicket;
+
+
+	@Column
+	private String qr;
 
 
 	public Ticket() {
@@ -134,8 +139,16 @@ public class Ticket {
 		this.soldDayTicket += soldDayTicket;
 	}
 
-	public String getId() {
+	public UUID getId() {
 		return id;
+	}
+
+	public String getQr() {
+		return qr;
+	}
+
+	public void setQr(String qr) {
+		this.qr = qr;
 	}
 
 	@Override

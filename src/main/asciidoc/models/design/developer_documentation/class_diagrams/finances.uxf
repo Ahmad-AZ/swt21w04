@@ -1,78 +1,117 @@
-<diagram program="umletino" version="14.3.0"><zoom_level>10</zoom_level><element><id>UMLPackage</id><coordinates><x>280</x><y>50</y><w>820</w><h>850</h></coordinates><panel_attributes>finances
+<diagram program="umletino" version="14.3.0"><zoom_level>10</zoom_level><element><id>UMLPackage</id><coordinates><x>250</x><y>40</y><w>900</w><h>1220</h></coordinates><panel_attributes>utils
 --
-bg=white
-fg=black</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>590</x><y>10</y><w>200</w><h>30</h></coordinates><panel_attributes>org.javamoney.moneta.Money</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>470</x><y>190</y><w>320</w><h>120</h></coordinates><panel_attributes>Payment
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>1180</x><y>430</y><w>150</w><h>180</h></coordinates><panel_attributes>festival
 --
-+ setFestival(currentFestival : Festival) : void
-+ getWagesTotal() : Money
-+ getWagesArtists() : Money
-+ getWagesStaff() : Money
-+ getRentingFees() : Money</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>410</x><y>330</y><w>260</w><h>80</h></coordinates><panel_attributes>Income
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1190</x><y>490</y><w>130</w><h>30</h></coordinates><panel_attributes>FestivalManagement</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>1170</x><y>140</y><w>140</w><h>100</h></coordinates><panel_attributes>springframework
 --
-+ setFestival(currentFestival : Festival) : void
-+ getIncome() : Money
-+ getIncomeAfterTax() : Money</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>750</x><y>320</y><w>280</w><h>80</h></coordinates><panel_attributes>Finances
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1190</x><y>190</y><w>90</w><h>30</h></coordinates><panel_attributes>Model</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>270</x><y>80</y><w>740</w><h>230</h></coordinates><panel_attributes>FinancesController
 --
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>420</x><y>680</y><w>660</w><h>210</h></coordinates><panel_attributes>FinancesController
+- nCampingTicketsMap : Map&lt;Long, Long&gt;
+- nOneDayTicketsMap : Map&lt;Long, Long&gt;
+- priceCampingTicketsMap : Map&lt;Long, Money&gt;
+- priceOneDayTicketsMap : Map&lt;Long, Money&gt;
 --
-- currentFestival : Festival
-- currentFestivalId : long
-- nCampingTickets : long
-- nOneDayTickets : long
-- soldCampingTickets : long
-- soldOneDayTickets : long
---
-+ FinancesController(financesManagement: FinancesManagement, festivalManagement : FestivalManagement)
-+ financesPage(model : Model, currentFestivalId : long) : String
-+ ticketNumberForm(model : Model, nCampingTickets: long, nOneDayTickets: long) : String
-+ ticketPriceForm(model : Model, priceCampingTickets: long, priceOneDayTickets: long) : String
-- resetAttributes() : void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>0</x><y>430</y><w>260</w><h>200</h></coordinates><panel_attributes>Spring
---
-bg=white
-fg=black</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>20</x><y>490</y><w>230</w><h>70</h></coordinates><panel_attributes>template=T, ID
-&lt;&lt;interface&gt;&gt;
-org.springframework.data.repository
++ FinancesController(
+financesManagement : FinancesManagement,
+festivalManagement : FestivalManagement,
+utilsManagement : UtilsManagement)
++ getTitle() : String
++ financesPage(model : Model, festivalId : Long) : String
+_+ addAttribute(model : Model, attributeName : String, attributeValue : Object) : void_
++ ticketNumberForm(model : Model, festivalId : Long, nCampingTicketsExpected : long, nOneDayTicketsExpected : long) : String
++ ticketPriceForm(model : Model, festivalId : Long, priceCampingTicketsExpected : long, priceOneDayTicketsExpected : long) : String
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>360</x><y>510</y><w>210</w><h>40</h></coordinates><panel_attributes>PurchsasesRepository</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>710</x><y>30</y><w>60</w><h>180</h></coordinates><panel_attributes>lt=&lt;.
-&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>10;10;10;160</additional_attributes></element><element><id>Relation</id><coordinates><x>420</x><y>0</y><w>190</w><h>350</h></coordinates><panel_attributes>lt=&lt;.
-&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>170;20;10;20;10;330</additional_attributes></element><element><id>Relation</id><coordinates><x>780</x><y>10</y><w>130</w><h>330</h></coordinates><panel_attributes>lt=&lt;.
-&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>10;20;110;20;110;310</additional_attributes></element><element><id>Relation</id><coordinates><x>220</x><y>510</y><w>160</w><h>50</h></coordinates><panel_attributes>lt=&lt;.
-&lt;&lt;bind&gt;&gt;
-&lt;T-&gt;Order, ID-&gt;long&gt;</panel_attributes><additional_attributes>10;20;140;20</additional_attributes></element><element><id>Relation</id><coordinates><x>420</x><y>400</y><w>90</w><h>130</h></coordinates><panel_attributes>lt=&lt;-
--purchases
-m1=1</panel_attributes><additional_attributes>10;110;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>990</x><y>390</y><w>80</w><h>310</h></coordinates><panel_attributes>lt=&lt;-
-m1=1
-finances</panel_attributes><additional_attributes>10;10;10;290</additional_attributes></element><element><id>Relation</id><coordinates><x>780</x><y>200</y><w>110</w><h>140</h></coordinates><panel_attributes>lt=&lt;-
-m1=1
-payment</panel_attributes><additional_attributes>10;20;90;20;90;120</additional_attributes></element><element><id>Relation</id><coordinates><x>660</x><y>340</y><w>110</w><h>50</h></coordinates><panel_attributes>lt=&lt;-
-m1=1
-income</panel_attributes><additional_attributes>10;20;90;20</additional_attributes></element><element><id>UMLPackage</id><coordinates><x>1270</x><y>570</y><w>160</w><h>110</h></coordinates><panel_attributes>hiring
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>280</x><y>380</y><w>300</w><h>430</h></coordinates><panel_attributes>FinancesManagement
 --
-bg=white
-fg=black</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1300</x><y>610</y><w>100</w><h>50</h></coordinates><panel_attributes>Artist
---</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1020</x><y>340</y><w>120</w><h>40</h></coordinates><panel_attributes>lt=&lt;.
-&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>100;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>1070</x><y>460</y><w>190</w><h>300</h></coordinates><panel_attributes>lt=&lt;.
-&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>140;10;140;280;10;280</additional_attributes></element><element><id>UMLClass</id><coordinates><x>20</x><y>580</y><w>210</w><h>30</h></coordinates><panel_attributes>org.springframework.ui.Model</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>230</x><y>750</y><w>210</w><h>40</h></coordinates><panel_attributes>lt=&lt;.
-&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>10;20;190;20</additional_attributes></element><element><id>UMLPackage</id><coordinates><x>0</x><y>710</y><w>260</w><h>90</h></coordinates><panel_attributes>Spring
+- totalCost : Money
+- totalRevenue : Money
+- durationDays : long
 --
-bg=white
-fg=black</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>20</x><y>752</y><w>220</w><h>30</h></coordinates><panel_attributes>org.salespointframework.accountancy</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>590</x><y>482</y><w>390</w><h>140</h></coordinates><panel_attributes>FinancesManagement
---
-+ FinancesManagement(festivalManagement : FestivalManagement)
-+ updateFestival(currentFestivalId : long) : void
++ FinancesManagement(
+festivalManagement : FestivalManagement,
+utilsManagement : UtilsManagement,
+equipmentManagement : EquipmentManagement,
+staffManagement : StaffManagement,
+ticketManagement : TicketManagement,
+cateringController : CateringController)
++ setFestival(festivalId : long) : void
 + getLocationCost() : Money
 + getArtistsCost() : Money
-+ getCost() : Money
-+ getRevenue(currentFestival : Festival) : Money
-+ getProfit(cost : Money, revenue : Money) : Money</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>810</x><y>610</y><w>150</w><h>90</h></coordinates><panel_attributes>lt=&lt;-
-m1=1
-financesManagement</panel_attributes><additional_attributes>10;10;10;70</additional_attributes></element><element><id>UMLPackage</id><coordinates><x>1120</x><y>300</y><w>150</w><h>170</h></coordinates><panel_attributes>festival
++ getEquipmentCost() : Money
++ getStaffCost() : Money
++ getCateringCost() : Money
++ getTicketsRevenue() : Money
++ getCateringRevenue() : Money
++ getPriceCampingTickets() : Money
++ getPriceOneDayTickets() : Money
++ getNCampingTickets() : long
++ getNOneDayTickets() : long
++ getRevenueExpected() : Money
++ getTotalRevenue() : Money
++ getTotalCost() : Money
++ getProfit(revenue : Money, cost : Money) : Money
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>270</x><y>840</y><w>690</w><h>280</h></coordinates><panel_attributes>FinancesCompanyManagement
 --
-bg=white
-fg=black</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1130</x><y>340</y><w>130</w><h>50</h></coordinates><panel_attributes>Festival
---</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>970</x><y>590</y><w>320</w><h>40</h></coordinates><panel_attributes>lt=&lt;.
-&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>300;20;10;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1130</x><y>400</y><w>130</w><h>50</h></coordinates><panel_attributes>FestivalManagement
---</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>970</x><y>460</y><w>290</w><h>120</h></coordinates><panel_attributes>lt=&lt;.
-&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>240;10;240;100;10;100</additional_attributes></element><element><id>Relation</id><coordinates><x>230</x><y>750</y><w>210</w><h>40</h></coordinates><panel_attributes>lt=&lt;.
-&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>10;20;190;20</additional_attributes></element><element><id>Relation</id><coordinates><x>380</x><y>10</y><w>260</w><h>490</h></coordinates><panel_attributes>lt=&lt;.
-&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>210;10;50;10;50;230;10;230;10;430;240;430;240;470</additional_attributes></element></diagram>
+- nFestivals : long
+- totalCampingTickets : long
+- totalOneDayTickets : long
+- totalCostCampingTickets : Money
+- totalCostOneDayTickets : Money
+- totalCost : Money
+- totalRevenue : Money
+--
++ FinancesCompanyManagement(financesManagement : FinancesManagement, festivalManagement : festivalManagement)
++ updateAttributes() : void
++ getNFestivals() : long
++ getTotalCampingTickets() : long
++ getTotalOneDayTickets() : long
++ getAverageCostCampingTickets() : Money
++ getAverageCostOneDayTickets() : Money
++ getTotalCost() : Money
++ getTotalRevenue() : Money</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>270</x><y>1170</y><w>570</w><h>80</h></coordinates><panel_attributes>FinancesCompanyController
+--
++ FinancesCompanyController(financesCompanyManagement : financesCompanyManagement)
++ getTitle() : String
++ financesPage(model : Model) : String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1210</x><y>860</y><w>190</w><h>30</h></coordinates><panel_attributes>org.javamoney.moneta.Money</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>1180</x><y>310</y><w>150</w><h>100</h></coordinates><panel_attributes>utils
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1200</x><y>350</y><w>110</w><h>30</h></coordinates><panel_attributes>UtilsManagement</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>500</x><y>300</y><w>150</w><h>100</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+financesManagement</panel_attributes><additional_attributes>10;80;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1000</x><y>190</y><w>210</w><h>40</h></coordinates><panel_attributes>lt=.&gt;
+&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>10;20;190;20</additional_attributes></element><element><id>Relation</id><coordinates><x>910</x><y>300</y><w>310</w><h>100</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+utilsManagement</panel_attributes><additional_attributes>290;70;10;70;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>790</x><y>300</y><w>470</w><h>210</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+festivalManagement</panel_attributes><additional_attributes>440;190;440;170;10;170;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>830</x><y>1110</y><w>290</w><h>130</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+financesCompanyManagement</panel_attributes><additional_attributes>100;10;100;110;10;110</additional_attributes></element><element><id>Relation</id><coordinates><x>570</x><y>740</y><w>130</w><h>120</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+financesManagement</panel_attributes><additional_attributes>10;20;110;20;110;100</additional_attributes></element><element><id>Relation</id><coordinates><x>790</x><y>510</y><w>450</w><h>350</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+festivalManagement</panel_attributes><additional_attributes>420;10;420;230;10;230;10;330</additional_attributes></element><element><id>Relation</id><coordinates><x>570</x><y>680</y><w>720</w><h>200</h></coordinates><panel_attributes>lt=.&gt;
+&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>10;20;700;20;700;180</additional_attributes></element><element><id>Relation</id><coordinates><x>830</x><y>880</y><w>450</w><h>350</h></coordinates><panel_attributes>lt=.&gt;
+&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>10;330;430;330;430;10</additional_attributes></element><element><id>Relation</id><coordinates><x>950</x><y>860</y><w>280</w><h>40</h></coordinates><panel_attributes>lt=.&gt;
+&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>10;20;260;20</additional_attributes></element><element><id>Relation</id><coordinates><x>830</x><y>200</y><w>590</w><h>1060</h></coordinates><panel_attributes>lt=.&gt;
+&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>10;1040;540;1040;540;10;450;10</additional_attributes></element><element><id>Relation</id><coordinates><x>660</x><y>300</y><w>580</w><h>580</h></coordinates><panel_attributes>lt=.&gt;
+&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>10;10;10;360;560;360;560;560</additional_attributes></element><element><id>Relation</id><coordinates><x>570</x><y>490</y><w>640</w><h>50</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+festivalManagement</panel_attributes><additional_attributes>620;20;10;20</additional_attributes></element><element><id>UMLPackage</id><coordinates><x>0</x><y>310</y><w>160</w><h>70</h></coordinates><panel_attributes>equipment
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>0</x><y>490</y><w>160</w><h>120</h></coordinates><panel_attributes>ticketShop
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>0</x><y>400</y><w>160</w><h>70</h></coordinates><panel_attributes>staff
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>0</x><y>630</y><w>160</w><h>70</h></coordinates><panel_attributes>catering
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>10</x><y>660</y><w>140</w><h>30</h></coordinates><panel_attributes>CateringController</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>10</x><y>520</y><w>140</w><h>30</h></coordinates><panel_attributes>TicketManagement</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>10</x><y>430</y><w>140</w><h>30</h></coordinates><panel_attributes>StaffManagement</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>10</x><y>340</y><w>140</w><h>30</h></coordinates><panel_attributes>EquipmentManagement</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>140</x><y>660</y><w>160</w><h>50</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+cateringController</panel_attributes><additional_attributes>10;20;140;20</additional_attributes></element><element><id>Relation</id><coordinates><x>140</x><y>340</y><w>200</w><h>60</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+equipmentManagement</panel_attributes><additional_attributes>10;20;180;20;180;40</additional_attributes></element><element><id>Relation</id><coordinates><x>140</x><y>430</y><w>160</w><h>50</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+staffManagement</panel_attributes><additional_attributes>10;20;140;20</additional_attributes></element><element><id>Relation</id><coordinates><x>140</x><y>520</y><w>160</w><h>50</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+ticketManagement</panel_attributes><additional_attributes>10;20;140;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>10</x><y>570</y><w>140</w><h>30</h></coordinates><panel_attributes>Ticket</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>140</x><y>560</y><w>160</w><h>50</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+ticketInformation</panel_attributes><additional_attributes>10;20;140;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1220</x><y>550</y><w>100</w><h>30</h></coordinates><panel_attributes>Festival</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>570</x><y>550</y><w>670</w><h>50</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+currentFestival</panel_attributes><additional_attributes>650;20;10;20</additional_attributes></element></diagram>

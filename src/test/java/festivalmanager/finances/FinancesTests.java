@@ -84,7 +84,6 @@ class FinancesTests {
 
 		financesManagement = new FinancesManagement(
 				festivalManagement,
-				utilsManagement,
 				equipmentManagement,
 				staffManagement,
 				ticketManagement,
@@ -101,7 +100,6 @@ class FinancesTests {
 
 		when(festivalRepository.findById(any())).thenReturn(Optional.of(testFestival));
 		festivalManagement.saveFestival(testFestival);
-		utilsManagement.setCurrentFestival(testFestival.getId());
 
 		Location testLocation = new Location();
 		testLocation.setPricePerDay(Money.of(500, EURO));
@@ -153,7 +151,7 @@ class FinancesTests {
 		FinancesCompanyManagement financesCompanyManagement =
 				new FinancesCompanyManagement(financesManagement, festivalManagement);
 		FinancesCompanyController financesCompanyController =
-				new FinancesCompanyController(financesCompanyManagement, utilsManagement);
+				new FinancesCompanyController(financesCompanyManagement);
 
 		Location testLocation = new Location();
 		testLocation.setPricePerDay(Money.of(500, EURO));

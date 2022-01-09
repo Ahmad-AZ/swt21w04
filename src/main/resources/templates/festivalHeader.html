@@ -8,47 +8,48 @@
         <div th:fragment="festivalHeader">
             <div class="header">
                 <div class="menu border-top">
-                	<a th:class="${'item ' + 'border-right ' + festivalDetailCurrent}"
+                	<a th:class="${title!='Festivalübersicht'} ? 'item border-right' : 'item border-right current'"
                        th:href="@{/festivalOverview/{id}(id=${festivalId})}"
                        th:text="${festivalName}">Festivaldetails</a>
 
-                    <a th:class="${'item ' + 'border-right ' + staffCurrent}"
+                    <a th:class="${title!='Personal'} ? 'item border-right' : 'item border-right current'"
                        th:href="@{/staff/{id}(id=${festivalId})}"
                        sec:authorize="hasAnyRole('ADMIN', 'MANAGER')">Personal</a>
 
-                   	<a th:class="${'item ' + 'border-right ' + locationCurrent}"
+                   	<a th:class="${title!='Location-Auswahl'} ? 'item border-right' : 'item border-right current'"
                        th:href="@{/locationOverview/{id}(id=${festivalId})}"
                        sec:authorize="hasAnyRole('PLANNER', 'ADMIN', 'MANAGER')">Location</a>
 
-                   	<a th:class="${'item ' + 'border-right ' + equipmentCurrent}"
+                   	<a th:class="${title!='Equipment-Auswahl'} ? 'item border-right' : 'item border-right current'"
                        th:if="${festivalLocation!=null}" th:href="@{/equipments/{id} (id=${festivalId})}"
                        sec:authorize="hasAnyRole('PLANNER', 'ADMIN', 'MANAGER')">Gegenstände</a>
 
-                    <a th:class="${'item ' + 'border-right ' + artistOverviewCurrent}"
-                       th:href="@{/artistOverview}"
+                    <a th:class="${title!='Künstler-Auswahl'} ? 'item border-right' : 'item border-right current'"
+                       th:href="@{/artistOverview/{id} (id=${festivalId})}"
                        sec:authorize="hasAnyRole('PLANNER', 'ADMIN', 'MANAGER')">Künstler</a>
                        
                        
-                    <a th:class="${'item ' + 'border-right ' + programCurrent}"
-                       th:href="@{/schedule}">Spielplan</a>
+                    <a th:class="${title!='Programm'} ? 'item border-right' : 'item border-right current'"
+                       th:href="@{/schedule/{id} (id = ${festivalId})}">Spielplan</a>
 
-					<a th:class="${'item ' + 'border-right ' + financesCurrent}"
-                       th:href="@{/finances/{id}(id=${festivalId})}" sec:authorize="hasRole('PLANNER') || hasRole('ADMIN')">Finanzen</a>
+					<a th:class="${title!='Finanzübersicht'} ? 'item border-right' : 'item border-right current'"
+                       th:href="@{/finances/{id}(id=${festivalId})}"
+                       sec:authorize="hasRole('PLANNER') || hasRole('ADMIN')">Finanzen</a>
 
-                    <a th:class="${'item ' + 'border-right ' + cateringCurrent}"
-                       th:href="@{/cateringProductCatalog}"
+                    <a th:class="${title!='Catering Produkte'} ? 'item border-right' : 'item border-right current'"
+                       th:href="@{/cateringProductCatalog/{id}(id=${festivalId})}"
                        sec:authorize="hasAnyRole('PLANNER', 'ADMIN', 'MANAGER')">Catering</a>
 
-                    <a th:class="${'item ' + 'border-right ' + cateringSalesCurrent}"
-                       th:href="@{/catering}"
+                    <a th:class="${title!='Catering Verkäufe'} ? 'item border-right' : 'item border-right current'"
+                       th:href="@{/catering/{id}(id=${festivalId})}"
                        sec:authorize="hasAnyRole('CATERING', 'ADMIN')">Catering Verkäufe</a>
 
-                    <a th:class="${'item ' + 'border-right ' + ticketsCurrent}"
-                       th:href="@{/tickets}"
+                    <a th:class="${title!='Tickets'} ? 'item border-right' : 'item border-right current'"
+                       th:href="@{/tickets/{id}(id=${festivalId})}"
                        sec:authorize="hasAnyRole('PLANNER', 'ADMIN')">Tickets</a>
 
-                    <a th:class="${'item ' + 'border-right ' + ticketShopCurrent}"
-                       th:href="@{/ticketShop}"
+                    <a th:class="${title!='Ticketshop'} ? 'item border-right' : 'item border-right current'"
+                       th:href="@{/ticketShop/{id}(id=${festivalId})}"
                        sec:authorize="hasAnyRole('TICKET_SELLER', 'ADMIN')">Ticket Shop</a>
 
                     <!--
@@ -57,7 +58,7 @@
                        sec:authorize="hasRole('PLANNER') || hasRole('ADMIN') || hasRole('MANAGER')">Programm</a>
                     -->
 
-                    <a th:class="${'item ' + 'border-right ' + mapCurrent}"
+                    <a th:class="${title!='Karte'} ? 'item border-right' : 'item border-right current'"
                        th:if="${festivalLocation!=null}"
                        th:href="@{/mapVisitorView/{id}(id=${festivalId})}">Karte</a>
                 </div>

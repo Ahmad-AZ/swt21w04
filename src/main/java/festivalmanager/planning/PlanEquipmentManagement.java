@@ -1,18 +1,14 @@
 package festivalmanager.planning;
 
+import org.salespointframework.core.SalespointIdentifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import festivalmanager.Equipment.Equipment;
 import festivalmanager.Equipment.EquipmentManagement;
 import festivalmanager.Equipment.Stage;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
-import festivalmanager.festival.Schedule;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.salespointframework.core.SalespointIdentifier;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 
 
@@ -34,16 +30,13 @@ public class PlanEquipmentManagement {
 	}
 	
 	public void rentStage(String name, Equipment equipment, Festival festival) {
-
 		Stage stage = new Stage(name, equipment.getRentalPerDay());
 		equipmentManagement.saveStage(stage);
 		festival.addStage(stage);
 		festivalManagement.saveFestival(festival);
 	}
 	
-	public boolean unrentStage(Stage stage, Long festivalId) {
-		Festival festival = festivalManagement.findById(festivalId).get();	
-
+	public boolean unrentStage(Stage stage, Festival festival) {
 		boolean success = festival.removeStage(stage);
 		festivalManagement.saveFestival(festival);
 		equipmentManagement.removeStageById(stage.getId());

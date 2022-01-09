@@ -124,6 +124,15 @@ public class Festival {
 		return this.artists.isEmpty();
 	}
 	
+	public boolean getArtistBookedState(Artist artist) {
+		for(Artist anArtist : artists) {
+			if(anArtist.getId() == artist.getId()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public List<Show> getShows(){
 		List<Show> shows = new ArrayList<>();
 		for(Artist anArtist : artists) {
@@ -133,7 +142,19 @@ public class Festival {
 		}
 		return shows;
 	}
-
+	
+	public Show getShow(long showId){
+		for(Artist anArtist : artists) {
+			for(Show aShow : anArtist.getShows()) {
+				if(aShow.getId() == showId) {
+					return aShow;
+				}
+			}
+		}
+		return null;
+	}
+	
+	
 	public void setEquipments(SalespointIdentifier id, long amount) {
 		rentedEquipments.put(id, amount);
 	}
@@ -153,7 +174,8 @@ public class Festival {
 	public List<Person> getUnavailableSecuritys(LocalDate date, TimeSlot timeSlot, SalespointIdentifier stageId){
 		List<Person> unavailableSecuritys = new ArrayList<>();
 		for(Schedule aSchedule : schedules) {
-			if(aSchedule.getDate().equals(date) && aSchedule.getTimeSlot().equals(timeSlot) && !aSchedule.getStage().getId().equals(stageId)) {
+			if(aSchedule.getDate().equals(date) && aSchedule.getTimeSlot().equals(timeSlot)
+					&& !aSchedule.getStage().getId().equals(stageId)) {
 				unavailableSecuritys.add(aSchedule.getSecurity());
 			}
 		}		
@@ -167,7 +189,8 @@ public class Festival {
 	public boolean addSchedule(TimeSlot timeSlot, Show show, Stage stage, LocalDate date, Person security) {
 		// schedules contains schedule already
 		for(Schedule aSchedule : schedules) {
-			if(aSchedule.getDate().equals(date) && aSchedule.getStage().equals(stage) && aSchedule.getTimeSlot().equals(timeSlot)) {
+			if(aSchedule.getDate().equals(date)
+					&& aSchedule.getStage().equals(stage) && aSchedule.getTimeSlot().equals(timeSlot)) {
 				// find schedule --> change show
 				aSchedule.setShow(show);
 				aSchedule.setSecurity(security);
@@ -182,7 +205,8 @@ public class Festival {
 	
 	public String getScheduleShowName(TimeSlot timeSlot, Stage stage, LocalDate date) {
 		for(Schedule aSchedule : schedules) {
-			if(aSchedule.getDate().equals(date) && aSchedule.getStage().equals(stage) && aSchedule.getTimeSlot().equals(timeSlot)) {
+			if(aSchedule.getDate().equals(date)
+					&& aSchedule.getStage().equals(stage) && aSchedule.getTimeSlot().equals(timeSlot)) {
 				if(aSchedule.getShow() != null) {
 					return aSchedule.getShow().getName();
 				} else {
@@ -195,7 +219,8 @@ public class Festival {
 	
 	public String getScheduleSecurityName(TimeSlot timeSlot, Stage stage, LocalDate date) {
 		for(Schedule aSchedule : schedules) {
-			if(aSchedule.getDate().equals(date) && aSchedule.getStage().equals(stage) && aSchedule.getTimeSlot().equals(timeSlot)) {
+			if(aSchedule.getDate().equals(date) && aSchedule.getStage().equals(stage)
+					&& aSchedule.getTimeSlot().equals(timeSlot)) {
 				if(aSchedule.getSecurity() != null) {
 					return aSchedule.getSecurity().getName();
 				} else {
@@ -208,7 +233,8 @@ public class Festival {
 	
 	public boolean removeSchedule(TimeSlot timeSlot, Stage stage, LocalDate date) {
 		for(Schedule aSchedule : schedules) {
-			if(aSchedule.getDate().equals(date) && aSchedule.getStage().equals(stage) && aSchedule.getTimeSlot().equals(timeSlot)) {
+			if(aSchedule.getDate().equals(date)
+					&& aSchedule.getStage().equals(stage) && aSchedule.getTimeSlot().equals(timeSlot)) {
 				System.out.println("before remove schedule");
 				return schedules.remove(aSchedule);
 			}
@@ -224,20 +250,10 @@ public class Festival {
 		}
 	}
 	
-
 	public List<Stage> getStages(){
 		return stages;
 	}
-	
-	public Stage getStage(SalespointIdentifier stageId) {
-		for(Stage aStage : stages) {
-			if(aStage.getId().equals(stageId)) {
-				return aStage;
-			}		
-		}
-		return null;
-	}
-	
+		
 	public boolean addStage(Stage stage) {
 		return stages.add(stage);
 	}

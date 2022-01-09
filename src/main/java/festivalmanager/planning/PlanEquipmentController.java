@@ -1,3 +1,4 @@
+
 package festivalmanager.planning;
 
 
@@ -100,10 +101,10 @@ public class PlanEquipmentController {
 	// shows Equipments Overview
 	@GetMapping("/equipments/{festivalId}")  
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String equipments(Model model, EquipmentRentingForm equipmentRentingForm, NewStageForm newStageForm) {
+	public String equipments(Model model, EquipmentRentingForm equipmentRentingForm, NewStageForm newStageForm,
+							 @PathVariable("festivalId") long festivalId) {
 
-			utilsManagement.setCurrentPageLowerHeader("equipment");
-			utilsManagement.prepareModel(model);
+			utilsManagement.prepareModel(model, festivalId);
 			return "equipments.html";
 	}
 	
@@ -113,7 +114,7 @@ public class PlanEquipmentController {
 	public String addStage(@Valid NewStageForm newStageForm, Errors result, Model model, 
 								EquipmentRentingForm equipmentRentingForm, @PathVariable("festivalId") long festivalId) {
 				
-		Optional<Festival> festivalOP = festivalManagement.findById(utilsManagement.getCurrentFestivalId());
+		Optional<Festival> festivalOP = festivalManagement.findById(festivalId);
 		
 		if(!result.hasErrors() && festivalOP.isPresent()) {
 			SalespointIdentifier equipmentsId = newStageForm.getEquipmentsId();
@@ -135,12 +136,11 @@ public class PlanEquipmentController {
 				if(aStage.getName().equals(name)){
 					result.rejectValue("name", null, "Bühne mit diesem Namen existiert bereits.");	
 					
-					utilsManagement.prepareModel(model);
+					utilsManagement.prepareModel(model, festivalId);
 					return "equipments.html"; 
 				}
 			}
-			
-			
+						
 			// maximum stage capacity reached
 			if(festival.getStages().size() < festival.getLocation().getStageCapacity()) {
 				planEquipmentManagement.rentStage(name, equipment, festival);
@@ -149,7 +149,7 @@ public class PlanEquipmentController {
 				result.rejectValue("name", null, "Die maximale Bühnenkapazität wurde erreicht.");
 			}	
 		}	
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, festivalId);
 		return "equipments.html";
 	}
 	
@@ -157,7 +157,8 @@ public class PlanEquipmentController {
 	@GetMapping("equipments/{festivalId}/remove/{id}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String getRemoveStageDialog(@PathVariable("id") SalespointIdentifier id, Model model, 
-										EquipmentRentingForm equipmentRentingForm, NewStageForm newStageForm ) {
+										EquipmentRentingForm equipmentRentingForm, NewStageForm newStageForm,
+									   @PathVariable("festivalId") long festivalId) {
 		model.addAttribute("dialog", "remove stage");
 		
 		Optional<Stage> stage = equipmentManagement.findStageById(id);
@@ -169,32 +170,26 @@ public class PlanEquipmentController {
 					HttpStatus.NOT_FOUND, "entity not found"
 			);
 		}
-		
-
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, festivalId);
 		return "equipments.html";
 	}
 	
 	
 	@PostMapping("equipments/{festivalId}/remove/{id}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
-	public String removeStage(@PathVariable("id") SalespointIdentifier id) {
+	public String removeStage(@PathVariable("id") SalespointIdentifier id, @PathVariable("festivalId") long festivalId) {
 		
-		Optional<Festival> festival = festivalManagement.findById(utilsManagement.getCurrentFestivalId());
+		Optional<Festival> festival = festivalManagement.findById(festivalId);
 		if (festival.isPresent()) {
 			Optional<Stage> opStage = equipmentManagement.findStageById(id);
 			if(opStage.isPresent()) {
 				Stage stage = opStage.get(); 
-				System.out.println(stage);
-				planEquipmentManagement.unrentStage(stage,festival.get().getId());
-				System.out.println("after call");
+//				System.out.println(stage);
+				planEquipmentManagement.unrentStage(stage, festival.get());
 			}
-			return "redirect:/equipments/" + festival.get().getId();
-		} else {
-			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
 		}
+		return "redirect:/equipments/" + festival.get().getId();
+
 			
 	}
 	
@@ -203,26 +198,19 @@ public class PlanEquipmentController {
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String rentEquipmentAmount(Model model, @Valid EquipmentRentingForm equipementRentingForm, Errors result, 
 										@PathVariable("festivalId") long festivalId, NewStageForm newStageForm) {
-	
 		if(result.hasErrors()) {
-			utilsManagement.prepareModel(model);
+			utilsManagement.prepareModel(model, festivalId);
 			return "equipments.html";
 		}
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
-		if (festival.isPresent() && equipmentManagement.findEquipmentById(equipementRentingForm.getEquipmentsId()).isPresent()) {
+		if (festival.isPresent()
+				&& equipmentManagement.findEquipmentById(equipementRentingForm.getEquipmentsId()).isPresent()) {
 
 			//System.out.println(equipmentsId + "     "+ equipmentsAmount);			
 			planEquipmentManagement.rentEquipment(equipementRentingForm.getEquipmentsId(), equipementRentingForm.getAmount(), festival.get());
-			return "redirect:/equipments/" + festival.get().getId();
-			
-		} else {
-			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "entity not found"
-			);
 		}
-	}
-	
-	
+		return "redirect:/equipments/" + festival.get().getId();		
+	}	
 }
 
 

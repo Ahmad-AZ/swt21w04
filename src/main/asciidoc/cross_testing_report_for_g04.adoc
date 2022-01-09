@@ -1,0 +1,178 @@
+= Cross-Testing Feedback
+
+__Durchführende Gruppe:__ 05
+__Anwendung von Gruppe:__ 04
+
+== Getestetes System
+** Line-up / Band :
+* Man kann Bands für ein Lineup von einem bestimmten Festival buchen 
+* Man kann Bands von einer Lineup von einem bestimmten Festival bearbeiten
+* Man kann neue Bands erstellen
+
+** Catering:
+
+* man kann Produkte abrechnen (verkaufen)
+* man kann Produkte zum Katalog hinzufügen, bearbeiten, löschen
+* man kann Produkte zum Lager hinzufügen, bearbeiten (Lagerbestand bearbeiten), löschen
+
+** Ticket :
+* Man kann eine Anzahl von tickets zu einem beliebigen Festival zuweisen und auch zu diesen Tickets ein Preis eintragen.
+
+** Festival / Location :
+* man kann Festivals erstellen
+* man kann Locations erstellen
+* man kann Festivals bearbeiten
+* man kann Locations bearbeiten
+
+** Kommunikation:
+* man kann Nachrichten verschicken
+
+== Fehler-Report
+// See http://asciidoctor.org/docs/user-manual/#tables
+[options="header"]
+|===
+|Pfad |Parameter |Beschreibung |Rückgabe
+| http://localhost:8080/catering | Radiobutton | kein Radiobutton ausgewählt | Whitelabel Error Page
+| http://localhost:8080/catering | Eingabefeld für Anzahl | leer | Whitelabel Error Page
+| http://localhost:8080/catering | Eingabefeld für Anzahl | Werte <= 0 | wird Warenkorb hinzugefügt
+| http://localhost:8080/catering | Eingabefeld für Anzahl | Werte > 2147483647 | Whitelabel Error Page
+| http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Produktname | leer | Produktname wird auf leeren String gesetzt
+| http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Produktname | bbbbbabbaaabaababaaaaaaaaaabaabababababbbaabaaba +
+bbaaabbaabbaaaabbaababbbbaabaaabaabbbbbbaaaaababa +
+abbbaaaabbbaaababbabaaababababaaabaabaabbbbbabaab +
+abbbaaabbbaabbaaaaaaabaaaaabaaaaabaaaaabaababbbabb +
+aaaaabaabaaabbbbaababbaababababbbaaababaaaabbbaabbaaaabaaabb | Whitelabel Error Page
+| http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Verkaufspreis | 12 (bzw. für alle Wert die nicht im Format "EUR 'zahl'" eingegeben werden) | selbe Seite (Wert wird nicht geändert) bzw. alle default Wert sind wieder in der Form auch wenn es davor bereits korrekt bearbeitet wurde
+| http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Verkaufspreis | Wert <= 0 (genaue Eingabe: "EUR 0") | Wert wird akezptiert und geändert
+| http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Pfand | 12 (bzw. für alle Wert die nicht im Format "EUR 'zahl'" eingegeben werden) | selbe Seite (Wert wird nicht geändert) bzw. alle default Wert sind wieder in der Form auch wenn es davor bereits korrekt bearbeitet wurde
+| http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Pfand | Wert <= 0 (genaue Eingabe: "EUR 0") | Wert wird akezptiert und geändert
+| http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Füllmenge | leer | Whitelabel Error Page
+| http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Füllmenge | Wert <= 0 (genaue Eingabe: "EUR 0") | Wert wird akezptiert und geändert
+| http://localhost:8080/cateringAddProduct | Eingabefeld für Produktname | leer | Whitelabel Error Page
+| http://localhost:8080/cateringAddProduct | Eingabefeld für Produktname | bbbbbabbaaabaababaaaaaaaaaabaabababababbbaabaaba +
+bbaaabbaabbaaaabbaababbbbaabaaabaabbbbbbaaaaababa +
+abbbaaaabbbaaababbabaaababababaaabaabaabbbbbabaab +
+abbbaaabbbaabbaaaaaaabaaaaabaaaaabaaaaabaababbbabb +
+aaaaabaabaaabbbbaababbaababababbbaaababaaaabbbaabbaaaabaaabb | Whitelabel Error Page
+| http://localhost:8080/cateringAddProduct | Eingabefeld für Produktname | "Becks" | fügt Produkt mit Produktname "Becks" hinzu obwohl es bereits exisitert
+| http://localhost:8080/cateringAddProduct | Eingabefeld für Verkaufspreis | leer | Whitelabel Error Page
+| http://localhost:8080/cateringAddProduct | Eingabefeld für Verkaufspreis | 1 | Whitelabel Error Page
+| http://localhost:8080/cateringAddProduct | Eingabefeld für Verkaufspreis | "Hallo" | Whitelabel Error Page
+| http://localhost:8080/cateringAddProduct | Eingabefeld für Verkaufspreis | Wert <= 0 (genaue Eingabe: jeweils "EUR 0" und "EUR -1") | Werte werden akzeptiert und geändert
+| http://localhost:8080/cateringAddProduct | Eingabefeld für Pfand | leer | Whitelabel Error Page
+| http://localhost:8080/cateringAddProduct | Eingabefeld für Pfand | 1 | Whitelabel Error Page
+| http://localhost:8080/cateringAddProduct | Eingabefeld für Pfand | "Hallo" | Whitelabel Error Page
+| http://localhost:8080/cateringAddProduct | Eingabefeld für Pfand | Wert <= 0 (genaue Eingabe: jeweils "EUR 0" und "EUR -1") | Werte werden akzeptiert und geändert
+| http://localhost:8080/cateringAddProduct | Eingabefeld für Füllmenge | leer | Whitelabel Error Page
+| http://localhost:8080/cateringAddProduct | Eingabefeld für Füllmenge | Wert <= 0 (genaue Eingabe: jeweils "0" und "-1" | Werte werden akzeptiert und geändert
+| http://localhost:8080/cateringAddStockItem | Eingabefeld für Anzahl | leer | Whitelabel Error Page
+| http://localhost:8080/cateringAddStockItem | Eingabefeld für Anzahl | 500333333333333333333333333333333333333 | Whitelabel Error Page
+| http://localhost:8080/cateringAddStockItem | Eingabefeld für Anzahl | Wert <= 0 (genaue Eingabe: jeweils "EUR 0" und "EUR -1") | Werte werden akzeptiert und geändert
+| http://localhost:8080/cateringAddStockItem | Eingabefeld für Einkaufspreis | leer | Whitelabel Error Page
+| http://localhost:8080/cateringAddStockItem | Eingabefeld für Einkaufspreis | 1 | Whitelabel Error Page
+| http://localhost:8080/cateringAddStockItem | Eingabefeld für Einkaufspreis | "Hallo" | Whitelabel Error Page
+| http://localhost:8080/cateringAddStockItem | Eingabefeld für Einkaufspreis | Wert <= 0 (genaue Eingabe: jeweils "EUR 0" und "EUR -1") | Werte werden akzeptiert und geändert
+| http://localhost:8080/cateringAddStockItem | Eingabefeld für Einkaufsdatum | leer ("TT.MM.JJJJ") | Whitelabel Error Page
+| http://localhost:8080/cateringAddStockItem | Eingabefeld für Verfallsdatum | leer ("TT.MM.JJJJ") | Whitelabel Error Page
+| http://localhost:8080/cateringAddStockItem | Eingabefeld für Einkaufsdatum und Verfallsdatum | Einkaufsdatum: (22.12.2021), Verfallsdatum: (19.12.21) | wurde akzeptiert aber Einkaufsdatum sollte nicht zeitlich nach dem Verfallsdatum sein
+| http://localhost:8080/cateringEditStockItem/{id} | Eingabefeld für Anzahl | leer | Whitelabel Error Page
+| http://localhost:8080/cateringEditStockItem/{id} | Eingabefeld für Anzahl | 500333333333333333333333333333333333333 | Whitelabel Error Page
+| http://localhost:8080/cateringEditStockItem/{id} | Eingabefeld für Anzahl | Wert < 0 | Whitelabel Error Page
+| http://localhost:8080/cateringEditStockItem/{id} | Eingabefeld für Einkaufspreis | leer | Whitelabel Error Page
+| http://localhost:8080/cateringEditStockItem/{id} | Eingabefeld für Einkaufspreis | 1 | Whitelabel Error Page
+| http://localhost:8080/cateringEditStockItem/{id} | Eingabefeld für Einkaufspreis | "Hallo" | Whitelabel Error Page
+| http://localhost:8080/cateringEditStockItem/{id} | Eingabefeld für Einkaufspreis | Wert <= 0 (genaue Eingabe: jeweils "EUR 0" und "EUR -1") | Werte werden akzeptiert und geändert
+| http://localhost:8080/cateringEditStockItem/{id} | Eingabefeld für Einkaufsdatum | leer ("TT.MM.JJJJ") | Whitelabel Error Page
+| http://localhost:8080/cateringEditStockItem/{id} | Eingabefeld für Verfallsdatum | leer ("TT.MM.JJJJ") | Whitelabel Error Page
+| http://localhost:8080/cateringEditStockItem/{id} | Eingabefeld für Einkaufsdatum und Verfallsdatum | Einkaufsdatum: (22.12.2021), Verfallsdatum: (19.12.21) | wurde akzeptiert aber Einkaufsdatum sollte nicht zeitlich nach dem Verfallsdatum sein
+| http://localhost:8080/newartist | Eingabefeld für neue Künstler | man kann die Name von eine schon eingegebene Band hinzufügen | die gleiche Name
+| http://localhost:8080/newartist | Eingabefeld für Anzahl der Bühnentechniker für den Künstler | wenn man eine ganz große Zahl eingibt, passiert gar nichts  | redirect zu der gleichen Seite
+| http://localhost:8080/artists | RadioButton "Löschen"  | man kann nicht eine Band löschen | Whitelabel Error Page
+| http://localhost:8080/festivalOverview/{id}| Button "Spielplan" in Nav-Bar   | man kann nicht die Lineup, Stages von einer Festival sehen | Whitelabel Error Page
+| http://localhost:8080/festivalOverview/{id}| Kein Button "Tickets Kaufen" in Festival Overview| man kann nicht Tickets für ein beliebige Festival kaufen| leer
+| http://localhost:8080/festivalOverview/{id}| Button "Location"|keine Locaiton| Redirect to "http://localhost:8080/locationOverview/{id}", Whitelabel error Page
+| http://localhost:8080/ticketShop   | RadioButton "kaufen" | ungeachtet der Tatsache , dass es tickets für eine Festival gibt, kann man nicht sie kaufen, "kein Itext implementiert " | Redirect to "http://localhost:8080/tickets/buy" -- "tickets nicht mehr verfügbar"
+| http://localhost:8080/tickets  |Eingabefeld für Camping - Tickets in Anzahl einstellen  | man kann so viel wie möglich tickets für ein Festival einstellen, keine Abgrenzung  | Redirect to "http://localhost:8080/tickets/edit"
+| http://localhost:8080/tickets  |Eingabefeld für Tagestickets in Anzahl einstellen  | man kann so viel wie möglich tickets für ein Festival einstellen, keine Abgrenzung | Redirect to "http://localhost:8080/tickets/edit"
+| http://localhost:8080/tickets  |Eingabefeld für Camping - Tickets in Anzhal einstellen  | man kann eine negative Zahl in diesem Feld eintragen | Redirect to "http://localhost:8080/tickets/edit"
+| http://localhost:8080/tickets  |Eingabefeld für Tagestickets in Anzhal einstellen | man kann eine negative Zahl in diesem Feld eintragen | Redirect to "http://localhost:8080/tickets/edit"
+| http://localhost:8080/tickets  |Eingabefeld für Camping - Tickets in Preise einstellen  | man kann eine negative Zahl in diesem Feld eintragen | Redirect to "http://localhost:8080/tickets/edit"
+
+| http://localhost:8080/tickets  |Eingabefeld für Tagestickets in Anzahl einstellen | man kann ein leeres Input in diesem Feld eintragen |Whitelabel error Page
+| http://localhost:8080/tickets  |Eingabefeld für Camping - Tickets in Anzahl einstellen | man kann ein leeres Input in diese Feld eintragen | Whitelabel error Page
+| http://localhost:8080/tickets  |Eingabefeld für Tagesticket in Preise einstellen | man kann ein leeres Input in diesem Feld eintragen | Whitelabel error Page
+| http://localhost:8080/tickets  |Eingabefeld für Tages - Tickets in Preise einstellen | man kann ein leeres Input in diese Feld eintragen | Whitelabel error Page
+
+|http://localhost:8080/staff/{id}/create/ | Eingabefeld Lohn| Zahlen <=0|wurde akzeptiert, aber Lohn sollte nicht negativ sein
+|http://localhost:8080/locations|RadioButton "Löschen"| man kann nicht eine Location löschen | Whitelabel Error Page
+|http://localhost:8080/festivalOverview/4| Button "Spielplan" | Spielplan seite wird nicht geöffnet | Whitelabel Error Page
+|http://localhost:8080/messages/27| Nachricht senden | man kann leere Nachricht mit dem leeren Titel senden | wurde akzeptiert
+|http://localhost:8080/festivalOverview | Eingabefeld für Name des Festivals | " " | Festival wird erstellt
+|http://localhost:8080/festivalOverview/5| Button "Location" |die Webseite wird nicht geöffnet |Whitelabel Error Page
+|http://localhost:8080/staff/4| Personal hinzufügen | man kann mehrere admins zu einem Fesital hinzufügen, obwohl es nur einen geben darf | akzeptiert
+
+
+| http://localhost:8080/schedule | nicht angemeldet | von "/festivalOverview/4" auf Button "Spielplan" gedrückt | Whitelabel Error Page - 500 
+| http://localhost:8080/newFestival | Name: TestFestival | Festival mit dem Namen TestFestival gibt es schon | keine Fehlermeldung 
+| http://localhost:8080/locationOverview/40 | Angemeldet als Admin | - | Whitelabel Error Page - 500 
+| http://localhost:8080/schedule | Angemeldet als Admin | - | Whitelabel Error Page - 500 
+| http://localhost:8080/newLocation | Name: TestLocaiton | Location mit dem Namen TestLocation gibt es schon | keine Fehlermeldung
+| http://localhost:8080/newLocation | Anzahl Bühnen: 0 | Eine Locaiton ohne Bühnen kann erstellt werden | keine Fehlermeldung
+
+|http://localhost:8080/finances |ticketverkäufer für ein Festival existiert und hat Gehalt|-|wird nicht in der Finanzübersicht aufgeführt
+|http://localhost:8080/finances |Planungsteam für ein Festival existiert und hat Gehalt|-|wird nicht in der Finanzübersicht aufgeführt
+|http://localhost:8080/finances |Manager für ein Festival existiert und hat Gehalt|-|wird nicht in der Finanzübersicht aufgeführt
+|http://localhost:8080/staff/{id}/detail/{id}|Personal hat Gehalt|Deteils anzeigen| Gehalt kann nicht bearbeitet werden
+|http://localhost:8080/staff/{id}/create/ | Personal mit Name:Test123| Personal mit dem Namen Test123 gibt es schon| Whitelabel Error Page
+
+
+
+
+
+
+
+|===
+
+== Sonstiges
+* Optik der Anwendung
+
+Die Struktur der Anwendung ist gut gelungen, die Eingabeflächen könnten jedoch noch von der größe und grafischen
+ausgestaltung noch verbessert werden.
+
+* Fehlende Features
+
+** Catering:
+
+- Warenkorb leeren bein Verkauf von Produkte
+
+* Interaktion mit der Anwendung (Usability)
+
+** Catering:
+
+- gute struktur jedoch tatsächliche Formularoberfläche bzw. Tabelle zu klein im Vergleich zur Benutzeroberfläche
+
+** Tickets -- Fehlende feautures:
+
+- Kein "Itext" implementiert  und aus diesem Grund , kann man nicht Tickets drücken
+
+- Kein Warenkorb für Tickets
+
+- Keine Abgrenzung in Ticket Anzahl 
+
+
+** Line Up / Bands -- Fehlende feautures: 
+
+- Keine Aufführungstunden für die Bands 
+
+- Bands sind nicht zugewiesen zu einem bestimmten Buehne von einem Festival
+
+- Man kann nicht die gleiche Band zu zwei Festivals zuweisen
+
+
+-
+
+
+== Verbesserungsvorschläge
+* Was kann noch weiter verbessert werden? 
+- Vielleicht ein Spielplan erstellen , wo die Kunden sehen können , welche Bands in diesem Festival spielen werden mit seinem jeweiligen Aufführungstuden und Buehnen und auch bei der Overview von jedem Festival das Funktion "Ticket Kaufen" implementieren.
+- man kann vielleicht noch Produkte zu Kategorien hinzufügen und dann im Verkaufsterminal auswählen

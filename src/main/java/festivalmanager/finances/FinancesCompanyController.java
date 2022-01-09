@@ -1,6 +1,6 @@
 package festivalmanager.finances;
 
-import festivalmanager.utils.UtilsManagement;
+
 import org.javamoney.moneta.Money;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -13,14 +13,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 public class FinancesCompanyController {
 
 
-	UtilsManagement utilsManagement;
 	FinancesCompanyManagement financesCompanyManagement;
 
 
-	FinancesCompanyController(FinancesCompanyManagement financesCompanyManagement,
-							  UtilsManagement utilsManagement) {
+	FinancesCompanyController(FinancesCompanyManagement financesCompanyManagement) {
 		this.financesCompanyManagement = financesCompanyManagement;
-		this.utilsManagement = utilsManagement;
 	}
 
 
@@ -61,8 +58,6 @@ public class FinancesCompanyController {
 		FinancesController.addAttribute(model, "averageCostOneDayTickets",
 				financesCompanyManagement.getAverageCostOneDayTickets());
 
-		utilsManagement.setCurrentPageUpperHeader("financesCompany");
-		utilsManagement.prepareModel(model, null);
 		return "financesCompany";
 	}
 

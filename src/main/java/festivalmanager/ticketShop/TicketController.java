@@ -1,17 +1,19 @@
 package festivalmanager.ticketShop;
 
 
+import com.google.zxing.WriterException;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
+import festivalmanager.ticketShop.qr_code.QRCodeGenerator;
 import festivalmanager.utils.UtilsManagement;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 
+import java.io.IOException;
 import java.util.Objects;
 
 @Controller
@@ -37,22 +39,21 @@ public class TicketController {
 	}
 
 	@PreAuthorize("hasRole('PLANNER')||hasRole('ADMIN')")
-	@GetMapping("/tickets")
-	public String showTicketInfo(Model model) {
+	@GetMapping("/tickets/{festivalId}")
+
+	public String showTicketInfo(@PathVariable("festivalId") long festivalId,Model model) {
 
 		model.addAttribute("title", "Tickets");
-		utilsManagement.setCurrentPageLowerHeader("tickets");
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, festivalId);
 
 		if (Objects.isNull(ticketManagement.getCurrentTicket())) {
 
-			this.currentFestival = festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
+			this.currentFestival = festivalManagement.findById(festivalId).get();
 			model.addAttribute("ticket", new Ticket());
 			model.addAttribute("festival", this.currentFestival);
 
-			utilsManagement.setCurrentPageLowerHeader("tickets");
 
-			utilsManagement.prepareModel(model);
+			utilsManagement.prepareModel(model, festivalId);
 			return "ticketForm";
 		}
 
@@ -61,28 +62,34 @@ public class TicketController {
 	}
 
 
+
+
+
+
 	@PreAuthorize("hasRole('PLANNER')||hasRole('ADMIN')")
-	@PostMapping("/tickets")
-	public String create(@ModelAttribute Ticket ticket, Model model) {
+	@PostMapping("/tickets/{festivalId}")
+	public String create(@ModelAttribute Ticket ticket,@PathVariable("festivalId") long festivalId, Model model) {
 
 		model.addAttribute("title", "Tickets");
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, festivalId);
 
-		currentFestival= festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
+		currentFestival= festivalManagement.findById(festivalId).get();
 
 		ticket.setFestivalName(currentFestival.getName());
 		ticket.setFestivalId(currentFestival.getId());
 
-
 		ticketManagement.setCurrentTicket(ticket);
 		ticketManagement.setFestival(currentFestival);
+
 
 		model.addAttribute("tickets", ticketManagement.save(ticket));
 		return "ticketResult";
 	}
 
+
 	@PreAuthorize("hasRole('TICKET_SELLER')||hasRole('ADMIN')")
 	@PostMapping("/tickets/buy")
+	@ExceptionHandler({IOException.class, WriterException.class})
 	public String buyTicket(@ModelAttribute Ticket ticket, Model model) {
 
 		Ticket nTicket;
@@ -103,32 +110,47 @@ public class TicketController {
 				ticketPrice = nTicket.getDayTicketPrice();
 			}
 
+			try {
+				if (nTicket.getId() != null) {
+
+					String uuid = nTicket.getId().toString();
+					QRCodeGenerator.generateQRCodeImage(uuid);
+				}
+
+			} catch (WriterException |IOException e) {
+				e.printStackTrace();
+			}
+
 			model.addAttribute("ticketCount", soldTicket);
 			model.addAttribute("ticketPrice", ticketPrice * soldTicket);
-			model.addAttribute("festival", currentFestival.getName());
+			model.addAttribute("festival", currentFestival);
 			model.addAttribute("tickets", ticket);
 
+
+
 		} else {
-			utilsManagement.prepareModel(model);
+			utilsManagement.prepareModel(model, currentFestival.getId());
 			model.addAttribute("ticketsUnavailable", "true");
 			return "ticketShopUnavailable";
 		}
-//
-//		String base64="";
-//		model.addAttribute("base64", base64);
-		utilsManagement.prepareModel(model);
+
+		utilsManagement.prepareModel(model, currentFestival.getId());
+
 		return "ticketPrint";
 	}
 
 
+
+
+
+
 	@PreAuthorize("hasRole('TICKET_SELLER')||hasRole('ADMIN')")
-	@GetMapping("/ticketShop")
-	public String ticketOverview(Model model) {
+	@GetMapping("/ticketShop/{festivalId}")
+	public String ticketOverview(@PathVariable("festivalId") long festivalId,  Model model) {
 
 
-		Ticket ticket = ticketManagement.TicketsByFestival(utilsManagement.getCurrentFestivalId());
-		utilsManagement.setCurrentPageLowerHeader("ticketShop");
-		utilsManagement.prepareModel(model);
+		Ticket ticket = ticketManagement.TicketsByFestival(festivalId);
+		utilsManagement.prepareModel(model, festivalId);
 
 		if (ticket == null) {
 			model.addAttribute("ticketsNotCreated", "true");
@@ -145,7 +167,7 @@ public class TicketController {
 	public String update(@NotNull @ModelAttribute Ticket ticket, Model model) {
 
 		model.addAttribute("title", "Tickets");
-		utilsManagement.prepareModel(model);
+		utilsManagement.prepareModel(model, currentFestival.getId());
 
 		ticketManagement.setCurrentTicket(ticket);
 		ticketManagement.save(ticket);
@@ -160,9 +182,9 @@ public class TicketController {
 		return  currentFestival;
 	}
 
-	void setCurrentFestival(){
+	void setCurrentFestival(long id ){
 
-		this.currentFestival = festivalManagement.findById(utilsManagement.getCurrentFestivalId()).get();
+		this.currentFestival = festivalManagement.findById(id).get();
 	}
 
 
