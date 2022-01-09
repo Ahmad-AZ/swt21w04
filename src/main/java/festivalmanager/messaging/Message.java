@@ -25,34 +25,25 @@ public class Message {
 
 	private MessageType type;
 
-	public Message(SendPersonalMessageForm form, String senderName) {
+	public Message(SendMessageForm form, String senderName) {
 		this.senderId = form.getSenderId();
-		this.receiverId = form.getReceiverId();
 		this.title = form.getTitle();
 		this.content = form.getContent();
 		this.sentTimestamp = LocalDateTime.now();
 		this.senderName = senderName;
-		this.type = MessageType.PersonalMessage;
-	}
 
-	public Message(SendGroupMessageForm form, String senderName) {
-		this.senderId = form.getSenderId();
-		this.receiverFestivalId = form.getReceiverFestivalId();
-		this.receiverGroup = form.getReceiverGroup();
-		this.title = form.getTitle();
-		this.content = form.getContent();
-		this.sentTimestamp = LocalDateTime.now();
-		this.senderName = senderName;
-		this.type = MessageType.GroupMessage;
-	}
+		if (form instanceof SendGroupMessageForm) {
+			this.receiverFestivalId = ((SendGroupMessageForm)form).getReceiverFestivalId();
+			this.receiverGroup = ((SendGroupMessageForm)form).getReceiverGroup();
 
-	public Message(SendGlobalMessageForm form, String senderName) {
-		this.senderId = form.getSenderId();
-		this.title = form.getTitle();
-		this.content = form.getContent();
-		this.sentTimestamp = LocalDateTime.now();
-		this.senderName = senderName;
-		this.type = MessageType.GlobalMessage;
+			this.type = MessageType.GroupMessage;
+		} else if (form instanceof SendPersonalMessageForm) {
+			this.receiverId = ((SendPersonalMessageForm)form).getReceiverId();
+
+			this.type = MessageType.PersonalMessage;
+		} else {
+			this.type = MessageType.GlobalMessage;
+		}
 	}
 
 	public Message() {}

@@ -22,7 +22,7 @@ public class StaffManagement {
 	private final UserAccountManagement userAccountManagement;
 	private final FestivalManagement festivalManagement;
 	
-	private static final String[] roles = {
+	public static final String[] roles = {
 		"ADMIN",
 		"MANAGER",
 		"PLANNER",

@@ -72,8 +72,41 @@ public class MessageController {
 		return "messages.html";
 	}
 
+	@GetMapping("/messages/{userId}/send-group")
+	public String getSendGroupMessageDialog(@PathVariable("userId") long userId, Model model) {
+		model.addAttribute("dialog", "send_group_message");
+
+		model.addAttribute("possible_receivers", StaffManagement.roles);
+
+		Optional<Person> user = staffManagement.findById(userId);
+		if (user.isPresent()) {
+			model.addAttribute("festivalId", user.get().getFestivalId());
+		}
+
+		return "messages.html";
+	}
+
+	@GetMapping("/messages/{userId}/send-global")
+	public String getSendGlobalMessageDialog(@PathVariable("userId") long userId, Model model) {
+		model.addAttribute("dialog", "send_global_message");
+
+		return "messages.html";
+	}
+
 	@PostMapping("/messages/{userId}/send")
 	public String sendMessage(@PathVariable("userId") long userId, SendPersonalMessageForm form) {
+		messageManagement.sendMessage(form);
+		return "redirect:/messages/" + userId;
+	}
+
+	@PostMapping("/messages/{userId}/send-group")
+	public String sendGroupMessage(@PathVariable("userId") long userId, SendGroupMessageForm form) {
+		messageManagement.sendMessage(form);
+		return "redirect:/messages/" + userId;
+	}
+
+	@PostMapping("/messages/{userId}/send-global")
+	public String sendGlobalMessage(@PathVariable("userId") long userId, SendGlobalMessageForm form) {
 		messageManagement.sendMessage(form);
 		return "redirect:/messages/" + userId;
 	}

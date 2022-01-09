@@ -25,6 +25,14 @@ public class MessageDataInitializer implements DataInitializer {
 		messageManagement.sendMessage(new SendPersonalMessageForm(senderId, receiverId, title, content));
 	}
 
+	public void newGroupMessage(long senderId, long festivalId, String group, String title, String content) {
+		messageManagement.sendMessage(new SendGroupMessageForm(senderId, festivalId, group, title, content));
+	}
+
+	public void newGlobalMessage(long senderId, String title, String content) {
+		messageManagement.sendMessage(new SendGlobalMessageForm(senderId, title, content));
+	}
+
 	@Override
 	public void initialize() {
 		long adminId = 0, managerId = 0;
@@ -40,5 +48,8 @@ public class MessageDataInitializer implements DataInitializer {
 		newMessage(managerId, adminId, "test manager -> admin - 2", "Hello World! - 2");
 		newMessage(adminId, managerId, "test admin -> manager", "Hello World!");
 		newMessage(adminId, managerId, "test admin -> manager - 2", "Hello World! - 2");
+
+		newGroupMessage(adminId, -1, "MANAGER", "admin -> MANAGER", "Hello World!");
+		newGlobalMessage(adminId, "Hello World!", "global messages work");
 	}
 }
