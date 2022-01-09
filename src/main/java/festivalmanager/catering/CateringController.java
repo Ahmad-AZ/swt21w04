@@ -13,6 +13,7 @@ import festivalmanager.festival.*;
 import festivalmanager.utils.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.LinkedList;
 import java.util.Optional;
 
 /**
@@ -50,6 +51,20 @@ public class CateringController {
 		return new Cart();
 	}
 
+	public Iterable<CateringProduct> getBoughtProducts(long festivalid) {
+		Iterable<CateringStockItem> iCSI = stock.findByFestivalId(festivalid);
+		LinkedList<CateringProduct> lCP = new LinkedList<CateringProduct>();
+		Quantity qZero = Quantity.of(0);
+		for (CateringStockItem csi : iCSI) {
+			if (csi.getQuantity().isGreaterThan(qZero)) {
+				if (!lCP.contains(csi.getProduct())) {
+					lCP.add(csi.getProduct());
+				}
+			}
+		}
+		return lCP;
+	}
+
 	@GetMapping("/catering/{festivalId}")
 	String sales(Model model, @ModelAttribute Cart cart, @PathVariable Long festivalId) {
 
@@ -61,7 +76,7 @@ public class CateringController {
 
 		// Festival currentFestival = festivalOptional.get();
 
-		model.addAttribute("productcatalog", catalog.findAll());
+		model.addAttribute("productcatalog", getBoughtProducts(festivalId));
 		model.addAttribute("productid", null);
 
 		utilsManagement.prepareModel(model, festivalId);
