@@ -30,6 +30,7 @@ import org.javamoney.moneta.*;
 public class CateringProductCatalogController {
 
     private UtilsManagement utilsManagement;
+    @SuppressWarnings("unused")
     private FestivalManagement festivalManagement;
     private CateringProductCatalog catalog;
     private CateringStock stock;

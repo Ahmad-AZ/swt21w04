@@ -13,7 +13,7 @@ import festivalmanager.festival.*;
 import festivalmanager.utils.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.math.BigDecimal;
+//import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -163,6 +163,7 @@ public class CateringController {
 	@PostMapping("/catering/checkout")
 	String checkout(Model model, @ModelAttribute Cart cart, @RequestParam("festivalId") Long festivalId) {
 		cart = chopCart(cart, festivalId);
+		Map<CateringProduct, Quantity> mapBefore = getProductCounts(festivalId);
 		for (CartItem item : cart) {
 			CateringSalesItem salesItem = new CateringSalesItem(
 					(CateringProduct) item.getProduct(),
@@ -171,6 +172,16 @@ public class CateringController {
 					item.getPrice());
 			sales.save(salesItem);
 			bookOut((CateringProduct) item.getProduct(), item.getQuantity(), festivalId);
+		}
+		Map<CateringProduct, Quantity> mapAfter = getProductCounts(festivalId);
+		for (CateringProduct cp : mapBefore.keySet()) {
+			Quantity qBefore = mapBefore.get(cp);
+			Quantity qAfter = mapAfter.get(cp);
+			Quantity qMin = cp.getMinimumStock();
+			if ((qBefore.isGreaterThan(qMin)) && (qAfter.isLessThan(qMin))) {
+				System.out.println("CateringStock Minimum: " + qBefore + "->" + qAfter + "<=" + qMin);
+			}
+
 		}
 
 		cart.clear();
