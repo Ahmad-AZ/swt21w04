@@ -23,18 +23,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import festivalmanager.utils.UtilsManagement;
-
 
 @Controller
 public class LocationController {
 	
 	private final LocationManagement locationManagement;
-	private final UtilsManagement utilsManagement;
 	
-	public LocationController(LocationManagement locationManagement, UtilsManagement utilsManagement) {
+	public LocationController(LocationManagement locationManagement) {
 		this.locationManagement = locationManagement;
-		this.utilsManagement = utilsManagement;
 	}
 
 	@ModelAttribute("title")
