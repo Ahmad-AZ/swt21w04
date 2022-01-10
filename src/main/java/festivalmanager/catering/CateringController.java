@@ -101,6 +101,30 @@ public class CateringController {
 		return cart;
 	}
 
+	public void bookOut(CateringProduct product, Quantity quantity, long festivalId) {
+		Iterable<CateringStockItem> iCSI = stock.findByFestivalId(festivalId, CateringStock.BBD_SORT);
+		for (CateringStockItem csi : iCSI) {
+			CateringProduct csiProduct = csi.getProduct();
+			if (csiProduct.equals(product)) {
+				// the quantity in stockitem minus the quantity in the cart
+				Quantity qStockItem = csi.getQuantity();
+				Quantity qDiff = qStockItem.subtract(quantity);
+
+				if (qDiff.isNegative()) {
+					// the case the cart qunatity is greater than the stockitem is
+					quantity = quantity.subtract(qStockItem);
+					qStockItem = Quantity.of(0);
+				} else {
+					// the normal case
+					qStockItem = qStockItem.subtract(quantity);
+					quantity = Quantity.of(0);
+				}
+				csi.decreaseQuantity(csi.getQuantity().subtract(qStockItem));
+				stock.save(csi);
+			}
+		}
+	}
+
 	@GetMapping("/catering/{festivalId}")
 	String sales(Model model, @ModelAttribute Cart cart, @PathVariable Long festivalId) {
 
@@ -146,6 +170,7 @@ public class CateringController {
 					festivalId,
 					item.getPrice());
 			sales.save(salesItem);
+			bookOut((CateringProduct) item.getProduct(), item.getQuantity(), festivalId);
 		}
 
 		cart.clear();
