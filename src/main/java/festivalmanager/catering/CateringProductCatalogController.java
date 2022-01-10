@@ -70,7 +70,10 @@ public class CateringProductCatalogController {
     }
 
     @PostMapping("/cateringAddProduct/editData")
-    String addProduct(Model model, ProductFormularData formularData, @RequestParam("festivalId") Long festivalId) {
+    String addProduct(
+            Model model,
+            ProductFormularData formularData,
+            @RequestParam("festivalId") Long festivalId) {
         boolean failure = false;
 
         Money formPrice = Money.of(2.50, EURO);
@@ -110,9 +113,10 @@ public class CateringProductCatalogController {
     }
 
     @GetMapping("/cateringEditProduct/{festivalId}/{productid}")
-    String editProduct(@PathVariable Long festivalId, @PathVariable ProductIdentifier productid, Model model) {
-
-        // System.out.println("productid:" + productid);
+    String editProduct(
+            @PathVariable Long festivalId,
+            @PathVariable ProductIdentifier productid,
+            Model model) {
         Optional<CateringProduct> oProduct = catalog.findById(productid);
         if (oProduct.isPresent()) {
             CateringProduct product = oProduct.get();
@@ -124,7 +128,10 @@ public class CateringProductCatalogController {
     }
 
     @PostMapping("/cateringEditProduct/editData/{productid}")
-    String editProductData(@PathVariable ProductIdentifier productid, Model model, ProductFormularData formularData,
+    String editProductData(
+            @PathVariable ProductIdentifier productid,
+            Model model,
+            ProductFormularData formularData,
             @RequestParam("festivalId") Long festivalId) {
         boolean changed = false;
         boolean failure = false;
@@ -187,7 +194,10 @@ public class CateringProductCatalogController {
     }
 
     @GetMapping("/cateringDeleteProduct/{festivalId}/{productid}")
-    String deleteProduct(@PathVariable Long festivalId, @PathVariable ProductIdentifier productid, Model model) {
+    String deleteProduct(
+            @PathVariable Long festivalId,
+            @PathVariable ProductIdentifier productid,
+            Model model) {
         Optional<CateringProduct> oProduct = catalog.findById(productid);
         if (oProduct.isPresent()) {
             CateringProduct product = oProduct.get();
@@ -198,7 +208,9 @@ public class CateringProductCatalogController {
     }
 
     @PostMapping("/cateringDeleteProduct/delete/{productid}")
-    String deleteProduct(@PathVariable ProductIdentifier productid, @RequestParam("festivalId") Long festivalId) {
+    String deleteProduct(
+            @PathVariable ProductIdentifier productid,
+            @RequestParam("festivalId") Long festivalId) {
         Optional<CateringProduct> oProduct = catalog.findById(productid);
         boolean empty = true, empty2 = true;
         if (oProduct.isPresent()) {
@@ -246,7 +258,10 @@ public class CateringProductCatalogController {
     }
 
     @PostMapping("/cateringAddStockItem/editData")
-    String addStockItem(Model model, StockFormularData formularData, @RequestParam("festivalId") Long festivalId) {
+    String addStockItem(
+            Model model,
+            StockFormularData formularData,
+            @RequestParam("festivalId") Long festivalId) {
         boolean failure = false;
 
         Optional<CateringProduct> oProduct = catalog.findById(formularData.productid);
@@ -294,7 +309,9 @@ public class CateringProductCatalogController {
     }
 
     @GetMapping("/cateringEditStockItem/{festivalId}/{stockitemid}")
-    String editStockItem(@PathVariable Long festivalId, @PathVariable InventoryItemIdentifier stockitemid,
+    String editStockItem(
+            @PathVariable Long festivalId,
+            @PathVariable InventoryItemIdentifier stockitemid,
             Model model) {
         Optional<CateringStockItem> oStockItem = stock.findById(stockitemid);
         if (oStockItem.isPresent()) {
@@ -307,8 +324,11 @@ public class CateringProductCatalogController {
     }
 
     @PostMapping("/cateringEditStockItem/editData/{stockitemid}")
-    String editStockItem(@PathVariable InventoryItemIdentifier stockitemid, Model model,
-            StockFormularData formularData, @RequestParam("festivalId") Long festivalId) {
+    String editStockItem(
+            @PathVariable InventoryItemIdentifier stockitemid,
+            Model model,
+            StockFormularData formularData,
+            @RequestParam("festivalId") Long festivalId) {
         boolean failure = false;
 
         Money formBuyingPrice = Money.of(0.50, EURO);
@@ -377,7 +397,9 @@ public class CateringProductCatalogController {
     }
 
     @GetMapping("/cateringDeleteStockItem/{festivalId}/{stockitemid}")
-    String deleteStockItem(@PathVariable Long festivalId, @PathVariable InventoryItemIdentifier stockitemid,
+    String deleteStockItem(
+            @PathVariable Long festivalId,
+            @PathVariable InventoryItemIdentifier stockitemid,
             Model model) {
         Optional<CateringStockItem> oStockItem = stock.findById(stockitemid);
         if (oStockItem.isPresent()) {
