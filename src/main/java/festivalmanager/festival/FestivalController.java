@@ -6,6 +6,9 @@ import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
+
+import festivalmanager.messaging.MessageManagement;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,12 +27,15 @@ public class FestivalController {
 
 	private final FestivalManagement festivalManagement;
 	private UtilsManagement utilsManagement;
+	private final MessageManagement messageManagement;
 
 	
 	public FestivalController(FestivalManagement festivalManagement,
-							  UtilsManagement utilsManagement) {
+							  UtilsManagement utilsManagement,
+							  MessageManagement messageManagement) {
 		this.festivalManagement = festivalManagement;
 		this.utilsManagement = utilsManagement;
+		this.messageManagement = messageManagement;
 	}
 
 	@ModelAttribute("title")
@@ -172,12 +178,12 @@ public class FestivalController {
 	// shows Festival Overview
 	@GetMapping("/festivalOverview")
 	public String festivals(Model model) {
-		
 		model.addAttribute("festivalList", festivalManagement.findAll());
+		model.addAttribute("messages", messageManagement.findGlobalMessages());
 
 		return "festivalOverview"; 
 	}
-	
+
 	@GetMapping("/festivalOverview/remove/{id}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('MANAGER')")
 	public String getRemoveFestivalDialog(@PathVariable("id") long id, Model model) {

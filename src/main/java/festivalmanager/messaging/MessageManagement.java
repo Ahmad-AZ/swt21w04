@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.Optional;
-import java.util.stream.Stream;
 
 @Service
 @Transactional
@@ -24,7 +23,7 @@ public class MessageManagement {
 		this.staffManagement = staffManagement;
 	}
 
-	public void sendMessage(SendPersonalMessageForm form) {
+	public void sendMessage(SendMessageForm form) {
 		Optional<Person> sender = staffManagement.findById(form.getSenderId());
 		String senderName = "[unknown]";
 		if (sender.isPresent()) {
@@ -34,27 +33,27 @@ public class MessageManagement {
 		repository.save(new Message(form, senderName));
 	}
 
-	Streamable<Message> findAll() {
+	public Streamable<Message> findAll() {
 		return repository.findAll();
 	}
 
-	Optional<Message> findById(long id) {
+	public Optional<Message> findById(long id) {
 		return repository.findById(id);
 	}
 
-	Streamable<Message> findPersonalMessages(long receiverId) {
+	public Streamable<Message> findPersonalMessages(long receiverId) {
 		return repository.findByReceiverId(receiverId);
 	}
 
-	Streamable<Message> findGroupMessages(String group, long festivalId) {
+	public Streamable<Message> findGroupMessages(String group, long festivalId) {
 		return repository.findByReceiverGroupAndReceiverFestivalId(group, festivalId);
 	}
 
-	Streamable<Message> findGlobalMessages() {
+	public Streamable<Message> findGlobalMessages() {
 		return repository.findByType(MessageType.GlobalMessage);
 	}
 
-	Streamable<Message> findMessagesForUser(Person receiver) {
+	public Streamable<Message> findMessagesForUser(Person receiver) {
 		Streamable<Message> personalMessages = findPersonalMessages(receiver.getId());
 		Streamable<Message> groupMessages = findGroupMessages(receiver.getRole(), receiver.getFestivalId());
 		return personalMessages.and(groupMessages);

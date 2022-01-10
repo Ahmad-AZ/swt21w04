@@ -20,6 +20,7 @@
 					<th>Verkaufspreis</th>
 					<th>Pfand</th>
 					<th>F&uuml;llmenge</th>
+					<th>Mindestbestand</th>
 					<th>Aktionen</th>
 				</tr>
 
@@ -31,6 +32,7 @@
 					<td th:text="${product.getPrice()}">2,50 €</td>
 					<td th:text="${product.getDeposit()}">0,25 €</td>
 					<td th:text="${product.getFilling()}">0,33</td>
+					<td th:text="${product.getMinimumStock()}">500</td>
 					<td>
 						<a th:href="@{/cateringDeleteProduct/{festivalId}/{id}(festivalId=${festivalId}, id=${product.getId()})}">l&ouml;schen</a>
 					</td>
@@ -56,7 +58,7 @@
 						<a th:href="@{/cateringEditStockItem/{festivalId}/{id}(festivalId=${festivalId}, id=${stockitem.getId()})}">bearbeiten</a>
 					</td>
 					<td th:text="${stockitem.getProduct().getName()}">Coca Cola</td>
-					<td th:text="${stockitem.getQuantity()}">500</td>
+					<td th:text="${stockitem.getQuantity()+'/'+stockitem.getOrderQuantity()}">500</td>
 					<td th:text="${stockitem.getBuyingPrice()}">EUR 0.50 €</td>
 					<td th:text="${stockitem.getOrderDate()}">10.12.2021</td>
 					<td th:text="${stockitem.getBestBeforeDate()}">01.04.2021</td>

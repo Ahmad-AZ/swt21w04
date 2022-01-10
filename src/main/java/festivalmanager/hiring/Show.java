@@ -1,13 +1,7 @@
 package festivalmanager.hiring;
 
-import org.salespointframework.time.Interval;
-
 import java.io.Serializable;
 import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.Period;
-
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 

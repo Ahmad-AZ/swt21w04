@@ -30,6 +30,7 @@ public class CateringStockInitializer implements DataInitializer {
         lsProduct = catalog.findByName("Coca-Cola").toList();
         if (!lsProduct.isEmpty()) {
             CateringStockItem item = new CateringStockItem(festival.getId(), lsProduct.get(0), Quantity.of(500),
+                    500,
                     Money.of(0.50, EURO),
                     LocalDate.now(), LocalDate.of(2023, 04, 01));
             stock.save(item);

@@ -7,9 +7,9 @@
     <body>
         <div th:fragment="header">
             <div class="header">
-                <div class="menu">
+                <div class="menu border-bottom">
                     <a href="index.html" th:href="@{/}">
-                    <img class="item border-right logoImageNavBar" src="/resources/img/LogoSmall.png" alt="Logo small">
+                        <img class="item border-right logoImageNavBar" src="/resources/img/LogoSmall.png" alt="Logo small">
                     </a>
 
                     <a th:class="${title!=null && title!='Locations' && title!='Künstler' && title!='Nachrichten' && title!='Finanzen FVIV GmbH'}
@@ -37,7 +37,7 @@
                 <h1 th:text="${title}"></h1>
                 <div><!--empty div for alignment--></div>
 
-                <div class="menu">
+                <div class="menu border-bottom">
                     <span class="item border-left unselectable" sec:authorize="isAuthenticated()" sec:authentication="name"></span>
                     <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
                         <button type="submit" class="item border-left" th:text="#{header.logout}">Logout</button>

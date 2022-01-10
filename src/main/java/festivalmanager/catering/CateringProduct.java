@@ -2,7 +2,7 @@ package festivalmanager.catering;
 
 import org.salespointframework.catalog.*;
 //import org.salespointframework.inventory.*;
-//import org.salespointframework.quantity.Quantity;
+import org.salespointframework.quantity.Quantity;
 
 import org.javamoney.moneta.Money;
 
@@ -17,16 +17,26 @@ import javax.persistence.Entity;
 public class CateringProduct extends Product {
     private Money deposit;
     private double filling;
+    private Quantity minimumStock;
+    private boolean hidden;
 
     @SuppressWarnings({ "unused", "deprecation" })
     private CateringProduct() {
     }
 
-    public CateringProduct(String productName, Money salesPrice, Money deposit, double filling) {
+    public CateringProduct(
+            String productName,
+            Money salesPrice,
+            Money deposit,
+            double filling,
+            Quantity minimumStock,
+            boolean hidden) {
         super(productName, salesPrice);
 
         this.deposit = deposit;
         this.filling = filling;
+        this.minimumStock = minimumStock;
+        this.hidden = hidden;
     }
 
     public double getFilling() {
@@ -43,5 +53,21 @@ public class CateringProduct extends Product {
 
     public void setDeposit(Money deposit) {
         this.deposit = deposit;
+    }
+
+    public Quantity getMinimumStock() {
+        return minimumStock;
+    }
+
+    public void setMinimumStock(Quantity minimumStock) {
+        this.minimumStock = minimumStock;
+    }
+
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
     }
 }

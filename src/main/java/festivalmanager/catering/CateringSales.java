@@ -1,5 +1,6 @@
 package festivalmanager.catering;
 
+//import org.salespointframework.catalog.ProductIdentifier;
 //import org.salespointframework.inventory.*;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.util.Streamable;
@@ -12,4 +13,6 @@ public interface CateringSales extends CrudRepository<CateringSalesItem, Long> {
 
 	@Override
 	Streamable<CateringSalesItem> findAll();
+
+	Iterable<CateringSalesItem> findByCateringProduct(CateringProduct product);
 }

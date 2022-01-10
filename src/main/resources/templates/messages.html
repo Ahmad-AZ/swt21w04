@@ -11,7 +11,9 @@
     <body>
         <div th:include="header :: header"></div>
         <div class="message-menu">
-            <a th:href="@{/messages/{userId}/send(userId = ${userId})}">Nachricht senden</a>
+            <a class="item border-right border-bottom border-top margin-top" th:href="@{/messages/{userId}/send(userId = ${userId})}">Nachricht senden</a>
+            <a class="item border-right border-bottom border-top margin-top" th:href="@{/messages/{userId}/send-group(userId = ${userId})}">Gruppennachricht senden</a>
+            <a class="item border-right border-bottom border-top margin-top" th:href="@{/messages/{userId}/send-global(userId = ${userId})}">Globale Nachricht senden</a>
         </div>
         <div class="message-main">
             <div class="message-list">
@@ -32,6 +34,49 @@
                             <option th:each="user : ${possible_receivers}" th:text="${user.name}" th:value="${user.id}"></option>
                         </select>
                     </div>
+                    <div class="form-item">
+                        <label class="form-label">Titel</label>
+                        <input type="text" name="title">
+                    </div>
+                    <div class="form-item-vertical">
+                        <label class="form-label">Inhalt:</label>
+                        <textarea class="form-input" style="height: 20vh" name="content"></textarea>
+                    </div>
+                    <div class="form-item">
+                        <a th:href="@{/messages/{userId}(userId = ${userId})}">Abbrechen</a>
+                        <input class="form-input" type="submit" value="Senden">
+                    </div>
+                    <input type="hidden" name="senderId" th:value="${userId}">
+                </form>
+            </div>
+            <div class="overlay" th:if="${dialog} == 'send_group_message'">
+                <form class="form" th:action="@{/messages/{userId}/send-group(userId = ${userId})}" method="post">
+                    <h2 class="form-title">Gruppennachricht senden</h2>
+                    <div class="form-item">
+                        <label class="form-label">Empfänger:</label>
+                        <select class="form-input" name="receiverId">
+                            <option th:each="group : ${possible_receivers}" th:text="${group}" th:value="${group}"></option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label class="form-label">Titel</label>
+                        <input type="text" name="title">
+                    </div>
+                    <div class="form-item-vertical">
+                        <label class="form-label">Inhalt:</label>
+                        <textarea class="form-input" style="height: 20vh" name="content"></textarea>
+                    </div>
+                    <div class="form-item">
+                        <a th:href="@{/messages/{userId}(userId = ${userId})}">Abbrechen</a>
+                        <input class="form-input" type="submit" value="Senden">
+                    </div>
+                    <input type="hidden" name="senderId" th:value="${userId}">
+                    <input type="hidden" name="festivalId" th:value="${festivalId}">
+                </form>
+            </div>
+            <div class="overlay" th:if="${dialog} == 'send_global_message'">
+                <form class="form" th:action="@{/messages/{userId}/send(userId = ${userId})}" method="post">
+                    <h2 class="form-title">Globale Nachricht senden</h2>
                     <div class="form-item">
                         <label class="form-label">Titel</label>
                         <input type="text" name="title">

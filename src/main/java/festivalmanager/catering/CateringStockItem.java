@@ -20,13 +20,19 @@ public class CateringStockItem extends MultiInventoryItem {
     private LocalDate orderDate;
     private LocalDate bestBeforeDate;
     private long festivalId;
+    private long orderQuantity;
     static FestivalManagement festivalManagement;
 
     @SuppressWarnings({ "unused" })
     private CateringStockItem() {
     }
 
-    public CateringStockItem(long festivalId, CateringProduct product, Quantity quantity, Money buyingPrice,
+    public CateringStockItem(
+            long festivalId,
+            CateringProduct product,
+            Quantity quantity,
+            long orderQuantity,
+            Money buyingPrice,
             LocalDate orderDate,
             LocalDate bestBeforeDate) {
         super(product, quantity);
@@ -34,6 +40,7 @@ public class CateringStockItem extends MultiInventoryItem {
         this.orderDate = orderDate;
         this.bestBeforeDate = bestBeforeDate;
         this.festivalId = festivalId;
+        this.orderQuantity = orderQuantity;
     }
 
     public long getFestivalId() {
@@ -77,5 +84,13 @@ public class CateringStockItem extends MultiInventoryItem {
 
     public CateringProduct getProduct() {
         return (CateringProduct) super.getProduct();
+    }
+
+    public long getOrderQuantity() {
+        return orderQuantity;
+    }
+
+    public void setOrderQuantity(long orderQuantity) {
+        this.orderQuantity = orderQuantity;
     }
 }
