@@ -238,7 +238,7 @@ public class CateringProductCatalogController {
 
     @GetMapping("/cateringAddStockItem/{festivalId}")
     String addStockItem(Model model, @PathVariable Long festivalId) {
-        model.addAttribute("productcatalog", catalog.findAll());
+        model.addAttribute("productcatalog", catalog.findByHidden(false));
         model.addAttribute("orderdate", LocalDate.now());
         model.addAttribute("bestbeforedate", LocalDate.now().plusYears(2));
         utilsManagement.prepareModel(model, festivalId);
@@ -284,7 +284,7 @@ public class CateringProductCatalogController {
                     formBuyingPrice, formOrderDate, formBestBeforeDate);
             stock.save(stockitem);
         } else {
-            model.addAttribute("productcatalog", catalog.findAll());
+            model.addAttribute("productcatalog", catalog.findByHidden(false));
             model.addAttribute("orderdate", LocalDate.now());
             model.addAttribute("bestbeforedate", LocalDate.now().plusYears(2));
         }
@@ -301,7 +301,7 @@ public class CateringProductCatalogController {
             CateringStockItem stockitem = oStockItem.get();
             model.addAttribute("stockitem", stockitem);
         }
-        model.addAttribute("productcatalog", catalog.findAll());
+        model.addAttribute("productcatalog", catalog.findByHidden(false));
         utilsManagement.prepareModel(model, festivalId);
         return "cateringEditStockItem";
     }
@@ -367,7 +367,7 @@ public class CateringProductCatalogController {
 
             stock.save(stockitem);
         } else {
-            model.addAttribute("productcatalog", catalog.findAll());
+            model.addAttribute("productcatalog", catalog.findByHidden(false));
             model.addAttribute("orderdate", LocalDate.now());
             model.addAttribute("bestbeforedate", LocalDate.now().plusYears(2));
         }

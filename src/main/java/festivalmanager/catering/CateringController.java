@@ -181,7 +181,6 @@ public class CateringController {
 			if ((qBefore.isGreaterThan(qMin)) && (qAfter.isLessThan(qMin))) {
 				System.out.println("CateringStock Minimum: " + qBefore + "->" + qAfter + "<=" + qMin);
 			}
-
 		}
 
 		cart.clear();
