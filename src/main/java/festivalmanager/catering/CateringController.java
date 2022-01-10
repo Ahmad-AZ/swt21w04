@@ -13,7 +13,10 @@ import festivalmanager.festival.*;
 import festivalmanager.utils.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -57,12 +60,45 @@ public class CateringController {
 		Quantity qZero = Quantity.of(0);
 		for (CateringStockItem csi : iCSI) {
 			if (csi.getQuantity().isGreaterThan(qZero)) {
-				if (!lCP.contains(csi.getProduct())) {
+				if (!lCP.contains(csi.getProduct()) && (!csi.getProduct().isHidden())) {
 					lCP.add(csi.getProduct());
 				}
 			}
 		}
 		return lCP;
+	}
+
+	public Map<CateringProduct, Quantity> getProductCounts(long festivalId) {
+		Iterable<CateringStockItem> iCSI = stock.findByFestivalId(festivalId);
+		HashMap<CateringProduct, Quantity> mCP = new HashMap<CateringProduct, Quantity>();
+		Quantity qAll;
+		CateringProduct product;
+		for (CateringStockItem csi : iCSI) {
+			product = csi.getProduct();
+			qAll = mCP.get(product);
+			if (qAll == null) {
+				qAll = Quantity.of(0);
+			}
+			qAll = qAll.add(csi.getQuantity());
+			// System.out.println("getProductCounts: " + product.getName() + "=" + qAll);
+			mCP.put(product, qAll);
+		}
+		return mCP;
+	}
+
+	/** Reduces the products in the cart to its maximum in the stock. */
+	public Cart chopCart(Cart cart, long festivalId) {
+		Map<CateringProduct, Quantity> mProdCnts = getProductCounts(festivalId);
+		for (CartItem cartItem : cart) {
+			CateringProduct product = (CateringProduct) cartItem.getProduct();
+			Quantity qStock = mProdCnts.get(product);
+			System.out.println("chopCart:" + qStock + "<" + cartItem.getQuantity());
+			if (cartItem.getQuantity().isGreaterThan(qStock)) {
+				Quantity qDifference = qStock.subtract(cartItem.getQuantity());
+				cart.addOrUpdateItem(product, qDifference);
+			}
+		}
+		return cart;
 	}
 
 	@GetMapping("/catering/{festivalId}")
@@ -80,6 +116,7 @@ public class CateringController {
 		model.addAttribute("productid", null);
 
 		utilsManagement.prepareModel(model, festivalId);
+		cart = chopCart(cart, festivalId);
 		model.addAttribute("cart", cart);
 		return "catering";
 	}
@@ -87,6 +124,7 @@ public class CateringController {
 	@PostMapping("/catering/addToCart")
 	String addToCart(Model model, AddToCartFormResult formResult, @ModelAttribute Cart cart,
 			@RequestParam("festivalId") Long festivalId) {
+		cart = chopCart(cart, festivalId);
 		if (formResult.productId != null) {
 			Optional<CateringProduct> oProduct = catalog.findById(formResult.productId);
 
@@ -100,7 +138,7 @@ public class CateringController {
 
 	@PostMapping("/catering/checkout")
 	String checkout(Model model, @ModelAttribute Cart cart, @RequestParam("festivalId") Long festivalId) {
-
+		cart = chopCart(cart, festivalId);
 		for (CartItem item : cart) {
 			CateringSalesItem salesItem = new CateringSalesItem(
 					(CateringProduct) item.getProduct(),
