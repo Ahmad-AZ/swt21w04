@@ -11,9 +11,9 @@
     <body>
         <div th:include="header :: header"></div>
         <div class="message-menu">
-            <a th:href="@{/messages/{userId}/send(userId = ${userId})}">Nachricht senden</a>
-            <a th:href="@{/messages/{userId}/send-group(userId = ${userId})}">Gruppennachricht senden</a>
-            <a th:href="@{/messages/{userId}/send-global(userId = ${userId})}">Globale Nachricht senden</a>
+            <a class="item border-right border-bottom border-top margin-top" th:href="@{/messages/{userId}/send(userId = ${userId})}">Nachricht senden</a>
+            <a class="item border-right border-bottom border-top margin-top" th:href="@{/messages/{userId}/send-group(userId = ${userId})}">Gruppennachricht senden</a>
+            <a class="item border-right border-bottom border-top margin-top" th:href="@{/messages/{userId}/send-global(userId = ${userId})}">Globale Nachricht senden</a>
         </div>
         <div class="message-main">
             <div class="message-list">

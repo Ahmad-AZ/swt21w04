@@ -6,25 +6,28 @@
 <head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/festivalOverview.css}" />
 	    <title>Festivalübersicht</title>
 </head>
 <body>
-	<header>
-		<nav th:include="header :: header"></nav>
-	</header>
+	<div th:include="header :: header"></div>
 	<section layout:fragment="content">
-		
-		<form method="post" name="festival" role="location" id="festival" th:object="${festival}">
-			<div class="content">
-	             <ul class="list">
-	        		<li class="list-entry" th:each="festival : ${festivalList}">
-	                    <a class="header" th:href="@{/festivalOverview/{id}(id=${festival.id})}" th:text="${festival.name}">Etwas andres</a>
-	                    <a class="header" th:href="@{/festivalOverview/remove/{id}(id = ${festival.id})}" sec:authorize="hasRole('MANAGER') || hasRole('ADMIN')">Löschen</a>	       
-    	            </li>
-	             </ul>
-	          </div>                	                    
-		</form>
-		<a class="item" th:href="@{/newFestival}" sec:authorize="hasRole('MANAGER') || hasRole('ADMIN')">Neues Festival erstellen</a>
+		<div class="festival-menu">
+			<a class="item border-right border-bottom border-top" th:href="@{/newFestival}" sec:authorize="hasAnyRole('MANAGER', 'ADMIN')">Neues Festival erstellen</a>
+		</div>
+		<div class="festival-main">
+			<ul class="festival-list">
+				<li class="festival-list-entry" th:each="festival : ${festivalList}">
+					<a th:href="@{/festivalOverview/{id}(id=${festival.id})}" th:text="${festival.name}">Etwas andres</a>
+					<a th:href="@{/festivalOverview/remove/{id}(id = ${festival.id})}" sec:authorize="hasAnyRole('MANAGER', 'ADMIN')">Löschen</a>
+				</li>
+			</ul>
+			<ul class="message-list">
+				<li class="message" th:each="message : ${messages}">
+					<p th:inline="text">[[${message.senderName}]] - [[${message.title}]]: [[${message.content}]]</p>
+				</li>
+			</ul>
+		</div>
 		<div class="overlay" th:if="${dialog} == 'remove_festival'">
             <form class="form" action="/festival/remove" method="post">
 				<h2 class="form-item" th:inline="text">Festival [[${currentName}]] löschen</h2>
