@@ -238,12 +238,12 @@ image::models/design/developer_documentation/class_diagrams/messaging.png[]
 
 === Catering
 
-image::models/design/developer_documentation/class_diagrams/catering.png[]
+image::models/design/developer_documentation/class_diagrams/catering2.png[]
 
 [options="header"]
 |===
 |Klasse/Enumeration |Beschreibung
-|CateringSalesItem|Ein Verkauftes Produkt mit der Menege
+|CateringSalesItem|Ein Verkauftes Produkt mit der Menge
 |CateringSales|Alle verkauften Produkte aller Festivals
 |CateringProduct|Instanz eines Produktes welches im Catering- Bereich verkauft wird.
 |CateringProductCatalog|Alle Produkte die im System vorhanden sind.
