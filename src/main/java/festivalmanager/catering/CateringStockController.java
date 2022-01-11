@@ -27,7 +27,7 @@ import org.javamoney.moneta.*;
  * @author Robert Menzel
  */
 @Controller
-public class CateringProductCatalogController {
+public class CateringStockController {
 
     private UtilsManagement utilsManagement;
     @SuppressWarnings("unused")
@@ -36,7 +36,7 @@ public class CateringProductCatalogController {
     private CateringStock stock;
     private CateringSales sales;
 
-    public CateringProductCatalogController(
+    public CateringStockController(
             CateringProductCatalog catalog,
             CateringStock stock,
             CateringSales sales,
