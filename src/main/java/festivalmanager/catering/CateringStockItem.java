@@ -43,10 +43,6 @@ public class CateringStockItem extends MultiInventoryItem {
         this.orderQuantity = orderQuantity;
     }
 
-    public long getFestivalId() {
-        return festivalId;
-    }
-
     public Festival getFestival() {
         if (festivalManagement == null) {
             return null;

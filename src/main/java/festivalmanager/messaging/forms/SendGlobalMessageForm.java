@@ -1,4 +1,4 @@
-package festivalmanager.messaging;
+package festivalmanager.messaging.forms;
 
 public class SendGlobalMessageForm extends SendMessageForm {
 	public SendGlobalMessageForm(long senderId, String title, String content) {
