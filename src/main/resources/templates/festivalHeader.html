@@ -34,11 +34,11 @@
 
 					<a th:class="${title!='Finanzübersicht'} ? 'item border-right border-bottom border-top' : 'item border-right current border-bottom border-top'"
                        th:href="@{/finances/{id}(id=${festivalId})}"
-                       sec:authorize="hasRole('PLANNER') || hasRole('ADMIN')">Finanzen</a>
+                       sec:authorize="hasAnyRole('PLANNER', 'ADMIN')">Finanzen</a>
 
                     <a th:class="${title!='Catering Produkte'} ? 'item border-right border-bottom border-top' : 'item border-right current border-bottom border-top'"
                        th:href="@{/cateringProductCatalog/{id}(id=${festivalId})}"
-                       sec:authorize="hasAnyRole('PLANNER', 'ADMIN', 'MANAGER')">Catering</a>
+                       sec:authorize="hasAnyRole('PLANNER', 'ADMIN', 'MANAGER', 'FESTIVAL_LEADER')">Catering</a>
 
                     <a th:class="${title!='Catering Verkäufe'} ? 'item border-right border-bottom border-top' : 'item border-right current border-bottom border-top'"
                        th:href="@{/catering/{id}(id=${festivalId})}"
