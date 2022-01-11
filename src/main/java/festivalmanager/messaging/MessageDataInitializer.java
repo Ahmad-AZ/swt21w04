@@ -1,5 +1,8 @@
 package festivalmanager.messaging;
 
+import festivalmanager.messaging.forms.SendGlobalMessageForm;
+import festivalmanager.messaging.forms.SendGroupMessageForm;
+import festivalmanager.messaging.forms.SendPersonalMessageForm;
 import festivalmanager.staff.Person;
 import festivalmanager.staff.StaffManagement;
 import org.salespointframework.core.DataInitializer;
