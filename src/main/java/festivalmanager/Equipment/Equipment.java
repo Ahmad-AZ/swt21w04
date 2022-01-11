@@ -31,7 +31,6 @@ public class Equipment extends AbstractEntity<SalespointIdentifier>{
 	public Equipment(String name, Money rentalPerDay, EquipmentType type){
 		this.name = name;
 		this.rentalPerDay = rentalPerDay;
-
 		this.type = type;
 	}
 

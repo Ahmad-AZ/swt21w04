@@ -26,12 +26,6 @@ public class PlanEquipmentManagementUnitTest {
 	Festival festival = mock(Festival.class);
 	
 	
-	@Test 
-	void rentEquipmentOrStageTest() {
-		planEquipmentManagement.rentEquipment(mock(SalespointIdentifier.class), (long) 23, festival);
-		planEquipmentManagement.rentStage("name", equipment, festival);
-	}
-	
 	@Test
 	void unrentStageSuccessTest() {
 		when(festival.removeStage(any())).thenReturn(true);
