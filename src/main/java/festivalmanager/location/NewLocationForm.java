@@ -101,7 +101,7 @@ class NewLocationForm {
             e.printStackTrace();
         }
 
-		return fileName.substring(0, fileName.length()-4);
+		return fileName;
 		//return image;
 	}
 
@@ -116,7 +116,7 @@ class NewLocationForm {
             e.printStackTrace();
         }
 
-		return fileName.substring(0, fileName.length()-4);
+		return fileName;
 		//return groundView;
 	}
 

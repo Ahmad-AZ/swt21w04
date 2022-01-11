@@ -20,10 +20,14 @@ import org.salespointframework.SalespointSecurityConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableSalespoint
 public class Application {
 
+	public final static String UPLOAD_DIR = "locationImages";
+	
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
@@ -37,6 +41,15 @@ public class Application {
 			http.authorizeRequests().antMatchers("/**").permitAll().and()
 					.formLogin().loginProcessingUrl("/login").and()
 					.logout().logoutUrl("/logout").logoutSuccessUrl("/");
+		}
+	}
+	
+	@Configuration
+	static class WebConfiguration implements WebMvcConfigurer {
+
+		@Override
+		public void addResourceHandlers(ResourceHandlerRegistry registry) {
+			registry.addResourceHandler("/locationImages/**").addResourceLocations("file:./"+ UPLOAD_DIR + "/");
 		}
 	}
 }

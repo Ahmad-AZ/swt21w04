@@ -14,6 +14,8 @@ import org.salespointframework.core.DataInitializer;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import festivalmanager.Application;
+
 
 
 @Component
@@ -21,13 +23,13 @@ import org.springframework.stereotype.Component;
 public class LocationDataInitializer implements DataInitializer{
 	
 	private LocationRepository locations;
-	private final String uploadDir = Paths.get("locationImages").toAbsolutePath().toString()+ "\\";
+	private final String uploadDir = Paths.get(Application.UPLOAD_DIR).toAbsolutePath().toString()+ "/";
 	
 	public LocationDataInitializer(LocationRepository locations) {
 		
 		// create Folder for locationImages
 		new File(uploadDir).mkdir();
-		String srcString = "src\\main\\resources\\static\\resources\\img\\location\\";
+		String srcString = "src/main/resources/static/resources/img/location/";
 		
 		String[] filenames = {"Kulturpalast_image.jpg", "Kulturpalast_groundview.jpg", 
 								"HSZ_image.jpg","HSZ_groundview.jpg", "Rundkino_image.jpg", 
