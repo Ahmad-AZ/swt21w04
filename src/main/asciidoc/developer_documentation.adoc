@@ -133,12 +133,14 @@ image::models/analysis/TLA.png[]
 - LocationDataInitializer
 - Location
 - Catering
+- Artist
 
 |javax.persistence a|
 - Location
 - Festival
 - Equipment
 - Person
+- Show
 
 |javax.validation a|
 - CreateStaffForm
@@ -268,15 +270,15 @@ image::models/design/developer_documentation/class_diagrams/hiring.png[]
 [options="header"]
 |===
 |Klasse/Enumeration |Beschreibung
-|OffersArtist|Enthält Information von alle Offer, Fee in einem Fest.
-|Offer|Abstraktklasse, füge Employees oder Artists hinzu
-|OfferArtist|füge Artist und Show in Fest hinzu (Kindklasse von Offer)
-|OfferEmployee|füge Employee in Fest hinzu (Kindklasse von Offer)
 |Artist|klasse von Artist.
-|Employee|klasse von Employee.
+|BookingArtist|Buchen für Artist, zeigt den Zeitraum, wann ein Artist gebucht ist.
 |Show|klasse von Show, enhält ind Information von dem Show.
-|EmployeeManagement|erlaubt hiring zu managieren .
-|OffersInitializer|Implementierung des Datainitializers, um bereitgestellte Offers zu erstellen
+|HiringManagement|erlaubt hiring von artist zu managieren .
+|ArtistDataInitializer|Implementierung des Datainitializers, um bereitgestellte Offers zu erstellen
+|HiringController|Bildet die Schittstelle zwischen artists.html Datei, ihren TML-Forms um dem hiring package
+|NewArtistForm|Um einen neuen Artist zu erstellen oder einen bereit existierten Artist zu aktualisieren
+|NewShowForm|Um einen neuen Show zu erstellen
+|ArtistRepository|wo alle Artists gespeichert sind
 |===
 
 === Finances
