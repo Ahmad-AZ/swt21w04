@@ -1,0 +1,108 @@
+<diagram program="umletino" version="14.3.0"><zoom_level>10</zoom_level><element><id>UMLPackage</id><coordinates><x>250</x><y>188</y><w>2180</w><h>1190</h></coordinates><panel_attributes>messaging
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>760</x><y>648</y><w>840</w><h>700</h></coordinates><panel_attributes>forms
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1770</x><y>788</y><w>350</w><h>370</h></coordinates><panel_attributes>Message
+--
+- id: long
+- senderId: long
+- receiverId: long
+- receiverFestivalId: long
+- receiverGroup: String
+- senderName: String
+- title: String
+- content: String
+- sentTimestamp: LocalDateTime
+- type: MessageType
+--
++ Message(form: SendMessageForm, senderName: String)
++ Message()
++ getId(): long
++ getSenderId(); long
++ getReceiverId(): long
++ getReceiverFestivalId(): long
++ getReceiverGroup(): String
++ getSenderName(); String
++ getTitle(): String
++ getContent(): String
++ getSendTimestamp(): LocalDateTime
++ getType(): MessageType</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1110</x><y>418</y><w>590</w><h>190</h></coordinates><panel_attributes>MessageManagement
+--
+- repository: MessageRepository
+- staffManagement: StaffManagement
+--
++ MessageManagement(repository: MessageRepository, staffManagement: StaffManagement)
++ sendMessage(form: SendMessageForm): void
++ findAll(): Streamable&lt;Message&gt;
++ findById(id: long): Optional&lt;Message&gt;
++ findPersonalMessages(receiverId: long): Streamable&lt;Message&gt;
++ findGroupMessages(grou: String, festivalId: long): Streamable&lt;Message&gt;
++ findGlobalMessages(); Streamable&lt;Message&gt;
++ findMessagesForUser(receiver: Person): Streamable&lt;Message&gt;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1770</x><y>518</y><w>630</w><h>130</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
+MessageRepository
+--
+
+--
+findAll(): Streamable&lt;Message&gt;
+findByReceiverId(receiverId: long): Streamable&lt;Message&gt;
+findByReceiverGroupAndReceiverFestivalId(receiverGroup: String, receiverFestivalId: long): Streamable&lt;Message&gt;
+findByType(type: MessageType): Streamable&lt;Message&gt;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>280</x><y>368</y><w>770</w><h>250</h></coordinates><panel_attributes>MessageController
+--
+- messageManagement: messageManagement
+- staffManagement: StaffManagement
+- utilsManagement: UtilsManagement
+--
++ MessageController(messageManagement: MessageManagement, staffManagement: StaffManagement, utilsManagement: UtilsManagement)
++ getTitle(): String
++ getMessages(userId: long): Streamable&lt;Messages&gt;
++ getMessageView(): String
++ getMessageDetailView(messegaId: long. model: Model): String
++ getSendMessageDialog(userId: long, model: Model): String
++ getSendGroupMessageDialog(userId: long, model: Model): String
++ getSendGlobalMessageDialog(model: Model): String
++ sendMessage(userId: long, form: SendPersonalMessageForm): String
++ sendGroupMessage(userId: long, form: SendGroupMessageForm): String
++ sendGlobalMessage(userId: long, form: SendGlobalMessageForm): String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1110</x><y>238</y><w>590</w><h>140</h></coordinates><panel_attributes>MessageDataInitializer
+--
+- messageManagement: MessageManagement
+- staffManagement: StaffManagement
+--
++ MessageDataInitializer(messageManagement: MessageManagement, staffManagement: StaffManagement)
++ newMessage(senderId: long, receiverId: long, title: String, content: String): void
++ newGroupMessage(senderId: long, festivalId: long, group: String, title: String, content: String): void
++ newGlobalMessage(senderId: long, title: String, content: String): void
++ initialize(): void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1770</x><y>1258</y><w>150</w><h>90</h></coordinates><panel_attributes>&lt;&lt;enumeration&gt;&gt;
+MessageType
+--
+PersonalMessage
+GroupMessage
+GlobalMessage</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>790</x><y>698</y><w>360</w><h>140</h></coordinates><panel_attributes>SendMessageForm
+--
+- senderId: long
+- title: String
+- content: String
+--
++ SendMessageForm(senderId: long, title: String, content: String)
++ getSenderId(): long
++ getTitle(): String
++ getContent(): String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>890</x><y>868</y><w>400</w><h>70</h></coordinates><panel_attributes>SendGlobalMessageForm
+--
+
+--
++ SendGlobalMessageForm(senderId: long, title: String, content: String)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>890</x><y>978</y><w>640</w><h>110</h></coordinates><panel_attributes>SendGroupMessageForm
+--
+- receiverFestivalId: long
+- receiverGroup: String
+--
++ SendGroupMessageForm(senderId: long, receiverFestivalId: long, receiverGroup: String, title: String, content: String)
++ getReceiverFestivalId(): long
++ getReceiverGroup(): String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>890</x><y>1108</y><w>510</w><h>90</h></coordinates><panel_attributes>SendPersonalMessageForm
+--
+- receiverId: long
+--
++ SendPersonalMessageForm(senderId: long, receiverId: long, title: String, content: String)
++ getReceiverId(): long</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1690</x><y>558</y><w>100</w><h>30</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;80;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1830</x><y>638</y><w>50</w><h>170</h></coordinates><panel_attributes>lt=-
+m1=0..n
+m2=1</panel_attributes><additional_attributes>10;10;10;150</additional_attributes></element><element><id>Relation</id><coordinates><x>1040</x><y>508</y><w>90</w><h>30</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>70;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1840</x><y>1148</y><w>30</w><h>130</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;110;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1400</x><y>368</y><w>30</w><h>70</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>800</x><y>828</y><w>110</w><h>90</h></coordinates><panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes><additional_attributes>90;70;10;70;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>800</x><y>828</y><w>110</w><h>210</h></coordinates><panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes><additional_attributes>90;190;10;190;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>800</x><y>828</y><w>110</w><h>340</h></coordinates><panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes><additional_attributes>90;320;10;320;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>630</x><y>608</y><w>280</w><h>340</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>260;320;10;320;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>630</x><y>608</y><w>280</w><h>460</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>260;440;10;440;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>630</x><y>608</y><w>280</w><h>590</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>260;570;10;570;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1280</x><y>598</y><w>410</w><h>350</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;330;390;330;390;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1520</x><y>598</y><w>170</w><h>470</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;450;150;450;150;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1390</x><y>598</y><w>300</w><h>600</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;580;280;580;280;10</additional_attributes></element></diagram>

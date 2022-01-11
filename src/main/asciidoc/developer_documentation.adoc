@@ -219,6 +219,10 @@ image::models/design/developer_documentation/class_diagrams/staff.png[]
 |CreateStaffForm |Klasse, die das Formular um Personen aus dem Repository zu entfernen repräsentiert
 |===
 
+=== Messaging
+
+image::models/design/developer_documentation/class_diagrams/messaging.png[]
+
 === Catering
 
 image::models/design/developer_documentation/class_diagrams/catering.png[]
