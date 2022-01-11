@@ -206,22 +206,35 @@ image::models/design/developer_documentation/class_diagrams/staff.png[]
 |===
 |Klasse/Enumeration |Beschreibung
 |Person |Basisklasse für das Personal, die alle gemeinsamen Eigenschaften enthält
-|Planner |Klasse, die den Planer repräsentiert
-|AdmissionStaff |Klasse, die das Einlaspersonal repräsentiert
-|TicketSeller |Klasse, die einen Ticketverkäufer repräsentiert
-|CateringStaff |Klasse, die einen Catering Angestellten repräsentiert
-|FestivalManager |Klasse, die den Festivalmanager repräsentiert
-|FestivalLeader |Klasse, die den Festivalleiter repräsentiert
-|MessagingSystem |Ein System zum speichern von internen Nachrichten
 |StaffRepository |Speicherschnittstelle um die Personendaten zu speichern
+|StaffManagement |Klasse zur inteligenten Verwaltung des Repositories
 |StaffController |Der Controller für das Webinterface zu verwaltung des Personals
-|CreateStaffForm |Klasse, die das Formular um Personen zu erstellen repräsentiert
-|CreateStaffForm |Klasse, die das Formular um Personen aus dem Repository zu entfernen repräsentiert
+|StaffDataInitializer |Klasse um Testdaten für das Package zu generieren
+|UserIdControllerAdvice |Hilfsklasse für Spring um die userId als globales Model-Attribut zu setzten
+|forms::CreateStaffForm |Klasse, die das Formular um Personen zu erstellen repräsentiert
+|forms::RemoveStaffForm |Klasse, die das Formular um Personen aus dem Repository zu entfernen repräsentiert
+|forms::ChangePasswordForm |Klasse, die das Formular für das ändern des Passworts repräsentiert
+|forms::ChangeRoleForm |Klasse, die das Formular für das anpassen der Rolle repräsentiert
 |===
 
 === Messaging
 
 image::models/design/developer_documentation/class_diagrams/messaging.png[]
+
+[options="header"]
+|===
+|Klasse/Enumeration |Beschreibung
+|MessageType |Enum für den Typ der Nachricht: Persönlich / Grupper / Global
+|Message |eine Nachricht im Nachrichtensystem
+|MessageRepository |Speicherschnittstelle um die Nachrichten zu speichern
+|MessageManagement |Klasse zur inteligenten Verwaltung des Repositories
+|MessageController |Der Controller für das Webinterface zum einsehen und senden von Nachrichten
+|MessageDataInitielizer |Klasse um Testdaten für das Package zu generieren
+|forms::SendMessageForm |Basisklasse für die Formulare, die alle gemeinsamen Eigenschaften enthält
+|forms::SendPersonalMessageForm |Formular um eine persönliche Nachricht zu senden
+|forms::SendGroupMessageForm |Formular um eine Gruppennachricht zu senden
+|forms::SendGlobalMessage |Formular um eine global Nachricht zu senden
+|===
 
 === Catering
 
