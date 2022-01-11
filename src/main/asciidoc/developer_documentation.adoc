@@ -160,16 +160,9 @@ image::models/design/developer_documentation/class_diagrams/festival.png[]
 |FestivalRepository|Speicherortschnittstelle, um Festival-Instanzen zu speichern
 |FestivalInitializer|Implementierung des DataInitializer, um Festivalvorlagen zu erstellen
 |NewFestivalForm|Klasse, um Benutzereingabe bei der Festivalerstellung zu validieren
+|StringInputForm|Klasse, um Benutzereingabe für Änderung des Festivalnamens zu validieren
 |Schedule|Klasse, die den Programmablauf des Festivals auf den jeweiligen Bühnen beschreibt 
-|Map|Klasse, die den Beschrifteten Übersichtsplan über den Festivalort beschreibt
-|Position|Klasse, die Bereiche auf dem Übersichtsplan beschreibt
-|Area|Abstrakte Oberklasse aller möglichen Bereichsarten auf dem Übersichtsplan
-|LockedArea|Klasse, um einen gesperrten Bereich zu beschreiben
-|ParkingArea|Klasse, um einen Parkplatz zu beschreiben
-|CateringArea|Klasse, um einen Imbissbereich zu beschreiben
-|StageArea|Klasse, um einen Bühnenbereich zu beschreiben
-|ToiletArea|Klasse, um einen Toiletenbereich zu beschreiben
-|CampingArea|Klasse, um einen Zeltplatz zu beschreiben
+|TimeSlot|Enumeration, welche die 5 Timeslots beschreibt
 |===
 
 === Location
@@ -184,7 +177,6 @@ image::models/design/developer_documentation/class_diagrams/location.png[]
 |LocationController|Spring MVC Controller, welcher Anfragen bezüglich des anzeigens von Locations behandelt
 |LocationRepository|Speicherortschnittstelle, um Location-Instanzen zu speichern
 |LocationDataInitializer|Implementierung des Datainitializers, um bereitgestellte Locations zu erstellen
-|GroundView|Klasse, die den Grundriss der Location enthält
 |Bookings|Klasse, die Buchungen beschreibt, die einer Location zugewiesen werden können
 |===
 
@@ -195,11 +187,11 @@ image::models/design/developer_documentation/class_diagrams/ticketShop.png[]
 [options="header"]
 |===
 |Klasse/Enumeration |Beschreibung
-| TicketShopController   | Ein Spring MVC Controller, um die Anfrage zu bearbeiten, Tickets zu verkaufen.
-|Ticket | Klasse, die die neue Tickets für ein Festival beschreibt
-| TicketStock| Klasse, um den Lagerbestand des Tickets anzuzeigen
-| TicketService| Klasse, wo die Geschäftslogik-methode für ein Ticket implementiert
-|enum | zeigt den Typ des Tickets an
+|TicketShopController   |Ein Spring MVC Controller, um die Anfrage zu bearbeiten, Tickets zu verkaufen.
+|Ticket |Klasse, die die neue Tickets für ein Festival beschreibt
+|TicketStock|Klasse, um den Lagerbestand des Tickets anzuzeigen
+|TicketService|Klasse, wo die Geschäftslogik-methode für ein Ticket implementiert
+|enum |zeigt den Typ des Tickets an
 
 
 |===
@@ -243,16 +235,16 @@ image::models/design/developer_documentation/class_diagrams/planning.png[]
 [options="header"]
 |===
 |Klasse/Enumeration |Beschreibung
-|Planning|Abstrakte Klasse, um einen Festival zu plannen.
-|PlanningController|Bildet die Schnittstelle zwischen HTMLs Datein, Befehle und dem planning package.
-|PlanLocation|Planen die Position von einem Festival.
-|PlanDate|Planen den Datum von dem Fest.
-|PlanOffers|Planen die Künstler von dem Fest.
-|PlanRenting|Planen die Equipments von dem Fest.
-|PlanHire|Planen die Arbeitsnehmer von dem Fest.
-|PlanDate|Planen die Position von Equipments in dem Fest.
-|PlanAreas|Planen die Positon von Equipement in dem Fest.
-|PlanSchedule|Planen in Benuztszeitraum von Equiments in dem Fest.
+|PlanLocationManagement|Klasse, um einem Festival eine Location zuzuweisen
+|PlanLocationController|Spring MVC Controller, welcher Anfragen bezüglich des Planens von Locations für ein Festival behandelt
+|PlanEquipmentManagement|Klasse, um einem Festival Gegenständen und Bühnen zuzuweisen
+|EquipmentRentingForm|Klasse, um Benutzereingabe beim Mieten von Gegenständen zu validieren
+|NewStageForm|Klasse, um Benutzereingabe bei der Miete von Bühnen zu validieren
+|PlanEquipmentController|Spring MVC Controller, welcher Anfragen bezüglich des Planens von Gegenständen und Bühnen für ein Festival behandelt
+|PlanOffersManagement|Klasse, um einem Festival Künstler zuzuweisen
+|PlanOffersController|Spring MVC Controller, welcher Anfragen bezüglich des Planens von Künstlern für ein Festival behandelt
+|PlanScheduleManagement|Klasse, um den Spielplan für ein Festival zu erstellen
+|PlanScheduleController|Spring MVC Controller, welcher Anfragen bezüglich des Planens des Spielplanes für ein Festival behandelt
 |===
 
 === Equipment
@@ -261,12 +253,13 @@ image::models/design/developer_documentation/class_diagrams/equipment.png[]
 [options="header"]
 |===
 |Klasse/Enumeration |Beschreibung
-|Equipment|Abstrakte Klasse, zeigt die Geräte die in Festivals benutzt werden.
-|Stage|Kindklasse von Equipment
-|Toilet|Kindklasse von Equipment
-|CateringStall|Kindklasse von Equipment.
-|EquipmentRepository|Datenbank, die alle Equipment enthält (erbt sich aus CrudRepository)
+|Equipment|Klasse, zeigt die Gegenständ, die in Festivals benutzt werden.
+|Stage|Klasse, die Stageobjekte mit repräsentiert
+|EquipmentRepository|Speicherortschnittstelle, um Equipment-Instanzen zu speichern
+|StageRepository|Speicherortschnittstelle, um Stage-Instanzen zu speichern
 |EquipmentDataInitializer|Implementierung des Datainitializers, um bereitgestellte Equipment zu erstellen
+|EquipmentManagement|Klasse, um Equipment-Instanzen und Stage-Instanzen zu verwalten
+|EquipmentType|Enumeration zur Beschreibung des Equipmenttypes
 |===
 
 === Hiring
