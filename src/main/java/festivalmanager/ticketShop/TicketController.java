@@ -128,6 +128,16 @@ public class TicketController {
 
 
 
+			try {
+				String location = currentFestival.getLocation().getName();
+				model.addAttribute("locationsExists", "true");
+			}
+			catch (NullPointerException exception)
+			{
+				System.out.println(exception);
+			}
+
+
 		} else {
 			utilsManagement.prepareModel(model, currentFestival.getId());
 			model.addAttribute("ticketsUnavailable", "true");
