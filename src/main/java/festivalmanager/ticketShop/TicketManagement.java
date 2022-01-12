@@ -16,6 +16,11 @@ import java.util.Objects;
 
 
 @Service
+/**
+ * Implementation of business logic related to {@link Ticket}.
+ *
+ * @author Ahmad Abu Zahra
+ */
 public class TicketManagement {
 
 	@Autowired
