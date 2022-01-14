@@ -34,14 +34,14 @@ public class LocationDataInitializer implements DataInitializer{
 		String[] filenames = {"Kulturpalast_image.jpg", "Kulturpalast_groundview.jpg", 
 								"HSZ_image.jpg","HSZ_groundview.jpg", "Rundkino_image.jpg", 
 								"Rundkino_groundview.jpg", "OpenAir_image.jpg", "OpenAir1_groundView.jpg",
-								"OpenAir2_groundView.jpg", "OpenAir3_groundView.jpg"};
+								"OpenAir2_groundView.jpg", "OpenAir3_groundView.jpg", "Blank_groundview.jpg",
+								"Blank_image.jpg"};
 		
 		
 		for(int i = 0; i<filenames.length; i++) {
 			Path srcPath = Paths.get(srcString + filenames[i]).toAbsolutePath();		
 			try {
-			       Path path = Paths.get(uploadDir + filenames[i]);
-			       System.out.println(path);       
+			       Path path = Paths.get(uploadDir + filenames[i]);      
 			       Files.copy(srcPath, path, StandardCopyOption.REPLACE_EXISTING);
 			} catch (IOException e) {
 			       e.printStackTrace();
@@ -70,9 +70,7 @@ public class LocationDataInitializer implements DataInitializer{
 									"OpenAir_image.jpg", "OpenAir3_groundView.jpg");
 
 		locations.save(l6);
-		
-		
-		
+
 		
 	}
 	

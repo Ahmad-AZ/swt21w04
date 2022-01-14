@@ -8,7 +8,31 @@
 		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
 	    <title>Location bearbeiten</title>
 </head>
+<script>
+	function upload_check()
+	{
+	    var upli = document.getElementById("image");
+	
+	    if(upli.files[0].size > 10000000) // 1MB
+	    {
+	       alert("Bilddatei zu groß");
+	       upli.value = "";
+	    }
+
+	};
+	function upload_checkg()
+	{
+		var uplg = document.getElementById("groundView");
+
+	   if(uplg.files[0].size > 10000000) // 1MB
+	    {
+	       alert("Bilddatei zu groß");
+	       uplg.value = "";
+	    }
+	};
+</script>
 <body>
+
 	<header>
 		<nav th:include="header :: header"></nav>
 	</header>
@@ -43,11 +67,11 @@
 				<p class="form-item-error-message" th:if="${#fields.hasErrors('stageCapacity')}" th:errors="*{stageCapacity}">Bühnenkapazität festlegen</p>
 				<div class="form-item">
 					<label class="form-label" for="image">Neues Bild:</label>
-					<input class="form-input custom-file-input"  id="image" type="file" name="image" accept=".jpg"/>
+					<input class="form-input custom-file-input"  id="image" type="file" onchange="upload_check()" name="image" accept=".jpg"/>
 				</div>
 				<div class="form-item">
 					<label class="form-label" for="groundView">Neuer Grundriss:</label>
-					<input class="form-input custom-file-input"  id="groundView" type="file" name="groundView" accept=".jpg" />
+					<input class="form-input custom-file-input"  id="groundView" type="file" onchange="upload_checkg()" name="groundView" accept=".jpg" />
 				</div>
 				<div class="form-item">
 					<a href="locations.html" th:href="@{/locations}">Abbrechen</a>

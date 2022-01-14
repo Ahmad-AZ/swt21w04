@@ -44,7 +44,7 @@ class NewLocationForm {
 	private final Long stageCapacity;
 	
 	private final MultipartFile image;
-	
+
 	private final MultipartFile groundView;
 		
 	public NewLocationForm(String name, String adress, String pricePerDay,
