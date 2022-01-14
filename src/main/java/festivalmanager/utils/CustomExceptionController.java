@@ -2,6 +2,7 @@ package festivalmanager.utils;
 
 
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -28,6 +29,10 @@ public class CustomExceptionController {
 
 		if (AnnotationUtils.findAnnotation(exception.getClass(), ResponseStatus.class) != null) {
 			throw exception;
+		}
+
+		if (exception.getClass().equals(AccessDeniedException.class)) {
+			return "redirect:/login";
 		}
 
 		return customErrorController.catchError(httpRequest);
