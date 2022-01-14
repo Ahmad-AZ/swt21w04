@@ -10,12 +10,21 @@ import java.time.LocalDate;
 
 import static org.salespointframework.core.Currencies.EURO;
 
+/**
+ * Initializes default artists and their shows
+ *
+ * @author Tuan Giang Trinh
+ */
 @Component
 @Order(20)
 public class ArtistDataInitializer implements DataInitializer {
  
 	private ArtistRepository artists;
 
+	/**
+	 * Create a new {@link ArtistDataInitializer} and add new {@link Artist} to {@link ArtistRepository}
+	 * @param artists
+	 */
 	public ArtistDataInitializer(ArtistRepository artists){
 		this.artists = artists;
 		Artist jackson = new Artist("Michael Jackson", Money.of(99.9, EURO), 4);

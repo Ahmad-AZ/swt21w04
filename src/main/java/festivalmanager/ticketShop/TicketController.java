@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 @Controller
+
 public class TicketController {
 
 
@@ -65,6 +66,12 @@ public class TicketController {
 
 
 
+	/**
+	 * Creates a new {@link Ticket} using the information given .
+	 *
+	 * @param ticket must not be {@literal null}.
+	 * @return the new {@link Ticket} instance in the HTML.
+	 */
 
 	@PreAuthorize("hasRole('PLANNER')||hasRole('ADMIN')")
 	@PostMapping("/tickets/{festivalId}")
@@ -85,6 +92,14 @@ public class TicketController {
 		model.addAttribute("tickets", ticketManagement.save(ticket));
 		return "ticketResult";
 	}
+
+
+	/**
+	 * Buying  {@link Ticket} using the given information  for the current {@link Festival}.
+	 *
+	 * @param ticket must not be {@literal null}.
+
+	 */
 
 
 	@PreAuthorize("hasRole('TICKET_SELLER')||hasRole('ADMIN')")
@@ -128,6 +143,16 @@ public class TicketController {
 
 
 
+			try {
+				String location = currentFestival.getLocation().getName();
+				model.addAttribute("locationsExists", "true");
+			}
+			catch (NullPointerException exception)
+			{
+				System.out.println(exception);
+			}
+
+
 		} else {
 			utilsManagement.prepareModel(model, currentFestival.getId());
 			model.addAttribute("ticketsUnavailable", "true");
@@ -148,16 +173,13 @@ public class TicketController {
 	@GetMapping("/ticketShop/{festivalId}")
 	public String ticketOverview(@PathVariable("festivalId") long festivalId,  Model model) {
 
-
-		Ticket ticket = ticketManagement.TicketsByFestival(festivalId);
 		utilsManagement.prepareModel(model, festivalId);
-
-		if (ticket == null) {
+		if (ticketManagement.TicketsByFestival(festivalId) == null) {
 			model.addAttribute("ticketsNotCreated", "true");
 			return "ticketShopUnavailable";
 		}
 
-		model.addAttribute("tickets", ticket);
+		model.addAttribute("tickets", new Ticket());
 		return "ticketShop";
 	}
 
@@ -182,6 +204,12 @@ public class TicketController {
 		return  currentFestival;
 	}
 
+
+	/**
+	 * setting the current  {@link Festival}.
+	 *
+	 * @param id .
+	 */
 	void setCurrentFestival(long id ){
 
 		this.currentFestival = festivalManagement.findById(id).get();

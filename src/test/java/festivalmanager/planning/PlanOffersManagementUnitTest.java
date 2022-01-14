@@ -11,6 +11,11 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+/**
+ * Unit tests for {@link PlanOffersManagement}.
+ *
+ * @author Tuan Giang Trinh
+ */
 public class PlanOffersManagementUnitTest {
 	FestivalManagement festivalManagement = mock(FestivalManagement.class);
 	HiringManagement hiringManagement = mock(HiringManagement.class);

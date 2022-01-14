@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 
+/**
+ * A class used to pass on values computed in {@link festivalmanager.finances.FinancesCompanyManagement}
+ * to the financesCompany.html file
+ * @author Jan Biedermann
+ */
 @Controller
 public class FinancesCompanyController {
 
@@ -16,17 +21,30 @@ public class FinancesCompanyController {
 	FinancesCompanyManagement financesCompanyManagement;
 
 
+	/**
+	 * Creates a new instance of FinancesCompanyManagement
+	 * @param financesCompanyManagement an instance of {@link festivalmanager.finances.FinancesCompanyManagement}
+	 */
 	FinancesCompanyController(FinancesCompanyManagement financesCompanyManagement) {
 		this.financesCompanyManagement = financesCompanyManagement;
 	}
 
 
+	/**
+	 * Used to pass on the title of the company finances page to the page header
+	 * @return title attribute for the company finances tab
+	 */
 	@ModelAttribute("title")
 	public String getTitle() {
 		return "Finanzen FVIV GmbH";
 	}
 
 
+	/**
+	 * Prepares the model for the company finances page and returns the company finances page
+	 * @param model the spring model for the company finances page
+	 * @return the company finances page
+	 */
 	@GetMapping("/financesCompany")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('MANAGER')")
 	public String financesPage(Model model) {

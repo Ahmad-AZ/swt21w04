@@ -21,6 +21,9 @@ import festivalmanager.hiring.Artist;
 import festivalmanager.hiring.HiringManagement;
 import festivalmanager.utils.UtilsManagement;
 
+/**
+ * @author Tuan Giang Trinh
+ */
 @Controller
 public class PlanOffersController {
 	private final PlanOffersManagement planOffersManagement;

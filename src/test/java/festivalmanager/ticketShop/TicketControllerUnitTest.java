@@ -206,21 +206,4 @@ public class TicketControllerUnitTest extends AbstractIntegrationTests {
 
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

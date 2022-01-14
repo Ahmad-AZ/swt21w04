@@ -30,8 +30,8 @@
 
     </select><br><br>
         <label >Tickets anzahl:</label><br>
-        <input th:if="${tickets.getTicketType()=='CAMPING'}" type="number" id="count1" th:field="*{campingTicketsCount}"  min="1" required><br><br>
-        <input th:unless="${tickets.getTicketType()=='CAMPING'}" type="number"  id ="count2"th:field="*{dayTicketsCount}" min="1"required> <br><br>
+        <input th:if="${tickets.getTicketType()=='CAMPING'}" type="number" id="count1" th:field="*{campingTicketsCount}"  min="1" required  placeholder="0"><br><br>
+        <input th:unless="${tickets.getTicketType()=='CAMPING'}" type="number"  id ="count2"th:field="*{dayTicketsCount}" min="1" required placeholder="0"> <br><br>
 
 
     <input type="submit" value="kaufen">
