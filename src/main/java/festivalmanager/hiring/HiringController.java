@@ -15,6 +15,10 @@ import festivalmanager.festival.FestivalManagement;
 import java.time.Duration;
 import java.util.Optional;
 
+/**
+ * this is the controller which connects the MVC of the website to artist
+ * @author Tuan Giang Trinh
+ */
 @Controller
 public class HiringController {
 	private final HiringManagement hiringManagement;

@@ -5,6 +5,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+/**
+ * the form used to create or edit the {@link Artist}
+ *
+ * @author Tuan Giang Trinh
+ */
 public class NewArtistForm {
 
 	@NotEmpty   
