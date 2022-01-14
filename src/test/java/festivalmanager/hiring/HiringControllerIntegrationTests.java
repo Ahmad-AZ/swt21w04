@@ -21,6 +21,8 @@ import static org.salespointframework.core.Currencies.EURO;
 
 /**
  * Integration tests for {@link HiringController} that interact with the controller directly.
+ *
+ * @author Tuan Giang
  */
 public class HiringControllerIntegrationTests extends AbstractIntegrationTests {
 	@Autowired HiringController controller;

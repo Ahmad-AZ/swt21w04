@@ -2,6 +2,9 @@ package festivalmanager.Equipment;
 
 import static org.salespointframework.core.Currencies.EURO;
 
+import festivalmanager.hiring.Artist;
+import festivalmanager.hiring.ArtistDataInitializer;
+import festivalmanager.hiring.ArtistRepository;
 import org.javamoney.moneta.Money;
 import org.salespointframework.core.DataInitializer;
 import org.slf4j.Logger;
@@ -11,6 +14,11 @@ import org.springframework.stereotype.Component;
 
 import festivalmanager.Equipment.Equipment.EquipmentType;
 
+/**
+ * Initializes default equipments
+ *
+ * @author Tuan Giang Trinh
+ */
 @Component
 @Order(10)
 public class EquipmentDataInitializer implements DataInitializer {
@@ -18,7 +26,10 @@ public class EquipmentDataInitializer implements DataInitializer {
 	private static final Logger LOG= LoggerFactory.getLogger(EquipmentDataInitializer.class);
 
 	private EquipmentRepository equipmentRepository;
-
+	/**
+	 * Create a new {@link EquipmentDataInitializer} and add new {@link Equipment}
+	 * @param equipmentRepository
+	 */
 	EquipmentDataInitializer(EquipmentRepository equipmentRepository){
 		this.equipmentRepository = equipmentRepository;
 	}

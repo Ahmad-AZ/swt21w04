@@ -14,7 +14,7 @@ public interface ArtistRepository extends CrudRepository<Artist, Long> {
 
 	/**
 	 * Re-declared {@link CrudRepository#findAll()} to return a {@link Streamable} instead of {@link Integer}
-	 * @return
+	 * @return all artists
 	 */
 	@Override
 	Streamable<Artist> findAll();
