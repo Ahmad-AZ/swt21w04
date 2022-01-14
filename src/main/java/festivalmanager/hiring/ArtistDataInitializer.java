@@ -27,6 +27,14 @@ public class ArtistDataInitializer implements DataInitializer {
 	 */
 	public ArtistDataInitializer(ArtistRepository artists){
 		this.artists = artists;
+		
+	}
+ 
+	@Override
+	public void initialize() {
+		if(artists.findAll().iterator().hasNext()) {
+			return;
+		}
 		Artist jackson = new Artist("Michael Jackson", Money.of(99.9, EURO), 4);
 		Artist shawn = new Artist("Shawn Mendes", Money.of(74.9, EURO), 7);
 		Artist camila = new Artist("Camila Cabello", Money.of(83, EURO), 5);
@@ -48,10 +56,5 @@ public class ArtistDataInitializer implements DataInitializer {
 		artists.save(jackson);
 		artists.save(camila);
 		artists.save(shawn);
-	}
- 
-	@Override
-	public void initialize() {
-		//empty because initialization works in Constructor
 	}
 }

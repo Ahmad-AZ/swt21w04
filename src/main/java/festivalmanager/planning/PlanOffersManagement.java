@@ -1,12 +1,12 @@
 package festivalmanager.planning;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.hiring.Artist;
-import festivalmanager.hiring.ArtistRepository;
 import festivalmanager.hiring.HiringManagement;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Implementation of business logic related to {@link Artist} and {@link Festival}

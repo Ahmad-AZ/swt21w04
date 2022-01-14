@@ -23,6 +23,7 @@ public class BookingArtist implements Serializable {
 	private LocalDate startDate;
 	private LocalDate endDate;
 
+	@SuppressWarnings("unused")
 	private BookingArtist() {}
 
 	/**

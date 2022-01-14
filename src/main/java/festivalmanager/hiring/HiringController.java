@@ -1,19 +1,20 @@
 package festivalmanager.hiring;
 
-import festivalmanager.utils.UtilsManagement;
+import java.time.Duration;
+import java.util.Optional;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
-import festivalmanager.festival.Festival;
-import festivalmanager.festival.FestivalManagement;
-
-import java.time.Duration;
-import java.util.Optional;
 
 /**
  * this is the controller which connects the MVC of the website to artist
@@ -22,14 +23,10 @@ import java.util.Optional;
 @Controller
 public class HiringController {
 	private final HiringManagement hiringManagement;
-	private final UtilsManagement utilsManagement;
-	private Festival currentFestival;
-	private FestivalManagement festivalManagement;
 
-	public HiringController(HiringManagement hiringManagement, UtilsManagement utilsManagement) {
+
+	public HiringController(HiringManagement hiringManagement) {
 		this.hiringManagement = hiringManagement;
-		this.utilsManagement = utilsManagement;
-		this.currentFestival = null;
 	}
 
 	@ModelAttribute("title")
