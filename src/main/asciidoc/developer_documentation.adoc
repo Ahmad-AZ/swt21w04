@@ -301,6 +301,7 @@ image::models/design/developer_documentation/class_diagrams/utils.png[]
 |UtilsManagement| Um das Menü Korrekt darzustellen werden Informationen über das Festival im Model benötigt (z.B. Name, Location gebucht).
 Diese werden per UtilsManagement zum Model hinzugefügt
 |CustomErrorController| Der Controller für eine CustomErrorPage, die die Whitelabel Error Page ersetzt
+|CustomExceptionController| Handelt exceptions und verwendet einen CustomErrorController um eine Fehlermeldung anzuzeigen
 |===
 
 === Rückverfolgbarkeit zwischen Analyse- und Entwurfsmodell
