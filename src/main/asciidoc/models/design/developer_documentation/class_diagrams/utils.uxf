@@ -1,13 +1,13 @@
-<diagram program="umletino" version="14.3.0"><zoom_level>10</zoom_level><element><id>UMLPackage</id><coordinates><x>0</x><y>80</y><w>520</w><h>420</h></coordinates><panel_attributes>utils
+<diagram program="umletino" version="14.3.0"><zoom_level>10</zoom_level><element><id>UMLPackage</id><coordinates><x>20</x><y>80</y><w>500</w><h>540</h></coordinates><panel_attributes>utils
 --
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>50</x><y>170</y><w>430</w><h>70</h></coordinates><panel_attributes>UtilsManagement
 --
 + UtilsManagement(festivalManagement : FestivalManagement)
-+ prepareModel (model : Model, festivalId : Long) : void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>630</x><y>120</y><w>160</w><h>130</h></coordinates><panel_attributes>festival
++ prepareModel (model : Model, festivalId : Long) : void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>630</x><y>150</y><w>160</w><h>90</h></coordinates><panel_attributes>festival
 --
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>640</x><y>190</y><w>130</w><h>30</h></coordinates><panel_attributes>FestivalManagement</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>470</x><y>190</y><w>190</w><h>50</h></coordinates><panel_attributes>lt=&lt;-
 m1=1
-festivalManagement</panel_attributes><additional_attributes>170;20;10;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>60</x><y>320</y><w>410</w><h>140</h></coordinates><panel_attributes>CustomErrorController
+festivalManagement</panel_attributes><additional_attributes>170;20;10;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>60</x><y>340</y><w>410</w><h>140</h></coordinates><panel_attributes>CustomErrorController
 --
 - errorAttributesMap : Map&lt;String, Object&gt;
 - debugPrints : boolean
@@ -16,9 +16,17 @@ festivalManagement</panel_attributes><additional_attributes>170;20;10;20</additi
 + getTitle() : String
 + catchError(httpRequest : HttpServletRequest) : String
 + errorPage(model : Model, showDetails : boolean) : String
-- attributeHelper(model : Model, name : String, defaultValue : String) : void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>630</x><y>270</y><w>160</w><h>140</h></coordinates><panel_attributes>springframework
+- attributeHelper(model : Model, name : String, defaultValue : String) : void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>630</x><y>270</y><w>160</w><h>200</h></coordinates><panel_attributes>springframework
 --
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>660</x><y>350</y><w>100</w><h>30</h></coordinates><panel_attributes>ErrorAttributes</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>460</x><y>350</y><w>220</w><h>50</h></coordinates><panel_attributes>lt=&lt;-
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>660</x><y>370</y><w>100</w><h>30</h></coordinates><panel_attributes>ErrorAttributes</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>460</x><y>370</y><w>220</w><h>50</h></coordinates><panel_attributes>lt=&lt;-
 m1=1
 errorAttributes</panel_attributes><additional_attributes>200;20;10;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>660</x><y>300</y><w>100</w><h>30</h></coordinates><panel_attributes>Model</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>400</x><y>230</y><w>280</w><h>100</h></coordinates><panel_attributes>lt=.&gt;
-&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>10;10;10;80;260;80</additional_attributes></element></diagram>
+&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>10;10;10;80;260;80</additional_attributes></element><element><id>UMLClass</id><coordinates><x>60</x><y>540</y><w>410</w><h>60</h></coordinates><panel_attributes>CustomExceptionController
+--
++ CustomExceptionController(customErrorController)
++ catchException(httpRequest : HttpServletRequest) : String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>350</x><y>470</y><w>150</w><h>90</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+customErrorController</panel_attributes><additional_attributes>10;10;10;70</additional_attributes></element><element><id>UMLClass</id><coordinates><x>660</x><y>420</y><w>100</w><h>30</h></coordinates><panel_attributes>AnnotationUtils</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>460</x><y>440</y><w>230</w><h>150</h></coordinates><panel_attributes>lt=.&gt;
+&lt;&lt;use&gt;&gt;</panel_attributes><additional_attributes>10;130;210;130;210;10</additional_attributes></element><element><id>Relation</id><coordinates><x>400</x><y>300</y><w>280</w><h>60</h></coordinates><panel_attributes>lt=.&gt;
+</panel_attributes><additional_attributes>10;40;10;10;260;10</additional_attributes></element></diagram>

@@ -81,8 +81,7 @@ public class CustomErrorController implements ErrorController {
 				return;
 			}
 
-			if (name == "message" &&
-					errorAttributesMap.get("message") == "No message available") {
+			if (name == "message" && errorAttributesMap.get("message") == "No message available") {
 				model.addAttribute(name, defaultValue);
 				return;
 			}
@@ -94,7 +93,6 @@ public class CustomErrorController implements ErrorController {
 			model.addAttribute(name, errorAttributesMap.get(name));
 
 		} else {
-
 			model.addAttribute(name, defaultValue);
 		}
 	}
