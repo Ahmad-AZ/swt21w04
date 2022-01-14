@@ -19,6 +19,10 @@ import java.util.Optional;
 import static org.salespointframework.core.Currencies.EURO;
 
 
+/**
+ * A class used to pass on values computed in {@link festivalmanager.finances.FinancesManagement} to the finances page
+ * @author Jan Biedermann
+ */
 @Controller
 class FinancesController {
 
@@ -34,6 +38,12 @@ class FinancesController {
 	private Map<Long, Money> priceOneDayTicketsMap;
 
 
+	/**
+	 * Creates a new instance of FinancesController
+	 * @param financesManagement an instance of {@link FinancesManagement}
+	 * @param festivalManagement an instance of {@link FestivalManagement}
+	 * @param utilsManagement an instance of {@link UtilsManagement}
+	 */
 	FinancesController(FinancesManagement financesManagement,
 					   FestivalManagement festivalManagement,
 					   UtilsManagement utilsManagement) {
@@ -48,12 +58,24 @@ class FinancesController {
 	}
 
 
+	/**
+	 * Used to pass on the title of the finances page to the page header
+	 * @return title attribute for the finances tab
+	 */
 	@ModelAttribute("title")
 	public String getTitle() {
 		return "Finanzübersicht";
 	}
 
 
+	/**
+	 * Generates a page which summarizes financial information on a specific festival
+	 * (as opposed to financial information that concerns all festivals,
+	 * which is done in {@link FinancesCompanyManagement})
+	 * @param model the spring model for the finances page
+	 * @param festivalId the ID of the specific festival for which the finances page is to be generated
+	 * @return the finances page for the festival belonging to festivalId
+	 */
 	@GetMapping("/finances/{festivalId}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER')")
 	String financesPage(Model model, @PathVariable Long festivalId) {
@@ -115,6 +137,14 @@ class FinancesController {
 	}
 
 
+	/**
+	 * If an instance of Money is to be used as a model attribute,
+	 * some formatting is required to get the desired output.
+	 * This function takes care of the formatting and adds the formatted attribute to the model.
+	 * @param model the spring model to which an attribute is to be added
+	 * @param attributeName a name for the model attribute
+	 * @param attributeValue the value belonging to the attribute name
+	 */
 	public static void addAttribute(Model model, String attributeName, Object attributeValue) {
 
 		if (attributeValue.getClass().getSimpleName().equals("Money")) {
@@ -126,8 +156,16 @@ class FinancesController {
 	}
 
 
+	/**
+	 * The finances page can compute expected cost and revenue for a festival if given expected sales numbers.
+	 * This function is used to pass on the expected sales numbers from the user to the finances controller.
+	 * @param festivalId the festivalId for which the expected number of ticket sales is to be set
+	 * @param nCampingTicketsExpected the expected number of camping ticket sales
+	 * @param nOneDayTicketsExpected the expected number of one-day ticket sales
+	 * @return a redirect to the finances page
+	 */
 	@GetMapping("/finances/setTicketNumber")
-	public String ticketNumberForm(Model model, @RequestParam("festivalId") Long festivalId,
+	public String ticketNumberForm(@RequestParam("festivalId") Long festivalId,
 								  @RequestParam("nCampingTicketsExpected") long nCampingTicketsExpected,
 								  @RequestParam("nOneDayTicketsExpected") long nOneDayTicketsExpected) {
 
@@ -155,8 +193,16 @@ class FinancesController {
 	}
 
 
+	/**
+	 * The finances page can compute expected cost and revenue for a festival if given expected ticket prices.
+	 * This function is used to pass on the expected ticket prices from the user to the finances controller.
+	 * @param festivalId the festivalId for which the expected ticket price is to be set
+	 * @param priceCampingTicketsExpected the expected price of camping tickets
+	 * @param priceOneDayTicketsExpected the expected price of camping tickets
+	 * @return a redirect to the finances page
+	 */
 	@GetMapping("/finances/setTicketPrice")
-	public String ticketPriceForm(Model model, @RequestParam("festivalId") Long festivalId,
+	public String ticketPriceForm(@RequestParam("festivalId") Long festivalId,
 								  @RequestParam("priceCampingTicketsExpected") Double priceCampingTicketsExpected,
 								  @RequestParam("priceOneDayTicketsExpected") Double priceOneDayTicketsExpected) {
 
