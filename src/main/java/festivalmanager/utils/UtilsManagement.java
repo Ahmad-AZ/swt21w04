@@ -34,8 +34,8 @@ public class UtilsManagement {
 
 
 	/**
-	 * Adds model attributes for the id, name and location
-	 * of the festival belonging to festivalId to the given model.
+	 * Adds the following model attributes to the model parameter:
+	 * ID, name and location of the festival belonging to festivalId
 	 * If festivalId is null, no attributes are added.
 	 * @param model the spring model to be populated with attributes
 	 * @param festivalId the id of the festival from which the attributes are to be taken
