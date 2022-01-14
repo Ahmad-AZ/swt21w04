@@ -31,7 +31,7 @@ __Anwendung von Gruppe:__ 04
 // See http://asciidoctor.org/docs/user-manual/#tables
 [options="header"]
 |===
-|Pfad |Parameter |Beschreibung |Rückgabe
+|Pfad |Parameter |Beschreibung |Rückgabe|Status
 | http://localhost:8080/catering | Radiobutton | kein Radiobutton ausgewählt | Whitelabel Error Page
 | http://localhost:8080/catering | Eingabefeld für Anzahl | leer | Whitelabel Error Page
 | http://localhost:8080/catering | Eingabefeld für Anzahl | Werte <= 0 | wird Warenkorb hinzugefügt
@@ -88,9 +88,9 @@ aaaaabaabaaabbbbaababbaababababbbaaababaaaabbbaabbaaaabaaabb | Whitelabel Error 
 | http://localhost:8080/newartist | Eingabefeld für neue Künstler | man kann die Name von eine schon eingegebene Band hinzufügen | die gleiche Name
 | http://localhost:8080/newartist | Eingabefeld für Anzahl der Bühnentechniker für den Künstler | wenn man eine ganz große Zahl eingibt, passiert gar nichts  | redirect zu der gleichen Seite
 | http://localhost:8080/artists | RadioButton "Löschen"  | man kann nicht eine Band löschen | Whitelabel Error Page
-| http://localhost:8080/festivalOverview/{id}| Button "Spielplan" in Nav-Bar   | man kann nicht die Lineup, Stages von einer Festival sehen | Whitelabel Error Page
-| http://localhost:8080/festivalOverview/{id}| Kein Button "Tickets Kaufen" in Festival Overview| man kann nicht Tickets für ein beliebige Festival kaufen| leer
-| http://localhost:8080/festivalOverview/{id}| Button "Location"|keine Locaiton| Redirect to "http://localhost:8080/locationOverview/{id}", Whitelabel error Page
+| http://localhost:8080/festivalOverview/{id}| Button "Spielplan" in Nav-Bar   | man kann nicht die Lineup, Stages von einer Festival sehen | Whitelabel Error Page |gelöst
+| http://localhost:8080/festivalOverview/{id}| Kein Button "Tickets Kaufen" in Festival Overview| man kann nicht Tickets für ein beliebige Festival kaufen| leer|Designentscheidung
+| http://localhost:8080/festivalOverview/{id}| Button "Location"|keine Locaiton| Redirect to "http://localhost:8080/locationOverview/{id}", Whitelabel error Page|gelöst
 | http://localhost:8080/ticketShop   | RadioButton "kaufen" | ungeachtet der Tatsache , dass es tickets für eine Festival gibt, kann man nicht sie kaufen, "kein Itext implementiert " | Redirect to "http://localhost:8080/tickets/buy" -- "tickets nicht mehr verfügbar"
 | http://localhost:8080/tickets  |Eingabefeld für Camping - Tickets in Anzahl einstellen  | man kann so viel wie möglich tickets für ein Festival einstellen, keine Abgrenzung  | Redirect to "http://localhost:8080/tickets/edit"
 | http://localhost:8080/tickets  |Eingabefeld für Tagestickets in Anzahl einstellen  | man kann so viel wie möglich tickets für ein Festival einstellen, keine Abgrenzung | Redirect to "http://localhost:8080/tickets/edit"
@@ -104,20 +104,20 @@ aaaaabaabaaabbbbaababbaababababbbaaababaaaabbbaabbaaaabaaabb | Whitelabel Error 
 | http://localhost:8080/tickets  |Eingabefeld für Tages - Tickets in Preise einstellen | man kann ein leeres Input in diese Feld eintragen | Whitelabel error Page
 
 |http://localhost:8080/staff/{id}/create/ | Eingabefeld Lohn| Zahlen <=0|wurde akzeptiert, aber Lohn sollte nicht negativ sein
-|http://localhost:8080/locations|RadioButton "Löschen"| man kann nicht eine Location löschen | Whitelabel Error Page
-|http://localhost:8080/festivalOverview/4| Button "Spielplan" | Spielplan seite wird nicht geöffnet | Whitelabel Error Page
+|http://localhost:8080/locations|RadioButton "Löschen"| man kann nicht eine Location löschen | Whitelabel Error Page|gelöst
+|http://localhost:8080/festivalOverview/4| Button "Spielplan" | Spielplan seite wird nicht geöffnet | Whitelabel Error Page|gelöst
 |http://localhost:8080/messages/27| Nachricht senden | man kann leere Nachricht mit dem leeren Titel senden | wurde akzeptiert
-|http://localhost:8080/festivalOverview | Eingabefeld für Name des Festivals | " " | Festival wird erstellt
-|http://localhost:8080/festivalOverview/5| Button "Location" |die Webseite wird nicht geöffnet |Whitelabel Error Page
+|http://localhost:8080/festivalOverview | Eingabefeld für Name des Festivals | " " | Festival wird erstellt|gelöst
+|http://localhost:8080/festivalOverview/5| Button "Location" |die Webseite wird nicht geöffnet |Whitelabel Error Page|gelöst
 |http://localhost:8080/staff/4| Personal hinzufügen | man kann mehrere admins zu einem Fesital hinzufügen, obwohl es nur einen geben darf | akzeptiert
 
 
-| http://localhost:8080/schedule | nicht angemeldet | von "/festivalOverview/4" auf Button "Spielplan" gedrückt | Whitelabel Error Page - 500 
-| http://localhost:8080/newFestival | Name: TestFestival | Festival mit dem Namen TestFestival gibt es schon | keine Fehlermeldung 
-| http://localhost:8080/locationOverview/40 | Angemeldet als Admin | - | Whitelabel Error Page - 500 
-| http://localhost:8080/schedule | Angemeldet als Admin | - | Whitelabel Error Page - 500 
-| http://localhost:8080/newLocation | Name: TestLocaiton | Location mit dem Namen TestLocation gibt es schon | keine Fehlermeldung
-| http://localhost:8080/newLocation | Anzahl Bühnen: 0 | Eine Locaiton ohne Bühnen kann erstellt werden | keine Fehlermeldung
+| http://localhost:8080/schedule | nicht angemeldet | von "/festivalOverview/4" auf Button "Spielplan" gedrückt | Whitelabel Error Page - 500|gelöst
+| http://localhost:8080/newFestival | Name: TestFestival | Festival mit dem Namen TestFestival gibt es schon | keine Fehlermeldung |gelöst
+| http://localhost:8080/locationOverview/40 | Angemeldet als Admin | - | Whitelabel Error Page - 500|gelöst
+| http://localhost:8080/schedule | Angemeldet als Admin | - | Whitelabel Error Page - 500 |gelöst
+| http://localhost:8080/newLocation | Name: TestLocaiton | Location mit dem Namen TestLocation gibt es schon | keine Fehlermeldung|gelöst
+| http://localhost:8080/newLocation | Anzahl Bühnen: 0 | Eine Locaiton ohne Bühnen kann erstellt werden | keine Fehlermeldung| Designentscheidung
 
 |http://localhost:8080/finances |ticketverkäufer für ein Festival existiert und hat Gehalt|-|wird nicht in der Finanzübersicht aufgeführt
 |http://localhost:8080/finances |Planungsteam für ein Festival existiert und hat Gehalt|-|wird nicht in der Finanzübersicht aufgeführt
