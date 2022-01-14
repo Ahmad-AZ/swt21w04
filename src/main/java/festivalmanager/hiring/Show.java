@@ -9,15 +9,18 @@ import javax.validation.constraints.NotNull;
 
 public class Show implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 		
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String name;
 	private Duration performance;
+
+	/**
+	 * show constructor
+	 * @param name must not be {@literal null}
+	 * @param performance must not be {@literal null}
+	 */
 	public Show(@NotNull String name, Duration performance) {
 		this.name = name;
 		this.performance = performance;

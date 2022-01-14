@@ -4,6 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
 
+/**
+ * Unit tests for {@link NewShowForm}.
+ *
+ * @author Tuan Giang Trinh
+ */
 public class NewShowFormUnitTest {
 
 	@Test

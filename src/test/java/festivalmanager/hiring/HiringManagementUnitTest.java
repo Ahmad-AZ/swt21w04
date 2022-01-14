@@ -11,6 +11,11 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.salespointframework.core.Currencies.EURO;
 
+/**
+ * Unit tests for {@link HiringManagement}.
+ *
+ * @author Tuan Giang Trinh
+ */
 public class HiringManagementUnitTest {
 
 	HiringManagement lm = mock(HiringManagement.class);

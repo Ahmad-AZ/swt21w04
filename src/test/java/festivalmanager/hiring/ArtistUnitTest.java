@@ -9,6 +9,11 @@ import java.time.LocalDate;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.salespointframework.core.Currencies.EURO;
 
+/**
+ * Unit tests for {@link Artist}
+ *
+ * @author Tuan Giang Trinh
+ */
 public class ArtistUnitTest {
 	private Artist artist;
 

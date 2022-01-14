@@ -18,6 +18,11 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.salespointframework.core.Currencies.EURO;
 
+/**
+ * Integration tests for {@link PlanOffersController} that interact with the controller directly.
+ *
+ * @author Tuan Giang Trinh
+ */
 public class PlanOffersControllerIntergrationTest extends AbstractIntegrationTests {
 	@Autowired
 	PlanOffersController controller;
@@ -28,6 +33,9 @@ public class PlanOffersControllerIntergrationTest extends AbstractIntegrationTes
 	@Autowired
 	HiringManagement hiringManagement;
 
+	/**
+	 * Uses {@link WithMockUser} to simulate access by a user with admin role.
+	 */
 	@Test
 	@WithMockUser(roles = "ADMIN")
 	void allowsAuthenticatedAccessToController() {

@@ -19,10 +19,16 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.salespointframework.core.Currencies.EURO;
 
+/**
+ * Integration tests for {@link HiringController} that interact with the controller directly.
+ */
 public class HiringControllerIntegrationTests extends AbstractIntegrationTests {
 	@Autowired HiringController controller;
 	@Autowired HiringManagement lm;
 
+	/**
+	 * Does not use any authentication and should raise a security exception.
+	 */
 	@Test
 	void rejectsUnauthenticatedAccessToController() {
 
@@ -30,6 +36,9 @@ public class HiringControllerIntegrationTests extends AbstractIntegrationTests {
 				.isThrownBy(() -> controller.artists(new ExtendedModelMap()));
 	}
 
+	/**
+	 * Uses {@link WithMockUser} to simulate access by a user with admin role.
+	 */
 	@Test
 	@WithMockUser(roles = "ADMIN")
 	void allowsAuthenticatedAccessToController() {
