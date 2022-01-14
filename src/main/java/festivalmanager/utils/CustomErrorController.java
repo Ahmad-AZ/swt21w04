@@ -7,15 +7,19 @@ import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 
+/**
+ * This class is an implementation of @link{springframework.boot.web.servlet.error.ErrorController}
+ * that replaces the whitelable error page.
+ * In case an error occurs, it displays a page informing the user about the details of the error.
+ * @author Jan Biedermann
+ */
 @Controller
 public class CustomErrorController implements ErrorController {
 
@@ -30,6 +34,10 @@ public class CustomErrorController implements ErrorController {
 	}
 
 
+	/**
+	 * Used to pass on the title of the error page to the page header
+	 * @return title attribute for the error page
+	 */
 	@ModelAttribute("title")
 	public String getTitle() {
 		return "Error";
@@ -68,6 +76,11 @@ public class CustomErrorController implements ErrorController {
 
 		if (errorAttributesMap.containsKey(name)) {
 
+			if (name == "error" && errorAttributesMap.get("error") == "None") {
+				model.addAttribute(name, "-");
+				return;
+			}
+
 			if (name == "message" &&
 					errorAttributesMap.get("message") == "No message available") {
 				model.addAttribute(name, defaultValue);
@@ -79,7 +92,9 @@ public class CustomErrorController implements ErrorController {
 			}
 
 			model.addAttribute(name, errorAttributesMap.get(name));
+
 		} else {
+
 			model.addAttribute(name, defaultValue);
 		}
 	}
