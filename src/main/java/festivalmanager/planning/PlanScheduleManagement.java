@@ -11,11 +11,17 @@ import org.springframework.transaction.annotation.Transactional;
 import festivalmanager.Equipment.Stage;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
+import festivalmanager.festival.Schedule;
 import festivalmanager.festival.Schedule.TimeSlot;
 import festivalmanager.hiring.Show;
 import festivalmanager.staff.Person;
 import festivalmanager.staff.StaffManagement;
 
+/**
+ * Implementation of business logic related to {@link Schedule} and {@link Festival}
+ *
+ * @author Adrian Scholze
+ */
 @Service
 @Transactional
 public class PlanScheduleManagement {
@@ -23,13 +29,27 @@ public class PlanScheduleManagement {
 	private final FestivalManagement festivalManagement;
 	private final StaffManagement staffManagement;
 	
+	/**
+	 * Create a new {@link PlanScheduleManagement}
+	 * @param staffManagement
+	 * @param festivalManagement
+	 */
 	public PlanScheduleManagement(FestivalManagement festivalManagement,
 								  StaffManagement staffManagement) {
 		this.festivalManagement = festivalManagement;
 		this.staffManagement = staffManagement;
 	}
-		
 	
+	/**
+	 * set the {@link Show} and {@link Person} of the {@link Schedule} for the {@link Festival}
+	 * @param date
+	 * @param stage
+	 * @param timeSlotString
+	 * @param showId
+	 * @param personId
+	 * @param festival
+	 * @return true if set schedule success
+	 */
 	public boolean setShow(LocalDate date, Stage stage, String timeSlotString, long showId, Festival festival, long personId) {
 
 		TimeSlot timeSlot = TimeSlot.valueOf(timeSlotString);
@@ -42,9 +62,17 @@ public class PlanScheduleManagement {
 		festivalManagement.saveFestival(festival);
 
 		return success;
-
 	}
 	
+	/**
+	 * return all {@link Person}s from the {@link Festival} available at the specified {@link TimeSlot} 
+	 * for the specified {@link Stage}
+	 * @param date
+	 * @param stageId
+	 * @param timeSlotString
+	 * @param festival
+	 * @return all available {@link Person} instances
+	 */
 	public List<Person> getAvailableSecurity(Festival festival, LocalDate date,
 											 String timeSlotString, SalespointIdentifier stageId){
 		TimeSlot timeSlot = TimeSlot.valueOf(timeSlotString);

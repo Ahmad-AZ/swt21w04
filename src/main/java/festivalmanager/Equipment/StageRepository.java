@@ -1,6 +1,5 @@
 package festivalmanager.Equipment;
 
-import festivalmanager.hiring.Artist;
 import org.salespointframework.core.SalespointIdentifier;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.util.Streamable;
@@ -8,7 +7,7 @@ import org.springframework.data.util.Streamable;
 /**
  * A repository interface to manage {@link Stage} instances
  *
- * @author Adrian
+ * @author Adrian Scholze
  */
 public interface StageRepository extends CrudRepository<Stage, SalespointIdentifier> {
 	/**

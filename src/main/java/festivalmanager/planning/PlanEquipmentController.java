@@ -29,7 +29,11 @@ import festivalmanager.festival.FestivalManagement;
 import festivalmanager.location.Location;
 import festivalmanager.utils.UtilsManagement;
 
-
+/**
+ * A class used to pass on values computed in {@link festivalmanager.planning.PlanEquipmentManagement}
+ * to the equipments.html
+ * @author Adrian Scholze
+ */
 @Controller
 public class PlanEquipmentController {
 	private final PlanEquipmentManagement planEquipmentManagement;

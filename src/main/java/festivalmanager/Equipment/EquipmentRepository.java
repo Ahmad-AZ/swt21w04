@@ -1,6 +1,5 @@
 package festivalmanager.Equipment;
 
-import festivalmanager.hiring.Artist;
 import org.salespointframework.core.SalespointIdentifier;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.util.Streamable;

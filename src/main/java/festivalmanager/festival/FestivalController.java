@@ -20,6 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import festivalmanager.messaging.MessageManagement;
 import festivalmanager.utils.UtilsManagement;
 
+/**
+ * A class used to pass on values computed in {@link FestivalManagement}
+ * to the festivalDetail.html, festivalOverview.html and mapVisitorView.html
+ * @author Adrian Scholze
+ */
 @Controller
 public class FestivalController {
 

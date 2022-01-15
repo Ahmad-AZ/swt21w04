@@ -13,7 +13,7 @@ import org.salespointframework.core.SalespointIdentifier;
 /**
  * The class for Equipment, which could be STAGE, CATERING_STALL or TOILET
  *
- * @author Tuan Giang and Adrian
+ * @author Tuan Giang and Adrian Scholze
  */
 @Entity
 public class Equipment extends AbstractEntity<SalespointIdentifier>{

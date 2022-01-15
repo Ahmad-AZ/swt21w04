@@ -6,6 +6,11 @@ import javax.validation.constraints.NotNull;
 
 import org.salespointframework.core.SalespointIdentifier;
 
+/**
+ * the form used to rent new {@link Stage} for a {@link Festival}
+ *
+ * @author Adrian Scholze
+ */
 public class NewStageForm {
 
 	@NotEmpty   
@@ -13,7 +18,6 @@ public class NewStageForm {
 	@NotBlank
 	private final String name;
 	
-
 	@NotNull
 	private final SalespointIdentifier equipmentsId;
 	

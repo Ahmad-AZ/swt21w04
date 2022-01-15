@@ -10,6 +10,12 @@ import festivalmanager.location.LocationManagement;
 
 import java.util.Optional;
 
+
+/**
+ * Implementation of business logic related to {@link Festival}s.
+ *
+ * @author Adrian Scholze
+ */
 @Service
 @Transactional
 public class FestivalManagement {

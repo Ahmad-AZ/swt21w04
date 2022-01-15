@@ -18,6 +18,11 @@ import festivalmanager.location.Location;
 import festivalmanager.location.LocationManagement;
 import festivalmanager.utils.UtilsManagement;
 
+/**
+ * A class used to pass on values computed in {@link festivalmanager.planning.PlanLocationManagement}
+ * to the locationOverview.html and locationDetailPlan.html
+ * @author Adrian Scholze
+ */
 @Controller
 public class PlanLocationController {
 	
@@ -34,8 +39,6 @@ public class PlanLocationController {
 		this.locationManagement = locationManagement;
 		this.festivalManagement = festivalManagement;
 		this.utilsManagement = utilsManagement;
-
-		
 	}
 
 	@ModelAttribute("title")
