@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 /**
  * A class used to pass on values computed in {@link festivalmanager.finances.FinancesCompanyManagement}
- * to the financesCompany.html file
+ * to the company finances page
  * @author Jan Biedermann
  */
 @Controller
