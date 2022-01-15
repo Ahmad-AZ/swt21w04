@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
 /**
- * this is the controller which connects the MVC of the website to artist
+ * A class used to pass on values computed in {@link festivalmanager.hiring.HiringManagement}
+ * to the artists.html file
+ * to the company artist page
  * @author Tuan Giang Trinh
  */
 @Controller
