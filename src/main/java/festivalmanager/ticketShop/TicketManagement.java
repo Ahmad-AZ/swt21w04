@@ -1,26 +1,24 @@
 package festivalmanager.ticketShop;
 
 
-import com.google.zxing.WriterException;
+
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
-import festivalmanager.ticketShop.qr_code.QRCodeGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import javax.validation.constraints.NotNull;
-import java.io.IOException;
 import java.util.Objects;
 
 
-@Service
 /**
  * Implementation of business logic related to {@link Ticket}.
  *
  * @author Ahmad Abu Zahra
  */
+@Service
 public class TicketManagement {
 
 	@Autowired
@@ -35,29 +33,64 @@ public class TicketManagement {
 		this.currentTicket=null;
 	}
 
+	/**
+	 * Used to save {@link Ticket} in the {@link TicketRepository}
+	 * @param ticket
+	 * the new instance of   {@link Ticket}
+	 * @return the saved ticket
+	 */
 	public Ticket save(@NonNull Ticket ticket) {
 		return ticketRepo.save(ticket);
 	}
 
+	/**
+	 * Used to update the saved  {@link Ticket} and if it's not found will add a new  {@link Ticket}
+	 * @param ticket
+	 * the updated Ticket
+	 * @return
+	 * the saved ticket
+	 */
 	public Ticket update(Ticket ticket){
 		return  ticketRepo.save(ticket);
 	}
 
+	/**
+	 *
+	 * @return the current  {@link Ticket} for the current  {@link Festival}
+	 */
 	public Ticket getCurrentTicket(){
 		return this.currentTicket;
 	}
 
+	/**
+	 * Used to find  {@link Ticket} by festival id using  {@link TicketRepository}
+	 * @param festivalId
+	 * id of  the current  {@link Festival}
+	 * @return
+	 * the found {@link Ticket} by festival id.
+	 */
 	public Ticket TicketsByFestival(long festivalId) {
 
 		return ticketRepo.findAllByFestivalId(festivalId);
 	}
 
 
+	/**
+	 * Used to set the current  {@link Festival}.
+	 * @param festival must not be {@literal null}.
+	 *
+	 */
 	public  void setFestival(Festival festival){
 
 		this.currentFestival= festival;
 	}
 
+	/**
+	 * Used to set the current Ticket if it's already saved in {@link TicketRepository} otherwise will save it.
+	 * @param ticket must not be {@literal null}.
+	 *
+
+	 */
 	public void setCurrentTicket(@NotNull Ticket ticket){
 		if (Objects.isNull(ticketRepo.findAllByFestivalId(ticket.getFestivalId())))
 		{
@@ -68,6 +101,12 @@ public class TicketManagement {
 
 	}
 
+	/**
+	 * Used to check if the current {@link Ticket} have  enough Tickets for selling
+	 * @param ticket
+	 * ticket instance with ticket count to be sold
+	 * @return true / false
+	 */
 	public boolean checkTickets(Ticket ticket) {
 
 		Ticket nTicket = ticketRepo.findAllByFestivalId(ticket.getFestivalId());
@@ -114,6 +153,11 @@ public class TicketManagement {
 	}
 
 
+	/**
+	 * Used after calling checkTickets method for selling Ticket
+	 * @return
+	 * the sold {@link Ticket}
+	 */
 	public Ticket buyTickets()  {
 
 		return this.currentTicket;
