@@ -1,5 +1,7 @@
 package festivalmanager.catering;
 
+import festivalmanager.messaging.MessageManagement;
+import festivalmanager.messaging.forms.SendGroupMessageForm;
 import org.salespointframework.order.Cart;
 import org.salespointframework.order.CartItem;
 import org.salespointframework.quantity.Quantity;
@@ -30,18 +32,21 @@ public class CateringController {
 	private CateringProductCatalog catalog;
 	private CateringStock stock;
 	private CateringSales sales;
+	private MessageManagement messageManagement;
 
 	public CateringController(
 			CateringProductCatalog catalog,
 			CateringStock stock,
 			CateringSales sales,
 			UtilsManagement utilsManagement,
-			FestivalManagement festivalManagement) {
+			FestivalManagement festivalManagement,
+			MessageManagement messageManagement) {
 		this.catalog = catalog;
 		this.stock = stock;
 		this.utilsManagement = utilsManagement;
 		this.festivalManagement = festivalManagement;
 		this.sales = sales;
+		this.messageManagement = messageManagement;
 	}
 
 	@ModelAttribute("title")
@@ -180,6 +185,7 @@ public class CateringController {
 			Quantity qMin = cp.getMinimumStock();
 			if ((qBefore.isGreaterThan(qMin)) && (qAfter.isLessThan(qMin))) {
 				System.out.println("CateringStock Minimum: " + qBefore + "->" + qAfter + "<=" + qMin);
+				messageManagement.sendMessage(new SendGroupMessageForm(-1, festivalId, "FESTIVAL_LEADER", "Der Lagerbestand von " cp.getName() + " ist unter dem Minimum, bitte nachbestellen!", ""));
 			}
 		}
 
