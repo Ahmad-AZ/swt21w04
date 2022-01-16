@@ -14,7 +14,6 @@ import festivalmanager.Equipment.EquipmentManagement;
 import festivalmanager.Equipment.Stage;
 import festivalmanager.catering.CateringController;
 import festivalmanager.catering.CateringProduct;
-import festivalmanager.catering.CateringProductCatalog;
 import festivalmanager.catering.CateringSales;
 import festivalmanager.catering.CateringSalesItem;
 import festivalmanager.catering.CateringStock;
@@ -28,6 +27,10 @@ import festivalmanager.ticketShop.Ticket;
 import festivalmanager.ticketShop.TicketManagement;
 
 
+/**
+ * A class used to gather and compute the data that is to be displayed on the finances page for a festival
+ * @author Jan Biedermann
+ */
 @Service
 @Transactional
 public class FinancesManagement {
@@ -46,6 +49,14 @@ public class FinancesManagement {
 	CateringController cateringController;
 
 
+	/**
+	 * Creates a new instance of FinancesManagement
+	 * @param festivalManagement an instance of {@link FestivalManagement}
+	 * @param equipmentManagement an instance of {@link EquipmentManagement}
+	 * @param staffManagement an instance of {@link StaffManagement}
+	 * @param ticketManagement an instance of {@link TicketManagement}
+	 * @param cateringController an instance of {@link CateringController}
+	 */
 	FinancesManagement(FestivalManagement festivalManagement,
 					   EquipmentManagement equipmentManagement,
 					   StaffManagement staffManagement,
@@ -67,7 +78,13 @@ public class FinancesManagement {
 	}
 
 
+	/**
+	 * FinancesManagement computes financial data for one specific festival.
+	 * This function is used to determine which festival that is.
+	 * @param festivalId the ID of the festival for which the finances page is to be generated
+	 */
 	public void setFestival(long festivalId) {
+
 		currentFestival = festivalManagement.findById(festivalId).get();
 		ticketInformation = ticketManagement.TicketsByFestival(currentFestival.getId());
 		if (ticketInformation == null) {
@@ -80,6 +97,10 @@ public class FinancesManagement {
 	}
 
 
+	/**
+	 * Returns the cost due to the location
+	 * @return the cost due to the location
+	 */
 	public Money getLocationCost() {
 
 		Money locationCost = Money.of(0, EURO);
@@ -94,6 +115,10 @@ public class FinancesManagement {
 	}
 
 
+	/**
+	 * Returns the cost due to artists
+	 * @return the cost due to artists
+	 */
 	public Money getArtistsCost() {
 
 		Money artistsCost = Money.of(0, EURO);
@@ -109,6 +134,10 @@ public class FinancesManagement {
 	}
 
 
+	/**
+	 * Returns the cost due to equipment
+	 * @return the cost due to equipment
+	 */
 	public Money getEquipmentCost() {
 
 		Money equipmentCost = Money.of(0, EURO);
@@ -130,16 +159,16 @@ public class FinancesManagement {
 	}
 
 
+	/**
+	 * Returns the cost due to employees
+	 * @return the cost due to employees
+	 */
 	public Money getStaffCost() {
 
 		Money staffCost = Money.of(0, EURO);
 		Streamable<Person> staffMembers = staffManagement.findByFestivalId(currentFestival.getId());
-		// Roles for which the salary is paid on a per-festival basis
-		// List<String> toBePaid = Arrays.asList("SECURITY", "CATERING", "FESTIVAL_LEADER", "ADMISSION");
 
 		for (Person staffMember : staffMembers) {
-
-			// if (toBePaid.contains(staffMember.getRole())) {}
 
 			Money salary = staffMember.getSalary();
 			// Staff members work 8 hours a day
@@ -159,6 +188,10 @@ public class FinancesManagement {
 	}
 
 
+	/**
+	 * Returns the cost due to catering
+	 * @return the cost due to catering
+	 */
 	public Money getCateringCost() {
 
 		Money cateringCost = Money.of(0, EURO);
@@ -176,6 +209,10 @@ public class FinancesManagement {
 	}
 
 
+	/**
+	 * Returns the revenue due to ticket sales
+	 * @return the revenue due to ticket sales
+	 */
 	public Money getTicketsRevenue() {
 
 		Money ticketsRevenue = Money.of(0, EURO);
@@ -187,12 +224,14 @@ public class FinancesManagement {
 	}
 
 
+	/**
+	 * Returns the revenue due to catering
+	 * @return the revenue due to catering
+	 */
 	public Money getCateringRevenue() {
 
-		Money cateringRevenue = Money.of(0, EURO);
-
 		CateringSales cateringSales = cateringController.getCateringSales();
-		CateringProductCatalog cateringProductCatalog = cateringController.getCateringProductCatalog();
+		Money cateringRevenue = Money.of(0, EURO);
 
 		for (CateringSalesItem salesItem : cateringSales.findAll()) {
 
@@ -210,34 +249,52 @@ public class FinancesManagement {
 	}
 
 
+	/**
+	 * Returns the price of camping tickets for this festival
+	 * @return the price of camping tickets for this festival
+	 */
 	public Money getPriceCampingTickets() {
-
-		Money priceCampingTickets = Money.of(ticketInformation.getCampingTicketPrice(), EURO);
-		return priceCampingTickets;
+		return Money.of(ticketInformation.getCampingTicketPrice(), EURO);
 	}
 
 
+	/**
+	 * Returns the price of one-day tickets for this festival
+	 * @return the price of one-day tickets for this festival
+	 */
 	public Money getPriceOneDayTickets() {
-
-		Money priceOneDayTickets = Money.of(ticketInformation.getDayTicketPrice(), EURO);
-		return priceOneDayTickets;
+		return Money.of(ticketInformation.getDayTicketPrice(), EURO);
 	}
 
 
+	/**
+	 * Returns the number of camping tickets available for this festival
+	 * @return the number of camping tickets available for this festival
+	 */
 	public long getNCampingTickets() {
-
-		long nCampingTickets = ticketInformation.getSoldCampingTicket();
-		return nCampingTickets;
+		return ticketInformation.getSoldCampingTicket();
 	}
 
 
+	/**
+	 * Returns the number of one-day tickets available for this festival
+	 * @return the number of one-day tickets available for this festival
+	 */
 	public long getNOneDayTickets() {
-
-		long nOneDayTickets = ticketInformation.getSoldDayTicket();
-		return nOneDayTickets;
+		return ticketInformation.getSoldDayTicket();
 	}
 
 
+	/**
+	 * A function which computes the revenue the festival would cause if it
+	 * had the sales numbers and ticket prices passed to this function
+	 * @param priceCampingTickets the expected price of camping tickets
+	 * @param priceOneDayTickets the expected price of one-day tickets
+	 * @param nCampingTickets the expected number of camping ticket sales
+	 * @param nOneDayTickets the expected number of one-day ticket sales
+	 * @return the revenue the festival would cause if it
+	 * had the sales numbers and ticket prices passed to the function
+	 */
 	public Money getRevenueExpected(Money priceCampingTickets,
 									Money priceOneDayTickets,
 									long nCampingTickets,
@@ -250,17 +307,31 @@ public class FinancesManagement {
 	}
 
 
+	/**
+	 * Returns the total revenue due to the festival
+	 * @return the total revenue due to the festival
+	 */
 	public Money getTotalRevenue() {
 		return totalRevenue;
 	}
 
 
+	/**
+	 * Returns the total cost caused by the festival
+	 * @return the total cost caused by the festival
+	 */
 	public Money getTotalCost() {
 		return totalCost;
 	}
 
 
-	public Money getProfit(Money revenue, Money cost) {
+	/**
+	 * A function which computes the profit due to the given cost and revenue
+	 * @param revenue the revenue that contributes to the profit
+	 * @param cost the cost that contributes to the profit
+	 * @return the profit resulting from cost and revenue
+	 */
+	public static Money getProfit(Money revenue, Money cost) {
 		return revenue.subtract(cost);
 	}
 

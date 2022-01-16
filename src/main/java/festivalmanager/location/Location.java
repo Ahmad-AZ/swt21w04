@@ -75,11 +75,11 @@ public class Location{
 											.to(aBooking.getEndDate().atTime(23,59));
 			// startDate or endDate in an existing BookingInterval
 			if(aBookingDateInterval.overlaps(festivalDateInterval)) {
-				System.out.println("Location belegt");
+				
 				return false;
 			}
 		}
-		System.out.println("nicht belegt");
+		
 		Booking booking = new Booking(startDate, endDate);
 		return bookings.add(booking);
 	}

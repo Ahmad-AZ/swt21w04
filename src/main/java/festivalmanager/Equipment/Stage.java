@@ -11,6 +11,11 @@ import org.javamoney.moneta.Money;
 import org.salespointframework.core.AbstractEntity;
 import org.salespointframework.core.SalespointIdentifier;
 
+/**
+ * class of stage
+ *
+ * @author Adrian and Tuan Giang
+ */
 @Entity
 public class Stage extends AbstractEntity<SalespointIdentifier> implements Serializable{
 	

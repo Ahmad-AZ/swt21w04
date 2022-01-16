@@ -7,6 +7,11 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+/**
+ * booking of the {@link Artist}
+ *
+ * @author Tuan Giang Trinh
+ */
 @Entity
 @Table(name = "BOOKARTIST")
 public class BookingArtist implements Serializable {
@@ -18,8 +23,14 @@ public class BookingArtist implements Serializable {
 	private LocalDate startDate;
 	private LocalDate endDate;
 
+	@SuppressWarnings("unused")
 	private BookingArtist() {}
 
+	/**
+	 * Create the {@link BookingArtist} with booking date
+	 * @param startDate
+	 * @param endDate
+	 */
 	public BookingArtist(LocalDate startDate, LocalDate endDate) {
 		this.startDate = startDate;
 		this.endDate = endDate;

@@ -1,4 +1,4 @@
-package festivalmanager.messaging;
+package festivalmanager.messaging.forms;
 
 import javax.validation.constraints.NotEmpty;
 

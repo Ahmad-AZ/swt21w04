@@ -1,5 +1,9 @@
 package festivalmanager.messaging;
 
+import festivalmanager.messaging.forms.SendGroupMessageForm;
+import festivalmanager.messaging.forms.SendMessageForm;
+import festivalmanager.messaging.forms.SendPersonalMessageForm;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

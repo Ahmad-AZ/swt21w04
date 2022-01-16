@@ -2,26 +2,37 @@ package festivalmanager.location;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.salespointframework.core.Currencies.EURO;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import java.time.LocalDate;
 
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import festivalmanager.AbstractIntegrationTests;
+import festivalmanager.planning.NewStageForm;
 
-
+@AutoConfigureMockMvc
 public class LocationControllerIntegrationTests extends AbstractIntegrationTests{
+	
+	@Autowired
+	private MockMvc mockMvc;
 	
 	@Autowired LocationController controller;
 	@Autowired LocationManagement lm ;
@@ -147,26 +158,44 @@ public class LocationControllerIntegrationTests extends AbstractIntegrationTests
 	
 	@Test
 	@WithMockUser(roles = "ADMIN")
-	void createLocationFailureTest() {
+	void createLocationFailureTest() throws Exception {
+				
+		mockMvc.perform(post("/newLocation").flashAttr("newLocationForm", new NewLocationForm("Location", "Adresse", "2112.50", 
+													Long.valueOf(1234), Long.valueOf(1234), null, null)))
+				.andExpect(status().is(302))
+				.andExpect(view().name("redirect:/locations"));
+		mockMvc.perform(post("/newLocation").flashAttr("newLocationForm", new NewLocationForm("Location", "Adresse", "2112.50", 
+													Long.valueOf(1234), Long.valueOf(1234), null, null)))
+		        .andExpect(status().isOk())
+		        .andExpect(view().name("newLocation"));
 		
-		Errors errors = mock(Errors.class);
-		when(errors.hasErrors()).thenReturn(true);
 		
-		String returnedView = controller.createNewLocation(new NewLocationForm("Location", "Adresse", "2112.50",
-															Long.valueOf(1234), Long.valueOf(1234), null, null), errors);
-		assertThat(returnedView).isEqualTo("newLocation");
-		// reject same name
-		returnedView = controller.createNewLocation(new NewLocationForm("Location", "Adresse", "2112.50",
-				Long.valueOf(1234), Long.valueOf(1234), null, null), errors);
-		assertThat(returnedView).isEqualTo("newLocation");
-		// reject negative Money
-		returnedView = controller.createNewLocation(new NewLocationForm("Location2", "Adresse", "-2112.50",
-				Long.valueOf(1234), Long.valueOf(1234), null, null), errors);
-		assertThat(returnedView).isEqualTo("newLocation");
-		// reject wrong MoneyString
-		returnedView = controller.createNewLocation(new NewLocationForm("Location3", "Adresse", "noMoney",
-				Long.valueOf(1234), Long.valueOf(1234), null, null), errors);
-		assertThat(returnedView).isEqualTo("newLocation");
+		mockMvc.perform(post("/newLocation").flashAttr("newLocationForm", new NewLocationForm("Location2", "Adresse", "-2112.50",
+													Long.valueOf(1234), Long.valueOf(1234), null, null)))
+		        .andExpect(status().isOk())
+				.andExpect(view().name("newLocation"));
+		
+		mockMvc.perform(post("/newLocation").flashAttr("newLocationForm", new NewLocationForm("Location3", "Adresse", "noMoney",
+													Long.valueOf(1234), Long.valueOf(1234), null, null)))
+				.andExpect(status().isOk())
+				.andExpect(view().name("newLocation"));
+		
+		
+//		String returnedView = controller.createNewLocation(new NewLocationForm("Location", "Adresse", "2112.50",
+//															Long.valueOf(1234), Long.valueOf(1234), null, null), errors);
+//		assertThat(returnedView).isEqualTo("newLocation");
+//		// reject same name
+//		returnedView = controller.createNewLocation(new NewLocationForm("Location", "Adresse", "2112.50",
+//				Long.valueOf(1234), Long.valueOf(1234), null, null), errors);
+//		assertThat(returnedView).isEqualTo("newLocation");
+//		// reject negative Money
+//		returnedView = controller.createNewLocation(new NewLocationForm("Location2", "Adresse", "-2112.50",
+//				Long.valueOf(1234), Long.valueOf(1234), null, null), errors);
+//		assertThat(returnedView).isEqualTo("newLocation");
+//		// reject wrong MoneyString
+//		returnedView = controller.createNewLocation(new NewLocationForm("Location3", "Adresse", "noMoney",
+//				Long.valueOf(1234), Long.valueOf(1234), null, null), errors);
+//		assertThat(returnedView).isEqualTo("newLocation");
 	}
 	
 	@Test

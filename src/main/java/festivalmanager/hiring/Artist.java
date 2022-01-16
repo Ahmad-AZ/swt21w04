@@ -1,17 +1,24 @@
 package festivalmanager.hiring;
 
-import festivalmanager.location.Booking;
-import org.javamoney.moneta.Money;
-import org.salespointframework.time.Interval;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.salespointframework.core.Currencies.EURO;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
+import org.javamoney.moneta.Money;
+import org.salespointframework.time.Interval;
+
+/**
+ * @author Tuan Giang Trinh
+ */
 @Entity
 public class Artist {
 	@Id@GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,7 +34,12 @@ public class Artist {
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Show> shows;
 
-
+	/**
+	 * constructor of an artist
+	 * @param name
+	 * @param price
+	 * @param stageTechnician
+	 */
 	public Artist(@NotNull String name, @NotNull Money price, @NotNull int stageTechnician) {
 		this.name = name;
 		this.price = price;
@@ -66,11 +78,19 @@ public class Artist {
 		this.stageTechnician = stageTechnician;
 	}
 
-
+	/**
+	 * return all shows of this artist
+	 * @return shows
+	 */
 	public Iterable<Show> getShows() {
 		return this.shows;
 	}
-	
+
+	/**
+	 * return show with the given Id
+	 * @param showId
+	 * @return Show
+	 */
 	public Show getShow(long showId) {
 		for(Show aShow : shows) {
 			if(aShow.getId() == showId) {
@@ -80,10 +100,20 @@ public class Artist {
 		return null;
 	}
 
+	/**
+	 * add new show to the artist
+	 * @param show
+	 */
 	public void addShow(Show show){
 		shows.add(show);
 	}
 
+	/**
+	 * add booking time of the artist, return true if it is added successfully
+	 * @param startDate
+	 * @param endDate
+	 * @return boolean
+	 */
 	public boolean addBooking(LocalDate startDate, LocalDate endDate) {
 		Interval festivalDateInterval = Interval.from(startDate.atStartOfDay()).to(endDate.atTime(23,59));
 		for (BookingArtist aBooking : bookingArtists) {
@@ -99,6 +129,13 @@ public class Artist {
 		return bookingArtists.add(bookingArtist);
 	}
 
+	/**
+	 * delete a booking of the artist, return true if it is deleted successfully
+	 * @param startDate
+	 * @param endDate
+	 * @return boolean
+	 */
+
 	public boolean removeBooking(LocalDate startDate, LocalDate endDate) {
 		for (BookingArtist aBooking : bookingArtists) {
 			if (aBooking.getStartDate().equals(startDate) && aBooking.getEndDate().equals(endDate)) {
@@ -108,10 +145,18 @@ public class Artist {
 		return false;
 	}
 
+	/**
+	 * return all the booking of the artist
+	 * @return Iterable
+	 */
 	public Iterable<BookingArtist> getBookingArtist() {
 		return bookingArtists;
 	}
 
+	/**
+	 * return true if the artist as booking
+	 * @return boolean
+	 */
 	public boolean hasBookingArtist() {
 		return !(bookingArtists.isEmpty());
 	}

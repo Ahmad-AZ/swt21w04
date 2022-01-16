@@ -104,7 +104,7 @@ DataInitializer
 r2=&lt;T-&gt;Festival&gt;</panel_attributes><additional_attributes>10;18;80;20;80;60;340;60;340;100;826;100</additional_attributes></element><element><id>UMLClass</id><coordinates><x>286</x><y>353</y><w>600</w><h>200</h></coordinates><panel_attributes>FestivalController
 --
 --
-+ FestivalController(festivalManagement : FestivalManagement, UtilsManagement)
++ FestivalController(festivalManagement : FestivalManagement, utilsManagement : UtilsManagement)
 + getTitle() : String
 + festivalDetail(festivalId : Long, model : Model, stringInputForm : StringInputForm) : String
 + createNewFestival(form : NewFestivalForm, result : Errors, model : Model) : String

@@ -1,5 +1,6 @@
 package festivalmanager.messaging;
 
+import festivalmanager.messaging.forms.SendMessageForm;
 import festivalmanager.staff.Person;
 import festivalmanager.staff.StaffManagement;
 import org.springframework.data.util.Streamable;

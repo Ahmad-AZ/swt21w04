@@ -44,7 +44,7 @@ class NewLocationForm {
 	private final Long stageCapacity;
 	
 	private final MultipartFile image;
-	
+
 	private final MultipartFile groundView;
 		
 	public NewLocationForm(String name, String adress, String pricePerDay,
@@ -101,7 +101,7 @@ class NewLocationForm {
             e.printStackTrace();
         }
 
-		return fileName.substring(0, fileName.length()-4);
+		return fileName;
 		//return image;
 	}
 
@@ -116,7 +116,7 @@ class NewLocationForm {
             e.printStackTrace();
         }
 
-		return fileName.substring(0, fileName.length()-4);
+		return fileName;
 		//return groundView;
 	}
 

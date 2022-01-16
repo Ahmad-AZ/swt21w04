@@ -21,6 +21,12 @@ import festivalmanager.hiring.Artist;
 import festivalmanager.hiring.HiringManagement;
 import festivalmanager.utils.UtilsManagement;
 
+/**
+ * A class used to pass on values computed in {@link festivalmanager.planning.PlanOffersManagement}
+ * to the artistOverview.html, artistDetailPlan.html file
+ * to the company artist page when planning a festival
+ * @author Tuan Giang Trinh
+ */
 @Controller
 public class PlanOffersController {
 	private final PlanOffersManagement planOffersManagement;
