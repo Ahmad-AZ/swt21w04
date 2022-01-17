@@ -7,17 +7,31 @@ import org.javamoney.moneta.Money;
 import org.salespointframework.quantity.*;
 
 /**
+ * A class initializing the database of catering product catalog with four
+ * products
+ * 
  * @author Robert Menzel
  */
 @Component
 public class CateringProductInitializer implements DataInitializer {
 
+    /**
+     * the product catalog
+     */
     private final CateringProductCatalog catalog;
 
+    /**
+     * the constructor of this initializer
+     * 
+     * @param catalog the product catalog
+     */
     public CateringProductInitializer(CateringProductCatalog catalog) {
         this.catalog = catalog;
     }
 
+    /**
+     * the initialize method add four products to the product catalog
+     */
     public void initialize() {
         if (catalog.findAll().iterator().hasNext()) {
             return;

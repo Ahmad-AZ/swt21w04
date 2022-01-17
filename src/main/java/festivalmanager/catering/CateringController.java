@@ -22,6 +22,8 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
+ * The controller for the site to sell products.
+ * 
  * @author Robert Menzel
  */
 @Controller
@@ -34,6 +36,16 @@ public class CateringController {
 	private CateringSales sales;
 	private MessageManagement messageManagement;
 
+	/**
+	 * Initializes the controller.
+	 * 
+	 * @param catalog            the produtc catalog
+	 * @param stock              the stock containing products
+	 * @param sales              the list of sold products
+	 * @param utilsManagement    utilites
+	 * @param festivalManagement the class to manage the festivals
+	 * @param messageManagement  the message subsystem
+	 */
 	public CateringController(
 			CateringProductCatalog catalog,
 			CateringStock stock,
@@ -49,16 +61,32 @@ public class CateringController {
 		this.messageManagement = messageManagement;
 	}
 
+	/**
+	 * get the title of this page
+	 * 
+	 * @return a string with this title
+	 */
 	@ModelAttribute("title")
 	public String getTitle() {
 		return "Catering Verkäufe";
 	}
 
+	/**
+	 * gives the webiste a new cart
+	 * 
+	 * @return the cart
+	 */
 	@ModelAttribute("cart")
 	Cart initializeCart() {
 		return new Cart();
 	}
 
+	/**
+	 * returns the products in the stock for this festival
+	 * 
+	 * @param festivalid the current festival as an id
+	 * @return a iteration of catering products
+	 */
 	public Iterable<CateringProduct> getBoughtProducts(long festivalid) {
 		Iterable<CateringStockItem> iCSI = stock.findByFestivalId(festivalid);
 		LinkedList<CateringProduct> lCP = new LinkedList<CateringProduct>();
@@ -73,6 +101,12 @@ public class CateringController {
 		return lCP;
 	}
 
+	/**
+	 * get the quantity of products in the stock
+	 * 
+	 * @param festivalId the current festival as an id
+	 * @return a map given the quantity of products
+	 */
 	public Map<CateringProduct, Quantity> getProductCounts(long festivalId) {
 		Iterable<CateringStockItem> iCSI = stock.findByFestivalId(festivalId);
 		HashMap<CateringProduct, Quantity> mCP = new HashMap<CateringProduct, Quantity>();
@@ -91,7 +125,13 @@ public class CateringController {
 		return mCP;
 	}
 
-	/** Reduces the products in the cart to its maximum in the stock. */
+	/**
+	 * Reduces the products in the cart to its maximum in the stock.
+	 * 
+	 * @param cart       the cart containing products
+	 * @param festivalId the current festival as an id
+	 * @return the cart with the reduced products amount
+	 */
 	public Cart chopCart(Cart cart, long festivalId) {
 		Map<CateringProduct, Quantity> mProdCnts = getProductCounts(festivalId);
 		for (CartItem cartItem : cart) {
@@ -106,6 +146,13 @@ public class CateringController {
 		return cart;
 	}
 
+	/**
+	 * Books out catering product of the stock.
+	 * 
+	 * @param product    the product to book out
+	 * @param quantity   the quantity of the product
+	 * @param festivalId the current festival as an id
+	 */
 	public void bookOut(CateringProduct product, Quantity quantity, long festivalId) {
 		Iterable<CateringStockItem> iCSI = stock.findByFestivalId(festivalId, CateringStock.BBD_SORT);
 		for (CateringStockItem csi : iCSI) {
@@ -130,6 +177,14 @@ public class CateringController {
 		}
 	}
 
+	/**
+	 * the caterings sales site
+	 * 
+	 * @param model      the data in the website
+	 * @param cart       the products in the cart with a quantity
+	 * @param festivalId the currenct festival as an id
+	 * @return the address of the site
+	 */
 	@GetMapping("/catering/{festivalId}")
 	String sales(Model model, @ModelAttribute Cart cart, @PathVariable Long festivalId) {
 
@@ -165,6 +220,14 @@ public class CateringController {
 		return "redirect:/catering/" + festivalId;
 	}
 
+	/**
+	 * Checks out the cart of the catering stock
+	 * 
+	 * @param model      the data for the website
+	 * @param cart       the products in the cart
+	 * @param festivalId the current festival
+	 * @return the site address
+	 */
 	@PostMapping("/catering/checkout")
 	String checkout(Model model, @ModelAttribute Cart cart, @RequestParam("festivalId") Long festivalId) {
 		cart = chopCart(cart, festivalId);
@@ -185,7 +248,11 @@ public class CateringController {
 			Quantity qMin = cp.getMinimumStock();
 			if ((qBefore.isGreaterThan(qMin)) && (qAfter.isLessThan(qMin))) {
 				System.out.println("CateringStock Minimum: " + qBefore + "->" + qAfter + "<=" + qMin);
-				messageManagement.sendMessage(new SendGroupMessageForm(-1, festivalId, "FESTIVAL_LEADER", "Der Lagerbestand von " cp.getName() + " ist unter dem Minimum, bitte nachbestellen!", ""));
+				messageManagement.sendMessage(
+						new SendGroupMessageForm(
+								-1, festivalId, "FESTIVAL_LEADER",
+								"Der Lagerbestand von " + cp.getName() + " ist unter dem Minimum, bitte nachbestellen!",
+								""));
 			}
 		}
 
@@ -193,6 +260,9 @@ public class CateringController {
 		return "redirect:/catering/" + festivalId;
 	}
 
+	/**
+	 * A class containing the result of the form Add to Cart.
+	 */
 	class AddToCartFormResult {
 		ProductIdentifier productId;
 		long productCount;
@@ -203,14 +273,26 @@ public class CateringController {
 		}
 	}
 
+	/**
+	 * 
+	 * @return the catering sales class
+	 */
 	public CateringSales getCateringSales() {
 		return sales;
 	}
 
+	/**
+	 *
+	 * @return the catering product catalog
+	 */
 	public CateringProductCatalog getCateringProductCatalog() {
 		return catalog;
 	}
 
+	/**
+	 * 
+	 * @return the catering stock
+	 */
 	public CateringStock getStock() {
 		return stock;
 	}

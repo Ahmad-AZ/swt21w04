@@ -24,6 +24,9 @@ import javax.money.format.MonetaryParseException;
 import org.javamoney.moneta.*;
 
 /**
+ * A controller supporting the catering stock for a festival and the product
+ * catalog
+ * 
  * @author Robert Menzel
  */
 @Controller
@@ -36,6 +39,15 @@ public class CateringStockController {
     private CateringStock stock;
     private CateringSales sales;
 
+    /**
+     * The constructor for this controller
+     * 
+     * @param catalog            the catering product catalog
+     * @param stock              the catering stock
+     * @param sales              the sold products
+     * @param utilsManagement    utilities
+     * @param festivalManagement all for the festival
+     */
     public CateringStockController(
             CateringProductCatalog catalog,
             CateringStock stock,
@@ -50,11 +62,23 @@ public class CateringStockController {
         CateringStockItem.festivalManagement = festivalManagement;
     }
 
+    /**
+     * the title of the site
+     * 
+     * @return the title
+     */
     @ModelAttribute("title")
     public String getTitle() {
         return "Catering Produkte";
     }
 
+    /**
+     * the data for the catering product catalog site
+     * 
+     * @param model      the data on this page
+     * @param festivalId the id of the current festival
+     * @return the path to the site
+     */
     @GetMapping("/cateringProductCatalog/{festivalId}")
     String products(Model model, @PathVariable Long festivalId) {
         model.addAttribute("stock", stock.findByFestivalId(festivalId));
@@ -63,12 +87,27 @@ public class CateringStockController {
         return "cateringProductCatalog";
     }
 
+    /**
+     * the data for the site to add products
+     * 
+     * @param model      the data of this site
+     * @param festivalId the id of the current festival
+     * @return the path to this site
+     */
     @GetMapping("/cateringAddProduct/{festivalId}")
     String addProduct(Model model, @PathVariable Long festivalId) {
         utilsManagement.prepareModel(model, festivalId);
         return "cateringAddProduct";
     }
 
+    /**
+     * the function called to add a product.
+     * 
+     * @param model        the data of this site
+     * @param formularData the data contained in this formular
+     * @param festivalId   the id of the current festival
+     * @return the path to product catalog site
+     */
     @PostMapping("/cateringAddProduct/editData")
     String addProduct(
             Model model,
@@ -106,12 +145,27 @@ public class CateringStockController {
         return (failure) ? "/cateringAddProduct" : "redirect:/cateringProductCatalog/" + festivalId;
     }
 
+    /**
+     * the data for the "edit a product" site
+     * 
+     * @param model      the data on this site
+     * @param festivalId the id of the current festival
+     * @return the address of this site
+     */
     @GetMapping("/cateringEditProduct/{festivalId}")
     String editProduct(Model model, @PathVariable Long festivalId) {
         utilsManagement.prepareModel(model, festivalId);
         return "cateringEditProduct";
     }
 
+    /**
+     * the data for this "edit a product" site
+     * 
+     * @param festivalId the id of the current festival
+     * @param productid  the id of this product
+     * @param model      the data of this page
+     * @return the address of this site
+     */
     @GetMapping("/cateringEditProduct/{festivalId}/{productid}")
     String editProduct(
             @PathVariable Long festivalId,
@@ -127,6 +181,15 @@ public class CateringStockController {
         return "cateringEditProduct";
     }
 
+    /**
+     * the function that changes the edited products information
+     * 
+     * @param productid    the id of the edited product
+     * @param model        the data of the site
+     * @param formularData the data in the formular
+     * @param festivalId   the id of the current festival
+     * @return the address of the following site
+     */
     @PostMapping("/cateringEditProduct/editData/{productid}")
     String editProductData(
             @PathVariable ProductIdentifier productid,
@@ -193,6 +256,14 @@ public class CateringStockController {
                 : "redirect:/cateringProductCatalog/" + festivalId;
     }
 
+    /**
+     * the data for the site to delete a product
+     * 
+     * @param festivalId the id of the current festival
+     * @param productid  the id of this product
+     * @param model      the data on this page
+     * @return the path to the site
+     */
     @GetMapping("/cateringDeleteProduct/{festivalId}/{productid}")
     String deleteProduct(
             @PathVariable Long festivalId,
@@ -207,6 +278,13 @@ public class CateringStockController {
         return "cateringDeleteProduct";
     }
 
+    /**
+     * the function that is really deleting a product
+     * 
+     * @param productid  the id of the product
+     * @param festivalId the id of the current festival
+     * @return the address of the following site
+     */
     @PostMapping("/cateringDeleteProduct/delete/{productid}")
     String deleteProduct(
             @PathVariable ProductIdentifier productid,
@@ -233,12 +311,30 @@ public class CateringStockController {
         return "redirect:/cateringProductCatalog/" + festivalId;
     }
 
+    /**
+     * the class containg the formular data for an catering product
+     */
     class ProductFormularData {
+        /** the name of this product */
         String name;
-        String price, deposit;
+        /** the price of this product */
+        String price;
+        /** the deposit of this product */
+        String deposit;
+        /** the filling of the beverage */
         double filling;
+        /** the minimum amount of the stock item */
         double minimumStock;
 
+        /**
+         * the constructor for this product formular data
+         * 
+         * @param name         the name of this product
+         * @param price        the price of this product
+         * @param deposit      the deposit of this product
+         * @param filling      the filling of the beverage
+         * @param minimumStock the minimum amount of the stock item
+         */
         public ProductFormularData(String name, String price, String deposit, double filling, double minimumStock) {
             this.name = name;
             this.price = price;
@@ -248,6 +344,13 @@ public class CateringStockController {
         }
     }
 
+    /**
+     * the data for the formular site to add a stock item
+     * 
+     * @param model      the data of this site
+     * @param festivalId the id of the current festival
+     * @return the address of this site
+     */
     @GetMapping("/cateringAddStockItem/{festivalId}")
     String addStockItem(Model model, @PathVariable Long festivalId) {
         model.addAttribute("productcatalog", catalog.findByHidden(false));
@@ -257,6 +360,14 @@ public class CateringStockController {
         return "cateringAddStockItem";
     }
 
+    /**
+     * the function that really adds a stock item
+     * 
+     * @param model        the data of this site
+     * @param formularData the formular data of the frontend
+     * @param festivalId   the id of current festival
+     * @return the address of the following site
+     */
     @PostMapping("/cateringAddStockItem/editData")
     String addStockItem(
             Model model,
@@ -308,6 +419,14 @@ public class CateringStockController {
         return (failure) ? "/cateringAddStockItem" : "redirect:/cateringProductCatalog/" + festivalId;
     }
 
+    /**
+     * the data of the site to edit a stock item
+     * 
+     * @param festivalId  the current festivals id
+     * @param stockitemid the id of the stock item
+     * @param model       the data of this page
+     * @return the address of this site
+     */
     @GetMapping("/cateringEditStockItem/{festivalId}/{stockitemid}")
     String editStockItem(
             @PathVariable Long festivalId,
@@ -323,6 +442,15 @@ public class CateringStockController {
         return "cateringEditStockItem";
     }
 
+    /**
+     * the function that really changes the stock items data
+     * 
+     * @param stockitemid  the id of the stockitem
+     * @param model        the data on this page
+     * @param formularData the formular data with the changes
+     * @param festivalId   the id of the current festival
+     * @return the address of the following site
+     */
     @PostMapping("/cateringEditStockItem/editData/{stockitemid}")
     String editStockItem(
             @PathVariable InventoryItemIdentifier stockitemid,
@@ -396,6 +524,14 @@ public class CateringStockController {
         return (failure) ? "/cateringEditStockItem" : "redirect:/cateringProductCatalog/" + festivalId;
     }
 
+    /**
+     * the site for deleting a stock item
+     * 
+     * @param festivalId  the id of the current festival
+     * @param stockitemid the id of the stock item
+     * @param model       the data on this site
+     * @return the address of this site
+     */
     @GetMapping("/cateringDeleteStockItem/{festivalId}/{stockitemid}")
     String deleteStockItem(
             @PathVariable Long festivalId,
@@ -411,6 +547,13 @@ public class CateringStockController {
         return "cateringDeleteStockItem";
     }
 
+    /**
+     * the function that really deletes a stock item
+     * 
+     * @param stockitemid the id of the stock item
+     * @param festivalId  the id of the currejnt festival
+     * @return the address to the following site
+     */
     @PostMapping("/cateringDeleteStockItem/delete/{stockitemid}")
     String deleteStockItem(@PathVariable InventoryItemIdentifier stockitemid,
             @RequestParam("festivalId") Long festivalId) {
@@ -423,13 +566,35 @@ public class CateringStockController {
         return "redirect:/cateringProductCatalog/" + festivalId;
     }
 
+    /**
+     * the class representing the data of a stock item formular
+     */
     class StockFormularData {
+        /** the id of the stock items product */
         ProductIdentifier productid;
+        /** the number of products in this stock item */
         long amount;
+        /** the price of buying a product */
         String buyingprice;
-        String orderdate, bestbeforedate;
+        /** the date when this product was bought */
+        String orderdate;
+        /** the date until this product is fresh */
+        String bestbeforedate;
 
-        public StockFormularData(ProductIdentifier productid, long amount, String buyingprice, String orderdate,
+        /**
+         * the constructor for this formular data
+         * 
+         * @param productid      the id of the stock items product
+         * @param amount         the number of products in this stock item
+         * @param buyingprice    the price of buying a product
+         * @param orderdate      the date when this product was bought
+         * @param bestbeforedate the date until this product is fresh
+         */
+        public StockFormularData(
+                ProductIdentifier productid,
+                long amount,
+                String buyingprice,
+                String orderdate,
                 String bestbeforedate) {
             this.productid = productid;
             this.amount = amount;
