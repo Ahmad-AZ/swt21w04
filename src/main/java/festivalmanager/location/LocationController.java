@@ -180,7 +180,14 @@ public class LocationController {
 	@ExceptionHandler(MaxUploadSizeExceededException.class)
 	public String catchException(HttpServletRequest httpRequest, MaxUploadSizeExceededException e, RedirectAttributes ra) {
 		ra.addFlashAttribute("message", "Bilder sind zu groß.");
-	    return "redirect:"+httpRequest.getRequestURL().toString().replaceAll("/saveLocation","");
+		String url = httpRequest.getRequestURL().toString();
+		if(url.contains("/saveLocation")) {
+		    return "redirect:"+httpRequest.getRequestURL().toString().replaceAll("/saveLocation","");
+		}
+		if(url.contains("/newLocation")) {
+		    return "redirect:/newLocation";
+		}
+		return "redirect:/locations";
 	}
 		
 	@GetMapping("locations/remove/{id}")

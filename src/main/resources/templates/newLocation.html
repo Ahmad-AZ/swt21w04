@@ -50,7 +50,7 @@
             <label for="groundView">Grundriss:</label>
             <input id="groundView" type="file" name="groundView" class="custom-file-input" accept=".jpg"/>
         </div>
-        
+        <div class="ui-negative-message" th:text="${message}" th:if="${message ne null}"></div> 
         <div class="form-item">
             <a th:href="@{/locations}">Abbrechen</a>
             <input type="submit" value="Erstellen">
