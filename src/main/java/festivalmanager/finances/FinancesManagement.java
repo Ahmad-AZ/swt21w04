@@ -199,7 +199,7 @@ public class FinancesManagement {
 
 		for (CateringStockItem cateringStockItem :
 				cateringStock.findByFestivalId(currentFestival.getId())) {
-			Long amount = cateringStockItem.getQuantity().getAmount().longValue();
+			long amount = cateringStockItem.getOrderQuantity();
 			Money price = cateringStockItem.getBuyingPrice();
 			cateringCost = cateringCost.add(price.multiply(amount));
 		}
