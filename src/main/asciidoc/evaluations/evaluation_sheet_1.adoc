@@ -22,7 +22,7 @@
 
 == Welche Erfahrungen habe ich bei der Wiederverwendung von Bibliotheken/Frameworks (insbesondere SalesPoint) gemacht?
 // Einschätzung der Arbeit mit den bereitgestellten und zusätzlich genutzten Frameworks. Was War gut? Was war verbesserungswürdig?
-** Springboot bietet mehrere vorgeschriebenen Methoden, die man wieder verwenden kann. Die Wiederverwendung ist ganz einfach und optimal, und es gibt nicht zu viel Schwierigkeit weil alle Methoden sind gut auskommentiert (und man kann auach einfach googlen)
+** Springboot bietet mehrere vorgeschriebenen Methoden, die man wieder verwenden kann. Die Wiederverwendung ist ganz einfach und optimal, und es gibt nicht zu viel Schwierigkeit weil alle Methoden sind gut auskommentiert (und man kann auch einfach googlen)
 ** Das Framework SalesPoints, außerdem, hilft man bei einige Dinge, die mit Datenbank, oder Sicherheit zu tun.
 ** Salespoint ist aber sehr speziell, manchmal istder Zugang schwierig zu einigen Funktion. Einige Funktionen sind auch nicht ausreichend dokumentiert.
 
