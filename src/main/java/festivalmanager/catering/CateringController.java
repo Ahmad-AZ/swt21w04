@@ -39,7 +39,7 @@ public class CateringController {
 	/**
 	 * Initializes the controller.
 	 * 
-	 * @param catalog            the produtc catalog
+	 * @param catalog            the product catalog
 	 * @param stock              the stock containing products
 	 * @param sales              the list of sold products
 	 * @param utilsManagement    utilites
@@ -92,10 +92,10 @@ public class CateringController {
 		LinkedList<CateringProduct> lCP = new LinkedList<CateringProduct>();
 		Quantity qZero = Quantity.of(0);
 		for (CateringStockItem csi : iCSI) {
-			if (csi.getQuantity().isGreaterThan(qZero)) {
-				if (!lCP.contains(csi.getProduct()) && (!csi.getProduct().isHidden())) {
-					lCP.add(csi.getProduct());
-				}
+			if (csi.getQuantity().isGreaterThan(qZero) &&
+					(!lCP.contains(csi.getProduct()) &&
+							(!csi.getProduct().isHidden()))) {
+				lCP.add(csi.getProduct());
 			}
 		}
 		return lCP;
