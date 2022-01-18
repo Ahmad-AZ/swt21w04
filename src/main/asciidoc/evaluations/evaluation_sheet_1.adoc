@@ -8,30 +8,35 @@
 **Gruppe: 04**
 
 == Was habe ich gelernt / was habe ich nicht gelernt?
--positive Erfahrung: 
-+vorgefertiges startbereites Projekt nimmt viel Arbeit ab
-+Videoshop
-+Java JPA ist sehr gut zum Testen und Entwickeln
--negative Erfahrung: 
-+die Aufgabeverteilung funktioniert noch wirklich so gut, in einige Wochen musste ich viel machen, in einige anderen gab es aber nicht viel zu machen 
-+Dokumentation unserer Fortschritte
+** positive Erfahrung :  
+* vorgefertiges startbereites Projekt nimmt viel Arbeit ab
+*Videoshop
+* Java JPA ist sehr gut zum Testen und Entwickeln
+** negative Erfahrung: 
+* die Aufgabeverteilung funktioniert noch wirklich so gut, in einige Wochen musste ich viel machen, in einige anderen gab es aber nicht viel zu machen 
+* Dokumentation unserer Fortschritte
+
 == Welche Erfahrungen habe ich mit der Zusammenarbeit im Team gemacht?
-Unsere Teamarbeit war sehr schön. Die Aufgabeverteilung ist ganz fair, jeder Teammiglieder wusste genau was zu machen, und was die anderen gerade gemacht haben, damit er helfen konnte
-Aus diesem Projekt habe ich gelernt, dass man in einem Team nicht nur seinen Teil gut schafft, sondern auch einen Überblick über das Projekt hat. Übrigens sollte man mit einander gut kommunizieren, und Hilfe zu bitten wenn etwas schwieriges gibt
+* Unsere Teamarbeit war sehr schön. Die Aufgabeverteilung ist ganz fair, jeder Teammiglieder wusste genau was zu machen, und was die anderen gerade gemacht haben, damit er helfen konnte
+* Aus diesem Projekt habe ich gelernt, dass man in einem Team nicht nur seinen Teil gut schafft, sondern auch einen Überblick über das Projekt hat. Übrigens sollte man mit einander gut kommunizieren, und Hilfe zu bitten wenn etwas schwieriges gibt
 
 == Welche Erfahrungen habe ich bei der Wiederverwendung von Bibliotheken/Frameworks (insbesondere SalesPoint) gemacht?
 // Einschätzung der Arbeit mit den bereitgestellten und zusätzlich genutzten Frameworks. Was War gut? Was war verbesserungswürdig?
--Springboot bietet mehrere vorgeschriebenen Methoden, die man wieder verwenden kann. Die Wiederverwendung ist ganz einfach und optimal, und es gibt nicht zu viel Schwierigkeit weil alle Methoden sind gut auskommentiert (und man kann auach einfach googlen)
--Das Framework SalesPoints, außerdem, hilft man bei einige Dinge, die mit Datenbank, oder Sicherheit zu tun.
-Es ist aber sehr speziell, manchmal istder Zugang schwierig zu einigen Funktion. Einige Funktionen sind auch nicht ausreichend dokumentiert.
+** Springboot bietet mehrere vorgeschriebenen Methoden, die man wieder verwenden kann. Die Wiederverwendung ist ganz einfach und optimal, und es gibt nicht zu viel Schwierigkeit weil alle Methoden sind gut auskommentiert (und man kann auach einfach googlen)
+** Das Framework SalesPoints, außerdem, hilft man bei einige Dinge, die mit Datenbank, oder Sicherheit zu tun.
+** Salespoint ist aber sehr speziell, manchmal istder Zugang schwierig zu einigen Funktion. Einige Funktionen sind auch nicht ausreichend dokumentiert.
+
 == Welche Vorschläge zur weiteren Verbesserung des Softwarepraktikums gibt es?
 // Möglichst mit Beschreibung, warum die Umsetzung des von Ihnen angebrachten Vorschlages nötig ist.
-Es wird schön, dass alle Projekte am Ende publiziert werden können, weil mit dem kann man anschauen und die Struktur vergleichen (ich weiß es ist schwierig wegen Datanschutz)
-Es ist auch ein bisschen komisch, dass Datenbanken in nächsten Semester eingeführt ist, aber in dem Projekt gibt es schon einige Dinge, die mit Datenbank zu tun(aber nicht zu viel, und man kann noch verstehen)
+** Es wird schön, dass alle Projekte am Ende publiziert werden können, weil mit dem kann man anschauen und die Struktur vergleichen (ich weiß es ist schwierig wegen Datanschutz)
+** Es ist auch ein bisschen komisch, dass Datenbanken in nächsten Semester eingeführt ist, aber in dem Projekt gibt es schon einige Dinge, die mit Datenbank zu tun(aber nicht zu viel, und man kann noch verstehen)
+
 == Feedback für den Tutor
 // Fühlten Sie sich durch den vom Lehrstuhl bereitgestellten Tutor gut betreut? Was war positiv? Was war verbesserungswürdig?
-Der Tutor von unsere Gruppe ist sehr gut und hilfsbereit. Er hat uns viel geholfen bei der Organisation des Projekts
-Es gibt erhlich nichts zu beschweren
+** Der Tutor von unsere Gruppe ist sehr gut und hilfsbereit. Er hat uns viel geholfen bei der Organisation des Projekts
+** Es gibt erhlich nichts zu beschweren
+
 == Sonstiges und Anmerkungen
 // Welche Aspekte fanden in den oben genannten Punkten keine Erwähnung?
-In Softwaretechnologie Vorlesung sollte ein bisschen über Framework und Annotationen eingeführt werden
+** In Softwaretechnologie Vorlesung sollte ein bisschen über Framework und Annotationen eingeführt werden
+** Es sollte auch eine Video über Einführung von Salespoint geben
