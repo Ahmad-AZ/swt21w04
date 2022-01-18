@@ -24,7 +24,11 @@ import festivalmanager.festival.FestivalManagement;
 import festivalmanager.festival.Schedule.TimeSlot;
 import festivalmanager.utils.UtilsManagement;
 
-
+/**
+ * A class used to pass on values computed in {@link festivalmanager.planning.PlanScheduleManagement}
+ * to the schedule.html
+ * @author Adrian Scholze
+ */
 @Controller
 public class PlanScheduleController {
 	

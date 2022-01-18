@@ -2,9 +2,6 @@ package festivalmanager.Equipment;
 
 import static org.salespointframework.core.Currencies.EURO;
 
-import festivalmanager.hiring.Artist;
-import festivalmanager.hiring.ArtistDataInitializer;
-import festivalmanager.hiring.ArtistRepository;
 import org.javamoney.moneta.Money;
 import org.salespointframework.core.DataInitializer;
 import org.slf4j.Logger;

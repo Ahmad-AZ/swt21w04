@@ -1,14 +1,15 @@
 package festivalmanager.festival;
 
+import java.util.Optional;
+
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import festivalmanager.hiring.Artist;
 import festivalmanager.hiring.HiringManagement;
 import festivalmanager.location.LocationManagement;
-
-import java.util.Optional;
 
 
 /**
@@ -23,9 +24,18 @@ public class FestivalManagement {
 	private final LocationManagement locationManagement;
 	private final HiringManagement hiringManagement;
 	
+	/**
+	 * Creates a new {@link FestivalManagement} with the given {@link Festival Repository}, {@link HiringManagement} and
+	 * {@link LocationManagement}.
+	 *
+	 * @param festivals must not be {@literal null}.
+	 * @param locationManagement must not be {@literal null}.
+	 * @param hiringManagement must not be {@literal null}.
+	 */
 	public FestivalManagement(FestivalRepository festivals,
 							  LocationManagement locationManagement,
 							  HiringManagement hiringManagement) {
+		Assert.notNull(festivals, "FestivalRepository must not be null!");
 		this.festivals = festivals;
 		this.locationManagement = locationManagement;
 		this.hiringManagement = hiringManagement;

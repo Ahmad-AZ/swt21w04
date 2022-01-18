@@ -2,8 +2,12 @@ package festivalmanager.festival;
 
 
 import java.time.LocalDate;
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
@@ -16,7 +20,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.salespointframework.core.SalespointIdentifier;
+import org.springframework.util.Assert;
 
+import festivalmanager.Equipment.Equipment;
 import festivalmanager.Equipment.Stage;
 import festivalmanager.festival.Schedule.TimeSlot;
 import festivalmanager.hiring.Artist;
@@ -24,13 +30,15 @@ import festivalmanager.hiring.Show;
 import festivalmanager.location.Location;
 import festivalmanager.staff.Person;
 
+/**
+ * class of {@link Festival}
+ *
+ * @author Adrian Scholze
+ */
 @Entity
 public class Festival {
 	
-	public static enum FestivalState {
-		LAUNCHABLE, UNLAUNCHABLE, LAUNCHED 
-	}
-	
+
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
@@ -46,6 +54,9 @@ public class Festival {
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Schedule> schedules = new HashSet<>();
 	
+	/**
+	 * represents the non-{@link Stage} {@link Equipment}s with their currently rented amount
+	 */
 	@ElementCollection
 	private Map<SalespointIdentifier, Long> rentedEquipments = new HashMap<>();
 	
@@ -53,7 +64,6 @@ public class Festival {
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Stage> stages = new ArrayList<>();
 	
-	private FestivalState state = FestivalState.UNLAUNCHABLE;
 
 	public Festival(String name, LocalDate startDate, LocalDate endDate) {
 		this.name = name;
@@ -65,28 +75,23 @@ public class Festival {
 	
 	public Festival() {}
 	
-	public void setState(FestivalState state) {
-		this.state = state;
-	}
-	
-	public FestivalState getState() {
-		if(location.getStageCapacity() < stages.size()) {
-			state = FestivalState.UNLAUNCHABLE;
-		} else {
-			state = FestivalState.LAUNCHABLE;
-		}
-		return state;
-	}
-	
-	
 	public long getId() {
 		return id;
 	}
 	
+	/**
+	 * changes the festival name
+	 *
+	 * @param name must not be {@literal null}
+	 */
 	public void setName(String name) {
+		Assert.notNull(name, "Artist must not be null!");
 		this.name = name;
 	}
-
+	
+	public String getName() {
+		return name;
+	}
 
 	public LocalDate getStartDate() {
 		return startDate;
@@ -95,9 +100,14 @@ public class Festival {
 	public LocalDate getEndDate() {
 		return endDate;
 	}
-
-	public String getName() {
-		return name;
+	
+	/**
+	 * sets a {@link Location} for this festival
+	 *
+	 * @param location (could be {@literal null} if no location is 
+	 */
+	public void setLocation(Location location) {
+		this.location=location;
 	}
 	
 	public Location getLocation() {
@@ -108,19 +118,35 @@ public class Festival {
 		return this.artists;
 	}
 	
-	public void setLocation(Location location) {
-		this.location=location;
-	}
-	
+	/**
+	 * inserts a new {@link Artist} 
+	 * in the list of artists currently booked for this festival
+	 *
+	 * @param artist must not be {@literal null}
+	 */
 	public void addArtist(Artist artist){
+		Assert.notNull(artist, "Artist must not be null!");
 		artists.add(artist);
 	}
-	// not really required
+
+
+	/**
+	 * returns true if no artist are booked for the festival
+	 *
+	 * @erturn true if artists is empty
+	 */
 	public boolean artistsIsEmpty(){
 		return this.artists.isEmpty();
 	}
-	
+
+	/**
+	 * returns true, if the given {@link Artist} is booked for this festival
+	 *
+	 * @param artist must not be {@literal null}
+	 * @erturn true if artists contains given artist
+	 */
 	public boolean getArtistBookedState(Artist artist) {
+		Assert.notNull(artist, "Artist must not be null!");
 		for(Artist anArtist : artists) {
 			if(anArtist.getId() == artist.getId()) {
 				return true;
@@ -129,6 +155,11 @@ public class Festival {
 		return false;
 	}
 	
+	/**
+	 * returns all {@link Show}s from all currently booked {@link Artist}s
+	 *
+	 * @return all {@link Show} entities
+	 */
 	public List<Show> getShows(){
 		List<Show> shows = new ArrayList<>();
 		for(Artist anArtist : artists) {
@@ -139,12 +170,11 @@ public class Festival {
 		return shows;
 	}
 	
+
 	public Show getShow(long showId){
 		for(Artist anArtist : artists) {
-			for(Show aShow : anArtist.getShows()) {
-				if(aShow.getId() == showId) {
-					return aShow;
-				}
+			if(anArtist.getShow(showId) != null) {
+				return anArtist.getShow(showId);
 			}
 		}
 		return null;
