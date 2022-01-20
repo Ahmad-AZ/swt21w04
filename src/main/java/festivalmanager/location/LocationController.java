@@ -2,8 +2,6 @@ package festivalmanager.location;
 
 import static org.salespointframework.core.Currencies.EURO;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 import javax.money.format.MonetaryParseException;
@@ -187,7 +185,7 @@ public class LocationController {
 		if(url.contains("/newLocation")) {
 		    return "redirect:/newLocation";
 		}
-		return "redirect:/locations";
+		return "redirect:/error";
 	}
 		
 	@GetMapping("locations/remove/{id}")

@@ -82,6 +82,11 @@ public class Festival {
 	
 	public Festival() {}
 	
+	/**
+	 * Returns festival id.
+	 * 
+	 * @return id
+	 */
 	public long getId() {
 		return id;
 	}
@@ -96,14 +101,29 @@ public class Festival {
 		this.name = name;
 	}
 	
+	/**
+	 * Returns festival name.
+	 * 
+	 * @return name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Returns festival start date.
+	 * 
+	 * @return startDate
+	 */
 	public LocalDate getStartDate() {
 		return startDate;
 	} 
 
+	/**
+	 * Returns festival end date.
+	 * 
+	 * @return endDate
+	 */
 	public LocalDate getEndDate() {
 		return endDate;
 	}
@@ -117,6 +137,11 @@ public class Festival {
 		this.location=location;
 	}
 	
+	/**
+	 * Returns festival location.
+	 * 
+	 * @return location or null
+	 */
 	public Location getLocation() {
 		return location; 
 	}

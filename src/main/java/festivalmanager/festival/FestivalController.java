@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import festivalmanager.finances.FinancesCompanyManagement;
-import festivalmanager.hiring.HiringManagement;
-import festivalmanager.location.LocationManagement;
 import festivalmanager.messaging.MessageManagement;
 import festivalmanager.utils.UtilsManagement;
 
@@ -92,7 +89,7 @@ public class FestivalController {
 	
 	
 	/**
-	 * Generates a page which shows tha map for the current {@link Festival}
+	 * Generates a page which shows the map for the current {@link Festival}
 	 * 
 	 * @param festivalId
 	 * @param model
@@ -147,16 +144,30 @@ public class FestivalController {
 		return "redirect:/festivalOverview";
 	}
 	
-	// gives NewFestivalForm to fill out
+	/**
+	 * Generates a page which has a {@link NewFestivalForm} to fill out.
+	 * Access only for admin, planner and manager.
+	 * 
+	 * @param model
+	 * @param form
+	 * @return the new festival page
+	 */
 	@GetMapping("/newFestival") 
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String newFestival(Model model, NewFestivalForm form) {
 		model.addAttribute("dateNow", LocalDate.now());
 		return "newFestival";
 	}
-	
-	
-	
+		
+	/**
+	 * Generates a page which shows basic informations for the current {@link Festival} 
+	 * and has an input dialog for the input of the new name
+	 * 
+	 * @param festivalId
+	 * @param model
+	 * @param stringInputForm 
+	 * @return the festival detail page for the festival belonging to festivalId, with dialog
+	 */
 	@GetMapping("/festivalOverview/{festivalId}/editName")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String getEditFestivalNameDialog(@PathVariable("festivalId") Long festivalId,
@@ -172,7 +183,6 @@ public class FestivalController {
 		}	
 		utilsManagement.prepareModel(model, festivalId);
 		return "festivalDetail";
-
 	}
 	
 	/**
@@ -211,7 +221,6 @@ public class FestivalController {
 
 			utilsManagement.prepareModel(model, festivalId);
 					
-			// not perfect
 			if (result.hasErrors()) {
 				model.addAttribute("dialog", "edit name");
 				return "festivalDetail";
@@ -224,7 +233,12 @@ public class FestivalController {
 	}
 	
 	
-	// shows Festival Overview
+	/**
+	 * Generates a page which shows an overview about all existing {@link Festival}s
+	 * 
+	 * @param model
+	 * @return the festival overview page
+	 */
 	@GetMapping("/festivalOverview")
 	public String festivals(Model model) {
 		model.addAttribute("festivalList", festivalManagement.findAll());
@@ -233,6 +247,14 @@ public class FestivalController {
 		return "festivalOverview"; 
 	}
 
+	/**
+	 * Generates a page which shows an overview about all existing {@link Festival}s
+	 * and has an dialog to confirm the deletion of the {@link Festival} instance.
+	 * 
+	 * @param festivalId
+	 * @param model
+	 * @return the festival overview page with the dialog
+	 */
 	@GetMapping("/festivalOverview/remove/{id}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('MANAGER')")
 	public String getRemoveFestivalDialog(@PathVariable("id") long id, Model model) {
@@ -252,6 +274,13 @@ public class FestivalController {
 		return "festivalOverview";
 	}
 	
+	/**
+	 * Call methods to delete {@link Festival} instance with the given id, 
+	 * and returns the festival overview page
+	 * 
+	 * @param festivalId
+	 * @return festival overview page
+	 */
 	@PostMapping("/festival/remove")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('MANAGER')")
 	public String removeFestival(@Valid @RequestParam("id") @NotEmpty Long festivalId) {
