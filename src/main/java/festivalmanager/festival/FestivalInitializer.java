@@ -9,6 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import festivalmanager.Equipment.Equipment;
+import festivalmanager.Equipment.EquipmentDataInitializer;
+
 /**
  * Initializes default festivals
  *
@@ -22,10 +25,18 @@ public class FestivalInitializer implements DataInitializer {
 	
 	private FestivalRepository festivals;
 	
+	/**
+	 * Create a new {@link FestivalInitializers}
+	 * @param festivalRepository
+	 */
 	public FestivalInitializer(FestivalRepository festivals) {
 		this.festivals = festivals;
 	}
-	  
+	
+	/**
+	 * Initialize Example {@link Festival}s 
+	 * 
+	 */  
 	@Override
 	public void initialize() {  
 		if(festivals.findAll().iterator().hasNext()) {

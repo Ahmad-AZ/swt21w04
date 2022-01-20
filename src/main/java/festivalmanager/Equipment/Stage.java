@@ -10,6 +10,7 @@ import javax.persistence.Lob;
 import org.javamoney.moneta.Money;
 import org.salespointframework.core.AbstractEntity;
 import org.salespointframework.core.SalespointIdentifier;
+import org.springframework.util.Assert;
 
 /**
  * class of stage
@@ -31,10 +32,17 @@ public class Stage extends AbstractEntity<SalespointIdentifier> implements Seria
 	@Lob
 	private Money rentalPerDay;
 	
-
 	public Stage() {}
 	
+	/**
+	 * Creates a new {@link Stage} with the given name and rental per day.
+	 *
+	 * @param name must not be {@literal null}.
+	 * @param rentalPerDay must not be {@literal null}.
+	 */
 	public Stage(String name, Money rentalPerDay) {
+		Assert.notNull(rentalPerDay, "Rental per day must not be null!");
+		Assert.notNull(name, "Name must not be null!");
 		this.name=name;
 		this.rentalPerDay = rentalPerDay;
 	}

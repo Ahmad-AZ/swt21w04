@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import festivalmanager.finances.FinancesCompanyManagement;
+import festivalmanager.hiring.HiringManagement;
+import festivalmanager.location.LocationManagement;
 import festivalmanager.messaging.MessageManagement;
 import festivalmanager.utils.UtilsManagement;
 
@@ -32,7 +35,14 @@ public class FestivalController {
 	private UtilsManagement utilsManagement;
 	private final MessageManagement messageManagement;
 
-	
+	/**
+	 * Creates a new {@link FestivalController} with the given {@link FestivalManagement}, {@link UtilsManagement} and
+	 * {@link MessageManagement}.
+	 *
+	 * @param festivalManagement must not be {@literal null}.
+	 * @param utilsManagement must not be {@literal null}.
+	 * @param messageManagement must not be {@literal null}.
+	 */
 	public FestivalController(FestivalManagement festivalManagement,
 							  UtilsManagement utilsManagement,
 							  MessageManagement messageManagement) {
@@ -41,11 +51,24 @@ public class FestivalController {
 		this.messageManagement = messageManagement;
 	}
 
+	/**
+	 * Used to pass on the title of the festival overview page to the page header
+	 * 
+	 * @return title attribute for the festival overview tab
+	 */
 	@ModelAttribute("title")
 	public String getTitle() {
 		return "Festivalübersicht";
 	}
 	
+	/**
+	 * Generates a page which shows basic informations for the current {@link Festival}
+	 * 
+	 * @param festivalId
+	 * @param model
+	 * @param stringInputForm 
+	 * @return the festival detail page for the festival belonging to festivalId
+	 */
 	@GetMapping("/festivalOverview/{festivalId}")
 	public String festivalDetail(@PathVariable Long festivalId, Model model, StringInputForm stringInputForm) {
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
@@ -68,7 +91,13 @@ public class FestivalController {
 	}
 	
 	
-	// Map View for Visitors
+	/**
+	 * Generates a page which shows tha map for the current {@link Festival}
+	 * 
+	 * @param festivalId
+	 * @param model
+	 * @return the map visitor view page for the festival belonging to festivalId
+	 */
 	@GetMapping("/mapVisitorView/{festivalId}")
 	public String getMapVisitorView(@PathVariable("festivalId") long festivalId, Model model) {
 
@@ -84,7 +113,15 @@ public class FestivalController {
 		return "/mapVisitorView";
 	}
 	
-	
+	/**
+	 * Takes given {@link NewFestivalForm} and call methods to create a new {@link Festival} instance.
+	 * Rejects errors if {@link Errors} occur.
+	 * 
+	 * @param form
+	 * @param result
+	 * @param model 
+	 * @return if no error occur the festival overview page, else the new festival page
+	 */
 	@PostMapping("/newFestival")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String createNewFestival(@Validated NewFestivalForm form, Errors result, Model model) {
@@ -138,7 +175,16 @@ public class FestivalController {
 
 	}
 	
-	
+	/**
+	 * Takes given {@link StringInputForm} and call method to edit {@link Festival}s name.
+	 * Rejects errors if {@link Errors} occur.
+	 * 
+	 * @param festivalId
+	 * @param stringInputForm
+	 * @param result
+	 * @param model 
+	 * @return the festival detail page for the {@link Festival} belonging to festivalId.
+	 */
 	@PostMapping("/editFestivalName/{festivalId}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String editFestivalName(@PathVariable("festivalId") Long festivalId,
@@ -211,12 +257,7 @@ public class FestivalController {
 	public String removeFestival(@Valid @RequestParam("id") @NotEmpty Long festivalId) {
 		Optional<Festival> current = festivalManagement.findById(festivalId);
 		if (current.isPresent()) {
-//			if(current.running()) {
-//				return "/festivalOverview";
-//			} else {
 			festivalManagement.deleteFestival(current.get());
-
-//			}
 		} 
 		return "redirect:/festivalOverview";
 	}

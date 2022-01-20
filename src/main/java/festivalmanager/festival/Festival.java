@@ -64,8 +64,15 @@ public class Festival {
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Stage> stages = new ArrayList<>();
 	
-
+	/**
+	 * Creates a new {@link Festival} with the given name, start and end date.
+	 *
+	 * @param name must not be {@literal null}.
+	 * @param startDate
+	 * @param endDate
+	 */
 	public Festival(String name, LocalDate startDate, LocalDate endDate) {
+		Assert.notNull(name, "Name must not be null!");
 		this.name = name;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -85,7 +92,7 @@ public class Festival {
 	 * @param name must not be {@literal null}
 	 */
 	public void setName(String name) {
-		Assert.notNull(name, "Artist must not be null!");
+		Assert.notNull(name, "Name must not be null!");
 		this.name = name;
 	}
 	
@@ -102,7 +109,7 @@ public class Festival {
 	}
 	
 	/**
-	 * sets a {@link Location} for this festival
+	 * Sets a {@link Location} for this festival
 	 *
 	 * @param location (could be {@literal null} if no location is 
 	 */
@@ -114,13 +121,18 @@ public class Festival {
 		return location; 
 	}
 	
+	/**
+	 * Returns all {@link Artist}s currently booked for the festival.
+	 *
+	 * @return all {@link Artist} entities.
+	 */
 	public Iterable<Artist> getArtist(){
 		return this.artists;
 	}
 	
 	/**
 	 * inserts a new {@link Artist} 
-	 * in the list of artists currently booked for this festival
+	 * in the list of artists currently booked for the festival
 	 *
 	 * @param artist must not be {@literal null}
 	 */
@@ -140,7 +152,7 @@ public class Festival {
 	}
 
 	/**
-	 * returns true, if the given {@link Artist} is booked for this festival
+	 * returns true, if the given {@link Artist} is booked for this festival.
 	 *
 	 * @param artist must not be {@literal null}
 	 * @erturn true if artists contains given artist
@@ -156,7 +168,18 @@ public class Festival {
 	}
 	
 	/**
-	 * returns all {@link Show}s from all currently booked {@link Artist}s
+	 * Unbook all {@link Artist}s from the festival.
+	 * 
+	 */
+	public void deleteAllArtists() {
+		for(Schedule aSchedule : schedules) {
+			aSchedule.setShow(null);
+		}
+		this.artists = new HashSet<>();
+	}
+	
+	/**
+	 * returns all {@link Show}s from all currently booked {@link Artist}s.
 	 *
 	 * @return all {@link Show} entities
 	 */
@@ -170,7 +193,12 @@ public class Festival {
 		return shows;
 	}
 	
-
+	/**
+	 * returns {@link Show} with the given id.
+	 *
+	 * @param showId
+	 * @return {@link Show} with given id
+	 */
 	public Show getShow(long showId){
 		for(Artist anArtist : artists) {
 			if(anArtist.getShow(showId) != null) {
@@ -180,23 +208,35 @@ public class Festival {
 		return null;
 	}
 	
-	
+	/**
+	 * Sets an {@link Equipment} with amount, or only the amount if the 
+	 * Equipment already exists.
+	 *
+	 * @param id
+	 * @param amount
+	 */
 	public void setEquipments(SalespointIdentifier id, long amount) {
 		rentedEquipments.put(id, amount);
 	}
 	
+	/**
+	 * Returns map of {@link Equipment}-ids with their amounts.
+	 *
+	 * @return map with ids and amounts
+	 */
 	public Map<SalespointIdentifier, Long> getEquipments(){
 		return rentedEquipments;
 	}
 	
-
-	public void deleteAllArtists() {
-		for(Schedule aSchedule : schedules) {
-			aSchedule.setShow(null);
-		}
-		this.artists = new HashSet<>();
-	}
-		
+	/**
+	 * Returns list of {@link Person}s that are already setted for a stage
+	 * at the given date and time slot, except the stage with the given stage id.
+	 *
+	 * @param date
+	 * @param timeSlot
+	 * @param stageId
+	 * @return the list of available {@link Person}s
+	 */	
 	public List<Person> getUnavailableSecuritys(LocalDate date, TimeSlot timeSlot, SalespointIdentifier stageId){
 		List<Person> unavailableSecuritys = new ArrayList<>();
 		for(Schedule aSchedule : schedules) {
@@ -211,6 +251,12 @@ public class Festival {
 	/**
 	 * Creates a new {@link Schedule} if none exists at the given parameters
 	 *
+	 * @param timeSlot
+	 * @param show
+	 * @param stage
+	 * @param date
+	 * @param security
+	 * @return true if the add or override was successfull
 	 */
 	public boolean addSchedule(TimeSlot timeSlot, Show show, Stage stage, LocalDate date, Person security) {
 		// schedules contains schedule already
@@ -229,6 +275,15 @@ public class Festival {
 
 	}
 	
+	/**
+	 * Returns {@link Show} name from the Schedule with the given parameters.
+	 * If the Schedule does not exist or has no show returns "Keine"
+	 * 
+	 * @param timeSlot
+	 * @param stage
+	 * @param date
+	 * @return name of the {@link Show} or "Keine"
+	 */
 	public String getScheduleShowName(TimeSlot timeSlot, Stage stage, LocalDate date) {
 		for(Schedule aSchedule : schedules) {
 			if(aSchedule.getDate().equals(date)
@@ -243,6 +298,15 @@ public class Festival {
 		return "Keine";
 	}
 	
+	/**
+	 * Returns security {@link Person} name from the Schedule with the given parameters.
+	 * If the Schedule does not exist or has no security returns "Keine".
+	 * 
+	 * @param timeSlot
+	 * @param stage
+	 * @param date
+	 * @return name of the security {@link Person} or "Keine"
+	 */
 	public String getScheduleSecurityName(TimeSlot timeSlot, Stage stage, LocalDate date) {
 		for(Schedule aSchedule : schedules) {
 			if(aSchedule.getDate().equals(date) && aSchedule.getStage().equals(stage)
@@ -257,6 +321,14 @@ public class Festival {
 		return "Keine";
 	}
 	
+	/**
+	 * Removes {@link Scheudle} instance with given id from festival.
+	 * 
+	 * @param timeSlot
+	 * @param stage
+	 * @param date
+	 * @return true if the deletion was successfull
+	 */
 	public boolean removeSchedule(TimeSlot timeSlot, Stage stage, LocalDate date) {
 		for(Schedule aSchedule : schedules) {
 			if(aSchedule.getDate().equals(date)
@@ -268,6 +340,12 @@ public class Festival {
 		return false;
 	}
 	
+	/**
+	 * Removes all {@link Scheudle} instances that contains the
+	 * security {@link Person} with the given id
+	 * 
+	 * @param securityId
+	 */
 	public void removeSecurity(long securityId) {
 		for(Schedule aSchedule : schedules) {
 			if(aSchedule.getSecurity().getId() == securityId) {
@@ -276,15 +354,36 @@ public class Festival {
 		}
 	}
 	
+	/**
+	 * Returns all {@link Stage}s rented for the festival.
+	 *
+	 * @return all {@link Stage} entities in stages
+	 */
 	public List<Stage> getStages(){
 		return stages;
 	}
-		
+	
+	/**
+	 * Inserts a new {@link Stage} 
+	 * in the list of stages currently rented for the festival
+	 *
+	 * @param stage must not be {@literal null}
+	 * @return true if the adding was successfull
+	 */
 	public boolean addStage(Stage stage) {
+		Assert.notNull(stage, "Stage must not be null!");
 		return stages.add(stage);
 	}
 	
+	/**
+	 * Removes {@link Stage} instance from festival.
+	 * And removes all {@link Schedule}s at this {@link Stage}
+	 * 
+	 * @param stage must not be {@literal null}
+	 * @return true if the deletion was successfull
+	 */
 	public boolean removeStage(Stage stage) {
+		Assert.notNull(stage, "Stage must not be null!");
 		// get all Schedules to remove at this stage
 		List<Schedule> deleteList = new ArrayList<>();
 		for(Schedule aSchedule : schedules) {
@@ -296,6 +395,12 @@ public class Festival {
 		return stages.remove(stage);
 	}
 	
+	/**
+	 * Returns required number of security {@link Person}s for the 
+	 * current max. number of visitors allowed for the festivals {@link Location}.
+	 * 
+	 * @return number of required securitys
+	 */
 	public long getRequiredSecurityCount() {
 		if (location != null) {
 			long visitorCapacity = location.getVisitorCapacity();
@@ -303,19 +408,4 @@ public class Festival {
 		}
 		return 0;
 	}
-
-//	public void deleteArtist(Artist artist){
-//		Iterator <Artist> i = artists.iterator();
-//		while (i.hasNext()) { 
-//			if (i.next().getId() == artist.getId()){
-//				artists.remove(i);
-//			}
-//		}
-//		for (Artist artist1 : artists) {
-//			if (artist1.getId() == artist.getId()){
-//				artists.remove(artist1);
-//			}
-//		}
-//
-//	}
 }
