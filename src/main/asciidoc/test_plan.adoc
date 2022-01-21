@@ -17,9 +17,10 @@ Die Benutzer der Software zählen nicht zur Zielgruppe des Test-Plans.
 == Aufbau der Testbezeichner
 Wir verwenden das Schema "Testtyp - Anwendungsfall - Nummer"
 wobei Testtyp U für Unit-Tests und der Testtyp I für Integrationstests steht.
-Die Nummer wird seperat für Integrations- und Unit-Tests von 1 hochgezählt
+Die Nummer wird seperat für Integrations- und Unit-Tests von 1 hochgezählt.
+Falls ein Testfall keinem der Anwendungsfälle zugeordnet werden kann wird der Bezeichner "Testtyp - Packagename - Nummer" verwendet.
 
-Also zum Beispiel U-AF001-1
+Also zum Beispiel U-AF001-1 oder I-Utils-4.
 
 == Test Gegenstände
 
@@ -291,6 +292,7 @@ Die für die Tests notwendigen Daten werden in die Testklassen einprogrammiert.
 [options="headers"]
 |===
 |ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe |Verantwortlicher
+
 |U-AF012-1 |AF012 |
 Ein Festival dauert 4 Tage, die Location kostet täglich 500€, ein Künstler kostet täglich 500€ |
 Öffnen der Fianzübersicht |
@@ -360,4 +362,102 @@ Durchschnittlichergewinn: -1500€ |Jan
 Zwei unterschiedliche Festivals dauern 3 Tage und haben eine Location die jeweils 500€ pro Tag kostet |
 Öffnen der Fianzübersicht für den Manager |
 Gesamtgewinn: 1500€ |Jan
+
+|U-Utils-1 |- |
+Im Festivalmanager wird ein Festival mit dem Namen "Test Festival" und einer generierten ID erstellt |
+Öffnen der Festival Details Seite zu "Test Festival" |
+Im Model befindet sich ein Attribut festivalName mit Wert "Test Festival" |Jan
+
+|U-Utils-2 |- |
+Im Festivalmanager wird ein Festival mit dem Namen "Test Festival" und einer generierten ID erstellt |
+Öffnen der Festival Details Seite zu "Test Festival" |
+Im Model befindet sich ein Attribut festivalId, dessen Wert die generierte ID ist |Jan
+
+|U-Utils-3 |- |- |
+Einer HTTP-Request wir die Fehlermeldung "testMessage" übergeben |
+Die Error Seite zur HTTP-Request enthält die Fehlermeldung "testMessage" |Jan
+
+|U-Utils-4 |- |
+Die URI "/someUnknownPage" gehört zu keiner Seite des Festivalmanagers |
+Einer HTTP-Request auf die Seite "/someUnknownPage" wird durchgeführt  |
+Die Error Seite zur HTTP-Request enthält die stack trace "-" |Jan
+
+|U-Utils-5 |- |
+Die URI "/someUnknownPage" gehört zu keiner Seite des Festivalmanagers |
+Einer HTTP-Request auf die Seite "/someUnknownPage" wird durchgeführt  |
+Die Error Seite zur HTTP-Request enthält den Pfad "/someUnknownPage" |Jan
+
+|U-AF016-1 |AF016 |
+Es gibt noch kein Festival mit Name "name" |
+Ein neues Festival mit Name "name", Startdatum 24.12.2021 und Enddatum 30.12.2021 wird erstellt |
+Das Festival hat den Namen "name" |Adrian, Tuan
+
+|U-AF016-2 |AF016 |
+Es gibt noch kein Festival mit Name "name" |
+Ein neues Festival mit Name "name", Startdatum 24.12.2021 und Enddatum 30.12.2021 wird erstellt |
+Das Festival hat das Startdatum 24.12.2021 |Adrian, Tuan
+
+|U-AF016-3 |AF016 |
+Es gibt noch kein Festival mit Name "name" |
+Ein neues Festival mit Name "name", Startdatum 24.12.2021 und Enddatum 30.12.2021 wird erstellt |
+Das Festival hat das Enddatum 30.12.2021 |Adrian, Tuan
+
+|U-AF016-4 |AF016 |
+Es gibt noch kein Festival mit Name "Beispiel" oder "Beispiel 1" |
+Erstellen eines Festivals mit Name "Beispiel" und Ändern des Namens zu "Beispiel 1" |
+Das Festival hat den Namen "Beispiel 1" |Adrian, Tuan
+
+|U-AF016-5 |AF016 |
+Es gibt noch kein Festival mit Name "Beispiel" |
+Erstellen eines Festivals mit Name "Beispiel" und zwei Shows |
+Das Festival hat zwei Shows |Adrian, Tuan
+
+|U-AF016-6 |AF016 |
+Es wurde ein Festival mit Name "Beispiel" im Zeitraum vom 24.12.2021 bis zum 26.12.2021 erstellt |
+Hinzufügen einer Show am 26.12.2021 mit Name "BeispielShow" und Dauer 49 Minuten |
+Die Show kann hinzugefügt werden |Adrian, Tuan
+
+|U-AF016-7 |AF016 |
+Es wurde ein Festival mit Name "Beispiel" im Zeitraum vom 24.12.2021 bis zum 26.12.2021 erstellt |
+Hinzufügen einer Show am 26.12.2021 und Abfragen ob es für die Show Sicherheitskräfte gibt |
+Es gibt noch keine Sicherheitskräfte |Adrian, Tuan
+
+|U-AF016-8 |AF016 |
+Es wurde ein Festival mit Name "Beispiel" im Zeitraum vom 24.12.2021 bis zum 26.12.2021 erstellt |
+Hinzufügen einer Show am 26.12.2021 mit Namen "BeispielShow" auf Bühne "stage" im Zeitslot TS1 |
+In Zeitslot TS1 findet "BeispielShow" auf "stage" statt |Adrian, Tuan
+
+|U-AF016-9 |AF016 |
+Es wurde ein Festival mit Name "Beispiel" im Zeitraum vom 24.12.2021 bis zum 26.12.2021 erstellt |
+Hinzufügen einer Show am 26.12.2021 mit Name "testShow" und Dauer 49 Minuten |
+Die Show kann hinzugefügt werden |Adrian, Tuan
+
+|U-AF016-10 |AF016 |
+Es wurde ein Festival mit Name "Beispiel" im Zeitraum vom 24.12.2021 bis zum 26.12.2021 erstellt |
+Hinzufügen einer Show am 26.12.2021 und Abfragen ob es für die Show Sicherheitskräfte gibt |
+Es gibt noch keine Sicherheitskräfte |Adrian, Tuan
+
+|U-AF016-11 |AF016 |
+Es wurde ein Festival mit Name "Beispiel" im Zeitraum vom 24.12.2021 bis zum 26.12.2021 erstellt |
+Hinzufügen einer Show am 26.12.2021 mit Namen "testShow" auf Bühne "stage" im Zeitslot TS1 |
+In Zeitslot TS1 findet "testShow" auf "stage" statt |Adrian, Tuan
+
+|===
+
+
+*Integrationstests*
+[options="headers"]
+|===
+|ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe |Verantwortlicher
+
+|I-AF016-1 |AF016 |
+Ein Nutzer mit Rolle ADMIN ist eingeloggt |
+Erstellen eines neues Festivals |
+Das Festival kann erstellt werden |Adrian, Tuan
+
+|I-AF016-2 |AF016 |
+Es ist kein Benutzer eingeloggt |
+Aufrufen der "/newFestival" Seite |
+Das Festival kann nicht erstellt werden |Adrian, Tuan
+
 |===
