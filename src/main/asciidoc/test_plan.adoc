@@ -442,6 +442,81 @@ Es wurde ein Festival mit Name "Beispiel" im Zeitraum vom 24.12.2021 bis zum 26.
 Hinzufügen einer Show am 26.12.2021 mit Namen "testShow" auf Bühne "stage" im Zeitslot TS1 |
 In Zeitslot TS1 findet "testShow" auf "stage" statt |Adrian, Tuan
 
+|U-AF010-1 |AF010 |
+Es existiert noch keine Location mit Name "name" |
+Erstellen einer Location mit Name "name", Adresse "adress", Preis pro Tag 1500.90€, bis zu 1500 Besuchern und bis zu 6 Bühnen |
+Die Location hat den Name "name" |Adrian, Tuan
+
+|U-AF010-2 |AF010 |
+Es existiert noch keine Location mit Name "name" |
+Erstellen einer Location mit Name "name", Adresse "adress", Preis pro Tag 1500.90€, bis zu 1500 Besuchern und bis zu 6 Bühnen |
+Die Location hat die Adresse "adress" |Adrian, Tuan
+
+|U-AF010-3 |AF010 |
+Es existiert noch keine Location mit Name "name" |
+Erstellen einer Location mit Name "name", Adresse "adress", Preis pro Tag 1500.90€, bis zu 1500 Besuchern und bis zu 6 Bühnen |
+Die Location kostet 1500.90€ pro Tag |Adrian, Tuan
+
+|U-AF010-4 |AF010 |
+Es existiert noch keine Location mit Name "name" |
+Erstellen einer Location mit Name "name", Adresse "adress", Preis pro Tag 1500.90€, bis zu 1500 Besuchern und bis zu 6 Bühnen |
+Die Location kann bis zu 1500 Besucher haben |Adrian, Tuan
+
+|U-AF010-5 |AF010 |
+Es existiert noch keine Location mit Name "name" |
+Erstellen einer Location mit Name "name", Adresse "adress", Preis pro Tag 1500.90€, bis zu 1500 Besuchern und bis zu 6 Bühnen |
+Die Location kann bis zu 6 Bühnne haben |Adrian, Tuan
+
+|U-AF010-6 |AF010 |
+Es existiert noch keine Location mit Name "name" |
+Erstellen einer Location mit Name "name", Adresse "adress", Preis pro Tag 1500.90€, bis zu 1500 Besuchern und bis zu 6 Bühnen |
+Die Location hat noch kein Location Bild |Adrian, Tuan
+
+|U-AF010-7 |AF010 |
+Es existiert noch keine Location mit Name "name" |
+Erstellen einer Location mit Name "name", Adresse "adress", Preis pro Tag 1500.90€, bis zu 1500 Besuchern und bis zu 6 Bühnen |
+Die Location hat noch kein Bild für den Grundriss |Adrian, Tuan
+
+|U-AF010-8 |AF010 |
+Die Location "location" ist von heute an für die Nächsten 12 Tage gebucht |
+Entfernen der Buchung für die gesamten kommenden 12 Tage |
+Die Buchung kann entfernt werden |Adrian, Tuan
+
+|U-AF010-9 |AF010 |
+Die Location "location" ist von heute an für die Nächsten 12 Tage gebucht |
+Entfernen der Buchung ab morgen bis in 12 Tagen |
+Die Buchung kann nicht entfernt werden |Adrian, Tuan
+
+|U-AF010-10 |AF010 |
+Die Location "location" hat noch keine Buchungen |
+Buchen von "location" im Zeitraum vom 24.12.2021 bis zum 30.12.2021 |
+Die Location kann gebucht werden |Adrian, Tuan
+
+|U-AF010-11 |AF010 |
+Die Location "location" ist im Zeitraum vom 24.12.2021 bis zum 30.12.2021 schon gebucht |
+Buchen von "location" im Zeitraum vom 21.12.2021 bis zum 24.12.2021 |
+Die Location kann nicht gebucht werden |Adrian, Tuan
+
+|U-AF010-12 |AF010 |
+Die Location "location" ist im Zeitraum vom 24.12.2021 bis zum 30.12.2021 schon gebucht |
+Buchen von "location" im Zeitraum vom 24.12.2021 bis zum 30.12.2021 |
+Die Location kann nicht gebucht werden |Adrian, Tuan
+
+|U-AF010-13 |AF010 |
+Die Location "location" ist im Zeitraum vom 24.12.2021 bis zum 30.12.2021 schon gebucht |
+Buchen von "location" im Zeitraum vom 30.12.2021 bis zum 31.01.2022 |
+Die Location kann nicht gebucht werden |Adrian, Tuan
+
+|U-AF010-14 |AF010 |
+Die Location "location" ist im Zeitraum vom 24.12.2021 bis zum 30.12.2021 schon gebucht |
+Buchen von "location" im Zeitraum vom 26.12.2021 bis zum 28.12.2021 |
+Die Location kann nicht gebucht werden |Adrian, Tuan
+
+|U-AF010-15 |AF010 |
+Die Location "location" ist im Zeitraum vom 24.12.2021 bis zum 30.12.2021 schon gebucht |
+Buchen von "location" im Zeitraum vom 21.12.2021 bis zum 31.01.2022 |
+Die Location kann nicht gebucht werden |Adrian, Tuan
+
 |===
 
 
