@@ -92,191 +92,272 @@ Die für die Tests notwendigen Daten werden in die Testklassen einprogrammiert.
 == Testfälle und Verantwortlichkeit
 // See http://asciidoctor.org/docs/user-manual/#tables
 
+
+// Kommentiert sind Testfälle, die währen der Analysephase geplant waren
+// aber nicht implementiert wurden
+
+// *Unit-Tests*
+// [options="headers"]
+// |===
+// |ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe |Verantwortlicher
+// |U-AF011-1  |AF011              |
+// Das aktuell ausgewählte Festival kann 3000 Besucher haben              |
+// Anzahl Sicherheitskräfte: 10       |
+// Fehlermeldung wegen zu wenigen Sicherheitskräften   |Adrian, Tuan
+
+// |U-AF011-2  |AF011              |
+// Das aktuell ausgewählte Festival kann 3000 Besucher haben              |
+// Anzahl Sicherheitskräfte: 30       |
+// Anzahl Sicherheitskräfte wird auf 30 gesezt   |Adrian, Tuan
+
+// |U-AF012-1  |AF012              |
+// Das aktuell ausgewählte Festival kann 3000 Besucher haben              |
+// Vorraussichtlich verkaufte Tagestickets: 4000       |
+// Fehlermeldung wegen zu wenig verfügbaren Tickets   |Jan
+
+// |U-AF012-3  |AF012              a|
+// - Es wurde für das ausgewählte Festival noch kein Equipment gebucht
+// und kein Personal angestellt
+// - Camping-Tickets sollen 200€ kosten, Tagestickets 50€ a|
+// - Erwartete Verkäufe Camping-Tickets: 1000
+// - Erwartete Verkäufe Tagestickets: 1000 |
+// Umsatz: 2050000,00€ |Jan
+
+// |U-AF012-4  |AF012              |
+// Für das ausgewählte Festival werden ein Umsatz von 2 * 10^6€ und Kosten von
+// 7 * 10^5€ erwartet |
+// Öffnen der Fianzübersicht |
+// Gewinn: 1300000,00€ |Jan
+
+// |U-AF013-1  |AF013              a|
+// - Es ist aktuell kein Benutzer eingeloggt
+// - Die Accountdaten (Testplaner, Testpasswort) gehören zu einem Account mit Rolle "Planer" |
+// Login: (Planer1, Testpasswort) |
+// Es können alle Funktionen für Planer verwendet werden,
+// und keine Funktionene für andere Rollen | Georg
+
+// |U-AF013-2  |AF013              a|
+// - Es ist aktuell kein Benutzer eingeloggt
+// - Die Accountdaten (Testplaner, Testkeinpasswort) gehören zu keinem Account |
+// Login: (Planer1, Testkeinpasswort) |
+// Die Software kann nur als Besucherterminal genutzt werden | Georg
+
+// |U-AF006-1  |AF006              |
+// Im Getränkelager ist 200 mal Cola und 1500 mal Wasser vorhanden |
+// Nachbestellen: 700 mal Cola |
+// 900 mal Cola auf Lager | Robert
+
+// |U-AF016-1  |AF016              |
+// Die Location "Festivalwiese 1" ist im Zeitraum 01.03.22-04.03.22 belegt |
+// Location für neues Festival im Zeitraum 01.03.22-04.03.22: "Festivalwiese 1" |
+// Warnung das Doppelbuchung nicht möglich ist | Adrian, Tuan
+
+// |U-AF016-2  |AF016              | |
+// Datum für neues Festival: 04.06.12-08.06.12 |
+// Warnung das dieses Datum schon vergangen ist | Adrian, Tuan
+
+// |U-AF003-1  |AF003              |
+// Die Ticketnummer 1111-1111 ist eine valide Ticketnummer für eine Camping-Ticket |
+// Einlasspersonal prüft Ticketnummer 1111-1111 |
+// Bestätitgung der Ticketnummer | Ahmad
+
+// |U-AF017-1  |AF017              |
+// Es existiert noch kein Account mit Namen "Planer1" |
+// Managerterminal Account anlegen: (Planer1, Testpasswort) |
+// Account erfolgreich angelegt | Georg
+
+// |U-AF017-2 |AF017              |
+// Es existiert schon ein Account mit Namen "Planer1" |
+// Managerterminal Account anlegen: (Planer1, Testpasswort) |
+// Es existiert schon ein Account mit Namen "Planer1" | Georg
+
+// |U-AF010-1 |AF010              |
+// Es wurde noch keine Location für das gewählte Festival ausgesucht |
+// Öffnen des "Location anpassen" Tabs |
+// Fehlermeldung weil noch keine Location ausgewählt wurde | Adrian, Tuan
+
+// |U-AF010-2 |AF010              |
+// Es wurde schon eine Location für das gewählte Festival ausgesucht |
+// Öffnen des "Location anpassen" Tabs |
+// Warnung das bei Auswahl einer neuen Location der Lageplan zurückgesetzt wird | Adrian, Tuan
+
+// |U-AF010-3 |AF010              |
+// Es wurde die Location "Festivalwiese 1" für das gewählte Festival ausgesucht |
+// Auswählen einer Fläche für "Bühne 1" im "Location Anpassen" Tab |
+// "Bühne 1" erfolgreich gebucht | Adrian, Tuan
+
+// |U-AF005-1 |AF005              |
+// Es sind keine Colas mehr auf Lager |
+// Catering-Verkauf: 1 mal Cola |
+// Fehlermeldung weil Cola nicht mehr auf Lager ist | Robert
+
+// |U-AF005-2 |AF005              |
+// Es sind noch 200 Colas auf Lager |
+// Catering-Verkauf: 1 mal Cola |
+// 1 mal Cola verkauft | Robert
+
+// |U-AF014-1 |AF014              | |
+// Preis für Camping-Tickets: 100,123€ |
+// Fehlermeldung weil eingegebene Wert nur zwei Nachkommastellen haben darf | Jan
+
+// |U-AF002-1 |AF002              |
+// Es sind noch 2 Tickets an der Abendkasse verfügbar |
+// Ticketkauf: 5 mal Abendkasse |
+// Fehlermeldung weil nur noch 2 Tickets verfügbar sind | Ahmad
+
+// |U-AF002-2 |AF002              |
+// Es sind noch 2 Tickets an der Abendkasse verfügbar |
+// Ticketkauf: 2 mal Abendkasse |
+// 2 mal Abendkasse Tickets verkauft | Ahmad
+
+// |U-AF004-1 |AF004              | |
+// Nachricht senden: "" |
+// Nachricht darf nicht leer sein | Georg (?)
+
+// |U-AF004-2 |AF004              | |
+// Nachricht senden: "Testnachricht" |
+// Nachricht gesendet | Georg (?)
+
+// |U-AF015-1 |AF015              |
+// Das aktuell ausgewählte Festival findet im Zeitraum 30.07.22-02.08.22 statt |
+// Ticket ausdrucken |
+// Auf dem ausgedruckten Ticket steht der Text
+// "Datum: 30.07.22-02.08.22" | Ahmad
+
+// |U-AF009-1 |AF009              |
+// Auf "Bühne 1" spielt am 30.07.22 "Künstler 1" |
+// "Künstler 2" als Künstler der am 30.07.22 auf "Bühne 1" auftritt |
+// Fehlermeldung weil "Bühne 1" in diesem Zeitslot schon belegt ist | Adrian, Tuan
+// |===
+
+
+// *Integrationstests*
+// [options="headers"]
+// |===
+// |ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe |Verantwortlicher
+
+// |I-AF012-1  |AF012, AF010              |
+// Es wurden zwei Bühnen für 10000€ gebucht, ansonsten wurde kein Equipment gebucht             |
+// Öffnen der Finanzübersicht       |
+// Als Kosten für Equipment werden 20000€ angezeigt   |Jan, Adrian, Tuan
+
+// |I-AF014-1  |AF014, AF001              ||
+// Der Preis für Camping-Tickets wird auf 200€ gesetzt       |
+// Ein ausgedruckte Camping-Ticket hat den Preis 200€ aufgedruckt   |Ahmad, Jan
+
+// |I-AF014-2  |AF012, AF011              |
+// Es wurden Sicherheitskräfte gebucht die insgesamt Lohnkosten von 10000€ verursachen gebucht und sonst kein Personal gebucht             |
+// Öffnen der Finanzübersicht       |
+// Als Kosten für Personal werden 10000€ angezeigt   |Jan, Adrian, Tuan
+
+// |I-AF005-1  |AF014, AF005              |
+// Es ist Bockwurst auf Lager |
+// Verkauf einer Bockwurst für 3,50€ |
+// Umsatz in der Finanzübersicht erhöht sich um 3,50€ |Robert, Jan
+
+// |I-AF009-1  |AF008, AF009              |
+// Für "Bühne 1" eines Festivals wurde "Künstler 1" gebucht  |
+// Öffnen des Spielplans an einem Besucherterminal |
+// Für "Bühne 1" wird "Künstler 1" angezeigt |Adrian, Tuan, Georg
+
+// |I-AF008-2  |AF008, AF010              |
+// Für Ein Festival wurde die Location "Festivalwiese 1" gebucht |
+// Öffnen des Lageplans an einem Besucherterminal |
+// Es wird der Lageplan zu "Festivalwiese 1" angezeigt |Adrian, Tuan, Georg
+
+// |I-AF017-1  |AF017, AF013              |
+// Der Mitarbeiter "Planer 1" ist eingeloggt |
+// Öffnen der Überischt eingeloggter Mitarbeiter |
+// "Planer 1" wird als eingeloggter Mitarbeiter angezeigt |Georg
+
+// |I-AF001-1  |AF001, AF016              |
+// Ein Festival findet auf "Festivalwiese 1" statt |
+// Camping-Ticket ausdrucken für Festival auf "Festivalwiese 1" |
+// Auf dem ausgedruckten Ticket wird die Location "Festivalwiese 1" angezeigt |Ahmad
+
+// |I-AF007-1  |AF007, AF001              |
+// Es wurden 200 Camping-Tickets und 100 Tagestickets verkauft |
+// Öffnen eines Terminals für Festivalleiter |
+// Verkaufte Camping-Tickets: 200, verkaufte Tagestickets: 100 |Ahmad
+
+// |I-AF007-1  |AF007, AF010              |
+// Für "Bühne 1" eines Festivals wurde "Künstler 1" gebucht |
+// Öffnen eines Terminals für Festivalleiter |
+// Bühnenbelegung für "Bühne 1": "Künstler 1" |Adrian, Tuan
+// |===
+
+
 *Unit-Tests*
 [options="headers"]
 |===
 |ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe |Verantwortlicher
-|U-AF011-1  |AF011              |
-Das aktuell ausgewählte Festival kann 3000 Besucher haben              |
-Anzahl Sicherheitskräfte: 10       |
-Fehlermeldung wegen zu wenigen Sicherheitskräften   |Adrian, Tuan
-
-|U-AF011-2  |AF011              |
-Das aktuell ausgewählte Festival kann 3000 Besucher haben              |
-Anzahl Sicherheitskräfte: 30       |
-Anzahl Sicherheitskräfte wird auf 30 gesezt   |Adrian, Tuan
-
-|U-AF012-1  |AF012              |
-Das aktuell ausgewählte Festival kann 3000 Besucher haben              |
-Vorraussichtlich verkaufte Tagestickets: 4000       |
-Fehlermeldung wegen zu wenig verfügbaren Tickets   |Jan
-
-|U-AF012-3  |AF012              a|
-- Es wurde für das ausgewählte Festival noch kein Equipment gebucht
-und kein Personal angestellt
-- Camping-Tickets sollen 200€ kosten, Tagestickets 50€ a|
-- Erwartete Verkäufe Camping-Tickets: 1000
-- Erwartete Verkäufe Tagestickets: 1000 |
-Umsatz: 2050000,00€ |Jan
-
-|U-AF012-4  |AF012              |
-Für das ausgewählte Festival werden ein Umsatz von 2 * 10^6€ und Kosten von
-7 * 10^5€ erwartet |
+|U-AF012-1 |AF012 |
+Ein Festival dauert 4 Tage, die Location kostet täglich 500€, ein Künstler kostet täglich 500€ |
 Öffnen der Fianzübersicht |
-Gewinn: 1300000,00€ |Jan
+Kosten für Künstler: 2000€ |Jan
 
-|U-AF013-1  |AF013              a|
-- Es ist aktuell kein Benutzer eingeloggt
-- Die Accountdaten (Testplaner, Testpasswort) gehören zu einem Account mit Rolle "Planer" |
-Login: (Planer1, Testpasswort) |
-Es können alle Funktionen für Planer verwendet werden,
-und keine Funktionene für andere Rollen | Georg
+|U-AF012-2 |AF012 |
+Ein Festival dauert 4 Tage, die Location kostet täglich 500€, ein Künstler kostet täglich 500€ |
+Öffnen der Fianzübersicht |
+Kosten für Location: 2000€ |Jan
 
-|U-AF013-2  |AF013              a|
-- Es ist aktuell kein Benutzer eingeloggt
-- Die Accountdaten (Testplaner, Testkeinpasswort) gehören zu keinem Account |
-Login: (Planer1, Testkeinpasswort) |
-Die Software kann nur als Besucherterminal genutzt werden | Georg
+|U-AF012-3 |AF012 |
+Ein Festival dauert 4 Tage, die Location kostet täglich 500€, ein Künstler kostet täglich 500€ |
+Öffnen der Fianzübersicht |
+Kosten für Personal: 0€ |Jan
 
-|U-AF006-1  |AF006              |
-Im Getränkelager ist 200 mal Cola und 1500 mal Wasser vorhanden |
-Nachbestellen: 700 mal Cola |
-900 mal Cola auf Lager | Robert
+|U-AF012-4 |AF012 |
+Ein Festival dauert 4 Tage, die Location kostet täglich 500€, ein Künstler kostet täglich 500€ |
+Öffnen der Fianzübersicht |
+Kosten für Equipment: 0€ |Jan
 
-|U-AF016-1  |AF016              |
-Die Location "Festivalwiese 1" ist im Zeitraum 01.03.22-04.03.22 belegt |
-Location für neues Festival im Zeitraum 01.03.22-04.03.22: "Festivalwiese 1" |
-Warnung das Doppelbuchung nicht möglich ist | Adrian, Tuan
+|U-AF012-5 |AF012 |
+Ein Festival dauert 4 Tage, die Location kostet täglich 500€, ein Künstler kostet täglich 500€ |
+Öffnen der Fianzübersicht |
+Gesamtkosten: 4000€ |Jan
 
-|U-AF016-2  |AF016              | |
-Datum für neues Festival: 04.06.12-08.06.12 |
-Warnung das dieses Datum schon vergangen ist | Adrian, Tuan
+|U-AF012-6 |AF012 |
+Ein Festival dauert 4 Tage, die Location kostet täglich 500€, ein Künstler kostet täglich 500€ |
+Öffnen der Fianzübersicht |
+Gesamtumsatz: 0€ |Jan
 
-|U-AF003-1  |AF003              |
-Die Ticketnummer 1111-1111 ist eine valide Ticketnummer für eine Camping-Ticket |
-Einlasspersonal prüft Ticketnummer 1111-1111 |
-Bestätitgung der Ticketnummer | Ahmad
+|U-AF012-7 |AF012 |
+Ein Festival dauert 4 Tage, die Location kostet täglich 500€, ein Künstler kostet täglich 500€ |
+Öffnen der Fianzübersicht |
+Gewinn: -4000€ |Jan
 
-|U-AF017-1  |AF017              |
-Es existiert noch kein Account mit Namen "Planer1" |
-Managerterminal Account anlegen: (Planer1, Testpasswort) |
-Account erfolgreich angelegt | Georg
+|U-AF012-8 |AF012 |
+Zwei unterschiedliche Festivals dauern 3 Tage und haben eine Location die jeweils 500€ pro Tag kostet |
+Öffnen der Fianzübersicht für den Manager |
+Anzahl Festivals: 2 |Jan
 
-|U-AF017-2 |AF017              |
-Es existiert schon ein Account mit Namen "Planer1" |
-Managerterminal Account anlegen: (Planer1, Testpasswort) |
-Es existiert schon ein Account mit Namen "Planer1" | Georg
+|U-AF012-9 |AF012 |
+Zwei unterschiedliche Festivals dauern 3 Tage und haben eine Location die jeweils 500€ pro Tag kostet |
+Öffnen der Fianzübersicht für den Manager |
+Durchschnittliche Kosten: 1500€ |Jan
 
-|U-AF010-1 |AF010              |
-Es wurde noch keine Location für das gewählte Festival ausgesucht |
-Öffnen des "Location anpassen" Tabs |
-Fehlermeldung weil noch keine Location ausgewählt wurde | Adrian, Tuan
+|U-AF012-10 |AF012 |
+Zwei unterschiedliche Festivals dauern 3 Tage und haben eine Location die jeweils 500€ pro Tag kostet |
+Öffnen der Fianzübersicht für den Manager |
+Gesamtkosten: 3000€ |Jan
 
-|U-AF010-2 |AF010              |
-Es wurde schon eine Location für das gewählte Festival ausgesucht |
-Öffnen des "Location anpassen" Tabs |
-Warnung das bei Auswahl einer neuen Location der Lageplan zurückgesetzt wird | Adrian, Tuan
+|U-AF012-11 |AF012 |
+Zwei unterschiedliche Festivals dauern 3 Tage und haben eine Location die jeweils 500€ pro Tag kostet |
+Öffnen der Fianzübersicht für den Manager |
+Durchschnittlicher Umsatz: 0€ |Jan
 
-|U-AF010-3 |AF010              |
-Es wurde die Location "Festivalwiese 1" für das gewählte Festival ausgesucht |
-Auswählen einer Fläche für "Bühne 1" im "Location Anpassen" Tab |
-"Bühne 1" erfolgreich gebucht | Adrian, Tuan
+|U-AF012-12 |AF012 |
+Zwei unterschiedliche Festivals dauern 3 Tage und haben eine Location die jeweils 500€ pro Tag kostet |
+Öffnen der Fianzübersicht für den Manager |
+Gesamtumsatz: 0€ |Jan
 
-|U-AF005-1 |AF005              |
-Es sind keine Colas mehr auf Lager |
-Catering-Verkauf: 1 mal Cola |
-Fehlermeldung weil Cola nicht mehr auf Lager ist | Robert
+|U-AF012-13 |AF012 |
+Zwei unterschiedliche Festivals dauern 3 Tage und haben eine Location die jeweils 500€ pro Tag kostet |
+Öffnen der Fianzübersicht für den Manager |
+Durchschnittlichergewinn: -1500€ |Jan
 
-|U-AF005-2 |AF005              |
-Es sind noch 200 Colas auf Lager |
-Catering-Verkauf: 1 mal Cola |
-1 mal Cola verkauft | Robert
-
-|U-AF014-1 |AF014              | |
-Preis für Camping-Tickets: 100,123€ |
-Fehlermeldung weil eingegebene Wert nur zwei Nachkommastellen haben darf | Jan
-
-|U-AF002-1 |AF002              |
-Es sind noch 2 Tickets an der Abendkasse verfügbar |
-Ticketkauf: 5 mal Abendkasse |
-Fehlermeldung weil nur noch 2 Tickets verfügbar sind | Ahmad
-
-|U-AF002-2 |AF002              |
-Es sind noch 2 Tickets an der Abendkasse verfügbar |
-Ticketkauf: 2 mal Abendkasse |
-2 mal Abendkasse Tickets verkauft | Ahmad
-
-|U-AF004-1 |AF004              | |
-Nachricht senden: "" |
-Nachricht darf nicht leer sein | Georg (?)
-
-|U-AF004-2 |AF004              | |
-Nachricht senden: "Testnachricht" |
-Nachricht gesendet | Georg (?)
-
-|U-AF015-1 |AF015              |
-Das aktuell ausgewählte Festival findet im Zeitraum 30.07.22-02.08.22 statt |
-Ticket ausdrucken |
-Auf dem ausgedruckten Ticket steht der Text
-"Datum: 30.07.22-02.08.22" | Ahmad
-
-|U-AF009-1 |AF009              |
-Auf "Bühne 1" spielt am 30.07.22 "Künstler 1" |
-"Künstler 2" als Künstler der am 30.07.22 auf "Bühne 1" auftritt |
-Fehlermeldung weil "Bühne 1" in diesem Zeitslot schon belegt ist | Adrian, Tuan
-|===
-
-*Integrationstests*
-[options="headers"]
-|===
-|ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe |Verantwortlicher
-
-|I-AF012-1  |AF012, AF010              |
-Es wurden zwei Bühnen für 10000€ gebucht, ansonsten wurde kein Equipment gebucht             |
-Öffnen der Finanzübersicht       |
-Als Kosten für Equipment werden 20000€ angezeigt   |Jan, Adrian, Tuan
-
-|I-AF014-1  |AF014, AF001              ||
-Der Preis für Camping-Tickets wird auf 200€ gesetzt       |
-Ein ausgedruckte Camping-Ticket hat den Preis 200€ aufgedruckt   |Ahmad, Jan
-
-|I-AF014-2  |AF012, AF011              |
-Es wurden Sicherheitskräfte gebucht die insgesamt Lohnkosten von 10000€ verursachen gebucht und sonst kein Personal gebucht             |
-Öffnen der Finanzübersicht       |
-Als Kosten für Personal werden 10000€ angezeigt   |Jan, Adrian, Tuan
-
-|I-AF005-1  |AF014, AF005              |
-Es ist Bockwurst auf Lager |
-Verkauf einer Bockwurst für 3,50€ |
-Umsatz in der Finanzübersicht erhöht sich um 3,50€ |Robert, Jan
-
-|I-AF009-1  |AF008, AF009              |
-Für "Bühne 1" eines Festivals wurde "Künstler 1" gebucht  |
-Öffnen des Spielplans an einem Besucherterminal |
-Für "Bühne 1" wird "Künstler 1" angezeigt |Adrian, Tuan, Georg
-
-|I-AF008-2  |AF008, AF010              |
-Für Ein Festival wurde die Location "Festivalwiese 1" gebucht |
-Öffnen des Lageplans an einem Besucherterminal |
-Es wird der Lageplan zu "Festivalwiese 1" angezeigt |Adrian, Tuan, Georg
-
-|I-AF017-1  |AF017, AF013              |
-Der Mitarbeiter "Planer 1" ist eingeloggt |
-Öffnen der Überischt eingeloggter Mitarbeiter |
-"Planer 1" wird als eingeloggter Mitarbeiter angezeigt |Georg
-
-|I-AF001-1  |AF001, AF016              |
-Ein Festival findet auf "Festivalwiese 1" statt |
-Camping-Ticket ausdrucken für Festival auf "Festivalwiese 1" |
-Auf dem ausgedruckten Ticket wird die Location "Festivalwiese 1" angezeigt |Ahmad
-
-|I-AF007-1  |AF007, AF001              |
-Es wurden 200 Camping-Tickets und 100 Tagestickets verkauft |
-Öffnen eines Terminals für Festivalleiter |
-Verkaufte Camping-Tickets: 200, verkaufte Tagestickets: 100 |Ahmad
-
-|I-AF007-1  |AF007, AF010              |
-Für "Bühne 1" eines Festivals wurde "Künstler 1" gebucht |
-Öffnen eines Terminals für Festivalleiter |
-Bühnenbelegung für "Bühne 1": "Künstler 1" |Adrian, Tuan
+|U-AF012-14 |AF012 |
+Zwei unterschiedliche Festivals dauern 3 Tage und haben eine Location die jeweils 500€ pro Tag kostet |
+Öffnen der Fianzübersicht für den Manager |
+Gesamtgewinn: 1500€ |Jan
 |===
