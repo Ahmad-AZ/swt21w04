@@ -12,6 +12,7 @@ import festivalmanager.hiring.Artist;
 import festivalmanager.hiring.HiringManagement;
 import festivalmanager.location.LocationManagement;
 import festivalmanager.location.Location;
+import festivalmanager.messaging.MessageManagement;
 import festivalmanager.staff.Person;
 import festivalmanager.staff.StaffManagement;
 import festivalmanager.ticketShop.Ticket;
@@ -61,12 +62,14 @@ class FinancesTests {
 		Streamable<CateringSalesItem> cateringSalesStream = Streamable.empty();
 		when(cateringSales.findAll()).thenReturn(cateringSalesStream);
 		CateringProductCatalog cateringProductCatalog = mock(CateringProductCatalog.class);
+		MessageManagement messageManagement = mock(MessageManagement.class);
 		CateringController cateringController = new CateringController(
 				cateringProductCatalog,
 				cateringStock,
 				cateringSales,
 				utilsManagement,
-				festivalManagement);
+				festivalManagement,
+				messageManagement);
 
 		Ticket ticketInformation = new Ticket();
 		ticketInformation.setCampingTicketPrice(300);

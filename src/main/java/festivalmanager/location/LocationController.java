@@ -5,24 +5,25 @@ import static org.salespointframework.core.Currencies.EURO;
 import java.util.Optional;
 
 import javax.money.format.MonetaryParseException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
 import org.javamoney.moneta.Money;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -31,6 +32,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class LocationController {
 	
 	private final LocationManagement locationManagement;
+	private Location cl = null;
 	
 	public LocationController(LocationManagement locationManagement) {
 		this.locationManagement = locationManagement;
@@ -55,7 +57,7 @@ public class LocationController {
 		
 		if (location.isPresent()) {
 			Location current = location.get();
-			
+			cl = current;
 			System.out.println(locationId);
 			model.addAttribute("location", current);
 			model.addAttribute("newLocationForm", current);
@@ -123,7 +125,7 @@ public class LocationController {
 		return "newLocation";
 	}
 	
-	@PostMapping("/saveLocation")
+	@PostMapping("/locations/{locationId}/edit/saveLocation")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String saveLocation(@Validated NewLocationForm form,
 							   Errors result, @RequestParam("location") Long locationId, Model model) {
@@ -171,27 +173,20 @@ public class LocationController {
 			
 	}
 	
-	@ExceptionHandler(org.springframework.web.multipart.MaxUploadSizeExceededException.class)
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public ResponseEntity<String> handleNoSuchElementFoundException(org.springframework.web.multipart.MaxUploadSizeExceededException exception) {
-//	    return "error1.html";
-		System.out.println("reached");
-		return ResponseEntity
-		        .status(HttpStatus.NOT_FOUND)
-		        .body(exception.getMessage());
+	/*
+	@ExceptionHandler(MaxUploadSizeExceededException.class)
+	public String catchException(HttpServletRequest httpRequest, MaxUploadSizeExceededException e, RedirectAttributes ra) {
+		ra.addFlashAttribute("message", "Bilder sind zu groß.");
+		String url = httpRequest.getRequestURL().toString();
+		if(url.contains("/saveLocation")) {
+		    return "redirect:"+httpRequest.getRequestURL().toString().replaceAll("/saveLocation","");
+		}
+		if(url.contains("/newLocation")) {
+		    return "redirect:/newLocation";
+		}
+		return "redirect:/error";
 	}
-	
-	@ExceptionHandler(org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException.class)
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public ResponseEntity<String> handleFileSizeLimitExceededException(org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException exception) {
-//	    return "error1.html";
-		System.out.println("reached");
-
-		return ResponseEntity
-		        .status(HttpStatus.NOT_FOUND)
-		        .body(exception.getMessage());
-	}
-	
+	*/
 		
 	@GetMapping("locations/remove/{id}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")

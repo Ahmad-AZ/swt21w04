@@ -2,9 +2,6 @@ package festivalmanager.Equipment;
 
 import static org.salespointframework.core.Currencies.EURO;
 
-import festivalmanager.hiring.Artist;
-import festivalmanager.hiring.ArtistDataInitializer;
-import festivalmanager.hiring.ArtistRepository;
 import org.javamoney.moneta.Money;
 import org.salespointframework.core.DataInitializer;
 import org.slf4j.Logger;
@@ -27,13 +24,17 @@ public class EquipmentDataInitializer implements DataInitializer {
 
 	private EquipmentRepository equipmentRepository;
 	/**
-	 * Create a new {@link EquipmentDataInitializer} and add new {@link Equipment}
+	 * Create a new {@link EquipmentDataInitializer}
 	 * @param equipmentRepository
 	 */
 	EquipmentDataInitializer(EquipmentRepository equipmentRepository){
 		this.equipmentRepository = equipmentRepository;
 	}
 
+	/**
+	 * Initialize {@link Equipment} entities
+	 * 
+	 */
 	@Override
 	public void initialize() {
 		if(equipmentRepository.findAll().iterator().hasNext()) {

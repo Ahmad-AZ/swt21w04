@@ -8,6 +8,8 @@ import org.salespointframework.catalog.Catalog;
 //import org.springframework.data.util.Streamable;
 
 /**
+ * The catalog with the products in the database
+ * 
  * @author Robert Menzel
  */
 public interface CateringProductCatalog extends Catalog<CateringProduct> {

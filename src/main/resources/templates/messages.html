@@ -71,11 +71,11 @@
                         <input class="form-input" type="submit" value="Senden">
                     </div>
                     <input type="hidden" name="senderId" th:value="${userId}">
-                    <input type="hidden" name="festivalId" th:value="${festivalId}">
+                    <input type="hidden" name="receiverFestivalId" th:value="${festivalId}">
                 </form>
             </div>
             <div class="overlay" th:if="${dialog} == 'send_global_message'">
-                <form class="form" th:action="@{/messages/{userId}/send(userId = ${userId})}" method="post">
+                <form class="form" th:action="@{/messages/{userId}/send-global(userId = ${userId})}" method="post">
                     <h2 class="form-title">Globale Nachricht senden</h2>
                     <div class="form-item">
                         <label class="form-label">Titel</label>

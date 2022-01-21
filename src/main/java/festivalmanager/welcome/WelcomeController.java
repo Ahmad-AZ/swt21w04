@@ -40,11 +40,9 @@ public class WelcomeController {
 	@GetMapping("/")
 	public String index(Model model, @LoggedIn Optional<UserAccount> account) {
 		if (account.isPresent()) {
-			if (account.get().hasRole(Role.of("ADMIN"))) {
-				return "index";
-			} else if (account.get().hasRole(Role.of("MANAGER"))) {
-				return "index";
-			} else if (account.get().hasRole(Role.of("PLANNER"))) {
+			if (account.get().hasRole(Role.of("ADMIN")) ||
+				account.get().hasRole(Role.of("MANAGER")) ||
+				account.get().hasRole(Role.of("PLANNER"))) {
 				return "index";
 			} else {
 				// staff logged in therefore show festival overview page

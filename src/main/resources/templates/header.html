@@ -12,7 +12,7 @@
                         <img class="item border-right logoImageNavBar" src="/resources/img/LogoSmall.png" alt="Logo small">
                     </a>
 
-                    <a th:class="${title!=null && title!='Locations' && title!='Künstler' && title!='Nachrichten' && title!='Finanzen FVIV GmbH'}
+                    <a th:class="${title!=null && title!='Locations' && title!='Künstler' && title!='Nachrichten' && title!='Finanzen FVIV GmbH' && title!='Error'}
                        ? 'item border-right current' : 'item border-right'"
                        href="festivalOverview.html" th:href="@{/festivalOverview}"
                        sec:authorize="hasRole('PLANNER') || hasRole('ADMIN') || hasRole('MANAGER')">Festivals</a>

@@ -32,7 +32,14 @@ public class FestivalController {
 	private UtilsManagement utilsManagement;
 	private final MessageManagement messageManagement;
 
-	
+	/**
+	 * Creates a new {@link FestivalController} with the given {@link FestivalManagement}, {@link UtilsManagement} and
+	 * {@link MessageManagement}.
+	 *
+	 * @param festivalManagement must not be {@literal null}.
+	 * @param utilsManagement must not be {@literal null}.
+	 * @param messageManagement must not be {@literal null}.
+	 */
 	public FestivalController(FestivalManagement festivalManagement,
 							  UtilsManagement utilsManagement,
 							  MessageManagement messageManagement) {
@@ -41,11 +48,24 @@ public class FestivalController {
 		this.messageManagement = messageManagement;
 	}
 
+	/**
+	 * Used to pass on the title of the festival overview page to the page header
+	 * 
+	 * @return title attribute for the festival overview tab
+	 */
 	@ModelAttribute("title")
 	public String getTitle() {
 		return "Festivalübersicht";
 	}
 	
+	/**
+	 * Generates a page which shows basic informations for the current {@link Festival}
+	 * 
+	 * @param festivalId
+	 * @param model
+	 * @param stringInputForm 
+	 * @return the festival detail page for the festival belonging to festivalId
+	 */
 	@GetMapping("/festivalOverview/{festivalId}")
 	public String festivalDetail(@PathVariable Long festivalId, Model model, StringInputForm stringInputForm) {
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
@@ -68,7 +88,13 @@ public class FestivalController {
 	}
 	
 	
-	// Map View for Visitors
+	/**
+	 * Generates a page which shows the map for the current {@link Festival}
+	 * 
+	 * @param festivalId
+	 * @param model
+	 * @return the map visitor view page for the festival belonging to festivalId
+	 */
 	@GetMapping("/mapVisitorView/{festivalId}")
 	public String getMapVisitorView(@PathVariable("festivalId") long festivalId, Model model) {
 
@@ -84,7 +110,15 @@ public class FestivalController {
 		return "/mapVisitorView";
 	}
 	
-	
+	/**
+	 * Takes given {@link NewFestivalForm} and call methods to create a new {@link Festival} instance.
+	 * Rejects errors if {@link Errors} occur.
+	 * 
+	 * @param form
+	 * @param result
+	 * @param model 
+	 * @return if no error occur the festival overview page, else the new festival page
+	 */
 	@PostMapping("/newFestival")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String createNewFestival(@Validated NewFestivalForm form, Errors result, Model model) {
@@ -110,16 +144,30 @@ public class FestivalController {
 		return "redirect:/festivalOverview";
 	}
 	
-	// gives NewFestivalForm to fill out
+	/**
+	 * Generates a page which has a {@link NewFestivalForm} to fill out.
+	 * Access only for admin, planner and manager.
+	 * 
+	 * @param model
+	 * @param form
+	 * @return the new festival page
+	 */
 	@GetMapping("/newFestival") 
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String newFestival(Model model, NewFestivalForm form) {
 		model.addAttribute("dateNow", LocalDate.now());
 		return "newFestival";
 	}
-	
-	
-	
+		
+	/**
+	 * Generates a page which shows basic informations for the current {@link Festival} 
+	 * and has an input dialog for the input of the new name
+	 * 
+	 * @param festivalId
+	 * @param model
+	 * @param stringInputForm 
+	 * @return the festival detail page for the festival belonging to festivalId, with dialog
+	 */
 	@GetMapping("/festivalOverview/{festivalId}/editName")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String getEditFestivalNameDialog(@PathVariable("festivalId") Long festivalId,
@@ -135,10 +183,18 @@ public class FestivalController {
 		}	
 		utilsManagement.prepareModel(model, festivalId);
 		return "festivalDetail";
-
 	}
 	
-	
+	/**
+	 * Takes given {@link StringInputForm} and call method to edit {@link Festival}s name.
+	 * Rejects errors if {@link Errors} occur.
+	 * 
+	 * @param festivalId
+	 * @param stringInputForm
+	 * @param result
+	 * @param model 
+	 * @return the festival detail page for the {@link Festival} belonging to festivalId.
+	 */
 	@PostMapping("/editFestivalName/{festivalId}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String editFestivalName(@PathVariable("festivalId") Long festivalId,
@@ -165,7 +221,6 @@ public class FestivalController {
 
 			utilsManagement.prepareModel(model, festivalId);
 					
-			// not perfect
 			if (result.hasErrors()) {
 				model.addAttribute("dialog", "edit name");
 				return "festivalDetail";
@@ -178,7 +233,12 @@ public class FestivalController {
 	}
 	
 	
-	// shows Festival Overview
+	/**
+	 * Generates a page which shows an overview about all existing {@link Festival}s
+	 * 
+	 * @param model
+	 * @return the festival overview page
+	 */
 	@GetMapping("/festivalOverview")
 	public String festivals(Model model) {
 		model.addAttribute("festivalList", festivalManagement.findAll());
@@ -187,6 +247,14 @@ public class FestivalController {
 		return "festivalOverview"; 
 	}
 
+	/**
+	 * Generates a page which shows an overview about all existing {@link Festival}s
+	 * and has an dialog to confirm the deletion of the {@link Festival} instance.
+	 * 
+	 * @param festivalId
+	 * @param model
+	 * @return the festival overview page with the dialog
+	 */
 	@GetMapping("/festivalOverview/remove/{id}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('MANAGER')")
 	public String getRemoveFestivalDialog(@PathVariable("id") long id, Model model) {
@@ -206,17 +274,19 @@ public class FestivalController {
 		return "festivalOverview";
 	}
 	
+	/**
+	 * Call methods to delete {@link Festival} instance with the given id, 
+	 * and returns the festival overview page
+	 * 
+	 * @param festivalId
+	 * @return festival overview page
+	 */
 	@PostMapping("/festival/remove")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('MANAGER')")
 	public String removeFestival(@Valid @RequestParam("id") @NotEmpty Long festivalId) {
 		Optional<Festival> current = festivalManagement.findById(festivalId);
 		if (current.isPresent()) {
-//			if(current.running()) {
-//				return "/festivalOverview";
-//			} else {
 			festivalManagement.deleteFestival(current.get());
-
-//			}
 		} 
 		return "redirect:/festivalOverview";
 	}
