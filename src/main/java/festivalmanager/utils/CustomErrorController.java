@@ -65,6 +65,10 @@ public class CustomErrorController implements ErrorController {
 		errorAttributesMap =
 				errorAttributes.getErrorAttributes(new ServletWebRequest(httpRequest), options);
 
+		if (!errorAttributesMap.containsKey("path")) {
+			errorAttributesMap.put("key", httpRequest.getRequestURI());
+		}
+
 		return "redirect:/errorPage/false";
 	}
 
