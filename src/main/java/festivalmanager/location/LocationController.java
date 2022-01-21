@@ -29,7 +29,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
-@ControllerAdvice
 public class LocationController {
 	
 	private final LocationManagement locationManagement;
@@ -174,7 +173,7 @@ public class LocationController {
 			
 	}
 	
-	
+	/*
 	@ExceptionHandler(MaxUploadSizeExceededException.class)
 	public String catchException(HttpServletRequest httpRequest, MaxUploadSizeExceededException e, RedirectAttributes ra) {
 		ra.addFlashAttribute("message", "Bilder sind zu groß.");
@@ -187,6 +186,7 @@ public class LocationController {
 		}
 		return "redirect:/error";
 	}
+	*/
 		
 	@GetMapping("locations/remove/{id}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
