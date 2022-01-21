@@ -359,3 +359,10 @@ image::models/design/developer_documentation/sequence_diagrams/seq_festival.png[
 
 == Technische Schulden
 * Auflistung der nicht erreichten Quality Gates und der zugehörigen SonarQube Issues zum Zeitpunkt der Abgabe
+[options="header"]
+|===
+|SonarQube Issue |Beschreibung |Warum nicht behoben?
+|https://st-lab-ci.inf.tu-dresden.de/sonarqube/project/issues?id=de.tudresden.inf.st.lab%3Aswt21w04&issues=AX5iYyhn3vyB2EYmgX7h&open=AX5iYyhn3vyB2EYmgX7h[AX5iYyhn3vyB2EYmgX7h]
+|Bei "throws Exception" soll eine konkrete Exception Klasse angegeben werden
+|Die link:https://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc[Spring Dokumentation] empfiehlt ausdrücklich diesen Aufbau von Exception Handler Klasen
+|===
