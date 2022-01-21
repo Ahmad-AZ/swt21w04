@@ -10,7 +10,6 @@
 == Was habe ich gelernt / was habe ich nicht gelernt?
 ** positive Erfahrung :  
 * vorgefertiges startbereites Projekt nimmt viel Arbeit ab
-*Videoshop
 * Java JPA ist sehr gut zum Testen und Entwickeln
 ** negative Erfahrung: 
 * die Aufgabeverteilung funktioniert noch wirklich so gut, in einige Wochen musste ich viel machen, in einige anderen gab es aber nicht viel zu machen 
