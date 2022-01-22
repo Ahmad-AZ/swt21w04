@@ -66,7 +66,7 @@ public class FestivalManagement {
 	}
 	
 	/**
-	 * Removes {@link Festival} instance with given id 
+	 * Removes {@link Festival} instance.
 	 * 
 	 * @param festival must not be {@literal null}
 	 */
