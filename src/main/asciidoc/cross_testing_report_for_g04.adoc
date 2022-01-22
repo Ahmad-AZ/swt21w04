@@ -34,14 +34,14 @@ __Anwendung von Gruppe:__ 04
 |Pfad |Parameter |Beschreibung |Rückgabe|Status
 | http://localhost:8080/catering | Radiobutton | kein Radiobutton ausgewählt | Whitelabel Error Page|
 | http://localhost:8080/catering | Eingabefeld für Anzahl | leer | Whitelabel Error Page|
-| http://localhost:8080/catering | Eingabefeld für Anzahl | Werte <= 0 | wird Warenkorb hinzugefügt
-| http://localhost:8080/catering | Eingabefeld für Anzahl | Werte > 2147483647 | Whitelabel Error Page
-| http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Produktname | leer | Produktname wird auf leeren String gesetzt
+| http://localhost:8080/catering | Eingabefeld für Anzahl | Werte <= 0 | wird Warenkorb hinzugefügt|
+| http://localhost:8080/catering | Eingabefeld für Anzahl | Werte > 2147483647 | Whitelabel Error Page|
+| http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Produktname | leer | Produktname wird auf leeren String gesetzt|
 | http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Produktname | bbbbbabbaaabaababaaaaaaaaaabaabababababbbaabaaba +
 bbaaabbaabbaaaabbaababbbbaabaaabaabbbbbbaaaaababa +
 abbbaaaabbbaaababbabaaababababaaabaabaabbbbbabaab +
 abbbaaabbbaabbaaaaaaabaaaaabaaaaabaaaaabaababbbabb +
-aaaaabaabaaabbbbaababbaababababbbaaababaaaabbbaabbaaaabaaabb | Whitelabel Error Page
+aaaaabaabaaabbbbaababbaababababbbaaababaaaabbbaabbaaaabaaabb | Whitelabel Error Page|
 | http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Verkaufspreis | 12 (bzw. für alle Wert die nicht im Format "EUR 'zahl'" eingegeben werden) | selbe Seite (Wert wird nicht geändert) bzw. alle default Wert sind wieder in der Form auch wenn es davor bereits korrekt bearbeitet wurde
 | http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Verkaufspreis | Wert <= 0 (genaue Eingabe: "EUR 0") | Wert wird akezptiert und geändert
 | http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Pfand | 12 (bzw. für alle Wert die nicht im Format "EUR 'zahl'" eingegeben werden) | selbe Seite (Wert wird nicht geändert) bzw. alle default Wert sind wieder in der Form auch wenn es davor bereits korrekt bearbeitet wurde
