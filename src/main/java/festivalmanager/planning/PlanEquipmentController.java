@@ -288,7 +288,8 @@ public class PlanEquipmentController {
 				&& equipmentManagement.findEquipmentById(equipementRentingForm.getEquipmentsId()).isPresent()) {
 
 			//System.out.println(equipmentsId + "     "+ equipmentsAmount);			
-			planEquipmentManagement.rentEquipment(equipementRentingForm.getEquipmentsId(), equipementRentingForm.getAmount(), festival.get());
+			planEquipmentManagement.rentEquipment(equipementRentingForm.getEquipmentsId(),
+													equipementRentingForm.getAmount(), festival.get());
 		}
 		return "redirect:/equipments/" + festival.get().getId();		
 	}	

@@ -5,7 +5,6 @@ import static org.salespointframework.core.Currencies.EURO;
 import java.util.Optional;
 
 import javax.money.format.MonetaryParseException;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
@@ -17,13 +16,11 @@ import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -227,28 +224,7 @@ public class LocationController {
 		return "locationEdit";
 			
 	}
-	
-	/**
-	 * Handles exception belonging to to large image files, and redirect user hint 
-	 * 
-	 * @param httpRequest
-	 * @param e
-	 * @param ra
-	 * @return the new location or location edit page for the {@link Location}
-	 */
-	@ExceptionHandler(MaxUploadSizeExceededException.class)
-	public String catchException(HttpServletRequest httpRequest, MaxUploadSizeExceededException e, RedirectAttributes ra) {
-		ra.addFlashAttribute("message", "Bilder sind zu groß.");
-		String url = httpRequest.getRequestURL().toString();
-		if(url.contains("/saveLocation")) {
-		    return "redirect:"+httpRequest.getRequestURL().toString().replaceAll("/saveLocation","");
-		}
-		if(url.contains("/newLocation")) {
-		    return "redirect:/newLocation";
-		}
-		return "redirect:/error";
-	}
-	
+		
 	/**
 	 * Generates a page which shows an overview about all existing {@link Locations}s
 	 * and has an dialog to confirm the deletion of the {@link Location} instance.

@@ -55,7 +55,9 @@ public class PlanScheduleManagement {
 	 * @param festival
 	 * @return true if set schedule success
 	 */
-	public boolean setShow(LocalDate date, Stage stage, String timeSlotString, long showId, Festival festival, long personId) {
+	public boolean setShow(LocalDate date,
+						   Stage stage, String timeSlotString,
+						   long showId, Festival festival, long personId) {
 
 		TimeSlot timeSlot = TimeSlot.valueOf(timeSlotString);
 		//System.out.println(timeSlot);

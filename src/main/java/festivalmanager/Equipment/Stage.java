@@ -15,7 +15,7 @@ import org.springframework.util.Assert;
 /**
  * class of stage
  *
- * @author Adrian and Tuan Giang
+ * @author Adrian and Tuan Giang Trinh
  */
 @Entity
 public class Stage extends AbstractEntity<SalespointIdentifier> implements Serializable{

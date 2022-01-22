@@ -1,0 +1,33 @@
+= Protokoll Gruppe 04
+
+Treffen am 11.01.2022
+
+Ort:      BigBlueButton +
+Beginn:   18:00 Uhr +
+Ende:     19:25 Uhr
+
+__Schriftführer:__ Jan Biedermann
+
+*Nächstes Treffen:* +
+nächste Konsultation
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Tom Morgenstern (Auftraggeber)
+- Adrian Scholze
+- Jan Biedermann
+- Ahmad Abu Zahra
+- Georg Kunze
+- Tuấn Giang Trịnh
+- Robert Menzel
+
+== Bemerkungen
+- PowerPoint Präsentationen sollen auf Github hochgeladen werden
+- Im Cross-Testing report wäre es gut, wenn eine extra Spalte ergänzt wird,
+in der steht ob die genannten Mängel schon behoben wurden
+- Bis nächste Woche sollte javadoc großteils fertig sein
+- Die Entwicklerdokumentation und der Testplan sollten noch aktualisiert werden
+- Features, die nach dem 28.01 ergänzt werden, gehen nicht mehr in die Bewertung ein
+- Die Datei evaluation_sheet füllt jeder einzeln aus (darf Anonym gehalten werden, dann aber einheitlich von der ganzen Gruppe)
+- Um die Persistenz einzuschalten müssen die 2 Zeilen in application.properties entkommentiert werden ("festivalmanager" statt "kickstart" einsetzen)
