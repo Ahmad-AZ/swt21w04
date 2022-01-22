@@ -3,6 +3,7 @@ package festivalmanager.planning;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import festivalmanager.location.Location;
 import festivalmanager.festival.Festival;
@@ -23,16 +24,20 @@ public class PlanLocationManagement {
 	
 	/**
 	 * Create a new {@link PlanLocationManagement}
-	 * @param locationManagement
-	 * @param festivalManagement
+	 * 
+	 * @param festivalManagement must not be {@literal null}.
+	 * @param locationManagement must not be {@literal null}.
 	 */
 	public PlanLocationManagement(FestivalManagement festivalManagement, LocationManagement locationManagement) {
+		Assert.notNull(festivalManagement, "FestivalManagement must not be null!");
+		Assert.notNull(locationManagement, "LocationManagement must not be null!");
 		this.locationManagement = locationManagement;
 		this.festivalManagement = festivalManagement;
 	}
 
 	/**
 	 * book the {@link Location} for the {@link Festival}
+	 * 
 	 * @param location
 	 * @param festival
 	 * @return true if book location success
@@ -52,6 +57,7 @@ public class PlanLocationManagement {
 	
 	/**
 	 * unbook the {@link Location} for the {@link Festival}
+	 * 
 	 * @param location
 	 * @param festival
 	 * @return true if unbook location success

@@ -9,6 +9,7 @@ import javax.validation.constraints.NotEmpty;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.Assert;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ import festivalmanager.utils.UtilsManagement;
 /**
  * A class used to pass on values computed in {@link FestivalManagement}
  * to the festivalDetail.html, festivalOverview.html and mapVisitorView.html
+ * 
  * @author Adrian Scholze
  */
 @Controller
@@ -43,6 +45,9 @@ public class FestivalController {
 	public FestivalController(FestivalManagement festivalManagement,
 							  UtilsManagement utilsManagement,
 							  MessageManagement messageManagement) {
+		Assert.notNull(festivalManagement, "FestivalManagement must not be null!");
+		Assert.notNull(utilsManagement, "UtilsManagement must not be null!");
+		Assert.notNull(messageManagement, "MessageManagement must not be null!");
 		this.festivalManagement = festivalManagement;
 		this.utilsManagement = utilsManagement;
 		this.messageManagement = messageManagement;

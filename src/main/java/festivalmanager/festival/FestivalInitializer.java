@@ -10,7 +10,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
- * Initializes default festivals
+ * Initializes default {@link Festival}s
  *
  * @author Adrian Scholze
  */

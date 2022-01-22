@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import festivalmanager.Equipment.Equipment.EquipmentType;
 
 /**
- * Initializes default equipments
+ * Initializes default {@link Equipment}s
  *
  * @author Tuan Giang Trinh
  */

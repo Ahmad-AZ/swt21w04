@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,11 +23,14 @@ import festivalmanager.Equipment.Stage;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import festivalmanager.festival.Schedule.TimeSlot;
+import festivalmanager.hiring.Show;
+import festivalmanager.staff.Person;
 import festivalmanager.utils.UtilsManagement;
 
 /**
  * A class used to pass on values computed in {@link festivalmanager.planning.PlanScheduleManagement}
  * to the schedule.html
+ * 
  * @author Adrian Scholze
  */
 @Controller
@@ -37,20 +41,45 @@ public class PlanScheduleController {
 	private final EquipmentManagement equipmentManagement;
 	private final UtilsManagement utilsManagement;
 	
+	/**
+	 * Creates a new {@link PlanScheduleController} with the given {@link FestivalManagement}, {@link UtilsManagement}, 
+	 * {@link EquipmentManagement} and {@link PlanScheduleManagement}.
+	 *
+	 * @param festivalManagement must not be {@literal null}.
+	 * @param utilsManagement must not be {@literal null}.
+	 * @param equipmentManagement must not be {@literal null}.
+	 * @param planScheduleManagement must not be {@literal null}.
+	 */
 	public PlanScheduleController(PlanScheduleManagement planScheduleManagement,
 								  FestivalManagement festivalManagement, UtilsManagement utilsManagement,
 								  EquipmentManagement equipmentManagement) {
+		Assert.notNull(festivalManagement, "FestivalManagement must not be null!");
+		Assert.notNull(utilsManagement, "UtilsManagement must not be null!");
+		Assert.notNull(equipmentManagement, "EquipmentManagment must not be null!");
+		Assert.notNull(planScheduleManagement, "PlanScheduleManagement must not be null!");
 		this.planScheduleManagement = planScheduleManagement;
 		this.festivalManagement = festivalManagement;
 		this.utilsManagement = utilsManagement;
 		this.equipmentManagement = equipmentManagement;
 	}
 
+	/**
+	 * Used to pass on the title of the schedule page to the page header
+	 * 
+	 * @return title attribute for the schedule tab
+	 */
 	@ModelAttribute("title")
 	public String getTitle() {
 		return "Programm";
 	}
 	
+	/**
+	 * Generates a page which shows an overview about the {@link Schedule} of the {@link Festival}s
+	 * 
+	 * @param model
+	 * @param festivalId
+	 * @return the schedule page
+	 */
 	@GetMapping("/schedule/{festivalId}")  
 	public String schedule(Model model, @PathVariable("festivalId") long festivalId) {
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
@@ -80,9 +109,18 @@ public class PlanScheduleController {
 		}
 		utilsManagement.prepareModel(model, festivalId);
 		return "schedule.html";
-		
 	}
 	
+	/**
+	 * Generates a page with an dialog to choose a {@link Show}
+	 * and a security {@link Person} for the {@link Schedule}
+	 * 
+	 * @param date
+	 * @param stageId
+	 * @param timeSlot
+	 * @param model
+	 * @return the schedule page with the dialog
+	 */
 	@GetMapping("/schedule/{festivalId}/{day}/{stageId}/{timeSlot}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String getShowSelectDialog(@PathVariable("day") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date, 
@@ -99,9 +137,8 @@ public class PlanScheduleController {
 			model.addAttribute("date", date);
 			model.addAttribute("stageId", stageId);
 			model.addAttribute("timeSlot", timeSlot);
-			
+	
 			model.addAttribute("showsToAdd", current.getShows());
-			//System.out.println(planScheduleManagement.getAvailableSecurity(currentFestival, date, timeSlot, stageId));
 			model.addAttribute("securitysToAdd", planScheduleManagement.getAvailableSecurity(current, date, timeSlot, stageId));
 	
 			utilsManagement.prepareModel(model, festivalId);
@@ -111,6 +148,18 @@ public class PlanScheduleController {
 		}
 	}
 	
+	/**
+	 * Calls methods to set {@link Show} and a security {@link Person} 
+	 * for the {@link Schedule}
+	 * 
+	 * @param date
+	 * @param stageId
+	 * @param timeSlot
+	 * @param showId
+	 * @param personId
+	 * @param model
+	 * @return the schedule page with
+	 */
 	@PostMapping("/schedule/{festivalId}/{day}/{stageId}/{timeSlot}/editSchedule")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String chooseShow(@PathVariable("day") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date, 
@@ -122,14 +171,11 @@ public class PlanScheduleController {
 		
 		Optional<Festival> festival = festivalManagement.findById(festivalId);
 		if (festival.isPresent()) {
-			//System.out.println(showId);
 			Stage stage = equipmentManagement.findStageById(stageId).orElse(null);
 			if(stage != null) {
 				planScheduleManagement.setShow(date, stage, timeSlot, showId, festival.get(), personId);
 			}
 		}	
 		return "redirect:/schedule/"+ festivalId;
-
 	}
-	
 }
