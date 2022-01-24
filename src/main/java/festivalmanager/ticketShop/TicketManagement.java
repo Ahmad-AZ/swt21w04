@@ -92,12 +92,12 @@ public class TicketManagement {
 
 	 */
 	public void setCurrentTicket(@NotNull Ticket ticket){
-		if (Objects.isNull(ticketRepo.findAllByFestivalId(ticket.getFestivalId())))
-		{
+		if (Objects.isNull(ticketRepo.findAllByFestivalId(ticket.getFestivalId()))) {
 			ticketRepo.save(ticket);
 			this.currentTicket = ticketRepo.findAllByFestivalId(ticket.getFestivalId());
+		} else {
+			this.currentTicket=ticket;
 		}
-		else this.currentTicket=ticket;
 
 	}
 
