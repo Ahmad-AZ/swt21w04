@@ -389,4 +389,12 @@ image::models/design/developer_documentation/sequence_diagrams/seq_festival.png[
 |https://st-lab-ci.inf.tu-dresden.de/sonarqube/project/issues?id=de.tudresden.inf.st.lab%3Aswt21w04&issues=AX5iYyhn3vyB2EYmgX7h&open=AX5iYyhn3vyB2EYmgX7h[AX5iYyhn3vyB2EYmgX7h]
 |Bei "throws Exception" soll eine konkrete Exception Klasse angegeben werden
 |Die link:https://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc[Spring Dokumentation] empfiehlt ausdrücklich diesen Aufbau von Exception Handler Klasen
+
+|https://st-lab-ci.inf.tu-dresden.de/sonarqube/project/issues?id=de.tudresden.inf.st.lab%3Aswt21w04&issues=AX5IkF_g3vyB2EYmYooU&open=AX5IkF_g3vyB2EYmYooU[AX5IkF_g3vyB2EYmYooU]
+|Die "cognitive compelxity" einer Methode ist 3 Punkte größer als erlaubt
+|Es war nicht möglich, die Methode lesbarer zu gestalten
+
+|https://st-lab-ci.inf.tu-dresden.de/sonarqube/project/issues?id=de.tudresden.inf.st.lab%3Aswt21w04&issues=AX5IkF_g3vyB2EYmYooV&open=AX5IkF_g3vyB2EYmYooV[AX5IkF_g3vyB2EYmYooV]
+|Die "cognitive compelxity" einer Methode ist 9 Punkte größer als erlaubt
+|Es war nicht möglich, die Methode lesbarer zu gestalten
 |===
