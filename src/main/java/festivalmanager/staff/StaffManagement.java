@@ -28,7 +28,6 @@ public class StaffManagement {
 		"PLANNER",
 		"FESTIVAL_LEADER",
 		"TICKET_SELLER",
-		"ADMISSION",
 		"SECURITY",
 		"CATERING"
 	};

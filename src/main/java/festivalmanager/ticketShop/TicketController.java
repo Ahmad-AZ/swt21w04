@@ -161,14 +161,17 @@ public class TicketController {
 			model.addAttribute("tickets", ticket);
 
 
-
+			/*
 			try {
 				String location = currentFestival.getLocation().getName();
 				model.addAttribute("locationsExists", "true");
-			}
-			catch (NullPointerException exception)
-			{
+			} catch (NullPointerException exception) {
 				System.out.println(exception);
+			}
+			 */
+
+			if (currentFestival.getLocation() != null) {
+				model.addAttribute("locationsExists", "true");
 			}
 
 
