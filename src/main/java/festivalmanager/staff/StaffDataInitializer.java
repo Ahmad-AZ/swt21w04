@@ -52,8 +52,6 @@ class StaffDataInitializer implements DataInitializer {
 
 		createUser(festivalId, "festival_leader", "staffpw", "FESTIVAL_LEADER", 0.0);
 		createUser(festivalId, "ticket_seller_1", "staffpw", "TICKET_SELLER", 10.0);
-		createUser(festivalId, "admission_1", "staffpw", "ADMISSION", 10.0);
-		createUser(festivalId, "admission_2", "staffpw", "ADMISSION", 10.0);
 		createUser(festivalId, "security_1", "staffpw", "SECURITY", 10.0);
 		createUser(festivalId, "security_2", "staffpw", "SECURITY", 10.0);
 		createUser(festivalId, "security_3", "staffpw", "SECURITY", 10.0);
