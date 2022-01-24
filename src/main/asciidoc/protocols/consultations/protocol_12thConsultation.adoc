@@ -1,0 +1,71 @@
+= Protokoll Gruppe 04
+
+Treffen am 18.01.2022
+
+Ort:      BigBlueButton +
+Beginn:   18:05 Uhr +
+Ende:     18:50 Uhr
+
+__Schriftführer:__ Jan Biedermann
+
+*Nächstes Treffen:* +
+nächste Konsultation
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Tom Morgenstern (Auftraggeber)
+- Adrian Scholze
+- Jan Biedermann
+- Ahmad Abu Zahra
+- Georg Kunze
+- Tuấn Giang Trịnh
+- Robert Menzel
+
+== Bemerkungen
+
+- Allgemeines:
+* Diese Konsultation ist die letzte richtige Konsultation, nächste Woche geht es eher um die Auswertung des Projekts
+* Nächste Woche sind noch die unteren Zeilen in time_recording.adoc auszufüllen
+* Deadline für alles was noch abzugeben ist ist der 28.01.2022
+* Persistenz muss noch eingeschaltet werden
+* Die Admission-Rolle sollte noch entfernt werden
+* Nächste Woche findet kein Lernraum statt
+
+- Abschlusspräsentation:
+* Es wurde der Termin für die Abschlusspräsentation besprochen: Montag 31.01.2022, 2. DS (pünktlich da sein!)
+* Die Einverständniserklärung im Opal Ordner soll unbedingt bis Ende dieser Woche ausgefüllt an Tom per E-Mail geschickt werden
+(Prüfungsleistung "INF-B-320 Softwaretechnologie-Projekt", "Online-Präsentation" eintragen)
+* Die Präsentation muss nicht mit Kamera gehalten werden,
+eine Kamera ist aber sehr wünschenswert
+* Die Aufgabenstellung sollte kurz vorgestellt werden
+* Auf Probleme im Projekt kann man gut eingehen
+
+== Aktueller Stand
+Die Software ist fast vollständig fertig,
+es muss aber noch viel Dokumentation ergänzt werden,
+einige Teammitglieder müssen noch Unittests für ihre Packages schreiben.
+
+== Planung des nächsten Sprints
+*Issue referenziert die Issue ID von GitHub*
+
+Aufgaben für einzelne Teammitglieder:
+// See http://asciidoctor.org/docs/user-manual/=tables
+[option="headers"]
+|===
+|Issue |Titel |Beschreibung |Verantwortlicher |Status
+| |Folien für die Abschlusspräsentation |Folien für  die Abschlusspräsentation erstellen|Jan |Großteils fertig
+| |Kundenwunsch implementieren |Implementation der automatischen Nachrichten |Georg |Großteils fertig
+| |Admission Rolle entfernen |Die überflüssige Admission-Rolle entfernen |Georg |Nicht angefangen
+| |Catering Code Smells |Code Smells im Catering Package beheben |Robert |Arbeit angefangen
+| |Ticket Code Smells |Code Smells im Ticket Package beheben |Ahmad |Arbeit angefangen
+| |Ticketverkauf Bug beheben |Beim Ticketverkauf wird z.T. fälschlicherweise angezeigt, dass keine Tickets mehr verfügbar sind |Ahmad |Nicht angefangen
+|===
+
+- Aufgaben für jedes Teammitglied:
+* Unittests beenden
+* Unittests in den testplan eintragen
+* Cross-Testing Feedback implementieren, fixed/wontfix im Cross-Testing Report eintragen
+* Entwicklerdokumentation aktualisieren: insbesondere Klassendiagramm aktualisieren, Klassenbeschreibung bei Bausteinsicht aktualisieren, eigenes Package im Packagediagramm aktualisieren
+* Javadoc beenden
+* Evaluation Sheet ausfüllen
