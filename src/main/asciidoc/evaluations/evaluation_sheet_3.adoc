@@ -1,0 +1,53 @@
+= Persönliches Feedback eines Teammitgliedes des Softwarepraktikums 2021/22
+// Auch wenn der Bogen nicht anonymisiert ist, dürfen Sie gern Ihre Meinung offen kundtun.
+// Sowohl positive als auch negative Anmerkungen werden gern gesehen und zur stetigen Verbesserung genutzt.
+// Versuchen Sie in dieser Auswertung also stets sowohl Positives wie auch Negatives zu erwähnen.
+
+**Von:** 3
+
+**Gruppe:** 04
+
+== Was habe ich gelernt / was habe ich nicht gelernt?
+// Ausführung der positiven und negativen Erfahrungen, die im Softwarepraktikum gesammelt wurden
++ Alle Schritte im Softwareprojekt sind wichtig für die Erstellung der Software
++ Verwendung des Spring Framework
++ Arbeitseinteilung anhand von Meilensteinen
++ Selbstständiges erlernen von Java Bibliotheken
++ Teamarbeit 
+
+- richtiges Testen mit JUnit
+- ausnutzen der Beziehungen zwischen Entitäten für Lebenszyklus 
+
+== Welche Erfahrungen habe ich mit der Zusammenarbeit im Team gemacht?
+// Kurze Beschreibung der Zusammenarbeit im Team. Was lief gut? Was war verbesserungswürdig? Was würden Sie das nächste Mal anders machen?
+- alle Teammitglieder waren engagiert und gewillt die Ziele zu errreichen
+- einige Sachen wurden viel zu spät angefangen und deshalb auch nicht rechtzeitig oder nur knapp fertig
+- lange ungewissheit über Struktur der GUI
+- nächstes mal bessere Grundlage im Bezug auf GUI Struktur legen
+
+== Welche Erfahrungen habe ich bei der Wiederverwendung von Bibliotheken/Frameworks (insbesondere SalesPoint) gemacht?
+// Einschätzung der Arbeit mit den bereitgestellten und zusätzlich genutzten Frameworks. Was War gut? Was war verbesserungswürdig?
+- Spring bietet sehr gute Grundlage für Programmaufbau mit Management und Controller Klassen
+- Interval von SalesPoint war sehr angenehm zu verwenden
+- SalespointIdentifier hätten viele Probleme vermieden, wenn man vorher davon gewusst hätte
+- JUnit ließ sich nach längerer Einarbeitungszeit auch verwenden
+
+== Welche Vorschläge zur weiteren Verbesserung des Softwarepraktikums gibt es?
+// Möglichst mit Beschreibung, warum die Umsetzung des von Ihnen angebrachten Vorschlages nötig ist.
+- Bessere zusammengefasst Erklärung der Entitätsrelationen und deren Verwendung für häufig benutzte Fälle
+- mehr Beispiel-JUnittests für Mockmvc mit Paramtern und Rückgabeattributen
+- mehr konsistenz in Beispielanwendungen (Videoshop)
+- Dokumentation von gettern und settern nicht fordern
+
+== Feedback für den Tutor
+// Fühlten Sie sich durch den vom Lehrstuhl bereitgestellten Tutor gut betreut? Was war positiv? Was war verbesserungswürdig?
+- Tutor war zuverlässig und ausreichend informiert
+- hat durch eigene Erfahrungen unser Zeitmanagement positiv beeinflusst
+- hat versucht uns vor potentiellen Problemen zu warnen
+- Hat Erwartungen genau richtig an unsere Erfahrungen angelegt
+
+== Sonstiges und Anmerkungen
+// Welche Aspekte fanden in den oben genannten Punkten keine Erwähnung?
+- Der Lernraum war sehr hilfreich 
+- Das empfohlene Eclipse Papyrus ist kompliziert und bietet nicht alle nötigen Funktionen, außerdem hatte kaum ein Tutor Erfahrungen damit. 
+  Lieber UMLetino als alternative zu StarUML vorschlagen
