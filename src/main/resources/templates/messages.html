@@ -54,7 +54,7 @@
                     <h2 class="form-title">Gruppennachricht senden</h2>
                     <div class="form-item">
                         <label class="form-label">Empfänger:</label>
-                        <select class="form-input" name="receiverId">
+                        <select class="form-input" name="receiverGroup">
                             <option th:each="group : ${possible_receivers}" th:text="${group}" th:value="${group}"></option>
                         </select>
                     </div>

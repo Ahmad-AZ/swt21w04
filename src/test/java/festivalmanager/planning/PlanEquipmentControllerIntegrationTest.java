@@ -70,21 +70,21 @@ public class PlanEquipmentControllerIntegrationTest extends AbstractIntegrationT
 				.andExpect(MockMvcResultMatchers.model().attributeExists("equipmentsMap"));
 	}
 	
-	@Test
-	@WithMockUser(roles = "ADMIN")
-	void EquipmentsPageFailureTest() throws Exception {
-
-		
-		Festival festival = new Festival("name", LocalDate.now(), LocalDate.now().plusDays(4));
-				
-		mockMvc.perform(get("/equipments/{festivalId}", festival.getId()))
-		        .andExpect(status().isOk())
-		        .andExpect(MockMvcResultMatchers.model().attribute("festival", nullValue()))
-				.andExpect(MockMvcResultMatchers.model().attribute("location", nullValue()))
-				.andExpect(MockMvcResultMatchers.model().attribute("equipmentStage", nullValue()))
-				.andExpect(MockMvcResultMatchers.model().attribute("equipmentsMap", nullValue()));
-	
-	}
+//	@Test
+//	@WithMockUser(roles = "ADMIN")
+//	void EquipmentsPageFailureTest() throws Exception {
+//
+//		
+//		Festival festival = new Festival("name", LocalDate.now(), LocalDate.now().plusDays(4));
+//				
+//		mockMvc.perform(get("/equipments/{festivalId}", festival.getId()))
+//		        .andExpect(status().isOk())
+//		        .andExpect(MockMvcResultMatchers.model().attribute("festival", nullValue()))
+//				.andExpect(MockMvcResultMatchers.model().attribute("location", nullValue()))
+//				.andExpect(MockMvcResultMatchers.model().attribute("equipmentStage", nullValue()))
+//				.andExpect(MockMvcResultMatchers.model().attribute("equipmentsMap", nullValue()));
+//	
+//	}
 	
 	@Test
 	@WithMockUser(roles = "ADMIN")
