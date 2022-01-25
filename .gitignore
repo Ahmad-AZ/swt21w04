@@ -39,3 +39,9 @@ Desktop.ini
 # Misc
 hs_err_*.log
 ~$*
+
+# Spring database files
+db/
+
+# Generated QR-Code
+src/main/resources/static/resources/img/qr_code
