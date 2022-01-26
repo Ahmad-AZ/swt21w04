@@ -17,9 +17,10 @@ Die Benutzer der Software zählen nicht zur Zielgruppe des Test-Plans.
 == Aufbau der Testbezeichner
 Wir verwenden das Schema "Testtyp - Anwendungsfall - Nummer"
 wobei Testtyp U für Unit-Tests und der Testtyp I für Integrationstests steht.
-Die Nummer wird seperat für Integrations- und Unit-Tests von 1 hochgezählt
+Die Nummer wird seperat für Integrations- und Unit-Tests von 1 hochgezählt.
+Falls ein Testfall keinem der Anwendungsfälle zugeordnet werden kann wird der Bezeichner "Testtyp - Packagename - Nummer" verwendet.
 
-Also zum Beispiel U-AF001-1
+Also zum Beispiel U-AF001-1 oder I-Utils-4.
 
 == Test Gegenstände
 
@@ -92,191 +93,553 @@ Die für die Tests notwendigen Daten werden in die Testklassen einprogrammiert.
 == Testfälle und Verantwortlichkeit
 // See http://asciidoctor.org/docs/user-manual/#tables
 
+
+// Kommentiert sind Testfälle, die währen der Analysephase geplant waren
+// aber nicht implementiert wurden
+
+// *Unit-Tests*
+// [options="headers"]
+// |===
+// |ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe |Verantwortlicher
+// |U-AF011-1  |AF011              |
+// Das aktuell ausgewählte Festival kann 3000 Besucher haben              |
+// Anzahl Sicherheitskräfte: 10       |
+// Fehlermeldung wegen zu wenigen Sicherheitskräften   |Adrian, Tuan
+
+// |U-AF011-2  |AF011              |
+// Das aktuell ausgewählte Festival kann 3000 Besucher haben              |
+// Anzahl Sicherheitskräfte: 30       |
+// Anzahl Sicherheitskräfte wird auf 30 gesezt   |Adrian, Tuan
+
+// |U-AF012-1  |AF012              |
+// Das aktuell ausgewählte Festival kann 3000 Besucher haben              |
+// Vorraussichtlich verkaufte Tagestickets: 4000       |
+// Fehlermeldung wegen zu wenig verfügbaren Tickets   |Jan
+
+// |U-AF012-3  |AF012              a|
+// - Es wurde für das ausgewählte Festival noch kein Equipment gebucht
+// und kein Personal angestellt
+// - Camping-Tickets sollen 200€ kosten, Tagestickets 50€ a|
+// - Erwartete Verkäufe Camping-Tickets: 1000
+// - Erwartete Verkäufe Tagestickets: 1000 |
+// Umsatz: 2050000,00€ |Jan
+
+// |U-AF012-4  |AF012              |
+// Für das ausgewählte Festival werden ein Umsatz von 2 * 10^6€ und Kosten von
+// 7 * 10^5€ erwartet |
+// Öffnen der Fianzübersicht |
+// Gewinn: 1300000,00€ |Jan
+
+// |U-AF013-1  |AF013              a|
+// - Es ist aktuell kein Benutzer eingeloggt
+// - Die Accountdaten (Testplaner, Testpasswort) gehören zu einem Account mit Rolle "Planer" |
+// Login: (Planer1, Testpasswort) |
+// Es können alle Funktionen für Planer verwendet werden,
+// und keine Funktionene für andere Rollen | Georg
+
+// |U-AF013-2  |AF013              a|
+// - Es ist aktuell kein Benutzer eingeloggt
+// - Die Accountdaten (Testplaner, Testkeinpasswort) gehören zu keinem Account |
+// Login: (Planer1, Testkeinpasswort) |
+// Die Software kann nur als Besucherterminal genutzt werden | Georg
+
+// |U-AF006-1  |AF006              |
+// Im Getränkelager ist 200 mal Cola und 1500 mal Wasser vorhanden |
+// Nachbestellen: 700 mal Cola |
+// 900 mal Cola auf Lager | Robert
+
+// |U-AF016-1  |AF016              |
+// Die Location "Festivalwiese 1" ist im Zeitraum 01.03.22-04.03.22 belegt |
+// Location für neues Festival im Zeitraum 01.03.22-04.03.22: "Festivalwiese 1" |
+// Warnung das Doppelbuchung nicht möglich ist | Adrian, Tuan
+
+// |U-AF016-2  |AF016              | |
+// Datum für neues Festival: 04.06.12-08.06.12 |
+// Warnung das dieses Datum schon vergangen ist | Adrian, Tuan
+
+// |U-AF003-1  |AF003              |
+// Die Ticketnummer 1111-1111 ist eine valide Ticketnummer für eine Camping-Ticket |
+// Einlasspersonal prüft Ticketnummer 1111-1111 |
+// Bestätitgung der Ticketnummer | Ahmad
+
+// |U-AF017-1  |AF017              |
+// Es existiert noch kein Account mit Namen "Planer1" |
+// Managerterminal Account anlegen: (Planer1, Testpasswort) |
+// Account erfolgreich angelegt | Georg
+
+// |U-AF017-2 |AF017              |
+// Es existiert schon ein Account mit Namen "Planer1" |
+// Managerterminal Account anlegen: (Planer1, Testpasswort) |
+// Es existiert schon ein Account mit Namen "Planer1" | Georg
+
+// |U-AF010-1 |AF010              |
+// Es wurde noch keine Location für das gewählte Festival ausgesucht |
+// Öffnen des "Location anpassen" Tabs |
+// Fehlermeldung weil noch keine Location ausgewählt wurde | Adrian, Tuan
+
+// |U-AF010-2 |AF010              |
+// Es wurde schon eine Location für das gewählte Festival ausgesucht |
+// Öffnen des "Location anpassen" Tabs |
+// Warnung das bei Auswahl einer neuen Location der Lageplan zurückgesetzt wird | Adrian, Tuan
+
+// |U-AF010-3 |AF010              |
+// Es wurde die Location "Festivalwiese 1" für das gewählte Festival ausgesucht |
+// Auswählen einer Fläche für "Bühne 1" im "Location Anpassen" Tab |
+// "Bühne 1" erfolgreich gebucht | Adrian, Tuan
+
+// |U-AF005-1 |AF005              |
+// Es sind keine Colas mehr auf Lager |
+// Catering-Verkauf: 1 mal Cola |
+// Fehlermeldung weil Cola nicht mehr auf Lager ist | Robert
+
+// |U-AF005-2 |AF005              |
+// Es sind noch 200 Colas auf Lager |
+// Catering-Verkauf: 1 mal Cola |
+// 1 mal Cola verkauft | Robert
+
+// |U-AF014-1 |AF014              | |
+// Preis für Camping-Tickets: 100,123€ |
+// Fehlermeldung weil eingegebene Wert nur zwei Nachkommastellen haben darf | Jan
+
+// |U-AF002-1 |AF002              |
+// Es sind noch 2 Tickets an der Abendkasse verfügbar |
+// Ticketkauf: 5 mal Abendkasse |
+// Fehlermeldung weil nur noch 2 Tickets verfügbar sind | Ahmad
+
+// |U-AF002-2 |AF002              |
+// Es sind noch 2 Tickets an der Abendkasse verfügbar |
+// Ticketkauf: 2 mal Abendkasse |
+// 2 mal Abendkasse Tickets verkauft | Ahmad
+
+// |U-AF004-1 |AF004              | |
+// Nachricht senden: "" |
+// Nachricht darf nicht leer sein | Georg (?)
+
+// |U-AF004-2 |AF004              | |
+// Nachricht senden: "Testnachricht" |
+// Nachricht gesendet | Georg (?)
+
+// |U-AF015-1 |AF015              |
+// Das aktuell ausgewählte Festival findet im Zeitraum 30.07.22-02.08.22 statt |
+// Ticket ausdrucken |
+// Auf dem ausgedruckten Ticket steht der Text
+// "Datum: 30.07.22-02.08.22" | Ahmad
+
+// |U-AF009-1 |AF009              |
+// Auf "Bühne 1" spielt am 30.07.22 "Künstler 1" |
+// "Künstler 2" als Künstler der am 30.07.22 auf "Bühne 1" auftritt |
+// Fehlermeldung weil "Bühne 1" in diesem Zeitslot schon belegt ist | Adrian, Tuan
+// |===
+
+
+// *Integrationstests*
+// [options="headers"]
+// |===
+// |ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe |Verantwortlicher
+
+// |I-AF012-1  |AF012, AF010              |
+// Es wurden zwei Bühnen für 10000€ gebucht, ansonsten wurde kein Equipment gebucht             |
+// Öffnen der Finanzübersicht       |
+// Als Kosten für Equipment werden 20000€ angezeigt   |Jan, Adrian, Tuan
+
+// |I-AF014-1  |AF014, AF001              ||
+// Der Preis für Camping-Tickets wird auf 200€ gesetzt       |
+// Ein ausgedruckte Camping-Ticket hat den Preis 200€ aufgedruckt   |Ahmad, Jan
+
+// |I-AF014-2  |AF012, AF011              |
+// Es wurden Sicherheitskräfte gebucht die insgesamt Lohnkosten von 10000€ verursachen gebucht und sonst kein Personal gebucht             |
+// Öffnen der Finanzübersicht       |
+// Als Kosten für Personal werden 10000€ angezeigt   |Jan, Adrian, Tuan
+
+// |I-AF005-1  |AF014, AF005              |
+// Es ist Bockwurst auf Lager |
+// Verkauf einer Bockwurst für 3,50€ |
+// Umsatz in der Finanzübersicht erhöht sich um 3,50€ |Robert, Jan
+
+// |I-AF009-1  |AF008, AF009              |
+// Für "Bühne 1" eines Festivals wurde "Künstler 1" gebucht  |
+// Öffnen des Spielplans an einem Besucherterminal |
+// Für "Bühne 1" wird "Künstler 1" angezeigt |Adrian, Tuan, Georg
+
+// |I-AF008-2  |AF008, AF010              |
+// Für Ein Festival wurde die Location "Festivalwiese 1" gebucht |
+// Öffnen des Lageplans an einem Besucherterminal |
+// Es wird der Lageplan zu "Festivalwiese 1" angezeigt |Adrian, Tuan, Georg
+
+// |I-AF017-1  |AF017, AF013              |
+// Der Mitarbeiter "Planer 1" ist eingeloggt |
+// Öffnen der Überischt eingeloggter Mitarbeiter |
+// "Planer 1" wird als eingeloggter Mitarbeiter angezeigt |Georg
+
+// |I-AF001-1  |AF001, AF016              |
+// Ein Festival findet auf "Festivalwiese 1" statt |
+// Camping-Ticket ausdrucken für Festival auf "Festivalwiese 1" |
+// Auf dem ausgedruckten Ticket wird die Location "Festivalwiese 1" angezeigt |Ahmad
+
+// |I-AF007-1  |AF007, AF001              |
+// Es wurden 200 Camping-Tickets und 100 Tagestickets verkauft |
+// Öffnen eines Terminals für Festivalleiter |
+// Verkaufte Camping-Tickets: 200, verkaufte Tagestickets: 100 |Ahmad
+
+// |I-AF007-1  |AF007, AF010              |
+// Für "Bühne 1" eines Festivals wurde "Künstler 1" gebucht |
+// Öffnen eines Terminals für Festivalleiter |
+// Bühnenbelegung für "Bühne 1": "Künstler 1" |Adrian, Tuan
+// |===
+
+
 *Unit-Tests*
 [options="headers"]
 |===
 |ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe |Verantwortlicher
-|U-AF011-1  |AF011              |
-Das aktuell ausgewählte Festival kann 3000 Besucher haben              |
-Anzahl Sicherheitskräfte: 10       |
-Fehlermeldung wegen zu wenigen Sicherheitskräften   |Adrian, Tuan
 
-|U-AF011-2  |AF011              |
-Das aktuell ausgewählte Festival kann 3000 Besucher haben              |
-Anzahl Sicherheitskräfte: 30       |
-Anzahl Sicherheitskräfte wird auf 30 gesezt   |Adrian, Tuan
-
-|U-AF012-1  |AF012              |
-Das aktuell ausgewählte Festival kann 3000 Besucher haben              |
-Vorraussichtlich verkaufte Tagestickets: 4000       |
-Fehlermeldung wegen zu wenig verfügbaren Tickets   |Jan
-
-|U-AF012-3  |AF012              a|
-- Es wurde für das ausgewählte Festival noch kein Equipment gebucht
-und kein Personal angestellt
-- Camping-Tickets sollen 200€ kosten, Tagestickets 50€ a|
-- Erwartete Verkäufe Camping-Tickets: 1000
-- Erwartete Verkäufe Tagestickets: 1000 |
-Umsatz: 2050000,00€ |Jan
-
-|U-AF012-4  |AF012              |
-Für das ausgewählte Festival werden ein Umsatz von 2 * 10^6€ und Kosten von
-7 * 10^5€ erwartet |
+|U-AF012-1 |AF012 |
+Ein Festival dauert 4 Tage, die Location kostet täglich 500€, ein Künstler kostet täglich 500€ |
 Öffnen der Fianzübersicht |
-Gewinn: 1300000,00€ |Jan
+Kosten für Künstler: 2000€ |Jan
 
-|U-AF013-1  |AF013              a|
-- Es ist aktuell kein Benutzer eingeloggt
-- Die Accountdaten (Testplaner, Testpasswort) gehören zu einem Account mit Rolle "Planer" |
-Login: (Planer1, Testpasswort) |
-Es können alle Funktionen für Planer verwendet werden,
-und keine Funktionene für andere Rollen | Georg
+|U-AF012-2 |AF012 |
+Ein Festival dauert 4 Tage, die Location kostet täglich 500€, ein Künstler kostet täglich 500€ |
+Öffnen der Fianzübersicht |
+Kosten für Location: 2000€ |Jan
 
-|U-AF013-2  |AF013              a|
-- Es ist aktuell kein Benutzer eingeloggt
-- Die Accountdaten (Testplaner, Testkeinpasswort) gehören zu keinem Account |
-Login: (Planer1, Testkeinpasswort) |
-Die Software kann nur als Besucherterminal genutzt werden | Georg
+|U-AF012-3 |AF012 |
+Ein Festival dauert 4 Tage, die Location kostet täglich 500€, ein Künstler kostet täglich 500€ |
+Öffnen der Fianzübersicht |
+Kosten für Personal: 0€ |Jan
 
-|U-AF006-1  |AF006              |
-Im Getränkelager ist 200 mal Cola und 1500 mal Wasser vorhanden |
-Nachbestellen: 700 mal Cola |
-900 mal Cola auf Lager | Robert
+|U-AF012-4 |AF012 |
+Ein Festival dauert 4 Tage, die Location kostet täglich 500€, ein Künstler kostet täglich 500€ |
+Öffnen der Fianzübersicht |
+Kosten für Equipment: 0€ |Jan
 
-|U-AF016-1  |AF016              |
-Die Location "Festivalwiese 1" ist im Zeitraum 01.03.22-04.03.22 belegt |
-Location für neues Festival im Zeitraum 01.03.22-04.03.22: "Festivalwiese 1" |
-Warnung das Doppelbuchung nicht möglich ist | Adrian, Tuan
+|U-AF012-5 |AF012 |
+Ein Festival dauert 4 Tage, die Location kostet täglich 500€, ein Künstler kostet täglich 500€ |
+Öffnen der Fianzübersicht |
+Gesamtkosten: 4000€ |Jan
 
-|U-AF016-2  |AF016              | |
-Datum für neues Festival: 04.06.12-08.06.12 |
-Warnung das dieses Datum schon vergangen ist | Adrian, Tuan
+|U-AF012-6 |AF012 |
+Ein Festival dauert 4 Tage, die Location kostet täglich 500€, ein Künstler kostet täglich 500€ |
+Öffnen der Fianzübersicht |
+Gesamtumsatz: 0€ |Jan
 
-|U-AF003-1  |AF003              |
-Die Ticketnummer 1111-1111 ist eine valide Ticketnummer für eine Camping-Ticket |
-Einlasspersonal prüft Ticketnummer 1111-1111 |
-Bestätitgung der Ticketnummer | Ahmad
+|U-AF012-7 |AF012 |
+Ein Festival dauert 4 Tage, die Location kostet täglich 500€, ein Künstler kostet täglich 500€ |
+Öffnen der Fianzübersicht |
+Gewinn: -4000€ |Jan
 
-|U-AF017-1  |AF017              |
-Es existiert noch kein Account mit Namen "Planer1" |
-Managerterminal Account anlegen: (Planer1, Testpasswort) |
-Account erfolgreich angelegt | Georg
+|U-AF012-8 |AF012 |
+Zwei unterschiedliche Festivals dauern 3 Tage und haben eine Location die jeweils 500€ pro Tag kostet |
+Öffnen der Fianzübersicht für den Manager |
+Anzahl Festivals: 2 |Jan
 
-|U-AF017-2 |AF017              |
-Es existiert schon ein Account mit Namen "Planer1" |
-Managerterminal Account anlegen: (Planer1, Testpasswort) |
-Es existiert schon ein Account mit Namen "Planer1" | Georg
+|U-AF012-9 |AF012 |
+Zwei unterschiedliche Festivals dauern 3 Tage und haben eine Location die jeweils 500€ pro Tag kostet |
+Öffnen der Fianzübersicht für den Manager |
+Durchschnittliche Kosten: 1500€ |Jan
 
-|U-AF010-1 |AF010              |
-Es wurde noch keine Location für das gewählte Festival ausgesucht |
-Öffnen des "Location anpassen" Tabs |
-Fehlermeldung weil noch keine Location ausgewählt wurde | Adrian, Tuan
+|U-AF012-10 |AF012 |
+Zwei unterschiedliche Festivals dauern 3 Tage und haben eine Location die jeweils 500€ pro Tag kostet |
+Öffnen der Fianzübersicht für den Manager |
+Gesamtkosten: 3000€ |Jan
 
-|U-AF010-2 |AF010              |
-Es wurde schon eine Location für das gewählte Festival ausgesucht |
-Öffnen des "Location anpassen" Tabs |
-Warnung das bei Auswahl einer neuen Location der Lageplan zurückgesetzt wird | Adrian, Tuan
+|U-AF012-11 |AF012 |
+Zwei unterschiedliche Festivals dauern 3 Tage und haben eine Location die jeweils 500€ pro Tag kostet |
+Öffnen der Fianzübersicht für den Manager |
+Durchschnittlicher Umsatz: 0€ |Jan
 
-|U-AF010-3 |AF010              |
-Es wurde die Location "Festivalwiese 1" für das gewählte Festival ausgesucht |
-Auswählen einer Fläche für "Bühne 1" im "Location Anpassen" Tab |
-"Bühne 1" erfolgreich gebucht | Adrian, Tuan
+|U-AF012-12 |AF012 |
+Zwei unterschiedliche Festivals dauern 3 Tage und haben eine Location die jeweils 500€ pro Tag kostet |
+Öffnen der Fianzübersicht für den Manager |
+Gesamtumsatz: 0€ |Jan
 
-|U-AF005-1 |AF005              |
-Es sind keine Colas mehr auf Lager |
-Catering-Verkauf: 1 mal Cola |
-Fehlermeldung weil Cola nicht mehr auf Lager ist | Robert
+|U-AF012-13 |AF012 |
+Zwei unterschiedliche Festivals dauern 3 Tage und haben eine Location die jeweils 500€ pro Tag kostet |
+Öffnen der Fianzübersicht für den Manager |
+Durchschnittlichergewinn: -1500€ |Jan
 
-|U-AF005-2 |AF005              |
-Es sind noch 200 Colas auf Lager |
-Catering-Verkauf: 1 mal Cola |
-1 mal Cola verkauft | Robert
+|U-AF012-14 |AF012 |
+Zwei unterschiedliche Festivals dauern 3 Tage und haben eine Location die jeweils 500€ pro Tag kostet |
+Öffnen der Fianzübersicht für den Manager |
+Gesamtgewinn: 1500€ |Jan
 
-|U-AF014-1 |AF014              | |
-Preis für Camping-Tickets: 100,123€ |
-Fehlermeldung weil eingegebene Wert nur zwei Nachkommastellen haben darf | Jan
+|U-Utils-1 |- |
+Im Festivalmanager wird ein Festival mit dem Namen "Test Festival" und einer generierten ID erstellt |
+Öffnen der Festival Details Seite zu "Test Festival" |
+Im Model befindet sich ein Attribut festivalName mit Wert "Test Festival" |Jan
 
-|U-AF002-1 |AF002              |
-Es sind noch 2 Tickets an der Abendkasse verfügbar |
-Ticketkauf: 5 mal Abendkasse |
-Fehlermeldung weil nur noch 2 Tickets verfügbar sind | Ahmad
+|U-Utils-2 |- |
+Im Festivalmanager wird ein Festival mit dem Namen "Test Festival" und einer generierten ID erstellt |
+Öffnen der Festival Details Seite zu "Test Festival" |
+Im Model befindet sich ein Attribut festivalId, dessen Wert die generierte ID ist |Jan
 
-|U-AF002-2 |AF002              |
-Es sind noch 2 Tickets an der Abendkasse verfügbar |
-Ticketkauf: 2 mal Abendkasse |
-2 mal Abendkasse Tickets verkauft | Ahmad
+|U-Utils-3 |- |- |
+Einer HTTP-Request wir die Fehlermeldung "testMessage" übergeben |
+Die Error Seite zur HTTP-Request enthält die Fehlermeldung "testMessage" |Jan
 
-|U-AF004-1 |AF004              | |
-Nachricht senden: "" |
-Nachricht darf nicht leer sein | Georg (?)
+|U-Utils-4 |- |
+Die URI "/someUnknownPage" gehört zu keiner Seite des Festivalmanagers |
+Einer HTTP-Request auf die Seite "/someUnknownPage" wird durchgeführt  |
+Die Error Seite zur HTTP-Request enthält die stack trace "-" |Jan
 
-|U-AF004-2 |AF004              | |
-Nachricht senden: "Testnachricht" |
-Nachricht gesendet | Georg (?)
+|U-Utils-5 |- |
+Die URI "/someUnknownPage" gehört zu keiner Seite des Festivalmanagers |
+Einer HTTP-Request auf die Seite "/someUnknownPage" wird durchgeführt  |
+Die Error Seite zur HTTP-Request enthält den Pfad "/someUnknownPage" |Jan
 
-|U-AF015-1 |AF015              |
-Das aktuell ausgewählte Festival findet im Zeitraum 30.07.22-02.08.22 statt |
-Ticket ausdrucken |
-Auf dem ausgedruckten Ticket steht der Text
-"Datum: 30.07.22-02.08.22" | Ahmad
+|U-AF016-1 |AF016 |
+Es gibt noch kein Festival mit Name "name" |
+Ein neues Festival mit Name "name", Startdatum 24.12.2021 und Enddatum 30.12.2021 wird erstellt |
+Das Festival hat den Namen "name" |Adrian, Tuan
 
-|U-AF009-1 |AF009              |
-Auf "Bühne 1" spielt am 30.07.22 "Künstler 1" |
-"Künstler 2" als Künstler der am 30.07.22 auf "Bühne 1" auftritt |
-Fehlermeldung weil "Bühne 1" in diesem Zeitslot schon belegt ist | Adrian, Tuan
+|U-AF016-2 |AF016 |
+Es gibt noch kein Festival mit Name "name" |
+Ein neues Festival mit Name "name", Startdatum 24.12.2021 und Enddatum 30.12.2021 wird erstellt |
+Das Festival hat das Startdatum 24.12.2021 |Adrian, Tuan
+
+|U-AF016-3 |AF016 |
+Es gibt noch kein Festival mit Name "name" |
+Ein neues Festival mit Name "name", Startdatum 24.12.2021 und Enddatum 30.12.2021 wird erstellt |
+Das Festival hat das Enddatum 30.12.2021 |Adrian, Tuan
+
+|U-AF016-4 |AF016 |
+Es gibt noch kein Festival mit Name "Beispiel" oder "Beispiel 1" |
+Erstellen eines Festivals mit Name "Beispiel" und Ändern des Namens zu "Beispiel 1" |
+Das Festival hat den Namen "Beispiel 1" |Adrian, Tuan
+
+|U-AF016-5 |AF016 |
+Es gibt noch kein Festival mit Name "Beispiel" |
+Erstellen eines Festivals mit Name "Beispiel" und zwei Shows |
+Das Festival hat zwei Shows |Adrian, Tuan
+
+|U-AF016-6 |AF016 |
+Es wurde ein Festival mit Name "Beispiel" im Zeitraum vom 24.12.2021 bis zum 26.12.2021 erstellt |
+Hinzufügen einer Show am 26.12.2021 mit Name "BeispielShow" und Dauer 49 Minuten |
+Die Show kann hinzugefügt werden |Adrian, Tuan
+
+|U-AF016-7 |AF016 |
+Es wurde ein Festival mit Name "Beispiel" im Zeitraum vom 24.12.2021 bis zum 26.12.2021 erstellt |
+Hinzufügen einer Show am 26.12.2021 und Abfragen ob es für die Show Sicherheitskräfte gibt |
+Es gibt noch keine Sicherheitskräfte |Adrian, Tuan
+
+|U-AF016-8 |AF016 |
+Es wurde ein Festival mit Name "Beispiel" im Zeitraum vom 24.12.2021 bis zum 26.12.2021 erstellt |
+Hinzufügen einer Show am 26.12.2021 mit Namen "BeispielShow" auf Bühne "stage" im Zeitslot TS1 |
+In Zeitslot TS1 findet "BeispielShow" auf "stage" statt |Adrian, Tuan
+
+|U-AF016-9 |AF016 |
+Es wurde ein Festival mit Name "Beispiel" im Zeitraum vom 24.12.2021 bis zum 26.12.2021 erstellt |
+Hinzufügen einer Show am 26.12.2021 mit Name "testShow" und Dauer 49 Minuten |
+Die Show kann hinzugefügt werden |Adrian, Tuan
+
+|U-AF016-10 |AF016 |
+Es wurde ein Festival mit Name "Beispiel" im Zeitraum vom 24.12.2021 bis zum 26.12.2021 erstellt |
+Hinzufügen einer Show am 26.12.2021 und Abfragen ob es für die Show Sicherheitskräfte gibt |
+Es gibt noch keine Sicherheitskräfte |Adrian, Tuan
+
+|U-AF016-11 |AF016 |
+Es wurde ein Festival mit Name "Beispiel" im Zeitraum vom 24.12.2021 bis zum 26.12.2021 erstellt |
+Hinzufügen einer Show am 26.12.2021 mit Namen "testShow" auf Bühne "stage" im Zeitslot TS1 |
+In Zeitslot TS1 findet "testShow" auf "stage" statt |Adrian, Tuan
+
+|U-AF010-1 |AF010 |
+Es existiert noch keine Location mit Name "name" |
+Erstellen einer Location mit Name "name", Adresse "adress", Preis pro Tag 1500.90€, bis zu 1500 Besuchern und bis zu 6 Bühnen |
+Die Location hat den Name "name" |Adrian, Tuan
+
+|U-AF010-2 |AF010 |
+Es existiert noch keine Location mit Name "name" |
+Erstellen einer Location mit Name "name", Adresse "adress", Preis pro Tag 1500.90€, bis zu 1500 Besuchern und bis zu 6 Bühnen |
+Die Location hat die Adresse "adress" |Adrian, Tuan
+
+|U-AF010-3 |AF010 |
+Es existiert noch keine Location mit Name "name" |
+Erstellen einer Location mit Name "name", Adresse "adress", Preis pro Tag 1500.90€, bis zu 1500 Besuchern und bis zu 6 Bühnen |
+Die Location kostet 1500.90€ pro Tag |Adrian, Tuan
+
+|U-AF010-4 |AF010 |
+Es existiert noch keine Location mit Name "name" |
+Erstellen einer Location mit Name "name", Adresse "adress", Preis pro Tag 1500.90€, bis zu 1500 Besuchern und bis zu 6 Bühnen |
+Die Location kann bis zu 1500 Besucher haben |Adrian, Tuan
+
+|U-AF010-5 |AF010 |
+Es existiert noch keine Location mit Name "name" |
+Erstellen einer Location mit Name "name", Adresse "adress", Preis pro Tag 1500.90€, bis zu 1500 Besuchern und bis zu 6 Bühnen |
+Die Location kann bis zu 6 Bühnne haben |Adrian, Tuan
+
+|U-AF010-6 |AF010 |
+Es existiert noch keine Location mit Name "name" |
+Erstellen einer Location mit Name "name", Adresse "adress", Preis pro Tag 1500.90€, bis zu 1500 Besuchern und bis zu 6 Bühnen |
+Die Location hat noch kein Location Bild |Adrian, Tuan
+
+|U-AF010-7 |AF010 |
+Es existiert noch keine Location mit Name "name" |
+Erstellen einer Location mit Name "name", Adresse "adress", Preis pro Tag 1500.90€, bis zu 1500 Besuchern und bis zu 6 Bühnen |
+Die Location hat noch kein Bild für den Grundriss |Adrian, Tuan
+
+|U-AF010-8 |AF010 |
+Die Location "location" ist von heute an für die Nächsten 12 Tage gebucht |
+Entfernen der Buchung für die gesamten kommenden 12 Tage |
+Die Buchung kann entfernt werden |Adrian, Tuan
+
+|U-AF010-9 |AF010 |
+Die Location "location" ist von heute an für die Nächsten 12 Tage gebucht |
+Entfernen der Buchung ab morgen bis in 12 Tagen |
+Die Buchung kann nicht entfernt werden |Adrian, Tuan
+
+|U-AF010-10 |AF010 |
+Die Location "location" hat noch keine Buchungen |
+Buchen von "location" im Zeitraum vom 24.12.2021 bis zum 30.12.2021 |
+Die Location kann gebucht werden |Adrian, Tuan
+
+|U-AF010-11 |AF010 |
+Die Location "location" ist im Zeitraum vom 24.12.2021 bis zum 30.12.2021 schon gebucht |
+Buchen von "location" im Zeitraum vom 21.12.2021 bis zum 24.12.2021 |
+Die Location kann nicht gebucht werden |Adrian, Tuan
+
+|U-AF010-12 |AF010 |
+Die Location "location" ist im Zeitraum vom 24.12.2021 bis zum 30.12.2021 schon gebucht |
+Buchen von "location" im Zeitraum vom 24.12.2021 bis zum 30.12.2021 |
+Die Location kann nicht gebucht werden |Adrian, Tuan
+
+|U-AF010-13 |AF010 |
+Die Location "location" ist im Zeitraum vom 24.12.2021 bis zum 30.12.2021 schon gebucht |
+Buchen von "location" im Zeitraum vom 30.12.2021 bis zum 31.01.2022 |
+Die Location kann nicht gebucht werden |Adrian, Tuan
+
+|U-AF010-14 |AF010 |
+Die Location "location" ist im Zeitraum vom 24.12.2021 bis zum 30.12.2021 schon gebucht |
+Buchen von "location" im Zeitraum vom 26.12.2021 bis zum 28.12.2021 |
+Die Location kann nicht gebucht werden |Adrian, Tuan
+
+|U-AF010-15 |AF010 |
+Die Location "location" ist im Zeitraum vom 24.12.2021 bis zum 30.12.2021 schon gebucht |
+Buchen von "location" im Zeitraum vom 21.12.2021 bis zum 31.01.2022 |
+Die Location kann nicht gebucht werden |Adrian, Tuan
+
+|U-AF016-12 |AF016 |- |
+Erstellen eines NewShowForms mit Name "name" und performance 134 |
+Das NewFestivalForm enthält den Name "name" und die performance 134 |Adrian, Tuan
+
+|U-AF016-13 |AF016 |
+Der Künstler "artist" hat noch keine Buchungen |
+Buchen von "artist" im Zeitraum vom 24.12.2021 bis zum 30.12.2021 |
+Der Künstler kann gebucht werden |Adrian, Tuan
+
+|U-AF016-14 |AF016 |
+Der Künstler "artist" ist im Zeitraum vom 24.12.2021 bis zum 30.12.2021 schon gebucht |
+Buchen von "artist" im Zeitraum vom 21.12.2021 bis zum 24.12.2021 |
+Der Künstler kann nicht gebucht werden |Adrian, Tuan
+
+|U-AF016-15 |AF016 |
+Der Künstler "artist" ist im Zeitraum vom 24.12.2021 bis zum 30.12.2021 schon gebucht |
+Buchen von "artist" im Zeitraum vom 24.12.2021 bis zum 30.12.2021 |
+Der Künstler kann nicht gebucht werden |Adrian, Tuan
+
+|U-AF016-16 |AF016 |
+Der Künstler "artist" ist im Zeitraum vom 24.12.2021 bis zum 30.12.2021 schon gebucht |
+Buchen von "artist" im Zeitraum vom 30.12.2021 bis zum 31.01.2022 |
+Der Künstler kann nicht gebucht werden |Adrian, Tuan
+
+|U-AF016-17 |AF016 |
+Der Künstler "artist" ist im Zeitraum vom 24.12.2021 bis zum 30.12.2021 schon gebucht |
+Buchen von "artist" im Zeitraum vom 26.12.2021 bis zum 28.12.2021 |
+Der Künstler kann nicht gebucht werden |Adrian, Tuan
+
+|U-AF016-18 |AF016 |
+Der Künstler "artist" ist im Zeitraum vom 24.12.2021 bis zum 30.12.2021 schon gebucht |
+Buchen von "artist" im Zeitraum vom 21.12.2021 bis zum 31.01.2022 |
+Der Künstler kann nicht gebucht werden |Adrian, Tuan
+
+|U-AF016-19 |AF016 |- |
+Erstellen eines NewArtistForms mit Name "name", Preis 50€ und 50 Bühnentechnikern |
+Das NewArtistForm enthält den Name "name", den Preis 50€ und 50 Bühnentechniker |Adrian, Tuan
+
+|U-AF016-20 |AF016 |
+Der Künstler "artist" hat den Name "name1", den Preis 50€ und 50 Bühnentechniker |
+Ändern des Namens zu "name2" |
+Der Künstler hat den Name "name2" |Adrian, Tuan
+
+|U-AF016-21 |AF016 |
+Der Künstler "artist" hat den Name "name1", den Preis 50€ und 50 Bühnentechniker |
+Ändern des Preises zu 60€ |
+Der Künstler hat einen Preis von 60€ |Adrian, Tuan
+
+|U-AF016-22 |AF016 |
+Der Künstler "artist" hat den Name "name1", den Preis 50€ und 50 Bühnentechniker |
+Hinzufügen einer Show für den Künstler |
+Die Show wurde zum Künstler hinzugefügt und hat die performance 120 |Adrian, Tuan
+
+|U-AF016-23 |AF016 |
+Es gibt noch keinen Künstler mit Name "name" |
+Erstellen eines Künstlers aus einem NewArtistForm mit Name "name", Preis 100€ und 5 Bühnentechnikern |
+Es wurde ein Künstler mit Name "name", Preis 100€ und 5 Bühnentechnikern |Adrian, Tuan
+
+|U-AF016-24 |AF016 |
+Es gibt noch keinen Künstler mit Name "newName" |
+Erstellen eines Künstlers und bearbeiten des Künstlers mit einem NewArtistForm mit Name "newName", Preis 200€ und 6 Bühnentechnikern |
+Der Künstler hat den Name "newName", Preis 200€ und 6 Bühnentechnikern |Adrian, Tuan
+
+|U-AF016-25 |AF016 |
+Ein ArtistRepository enthält nur den Künstler "artist" |
+Entfernen von "artist" aus dem ArtistRepository |
+"artist" ist nicht mehr im ArtistRepository vorhanden |Adrian, Tuan
+
+|U-AF016-26 |AF016 |
+Ein ArtistRepository enthält keine Künstler |
+Hinzufügen des Künstlers "artist" zum ArtistRepository |
+Das ArtistRepository enthält den Künstler "artist" |Adrian, Tuan
+
+|U-AF016-27 |AF016 |- |
+Erstellen eines NewStageForms mit Name "name" und generierter ID |
+Das NewStageForm enthält den Name "name" und die generierte ID |Adrian, Tuan
+
+|U-AF016-28 |AF016 |
+Das Bühne "stage" ist für das Festival "festival" nicht gebucht wurden |
+Die Buchung für "stage" soll entfernt werden  |
+Entfernen der Buchung scheitert |Adrian, Tuan
+
+|U-AF016-29 |AF016 |
+Das Bühne "stage" ist für das Festival "festival" gebucht wurden |
+Die Buchung für "stage" soll entfernt werden  |
+Die Buchung kann entfernt werden |Adrian, Tuan
+
+|U-AF016-30 |AF016 |
+Die Location "location" ist während der Dauer von "festival" noch nicht belegt |
+Die Location "location" wird für "festival" gebucht  |
+Die Buchung ist erfolgreich |Adrian, Tuan
+
+|U-AF016-31 |AF016 |
+Die Location "location" ist während der Dauer von "festival" schon belegt |
+Die Location "location" wird für "festival" gebucht  |
+Die Buchung ist nicht erfolgreich |Adrian, Tuan
+
+|U-AF016-32 |AF016 |
+Der Künstler "artist" ist während der Dauer von "festival" noch nicht gebucht |
+Der Künstler "artist" wird für "festival" gebucht  |
+Die Buchung ist erfolgreich |Adrian, Tuan
+
+|U-AF016-33 |AF016 |
+Der Künstler "artist" ist während der Dauer von "festival" schon gebucht |
+Der Künstler "artist" wird für "festival" gebucht  |
+Die Buchung ist nicht erfolgreich |Adrian, Tuan
+
 |===
+
 
 *Integrationstests*
 [options="headers"]
 |===
 |ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe |Verantwortlicher
 
-|I-AF012-1  |AF012, AF010              |
-Es wurden zwei Bühnen für 10000€ gebucht, ansonsten wurde kein Equipment gebucht             |
-Öffnen der Finanzübersicht       |
-Als Kosten für Equipment werden 20000€ angezeigt   |Jan, Adrian, Tuan
+|I-AF016-1 |AF016 |
+Ein Nutzer mit Rolle ADMIN ist eingeloggt |
+Erstellen eines neues Festivals |
+Das Festival kann erstellt werden |Adrian, Tuan
 
-|I-AF014-1  |AF014, AF001              ||
-Der Preis für Camping-Tickets wird auf 200€ gesetzt       |
-Ein ausgedruckte Camping-Ticket hat den Preis 200€ aufgedruckt   |Ahmad, Jan
+|I-AF016-2 |AF016 |
+Es ist kein Benutzer eingeloggt |
+Aufrufen der "/newFestival" Seite |
+Das Festival kann nicht erstellt werden |Adrian, Tuan
 
-|I-AF014-2  |AF012, AF011              |
-Es wurden Sicherheitskräfte gebucht die insgesamt Lohnkosten von 10000€ verursachen gebucht und sonst kein Personal gebucht             |
-Öffnen der Finanzübersicht       |
-Als Kosten für Personal werden 10000€ angezeigt   |Jan, Adrian, Tuan
-
-|I-AF005-1  |AF014, AF005              |
-Es ist Bockwurst auf Lager |
-Verkauf einer Bockwurst für 3,50€ |
-Umsatz in der Finanzübersicht erhöht sich um 3,50€ |Robert, Jan
-
-|I-AF009-1  |AF008, AF009              |
-Für "Bühne 1" eines Festivals wurde "Künstler 1" gebucht  |
-Öffnen des Spielplans an einem Besucherterminal |
-Für "Bühne 1" wird "Künstler 1" angezeigt |Adrian, Tuan, Georg
-
-|I-AF008-2  |AF008, AF010              |
-Für Ein Festival wurde die Location "Festivalwiese 1" gebucht |
-Öffnen des Lageplans an einem Besucherterminal |
-Es wird der Lageplan zu "Festivalwiese 1" angezeigt |Adrian, Tuan, Georg
-
-|I-AF017-1  |AF017, AF013              |
-Der Mitarbeiter "Planer 1" ist eingeloggt |
-Öffnen der Überischt eingeloggter Mitarbeiter |
-"Planer 1" wird als eingeloggter Mitarbeiter angezeigt |Georg
-
-|I-AF001-1  |AF001, AF016              |
-Ein Festival findet auf "Festivalwiese 1" statt |
-Camping-Ticket ausdrucken für Festival auf "Festivalwiese 1" |
-Auf dem ausgedruckten Ticket wird die Location "Festivalwiese 1" angezeigt |Ahmad
-
-|I-AF007-1  |AF007, AF001              |
-Es wurden 200 Camping-Tickets und 100 Tagestickets verkauft |
-Öffnen eines Terminals für Festivalleiter |
-Verkaufte Camping-Tickets: 200, verkaufte Tagestickets: 100 |Ahmad
-
-|I-AF007-1  |AF007, AF010              |
-Für "Bühne 1" eines Festivals wurde "Künstler 1" gebucht |
-Öffnen eines Terminals für Festivalleiter |
-Bühnenbelegung für "Bühne 1": "Künstler 1" |Adrian, Tuan
 |===

@@ -15,9 +15,9 @@
 	</header>
 
   	</br>
-  	<a class="item" th:href="@{/locationOverview/{id}(id=${festival.id})}">Zurück</a>
+  	<a class="item" th:href="@{/locationOverview/{id}(id=${festivalId})}">Zurück</a>
   	</br> </br>
-  	<form class="book-form" method="post" th:action="@{/locationOverview/{festivalId}/detail/{locationId}/bookLocation (locationId=${location.id}, festivalId = ${festival.id})}" th:object="${booking}">
+  	<form class="book-form" method="post" th:action="@{/locationOverview/{festivalId}/detail/{locationId}/bookLocation (locationId=${location.id}, festivalId = ${festivalId})}" th:object="${booking}">
 		<input type="hidden" name="currentlyBooked" th:value="${currentlyBooked == true}"/>
 		<input type="submit" th:if="${currentlyBooked == false}" value="Buchen">
 		<input type="submit" th:if="${currentlyBooked == true}" value="Buchung zurücknehmen">

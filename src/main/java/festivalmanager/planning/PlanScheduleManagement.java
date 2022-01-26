@@ -7,6 +7,7 @@ import java.util.List;
 import org.salespointframework.core.SalespointIdentifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import festivalmanager.Equipment.Stage;
 import festivalmanager.festival.Festival;
@@ -31,17 +32,21 @@ public class PlanScheduleManagement {
 	
 	/**
 	 * Create a new {@link PlanScheduleManagement}
-	 * @param staffManagement
-	 * @param festivalManagement
+	 * 
+	 * @param staffManagement must not be {@literal null}.
+	 * @param festivalManagement must not be {@literal null}.
 	 */
 	public PlanScheduleManagement(FestivalManagement festivalManagement,
 								  StaffManagement staffManagement) {
+		Assert.notNull(festivalManagement, "FestivalManagement must not be null!");
+		Assert.notNull(staffManagement, "StaffManagement must not be null!");
 		this.festivalManagement = festivalManagement;
 		this.staffManagement = staffManagement;
 	}
 	
 	/**
-	 * set the {@link Show} and {@link Person} of the {@link Schedule} for the {@link Festival}
+	 * Set the {@link Show} and {@link Person} of the {@link Schedule} for the {@link Festival}
+	 * 
 	 * @param date
 	 * @param stage
 	 * @param timeSlotString
@@ -50,7 +55,9 @@ public class PlanScheduleManagement {
 	 * @param festival
 	 * @return true if set schedule success
 	 */
-	public boolean setShow(LocalDate date, Stage stage, String timeSlotString, long showId, Festival festival, long personId) {
+	public boolean setShow(LocalDate date,
+						   Stage stage, String timeSlotString,
+						   long showId, Festival festival, long personId) {
 
 		TimeSlot timeSlot = TimeSlot.valueOf(timeSlotString);
 		//System.out.println(timeSlot);
@@ -67,6 +74,7 @@ public class PlanScheduleManagement {
 	/**
 	 * return all {@link Person}s from the {@link Festival} available at the specified {@link TimeSlot} 
 	 * for the specified {@link Stage}
+	 * 
 	 * @param date
 	 * @param stageId
 	 * @param timeSlotString

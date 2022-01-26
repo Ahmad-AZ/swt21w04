@@ -92,12 +92,12 @@ public class TicketManagement {
 
 	 */
 	public void setCurrentTicket(@NotNull Ticket ticket){
-		if (Objects.isNull(ticketRepo.findAllByFestivalId(ticket.getFestivalId())))
-		{
+		if (Objects.isNull(ticketRepo.findAllByFestivalId(ticket.getFestivalId()))) {
 			ticketRepo.save(ticket);
 			this.currentTicket = ticketRepo.findAllByFestivalId(ticket.getFestivalId());
+		} else {
+			this.currentTicket=ticket;
 		}
-		else this.currentTicket=ticket;
 
 	}
 
@@ -131,6 +131,7 @@ public class TicketManagement {
 
 			if ( difference >= 0 && (nTicket.getSoldCampingTicket() + soldTicket <= currCampingTickets)) {
 				nTicket.setSoldCampingTicket(soldTicket);
+				nTicket.setDayTicketsCount(currCampingTickets - soldTicket); // TODO: 1/20/2022  
 				this.currentTicket= nTicket;
 				return true;
 			}
@@ -145,6 +146,7 @@ public class TicketManagement {
 
 			if ( difference >= 0 && (nTicket.getSoldDayTicket() + soldTicket <= currDayTickets)) {
 				nTicket.setSoldDayTicket(soldTicket);
+				nTicket.setDayTicketsCount(currDayTickets- soldTicket); // TODO: 1/20/2022  
 				this.currentTicket= nTicket;
 				return true;
 			}

@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
 import festivalmanager.Equipment.Equipment.EquipmentType;
 
 /**
- * Initializes default equipments
- *
- * @author Tuan Giang Trinh
- */
+* Initializes default {@link Equipment}s
+*
+* @author Tuan Giang Trinh
+*/
 @Component
 @Order(10)
 public class EquipmentDataInitializer implements DataInitializer {
@@ -24,13 +24,17 @@ public class EquipmentDataInitializer implements DataInitializer {
 
 	private EquipmentRepository equipmentRepository;
 	/**
-	 * Create a new {@link EquipmentDataInitializer} and add new {@link Equipment}
+	 * Create a new {@link EquipmentDataInitializer}
 	 * @param equipmentRepository
 	 */
 	EquipmentDataInitializer(EquipmentRepository equipmentRepository){
 		this.equipmentRepository = equipmentRepository;
 	}
 
+	/**
+	 * Initialize {@link Equipment} entities
+	 * 
+	 */
 	@Override
 	public void initialize() {
 		if(equipmentRepository.findAll().iterator().hasNext()) {

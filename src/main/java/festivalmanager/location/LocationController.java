@@ -2,12 +2,9 @@ package festivalmanager.location;
 
 import static org.salespointframework.core.Currencies.EURO;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 import javax.money.format.MonetaryParseException;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
@@ -16,36 +13,55 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.Assert;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+/**
+ * A class used to pass on values computed in {@link LocationManagement}
+ * to the locations.html, locationDetail.html and pages to create or change attributes
+ * 
+ * @author Adrian Scholze
+ */
 @Controller
-@ControllerAdvice
 public class LocationController {
 	
 	private final LocationManagement locationManagement;
-	private Location cl = null;
 	
+	/**
+	 * Creates a new {@link LocationController} with the given {@link LocationManagement}
+	 *
+	 * @param locationManagement must not be {@literal null}.
+
+	 */
 	public LocationController(LocationManagement locationManagement) {
+		Assert.notNull(locationManagement, "LocationManagement must not be null!");
 		this.locationManagement = locationManagement;
 	}
 
+	/**
+	 * Used to pass on the title of the location page to the page header
+	 * 
+	 * @return title attribute for the location tab
+	 */
 	@ModelAttribute("title")
 	public String getTitle() {
 		return "Locations";
 	}
 
+	/**
+	 * Generates a page which shows an overview about all existing {@link Location}s
+	 * 
+	 * @param model
+	 * @return the locations page
+	 */
 	@GetMapping("/locations")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String locations(Model model) {
@@ -53,6 +69,13 @@ public class LocationController {
 		return "locations";
 	}
 	
+	/**
+	 * Generates a page which has input fields to change parameters of the chosen {@link Location}
+	 * 
+	 * @param locationId
+	 * @param model
+	 * @return the edit location page for the location belonging to locationId
+	 */
 	@GetMapping("/locations/{locationId}/edit")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String locationEdit(@PathVariable Long locationId, Model model) {
@@ -60,7 +83,6 @@ public class LocationController {
 		
 		if (location.isPresent()) {
 			Location current = location.get();
-			cl = current;
 			System.out.println(locationId);
 			model.addAttribute("location", current);
 			model.addAttribute("newLocationForm", current);
@@ -72,6 +94,13 @@ public class LocationController {
 			
 	}
 	
+	/**
+	 * Generates a page which shows basic informations for the current {@link Location}
+	 * 
+	 * @param locationId
+	 * @param model
+	 * @return the location detail page for the location belonging to locationId
+	 */
 	@GetMapping("/locations/{locationId}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String locationDetail(@PathVariable Long locationId, Model model) {
@@ -87,6 +116,14 @@ public class LocationController {
 		
 	}
 	
+	/**
+	 * Takes given {@link NewLocationForm} and call methods to create a new {@link Location} instance.
+	 * Rejects errors if {@link Errors} occur.
+	 * 
+	 * @param newLocationForm
+	 * @param result
+	 * @return if no error occur the locations page, else the new location page
+	 */
 	@PostMapping("/newLocation")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String createNewLocation(@Validated NewLocationForm newLocationForm, Errors result) {
@@ -98,19 +135,16 @@ public class LocationController {
 	        	result.rejectValue("pricePerDay", null, "geben Sie einen gültigen Preis ein");
 	        	return "newLocation";
 	        }
-			
 			// Location with same name already exists
 			for(Location aLocation : locationManagement.findAll()) {
 				if(aLocation.getName().equals(newLocationForm.getName())){
 					result.rejectValue("name", null, "Location mit diesem Namen existiert bereits.");	
 				}
 			}
-			
 			if(price.isLessThan(Money.of(0, EURO))) {
 				result.rejectValue("pricePerDay", null, "muss größer-gleich 0 sein");	
 			}
 		}
-		
 		if (result.hasErrors()) {
 			return "newLocation";
 		} else {
@@ -120,14 +154,30 @@ public class LocationController {
 		}
 	}
 	
-	
-	// gives NewLocationForm to fill out
+	/**
+	 * Generates a page which contains a {@link NewLocationForm} to fill out.
+	 * Access only for admin, planner and manager.
+	 * 
+	 * @param model
+	 * @param newLocationForm
+	 * @return the new location page
+	 */
 	@GetMapping("/newLocation")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String newLocation(Model model, NewLocationForm newLocationForm) {
 		return "newLocation";
 	}
 	
+	/**
+	 * Takes given {@link NewLocationForm} and call method to edit {@link Locations}s paramters.
+	 * Rejects errors if {@link Errors} occur.
+	 * 
+	 * @param locationId
+	 * @param form
+	 * @param result
+	 * @param model 
+	 * @return the locations page
+	 */
 	@PostMapping("/locations/{locationId}/edit/saveLocation")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String saveLocation(@Validated NewLocationForm form,
@@ -139,7 +189,6 @@ public class LocationController {
 					HttpStatus.NOT_FOUND, "entity not found"
 			);
 		}
-		
 		Location current = location.get();	
 		if (!result.hasErrors()) {
         			
@@ -175,21 +224,15 @@ public class LocationController {
 		return "locationEdit";
 			
 	}
-	
-	
-	@ExceptionHandler(MaxUploadSizeExceededException.class)
-	public String catchException(HttpServletRequest httpRequest, MaxUploadSizeExceededException e, RedirectAttributes ra) {
-		ra.addFlashAttribute("message", "Bilder sind zu groß.");
-		String url = httpRequest.getRequestURL().toString();
-		if(url.contains("/saveLocation")) {
-		    return "redirect:"+httpRequest.getRequestURL().toString().replaceAll("/saveLocation","");
-		}
-		if(url.contains("/newLocation")) {
-		    return "redirect:/newLocation";
-		}
-		return "redirect:/locations";
-	}
 		
+	/**
+	 * Generates a page which shows an overview about all existing {@link Locations}s
+	 * and has an dialog to confirm the deletion of the {@link Location} instance.
+	 * 
+	 * @param id
+	 * @param model
+	 * @return the locations page with the dialog
+	 */
 	@GetMapping("locations/remove/{id}")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String getRemoveLocationDialog(@PathVariable("id") long id, Model model) {
@@ -209,6 +252,13 @@ public class LocationController {
 		return "/locations";
 	}
 	
+	/**
+	 * Call methods to delete {@link Location} instance with the given id if it has no {@link Booking}s, 
+	 * and returns the locations page
+	 * 
+	 * @param festivalId
+	 * @return locations page
+	 */
 	@PostMapping("/locations/remove")
 	@PreAuthorize("hasRole('ADMIN') || hasRole('PLANNER') || hasRole('MANAGER')")
 	public String removeLocation(@Valid @RequestParam("id") @NotEmpty Long locationId,

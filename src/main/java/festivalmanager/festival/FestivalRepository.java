@@ -9,7 +9,10 @@ import org.springframework.data.util.Streamable;
  * @author Adrian Scholze
  */
 public interface FestivalRepository extends CrudRepository<Festival, Long> {
-	
+	/**
+	 * Re-declared {@link CrudRepository#findAll()} to return a {@link Streamable} instead of {@link Integer}
+	 * @return all {@link Festival}s
+	 */
 	@Override
 	Streamable<Festival> findAll();
  

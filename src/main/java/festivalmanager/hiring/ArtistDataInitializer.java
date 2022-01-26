@@ -11,14 +11,14 @@ import java.time.LocalDate;
 import static org.salespointframework.core.Currencies.EURO;
 
 /**
- * Initializes default artists and their shows
- *
- * @author Tuan Giang Trinh
- */
+* Initializes default artists and their shows
+*
+* @author Tuan Giang Trinh
+*/
 @Component
 @Order(20)
 public class ArtistDataInitializer implements DataInitializer {
- 
+
 	private ArtistRepository artists;
 
 	/**
@@ -29,7 +29,7 @@ public class ArtistDataInitializer implements DataInitializer {
 		this.artists = artists;
 		
 	}
- 
+
 	@Override
 	public void initialize() {
 		if(artists.findAll().iterator().hasNext()) {

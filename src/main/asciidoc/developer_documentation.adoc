@@ -133,12 +133,14 @@ image::models/analysis/TLA.png[]
 - LocationDataInitializer
 - Location
 - Catering
+- Artist
 
 |javax.persistence a|
 - Location
 - Festival
 - Equipment
 - Person
+- Show
 
 |javax.validation a|
 - CreateStaffForm
@@ -204,29 +206,51 @@ image::models/design/developer_documentation/class_diagrams/staff.png[]
 |===
 |Klasse/Enumeration |Beschreibung
 |Person |Basisklasse für das Personal, die alle gemeinsamen Eigenschaften enthält
-|Planner |Klasse, die den Planer repräsentiert
-|AdmissionStaff |Klasse, die das Einlaspersonal repräsentiert
-|TicketSeller |Klasse, die einen Ticketverkäufer repräsentiert
-|CateringStaff |Klasse, die einen Catering Angestellten repräsentiert
-|FestivalManager |Klasse, die den Festivalmanager repräsentiert
-|FestivalLeader |Klasse, die den Festivalleiter repräsentiert
-|MessagingSystem |Ein System zum speichern von internen Nachrichten
 |StaffRepository |Speicherschnittstelle um die Personendaten zu speichern
+|StaffManagement |Klasse zur inteligenten Verwaltung des Repositories
 |StaffController |Der Controller für das Webinterface zu verwaltung des Personals
-|CreateStaffForm |Klasse, die das Formular um Personen zu erstellen repräsentiert
-|CreateStaffForm |Klasse, die das Formular um Personen aus dem Repository zu entfernen repräsentiert
+|StaffDataInitializer |Klasse um Testdaten für das Package zu generieren
+|UserIdControllerAdvice |Hilfsklasse für Spring um die userId als globales Model-Attribut zu setzten
+|forms::CreateStaffForm |Klasse, die das Formular um Personen zu erstellen repräsentiert
+|forms::RemoveStaffForm |Klasse, die das Formular um Personen aus dem Repository zu entfernen repräsentiert
+|forms::ChangePasswordForm |Klasse, die das Formular für das ändern des Passworts repräsentiert
+|forms::ChangeRoleForm |Klasse, die das Formular für das anpassen der Rolle repräsentiert
 |===
 
-=== Catering
+=== Messaging
 
-image::models/design/developer_documentation/class_diagrams/catering.png[]
+image::models/design/developer_documentation/class_diagrams/messaging.png[]
 
 [options="header"]
 |===
 |Klasse/Enumeration |Beschreibung
+|MessageType |Enum für den Typ der Nachricht: Persönlich / Grupper / Global
+|Message |eine Nachricht im Nachrichtensystem
+|MessageRepository |Speicherschnittstelle um die Nachrichten zu speichern
+|MessageManagement |Klasse zur inteligenten Verwaltung des Repositories
+|MessageController |Der Controller für das Webinterface zum einsehen und senden von Nachrichten
+|MessageDataInitielizer |Klasse um Testdaten für das Package zu generieren
+|forms::SendMessageForm |Basisklasse für die Formulare, die alle gemeinsamen Eigenschaften enthält
+|forms::SendPersonalMessageForm |Formular um eine persönliche Nachricht zu senden
+|forms::SendGroupMessageForm |Formular um eine Gruppennachricht zu senden
+|forms::SendGlobalMessage |Formular um eine global Nachricht zu senden
+|===
+
+=== Catering
+
+image::models/design/developer_documentation/class_diagrams/catering2.png[]
+
+[options="header"]
+|===
+|Klasse/Enumeration |Beschreibung
+|CateringSalesItem|Ein Verkauftes Produkt mit der Menge
+|CateringSales|Alle verkauften Produkte aller Festivals
 |CateringProduct|Instanz eines Produktes welches im Catering- Bereich verkauft wird.
+|CateringProductCatalog|Alle Produkte die im System vorhanden sind.
+|CateringStockItem|Ein Lagerbestand mit Produkt und Menge
 |CateringStock|Instanz des Lagers eines Festivals.
-|CateringManagement|Erlaubt es das Lager zu managen.
+|CateringStockController|Erlaubt es das Lager zu managen.
+|CateringController|Erlaubt es Produkte zu verkaufen
 |===
 
 === Planning
@@ -268,15 +292,15 @@ image::models/design/developer_documentation/class_diagrams/hiring.png[]
 [options="header"]
 |===
 |Klasse/Enumeration |Beschreibung
-|OffersArtist|Enthält Information von alle Offer, Fee in einem Fest.
-|Offer|Abstraktklasse, füge Employees oder Artists hinzu
-|OfferArtist|füge Artist und Show in Fest hinzu (Kindklasse von Offer)
-|OfferEmployee|füge Employee in Fest hinzu (Kindklasse von Offer)
 |Artist|klasse von Artist.
-|Employee|klasse von Employee.
+|BookingArtist|Buchen für Artist, zeigt den Zeitraum, wann ein Artist gebucht ist.
 |Show|klasse von Show, enhält ind Information von dem Show.
-|EmployeeManagement|erlaubt hiring zu managieren .
-|OffersInitializer|Implementierung des Datainitializers, um bereitgestellte Offers zu erstellen
+|HiringManagement|erlaubt hiring von artist zu managieren .
+|ArtistDataInitializer|Implementierung des Datainitializers, um bereitgestellte Offers zu erstellen
+|HiringController|Bildet die Schittstelle zwischen artists.html Datei, ihren TML-Forms um dem hiring package
+|NewArtistForm|Um einen neuen Artist zu erstellen oder einen bereit existierten Artist zu aktualisieren
+|NewShowForm|Um einen neuen Show zu erstellen
+|ArtistRepository|wo alle Artists gespeichert sind
 |===
 
 === Finances
@@ -359,3 +383,18 @@ image::models/design/developer_documentation/sequence_diagrams/seq_festival.png[
 
 == Technische Schulden
 * Auflistung der nicht erreichten Quality Gates und der zugehörigen SonarQube Issues zum Zeitpunkt der Abgabe
+[options="header"]
+|===
+|SonarQube Issue |Beschreibung |Warum nicht behoben?
+|https://st-lab-ci.inf.tu-dresden.de/sonarqube/project/issues?id=de.tudresden.inf.st.lab%3Aswt21w04&issues=AX5iYyhn3vyB2EYmgX7h&open=AX5iYyhn3vyB2EYmgX7h[AX5iYyhn3vyB2EYmgX7h]
+|Bei "throws Exception" soll eine konkrete Exception Klasse angegeben werden
+|Die link:https://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc[Spring Dokumentation] empfiehlt ausdrücklich diesen Aufbau von Exception Handler Klasen
+
+|https://st-lab-ci.inf.tu-dresden.de/sonarqube/project/issues?id=de.tudresden.inf.st.lab%3Aswt21w04&issues=AX5IkF_g3vyB2EYmYooU&open=AX5IkF_g3vyB2EYmYooU[AX5IkF_g3vyB2EYmYooU]
+|Die "cognitive compelxity" einer Methode ist 3 Punkte größer als erlaubt
+|Es war nicht möglich, die Methode lesbarer zu gestalten
+
+|https://st-lab-ci.inf.tu-dresden.de/sonarqube/project/issues?id=de.tudresden.inf.st.lab%3Aswt21w04&issues=AX5IkF_g3vyB2EYmYooV&open=AX5IkF_g3vyB2EYmYooV[AX5IkF_g3vyB2EYmYooV]
+|Die "cognitive compelxity" einer Methode ist 9 Punkte größer als erlaubt
+|Es war nicht möglich, die Methode lesbarer zu gestalten
+|===

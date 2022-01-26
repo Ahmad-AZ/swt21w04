@@ -3,6 +3,7 @@ package festivalmanager.planning;
 import org.salespointframework.core.SalespointIdentifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import festivalmanager.Equipment.Equipment;
 import festivalmanager.Equipment.EquipmentManagement;
@@ -25,16 +26,20 @@ public class PlanEquipmentManagement {
 
 	/**
 	 * Create a new {@link PlanEquipmentManagement}
-	 * @param equipmentManagement
-	 * @param festivalManagement
+	 * 
+	 * @param equipmentManagement must not be {@literal null}.
+	 * @param festivalManagement must not be {@literal null}.
 	 */
 	public PlanEquipmentManagement(FestivalManagement festivalManagement, EquipmentManagement equipmentManagement) {
+		Assert.notNull(festivalManagement, "FestivalManagement must not be null!");
+		Assert.notNull(equipmentManagement, "EquipmentManagement must not be null!");
 		this.festivalManagement = festivalManagement;
 		this.equipmentManagement = equipmentManagement;
 	}
 	
 	/**
-	 * rent the {@link Equipment} for the {@link Festival}
+	 * Rent an amount of an {@link Equipment} for a {@link Festival}
+	 * 
 	 * @param id
 	 * @param amount
 	 * @param festival
@@ -45,7 +50,8 @@ public class PlanEquipmentManagement {
 	}
 	
 	/**
-	 * rent the {@link Stage} for the {@link Festival}
+	 * Rent a {@link Stage} for a {@link Festival}
+	 * 
 	 * @param name
 	 * @param equipment
 	 * @param festival
@@ -58,7 +64,8 @@ public class PlanEquipmentManagement {
 	}
 	
 	/**
-	 * unrent the {@link Stage} for the {@link Festival}
+	 * Unrent a {@link Stage} for a {@link Festival}
+	 * 
 	 * @param stage
 	 * @param festival
 	 * @return true if unrent stage success

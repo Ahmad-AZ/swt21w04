@@ -38,21 +38,23 @@ public class MessageDataInitializer implements DataInitializer {
 
 	@Override
 	public void initialize() {
-		long adminId = 0, managerId = 0;
-		for (Person p : staffManagement.findByFestivalId(-1).toList()) {
-			if (p.getName().equals("admin")) {
-				adminId = p.getId();
-			} else if (p.getName().equals("manager")) {
-				managerId = p.getId();
+		if (messageManagement.findAll().isEmpty()) {
+			long adminId = 0, managerId = 0;
+			for (Person p : staffManagement.findByFestivalId(-1).toList()) {
+				if (p.getName().equals("admin")) {
+					adminId = p.getId();
+				} else if (p.getName().equals("manager")) {
+					managerId = p.getId();
+				}
 			}
+
+			newMessage(managerId, adminId, "test manager -> admin", "Hello World!");
+			newMessage(managerId, adminId, "test manager -> admin - 2", "Hello World! - 2");
+			newMessage(adminId, managerId, "test admin -> manager", "Hello World!");
+			newMessage(adminId, managerId, "test admin -> manager - 2", "Hello World! - 2");
+
+			newGroupMessage(adminId, -1, "MANAGER", "admin -> MANAGER", "Hello World!");
+			newGlobalMessage(adminId, "Hello World!", "global messages work");
 		}
-
-		newMessage(managerId, adminId, "test manager -> admin", "Hello World!");
-		newMessage(managerId, adminId, "test manager -> admin - 2", "Hello World! - 2");
-		newMessage(adminId, managerId, "test admin -> manager", "Hello World!");
-		newMessage(adminId, managerId, "test admin -> manager - 2", "Hello World! - 2");
-
-		newGroupMessage(adminId, -1, "MANAGER", "admin -> MANAGER", "Hello World!");
-		newGlobalMessage(adminId, "Hello World!", "global messages work");
 	}
 }

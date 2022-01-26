@@ -14,8 +14,8 @@ import com.google.zxing.qrcode.QRCodeWriter;
 
 
 
-	private  static final int width= 100;
-	private static final int height =100;
+	private  static final int  WIDTH= 100;
+	private static final int  HEIGHT =100;
 	private static final String QR_CODE_IMAGE_PATH = "./src/main/resources/static/resources/img/qr_code/QRCode.png";
 
 
@@ -25,7 +25,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 			throws WriterException, IOException {
 
 		QRCodeWriter qrCodeWriter = new QRCodeWriter();
-		BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height);
+		BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, WIDTH, HEIGHT);
 		Path path = FileSystems.getDefault().getPath(QR_CODE_IMAGE_PATH);
 		MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
 
@@ -37,11 +37,10 @@ import com.google.zxing.qrcode.QRCodeWriter;
 
 		QRCodeWriter qrCodeWriter = new QRCodeWriter();
 
-		BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height);
+		BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, WIDTH, HEIGHT);
 		ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
 		MatrixToImageWriter.writeToStream(bitMatrix, "PNG", pngOutputStream);
-		byte[] pngData = pngOutputStream.toByteArray();
-		return pngData;
+		return pngOutputStream.toByteArray();
 	}
 
 }

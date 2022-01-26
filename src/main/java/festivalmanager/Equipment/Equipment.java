@@ -9,6 +9,7 @@ import javax.persistence.Lob;
 import org.javamoney.moneta.Money;
 import org.salespointframework.core.AbstractEntity;
 import org.salespointframework.core.SalespointIdentifier;
+import org.springframework.util.Assert;
 
 /**
  * The class for Equipment, which could be STAGE, CATERING_STALL or TOILET
@@ -33,7 +34,17 @@ public class Equipment extends AbstractEntity<SalespointIdentifier>{
 
 	public Equipment(){}
 
+	/**
+	 * Creates a new {@link Equipment} with the given name and rental per day
+	 * and {@link EquipmentType}.
+	 *
+	 * @param name must not be {@literal null}.
+	 * @param rentalPerDay must not be {@literal null}.	
+	 * @param type
+	 */
 	public Equipment(String name, Money rentalPerDay, EquipmentType type){
+		Assert.notNull(rentalPerDay, "Rental per day must not be null!");
+		Assert.notNull(name, "Name must not be null!");
 		this.name = name;
 		this.rentalPerDay = rentalPerDay;
 		this.type = type;

@@ -4,6 +4,9 @@ package festivalmanager.ticketShop;
 import com.google.zxing.WriterException;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
+import festivalmanager.messaging.MessageManagement;
+import festivalmanager.messaging.forms.SendGlobalMessageForm;
+import festivalmanager.messaging.forms.SendGroupMessageForm;
 import festivalmanager.ticketShop.qr_code.QRCodeGenerator;
 import festivalmanager.utils.UtilsManagement;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,13 +31,15 @@ public class TicketController {
 	private Festival currentFestival;
 	private final FestivalManagement festivalManagement;
 	private UtilsManagement utilsManagement;
+	private final MessageManagement messageManagement;
 
 
-	public TicketController(TicketManagement ticketManagement, UtilsManagement utilsManagement, FestivalManagement festivalManagement) {
+	public TicketController(TicketManagement ticketManagement, UtilsManagement utilsManagement, FestivalManagement festivalManagement, MessageManagement messageManagement) {
 		this.ticketManagement = ticketManagement;
 		this.festivalManagement = festivalManagement;
 		this.utilsManagement = utilsManagement;
 		this.currentFestival = null;
+		this.messageManagement = messageManagement;
 	}
 
 
@@ -161,20 +166,28 @@ public class TicketController {
 			model.addAttribute("tickets", ticket);
 
 
-
+			/*
 			try {
 				String location = currentFestival.getLocation().getName();
 				model.addAttribute("locationsExists", "true");
-			}
-			catch (NullPointerException exception)
-			{
+			} catch (NullPointerException exception) {
 				System.out.println(exception);
+			}
+			 */
+
+			if (currentFestival.getLocation() != null) {
+				model.addAttribute("locationsExists", "true");
 			}
 
 
 		} else {
 			utilsManagement.prepareModel(model, currentFestival.getId());
 			model.addAttribute("ticketsUnavailable", "true");
+
+			messageManagement.sendMessage(
+					new SendGlobalMessageForm(-1,
+							"Tickets für das Festival " + currentFestival.getName() + " sind ausverkauft", ""));
+
 			return "ticketShopUnavailable";
 		}
 
