@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.salespointframework.core.Currencies.*;
 
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -90,6 +91,27 @@ public class CateringControllerTest extends AbstractIntegrationTests {
         for (CartItem cartItem : cart) {
             assertEquals(400, cartItem.getQuantity().getAmount().toBigInteger().intValue());
         }
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    public void testBookOut() {
+        initializeStock();
+        Iterator<CateringProduct> icp = controller.getBoughtProducts(festivalid).iterator();
+        CateringProduct p1 = icp.next();
+        CateringProduct p2 = icp.next();
+        CateringProduct p3 = icp.next();
+        CateringProduct p4 = icp.next();
+        controller.bookOut(p1, Quantity.of(400), festivalid);
+        controller.bookOut(p2, Quantity.of(300), festivalid);
+        controller.bookOut(p3, Quantity.of(200), festivalid);
+        controller.bookOut(p4, Quantity.of(100), festivalid);
+        Map<CateringProduct, Quantity> prodcnts = controller.getProductCounts(festivalid);
+        assertEquals(0, prodcnts.get(p1).getAmount().toBigInteger().intValue());
+        assertEquals(100, prodcnts.get(p2).getAmount().toBigInteger().intValue());
+        assertEquals(200, prodcnts.get(p3).getAmount().toBigInteger().intValue());
+        assertEquals(300, prodcnts.get(p4).getAmount().toBigInteger().intValue());
+
     }
 
 }
