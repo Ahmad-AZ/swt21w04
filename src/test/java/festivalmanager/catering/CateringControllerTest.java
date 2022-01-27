@@ -1,15 +1,20 @@
 package festivalmanager.catering;
 
 import festivalmanager.AbstractIntegrationTests;
+import festivalmanager.festival.Festival;
+import festivalmanager.festival.FestivalManagement;
+
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.data.util.Streamable;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.test.context.support.WithMockUser;
-//import org.springframework.ui.ExtendedModelMap;
-//import org.springframework.ui.Model;
+import org.springframework.ui.ExtendedModelMap;
+import org.springframework.ui.Model;
 import org.javamoney.moneta.Money;
 import org.salespointframework.quantity.Quantity;
 import java.util.Map;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.salespointframework.core.Currencies.*;
 
@@ -20,7 +25,6 @@ import java.util.List;
 
 import org.salespointframework.order.Cart;
 import org.salespointframework.order.CartItem;
-import org.salespointframework.quantity.*;
 
 /**
  * Integration tests for {@link CateringController} that interact with the
@@ -31,9 +35,9 @@ import org.salespointframework.quantity.*;
 public class CateringControllerTest extends AbstractIntegrationTests {
     @Autowired
     CateringController controller;
-    private long festivalid = 10;
 
     private void initializeStock() {
+        long festivalid = getFestivalId();
         CateringStock stock = controller.getStock();
         if (!stock.findAll().isEmpty()) {
             return;
@@ -55,9 +59,32 @@ public class CateringControllerTest extends AbstractIntegrationTests {
         }
     }
 
+    private Festival findFirstFestival() {
+        if (controller == null) {
+            return null;
+        }
+        FestivalManagement fm = controller.getFestivalManagement();
+        if (fm == null) {
+            return null;
+        }
+        Iterator<Festival> sFe = fm.findAll().iterator();
+        Festival festival = null;
+        if (sFe.hasNext()) {
+            festival = sFe.next();
+        }
+        return festival;
+    }
+
+    private long getFestivalId() {
+        Festival festival = findFirstFestival();
+        long festivalid = (festival == null) ? -1 : festival.getId();
+        return festivalid;
+    }
+
     @Test
     @WithMockUser(roles = "ADMIN")
     public void testGetBoughtProducts() {
+        long festivalid = getFestivalId();
         initializeStock();
         List<CateringProduct> lCP = new LinkedList<CateringProduct>();
         for (CateringProduct cateringProduct : controller.getBoughtProducts(festivalid)) {
@@ -69,6 +96,7 @@ public class CateringControllerTest extends AbstractIntegrationTests {
     @Test
     @WithMockUser(roles = "ADMIN")
     public void testGetProductCounts() {
+        long festivalid = getFestivalId();
         initializeStock();
         Map<CateringProduct, Quantity> prodcnts = controller.getProductCounts(festivalid);
         for (CateringProduct product : prodcnts.keySet()) {
@@ -81,6 +109,7 @@ public class CateringControllerTest extends AbstractIntegrationTests {
     @Test
     @WithMockUser(roles = "ADMIN")
     public void testChopCart() {
+        long festivalid = getFestivalId();
         initializeStock();
         Cart cart = controller.initializeCart();
         Iterable<CateringProduct> icp = controller.getBoughtProducts(festivalid);
@@ -96,6 +125,8 @@ public class CateringControllerTest extends AbstractIntegrationTests {
     @Test
     @WithMockUser(roles = "ADMIN")
     public void testBookOut() {
+        long festivalid = getFestivalId();
+        System.out.println("festivalid:" + festivalid);
         initializeStock();
         Iterator<CateringProduct> icp = controller.getBoughtProducts(festivalid).iterator();
         CateringProduct p1 = icp.next();
@@ -111,7 +142,28 @@ public class CateringControllerTest extends AbstractIntegrationTests {
         assertEquals(100, prodcnts.get(p2).getAmount().toBigInteger().intValue());
         assertEquals(200, prodcnts.get(p3).getAmount().toBigInteger().intValue());
         assertEquals(300, prodcnts.get(p4).getAmount().toBigInteger().intValue());
-
     }
 
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    public void testCSales() {
+        long festivalid = getFestivalId();
+        initializeStock();
+        Cart cart = controller.initializeCart();
+        Model model = new ExtendedModelMap();
+        String returnedView = controller.sales(model, cart, festivalid);
+        Object oPC = model.getAttribute("productcatalog");
+        assertNotNull(oPC);
+        assertEquals("catering", returnedView);
+        // Iterable<CateringProduct> = (Iterable<CateringProduct>) oPC;
+        if (oPC instanceof Iterable<?>) {
+            Iterable<?> iPC = (Iterable<?>) oPC;
+            LinkedList<Object> lPC = new LinkedList<Object>();
+            for (Object object : iPC) {
+                lPC.add(object);
+            }
+            assertEquals(4, lPC.size());
+
+        }
+    }
 }
