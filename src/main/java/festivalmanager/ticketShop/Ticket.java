@@ -37,9 +37,6 @@ public class Ticket {
 	private int soldDayTicket;
 
 
-	@Column
-	private String qr;
-
 
 	public Ticket() {
 	}
@@ -145,13 +142,6 @@ public class Ticket {
 		return id;
 	}
 
-	public String getQr() {
-		return qr;
-	}
-
-	public void setQr(String qr) {
-		this.qr = qr;
-	}
 
 	@Override
 	public String toString() {
