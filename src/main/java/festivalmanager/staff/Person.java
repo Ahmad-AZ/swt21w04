@@ -10,6 +10,10 @@ import static org.salespointframework.core.Currencies.EURO;
 
 import java.util.Objects;
 
+/**
+ * class that represents a person
+ * @author Georg Kunze
+ */
 @Entity
 public class Person {
 	@Id

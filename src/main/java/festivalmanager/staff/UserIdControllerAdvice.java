@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.Optional;
 
+/**
+ * helper class to set the model attribute "userId" globally when a user is logged in
+ * @author Georg Kunze
+ */
 @ControllerAdvice
 public class UserIdControllerAdvice {
 	private final StaffManagement staffManagement;
