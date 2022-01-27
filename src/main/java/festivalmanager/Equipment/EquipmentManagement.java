@@ -34,17 +34,6 @@ public class EquipmentManagement {
 	}
 	
 	/**
-	 * Saves {@link Equipment}
-	 * 
-	 * @param equipment must not be {@literal null}.
-	 * @return the saved {@link Equipment} instance.
-	 */
-	public Equipment saveEquipment(Equipment equipment) {
-		Assert.notNull(equipment, "Equipment must not be null!");
-		return equipments.save(equipment);
-	}
-	
-	/**
 	 * Saves {@link Stage}
 	 * 
 	 * @param stage must not be {@literal null}.
@@ -74,17 +63,7 @@ public class EquipmentManagement {
 	public Optional<Stage> findStageById(SalespointIdentifier id) {
 		return stages.findById(id);
 	}
-	
-	/**
-	 * Removes {@link Equipment} with given id 
-	 * 
-	 * @param id must not be {@literal null}
-	 */
-	public void removeEquipmentById(SalespointIdentifier id) {
-		Assert.notNull(id, "Id must not be null!");
-		equipments.deleteById(id);
-	}
-	
+		
 	/**
 	 * Removes {@link Stage} with given id 
 	 * 
@@ -104,12 +83,4 @@ public class EquipmentManagement {
 		return equipments.findAll();
 	}
 	
-	/**
-	 * Returns all {@link Stage}s currently available in the system
-	 * 
-	 * @return all {@link Stage} entities
-	 */ 
-	public Streamable<Stage> findAllStages(){
-		return stages.findAll();
-	}
 }
