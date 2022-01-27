@@ -34,7 +34,8 @@ public class TicketController {
 	private final MessageManagement messageManagement;
 
 
-	public TicketController(TicketManagement ticketManagement, UtilsManagement utilsManagement, FestivalManagement festivalManagement, MessageManagement messageManagement) {
+	public TicketController(TicketManagement ticketManagement, UtilsManagement utilsManagement,
+							FestivalManagement festivalManagement, MessageManagement messageManagement) {
 		this.ticketManagement = ticketManagement;
 		this.festivalManagement = festivalManagement;
 		this.utilsManagement = utilsManagement;

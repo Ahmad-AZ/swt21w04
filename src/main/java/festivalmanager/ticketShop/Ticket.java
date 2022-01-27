@@ -44,7 +44,8 @@ public class Ticket {
 	public Ticket() {
 	}
 
-	public Ticket( int dayTicketsCount, int campingTicketsCount, TicketType ticketType, float dayTicketPrice, float campingTicketPrice) {
+	public Ticket( int dayTicketsCount, int campingTicketsCount, TicketType ticketType,
+				   float dayTicketPrice, float campingTicketPrice) {
 
 		this.dayTicketsCount = dayTicketsCount;
 		this.campingTicketsCount = campingTicketsCount;
@@ -57,7 +58,8 @@ public class Ticket {
 	}
 
 
-	public Ticket(long festivalId, String festivalName, int dayTicketsCount, int campingTicketsCount, TicketType ticketType, float dayTicketPrice, float campingTicketPrice) {
+	public Ticket(long festivalId, String festivalName, int dayTicketsCount,
+				  int campingTicketsCount, TicketType ticketType, float dayTicketPrice, float campingTicketPrice) {
 		this.festivalId = festivalId;
 		this.festivalName = festivalName;
 		this.dayTicketsCount = dayTicketsCount;

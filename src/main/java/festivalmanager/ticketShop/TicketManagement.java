@@ -131,7 +131,7 @@ public class TicketManagement {
 
 			if ( difference >= 0 && (nTicket.getSoldCampingTicket() + soldTicket <= currCampingTickets)) {
 				nTicket.setSoldCampingTicket(soldTicket);
-				nTicket.setDayTicketsCount(currCampingTickets - soldTicket); // TODO: 1/20/2022  
+				nTicket.setDayTicketsCount(currCampingTickets - soldTicket);
 				this.currentTicket= nTicket;
 				return true;
 			}
@@ -146,7 +146,7 @@ public class TicketManagement {
 
 			if ( difference >= 0 && (nTicket.getSoldDayTicket() + soldTicket <= currDayTickets)) {
 				nTicket.setSoldDayTicket(soldTicket);
-				nTicket.setDayTicketsCount(currDayTickets- soldTicket); // TODO: 1/20/2022  
+				nTicket.setDayTicketsCount(currDayTickets- soldTicket);
 				this.currentTicket= nTicket;
 				return true;
 			}
