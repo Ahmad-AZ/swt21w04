@@ -21,19 +21,19 @@
                     </tr>
                     <tr>
                         <td>Anzahl</td>
-                        <td><input type="number" step="1" name="amount" value="500" min="0" max="100000" th:value="${stockitem.getQuantity()}"></td>
+                        <td><input required type="number" step="1" name="amount" value="500" min="0" max="100000" th:value="${stockitem.getQuantity()}"></td>
                     </tr>
                     <tr>
                         <td>Einkaufspreis</td>
-                        <td><input type="text" name="buyingprice" value="EUR 0.50" th:value="${stockitem.getBuyingPrice()}"></td>
+                        <td><input required type="text" name="buyingprice" value="EUR 0.50" th:value="${stockitem.getBuyingPrice()}"></td>
                     </tr>
                     <tr>
                         <td>Einkaufsdatum</td>
-                        <td><input type="date" name="orderdate" th:value="${stockitem.getOrderDate()}"></td>
+                        <td><input required type="date" name="orderdate" th:value="${stockitem.getOrderDate()}"></td>
                     </tr>
                     <tr>
                         <td>Verfallsdatum</td>
-                        <td><input type="date" name="bestbeforedate" th:value="${stockitem.getBestBeforeDate()}"></td>
+                        <td><input required type="date" name="bestbeforedate" th:value="${stockitem.getBestBeforeDate()}"></td>
                     </tr>
                     <tr>
                         <td><a th:href="@{/cateringProductCatalog/{id}(id=${festivalId})}">abbrechen</a></td>
