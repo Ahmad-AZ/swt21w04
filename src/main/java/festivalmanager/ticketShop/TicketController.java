@@ -153,9 +153,19 @@ public class TicketController {
 			if (ticket.getDayTicketsCount() == 0) {
 				soldTicket = ticket.getCampingTicketsCount();
 				ticketPrice = nTicket.getCampingTicketPrice();
+
+				if (nTicket.getCampingTicketsCount() == 0) {
+					String title = "Camping-Tickets für das Festival " + currentFestival.getName() + " sind ausverkauft";
+					messageManagement.sendMessage(new SendGlobalMessageForm(-1, title, ""));
+				}
 			} else {
 				soldTicket = ticket.getDayTicketsCount();
 				ticketPrice = nTicket.getDayTicketPrice();
+
+				if (nTicket.getDayTicketsCount() == 0) {
+					String title = "Tagestickets für das Festival " + currentFestival.getName() + " sind ausverkauft";
+					messageManagement.sendMessage(new SendGlobalMessageForm(-1, title, ""));
+				}
 			}
 
 			try {
@@ -193,11 +203,6 @@ public class TicketController {
 		} else {
 			utilsManagement.prepareModel(model, currentFestival.getId());
 			model.addAttribute("ticketsUnavailable", "true");
-
-			messageManagement.sendMessage(
-					new SendGlobalMessageForm(-1,
-							"Tickets für das Festival " + currentFestival.getName() + " sind ausverkauft", ""));
-
 			return "ticketShopUnavailable";
 		}
 
