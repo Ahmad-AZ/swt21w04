@@ -91,17 +91,17 @@ aaaaabaabaaabbbbaababbaababababbbaaababaaaabbbaabbaaaabaaabb | Whitelabel Error 
 | http://localhost:8080/festivalOverview/{id}| Button "Spielplan" in Nav-Bar   | man kann nicht die Lineup, Stages von einer Festival sehen | Whitelabel Error Page |gelöst
 | http://localhost:8080/festivalOverview/{id}| Kein Button "Tickets Kaufen" in Festival Overview| man kann nicht Tickets für ein beliebige Festival kaufen| leer|Designentscheidung
 | http://localhost:8080/festivalOverview/{id}| Button "Location"|keine Locaiton| Redirect to "http://localhost:8080/locationOverview/{id}", Whitelabel error Page|gelöst
-| http://localhost:8080/ticketShop   | RadioButton "kaufen" | ungeachtet der Tatsache , dass es tickets für eine Festival gibt, kann man nicht sie kaufen, "kein Itext implementiert " | Redirect to "http://localhost:8080/tickets/buy" -- "tickets nicht mehr verfügbar"|
-| http://localhost:8080/tickets  |Eingabefeld für Camping - Tickets in Anzahl einstellen  | man kann so viel wie möglich tickets für ein Festival einstellen, keine Abgrenzung  | Redirect to "http://localhost:8080/tickets/edit"|
-| http://localhost:8080/tickets  |Eingabefeld für Tagestickets in Anzahl einstellen  | man kann so viel wie möglich tickets für ein Festival einstellen, keine Abgrenzung | Redirect to "http://localhost:8080/tickets/edit"|
-| http://localhost:8080/tickets  |Eingabefeld für Camping - Tickets in Anzhal einstellen  | man kann eine negative Zahl in diesem Feld eintragen | Redirect to "http://localhost:8080/tickets/edit"|
-| http://localhost:8080/tickets  |Eingabefeld für Tagestickets in Anzhal einstellen | man kann eine negative Zahl in diesem Feld eintragen | Redirect to "http://localhost:8080/tickets/edit"|
-| http://localhost:8080/tickets  |Eingabefeld für Camping - Tickets in Preise einstellen  | man kann eine negative Zahl in diesem Feld eintragen | Redirect to "http://localhost:8080/tickets/edit"|
+| http://localhost:8080/ticketShop   | RadioButton "kaufen" | ungeachtet der Tatsache , dass es tickets für eine Festival gibt, kann man nicht sie kaufen, "kein Itext implementiert " | Redirect to "http://localhost:8080/tickets/buy" -- "tickets nicht mehr verfügbar"| gelöst
+| http://localhost:8080/tickets  |Eingabefeld für Camping - Tickets in Anzahl einstellen  | man kann so viel wie möglich tickets für ein Festival einstellen, keine Abgrenzung  | Redirect to "http://localhost:8080/tickets/edit" | gelöst
+| http://localhost:8080/tickets  |Eingabefeld für Tagestickets in Anzahl einstellen  | man kann so viel wie möglich tickets für ein Festival einstellen, keine Abgrenzung | Redirect to "http://localhost:8080/tickets/edit" | gelöst
+| http://localhost:8080/tickets  |Eingabefeld für Camping - Tickets in Anzhal einstellen  | man kann eine negative Zahl in diesem Feld eintragen | Redirect to "http://localhost:8080/tickets/edit" | gelöst
+| http://localhost:8080/tickets  |Eingabefeld für Tagestickets in Anzhal einstellen | man kann eine negative Zahl in diesem Feld eintragen | Redirect to "http://localhost:8080/tickets/edit" | gelöst
+| http://localhost:8080/tickets  |Eingabefeld für Camping - Tickets in Preise einstellen  | man kann eine negative Zahl in diesem Feld eintragen | Redirect to "http://localhost:8080/tickets/edit" | gelöst
 
-| http://localhost:8080/tickets  |Eingabefeld für Tagestickets in Anzahl einstellen | man kann ein leeres Input in diesem Feld eintragen |Whitelabel error Page|
-| http://localhost:8080/tickets  |Eingabefeld für Camping - Tickets in Anzahl einstellen | man kann ein leeres Input in diese Feld eintragen | Whitelabel error Page|
-| http://localhost:8080/tickets  |Eingabefeld für Tagesticket in Preise einstellen | man kann ein leeres Input in diesem Feld eintragen | Whitelabel error Page|
-| http://localhost:8080/tickets  |Eingabefeld für Tages - Tickets in Preise einstellen | man kann ein leeres Input in diese Feld eintragen | Whitelabel error Page|
+| http://localhost:8080/tickets  |Eingabefeld für Tagestickets in Anzahl einstellen | man kann ein leeres Input in diesem Feld eintragen |Whitelabel error Page| gelöst
+| http://localhost:8080/tickets  |Eingabefeld für Camping - Tickets in Anzahl einstellen | man kann ein leeres Input in diese Feld eintragen | Whitelabel error Page|gelöst
+| http://localhost:8080/tickets  |Eingabefeld für Tagesticket in Preise einstellen | man kann ein leeres Input in diesem Feld eintragen | Whitelabel error Page| gelöst
+| http://localhost:8080/tickets  |Eingabefeld für Tages - Tickets in Preise einstellen | man kann ein leeres Input in diese Feld eintragen | Whitelabel error Page| gelöst
 
 |http://localhost:8080/staff/{id}/create/ | Eingabefeld Lohn| Zahlen <=0|wurde akzeptiert, aber Lohn sollte nicht negativ sein|
 |http://localhost:8080/locations|RadioButton "Löschen"| man kann nicht eine Location löschen | Whitelabel Error Page|gelöst
