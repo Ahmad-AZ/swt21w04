@@ -65,23 +65,23 @@ aaaaabaabaaabbbbaababbaababababbbaaababaaaabbbaabbaaaabaaabb | Whitelabel Error 
 | http://localhost:8080/cateringAddProduct | Eingabefeld für Pfand | Wert <= 0 (genaue Eingabe: jeweils "EUR 0" und "EUR -1") | Werte werden akzeptiert und geändert|wontfix
 | http://localhost:8080/cateringAddProduct | Eingabefeld für Füllmenge | leer | Whitelabel Error Page|fixed
 | http://localhost:8080/cateringAddProduct | Eingabefeld für Füllmenge | Wert <= 0 (genaue Eingabe: jeweils "0" und "-1" | Werte werden akzeptiert und geändert|fixed
-| http://localhost:8080/cateringAddStockItem | Eingabefeld für Anzahl | leer | Whitelabel Error Page|
-| http://localhost:8080/cateringAddStockItem | Eingabefeld für Anzahl | 500333333333333333333333333333333333333 | Whitelabel Error Page|
-| http://localhost:8080/cateringAddStockItem | Eingabefeld für Anzahl | Wert <= 0 (genaue Eingabe: jeweils "EUR 0" und "EUR -1") | Werte werden akzeptiert und geändert|
-| http://localhost:8080/cateringAddStockItem | Eingabefeld für Einkaufspreis | leer | Whitelabel Error Page|
-| http://localhost:8080/cateringAddStockItem | Eingabefeld für Einkaufspreis | 1 | Whitelabel Error Page|
-| http://localhost:8080/cateringAddStockItem | Eingabefeld für Einkaufspreis | "Hallo" | Whitelabel Error Page|
-| http://localhost:8080/cateringAddStockItem | Eingabefeld für Einkaufspreis | Wert <= 0 (genaue Eingabe: jeweils "EUR 0" und "EUR -1") | Werte werden akzeptiert und geändert|
-| http://localhost:8080/cateringAddStockItem | Eingabefeld für Einkaufsdatum | leer ("TT.MM.JJJJ") | Whitelabel Error Page|
-| http://localhost:8080/cateringAddStockItem | Eingabefeld für Verfallsdatum | leer ("TT.MM.JJJJ") | Whitelabel Error Page|
-| http://localhost:8080/cateringAddStockItem | Eingabefeld für Einkaufsdatum und Verfallsdatum | Einkaufsdatum: (22.12.2021), Verfallsdatum: (19.12.21) | wurde akzeptiert aber Einkaufsdatum sollte nicht zeitlich nach dem Verfallsdatum sein|
+| http://localhost:8080/cateringAddStockItem | Eingabefeld für Anzahl | leer | Whitelabel Error Page|fixed
+| http://localhost:8080/cateringAddStockItem | Eingabefeld für Anzahl | 500333333333333333333333333333333333333 | Whitelabel Error Page|fixed
+| http://localhost:8080/cateringAddStockItem | Eingabefeld für Anzahl | Wert <= 0 (genaue Eingabe: jeweils "EUR 0" und "EUR -1") | Werte werden akzeptiert und geändert|fixed
+| http://localhost:8080/cateringAddStockItem | Eingabefeld für Einkaufspreis | leer | Whitelabel Error Page|fixed
+| http://localhost:8080/cateringAddStockItem | Eingabefeld für Einkaufspreis | 1 | Whitelabel Error Page|fixed
+| http://localhost:8080/cateringAddStockItem | Eingabefeld für Einkaufspreis | "Hallo" | Whitelabel Error Page|fixed
+| http://localhost:8080/cateringAddStockItem | Eingabefeld für Einkaufspreis | Wert <= 0 (genaue Eingabe: jeweils "EUR 0" und "EUR -1") | Werte werden akzeptiert und geändert|wontfix, Manager kann bestimmen,m dass Geld drauf gelegt wird
+| http://localhost:8080/cateringAddStockItem | Eingabefeld für Einkaufsdatum | leer ("TT.MM.JJJJ") | Whitelabel Error Page|fixed
+| http://localhost:8080/cateringAddStockItem | Eingabefeld für Verfallsdatum | leer ("TT.MM.JJJJ") | Whitelabel Error Page|fixed
+| http://localhost:8080/cateringAddStockItem | Eingabefeld für Einkaufsdatum und Verfallsdatum | Einkaufsdatum: (22.12.2021), Verfallsdatum: (19.12.21) | wurde akzeptiert aber Einkaufsdatum sollte nicht zeitlich nach dem Verfallsdatum sein|wontfix, Verkäufer hat uns beschissen
 | http://localhost:8080/cateringEditStockItem/{id} | Eingabefeld für Anzahl | leer | Whitelabel Error Page|
-| http://localhost:8080/cateringEditStockItem/{id} | Eingabefeld für Anzahl | 500333333333333333333333333333333333333 | Whitelabel Error Page|
-| http://localhost:8080/cateringEditStockItem/{id} | Eingabefeld für Anzahl | Wert < 0 | Whitelabel Error Page|
+| http://localhost:8080/cateringEditStockItem/{id} | Eingabefeld für Anzahl | 500333333333333333333333333333333333333 | Whitelabel Error Page|fixed
+| http://localhost:8080/cateringEditStockItem/{id} | Eingabefeld für Anzahl | Wert < 0 | Whitelabel Error Page|fixed
 | http://localhost:8080/cateringEditStockItem/{id} | Eingabefeld für Einkaufspreis | leer | Whitelabel Error Page|
 | http://localhost:8080/cateringEditStockItem/{id} | Eingabefeld für Einkaufspreis | 1 | Whitelabel Error Page|
 | http://localhost:8080/cateringEditStockItem/{id} | Eingabefeld für Einkaufspreis | "Hallo" | Whitelabel Error Page|
-| http://localhost:8080/cateringEditStockItem/{id} | Eingabefeld für Einkaufspreis | Wert <= 0 (genaue Eingabe: jeweils "EUR 0" und "EUR -1") | Werte werden akzeptiert und geändert|
+| http://localhost:8080/cateringEditStockItem/{id} | Eingabefeld für Einkaufspreis | Wert <= 0 (genaue Eingabe: jeweils "EUR 0" und "EUR -1") | Werte werden akzeptiert und geändert|wontfix, s.o.
 | http://localhost:8080/cateringEditStockItem/{id} | Eingabefeld für Einkaufsdatum | leer ("TT.MM.JJJJ") | Whitelabel Error Page|
 | http://localhost:8080/cateringEditStockItem/{id} | Eingabefeld für Verfallsdatum | leer ("TT.MM.JJJJ") | Whitelabel Error Page|
 | http://localhost:8080/cateringEditStockItem/{id} | Eingabefeld für Einkaufsdatum und Verfallsdatum | Einkaufsdatum: (22.12.2021), Verfallsdatum: (19.12.21) | wurde akzeptiert aber Einkaufsdatum sollte nicht zeitlich nach dem Verfallsdatum sein|

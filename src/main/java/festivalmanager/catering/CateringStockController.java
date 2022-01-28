@@ -435,9 +435,18 @@ public class CateringStockController {
             failure = true;
         }
 
+        Quantity formAmount = Quantity.of(0);
+        long lAmount = 0;
+        try {
+            lAmount = Long.parseLong(formularData.amount);
+            formAmount = Quantity.of(lAmount);
+        } catch (NumberFormatException ex) {
+            failure = true;
+        }
+
         if (!failure) {
             CateringStockItem stockitem = new CateringStockItem(festivalId, product,
-                    Quantity.of(formularData.amount), formularData.amount,
+                    formAmount, lAmount,
                     formBuyingPrice, formOrderDate, formBestBeforeDate);
             stock.save(stockitem);
         } else {
@@ -511,6 +520,13 @@ public class CateringStockController {
             failure = true;
         }
 
+        BigDecimal bdFormAmount = new BigDecimal(0.0);
+        try {
+            bdFormAmount = new BigDecimal(formularData.amount);
+        } catch (NumberFormatException ex) {
+            failure = true;
+        }
+
         if (!failure) {
             Optional<CateringStockItem> oStockItem = stock.findById(stockitemid);
             CateringStockItem stockitem = null;
@@ -529,7 +545,7 @@ public class CateringStockController {
                     changed = true;
                     stockitem.setBestBeforeDate(formBestBeforeDate);
                 }
-                BigDecimal bdFormAmount = new BigDecimal(formularData.amount);
+
                 if (!stockitem.getQuantity().getAmount().equals(bdFormAmount)) {
                     changed = true;
                     BigDecimal bdDifference = stockitem.getQuantity().getAmount().subtract(bdFormAmount);
@@ -544,7 +560,7 @@ public class CateringStockController {
                 failure = true;
             }
 
-            stock.save(stockitem);
+            // stock.save(stockitem);
         } else {
             model.addAttribute("productcatalog", catalog.findByHidden(false));
             model.addAttribute("orderdate", LocalDate.now());
@@ -552,7 +568,8 @@ public class CateringStockController {
         }
         utilsManagement.prepareModel(model, festivalId);
 
-        return (failure) ? "/cateringEditStockItem" : "redirect:/cateringProductCatalog/" + festivalId;
+        return (failure) ? "cateringEditStockItem/" + festivalId + "/" + stockitemid
+                : "redirect:/cateringProductCatalog/" + festivalId;
     }
 
     /**
@@ -604,7 +621,7 @@ public class CateringStockController {
         /** the id of the stock items product */
         ProductIdentifier productid;
         /** the number of products in this stock item */
-        long amount;
+        String amount;
         /** the price of buying a product */
         String buyingprice;
         /** the date when this product was bought */
@@ -623,7 +640,7 @@ public class CateringStockController {
          */
         public StockFormularData(
                 ProductIdentifier productid,
-                long amount,
+                String amount,
                 String buyingprice,
                 String orderdate,
                 String bestbeforedate) {

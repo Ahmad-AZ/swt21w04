@@ -21,7 +21,7 @@
                     </tr>
                     <tr>
                         <td>Anzahl</td>
-                        <td><input type="number" step="1" name="amount" value="500" th:value="${stockitem.getQuantity()}"></td>
+                        <td><input type="number" step="1" name="amount" value="500" min="0" max="100000" th:value="${stockitem.getQuantity()}"></td>
                     </tr>
                     <tr>
                         <td>Einkaufspreis</td>
