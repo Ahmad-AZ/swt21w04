@@ -10,12 +10,21 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+/**
+ * initializer class to generate example data for the message package
+ * @author Georg Kunze
+ */
 @Component
 @Order(12)
 public class MessageDataInitializer implements DataInitializer {
 	private final MessageManagement messageManagement;
 	private final StaffManagement staffManagement;
 
+	/**
+	 * constructor for the {@link MessageDataInitializer} class
+	 * @param messageManagement				the {@link MessageManagement}, must not be {@literal null}
+	 * @param staffManagement				the {@link StaffManagement}, must not be {@literal null}
+	 */
 	MessageDataInitializer(MessageManagement messageManagement, StaffManagement staffManagement) {
 		Assert.notNull(messageManagement, "MessageManagement must not be null!");
 		Assert.notNull(staffManagement, "StaffManagement must not be null!");
@@ -24,18 +33,42 @@ public class MessageDataInitializer implements DataInitializer {
 		this.staffManagement = staffManagement;
 	}
 
+	/**
+	 * helper function to creat a new personal message
+	 * @param senderId						the id of the sender of the message
+	 * @param receiverId					the id of the receiver of the message
+	 * @param title							the title of the message
+	 * @param content						the content of the message
+	 */
 	public void newMessage(long senderId, long receiverId, String title, String content) {
 		messageManagement.sendMessage(new SendPersonalMessageForm(senderId, receiverId, title, content));
 	}
 
+	/**
+	 * helper function to create a new group message
+	 * @param senderId						the id of the sender of the message
+	 * @param festivalId					the id of the festival of the receiver of the message
+	 * @param group							the group of the receiver of the message
+	 * @param title							the title of the message
+	 * @param content						the content of the message
+	 */
 	public void newGroupMessage(long senderId, long festivalId, String group, String title, String content) {
 		messageManagement.sendMessage(new SendGroupMessageForm(senderId, festivalId, group, title, content));
 	}
 
+	/**
+	 * helper function to create a new global message
+	 * @param senderId						the id of the sender of the message
+	 * @param title							the title of the message
+	 * @param content						the content of the message
+	 */
 	public void newGlobalMessage(long senderId, String title, String content) {
 		messageManagement.sendMessage(new SendGlobalMessageForm(senderId, title, content));
 	}
 
+	/**
+	 * function to initialize the system, called automatically by spring
+	 */
 	@Override
 	public void initialize() {
 		if (messageManagement.findAll().isEmpty()) {
