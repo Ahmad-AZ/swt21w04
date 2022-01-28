@@ -42,8 +42,13 @@ public class TicketManagement {
 	 */
 	public Ticket save(@NonNull Ticket ticket) {
 		Ticket currentTicketForFestival = TicketsByFestival(ticket.getFestivalId());
-		ticketRepo.delete(currentTicketForFestival);
-		return ticketRepo.save(ticket);
+		if (currentTicketForFestival != null && !ticket.equals(currentTicketForFestival)) {
+			ticketRepo.delete(currentTicketForFestival);
+			return ticketRepo.save(ticket);
+		}
+		else {
+			return ticketRepo.save(ticket);
+		}
 	}
 
 	/**
@@ -100,7 +105,7 @@ public class TicketManagement {
 	 */
 	public void setCurrentTicket(@NotNull Ticket ticket){
 		if (Objects.isNull(TicketsByFestival(ticket.getFestivalId()))) {
-			ticketRepo.save(ticket);
+			save(ticket);
 			this.currentTicket = TicketsByFestival(ticket.getFestivalId());
 		} else {
 			this.currentTicket=ticket;

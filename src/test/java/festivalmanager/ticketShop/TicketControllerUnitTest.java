@@ -8,13 +8,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import java.time.LocalDate;
 import static org.assertj.core.api.Assertions.*;
 
 
-
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class TicketControllerUnitTest extends AbstractIntegrationTests {
 
 
