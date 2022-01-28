@@ -9,6 +9,7 @@ import festivalmanager.messaging.forms.SendGlobalMessageForm;
 import festivalmanager.messaging.forms.SendGroupMessageForm;
 import festivalmanager.ticketShop.qr_code.QRCodeGenerator;
 import festivalmanager.utils.UtilsManagement;
+import org.javamoney.moneta.Money;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -179,7 +180,7 @@ public class TicketController {
 			}
 
 			model.addAttribute("ticketCount", soldTicket);
-			model.addAttribute("ticketPrice", ticketPrice * soldTicket);
+			model.addAttribute("ticketPrice", String.format("%.2f", ticketPrice * soldTicket));
 			model.addAttribute("festival", currentFestival);
 			model.addAttribute("tickets", ticket);
 
