@@ -72,12 +72,16 @@ public class TicketController {
 		model.addAttribute("title", "Tickets");
 		utilsManagement.prepareModel(model, festivalId);
 
+		Ticket repositoryTicket = ticketManagement.TicketsByFestival(festivalId);
+		if (repositoryTicket != null) {
+			ticketManagement.setCurrentTicket(repositoryTicket);
+		}
+
 		if (Objects.isNull(ticketManagement.getCurrentTicket())) {
 
 			this.currentFestival = festivalManagement.findById(festivalId).get();
 			model.addAttribute("ticket", new Ticket());
 			model.addAttribute("festival", this.currentFestival);
-			utilsManagement.prepareModel(model, festivalId);
 			return "ticketForm";
 		}
 

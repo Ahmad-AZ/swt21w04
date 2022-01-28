@@ -5,6 +5,7 @@ package festivalmanager.ticketShop;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Streamable;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
@@ -71,7 +72,11 @@ public class TicketManagement {
 	 */
 	public Ticket TicketsByFestival(long festivalId) {
 
-		return ticketRepo.findAllByFestivalId(festivalId);
+		Streamable<Ticket> ticketStreamable = ticketRepo.findByFestivalId(festivalId);
+		if (ticketStreamable.iterator().hasNext()) {
+			return ticketStreamable.iterator().next();
+		}
+		return null;
 	}
 
 
@@ -92,9 +97,9 @@ public class TicketManagement {
 
 	 */
 	public void setCurrentTicket(@NotNull Ticket ticket){
-		if (Objects.isNull(ticketRepo.findAllByFestivalId(ticket.getFestivalId()))) {
+		if (Objects.isNull(TicketsByFestival(ticket.getFestivalId()))) {
 			ticketRepo.save(ticket);
-			this.currentTicket = ticketRepo.findAllByFestivalId(ticket.getFestivalId());
+			this.currentTicket = TicketsByFestival(ticket.getFestivalId());
 		} else {
 			this.currentTicket=ticket;
 		}
@@ -109,7 +114,7 @@ public class TicketManagement {
 	 */
 	public boolean checkTickets(Ticket ticket) {
 
-		Ticket nTicket = ticketRepo.findAllByFestivalId(ticket.getFestivalId());
+		Ticket nTicket = TicketsByFestival(ticket.getFestivalId());
 
 		if (Objects.isNull(nTicket)) {
 			 throw new ResponseStatusException(
