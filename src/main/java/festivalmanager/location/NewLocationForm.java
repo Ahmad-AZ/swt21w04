@@ -16,6 +16,8 @@ import javax.validation.constraints.NotNull;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import festivalmanager.Application;
+
 /**
  * the form used to create the {@link Location}
  *
@@ -23,7 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 class NewLocationForm {
 	
-	private final String uploadDir = Paths.get("locationImages").toAbsolutePath().toString()+ "\\";
+	private final String uploadDir = Paths.get(Application.UPLOAD_DIR).toAbsolutePath().toString()+ "\\";
 	
 	@NotEmpty   
 	@NotNull

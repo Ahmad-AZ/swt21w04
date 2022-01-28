@@ -50,18 +50,38 @@ public class Equipment extends AbstractEntity<SalespointIdentifier>{
 		this.type = type;
 	}
 
+	/**
+	 * Returns equipments rental per day.
+	 * 
+	 * @return rentalPerDay
+	 */
 	public Money getRentalPerDay() {
 		return rentalPerDay;
 	}
 
+	/**
+	 * Returns equipments name.
+	 * 
+	 * @return name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Returns equipments id
+	 * 
+	 * @return id
+	 */
 	public SalespointIdentifier getId(){
 		return id;
 	}
 
+	/**
+	 * Returns equipments type
+	 * 
+	 * @return type
+	 */
 	public EquipmentType getType() {
 		return type;
 	}
