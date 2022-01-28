@@ -16,11 +16,20 @@ import java.util.Optional;
 public class UserIdControllerAdvice {
 	private final StaffManagement staffManagement;
 
+	/**
+	 * constructor for {@link UserIdControllerAdvice}
+	 * @param staffManagement		the {@link StaffManagement}, must not be {@literal null}
+	 */
 	public UserIdControllerAdvice(StaffManagement staffManagement) {
 		Assert.notNull(staffManagement, "StaffManagement must not be null!");
 		this.staffManagement = staffManagement;
 	}
 
+	/**
+	 * function to set the "userId" model attribute globaly
+	 * @param userAccount			the account of the current user
+	 * @return						the userId
+	 */
 	@ModelAttribute("userId")
 	public Long getUserId(@LoggedIn Optional<UserAccount> userAccount) {
 		if (userAccount.isPresent()) {
