@@ -135,6 +135,8 @@ public class TicketController {
 
 		Festival currentFestival = festivalManagement.findById(festivalId).get();
 
+		TicketType t = ticket.getTicketType();
+
 		// Temporary fix for a problem with the ticket shop form
 		// TODO: use a NewTicketForm class instead
 		if (ticket.getTicketType() == TicketType.CAMPING) {
@@ -165,6 +167,7 @@ public class TicketController {
 
 					String uuid = nTicket.getId().toString();
 					QRCodeGenerator.generateQRCodeImage(uuid);
+
 				}
 
 			} catch (WriterException |IOException e) {
@@ -228,6 +231,7 @@ public class TicketController {
 		}
 
 		model.addAttribute("tickets", new Ticket());
+		model.addAttribute("currentTicket" , ticketManagement.getCurrentTicket());
 		return "ticketShop";
 	}
 

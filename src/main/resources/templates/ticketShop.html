@@ -6,6 +6,7 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}"/>
+
     <title>Ticketshop</title>
 </head>
 <body>
@@ -17,12 +18,16 @@
 </section>
 
 
-<div style="text-align: center">
+<div>
 
 
 <form class="item" th:action="@{/tickets/{id}/buy(id=${festivalId})}" method="post" th:object="${tickets}">
 
     <h4 th:text="${tickets.getFestivalName()}"></h4><br>
+
+
+    <p th:text="${'      verfügbare Camping Tickets: '+currentTicket.campingTicketsCount}"> </p>
+    <p th:text="${'      verfügbare  Tagestickets: '+currentTicket.dayTicketsCount}"> </p>
 
     <select name="ticketType" id="type" th:field="*{ticketType}">
         <option th:each="ticketType : ${T(festivalmanager.ticketShop.TicketType).values()}"
@@ -32,7 +37,6 @@
         <label >Tickets Anzahl:</label><br>
         <input th:if="${tickets.getTicketType()=='CAMPING'}" type="number" id="count1" th:field="*{campingTicketsCount}"  min="1" required  placeholder="0"><br><br>
         <input th:unless="${tickets.getTicketType()=='CAMPING'}" type="number"  id ="count2"th:field="*{dayTicketsCount}" min="1" required placeholder="0"> <br><br>
-
 
     <input type="submit" value="kaufen">
 </form>
