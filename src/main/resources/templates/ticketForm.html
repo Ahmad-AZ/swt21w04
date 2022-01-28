@@ -27,10 +27,10 @@
 
             <h5>Ticketpreise</h5><br>
             <label for="price1">Camping-Tickets:</label><br>
-            <input type="number" id="price1" min="0"th:field="*{campingTicketPrice}"><br><br>
+            <input type="number" step="0.01" id="price1" min="0"th:field="*{campingTicketPrice}"><br><br>
 
             <label for="price">Tagestickets</label><br>
-            <input type="number" id="price" min="0" th:field="*{dayTicketPrice}"><br><br>
+            <input type="number" step="0.01" id="price" min="0" th:field="*{dayTicketPrice}"><br><br>
 
             <br><br>
 

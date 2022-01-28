@@ -133,8 +133,6 @@ public class TicketController {
 
 		TicketType t = ticket.getTicketType();
 
-		// Temporary fix for a problem with the ticket shop form
-		// TODO: use a NewTicketForm class instead
 		if (ticket.getTicketType() == TicketType.CAMPING) {
 			ticket.setCampingTicketsCount(ticket.getDayTicketsCount());
 			ticket.setDayTicketsCount(0);
@@ -232,7 +230,7 @@ public class TicketController {
 		}
 
 		model.addAttribute("tickets", new Ticket());
-		model.addAttribute("currentTicket" , ticketManagement.getCurrentTicket());
+		model.addAttribute("currentTicket" , ticketManagement.TicketsByFestival(festivalId));
 		return "ticketShop";
 	}
 
