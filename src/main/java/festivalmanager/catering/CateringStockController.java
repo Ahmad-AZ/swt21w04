@@ -115,6 +115,11 @@ public class CateringStockController {
             @RequestParam("festivalId") Long festivalId) {
         boolean failure = false;
 
+        if (formularData.name.equals("")) {
+            failure = true;
+            formularData.name = "[leer]";
+        }
+
         Money formPrice = Money.of(2.50, EURO);
         try {
             formPrice = Money.parse(formularData.price);
@@ -129,11 +134,24 @@ public class CateringStockController {
             failure = true;
         }
 
-        Quantity formMinimumStock = Quantity.of(formularData.minimumStock);
+        double formFilling = 0.0;
+        try {
+            formFilling = Double.parseDouble(formularData.filling);
+        } catch (NumberFormatException ex) {
+            failure = true;
+        }
+
+        Quantity formMinimumStock = Quantity.of(0);
+        try {
+            double dMinimumStock = Double.parseDouble(formularData.minimumStock);
+            formMinimumStock = Quantity.of(dMinimumStock);
+        } catch (NumberFormatException ex) {
+            failure = true;
+        }
 
         CateringProduct product = new CateringProduct(
                 formularData.name, formPrice, formDeposit,
-                formularData.filling, formMinimumStock, false);
+                formFilling, formMinimumStock, false);
 
         if (!failure) {
             catalog.save(product);
@@ -233,16 +251,29 @@ public class CateringStockController {
                 System.out.println("Pfand:" + formdeposit);
             }
 
-            if (Double.compare(product.getFilling(), formularData.filling) != 0) {
+            Double formfilling = product.getFilling();
+            try {
+                formfilling = Double.parseDouble(formularData.filling);
+            } catch (NumberFormatException ex) {
+                failure = true;
+            }
+
+            if (Double.compare(product.getFilling(), formfilling) != 0) {
                 changed = true;
-                product.setFilling(formularData.filling);
+                product.setFilling(formfilling);
                 System.out.println("Füllmenge:" + formularData.filling);
             }
 
-            BigDecimal bdMinimumStock = new BigDecimal(formularData.minimumStock);
-            if (!product.getMinimumStock().getAmount().equals(bdMinimumStock)) {
+            double formMinimumStock = product.getMinimumStock().getAmount().doubleValue();
+            try {
+                formMinimumStock = Double.parseDouble(formularData.minimumStock);
+            } catch (NumberFormatException ex) {
+                failure = true;
+            }
+
+            if (product.getMinimumStock().getAmount().doubleValue() != formMinimumStock) {
                 changed = true;
-                product.setMinimumStock(Quantity.of(formularData.minimumStock));
+                product.setMinimumStock(Quantity.of(formMinimumStock));
             }
 
             if (changed) {
@@ -322,9 +353,9 @@ public class CateringStockController {
         /** the deposit of this product */
         String deposit;
         /** the filling of the beverage */
-        double filling;
+        String filling;
         /** the minimum amount of the stock item */
-        double minimumStock;
+        String minimumStock;
 
         /**
          * the constructor for this product formular data
@@ -335,7 +366,7 @@ public class CateringStockController {
          * @param filling      the filling of the beverage
          * @param minimumStock the minimum amount of the stock item
          */
-        public ProductFormularData(String name, String price, String deposit, double filling, double minimumStock) {
+        public ProductFormularData(String name, String price, String deposit, String filling, String minimumStock) {
             this.name = name;
             this.price = price;
             this.deposit = deposit;
