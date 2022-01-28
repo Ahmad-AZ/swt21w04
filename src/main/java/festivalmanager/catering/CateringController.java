@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 //import org.springframework.web.bind.annotation.ModelAttribute;
-import org.salespointframework.catalog.ProductIdentifier;
+//import org.salespointframework.catalog.ProductIdentifier;
 import festivalmanager.festival.*;
 import festivalmanager.utils.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -212,9 +212,15 @@ public class CateringController {
 		if (formResult.productId != null) {
 			Optional<CateringProduct> oProduct = catalog.findById(formResult.productId);
 
+			long amount = 0;
+			try {
+				amount = Integer.parseInt(formResult.productCount);
+			} catch (NumberFormatException ex) {
+			}
+
 			if (oProduct.isPresent()) {
 				CateringProduct product = oProduct.get();
-				cart.addOrUpdateItem(product, Quantity.of(formResult.productCount));
+				cart.addOrUpdateItem(product, Quantity.of(amount));
 			}
 		}
 		return "redirect:/catering/" + festivalId;
@@ -258,19 +264,6 @@ public class CateringController {
 
 		cart.clear();
 		return "redirect:/catering/" + festivalId;
-	}
-
-	/**
-	 * A class containing the result of the form Add to Cart.
-	 */
-	class AddToCartFormResult {
-		ProductIdentifier productId;
-		long productCount;
-
-		public AddToCartFormResult(ProductIdentifier productId, long productCount) {
-			this.productId = productId;
-			this.productCount = productCount;
-		}
 	}
 
 	/**

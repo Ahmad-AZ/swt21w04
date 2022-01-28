@@ -208,6 +208,26 @@ public class StaffController {
 	}
 
 	/**
+	 * mapping for showing the dialog to change the salary of a user
+	 * @param userId			the id of the selected user
+	 * @param model				the model for the website template
+	 * @param festivalId		the id of the current festival
+	 * @return					the template to use for the website
+	 */
+	@GetMapping("/staff/{festivalId}/change_salary/{userId}")
+	@PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
+	public String getChangeSalaryDialog(@PathVariable("userId") long userId, Model model,
+										  @PathVariable("festivalId") Long festivalId) {
+		model.addAttribute("dialog", "change_salary");
+
+		Optional<Person> user = staffManagement.findById(userId);
+		model.addAttribute("person", user.orElse(null));
+
+		utilsManagement.prepareModel(model, festivalId);
+		return "staff.html";
+	}
+
+	/**
 	 * mapping to submit the CreateStaffForm and create the user
 	 * @param festivalId		the id of the current festival
 	 * @param form				the submitted form
@@ -274,6 +294,21 @@ public class StaffController {
 	@PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
 	public String changePassword(@PathVariable("festivalId") long festivalId, @PathVariable("id") long id, ChangePasswordForm form) {
 		this.staffManagement.changePassword(form);
+
+		return "redirect:/staff/" + festivalId + "/detail/" + id;
+	}
+
+	/**
+	 * mapping to submit the ChangeSalaryForm and change the salary of the user
+	 * @param festivalId		the id of the current festival
+	 * @param id 				the id of the selected user
+	 * @param form				the submitted form
+	 * @return					a redirect to the staff page
+	 */
+	@PostMapping("/staff/{festivalId}/change_salary/{id}")
+	@PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
+	public String changeSalary(@PathVariable("festivalId") long festivalId, @PathVariable("id") long id, ChangeSalaryForm form) {
+		this.staffManagement.changeSalary(form);
 
 		return "redirect:/staff/" + festivalId + "/detail/" + id;
 	}

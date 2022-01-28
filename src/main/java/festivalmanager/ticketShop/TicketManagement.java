@@ -144,8 +144,7 @@ public class TicketManagement {
 			currCampingTickets = nTicket.getCampingTicketsCount();
 			difference = currCampingTickets - soldTicket;
 
-
-			if ( difference >= 0 && (nTicket.getSoldCampingTicket() + soldTicket <= currCampingTickets)) {
+			if ( difference >= 0) {
 				nTicket.setSoldCampingTicket(soldTicket);
 				nTicket.setCampingTicketsCount(currCampingTickets - soldTicket);
 				this.currentTicket= nTicket;
@@ -160,7 +159,7 @@ public class TicketManagement {
 			currDayTickets= nTicket.getDayTicketsCount();
 			difference= currDayTickets - soldTicket;
 
-			if ( difference >= 0 && (nTicket.getSoldDayTicket() + soldTicket <= currDayTickets)) {
+			if ( difference >= 0) {
 				nTicket.setSoldDayTicket(soldTicket);
 				nTicket.setDayTicketsCount(currDayTickets- soldTicket);
 				this.currentTicket= nTicket;

@@ -32,39 +32,39 @@ __Anwendung von Gruppe:__ 04
 [options="header"]
 |===
 |Pfad |Parameter |Beschreibung |Rückgabe|Status
-| http://localhost:8080/catering | Radiobutton | kein Radiobutton ausgewählt | Whitelabel Error Page|
-| http://localhost:8080/catering | Eingabefeld für Anzahl | leer | Whitelabel Error Page|
-| http://localhost:8080/catering | Eingabefeld für Anzahl | Werte <= 0 | wird Warenkorb hinzugefügt|
-| http://localhost:8080/catering | Eingabefeld für Anzahl | Werte > 2147483647 | Whitelabel Error Page|
-| http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Produktname | leer | Produktname wird auf leeren String gesetzt|
+| http://localhost:8080/catering | Radiobutton | kein Radiobutton ausgewählt | Whitelabel Error Page|fixed
+| http://localhost:8080/catering | Eingabefeld für Anzahl | leer | Whitelabel Error Page|fixed
+| http://localhost:8080/catering | Eingabefeld für Anzahl | Werte <= 0 | wird Warenkorb hinzugefügt|fixed
+| http://localhost:8080/catering | Eingabefeld für Anzahl | Werte > 2147483647 | Whitelabel Error Page|fixed
+| http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Produktname | leer | Produktname wird auf leeren String gesetzt|wontfix
 | http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Produktname | bbbbbabbaaabaababaaaaaaaaaabaabababababbbaabaaba +
 bbaaabbaabbaaaabbaababbbbaabaaabaabbbbbbaaaaababa +
 abbbaaaabbbaaababbabaaababababaaabaabaabbbbbabaab +
 abbbaaabbbaabbaaaaaaabaaaaabaaaaabaaaaabaababbbabb +
-aaaaabaabaaabbbbaababbaababababbbaaababaaaabbbaabbaaaabaaabb | Whitelabel Error Page|
-| http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Verkaufspreis | 12 (bzw. für alle Wert die nicht im Format "EUR 'zahl'" eingegeben werden) | selbe Seite (Wert wird nicht geändert) bzw. alle default Wert sind wieder in der Form auch wenn es davor bereits korrekt bearbeitet wurde|
-| http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Verkaufspreis | Wert <= 0 (genaue Eingabe: "EUR 0") | Wert wird akezptiert und geändert|
-| http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Pfand | 12 (bzw. für alle Wert die nicht im Format "EUR 'zahl'" eingegeben werden) | selbe Seite (Wert wird nicht geändert) bzw. alle default Wert sind wieder in der Form auch wenn es davor bereits korrekt bearbeitet wurde|
-| http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Pfand | Wert <= 0 (genaue Eingabe: "EUR 0") | Wert wird akezptiert und geändert|
-| http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Füllmenge | leer | Whitelabel Error Page|
-| http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Füllmenge | Wert <= 0 (genaue Eingabe: "EUR 0") | Wert wird akezptiert und geändert|
-| http://localhost:8080/cateringAddProduct | Eingabefeld für Produktname | leer | Whitelabel Error Page|
+aaaaabaabaaabbbbaababbaababababbbaaababaaaabbbaabbaaaabaaabb | Whitelabel Error Page|fixed
+| http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Verkaufspreis | 12 (bzw. für alle Wert die nicht im Format "EUR 'zahl'" eingegeben werden) | selbe Seite (Wert wird nicht geändert) bzw. alle default Wert sind wieder in der Form auch wenn es davor bereits korrekt bearbeitet wurde|wontfix Manager machen diesen Fehler nicht
+| http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Verkaufspreis | Wert <= 0 (genaue Eingabe: "EUR 0") | Wert wird akezptiert und geändert|wontfix Manager machen diesen Fehler nicht
+| http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Pfand | 12 (bzw. für alle Wert die nicht im Format "EUR 'zahl'" eingegeben werden) | selbe Seite (Wert wird nicht geändert) bzw. alle default Wert sind wieder in der Form auch wenn es davor bereits korrekt bearbeitet wurde|wontfix Manager machen diesen Fehler nicht
+| http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Pfand | Wert <= 0 (genaue Eingabe: "EUR 0") | Wert wird akezptiert und geändert|wontfix Manager machen diesen Fehler nicht
+| http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Füllmenge | leer | Whitelabel Error Page|fixed
+| http://localhost:8080/cateringEditProduct/{id} | Eingabefeld für Füllmenge | Wert <= 0 (genaue Eingabe: "EUR 0") | Wert wird akezptiert und geändert|fixed
+| http://localhost:8080/cateringAddProduct | Eingabefeld für Produktname | leer | Whitelabel Error Page|fixed
 | http://localhost:8080/cateringAddProduct | Eingabefeld für Produktname | bbbbbabbaaabaababaaaaaaaaaabaabababababbbaabaaba +
 bbaaabbaabbaaaabbaababbbbaabaaabaabbbbbbaaaaababa +
 abbbaaaabbbaaababbabaaababababaaabaabaabbbbbabaab +
 abbbaaabbbaabbaaaaaaabaaaaabaaaaabaaaaabaababbbabb +
-aaaaabaabaaabbbbaababbaababababbbaaababaaaabbbaabbaaaabaaabb | Whitelabel Error Page|
-| http://localhost:8080/cateringAddProduct | Eingabefeld für Produktname | "Becks" | fügt Produkt mit Produktname "Becks" hinzu obwohl es bereits exisitert|
-| http://localhost:8080/cateringAddProduct | Eingabefeld für Verkaufspreis | leer | Whitelabel Error Page|
-| http://localhost:8080/cateringAddProduct | Eingabefeld für Verkaufspreis | 1 | Whitelabel Error Page|
-| http://localhost:8080/cateringAddProduct | Eingabefeld für Verkaufspreis | "Hallo" | Whitelabel Error Page|
-| http://localhost:8080/cateringAddProduct | Eingabefeld für Verkaufspreis | Wert <= 0 (genaue Eingabe: jeweils "EUR 0" und "EUR -1") | Werte werden akzeptiert und geändert|
-| http://localhost:8080/cateringAddProduct | Eingabefeld für Pfand | leer | Whitelabel Error Page|
-| http://localhost:8080/cateringAddProduct | Eingabefeld für Pfand | 1 | Whitelabel Error Page|
-| http://localhost:8080/cateringAddProduct | Eingabefeld für Pfand | "Hallo" | Whitelabel Error Page|
-| http://localhost:8080/cateringAddProduct | Eingabefeld für Pfand | Wert <= 0 (genaue Eingabe: jeweils "EUR 0" und "EUR -1") | Werte werden akzeptiert und geändert|
-| http://localhost:8080/cateringAddProduct | Eingabefeld für Füllmenge | leer | Whitelabel Error Page|
-| http://localhost:8080/cateringAddProduct | Eingabefeld für Füllmenge | Wert <= 0 (genaue Eingabe: jeweils "0" und "-1" | Werte werden akzeptiert und geändert|
+aaaaabaabaaabbbbaababbaababababbbaaababaaaabbbaabbaaaabaaabb | Whitelabel Error Page|fixed
+| http://localhost:8080/cateringAddProduct | Eingabefeld für Produktname | "Becks" | fügt Produkt mit Produktname "Becks" hinzu obwohl es bereits exisitert|wontfix vertretbar
+| http://localhost:8080/cateringAddProduct | Eingabefeld für Verkaufspreis | leer | Whitelabel Error Page|fixed
+| http://localhost:8080/cateringAddProduct | Eingabefeld für Verkaufspreis | 1 | Whitelabel Error Page|fixed
+| http://localhost:8080/cateringAddProduct | Eingabefeld für Verkaufspreis | "Hallo" | Whitelabel Error Page|fixed
+| http://localhost:8080/cateringAddProduct | Eingabefeld für Verkaufspreis | Wert <= 0 (genaue Eingabe: jeweils "EUR 0" und "EUR -1") | Werte werden akzeptiert und geändert|wontfix
+| http://localhost:8080/cateringAddProduct | Eingabefeld für Pfand | leer | Whitelabel Error Page|fixed
+| http://localhost:8080/cateringAddProduct | Eingabefeld für Pfand | 1 | Whitelabel Error Page|fixed
+| http://localhost:8080/cateringAddProduct | Eingabefeld für Pfand | "Hallo" | Whitelabel Error Page|fixed
+| http://localhost:8080/cateringAddProduct | Eingabefeld für Pfand | Wert <= 0 (genaue Eingabe: jeweils "EUR 0" und "EUR -1") | Werte werden akzeptiert und geändert|wontfix
+| http://localhost:8080/cateringAddProduct | Eingabefeld für Füllmenge | leer | Whitelabel Error Page|fixed
+| http://localhost:8080/cateringAddProduct | Eingabefeld für Füllmenge | Wert <= 0 (genaue Eingabe: jeweils "0" und "-1" | Werte werden akzeptiert und geändert|fixed
 | http://localhost:8080/cateringAddStockItem | Eingabefeld für Anzahl | leer | Whitelabel Error Page|
 | http://localhost:8080/cateringAddStockItem | Eingabefeld für Anzahl | 500333333333333333333333333333333333333 | Whitelabel Error Page|
 | http://localhost:8080/cateringAddStockItem | Eingabefeld für Anzahl | Wert <= 0 (genaue Eingabe: jeweils "EUR 0" und "EUR -1") | Werte werden akzeptiert und geändert|

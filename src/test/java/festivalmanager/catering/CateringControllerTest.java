@@ -23,6 +23,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.salespointframework.catalog.ProductIdentifier;
 import org.salespointframework.order.Cart;
 import org.salespointframework.order.CartItem;
 
@@ -163,7 +164,32 @@ public class CateringControllerTest extends AbstractIntegrationTests {
                 lPC.add(object);
             }
             assertEquals(4, lPC.size());
+        }
+    }
 
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    public void testAddToCart() {
+        long festivalid = getFestivalId();
+        initializeStock();
+        ProductIdentifier productId = null;
+        CateringProduct cp = null;
+        Iterator<CateringProduct> iCP = controller.getCateringProductCatalog().findAll().iterator();
+        if (iCP.hasNext()) {
+            cp = iCP.next();
+            productId = cp.getId();
+        }
+
+        Cart cart = controller.initializeCart();
+        Model model = new ExtendedModelMap();
+        AddToCartFormResult formResult = new AddToCartFormResult(productId, "410");
+
+        controller.addToCart(model, formResult, cart, festivalid);
+
+        Cart cart2 = cart; // (Cart) model.getAttribute("cart");
+        for (CartItem cartItem : cart2) {
+            // Intentially there has to be 400 in cart2
+            assertEquals(410, cartItem.getQuantity().getAmount().intValue());
         }
     }
 }
