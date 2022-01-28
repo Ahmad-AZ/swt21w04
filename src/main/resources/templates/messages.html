@@ -36,11 +36,11 @@
                     </div>
                     <div class="form-item">
                         <label class="form-label">Titel</label>
-                        <input type="text" name="title">
+                        <input type="text" name="title" required>
                     </div>
                     <div class="form-item-vertical">
                         <label class="form-label">Inhalt:</label>
-                        <textarea class="form-input" style="height: 20vh" name="content"></textarea>
+                        <textarea class="form-input" style="height: 20vh" name="content" required></textarea>
                     </div>
                     <div class="form-item">
                         <a th:href="@{/messages/{userId}(userId = ${userId})}">Abbrechen</a>
@@ -60,11 +60,11 @@
                     </div>
                     <div class="form-item">
                         <label class="form-label">Titel</label>
-                        <input type="text" name="title">
+                        <input type="text" name="title" required>
                     </div>
                     <div class="form-item-vertical">
                         <label class="form-label">Inhalt:</label>
-                        <textarea class="form-input" style="height: 20vh" name="content"></textarea>
+                        <textarea class="form-input" style="height: 20vh" name="content" required></textarea>
                     </div>
                     <div class="form-item">
                         <a th:href="@{/messages/{userId}(userId = ${userId})}">Abbrechen</a>
@@ -79,11 +79,11 @@
                     <h2 class="form-title">Globale Nachricht senden</h2>
                     <div class="form-item">
                         <label class="form-label">Titel</label>
-                        <input type="text" name="title">
+                        <input type="text" name="title" required>
                     </div>
                     <div class="form-item-vertical">
                         <label class="form-label">Inhalt:</label>
-                        <textarea class="form-input" style="height: 20vh" name="content"></textarea>
+                        <textarea class="form-input" style="height: 20vh" name="content" required></textarea>
                     </div>
                     <div class="form-item">
                         <a th:href="@{/messages/{userId}(userId = ${userId})}">Abbrechen</a>
