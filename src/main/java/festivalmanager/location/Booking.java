@@ -43,7 +43,7 @@ public class Booking implements Serializable {
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}
-	
+	 
 	/**
 	 * Returns bookings id.
 	 * 
