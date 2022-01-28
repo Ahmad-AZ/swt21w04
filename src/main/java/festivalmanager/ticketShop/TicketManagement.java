@@ -45,8 +45,7 @@ public class TicketManagement {
 		if (currentTicketForFestival != null && !ticket.equals(currentTicketForFestival)) {
 			ticketRepo.delete(currentTicketForFestival);
 			return ticketRepo.save(ticket);
-		}
-		else {
+		} else {
 			return ticketRepo.save(ticket);
 		}
 	}

@@ -271,7 +271,8 @@ public class CateringStockController {
                 failure = true;
             }
 
-            if (product.getMinimumStock().getAmount().doubleValue() != formMinimumStock) {
+            if (Float.compare((float) product.getMinimumStock().getAmount().doubleValue(),
+					(float) formMinimumStock) != 0) {
                 changed = true;
                 product.setMinimumStock(Quantity.of(formMinimumStock));
             }
