@@ -1,0 +1,46 @@
+= Protokoll Gruppe 04
+
+Treffen am 22.01.2021
+
+Ort:      Discord +
+Beginn:   11:00 Uhr +
+Ende:     12:00 Uhr
+
+__Schriftführer:__ Jan Biedermann
+
+*Nächstes Treffen:* +
+24.01.2022, 17:30
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Adrian Scholze
+- Jan Biedermann
+- Georg Kunze
+- Robert Menzel
+
+== Bemerkungen
+- Es wurde die Abschlusspräsentation vorbereitet:
+
+- Präsentation von Analyse und Entwurf
+(In dieser Reihenfolge)
+* Jan: Aufgabenstellung vorstellen, funktionale Anforderungen +
+Durch die Präsentation leiten, also Einleitung, Überleitung zu Präsentation der Anwendung, Abschluss
+* Adrian, Ahmad: Packagediagramm
+* Georg: Aufbau der Software und Produktnutzung
+* Robert: Zielstellung und Qualitätsziele, Probleme beim Erreichen dieser
+* Tuan: Lessons learned und Nutzen des Projekts
+
+- Jeder beendet seinen Teil mit einem kurzen Überleitungssatz für den nächsten Vortragenden
+
+- Präsentation der Anwendung:
+* Rollenspiel mit den Rollen
+** Adrian, Tuan: Planer
+** Robert: Catering Mensch
+** Ahmad: Ticketverkäufer
+** Georg: Chefentwickler
+
+* Georg stellt den Nutzern (Ticketveräufer, Cateringpersonal und Planer)
+ihren Teil der Software vor, die Nutzer stellen vorbereitete Fragen zu ihren Komponenten.
+
+* Reihenfolge: Planer, Catering, Tickets, Nachrichtensystem für alle Nutzer (Adrian und Tuan stellen Fragen)

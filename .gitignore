@@ -5,6 +5,7 @@ target/
 
 # Location Images
 locationImages/
+qrCodes/
 
 # Eclipse
 bin/

@@ -25,7 +25,7 @@ import festivalmanager.Application;
  */
 class NewLocationForm {
 	
-	private final String uploadDir = Paths.get(Application.UPLOAD_DIR).toAbsolutePath().toString()+ "\\";
+	private final String uploadDir = Paths.get(Application.LOCATION_UPLOAD_DIR).toAbsolutePath().toString()+ "/";
 	
 	@NotEmpty   
 	@NotNull

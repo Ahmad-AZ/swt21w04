@@ -119,11 +119,11 @@ aaaaabaabaaabbbbaababbaababababbbaaababaaaabbbaabbaaaabaaabb | Whitelabel Error 
 | http://localhost:8080/newLocation | Name: TestLocaiton | Location mit dem Namen TestLocation gibt es schon | keine Fehlermeldung|gelöst
 | http://localhost:8080/newLocation | Anzahl Bühnen: 0 | Eine Locaiton ohne Bühnen kann erstellt werden | keine Fehlermeldung| Designentscheidung
 
-|http://localhost:8080/finances |ticketverkäufer für ein Festival existiert und hat Gehalt|-|wird nicht in der Finanzübersicht aufgeführt|
-|http://localhost:8080/finances |Planungsteam für ein Festival existiert und hat Gehalt|-|wird nicht in der Finanzübersicht aufgeführt|
-|http://localhost:8080/finances |Manager für ein Festival existiert und hat Gehalt|-|wird nicht in der Finanzübersicht aufgeführt|
-|http://localhost:8080/staff/{id}/detail/{id}|Personal hat Gehalt|Deteils anzeigen| Gehalt kann nicht bearbeitet werden|
-|http://localhost:8080/staff/{id}/create/ | Personal mit Name:Test123| Personal mit dem Namen Test123 gibt es schon| Whitelabel Error Page|
+|http://localhost:8080/finances |ticketverkäufer für ein Festival existiert und hat Gehalt|-|wird nicht in der Finanzübersicht aufgeführt |gelöst
+|http://localhost:8080/finances |Planungsteam für ein Festival existiert und hat Gehalt|-|wird nicht in der Finanzübersicht aufgeführt |gelöst
+|http://localhost:8080/finances |Manager für ein Festival existiert und hat Gehalt|-|wird nicht in der Finanzübersicht aufgeführt |gelöst
+|http://localhost:8080/staff/{id}/detail/{id}|Personal hat Gehalt|Deteils anzeigen| Gehalt kann nicht bearbeitet werden |
+|http://localhost:8080/staff/{id}/create/ | Personal mit Name:Test123| Personal mit dem Namen Test123 gibt es schon| Whitelabel Error Page |
 
 
 

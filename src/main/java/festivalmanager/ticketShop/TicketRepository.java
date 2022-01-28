@@ -2,6 +2,7 @@ package festivalmanager.ticketShop;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Repository;
 
 
@@ -28,6 +29,6 @@ public interface TicketRepository extends CrudRepository<Ticket, UUID> {
 	 * Created Query to select {@link Ticket} by festivalId
 	 * @param id
 	 */
-	@Query("select t from Ticket t where t.festivalId = ?1")
-	Ticket findAllByFestivalId(long id);
+	//@Query("select t from Ticket t where t.festivalId = ?1")
+	Streamable<Ticket> findByFestivalId(long id);
 }
