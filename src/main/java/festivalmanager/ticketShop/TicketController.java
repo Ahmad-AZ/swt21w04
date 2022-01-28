@@ -9,6 +9,7 @@ import festivalmanager.messaging.forms.SendGlobalMessageForm;
 import festivalmanager.messaging.forms.SendGroupMessageForm;
 import festivalmanager.ticketShop.qr_code.QRCodeGenerator;
 import festivalmanager.utils.UtilsManagement;
+import org.javamoney.moneta.Money;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -133,8 +134,6 @@ public class TicketController {
 
 		TicketType t = ticket.getTicketType();
 
-		// Temporary fix for a problem with the ticket shop form
-		// TODO: use a NewTicketForm class instead
 		if (ticket.getTicketType() == TicketType.CAMPING) {
 			ticket.setCampingTicketsCount(ticket.getDayTicketsCount());
 			ticket.setDayTicketsCount(0);
@@ -181,7 +180,7 @@ public class TicketController {
 			}
 
 			model.addAttribute("ticketCount", soldTicket);
-			model.addAttribute("ticketPrice", ticketPrice * soldTicket);
+			model.addAttribute("ticketPrice", String.format("%.2f", ticketPrice * soldTicket));
 			model.addAttribute("festival", currentFestival);
 			model.addAttribute("tickets", ticket);
 
@@ -232,7 +231,7 @@ public class TicketController {
 		}
 
 		model.addAttribute("tickets", new Ticket());
-		model.addAttribute("currentTicket" , ticketManagement.getCurrentTicket());
+		model.addAttribute("currentTicket" , ticketManagement.TicketsByFestival(festivalId));
 		return "ticketShop";
 	}
 
