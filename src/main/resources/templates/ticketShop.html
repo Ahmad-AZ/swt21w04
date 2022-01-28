@@ -20,7 +20,7 @@
 <div style="text-align: center">
 
 
-<form class="item" th:action="@{/tickets/buy}" method="post" th:object="${tickets}">
+<form class="item" th:action="@{/tickets/{id}/buy(id=${festivalId})}" method="post" th:object="${tickets}">
 
     <h4 th:text="${tickets.getFestivalName()}"></h4><br>
 
