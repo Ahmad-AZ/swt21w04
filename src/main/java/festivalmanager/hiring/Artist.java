@@ -36,9 +36,9 @@ public class Artist {
 
 	/**
 	 * constructor of an artist
-	 * @param name
-	 * @param price
-	 * @param stageTechnician
+	 * @param name must not be {@literal null}.
+	 * @param price must not be {@literal null}
+	 * @param stageTechnician must not be {@literal null}
 	 */
 	public Artist(@NotNull String name, @NotNull Money price, @NotNull int stageTechnician) {
 		this.name = name;
@@ -50,30 +50,57 @@ public class Artist {
 		this.shows = new ArrayList<>();
 	}
 
+	/**
+	 * @return artistId
+	 */
 	public long getId() {
 		return id;
 	}
 
+	/**
+	 *
+	 * @return artist name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * set artist name
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 *
+	 * @return artist Price
+	 */
 	public Money getPrice() {
 		return price;
 	}
 
+	/**
+	 * set artist Price
+	 * @param price
+	 */
 	public void setPrice(Money price) {
 		this.price = price;
 	}
 
+	/**
+	 *
+	 * @return stage Technician
+	 */
 	public int getStageTechnician() {
 		return stageTechnician;
 	}
 
+	/**
+	 * set Stage Technnician
+	 * @param stageTechnician
+	 */
 	public void setStageTechnician(int stageTechnician) {
 		this.stageTechnician = stageTechnician;
 	}
