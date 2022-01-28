@@ -15,6 +15,9 @@
  */
 package festivalmanager;
 
+import java.io.File;
+import java.nio.file.Paths;
+
 import org.salespointframework.EnableSalespoint;
 import org.salespointframework.SalespointSecurityConfiguration;
 import org.springframework.boot.SpringApplication;
@@ -28,7 +31,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableScheduling
 public class Application {
 
-	public final static String UPLOAD_DIR = "locationImages";
+	public final static String LOCATION_UPLOAD_DIR = "locationImages";
+	public final static String QR_UPLOAD_DIR = "qrCodes";
 	
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
@@ -48,10 +52,18 @@ public class Application {
 	
 	@Configuration
 	static class WebConfiguration implements WebMvcConfigurer {
-
+				
 		@Override
 		public void addResourceHandlers(ResourceHandlerRegistry registry) {
-			registry.addResourceHandler("/locationImages/**").addResourceLocations("file:./"+ UPLOAD_DIR + "/");
+			
+			// create Folder for locationImages
+			new File(Paths.get(Application.LOCATION_UPLOAD_DIR).toAbsolutePath().toString()+ "/").mkdir();
+			
+			// create Folder for qrCodes
+			new File(Paths.get(Application.QR_UPLOAD_DIR).toAbsolutePath().toString()+ "/").mkdir();
+			
+			registry.addResourceHandler("/locationImages/**").addResourceLocations("file:./"+ LOCATION_UPLOAD_DIR + "/");
+			registry.addResourceHandler("/qrCodes/**").addResourceLocations("file:./"+ QR_UPLOAD_DIR + "/");
 		}
 	}
 }

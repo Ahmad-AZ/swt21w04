@@ -31,7 +31,7 @@ public class LocationDataInitializer implements DataInitializer{
 	private static final Logger LOG = LoggerFactory.getLogger(FestivalInitializer.class);
 
 	private LocationRepository locations;
-	private final String uploadDir = Paths.get(Application.UPLOAD_DIR).toAbsolutePath().toString()+ "/";
+	private final String uploadDir = Paths.get(Application.LOCATION_UPLOAD_DIR).toAbsolutePath().toString()+ "/";
 	
 	/**
 	 * Create a new {@link LocationDataInitializer}
@@ -53,8 +53,6 @@ public class LocationDataInitializer implements DataInitializer{
 			return; 
 		}
 		LOG.info("Creating default location entries.");
-		// create Folder for locationImages
-		new File(uploadDir).mkdir();
 		String srcString = "src/main/resources/static/resources/img/location/";
 		
 		String[] filenames = {"Kulturpalast_image.jpg", "Kulturpalast_groundview.jpg", 
