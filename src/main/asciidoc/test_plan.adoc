@@ -521,105 +521,105 @@ Die Location kann nicht gebucht werden |Adrian, Tuan
 Erstellen eines NewShowForms mit Name "name" und performance 134 |
 Das NewFestivalForm enthält den Name "name" und die performance 134 |Adrian, Tuan
 
-|U-AF016-13 |AF016 |
+|U-AF009-01 |AF009 |
 Der Künstler "artist" hat noch keine Buchungen |
 Buchen von "artist" im Zeitraum vom 24.12.2021 bis zum 30.12.2021 |
 Der Künstler kann gebucht werden |Adrian, Tuan
 
-|U-AF016-14 |AF016 |
+|U-AF009-02 |AF009 |
 Der Künstler "artist" ist im Zeitraum vom 24.12.2021 bis zum 30.12.2021 schon gebucht |
 Buchen von "artist" im Zeitraum vom 21.12.2021 bis zum 24.12.2021 |
 Der Künstler kann nicht gebucht werden |Adrian, Tuan
 
-|U-AF016-15 |AF016 |
+|U-AF009-03 |AF009 |
 Der Künstler "artist" ist im Zeitraum vom 24.12.2021 bis zum 30.12.2021 schon gebucht |
 Buchen von "artist" im Zeitraum vom 24.12.2021 bis zum 30.12.2021 |
 Der Künstler kann nicht gebucht werden |Adrian, Tuan
 
-|U-AF016-16 |AF016 |
+|U-AF009-04 |AF009 |
 Der Künstler "artist" ist im Zeitraum vom 24.12.2021 bis zum 30.12.2021 schon gebucht |
 Buchen von "artist" im Zeitraum vom 30.12.2021 bis zum 31.01.2022 |
 Der Künstler kann nicht gebucht werden |Adrian, Tuan
 
-|U-AF016-17 |AF016 |
+|U-AF009-05 |AF009 |
 Der Künstler "artist" ist im Zeitraum vom 24.12.2021 bis zum 30.12.2021 schon gebucht |
 Buchen von "artist" im Zeitraum vom 26.12.2021 bis zum 28.12.2021 |
 Der Künstler kann nicht gebucht werden |Adrian, Tuan
 
-|U-AF016-18 |AF016 |
+|U-AF009-06 |AF009 |
 Der Künstler "artist" ist im Zeitraum vom 24.12.2021 bis zum 30.12.2021 schon gebucht |
 Buchen von "artist" im Zeitraum vom 21.12.2021 bis zum 31.01.2022 |
 Der Künstler kann nicht gebucht werden |Adrian, Tuan
 
-|U-AF016-19 |AF016 |- |
+|U-AF009-07 |AF009 |- |
 Erstellen eines NewArtistForms mit Name "name", Preis 50€ und 50 Bühnentechnikern |
 Das NewArtistForm enthält den Name "name", den Preis 50€ und 50 Bühnentechniker |Adrian, Tuan
 
-|U-AF016-20 |AF016 |
+|U-AF009-08 |AF009 |
 Der Künstler "artist" hat den Name "name1", den Preis 50€ und 50 Bühnentechniker |
 Ändern des Namens zu "name2" |
 Der Künstler hat den Name "name2" |Adrian, Tuan
 
-|U-AF016-21 |AF016 |
+|U-AF009-09 |AF009 |
 Der Künstler "artist" hat den Name "name1", den Preis 50€ und 50 Bühnentechniker |
 Ändern des Preises zu 60€ |
 Der Künstler hat einen Preis von 60€ |Adrian, Tuan
 
-|U-AF016-22 |AF016 |
+|U-AF009-10 |AF009 |
 Der Künstler "artist" hat den Name "name1", den Preis 50€ und 50 Bühnentechniker |
 Hinzufügen einer Show für den Künstler |
 Die Show wurde zum Künstler hinzugefügt und hat die performance 120 |Adrian, Tuan
 
-|U-AF016-23 |AF016 |
+|U-AF009-11 |AF009 |
 Es gibt noch keinen Künstler mit Name "name" |
 Erstellen eines Künstlers aus einem NewArtistForm mit Name "name", Preis 100€ und 5 Bühnentechnikern |
 Es wurde ein Künstler mit Name "name", Preis 100€ und 5 Bühnentechnikern |Adrian, Tuan
 
-|U-AF016-24 |AF016 |
+|U-AF009-12 |AF009 |
 Es gibt noch keinen Künstler mit Name "newName" |
 Erstellen eines Künstlers und bearbeiten des Künstlers mit einem NewArtistForm mit Name "newName", Preis 200€ und 6 Bühnentechnikern |
 Der Künstler hat den Name "newName", Preis 200€ und 6 Bühnentechnikern |Adrian, Tuan
 
-|U-AF016-25 |AF016 |
+|U-AF009-13 |AF009 |
 Ein ArtistRepository enthält nur den Künstler "artist" |
 Entfernen von "artist" aus dem ArtistRepository |
 "artist" ist nicht mehr im ArtistRepository vorhanden |Adrian, Tuan
 
-|U-AF016-26 |AF016 |
+|U-AF009-14 |AF009 |
 Ein ArtistRepository enthält keine Künstler |
 Hinzufügen des Künstlers "artist" zum ArtistRepository |
 Das ArtistRepository enthält den Künstler "artist" |Adrian, Tuan
 
-|U-AF016-27 |AF016 |- |
+|U-AF016-13 |AF016 |- |
 Erstellen eines NewStageForms mit Name "name" und generierter ID |
 Das NewStageForm enthält den Name "name" und die generierte ID |Adrian, Tuan
 
-|U-AF016-28 |AF016 |
+|U-AF016-14 |AF016 |
 Das Bühne "stage" ist für das Festival "festival" nicht gebucht wurden |
 Die Buchung für "stage" soll entfernt werden  |
 Entfernen der Buchung scheitert |Adrian, Tuan
 
-|U-AF016-29 |AF016 |
+|U-AF016-15 |AF016 |
 Das Bühne "stage" ist für das Festival "festival" gebucht wurden |
 Die Buchung für "stage" soll entfernt werden  |
 Die Buchung kann entfernt werden |Adrian, Tuan
 
-|U-AF016-30 |AF016 |
+|U-AF016-16 |AF016 |
 Die Location "location" ist während der Dauer von "festival" noch nicht belegt |
 Die Location "location" wird für "festival" gebucht  |
 Die Buchung ist erfolgreich |Adrian, Tuan
 
-|U-AF016-31 |AF016 |
+|U-AF016-17 |AF016 |
 Die Location "location" ist während der Dauer von "festival" schon belegt |
 Die Location "location" wird für "festival" gebucht  |
 Die Buchung ist nicht erfolgreich |Adrian, Tuan
 
-|U-AF016-32 |AF016 |
+|U-AF016-18 |AF016 |
 Der Künstler "artist" ist während der Dauer von "festival" noch nicht gebucht |
 Der Künstler "artist" wird für "festival" gebucht  |
 Die Buchung ist erfolgreich |Adrian, Tuan
 
-|U-AF016-33 |AF016 |
+|U-AF016-19 |AF016 |
 Der Künstler "artist" ist während der Dauer von "festival" schon gebucht |
 Der Künstler "artist" wird für "festival" gebucht  |
 Die Buchung ist nicht erfolgreich |Adrian, Tuan
@@ -641,5 +641,118 @@ Das Festival kann erstellt werden |Adrian, Tuan
 Es ist kein Benutzer eingeloggt |
 Aufrufen der "/newFestival" Seite |
 Das Festival kann nicht erstellt werden |Adrian, Tuan
+
+|I-AF016-3 |AF016 |
+Das Festival "festival" hat die Location "location" |
+Aufrufen der equipment Seite für "festival" |
+Das Model für die equipment Seite enthält "festival", "location" und hat die Attribute equipmentsMap und equipmentStage |Adrian, Tuan
+
+|I-AF016-4 |AF016 |
+Das Festival "festival" hat keine Location |
+Aufrufen der equipment Seite für "festival" |
+Die Attribute festival, location, equipmentsMap und equipmentStage im Model der equipment Seite haben keinen Wert |Adrian, Tuan
+
+|I-AF016-5 |AF016 |
+Das Festival "festival" hat die Location "location" |
+Hinzufügen einer Bühne zu "festival" |
+Das Model für die equipment Seite enthält "festival", "location" und hat die Attribute equipmentsMap und equipmentStage |Adrian, Tuan
+
+|I-AF009-1 |AF009 |
+Dem Festival "festival" sind keine Künstler zugeordnet |
+Aufrufen von "/artistOverview" |
+Das Model für die artistOverview Seite enthält eine Liste mit allen verfügbaren Künstlern und Information darüber,
+dass für "festival" keine Künstler gebucht wurden |Adrian, Tuan
+
+|I-AF009-2 |AF009 |
+Dem Festival "festival" ist der  Künstler "artist" zugeordnet |
+Aufrufen von "/artistOverview" |
+Das Model für die artistOverview Seite enthält eine Liste mit allen verfügbaren Künstlern,
+und eine Menge mit den für "festival" gebuchten Künstlern, die nur "artist" enthält |Adrian, Tuan
+
+|I-AF009-3 |AF009 |
+Dem Festival "festival" ist der  Künstler "artist" zugeordnet |
+Aufrufen der "/artistDetail" Seite für "artist" |
+Der artistDetailPlan view wird generiert und das Model für die artistDetail Seite enthält
+"artist" und Informationen über die Buchungen von "artist" |Adrian, Tuan
+
+|I-AF009-4 |AF009 |
+Dem Festival "festival" ist der  Künstler "artist" noch nicht zugeordnet |
+Buchen von "artist" für "festival" |
+Die artistOverview Seite für festival wird nach der Buchung angezeigt |Adrian, Tuan
+
+|I-AF009-5 |AF009 |
+Dem Festival "festival" ist der  Künstler "artist" zugeordnet |
+Aufrufen der "/artistDetail" Seite für "artist" und entfernen der Buchung für festival |
+Die artistOverview Seite für festival wird nach Entfernen der Buchung angezeigt |Adrian, Tuan
+
+|I-AF009-6 |AF009 |
+Dem Festival "festival" ist der  Künstler "artist" zugeordnet |
+Alle Buchungen von Künstlern für "festival" werden entfernt |
+Die artistOverview Seite für festival wird nach Entfernen der Buchungen angezeigt |Adrian, Tuan
+
+|I-AF010-1 |AF010 |
+Dem Festival "festival" ist keine Location zugeordnet |
+Aufrufen von "/locationOverview" |
+Das Model für die locationOverview Seite enthält eine Liste mit allen verfügbaren Locations und Information darüber,
+dass für "festival" keine Location gebucht wurden |Adrian, Tuan
+
+|I-AF010-2 |AF010 |
+Dem Festival "festival" ist die Location "location" zugeordnet |
+Aufrufen von "/locationOverview" |
+Das Model für die locationOverview Seite enthält eine Liste mit allen verfügbaren Locations und Information darüber,
+dass "location" für "festival" gebucht wurden |Adrian, Tuan
+
+|I-AF010-3 |AF010 |
+Dem Festival "festival" ist die Location "location" zugeordnet |
+Aufrufen der "/locationDetail" Seite für "location" |
+Der locationDetailPlan view wird generiert und das Model für die locationDetail Seite enthält
+"location" und Informationen über die Buchungen von "location" |Adrian, Tuan
+
+|I-AF010-4 |AF010 |
+Dem Festival "festival" ist keine Location zugeordnet |
+Aufrufen der "/locationDetail" Seite für die Location "location" |
+Der locationDetailPlan view wird generiert und das Model für die locationDetail Seite enthält
+"location" und Informationen darüber, dass "location" für keine Festivals gebucht wurde |Adrian, Tuan
+
+|I-AF010-5 |AF010 |
+Dem Festival "festival" ist die Location "location" noch nicht zugeordnet |
+Buchen von "location" für "festival" |
+Die locationOverview Seite für festival wird nach der Buchung angezeigt |Adrian, Tuan
+
+|I-AF010-6 |AF010 |
+Die location "location" ist für die nächsten vier Tage belegt |
+Buchen von "location" für die nächsten fünf Tage |
+Die locationOverview Seite für festival wird nach der gescheiterten Buchung angezeigt |Adrian, Tuan
+
+|I-AF010-7 |AF010 |
+Dem Festival "festival" ist die Location "location" zugeordnet |
+Aufrufen der "/locationDetail" Seite für "location" und entfernen der Buchung für "festival" |
+Die locationOverview Seite für festival wird nach Entfernen der Buchungen angezeigt |Adrian, Tuan
+
+|I-AF010-8 |AF010 |
+Dem Festival "festival" ist die Location "location" zugeordnet |
+Aufrufen der "/locationOverview" Seite für "festival" und entfernen der Buchung für "location" |
+Die locationOverview Seite für festival wird nach Entfernen der Buchungen angezeigt |Adrian, Tuan
+
+|I-AF016-6 |AF016 |
+Im Festivalmanager ist das Festival "festival" vorhanden |
+Aufrufen der schedule Seite für "festival" |
+Es wird der schedule view generiert und das Model für die schedule Seite enthält
+Informationen über den Zeitplan von festival |Adrian, Tuan
+
+|I-AF016-7 |AF016 |
+Im Festivalmanager ist das Festival "festival" vorhanden |
+Aufrufen des show select Dialogs auf der schedule Seite für "festival" |
+Es wird der schedule view generiert, dieser enthält den edit schedule Dialog |Adrian, Tuan
+
+|I-AF016-8 |AF016 |
+Im Festivalmanager ist das Festival "festival" vorhanden, "festival" hat die Bühne "stage" |
+Auswählen einer Show für den Zeitslot TS1 auf "stage" für "festival" |
+Nach dem die Show gespeichert wurde wird die schedule Seite für "festival" angezeigt |Adrian, Tuan
+
+|I-AF016-8 |AF016 |
+Im Festivalmanager ist das Festival "festival" nicht vorhanden, die Bühne "stage" gehört nicht zu "festival" |
+Auswählen einer Show für den Zeitslot TS1 auf "stage" für "festival" |
+Die Show wird nicht gespeichert, es wird die schedule Seite für "festival" angezeigt |Adrian, Tuan
 
 |===

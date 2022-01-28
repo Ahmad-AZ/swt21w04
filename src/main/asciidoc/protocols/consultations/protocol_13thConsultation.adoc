@@ -1,0 +1,28 @@
+= Protokoll Gruppe 04
+
+Treffen am 25.01.2022
+
+Ort:      BigBlueButton +
+Beginn:   18:00 Uhr +
+Ende:     18:35 Uhr
+
+__Schriftführer:__ Jan Biedermann
+
+*Nächstes Treffen:* +
+Besprechung der Benotung des Projekts
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Tom Morgenstern (Auftraggeber)
+- Adrian Scholze
+- Jan Biedermann
+- Ahmad Abu Zahra
+- Georg Kunze
+- Tuấn Giang Trịnh
+- Robert Menzel
+
+== Bemerkungen
+- Es wurde die Evaluationsumfrage von allen Teammitgliedern zusammen ausgefüllt
+- Nach der Abschlusspräsentation soll noch ein kurzes Meeting stattfinden,
+in dem die Bewertung des Projekts besprochen wird

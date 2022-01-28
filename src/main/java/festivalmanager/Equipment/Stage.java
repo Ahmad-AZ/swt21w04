@@ -47,15 +47,30 @@ public class Stage extends AbstractEntity<SalespointIdentifier> implements Seria
 		this.rentalPerDay = rentalPerDay;
 	}
 
+	/**
+	 * Returns stages id
+	 * 
+	 * @return id
+	 */
 	@Override
 	public SalespointIdentifier getId() {
 		return id;
 	}
 	
+	/**
+	 * Returns stages rental per day.
+	 * 
+	 * @return rentalPerDay
+	 */
 	public Money getRentalPerDay() {
 		return rentalPerDay;
 	}
 
+	/**
+	 * Returns stages name
+	 * 
+	 * @return name
+	 */
 	public String getName() {
 		return name;
 	}

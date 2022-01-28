@@ -28,7 +28,6 @@ public class TicketController {
 
 
 	private final TicketManagement ticketManagement;
-	private Festival currentFestival;
 	private final FestivalManagement festivalManagement;
 	private UtilsManagement utilsManagement;
 	private final MessageManagement messageManagement;
@@ -38,7 +37,6 @@ public class TicketController {
 		this.ticketManagement = ticketManagement;
 		this.festivalManagement = festivalManagement;
 		this.utilsManagement = utilsManagement;
-		this.currentFestival = null;
 		this.messageManagement = messageManagement;
 	}
 
@@ -71,13 +69,13 @@ public class TicketController {
 
 		model.addAttribute("title", "Tickets");
 		utilsManagement.prepareModel(model, festivalId);
+		Festival currentFestival = festivalManagement.findById(festivalId).get();
+		ticketManagement.setCurrentTicket(ticketManagement.TicketsByFestival(festivalId));
 
 		if (Objects.isNull(ticketManagement.getCurrentTicket())) {
 
-			this.currentFestival = festivalManagement.findById(festivalId).get();
 			model.addAttribute("ticket", new Ticket());
-			model.addAttribute("festival", this.currentFestival);
-			utilsManagement.prepareModel(model, festivalId);
+			model.addAttribute("festival", currentFestival);
 			return "ticketForm";
 		}
 
@@ -103,10 +101,10 @@ public class TicketController {
 		model.addAttribute("title", "Tickets");
 		utilsManagement.prepareModel(model, festivalId);
 
-		currentFestival= festivalManagement.findById(festivalId).get();
+		Festival currentFestival= festivalManagement.findById(festivalId).get();
 
 		ticket.setFestivalName(currentFestival.getName());
-		ticket.setFestivalId(currentFestival.getId());
+		ticket.setFestivalId(festivalId);
 
 		ticketManagement.setCurrentTicket(ticket);
 		ticketManagement.setFestival(currentFestival);
@@ -127,9 +125,20 @@ public class TicketController {
 	 */
 
 	@PreAuthorize("hasRole('TICKET_SELLER')||hasRole('ADMIN')")
-	@PostMapping("/tickets/buy")
+	@PostMapping("/tickets/{festivalId}/buy")
 	@ExceptionHandler({IOException.class, WriterException.class})
-	public String buyTicket(@ModelAttribute Ticket ticket, Model model) {
+	public String buyTicket(@ModelAttribute Ticket ticket, @PathVariable("festivalId") long festivalId, Model model) {
+
+		Festival currentFestival = festivalManagement.findById(festivalId).get();
+
+		TicketType t = ticket.getTicketType();
+
+		// Temporary fix for a problem with the ticket shop form
+		// TODO: use a NewTicketForm class instead
+		if (ticket.getTicketType() == TicketType.CAMPING) {
+			ticket.setCampingTicketsCount(ticket.getDayTicketsCount());
+			ticket.setDayTicketsCount(0);
+		}
 
 		Ticket nTicket;
 		ticket.setFestivalName(currentFestival.getName());
@@ -144,9 +153,19 @@ public class TicketController {
 			if (ticket.getDayTicketsCount() == 0) {
 				soldTicket = ticket.getCampingTicketsCount();
 				ticketPrice = nTicket.getCampingTicketPrice();
+
+				if (nTicket.getCampingTicketsCount() == 0) {
+					String title = "Camping-Tickets für das Festival " + currentFestival.getName() + " sind ausverkauft";
+					messageManagement.sendMessage(new SendGlobalMessageForm(-1, title, ""));
+				}
 			} else {
 				soldTicket = ticket.getDayTicketsCount();
 				ticketPrice = nTicket.getDayTicketPrice();
+
+				if (nTicket.getDayTicketsCount() == 0) {
+					String title = "Tagestickets für das Festival " + currentFestival.getName() + " sind ausverkauft";
+					messageManagement.sendMessage(new SendGlobalMessageForm(-1, title, ""));
+				}
 			}
 
 			try {
@@ -154,6 +173,7 @@ public class TicketController {
 
 					String uuid = nTicket.getId().toString();
 					QRCodeGenerator.generateQRCodeImage(uuid);
+
 				}
 
 			} catch (WriterException |IOException e) {
@@ -183,11 +203,6 @@ public class TicketController {
 		} else {
 			utilsManagement.prepareModel(model, currentFestival.getId());
 			model.addAttribute("ticketsUnavailable", "true");
-
-			messageManagement.sendMessage(
-					new SendGlobalMessageForm(-1,
-							"Tickets für das Festival " + currentFestival.getName() + " sind ausverkauft", ""));
-
 			return "ticketShopUnavailable";
 		}
 
@@ -217,6 +232,7 @@ public class TicketController {
 		}
 
 		model.addAttribute("tickets", new Ticket());
+		model.addAttribute("currentTicket" , ticketManagement.getCurrentTicket());
 		return "ticketShop";
 	}
 
@@ -232,10 +248,11 @@ public class TicketController {
 	 */
 	@PreAuthorize("hasRole('PLANNER')||hasRole('ADMIN')")
 	@PostMapping("tickets/edit")
-	public String update(@NotNull @ModelAttribute Ticket ticket, Model model) {
+	public String update(@NotNull @ModelAttribute Ticket ticket,
+						 @RequestParam("festivalId") Long festivalId, Model model) {
 
 		model.addAttribute("title", "Tickets");
-		utilsManagement.prepareModel(model, currentFestival.getId());
+		utilsManagement.prepareModel(model, festivalId);
 
 		ticketManagement.setCurrentTicket(ticket);
 		ticketManagement.save(ticket);
@@ -244,20 +261,6 @@ public class TicketController {
 		return "ticketResult";
 
 	}
-
-
-	/**
-	 * Used to set the current  {@link Festival}.
-	 *
-	 * @param id
-	 * to find the current Festival by id
-	 *
-	 */
-	void setCurrentFestival(long id ){
-
-		this.currentFestival = festivalManagement.findById(id).get();
-	}
-
 
 
 }

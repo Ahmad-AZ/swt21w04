@@ -1,0 +1,33 @@
+= Protokoll Gruppe 04
+
+Treffen am 24.01.2021
+
+Ort:      Discord +
+Beginn:   17:30 Uhr +
+Ende:     18:15 Uhr
+
+__Schriftführer:__ Jan Biedermann
+
+*Nächstes Treffen:* +
+28.01.2022 20:00 +
+30.01.2022
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Adrian Scholze
+- Jan Biedermann
+- Ahmad Abu Zahra
+- Georg Kunze
+- Tuấn Giang Trịnh
+- Robert Menzel
+
+== Bemerkungen
+- Es wurde eine erste Version der Abschlusspräsentation durchgesprochen
+- Vor der Präsentation muss geprüft werden, ob die Datenbank vorbereitet ist
+- Die Fußzeile in der PowerPoint Präsentation muss noch aktualisiert werden
+- Eine Folie zu Problemen während des Projekts muss noch ergänzt werden
+- Das Packagediagramm in den Folien muss aktualisiert werden
+- Probleme:
+* Die Präsentation von Analyse und Entwurf war etwas zu kurz
+* Die Präsenation der Anwendung sollte länger sein

@@ -5,6 +5,7 @@ package festivalmanager.ticketShop;
 import festivalmanager.festival.Festival;
 import festivalmanager.festival.FestivalManagement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Streamable;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,14 @@ public class TicketManagement {
 	 * @return the saved ticket
 	 */
 	public Ticket save(@NonNull Ticket ticket) {
-		return ticketRepo.save(ticket);
+		Ticket currentTicketForFestival = TicketsByFestival(ticket.getFestivalId());
+		if (currentTicketForFestival != null && !ticket.equals(currentTicketForFestival)) {
+			ticketRepo.delete(currentTicketForFestival);
+			return ticketRepo.save(ticket);
+		}
+		else {
+			return ticketRepo.save(ticket);
+		}
 	}
 
 	/**
@@ -71,7 +79,11 @@ public class TicketManagement {
 	 */
 	public Ticket TicketsByFestival(long festivalId) {
 
-		return ticketRepo.findAllByFestivalId(festivalId);
+		Streamable<Ticket> ticketStreamable = ticketRepo.findByFestivalId(festivalId);
+		if (ticketStreamable.iterator().hasNext()) {
+			return ticketStreamable.iterator().next();
+		}
+		return null;
 	}
 
 
@@ -91,14 +103,18 @@ public class TicketManagement {
 	 *
 
 	 */
-	public void setCurrentTicket(@NotNull Ticket ticket){
-		if (Objects.isNull(ticketRepo.findAllByFestivalId(ticket.getFestivalId()))) {
-			ticketRepo.save(ticket);
-			this.currentTicket = ticketRepo.findAllByFestivalId(ticket.getFestivalId());
-		} else {
-			this.currentTicket=ticket;
-		}
+	public void setCurrentTicket(Ticket ticket){
+		//if (Objects.isNull(TicketsByFestival(ticket.getFestivalId()))) {
+		//	save(ticket);
+		//	this.currentTicket = TicketsByFestival(ticket.getFestivalId());
+		//} else {
+		//	this.currentTicket=ticket;
+		//}
 
+		if (ticket != null) {
+			save(ticket);
+		}
+		this.currentTicket=ticket;
 	}
 
 	/**
@@ -109,7 +125,7 @@ public class TicketManagement {
 	 */
 	public boolean checkTickets(Ticket ticket) {
 
-		Ticket nTicket = ticketRepo.findAllByFestivalId(ticket.getFestivalId());
+		Ticket nTicket = TicketsByFestival(ticket.getFestivalId());
 
 		if (Objects.isNull(nTicket)) {
 			 throw new ResponseStatusException(
@@ -128,10 +144,9 @@ public class TicketManagement {
 			currCampingTickets = nTicket.getCampingTicketsCount();
 			difference = currCampingTickets - soldTicket;
 
-
-			if ( difference >= 0 && (nTicket.getSoldCampingTicket() + soldTicket <= currCampingTickets)) {
+			if ( difference >= 0) {
 				nTicket.setSoldCampingTicket(soldTicket);
-				nTicket.setDayTicketsCount(currCampingTickets - soldTicket); // TODO: 1/20/2022  
+				nTicket.setCampingTicketsCount(currCampingTickets - soldTicket);
 				this.currentTicket= nTicket;
 				return true;
 			}
@@ -144,9 +159,9 @@ public class TicketManagement {
 			currDayTickets= nTicket.getDayTicketsCount();
 			difference= currDayTickets - soldTicket;
 
-			if ( difference >= 0 && (nTicket.getSoldDayTicket() + soldTicket <= currDayTickets)) {
+			if ( difference >= 0) {
 				nTicket.setSoldDayTicket(soldTicket);
-				nTicket.setDayTicketsCount(currDayTickets- soldTicket); // TODO: 1/20/2022  
+				nTicket.setDayTicketsCount(currDayTickets- soldTicket);
 				this.currentTicket= nTicket;
 				return true;
 			}

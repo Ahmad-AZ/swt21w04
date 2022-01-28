@@ -109,7 +109,6 @@ public class LocationManagement {
 	 * @param locationId
 	 */
 	public void removeLocation(long locationId) {
-		// id == 0 throws Error
 		locations.deleteById(locationId);
 	}
 

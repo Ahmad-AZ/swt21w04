@@ -10,6 +10,10 @@ import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+/**
+ * initializer class to generate example data for the staff package
+ * @author Georg Kunze
+ */
 @Component
 @Order(11)
 class StaffDataInitializer implements DataInitializer {
@@ -17,6 +21,12 @@ class StaffDataInitializer implements DataInitializer {
 	private final StaffManagement staffManagement;
 	private final FestivalManagement festivalManagement;
 
+	/**
+	 * constructor for the {@link StaffDataInitializer} class
+	 * @param userAccountManagement			the {@link UserAccountManagement}, must not be {@literal null}
+	 * @param staffManagement				the {@link StaffManagement}, must not be {@literal null}
+	 * @param festivalManagement			the {@link FestivalManagement}, must not be {@literal null}
+	 */
 	StaffDataInitializer(UserAccountManagement userAccountManagement,
 						 StaffManagement staffManagement,
 						 FestivalManagement festivalManagement) {
@@ -29,12 +39,23 @@ class StaffDataInitializer implements DataInitializer {
 		this.festivalManagement = festivalManagement;
 	}
 
+	/**
+	 * helper function to create a user if he isn't already in the system
+	 * @param festivalId				the id of the festival the user should be associated with
+	 * @param name						the name of the user
+	 * @param password					the password of the user
+	 * @param role						the role of the user
+	 * @param salary					the salary of the user
+	 */
 	public void createUser(long festivalId, String name, String password, String role, double salary) {
 		if (userAccountManagement.findByUsername(name).isEmpty()) {
 			staffManagement.createPerson(festivalId, new CreateStaffForm(name, password, role, salary));
 		}
 	}
 
+	/**
+	 * function to initialize the system, called automatically by spring
+	 */
 	@Override
 	public void initialize() {
 		createUser(-1, "admin", "adminpw", "ADMIN", 0.0);
