@@ -126,6 +126,17 @@ public class StaffManagement {
 	}
 
 	/**
+	 * function to change the salary of a person
+	 * @param form					the form containing the id and new salary of the person
+	 */
+	public void changeSalary(ChangeSalaryForm form) {
+		Optional<Person> person = findById(form.getId());
+		if (person.isPresent()) {
+			person.get().setSalary(form.getSalary());
+		}
+	}
+
+	/**
 	 * wrapper for {@link StaffRepository}::findAll
 	 * @return						a list of all persons in the repository
 	 */

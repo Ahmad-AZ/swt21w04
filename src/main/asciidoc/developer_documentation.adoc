@@ -184,7 +184,7 @@ image::models/design/developer_documentation/class_diagrams/location.png[]
 
 === Ticketshop
 
-image::models/design/developer_documentation/class_diagrams/ticketShop.png[]
+image::models/design/developer_documentation/class_diagrams/TicketShop.png[]
 
 [options="header"]
 |===

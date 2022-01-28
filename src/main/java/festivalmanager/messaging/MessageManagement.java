@@ -120,7 +120,7 @@ public class MessageManagement {
 		LocalDate now = LocalDate.now();
 		for (Festival festival : festivalManagement.findAll()) {
 			LocalDate start = festival.getStartDate();
-			if ((start.isAfter(now) || start.isEqual(now)) && !festival.isAnnounced()) {
+			if ((now.isAfter(start) || now.isEqual(start)) && !festival.isAnnounced()) {
 				sendMessage(new SendGlobalMessageForm(-1, festival.getName() + " hat gerade begonnen", ""));
 				festival.setAnnounced(true);
 			}
