@@ -103,14 +103,18 @@ public class TicketManagement {
 	 *
 
 	 */
-	public void setCurrentTicket(@NotNull Ticket ticket){
-		if (Objects.isNull(TicketsByFestival(ticket.getFestivalId()))) {
-			save(ticket);
-			this.currentTicket = TicketsByFestival(ticket.getFestivalId());
-		} else {
-			this.currentTicket=ticket;
-		}
+	public void setCurrentTicket(Ticket ticket){
+		//if (Objects.isNull(TicketsByFestival(ticket.getFestivalId()))) {
+		//	save(ticket);
+		//	this.currentTicket = TicketsByFestival(ticket.getFestivalId());
+		//} else {
+		//	this.currentTicket=ticket;
+		//}
 
+		if (ticket != null) {
+			save(ticket);
+		}
+		this.currentTicket=ticket;
 	}
 
 	/**

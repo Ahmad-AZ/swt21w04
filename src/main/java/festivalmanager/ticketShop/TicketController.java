@@ -70,11 +70,7 @@ public class TicketController {
 		model.addAttribute("title", "Tickets");
 		utilsManagement.prepareModel(model, festivalId);
 		Festival currentFestival = festivalManagement.findById(festivalId).get();
-		Ticket repositoryTicket = ticketManagement.TicketsByFestival(festivalId);
-
-		if (repositoryTicket != null) {
-			ticketManagement.setCurrentTicket(repositoryTicket);
-		}
+		ticketManagement.setCurrentTicket(ticketManagement.TicketsByFestival(festivalId));
 
 		if (Objects.isNull(ticketManagement.getCurrentTicket())) {
 
