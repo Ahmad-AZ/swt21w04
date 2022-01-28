@@ -275,10 +275,18 @@ public class CateringController {
 
 	/**
 	 * 
-	 * @return the catering sales class
+	 * @return the catering sales object
 	 */
 	public CateringSales getCateringSales() {
 		return sales;
+	}
+
+	/**
+	 * 
+	 * @return the festival management object
+	 */
+	public FestivalManagement getFestivalManagement() {
+		return festivalManagement;
 	}
 
 	/**

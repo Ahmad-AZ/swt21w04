@@ -32,15 +32,5 @@ import com.google.zxing.qrcode.QRCodeWriter;
 	}
 
 
-	// for decoding in frontend
-	public static byte[] getQRCodeImage(String text) throws WriterException, IOException {
-
-		QRCodeWriter qrCodeWriter = new QRCodeWriter();
-
-		BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, WIDTH, HEIGHT);
-		ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
-		MatrixToImageWriter.writeToStream(bitMatrix, "PNG", pngOutputStream);
-		return pngOutputStream.toByteArray();
-	}
 
 }

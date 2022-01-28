@@ -37,14 +37,12 @@ public class Ticket {
 	private int soldDayTicket;
 
 
-	@Column
-	private String qr;
-
 
 	public Ticket() {
 	}
 
-	public Ticket( int dayTicketsCount, int campingTicketsCount, TicketType ticketType, float dayTicketPrice, float campingTicketPrice) {
+	public Ticket( int dayTicketsCount, int campingTicketsCount, TicketType ticketType,
+				   float dayTicketPrice, float campingTicketPrice) {
 
 		this.dayTicketsCount = dayTicketsCount;
 		this.campingTicketsCount = campingTicketsCount;
@@ -57,7 +55,8 @@ public class Ticket {
 	}
 
 
-	public Ticket(long festivalId, String festivalName, int dayTicketsCount, int campingTicketsCount, TicketType ticketType, float dayTicketPrice, float campingTicketPrice) {
+	public Ticket(long festivalId, String festivalName, int dayTicketsCount,
+				  int campingTicketsCount, TicketType ticketType, float dayTicketPrice, float campingTicketPrice) {
 		this.festivalId = festivalId;
 		this.festivalName = festivalName;
 		this.dayTicketsCount = dayTicketsCount;
@@ -143,13 +142,6 @@ public class Ticket {
 		return id;
 	}
 
-	public String getQr() {
-		return qr;
-	}
-
-	public void setQr(String qr) {
-		this.qr = qr;
-	}
 
 	@Override
 	public String toString() {

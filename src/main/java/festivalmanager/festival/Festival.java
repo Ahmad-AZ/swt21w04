@@ -47,7 +47,9 @@ public class Festival {
 	private LocalDate endDate;
 	@ManyToMany()
 	private Set<Artist> artists;
-	
+
+	private boolean announced = false;
+
 	@OneToOne()
 	private Location location;
 	
@@ -432,5 +434,13 @@ public class Festival {
 			return visitorCapacity / 100;
 		}
 		return 0;
+	}
+
+	public boolean isAnnounced() {
+		return this.announced;
+	}
+
+	public void setAnnounced(boolean announced) {
+		this.announced = announced;
 	}
 }

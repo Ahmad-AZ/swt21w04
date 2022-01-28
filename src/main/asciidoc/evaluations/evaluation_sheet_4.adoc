@@ -25,14 +25,18 @@ JPA hat unsere Arbeit um die Daten zu speichern leichter gemacht.
 // Einschätzung der Arbeit mit den bereitgestellten und zusätzlich genutzten Frameworks. Was War gut? Was war verbesserungswürdig?
 
 * Schwierigkeiten bei Spring boot hat man zu wenig, da er einfach viele Lösungen im Internet finden kann und es ist ebenfalls dokumentiert.
-* Beim Sales Point war es ein bisschen anderes, es gab nicht dokumentation dafür,  auch wenn man Probleme hat, war es zeitaufwändig eine Lösung dafür zu finden.
+* Beim Sales Point war es ein bisschen anderes, es gab nicht viele  Dokumentation dafür oder Beispiele,  auch wenn man Probleme hat, war es zeitaufwändig eine Lösung dafür zu finden.
 
 
 == Welche Vorschläge zur weiteren Verbesserung des Softwarepraktikums gibt es?
-// Möglichst mit Beschreibung, warum die Umsetzung des von Ihnen angebrachten Vorschlages nötig ist.
+* Es wäre gut, wenn es ein Standard UML tool im Praktikum gab, da was wir  als UML tool benutzen haben, war es nicht ganz toll und altmodisch, da die andere tools waren nicht kostenfrei.
+* Neue Aufgaben, die der aktuellen Entwicklung entsprechen.
+* mehr Beispiele im VideoShop über SalesPoint.
+
 
 == Feedback für den Tutor
-// Fühlten Sie sich durch den vom Lehrstuhl bereitgestellten Tutor gut betreut? Was war positiv? Was war verbesserungswürdig?
+* Der Tutor hat uns  immer versucht, Tasks mitzuteilen, damit wir auf dem Laufenden bleiben konnten.
+* Hat unsere erledigte Tasks richtig gewertet und wenn wir Probleme hatten, war bereit zu helfen.
 
 == Sonstiges und Anmerkungen
-// Welche Aspekte fanden in den oben genannten Punkten keine Erwähnung?
+...
