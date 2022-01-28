@@ -41,6 +41,8 @@ public class TicketManagement {
 	 * @return the saved ticket
 	 */
 	public Ticket save(@NonNull Ticket ticket) {
+		Ticket currentTicketForFestival = TicketsByFestival(ticket.getFestivalId());
+		ticketRepo.delete(currentTicketForFestival);
 		return ticketRepo.save(ticket);
 	}
 
@@ -136,7 +138,7 @@ public class TicketManagement {
 
 			if ( difference >= 0 && (nTicket.getSoldCampingTicket() + soldTicket <= currCampingTickets)) {
 				nTicket.setSoldCampingTicket(soldTicket);
-				nTicket.setDayTicketsCount(currCampingTickets - soldTicket);
+				nTicket.setCampingTicketsCount(currCampingTickets - soldTicket);
 				this.currentTicket= nTicket;
 				return true;
 			}

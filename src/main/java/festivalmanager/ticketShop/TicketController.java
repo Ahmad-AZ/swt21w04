@@ -135,6 +135,13 @@ public class TicketController {
 
 		Festival currentFestival = festivalManagement.findById(festivalId).get();
 
+		// Temporary fix for a problem with the ticket shop form
+		// TODO: use a NewTicketForm class instead
+		if (ticket.getTicketType() == TicketType.CAMPING) {
+			ticket.setCampingTicketsCount(ticket.getDayTicketsCount());
+			ticket.setDayTicketsCount(0);
+		}
+
 		Ticket nTicket;
 		ticket.setFestivalName(currentFestival.getName());
 		ticket.setFestivalId(currentFestival.getId());
