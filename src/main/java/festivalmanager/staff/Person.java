@@ -98,6 +98,14 @@ public class Person {
 	}
 
 	/**
+	 * setter for the salary field
+	 * @param salary			the new salary of this person
+	 */
+	public void setSalary(Double salary) {
+		this.salary = Money.of(salary, EURO);
+	}
+
+	/**
 	 * getter for the userAccount field
 	 * @return					the userAccount of this person
 	 */
