@@ -12,7 +12,11 @@ import festivalmanager.utils.UtilsManagement;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.util.Objects;
@@ -127,15 +131,23 @@ public class TicketController {
 	@PreAuthorize("hasRole('TICKET_SELLER')||hasRole('ADMIN')")
 	@PostMapping("/tickets/{festivalId}/buy")
 	@ExceptionHandler({IOException.class, WriterException.class})
-	public String buyTicket(@ModelAttribute Ticket ticket, @PathVariable("festivalId") long festivalId, Model model) {
+	public String buyTicket(@Validated BuyTicketForm form, Errors result, @PathVariable("festivalId") long festivalId, Model model) {
 
+		if(result.hasErrors()) {
+			
+		}
+		 
 		Festival currentFestival = festivalManagement.findById(festivalId).get();
 
-		TicketType t = ticket.getTicketType();
+		//TicketType t = ticket.getTicketType();
 
+		Ticket ticket = new Ticket();
+		
+		
 		// Temporary fix for a problem with the ticket shop form
 		// TODO: use a NewTicketForm class instead
-		if (ticket.getTicketType() == TicketType.CAMPING) {
+		System.out.println(TicketType.valueOf(form.getType()));
+		if (TicketType.valueOf(form.getType()) == TicketType.CAMPING) {
 			ticket.setCampingTicketsCount(ticket.getDayTicketsCount());
 			ticket.setDayTicketsCount(0);
 		}
@@ -218,7 +230,7 @@ public class TicketController {
 	 */
 	@PreAuthorize("hasRole('TICKET_SELLER')||hasRole('ADMIN')")
 	@GetMapping("/ticketShop/{festivalId}")
-	public String ticketOverview(@PathVariable("festivalId") long festivalId,  Model model) {
+	public String ticketOverview(@PathVariable("festivalId") long festivalId, BuyTicketForm buyTicketForm, Model model) {
 
 		utilsManagement.prepareModel(model, festivalId);
 		if (ticketManagement.TicketsByFestival(festivalId) == null) {
@@ -227,7 +239,8 @@ public class TicketController {
 		}
 
 		model.addAttribute("tickets", new Ticket());
-		model.addAttribute("currentTicket" , ticketManagement.getCurrentTicket());
+		model.addAttribute("standardAmount", 1); 
+		model.addAttribute("currentTicket" , ticketManagement.TicketsByFestival(festivalId));
 		return "ticketShop";
 	}
 
